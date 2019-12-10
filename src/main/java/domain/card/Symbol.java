@@ -12,7 +12,7 @@ public enum Symbol {
     NINE(9),
     TEN(10),
     JACK(10),
-    QUUEN(10),
+    QUEEN(10),
     KING(10);
 
     private int score;

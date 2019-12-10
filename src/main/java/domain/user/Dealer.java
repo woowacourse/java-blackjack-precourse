@@ -11,5 +11,11 @@ import java.util.List;
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
 
+    public Dealer() {}
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
     // TODO 추가 기능 구현
 }
