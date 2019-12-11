@@ -1,10 +1,10 @@
 package domain.card;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CardDeck {
-	private List<Card> cards;
+	private Set<Card> cards;
 	
 	public CardDeck() {
 		cards = CardFactory.create();
