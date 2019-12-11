@@ -10,11 +10,10 @@ import java.util.Random;
 public class CardDeck{
     List<Card> deck = new ArrayList<Card>();
     
+    //한 게임마다 card deck를 뽑아와야함
     public CardDeck(){
         List<Card> cards = new CardFactory().create();
-        System.out.println(cards.get(0).getSymbol());
         for (Card each : cards){
-            
             deck.add(each);
         }
     }
