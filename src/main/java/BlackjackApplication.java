@@ -11,13 +11,13 @@ import java.util.List;
 public class BlackjackApplication {
     public static void main(String[] args) {
         String playerNames = InputView.inputPlayerNames();
-        List<User> users = createPlayersAndDealer(playerNames);
+        List<User> users = createUsers(playerNames);
 
         List<Card> deckOfCards = CardFactory.create();
 
     }
 
-    private static List<User> createPlayersAndDealer(String playerNames) {
+    private static List<User> createUsers(String playerNames) {
         List<User> users = new ArrayList<>();
         users.addAll(createPlayersByNames(playerNames));
         users.add(createDealer());
