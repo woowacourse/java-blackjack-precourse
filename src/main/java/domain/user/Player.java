@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ê²Œì„ ì°¸ì—¬ìë¥¼ ì˜ë¯¸í•˜ëŠ” ê°ì²´
+ * °ÔÀÓ Âü¿©ÀÚ¸¦ ÀÇ¹ÌÇÏ´Â °´Ã¼
  */
-public class Player {
+public class Player extends Dealer {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -22,6 +22,6 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO ì¶”ê°€ ê¸°ëŠ¥ êµ¬í˜„
+    // TODO Ãß°¡ ±â´É ±¸Çö
 
 }

@@ -3,7 +3,7 @@ package domain.card;
 import java.util.Objects;
 
 /**
- * ì¹´ë“œ í•œì¥ì„ ì˜ë¯¸í•˜ëŠ” ê°ì²´
+ * Ä«µå ÇÑÀåÀ» ÀÇ¹ÌÇÏ´Â °´Ã¼
  */
 public class Card {
     private final Symbol symbol;
@@ -15,7 +15,7 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card ê´€ë ¨ ì¶”ê°€ ê¸°ëŠ¥ êµ¬í˜„
+    // TODO Card °ü·Ã Ãß°¡ ±â´É ±¸Çö
 
     @Override
     public boolean equals(Object o) {
