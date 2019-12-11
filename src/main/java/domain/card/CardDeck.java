@@ -25,6 +25,12 @@ public class CardDeck{
         deck.remove(rand_num);
         return picked;
     }
+    
+    public Card pickSample(int num){
+        Card picked = deck.get(num);
+        deck.remove(num);
+        return picked;
+    }
 
     public List<Card> getDeck(){
         return deck;
