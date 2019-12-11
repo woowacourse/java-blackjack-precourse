@@ -41,6 +41,7 @@ public class IO {
         for (Player player : players) {
             printPlayerCard(player);
         }
+        System.out.println();
     }
 
     public static Boolean haveMoreCard(BlackJackPlayer player) {
@@ -65,6 +66,14 @@ public class IO {
         String cardsName = player.getCardsName();
 
         System.out.println(name + ": " + cardsName);
+    }
+
+    public static void printFinalEarn() {
+        System.out.println("## 최종수익");
+   }
+
+    public static void printEarn(String name, double earn) {
+        System.out.println(name + ": " + earn);
     }
 
     private static String getInputUntilValid(String question, String validPattern) {

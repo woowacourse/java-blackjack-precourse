@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BlackJackPlayer {
+    public static final int BURST_SCORE = 0;
+
     public static final int BLACK_JACK_NUMBER = 21;
 
     public static final int ACE_BONUS = 10;
@@ -31,14 +33,22 @@ public abstract class BlackJackPlayer {
     }
 
     /**
-     * @param winningScore 승자의 점수 (패의 합)
-     * @return 플레이어의 패의 합이 승리한 사람의 점수와 같다면 true, 아니면 false
+     * @return 패의 합이 21이하면 패의 합, 21 초과면 0
      */
-    public Boolean ifHaveWinnerScore(int winningScore) {
-        if (getSumOfCards() == winningScore) {
-            return true;
+    public int getScoreOfCards() {
+        int sumOfCards = getSumOfCards();
+
+        if (sumOfCards > BLACK_JACK_NUMBER) {
+            return 0;
         }
-        return false;
+        return sumOfCards;
+    }
+
+    /**
+     * 현재 패가 블랙잭인지 확인하는 메소드
+     */
+    public Boolean ifHaveBlackJack() {
+        return getSumOfCards() == BLACK_JACK_NUMBER;
     }
 
     public String getCardsName() {

@@ -1,6 +1,5 @@
 package domain.card;
 
-import java.awt.*;
 import java.util.Objects;
 
 /**

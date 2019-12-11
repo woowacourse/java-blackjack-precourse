@@ -4,6 +4,7 @@ import domain.card.CardDeck;
 import domain.system.IO;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -44,11 +45,11 @@ public class Dealer extends BlackJackPlayer {
     /**
      * 처음 카드 2장을 나눠주는 메소드
      */
-    public void giveCardsFirst(CardDeck cardDeck, List<Player> players) {
+    public Boolean giveCardsFirst(CardDeck cardDeck, List<Player> players) {
         giveCardToAll(cardDeck, players);
         giveCardToAll(cardDeck, players);
         IO.printGiveCardsFirst(players, this);
-        checkIfBlackJack(players);
+        return checkIfBlackJack(players);
     }
 
     /**
@@ -59,6 +60,17 @@ public class Dealer extends BlackJackPlayer {
             haveMoreCardPlayer(cardDeck, player);
         }
         haveMoreCardDealer(cardDeck, this);
+    }
+
+    public void calculateFinalEarn(List<Player> players) {
+        int winningScore = getWinningScore(players);
+
+        IO.printPlayersCard(players, this);
+        if (getSumOfCards() > BLACK_JACK_NUMBER) {      // 딜러가 21을 넘겼을 경우, 남아있는 모두가 승리
+            distributeMoney(players, WINNERS_RATE, BURST_SCORE);
+            return;
+        }
+        distributeMoney(players, WINNERS_RATE, winningScore);   // 승리한 사람은 배팅금액의 2배를 가져감
     }
 
     private void giveCardToAll(CardDeck cardDeck, List<Player> players) {
@@ -80,10 +92,10 @@ public class Dealer extends BlackJackPlayer {
      */
     private Boolean checkIfBlackJack(List<Player> players) {
         Boolean ifPlayerBlackJack = false;
-        Boolean ifDealerBlackJack = ifHaveWinnerScore(BLACK_JACK_NUMBER);
+        Boolean ifDealerBlackJack = ifHaveBlackJack();
 
         for (Player player : players) {
-            ifPlayerBlackJack = player.ifHaveWinnerScore(BLACK_JACK_NUMBER) || ifPlayerBlackJack;
+            ifPlayerBlackJack = player.ifHaveBlackJack() || ifPlayerBlackJack;
         }
         terminateGameWithFirstBlackJack(players, ifPlayerBlackJack, ifDealerBlackJack);
         return ifDealerBlackJack || ifPlayerBlackJack;
@@ -127,11 +139,21 @@ public class Dealer extends BlackJackPlayer {
         return getSumOfCards() <= DEALER_MAX_THRESHOLD;
     }
 
+    private int getWinningScore(List<Player> players) {
+        int winningScore = players.stream().max(Comparator.comparing(Player::getScoreOfCards)).get().getScoreOfCards();
+
+        return Math.max(winningScore, getScoreOfCards());
+    }
+
     private void distributeMoney(List<Player> players, double rate, int winningScore) {
         double dealerEarn = 0;
 
+        IO.printFinalEarn();
         for (Player player : players) {
-            dealerEarn += -player.calculateEarn(winningScore, rate);    // 딜러가 번 돈과 플레이어가 잃은 돈이 같음
+            double playerEarn = player.calculateEarn(winningScore, rate);
+            dealerEarn += -playerEarn;          // 딜러가 번 돈과 플레이어가 잃은 돈이 같음
+            IO.printEarn(player.getName(), playerEarn);
         }
+        IO.printEarn(getName(), dealerEarn);
     }
 }
