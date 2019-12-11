@@ -1,4 +1,4 @@
-package domain.card;
+package com.woowahan.card;
 
 public enum Type {
     SPADE,

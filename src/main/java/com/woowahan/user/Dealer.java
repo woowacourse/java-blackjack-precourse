@@ -1,6 +1,6 @@
-package domain.user;
+package com.woowahan.user;
 
-import domain.card.Card;
+import com.woowahan.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;

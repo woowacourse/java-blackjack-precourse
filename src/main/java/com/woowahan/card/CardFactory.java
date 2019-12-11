@@ -1,4 +1,4 @@
-package domain.card;
+package com.woowahan.card;
 
 import java.util.ArrayList;
 import java.util.Collections;

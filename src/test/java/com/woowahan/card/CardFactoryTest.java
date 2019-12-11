@@ -1,4 +1,4 @@
-package domain.card;
+package com.woowahan.card;
 
 import org.junit.jupiter.api.Test;
 
