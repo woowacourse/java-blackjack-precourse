@@ -29,6 +29,8 @@ public class UserInput {
     }
 
     public static Dealer enrollDealer() {
-        return null;
+        return new Dealer();
     }
+
+
 }
