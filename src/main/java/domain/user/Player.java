@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player extends BlackJackPlayer{
+public class Player extends BlackJackPlayer {
     private final String name;
     private final double bettingMoney;
 
@@ -29,5 +29,12 @@ public class Player extends BlackJackPlayer{
         return -bettingMoney;
     }
 
+    public String getName() {
+        return this.name;
+    }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

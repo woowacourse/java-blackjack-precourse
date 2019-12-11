@@ -1,5 +1,10 @@
 package domain.system;
 
+import domain.user.BlackJackPlayer;
+import domain.user.Dealer;
+import domain.user.Player;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -22,6 +27,27 @@ public class IO {
         String question = name + "의 배팅 금액은?";
 
         return Integer.parseInt(getInputUntilValid(question, bettingMoneyPattern));
+    }
+
+    public static void printGiveCardsFirst(List<Player> players, Dealer dealer) {
+        System.out.println("딜러와 "
+                + players.toString().replace("[", "").replace("]", "")
+                + "에게 2장씩 나누었습니다.");
+        printPlayersCard(players, dealer);
+    }
+
+    public static void printPlayersCard(List<Player> players, Dealer dealer) {
+        printPlayerCard(dealer);
+        for (Player player : players) {
+            printPlayerCard(player);
+        }
+    }
+
+    private static void printPlayerCard(BlackJackPlayer player) {
+        String name = player.getName();
+        String cardsName = player.getCardsName();
+
+        System.out.println(name + ": " + cardsName);
     }
 
     private static String getInputUntilValid(String question, String validPattern) {

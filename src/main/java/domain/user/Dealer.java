@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.card.CardDeck;
 import domain.system.IO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,10 @@ public class Dealer extends BlackJackPlayer {
     private static final double WINNERS_RATE = 2;
 
     public Dealer() {
+    }
+
+    public String getName() {
+        return "딜러";
     }
 
     /**
@@ -40,6 +45,7 @@ public class Dealer extends BlackJackPlayer {
     public void giveCardsFirst(CardDeck cardDeck, List<Player> players) {
         giveCardToAll(cardDeck, players);
         giveCardToAll(cardDeck, players);
+        IO.printGiveCardsFirst(players, this);
         checkIfBlackJack(players);
     }
 
@@ -75,7 +81,7 @@ public class Dealer extends BlackJackPlayer {
      * 첫 패에 블랙잭이 잡혔을 경우, 나눠서 처리하는 메소드
      */
     private void terminateGameWithFirstBlackJack(List<Player> players,
-                                                    Boolean ifPlayerBlackJack, Boolean ifDealerBlackJack) {
+                                                 Boolean ifPlayerBlackJack, Boolean ifDealerBlackJack) {
         if (ifDealerBlackJack && ifPlayerBlackJack) {
             distributeMoney(players, TIE_RATE, BLACK_JACK_NUMBER);
             return;

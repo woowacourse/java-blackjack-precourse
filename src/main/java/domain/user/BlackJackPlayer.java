@@ -5,12 +5,14 @@ import domain.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackJackPlayer {
+public abstract class BlackJackPlayer {
     public static final int BLACK_JACK_NUMBER = 21;
 
     public static final int ACE_BONUS = 10;
 
     private final List<Card> cards = new ArrayList<>();
+
+    public abstract String getName();
 
     public void addCard(Card card) {
         cards.add(card);
@@ -37,6 +39,10 @@ public class BlackJackPlayer {
             return true;
         }
         return false;
+    }
+
+    public String getCardsName() {
+        return cards.toString();
     }
 
     private int reviseAcesScore(int totalScore, int countAce) {
