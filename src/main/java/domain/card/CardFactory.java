@@ -10,8 +10,7 @@ import java.util.List;
 public class CardFactory {
     public static List<Card> create() {
         List<Card> cards = new ArrayList<>();
-        Symbol[] symbols = Symbol.values();
-        for (Symbol symbol : symbols) {
+        for (Symbol symbol : Symbol.values()) {
             createByType(cards, symbol);
         }
         return Collections.unmodifiableList(cards);
