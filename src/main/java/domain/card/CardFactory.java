@@ -10,10 +10,14 @@ import java.util.List;
 public class CardFactory {
     public static List<Card> create() {
         List<Card> cards = new ArrayList<>();
+
         Symbol[] symbols = Symbol.values();
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);
         }
+
+        Collections.shuffle(cards);
+
         return Collections.unmodifiableList(cards);
     }
 
