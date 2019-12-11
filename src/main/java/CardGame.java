@@ -9,15 +9,14 @@ import domain.user.*;
  * CardGame
  */
 public class CardGame {
-    
+    final static int BLACKJACK_SCORE = 21;
+    final static int DEALER_HANDI = 16;
     CardDeck deck = new CardDeck();
     List<Card> cards = deck.getDeck();
     List<Player> players = new ArrayList<Player>();
     Dealer dealer = new Dealer();
-
-    public CardGame(){
-    }
-
+    double[] money;
+    
     public void start(){
         createUsers();
         giveInitialCards();
@@ -25,13 +24,26 @@ public class CardGame {
             playerProcess(each);
             System.out.println(totalAmount(each));
         }
-        dealerProcess(dealer);
-        System.out.println(totalAmount(dealer));
+        //dealerProcess(dealer);
+        //System.out.println(totalAmount(dealer));
+        System.out.println(money[0]);
+        System.out.println(money[1]);
+        System.out.println(money[2]);
     }
 
     public void playerProcess(Player player){
+        if (totalAmount(player)==BLACKJACK_SCORE){
+            if (totalAmount(dealer)==BLACKJACK_SCORE){
+                return;
+            }
+            money[players.indexOf(player)+1] = player.winBlackJackFirst();
+            money[0] = money[0]-(player.winBlackJackFirst());
+            return;
+        }
         while(true){
-            if (totalAmount(player)>=21){
+            if (totalAmount(player)>=BLACKJACK_SCORE){
+                //money[players.indexOf(player)]=-(player.getBettingMoney());
+                //money[0] = money[0]+(player.getBettingMoney());
                 return;
             }
             System.out.println(player.getName()+"는 한장의 카드를 더 받겠습니까?");
@@ -42,7 +54,7 @@ public class CardGame {
     }
 
     public void dealerProcess(Dealer deal){
-        if (totalAmount(dealer)<=16){
+        if (totalAmount(dealer)<=DEALER_HANDI){
             giveCard(dealer);
         }       
     }
@@ -54,6 +66,7 @@ public class CardGame {
         for (int i=0; i<name.length; i++){
             players.add(new Player(name[i], bet[i]));
         }
+        money = new double[players.size()+1];
     }
 
     public void giveInitialCards(){
@@ -78,12 +91,12 @@ public class CardGame {
         boolean hasAce = false;
         for (int i=0; i<nums.length; i++){
             total = total + nums[i];
-            if (nums[i]==1){
+            if(nums[i]==1){
                 hasAce = true;
             }
-        if (hasAce == true && total<=11){
+        }
+        if (hasAce && total<=11){
             total = total+10;
-            }
         }
         return total;
     }

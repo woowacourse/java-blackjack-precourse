@@ -32,4 +32,13 @@ public class Player extends User{
        return bettingMoney;
    }
 
+   public double winBettingMoney(){
+       return bettingMoney*2;
+   }
+   
+   public double winBlackJackFirst(){
+       return bettingMoney*1.5;
+   }
+
+
 }
