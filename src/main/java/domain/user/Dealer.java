@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.card.Card;
+import domain.card.CardDeck;
 import domain.system.IO;
 
 import java.util.ArrayList;
@@ -9,16 +9,15 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
-    private final List<Card> cards = new ArrayList<>();
-
+public class Dealer extends BlackJackPlayer{
     public Dealer() {}
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
-    public List<Player> makePlayer() {
+    /**
+     * 이름을 입력받고, 이름 별로 배팅금액을 입력받아서 Player 객체를 생성하는 메소드
+     *
+     * @return 생성된 Player 객체의 List
+     */
+    public List<Player> makePlayers() {
         String[] playersName = IO.getPlayersNames().split(",");
         List<Player> players = new ArrayList<>();
 
@@ -28,4 +27,11 @@ public class Dealer {
         }
         return players;
     }
+
+    public void giveCard(CardDeck cardDeck, BlackJackPlayer player) {
+        player.addCard(cardDeck.drawCard());
+    }
+
+
+
 }
