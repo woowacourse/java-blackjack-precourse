@@ -1,33 +1,26 @@
 package application;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import domain.card.CardDeck;
 import domain.user.Dealer;
-import domain.user.Player;
+import domain.user.Players;
 import inputview.InputView;
 
 public class BlackjackGame {
 	public void startGame() {
+		List<String> playerNames = InputView.enterPlayerNames();
+		List<Integer> bettingMoney = InputView.enterAllBettingMoney(playerNames);
+		Players players = new Players(playerNames, bettingMoney);
 		CardDeck cardDeck = new CardDeck();
 		Dealer dealer = new Dealer();
-		List<Player> players = new ArrayList<Player>();
 		
-		
-		InputView.enterAllBettingMoney(InputView.enterPlayerNames());
-		
-		drawStartingCard();
-		drawAdditionalCard();
+		doGame();
 		checkResult();
 	}
 	
-	public void drawStartingCard() {
+	public void doGame() {
 
-	}
-	
-	public void drawAdditionalCard() {
-		
 	}
 	
 	public void checkResult() {

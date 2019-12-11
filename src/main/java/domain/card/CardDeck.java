@@ -9,21 +9,25 @@ public class CardDeck {
 	
 	public CardDeck() {
 		cards = CardFactory.create();
-		System.out.println(this.toString());
 	}
 	
 	public Card drawCard() {
-		if (this.cards.isEmpty()) {
-			throw new IllegalStateException("덱을 전부 뽑았습니다");
-		}
+		checkEmpty();
 		Card randomCard = selectRandomCard();
 		this.cards.remove(randomCard);
 		return randomCard;
 	}
 	
+	private void checkEmpty() {
+		if (this.cards.isEmpty()) {
+			throw new IllegalStateException("덱을 전부 뽑았습니다");
+		}
+	}
+	
 	private Card selectRandomCard() {
+		int randNum = new Random().nextInt(this.cards.size());
 		return this.cards.stream()
-				.skip(new Random().nextInt(this.cards.size()))
+				.skip(randNum)
 				.findFirst()
 				.orElse(null);
 	}
@@ -32,13 +36,5 @@ public class CardDeck {
 		return this.cards.stream()
 				.map(Card::toString)
 				.collect(Collectors.joining("\n"));
-	}
-	
-	public int getSize() {
-		return this.cards.size();
-	}
-	
-	public boolean isEmpty() {
-		return this.cards.isEmpty();
 	}
 }

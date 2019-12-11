@@ -20,4 +20,13 @@ public class PlayersConstraints {
 			throw new IllegalArgumentException("6명 이하의 이름을 입력해주세요");
 		}
 	}
+	
+	public static void checkValidMoney(List<Integer> bettingMoney) {
+		checkValidEachMoney(bettingMoney);
+	}
+	
+	private static void checkValidEachMoney(List<Integer> bettingMoney) {
+		bettingMoney.stream()
+			.forEach(eachMoney -> PlayerConstraints.checkValidMoney(eachMoney));
+	}
 }

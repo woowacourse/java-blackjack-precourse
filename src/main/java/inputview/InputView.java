@@ -26,8 +26,8 @@ public class InputView {
 	
 	public static List<Integer> enterAllBettingMoney(List<String> playerNames) {
 		return playerNames.stream()
-						.map(InputView::enterBettingMoney)
-						.collect(Collectors.toList());
+				.map(InputView::enterBettingMoney)
+				.collect(Collectors.toList());
 	}
 	
 	private static int enterBettingMoney(String name) {

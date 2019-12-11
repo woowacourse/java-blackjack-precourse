@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Players {
 	private List<Player> players = new ArrayList<Player>();
 	
-	public Players() {
+	public Players(List<String> names, List<Integer> money) {
 		
 	}
 	
