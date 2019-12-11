@@ -19,6 +19,11 @@ public class User{
     // TODO 추가 기능 구현
     public List<Card> getCardList(){
         return cards;
-   
+    }
+
+    public void showCards(){
+        for (Card each: cards){
+            System.out.println(each.toString());
+        }
     }
 }

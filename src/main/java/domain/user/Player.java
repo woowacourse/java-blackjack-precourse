@@ -18,6 +18,18 @@ public class Player extends User{
         this.bettingMoney = bettingMoney;
     }
     
-   
+    /**
+     * @return the name
+     */
+    
+     public String getName() {
+        return name;
+    }
+   /**
+    * @return the bettingMoney
+    */
+   public double getBettingMoney() {
+       return bettingMoney;
+   }
 
 }
