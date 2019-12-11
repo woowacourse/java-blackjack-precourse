@@ -16,6 +16,7 @@ public class Player {
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+        //System.out.println("새 플레이어: "+name+" "+bettingMoney);
     }
 
     public void addCard(Card card) {
