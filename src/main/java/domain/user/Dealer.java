@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.system.IO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,5 +18,14 @@ public class Dealer {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public List<Player> makePlayer() {
+        String[] playersName = IO.getPlayersNames().split(",");
+        List<Player> players = new ArrayList<>();
+
+        for (String name : playersName) {
+            int bettingMoney = IO.getPlayerBettingMoney(name);
+            players.add(new Player(name, bettingMoney));
+        }
+        return players;
+    }
 }
