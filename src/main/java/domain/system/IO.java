@@ -18,6 +18,13 @@ public class IO {
         return getInputUntilValid(question, playersNamePattern);
     }
 
+    public static int getPlayerBettingMoney(String name) {
+        String bettingMoneyPattern = "^[1-9][0-9]*";
+        String question = name + "의 배팅 금액은?";
+
+        return Integer.parseInt(getInputUntilValid(question, bettingMoneyPattern));
+    }
+
     private static String getInputUntilValid(String question, String validPattern) {
         String input = INVALID_INPUT;
 
