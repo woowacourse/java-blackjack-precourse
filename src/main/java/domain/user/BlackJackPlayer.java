@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlackJackPlayer {
-    private static final int BLACK_JACK_NUMBER = 21;
+    public static final int BLACK_JACK_NUMBER = 21;
 
-    private static final int ACE_BONUS = 10;
+    public static final int ACE_BONUS = 10;
 
     private final List<Card> cards = new ArrayList<>();
 
@@ -26,6 +26,20 @@ public class BlackJackPlayer {
         }
         totalScore = reviseAcesScore(totalScore, countAce);
         return totalScore;
+    }
+
+    /**
+     * 플레이어의 패가 블랙잭이라면 winners List에 추가하는 메소드
+     *
+     * @param winners 승자 리스트
+     * @return 블랙잭이면 true, 아니면 false
+     */
+    public Boolean addToWinnerIfBlackJack(List<BlackJackPlayer> winners) {
+        if (getSumOfCards() == BLACK_JACK_NUMBER) {
+            winners.add(this);
+            return true;
+        }
+        return false;
     }
 
     private int reviseAcesScore(int totalScore, int countAce) {
