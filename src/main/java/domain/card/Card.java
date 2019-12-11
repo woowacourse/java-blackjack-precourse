@@ -1,5 +1,6 @@
 package domain.card;
 
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -15,7 +16,13 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public int getScore() {
+        return this.symbol.getScore();
+    }
+
+    public int ifAce() {
+        return -Boolean.compare(false, this.symbol == Symbol.ACE);  // symbol이 ACE라면 1, 아니라면 0을 return
+    }
 
     @Override
     public boolean equals(Object o) {
