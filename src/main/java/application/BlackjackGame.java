@@ -14,7 +14,8 @@ public class BlackjackGame {
 		Dealer dealer = new Dealer();
 		List<Player> players = new ArrayList<Player>();
 		
-		InputView.enterPlayerNames();
+		
+		InputView.enterAllBettingMoney(InputView.enterPlayerNames());
 		
 		drawStartingCard();
 		drawAdditionalCard();
