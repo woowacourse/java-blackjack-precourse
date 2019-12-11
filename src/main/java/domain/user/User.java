@@ -2,6 +2,6 @@ package domain.user;
 
 import domain.card.Card;
 
-public interface GameMember {
+public interface User {
     void addCard(Card card);
 }

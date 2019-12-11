@@ -2,7 +2,7 @@ import View.InputView;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
-import domain.user.GameMember;
+import domain.user.User;
 import domain.user.Player;
 
 import java.util.ArrayList;
@@ -11,17 +11,17 @@ import java.util.List;
 public class BlackjackApplication {
     public static void main(String[] args) {
         String playerNames = InputView.inputPlayerNames();
-        List<GameMember> gameMembers = createPlayersAndDealer(playerNames);
+        List<User> users = createPlayersAndDealer(playerNames);
 
         List<Card> deckOfCards = CardFactory.create();
 
     }
 
-    private static List<GameMember> createPlayersAndDealer(String playerNames) {
-        List<GameMember> gameMembers = new ArrayList<>();
-        gameMembers.addAll(createPlayersByNames(playerNames));
-        gameMembers.add(createDealer());
-        return gameMembers;
+    private static List<User> createPlayersAndDealer(String playerNames) {
+        List<User> users = new ArrayList<>();
+        users.addAll(createPlayersByNames(playerNames));
+        users.add(createDealer());
+        return users;
     }
 
     private static List<Player> createPlayersByNames(String playerNames) {
