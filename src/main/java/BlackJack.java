@@ -9,6 +9,7 @@ import domain.user.Dealer;
 import domain.user.Player;
 import utils.InputHandler;
 import view.InputView;
+import view.OutputView;
 
 public class BlackJack {
     private static final int FIRST_PLAYER_CARD_COUNTS = 2;
@@ -20,6 +21,7 @@ public class BlackJack {
     void play() {
         setPlayers();
         setFirstState();
+        printFirstResult();
     }
 
     private void setPlayers() {
@@ -36,7 +38,8 @@ public class BlackJack {
     }
 
     private void setDeck() {
-        List<Card> cards = CardFactory.create();
+        List<Card> defaultCards = CardFactory.create();
+        List<Card> cards = new ArrayList<>(defaultCards);
         Collections.shuffle(cards);
         for(Card card : cards) {
             deck.push(card);
@@ -48,6 +51,7 @@ public class BlackJack {
         for(int i = 0; i < FIRST_PLAYER_CARD_COUNTS; i++) {
             distributeCardsToPlayers();
         }
+        OutputView.printFirstDistributionMessage(players);
     }
 
     private void distributeCardsToPlayers() {
@@ -56,4 +60,7 @@ public class BlackJack {
         }
     }
 
+    private void printFirstResult() {
+
+    }
 }
