@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import domain.card.CardDeck;
 import domain.user.Dealer;
 import domain.user.Player;
+import inputview.InputView;
 
 public class BlackjackGame {
 	public void startGame() {
@@ -13,13 +14,7 @@ public class BlackjackGame {
 		Dealer dealer = new Dealer();
 		List<Player> players = new ArrayList<Player>();
 		
-		int i = 53;
-		while (i>0) {
-			System.out.println("---------------------------------------------");
-			System.out.println("drawed card: " + cardDeck.drawCard().toString());
-			System.out.println("card deck with size" + cardDeck.getSize() + ": \n" + cardDeck.toString());
-			i--;
-		}
+		InputView.enterPlayerNames();
 		
 		drawStartingCard();
 		drawAdditionalCard();

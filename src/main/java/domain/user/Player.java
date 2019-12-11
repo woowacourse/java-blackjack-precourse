@@ -23,5 +23,10 @@ public class Player {
     }
 
     // TODO 추가 기능 구현
+    public static void checkValidName(String name) {
+    	if (name.isEmpty()) {
+    		throw new IllegalArgumentException("비어있지 않은 이름을 입력해주세요");
+    	}
+    }
 
 }
