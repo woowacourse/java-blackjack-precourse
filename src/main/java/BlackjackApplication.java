@@ -1,4 +1,6 @@
 import View.InputView;
+import domain.card.Card;
+import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.GameMember;
 import domain.user.Player;
@@ -10,6 +12,8 @@ public class BlackjackApplication {
     public static void main(String[] args) {
         String playerNames = InputView.inputPlayerNames();
         List<GameMember> gameMembers = createPlayersAndDealer(playerNames);
+
+        List<Card> deckOfCards = CardFactory.create();
 
     }
 
