@@ -16,7 +16,8 @@ public class CardGame {
     List<Player> players = new ArrayList<Player>();
     Dealer dealer = new Dealer();
     double[] money;
-    
+    int [] sum;
+
     public void start(){
         createUsers();
         giveInitialCards();
@@ -24,11 +25,55 @@ public class CardGame {
             playerProcess(each);
             System.out.println(totalAmount(each));
         }
-        //dealerProcess(dealer);
-        //System.out.println(totalAmount(dealer));
-        System.out.println(money[0]);
-        System.out.println(money[1]);
-        System.out.println(money[2]);
+        dealerProcess(dealer);
+        System.out.println(totalAmount(dealer));
+        results();
+
+        System.out.println("\n##최종 수익");
+        System.out.println("dealer : " + money[0]);
+        for (Player each : players){
+            System.out.println(each.getName() + " : " + money[players.indexOf(each)+1]);
+        }
+    }
+
+    public void results(){
+        sum[0] = totalAmount(dealer);
+        System.out.println("dealer : "+ sum[0]);
+        for (Player each : players){
+            sum[players.indexOf(each)+1] = totalAmount(each);
+            System.out.println(each.getName()+ " : " + sum[players.indexOf(each)+1]);
+            winOrLose(each);
+        }
+    }
+
+    public void winOrLose(Player p){
+        //dealer went over 21
+        if (sum[0]>BLACKJACK_SCORE){
+            money[players.indexOf(p)+1]=(p.getBettingMoney());
+            money[0] = money[0]-(p.getBettingMoney());
+            return;
+        }
+        //player went over 21
+        if (sum[players.indexOf(p)+1]>BLACKJACK_SCORE){
+            money[players.indexOf(p)+1]=-(p.getBettingMoney());
+            money[0] = money[0]+(p.getBettingMoney());
+            return;
+        }
+        //dealer won
+        if (sum[0]>sum[players.indexOf(p)+1]){
+            money[players.indexOf(p)+1]=-(p.getBettingMoney());
+            money[0] = money[0]+(p.getBettingMoney());
+            return;
+        }
+        //player won
+        if (sum[players.indexOf(p)+1]>=sum[0]){
+            money[players.indexOf(p)+1]=-(p.getBettingMoney());
+            money[0] = money[0]+(p.getBettingMoney());
+            return;
+        }
+        return;
+       
+                
     }
 
     public void playerProcess(Player player){
@@ -42,8 +87,7 @@ public class CardGame {
         }
         while(true){
             if (totalAmount(player)>=BLACKJACK_SCORE){
-                //money[players.indexOf(player)]=-(player.getBettingMoney());
-                //money[0] = money[0]+(player.getBettingMoney());
+                
                 return;
             }
             System.out.println(player.getName()+"는 한장의 카드를 더 받겠습니까?");
@@ -55,8 +99,11 @@ public class CardGame {
 
     public void dealerProcess(Dealer deal){
         if (totalAmount(dealer)<=DEALER_HANDI){
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
             giveCard(dealer);
+            return;
         }       
+        System.out.println("딜러는 17이상이라 카드를 받지 않았습니다.");
     }
 
 
@@ -67,6 +114,7 @@ public class CardGame {
             players.add(new Player(name[i], bet[i]));
         }
         money = new double[players.size()+1];
+        sum = new int[players.size()+1];
     }
 
     public void giveInitialCards(){
@@ -109,5 +157,7 @@ public class CardGame {
         
         return nums;
     }
+
+
 
 }
