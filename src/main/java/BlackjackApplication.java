@@ -1,4 +1,5 @@
 import View.InputView;
+import domain.user.Dealer;
 import domain.user.GameMember;
 import domain.user.Player;
 
@@ -14,11 +15,28 @@ public class BlackjackApplication {
 
     private static List<GameMember> createPlayersAndDealer(String playerNames) {
         List<GameMember> gameMembers = new ArrayList<>();
+        gameMembers.addAll(createPlayersByNames(playerNames));
+        gameMembers.add(createDealer());
+        return gameMembers;
+    }
+
+    private static List<Player> createPlayersByNames(String playerNames) {
+        List<Player> players = new ArrayList<>();
+
         String[] playerNamesSplit = playerNames.split(",");
         for (String playerName : playerNamesSplit) {
-            Double bettingMoney = InputView.inputBettingMoney(playerName);
-            gameMembers.add(new Player(playerName, bettingMoney));
+            createPlayerByName(playerName);
         }
-        return gameMembers;
+
+        return players;
+    }
+
+    private static Player createPlayerByName(String playerName) {
+        Double bettingMoney = InputView.inputBettingMoney(playerName);
+        return new Player(playerName, bettingMoney);
+    }
+
+    private static Dealer createDealer() {
+        return new Dealer();
     }
 }
