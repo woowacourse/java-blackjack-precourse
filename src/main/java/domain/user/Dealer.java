@@ -2,7 +2,6 @@ package domain.user;
 
 import domain.card.CardDeck;
 import domain.system.IO;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +9,12 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer extends BlackJackPlayer {
+    private static final double TIE_RATE = 1;
+
+    private static final double FIRST_BLACK_JACK_RATE = 1.5;
+
+    private static final double WINNERS_RATE = 2;
+
     public Dealer() {
     }
 
@@ -35,6 +40,18 @@ public class Dealer extends BlackJackPlayer {
     public void giveCardsFirst(CardDeck cardDeck, List<Player> players) {
         giveCardToAll(cardDeck, players);
         giveCardToAll(cardDeck, players);
+        checkIfBlackJack(players);
+    }
+
+    private void giveCardToAll(CardDeck cardDeck, List<Player> players) {
+        for (Player player : players) {
+            giveCard(cardDeck, player);
+        }
+        giveCard(cardDeck, this);
+    }
+
+    private void giveCard(CardDeck cardDeck, BlackJackPlayer player) {
+        player.addCard(cardDeck.drawCard());
     }
 
     /**
@@ -50,43 +67,29 @@ public class Dealer extends BlackJackPlayer {
         for (Player player : players) {
             ifPlayerBlackJack = player.ifHaveWinnerScore(BLACK_JACK_NUMBER) || ifPlayerBlackJack;
         }
-        return terminateGameWithFirstBlackJack(players, BLACK_JACK_NUMBER, ifPlayerBlackJack, ifDealerBlackJack);
-    }
-
-    private void giveCardToAll(CardDeck cardDeck, List<Player> players) {
-        for (Player player : players) {
-            giveCard(cardDeck, player);
-        }
-        giveCard(cardDeck, this);
-    }
-
-    private void giveCard(CardDeck cardDeck, BlackJackPlayer player) {
-        player.addCard(cardDeck.drawCard());
+        terminateGameWithFirstBlackJack(players, ifPlayerBlackJack, ifDealerBlackJack);
+        return ifDealerBlackJack || ifPlayerBlackJack;
     }
 
     /**
      * 첫 패에 블랙잭이 잡혔을 경우, 나눠서 처리하는 메소드
      */
-    private Boolean terminateGameWithFirstBlackJack(List<Player> players, int winningScore,
+    private void terminateGameWithFirstBlackJack(List<Player> players,
                                                     Boolean ifPlayerBlackJack, Boolean ifDealerBlackJack) {
         if (ifDealerBlackJack && ifPlayerBlackJack) {
-            // 처리
-            return true;
+            distributeMoney(players, TIE_RATE, BLACK_JACK_NUMBER);
+            return;
         }
-        if (ifDealerBlackJack) {
-            // 처리
+        if (ifDealerBlackJack || ifPlayerBlackJack) {       // 어차피 딜러만 이긴 경우에는 플레이어들은 아무도 돈을 못타감
+            distributeMoney(players, FIRST_BLACK_JACK_RATE, BLACK_JACK_NUMBER);
         }
-        if (ifPlayerBlackJack) {
-            // 처리
-        }
-        return ifDealerBlackJack || ifPlayerBlackJack;
     }
 
     private void distributeMoney(List<Player> players, double rate, int winningScore) {
         double dealerEarn = 0;
 
         for (Player player : players) {
-            dealerEarn += player.calculateEarn(winningScore, rate);
+            dealerEarn += -player.calculateEarn(winningScore, rate);    // 딜러가 번 돈과 플레이어가 잃은 돈이 같음
         }
     }
 }
