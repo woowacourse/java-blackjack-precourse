@@ -29,14 +29,11 @@ public class BlackJackPlayer {
     }
 
     /**
-     * 플레이어의 패가 블랙잭이라면 winners List에 추가하는 메소드
-     *
-     * @param winners 승자 리스트
-     * @return 블랙잭이면 true, 아니면 false
+     * @param winningScore 승자의 점수 (패의 합)
+     * @return 플레이어의 패의 합이 승리한 사람의 점수와 같다면 true, 아니면 false
      */
-    public Boolean addToWinnerIfBlackJack(List<BlackJackPlayer> winners) {
-        if (getSumOfCards() == BLACK_JACK_NUMBER) {
-            winners.add(this);
+    public Boolean ifHaveWinnerScore(int winningScore) {
+        if (getSumOfCards() == winningScore) {
             return true;
         }
         return false;
