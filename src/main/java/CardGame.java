@@ -2,23 +2,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.Card;
+import domain.card.CardDeck;
 import domain.card.CardFactory;
 import domain.user.*;
 /**
  * CardGame
  */
 public class CardGame {
-    List<Card> cards = new CardFactory().create();
-    List<Card> usedCards = new ArrayList<>();
+    
+    CardDeck deck = new CardDeck();
+    List<Card> cards = deck.getDeck();
+    List<Player> players = new ArrayList<Player>();
+    Dealer dealer = new Dealer();
+
+    public CardGame(){
+    }
 
     public void start(){
-        final Player player1 = new Player("jason", 20000);
-        final Dealer dealer = new Dealer();
-        usedCards.add(cards.get(0));
-        usedCards.add(cards.get(1));
-        System.out.println(usedCards.contains(cards.get(1)));
-
-        System.out.println(cards.get(5).getSymbol().getScore());
+        createUsers();
+        
+        
+        
+        
         
     }
+
+    public void createUsers(){
+        String[] name = {"pobi","jason"};
+        int[] bet = {10000,20000};
+        for (int i=0; i<name.length; i++){
+            players.add(new Player(name[i], bet[i]));
+        }
+    }
+    public void giveInitialCards(){
+        for(Player each : players){
+            each.addCard(deck.pick());
+            each.addCard(deck.pick());
+        }
+        dealer.addCard(deck.pick());
+    }
+
 }
