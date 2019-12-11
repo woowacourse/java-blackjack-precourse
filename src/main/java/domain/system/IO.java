@@ -2,10 +2,13 @@ package domain.system;
 
 import java.util.Scanner;
 
+/**
+ * 입출력을 담당하는 객체
+ */
 public class IO {
     private static final Scanner scan = new Scanner(System.in);
 
-    private static final String INVALID_INPUT = null;
+    private static final String INVALID_INPUT = "";
 
     public static String getPlayersNames() {
         String playersNamePattern = "([a-zA-Z][a-zA-Z]{0,9}(,|$))+";
