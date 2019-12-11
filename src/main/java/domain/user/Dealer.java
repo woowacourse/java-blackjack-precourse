@@ -16,6 +16,8 @@ public class Dealer extends BlackJackPlayer {
 
     private static final double WINNERS_RATE = 2;
 
+    private static final int DEALER_MAX_THRESHOLD = 16;
+
     public Dealer() {
     }
 
@@ -47,6 +49,16 @@ public class Dealer extends BlackJackPlayer {
         giveCardToAll(cardDeck, players);
         IO.printGiveCardsFirst(players, this);
         checkIfBlackJack(players);
+    }
+
+    /**
+     * 플레이어들과 딜러가 각각 카드를 한장씩 더 받을지 결정하고 처리하는 메소드
+     */
+    public void haveMoreCards(List<Player> players, CardDeck cardDeck) {
+        for (Player player : players) {
+            haveMoreCardPlayer(cardDeck, player);
+        }
+        haveMoreCardDealer(cardDeck, this);
     }
 
     private void giveCardToAll(CardDeck cardDeck, List<Player> players) {
@@ -89,6 +101,30 @@ public class Dealer extends BlackJackPlayer {
         if (ifDealerBlackJack || ifPlayerBlackJack) {       // 어차피 딜러만 이긴 경우에는 플레이어들은 아무도 돈을 못타감
             distributeMoney(players, FIRST_BLACK_JACK_RATE, BLACK_JACK_NUMBER);
         }
+    }
+
+    /**
+     * Player가 더 카드를 받을 것인지 묻고, 더 주는 메소드
+     */
+    private void haveMoreCardPlayer(CardDeck cardDeck, Player player) {
+        while (player.canHaveMoreCard() && IO.haveMoreCard(player)) {
+            giveCard(cardDeck, player);
+            IO.printPlayerCard(player);
+        }
+    }
+
+    /**
+     * 딜러는 16 이하일 경우 카드를 받고, 17 이상일 경우 그만둠
+     */
+    private void haveMoreCardDealer(CardDeck cardDeck, Dealer dealer) {
+        while (dealer.canHaveMoreCard()) {
+            giveCard(cardDeck, dealer);
+            IO.printDealerHaveMore();
+        }
+    }
+
+    private Boolean canHaveMoreCard() {
+        return getSumOfCards() <= DEALER_MAX_THRESHOLD;
     }
 
     private void distributeMoney(List<Player> players, double rate, int winningScore) {

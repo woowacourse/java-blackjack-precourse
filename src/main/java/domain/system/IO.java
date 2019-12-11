@@ -43,7 +43,24 @@ public class IO {
         }
     }
 
-    private static void printPlayerCard(BlackJackPlayer player) {
+    public static Boolean haveMoreCard(BlackJackPlayer player) {
+        String input;
+        String inputPattern = "y|n";
+        String question = player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
+
+        input = getInputUntilValid(question, inputPattern);
+        if (input.equals("y")) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void printDealerHaveMore() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+        System.out.println();
+    }
+
+    public static void printPlayerCard(BlackJackPlayer player) {
         String name = player.getName();
         String cardsName = player.getCardsName();
 

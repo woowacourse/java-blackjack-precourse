@@ -1,9 +1,6 @@
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
+import domain.system.IO;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -31,6 +28,10 @@ public class Player extends BlackJackPlayer {
 
     public String getName() {
         return this.name;
+    }
+
+    public Boolean canHaveMoreCard() {
+        return getSumOfCards() <= BLACK_JACK_NUMBER;
     }
 
     @Override
