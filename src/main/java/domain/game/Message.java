@@ -16,11 +16,12 @@ import java.lang.String;
  */
 
 public class Message {
-    public static final String GET_NAME = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
-    public static final String BET_PLAYER = "의 배팅 금액은?";;
-    public static final String START_GAME = "에게 2장의 카드를 나누었습니다.";
-    public static final String DRAW_PLAYER_QUESTION = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
-    public static final String PRINT_RESULT = "## 최종수익";
+    public static final String GET_NAME = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)\n";
+    public static final String BET_PLAYER = "의 배팅 금액은?\n";
+    public static final String START_GAME = "에게 2장의 카드를 나누었습니다.\n";
+    public static final String DRAW_PLAYER_QUESTION = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)\n";
+    public static final String PRINT_RESULT = "## 최종수익\n";
+    public static final String ERROR_CARD_EMPTY = "더 이상 뽑을 카드가 없습니다.\n";
 
     /**
      * 생성자 Message를 private으로 선언하였다.
