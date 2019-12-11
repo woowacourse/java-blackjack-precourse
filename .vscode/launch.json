@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - CardGameLauncher",
+            "request": "launch",
+            "mainClass": "CardGameLauncher",
+            "projectName": "java-blackjack-precourse"
+        }
+    ]
+}
