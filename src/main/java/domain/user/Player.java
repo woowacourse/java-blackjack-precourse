@@ -24,6 +24,14 @@ public class Player {
         return cards;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }
