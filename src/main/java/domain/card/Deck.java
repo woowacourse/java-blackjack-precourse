@@ -5,8 +5,8 @@ import java.util.ListIterator;
 import Exception.DeckHasNoCardException;
 
 public class Deck {
-    private List<Card> deck;
-    private ListIterator<Card> deckIterator;
+    private final List<Card> deck;
+    private final ListIterator<Card> deckIterator;
 
     public Deck() {
         this.deck = CardFactory.create();
