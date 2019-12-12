@@ -1,6 +1,8 @@
 package domain.card;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -36,7 +38,7 @@ public class CardDeck {
      * @return 0~51의 숫자를 랜덤으로 셔플한 List
      */
     private List<Integer> makeRandomDrawOrder() {
-        List<Integer> drawOrder = IntStream.range(0, cardDeck.size()).boxed().collect(Collectors.toList());
+        List<Integer> drawOrder = IntStream.range(FIRST, cardDeck.size()).boxed().collect(Collectors.toList());
 
         Collections.shuffle(drawOrder, new Random(System.nanoTime()));
         return drawOrder;
