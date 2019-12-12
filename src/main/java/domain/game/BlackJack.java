@@ -27,17 +27,6 @@ public class BlackJack {
     private int cardIterator;
 
     /**
-     * 블랙잭은 싱글턴 구조를 띄고 있으므로, 생성자는 호출되지 않는다.
-     * 그러나 혹여 다른 소스를 수정하면서 실수할 때를 대비해,
-     * 생성자를 private로 설정하고 예외처리를 추가하였다.
-     *
-     * @throws AssertionError 혹여 생성자가 호출될 경우, 잘못된 선언으로 간주한다.
-     */
-    private BlackJack() {
-        throw new AssertionError();
-    }
-
-    /**
      * 정적이고 보호되는 객체 BlackJackHolder는,
      * 프로그램 전체에 유일하게 존재함이 보장되어야 하는 블랙잭 인스턴스를 생성한다.
      */
@@ -153,14 +142,23 @@ public class BlackJack {
 
     public void firstDraw() {
         dealer.addCard(drawCard());
+        System.out.println(dealer.getCardString());
         dealer.addCard(drawCard());
         for(Player player : playerList) {
             player.addCard(drawCard());
             player.addCard(drawCard());
+            System.out.println(player.getCardString());
         }
     }
     public void playGame() {
         initBlackJack();
         firstDraw();
+        printResultScore();
+    }
+    public void printResultScore() {
+        System.out.println(dealer.getCardString() + dealer.getScoreString());
+        for(Player player : playerList) {
+            System.out.println(player.getCardString() + player.getScoreString());
+        }
     }
 }

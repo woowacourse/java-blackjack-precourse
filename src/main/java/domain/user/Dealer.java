@@ -28,4 +28,17 @@ public class Dealer {
         }
         return score;
     }
+
+    public String getCardString() {
+        List<String> nameList = new ArrayList<String>();
+        String cardString = "딜러 : \n";
+        for(Card card : cards) {
+            nameList.add(card.getCardName());
+        }
+        return cardString + String.join(",",nameList);
+    }
+
+    public String getScoreString() {
+        return " - 결과: " + Integer.toString(getScore());
+    }
 }

@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import jdk.nashorn.internal.objects.annotations.Constructor;
 
 import java.util.ArrayList;
 import java.util.List;
