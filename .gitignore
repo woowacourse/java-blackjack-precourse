@@ -5,6 +5,12 @@
 /out/
 /target/
 
+*.class
+### Package Files ###
+*.jar
+*.war
+*.ear
+
 ### STS ###
 .apt_generated
 .classpath
@@ -19,3 +25,9 @@ bin/
 *.iws
 *.iml
 *.ipr
+
+### Windows ###
+# Windows image file caches
+Thumbs.db 
+# Folder config file
+Desktop.ini
