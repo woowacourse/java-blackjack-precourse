@@ -10,6 +10,7 @@ import java.util.Scanner;
 import domain.user.Player;
 
 public class InputController {
+	public static final String COMMA = ",";
 	private Scanner scanner;
 
 	public InputController() {
@@ -33,7 +34,7 @@ public class InputController {
 
 	private List<String> getPlayerNames() {
 		printAskPlayerName();
-		String[] playerNames = getUserInput().split(",");
+		String[] playerNames = getUserInput().split(COMMA);
 		return Arrays.asList(playerNames);
 	}
 
