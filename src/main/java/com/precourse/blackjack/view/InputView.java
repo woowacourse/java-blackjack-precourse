@@ -14,8 +14,6 @@ import java.io.InputStreamReader;
 /**
  * 입력을 담당하는 클래스입니다.
  *
- * @version 1.0.0
- * @date 2019-12-12
  * @author HyungjuAn
  */
 public class InputView {
