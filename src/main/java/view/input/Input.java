@@ -17,6 +17,7 @@ public class Input {
 
     public boolean oneMoreCard() {
         String answer = scanner.nextLine();
+
         if (answer.equals("y") || answer.equals("Y")) {
             return true;
         }
@@ -24,6 +25,7 @@ public class Input {
             return false;
         }
         new Output().showMessageMisInputErrorClose();
+
         return false;
     }
 }
