@@ -11,11 +11,21 @@ import java.util.List;
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public int getScore() {
+        int score = 0;
+        for(Card card : cards) {
+            score += card.getScore();
+        }
+        for(Card card : cards) {
+            score += card.getAceScore(score);
+        }
+        return score;
+    }
 }
