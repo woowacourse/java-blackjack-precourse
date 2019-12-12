@@ -29,7 +29,7 @@ public class Player {
     }
 
     public String getFinalCardString() {
-        return (name+" 카드: " + concatCardList() + " - 결과: "+this.calculateScore());
+        return (name+" 카드: " + concatCardList() + " - 결과: "+this.calculateScore()+printBust());
     }
 
     private String concatCardList() {
@@ -53,12 +53,15 @@ public class Player {
         return score;
     }
 
-    public int getScoreTest() {
-        return calculateScore();
+    private String printBust() {
+        if(this.isBusted()) {
+            return (" (버스트)");
+        }
+        return "";
     }
 
-    public void drawNewCard() {
-
+    public int getScoreTest() {
+        return calculateScore();
     }
 
 
@@ -78,8 +81,32 @@ public class Player {
         return (name+"은(는) 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
     }
 
+    // 스탠드오프. 무승부.
+    public String getStandOff() {
+        return (name+": "+0);
+    }
+
+    // 블랙잭이 나와 우승.
+    public String winBlackJack() {
+        return (name+": "+1.5*bettingMoney);
+    }
+
+    // 가장 21에 가까운 수로 우승.
+    public String winNearestScore() {
+        return (name+": "+bettingMoney);
+    }
+
+    // 패배
+    public String loseAll() {
+        return (name+": "+-1*bettingMoney);
+    }
+
     // 임시
     public String getNameTest() {
         return this.name;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
     }
 }

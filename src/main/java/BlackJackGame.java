@@ -54,9 +54,26 @@ public class BlackJackGame {
     }
 
     private void printWinner() {
+        boolean isPull = false;
+        boolean isDealerBust = false;
+        int dealerMoney = 0;
+        // 딜러가 블랙잭이면 블랙잭이 없는 모든 플레이어의 배당을 수거합니다.
         if(dealer.isBlackJack()) {
-            players.forEach(x -> )
+            dealerIsBlackJack(dealerMoney);
         }
+    }
+
+    private void dealerIsBlackJack(int dealerMoney) {
+        players.stream().forEach(x -> playerIsStandOff(x, dealerMoney));
+        printMessage(Integer.toString(dealerMoney));
+    }
+
+    private void playerIsStandOff(Player player, int dealerMoney) {
+        if(player.isBlackJack()) {
+            printMessage(player.getStandOff());
+        }
+        dealerMoney += player.getBettingMoney();
+        printMessage(player.loseAll());
     }
 
     private void printPlayerCards() {
@@ -90,7 +107,7 @@ public class BlackJackGame {
 
     private void startTurn(List<Card> newCards) {
         players.stream().forEach(x -> askToDraw(x, newCards));
-        if (dealer.isBelowRedraw()) {
+        while (dealer.isBelowRedraw()) {
             printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.\n");
             dealer.addCard(drawTopCard(newCards));
         }

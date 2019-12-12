@@ -26,7 +26,7 @@ public class Dealer {
     }
 
     public String getFinalCardString() {
-        return ("딜러 카드: " + concatCardList() + " - 결과: "+this.calculateScore());
+        return ("딜러 카드: " + concatCardList() + " - 결과: "+this.calculateScore()+this.printBust());
     }
 
     private String concatCardList() {
@@ -50,8 +50,11 @@ public class Dealer {
         return score;
     }
 
-    public int getScoreTest() {
-        return calculateScore();
+    private String printBust() {
+        if(this.isBusted()) {
+            return (" (버스트)");
+        }
+        return "";
     }
 
     public boolean isBlackJack() {
