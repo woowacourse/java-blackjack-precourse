@@ -1,10 +1,14 @@
 package domain.application;
 
+import domain.game.Game;
+
 public class BlackJackApplication {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Game blackJack = Game.getInstance();
+		
+		blackJack.run();
+		blackJack.showPlayers();
 	}
 
 }

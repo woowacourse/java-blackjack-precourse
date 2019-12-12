@@ -7,5 +7,5 @@ public class ViewTest {
 	public static void main(String[] args) {
 		ViewInput.getPlayerNames();
 	}
-
+	
 }
