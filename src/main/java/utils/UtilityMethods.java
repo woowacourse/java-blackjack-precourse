@@ -8,4 +8,9 @@ public class UtilityMethods {
 		List<String> splitTarget = Arrays.asList(target.split(","));
 		return splitTarget;
 	}
+
+	public static List<Double> addDoubleToList(List<Double> targetList, double targetDouble) {
+		targetList.add(targetDouble);
+		return targetList;
+	}
 }
