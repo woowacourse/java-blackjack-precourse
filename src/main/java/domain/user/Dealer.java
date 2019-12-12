@@ -22,11 +22,11 @@ public class Dealer {
     }
 
     public String getFirstCardString() {
-        return ("딜러 카드: " + cards.get(0));
+        return ("딜러: " + cards.get(0).toKorean());
     }
 
-    public String getCardString() {
-        return ("딜러 카드: " + concatCardList());
+    public String getFinalCardString() {
+        return ("딜러 카드: " + concatCardList() + " - 결과: "+this.calculateScore());
     }
 
     private String concatCardList() {
@@ -40,9 +40,14 @@ public class Dealer {
     }
 
     private int calculateScore() {
-        return (cards.stream()
+        int score = (cards.stream()
                 .mapToInt(x -> x.getScore())
                 .sum());
+        if(cards.stream().filter(x -> x.getScore() == 1).count() != 0
+                && score <= 11) {
+            score += 10;
+        }
+        return score;
     }
 
     public int getScoreTest() {
@@ -50,16 +55,14 @@ public class Dealer {
     }
 
     public boolean isBlackJack() {
-        return (cards.size() == 2 && calculateScore() == 21);
+        return (cards.size() == 2 && calculateScore() == SCORE_LIMIT);
     }
 
     public boolean isBelowRedraw() {
-        return (calculateScore() <= 16);
+        return (calculateScore() <= REDRAW_LIMIT);
     }
 
     public boolean isBusted() {
         return (calculateScore() > SCORE_LIMIT);
     }
-
-    // TODO 추가 기능 구현
 }

@@ -8,7 +8,6 @@ import utils.UserInput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import static utils.ConsoleOutput.printMessage;
 
@@ -24,13 +23,14 @@ public class BlackJackGame {
     }
 
     private void startGame() {
-        Random random = new Random();
         List<Card> newCards = new ArrayList<>();
         newCards.addAll(CardFactory.create());
         Collections.shuffle(newCards);
         drawStartCards(newCards, START_DRAW);
-        getScoresTest();
-        startTurn(newCards);
+        if(!checkBlackJack()) {
+            startTurn(newCards);
+        }
+        printGameResult();
     }
 
 
@@ -39,22 +39,25 @@ public class BlackJackGame {
             drawEachOneCard(newCards);
         }
         System.out.println("딜러와 " + getUsersTest() + "에게 " + START_DRAW + "장의 카드를 나누었습니다.");
-        printDealerCards();
+        printDealerCard();
         printPlayerCards();
     }
 
-    private void printDealerCards() {
-        ConsoleOutput.printCards(dealer.getCardString());
+    private void printDealerCard() {
+        ConsoleOutput.printCards(dealer.getFirstCardString());
     }
+
+    private void printGameResult() {
+        printMessage("\n");
+        ConsoleOutput.printCards(dealer.getFinalCardString());
+        players.forEach(x-> ConsoleOutput.printCards(x.getFinalCardString()));
+    }
+
 
     private void printPlayerCards() {
         players.forEach(x-> ConsoleOutput.printCards(x.getCardString()));
     }
 
-    private void getScoresTest() {
-        // Test
-        players.stream().forEach(x -> System.out.println(x.getNameTest() + " 점수: " + x.getScoreTest()));
-    }
 
     private String getUsersTest() {
         List<String> usersName = new ArrayList<>();
@@ -68,15 +71,24 @@ public class BlackJackGame {
                 x.addCard(drawTopCard(newCards)));
     }
 
+    private boolean checkBlackJack() {
+        if(dealer.isBlackJack()) {
+            printMessage("딜러가 블랙잭입니다.");
+            return true;
+        }
+        if(players.stream().filter(x -> x.isBlackJack()).count() != 0) {
+            printMessage("플레이어가 블랙잭입니다.");
+            return true;
+        }
+        return false;
+    }
+
     private void startTurn(List<Card> newCards) {
+        players.stream().forEach(x -> askToDraw(x, newCards));
         if (dealer.isBelowRedraw()) {
-            printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
+            printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.\n");
             dealer.addCard(drawTopCard(newCards));
         }
-        players.stream().forEach(x -> askToDraw(x, newCards));
-        printDealerCards();
-        printPlayerCards();
-        getScoresTest();
     }
 
     private Card drawTopCard(List<Card> newCards) {
@@ -86,10 +98,13 @@ public class BlackJackGame {
     private void askToDraw(Player player, List<Card> newCards) {
         String message = player.isHit();
         boolean continueDraw = true;
-        while(continueDraw) {
+        while(continueDraw && !player.isBusted()) {
             printMessage(message);
             continueDraw = drawOneMore(player, newCards);
             printMessage(player.getCardString());
+        }
+        if(player.isBusted()) {
+            printMessage("\n버스트! 배팅 금액을 모두 잃습니다.\n");
         }
     }
 
@@ -104,7 +119,7 @@ public class BlackJackGame {
     }
 
     private boolean askHit(Player player, List<Card> newCards) {
-        if(UserInput.inputHit()) {
+        if(UserInput.inputYesNo()) {
             player.addCard(drawTopCard(newCards));
             return true;
         }

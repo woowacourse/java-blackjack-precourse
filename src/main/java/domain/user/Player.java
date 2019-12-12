@@ -28,6 +28,10 @@ public class Player {
         return (name+" 카드: "+concatCardList());
     }
 
+    public String getFinalCardString() {
+        return (name+" 카드: " + concatCardList() + " - 결과: "+this.calculateScore());
+    }
+
     private String concatCardList() {
         return String.join(", ", getKoreanName());
     }
@@ -39,9 +43,14 @@ public class Player {
     }
 
     private int calculateScore() {
-        return (cards.stream()
+        int score = (cards.stream()
                 .mapToInt(x -> x.getScore())
                 .sum());
+        if(cards.stream().filter(x -> x.getScore() == 1).count() != 0
+            && score <= 11) {
+            score += 10;
+        }
+        return score;
     }
 
     public int getScoreTest() {
