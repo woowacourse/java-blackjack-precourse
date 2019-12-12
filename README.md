@@ -73,7 +73,7 @@
 
 ##### Card
 
-- [ ] POJO test
+- [x] POJO test
 
 ##### Player
 
