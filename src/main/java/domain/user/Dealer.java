@@ -18,4 +18,14 @@ public class Dealer {
     }
 
     // TODO 추가 기능 구현
+
+    public void gameStart(Card card){
+        for(int i=0;i<2;i++){
+            addCard(card);
+        }
+    }
+
+    public void showCard(){
+        System.out.println("딜러 : "+cards.get(1));
+    }
 }

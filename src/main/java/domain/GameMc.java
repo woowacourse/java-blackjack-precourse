@@ -2,6 +2,7 @@ package domain;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class GameMc {
     private ArrayList<Player> players = new ArrayList<Player>();
     private String nameInput;
     private List<Integer> isPickedCard = new ArrayList<Integer>();
+    private Dealer dealer = new Dealer();
 
     public void gameMc() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
@@ -46,5 +48,17 @@ public class GameMc {
         }
         isPickedCard.add(cardIdx);
         return card.get(cardIdx);
+    }
+
+    public void gameStart(){
+        System.out.println("딜러와 " +nameInput+"에게 2장씩 나누었습니다.");
+        dealer.gameStart(makeRandomCard());
+        for (Player player : players){
+            player.gameStart(makeRandomCard());
+        }
+        dealer.showCard();
+        for (Player player : players){
+            player.showCard();
+        }
     }
 }
