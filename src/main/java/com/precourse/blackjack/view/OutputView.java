@@ -6,7 +6,7 @@
  * Contact me for more information. a301dks@naver.com
  */
 
-package view;
+package com.precourse.blackjack.view;
 
 /**
  * 출력을 담당하는 클래스입니다.

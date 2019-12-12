@@ -1,6 +1,6 @@
-package domain.user;
+package com.precourse.blackjack.domain.user;
 
-import domain.card.Card;
+import com.precourse.blackjack.domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;

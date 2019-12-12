@@ -6,7 +6,7 @@
  * Contact me for more information. a301dks@naver.com
  */
 
-package view;
+package com.precourse.blackjack.view;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

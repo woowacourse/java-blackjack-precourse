@@ -1,4 +1,4 @@
-package domain.card;
+package com.precourse.blackjack.domain.card;
 
 import org.junit.jupiter.api.Test;
 
