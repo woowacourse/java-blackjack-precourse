@@ -5,7 +5,7 @@ import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * BlackJack 클래스는 블랙잭 게임을 실행하고, 유저/딜러와 카드간의 연계, 배팅 등을 처리해주는 클래스이다.
@@ -61,9 +61,75 @@ public class BlackJack {
     }
 
     public List<Player> createPlayerList() {
-        List<Player> playerList;
-
+        List<Player> playerList = new ArrayList<Player>();
+        List<String> nameList = getNameToInput();
+        for(String name : nameList) {
+            playerList.add(new Player(name, getBettingMoneyToInput(name)));
+        }
         return playerList;
+    }
+    /**
+     * getBettingMoneyToInput은 베팅할 금액을 입력받아 리턴하는 메서드이다.
+     * 예외처리 : 잘못된 값이 들어오면 에러 메세지를 출력하고, 자기 자신을 리턴해준다.
+     * 이를 통해 재귀적으로 올바른 값을 돌려준다.
+     *
+     * @return int형의 배팅 금액을 리턴해준다.
+     */
+    private int getBettingMoneyToInput(String name) {
+        Scanner sc = new Scanner(System.in);
+        int money;
+
+        System.out.print(name+Message.BET_PLAYER);
+        try {
+            money = sc.nextInt();
+            if (money <= 0) {
+                throw new InputMismatchException();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println(Message.ERROR_INPUT);
+            return getBettingMoneyToInput(name);
+        }
+        return money;
+    }
+    /**
+     * getNameToInput은 하나의 문자열 입력을 받아,
+     * 그 문자열을 여러 개의 이름 블록으로 분리하여 리스트로 만든다.
+     *
+     * @return 이름의 목록을 String형 List로 리턴해준다.
+     */
+    private List<String> getNameToInput() {
+        Scanner sc = new Scanner(System.in);
+        List<String> nameList;
+
+        System.out.println(Message.GET_NAME);
+        try {
+            nameList = Arrays.asList(sc.nextLine().split(","));
+            if (findExceptionOnName(nameList)) {
+                throw new InputMismatchException();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println(Message.ERROR_INPUT);
+            return getNameToInput();
+        }
+        return nameList;
+    }
+
+    /**
+     * findExceptionOnName은 이름의 목록을 받아 그 중 예외처리될 사항을 검사한다.
+     *
+     * @param nameList : 이름의 목록을 담은 리스트이다.
+     * @return : 만약 입력에 예외처리될 사항이 있다면 true를, 아니라면 false를 리턴해준다.
+     */
+    private boolean findExceptionOnName(List<String> nameList) {
+        if (nameList.isEmpty()) {
+            return true;
+        }
+        for (String i : nameList) {
+            if (i.length() > 5 || i.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void playGame() {
