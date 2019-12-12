@@ -46,4 +46,13 @@ public class OutputView {
         }
         return String.join(", ", playerCardState);
     }
+
+    public static void printPlayerCardState(Player player) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(player.getName());
+        stringBuilder.append(PLAYER_CARDS_STATE_MESSAGE);
+        stringBuilder.append(getPlayerCardState(player));
+        stringBuilder.append("\n");
+        System.out.println(stringBuilder.toString());
+    }
 }

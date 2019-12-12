@@ -22,6 +22,7 @@ public class BlackJack {
         setPlayers();
         setFirstState();
         printFirstResult();
+        runAddCardPhase();
     }
 
     private void setPlayers() {
@@ -62,5 +63,18 @@ public class BlackJack {
 
     private void printFirstResult() {
         OutputView.printCardsState(dealer, players);
+    }
+
+    private void runAddCardPhase() {
+        for(Player player : players) {
+            getAdditionalCard(InputView.playerIntent(player), player);
+        }
+    }
+
+    private void getAdditionalCard(String playerIntent, Player player) {
+        if(playerIntent.equals("y")) {
+            player.addCard(deck.pop());
+            OutputView.printPlayerCardState(player);
+        }
     }
 }
