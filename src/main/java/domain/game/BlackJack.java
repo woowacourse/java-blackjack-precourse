@@ -43,6 +43,9 @@ public class BlackJack {
         return BlackJackHolder.INSTANCE;
     }
 
+    /**
+     * initBlackJack은 블랙잭 수행을 위한 유저, 카드, 플레이어들의 생성과 초기화를 담당한다.
+     */
     public void initBlackJack() {
         cardList = CardFactory.create();
         cardIterator = 0;
@@ -66,6 +69,12 @@ public class BlackJack {
         return cardList.get(cardIterator++);
     }
 
+    /**
+     * createPlayerList는 플레이어 목록에 새로운 플레이어들을 생성해준다.
+     * 이름의 목록을 받아 이름을 집어넣고, 각자의 배팅 금액도 집어넣는다.
+     *
+     * @return Player 객체 List를 반환한다.
+     */
     public List<Player> createPlayerList() {
         List<Player> playerList = new ArrayList<Player>();
         List<String> nameList = getNameToInput();
@@ -93,7 +102,7 @@ public class BlackJack {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.println(Message.ERROR_INPUT);
+            System.out.print(Message.ERROR_INPUT);
             return getBettingMoneyToInput(name);
         }
         return money;
@@ -116,7 +125,7 @@ public class BlackJack {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.println(Message.ERROR_INPUT);
+            System.out.print(Message.ERROR_INPUT);
             return getNameToInput();
         }
         return nameList;
@@ -140,25 +149,39 @@ public class BlackJack {
         return false;
     }
 
+    /**
+     * firstDraw는 게임을 시작할 때 2장씩 유저들에게 주는 로직을 담당하는 메서드이다.
+     * 딜러는 1장만 공개하고, 나머지는 2장의 카드 모두 출력한다.
+     * 마지막엔 공백을 넣어준다.
+     */
     public void firstDraw() {
         dealer.addCard(drawCard());
-        System.out.println(dealer.getCardString());
+        System.out.println(dealer.getOneCardString());
         dealer.addCard(drawCard());
         for(Player player : playerList) {
             player.addCard(drawCard());
             player.addCard(drawCard());
             System.out.println(player.getCardString());
         }
-    }
-    public void playGame() {
-        initBlackJack();
-        firstDraw();
-        printResultScore();
+        System.out.print("\n");
     }
     public void printResultScore() {
         System.out.println(dealer.getCardString() + dealer.getScoreString());
         for(Player player : playerList) {
             System.out.println(player.getCardString() + player.getScoreString());
         }
+    }
+    public void printResultMoney() {
+        System.out.println(Message.PRINT_RESULT);
+        System.out.println(dealer.getMoneyString());
+        for(Player player : playerList) {
+            System.out.println(player.getMoneyString());
+        }
+    }
+    public void playGame() {
+        initBlackJack();
+        firstDraw();
+        printResultScore();
+        printResultMoney();
     }
 }
