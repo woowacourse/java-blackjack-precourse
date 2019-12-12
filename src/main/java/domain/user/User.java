@@ -21,7 +21,7 @@ public class User {
 	public void drawCard(Card card) {
 		this.cards.add(card);
 	}
-    
+
 	public int calculateScore() {
 		Integer score = calculateWithAceAsOne();
 		for (int i = 0; i < countNumOfAce(); i++) {
@@ -29,7 +29,7 @@ public class User {
 		}
 		return score;
 	}
-    
+
 	private Integer updateScoreWithAce(Integer score) {
 		score += ACE_UPDATE_SCORE;
 		if (score > BLACKJACK_SCORE) {
@@ -37,17 +37,17 @@ public class User {
 		}
 		return score;
 	}
-    
-    private int calculateWithAceAsOne() {
-    	return this.cards.stream()
-    			.map(Card::getScore)
-    			.mapToInt(Integer::intValue)
-    			.sum();
-    }
-    
-    private int countNumOfAce() {
-    	return (int) this.cards.stream()
-    			.filter(card -> card.getScore() == ACE_SCORE)
-    			.count();
-    }
+
+	private int calculateWithAceAsOne() {
+		return this.cards.stream()
+				.map(Card::getScore)
+				.mapToInt(Integer::intValue)
+				.sum();
+	}
+
+	private int countNumOfAce() {
+		return (int) this.cards.stream()
+				.filter(card -> card.getScore() == ACE_SCORE)
+				.count();
+	}
 }
