@@ -61,6 +61,6 @@ public class BlackJack {
     }
 
     private void printFirstResult() {
-
+        OutputView.printCardsState(dealer, players);
     }
 }
