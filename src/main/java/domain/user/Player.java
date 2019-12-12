@@ -1,8 +1,10 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Deck;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,10 +20,21 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
-
+    public void pickCardFromDeck(Deck deck) {
+        Collections.shuffle(deck.getDeck());
+        Card card = deck.getDeck()
+                .stream()
+                .findAny()
+                .orElseThrow(IllegalStateException::new);
+        deck.removeCardFromDeck(card);
+        addCard(card);
+    }
 }
