@@ -3,6 +3,9 @@ package domain.user;
 import domain.card.Deck;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PlayerTest {
@@ -36,5 +39,14 @@ class PlayerTest {
         player.addCard(deck.drawCard());
         assertThat(player.getScore()).isGreaterThanOrEqualTo(2);
         assertThat(player.getScore()).isLessThanOrEqualTo(21);
+    }
+
+    @Test
+    public void isDealerTest() {
+        Player player = new Player("이름1", 10000d);
+        Dealer dealer = new Dealer();
+
+        assertThat(player.isDealer()).isFalse();
+        assertThat(dealer.isDealer()).isTrue();
     }
 }

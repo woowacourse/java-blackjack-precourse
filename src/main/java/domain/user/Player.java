@@ -32,4 +32,8 @@ public class Player {
                 .reduce(Integer::sum)
                 .orElse(0);
     }
+
+    public boolean isDealer() {
+        return this instanceof Dealer;
+    }
 }
