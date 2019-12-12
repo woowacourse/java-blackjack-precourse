@@ -3,12 +3,14 @@ package domain.distribution;
 import java.util.List;
 import java.util.Random;
 
+import utils.RandomNumbersGenerator;
+
 public class DistributionSequence {
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 52;
     private static final int DECKS_NUMBER = 6;
 
-    private List<Integer> sequences;
+    private final List<Integer> sequences;
     private int index = 0;
 
     public DistributionSequence() {

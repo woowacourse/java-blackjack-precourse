@@ -1,4 +1,4 @@
-package domain.distribution;
+package utils;
 
 import java.util.Collections;
 import java.util.List;
