@@ -42,13 +42,17 @@ class outputTest {
 
         table.getTable().get(0).pickCardFromDeck(deck);
         table.getTable().get(0).pickCardFromDeck(deck);
+        table.getTable().get(0).pickCardFromDeck(deck);
         table.addMember(new Player("Kim", 8000));
+        table.getTable().get(1).pickCardFromDeck(deck);
         table.getTable().get(1).pickCardFromDeck(deck);
         table.getTable().get(1).pickCardFromDeck(deck);
         table.addMember(new Player("Kang", 7000));
         table.getTable().get(2).pickCardFromDeck(deck);
         table.getTable().get(2).pickCardFromDeck(deck);
+        table.getTable().get(2).pickCardFromDeck(deck);
         table.addMember(new Player("Hans", 10000));
+        table.getTable().get(3).pickCardFromDeck(deck);
         table.getTable().get(3).pickCardFromDeck(deck);
         table.getTable().get(3).pickCardFromDeck(deck);
 

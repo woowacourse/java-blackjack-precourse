@@ -6,6 +6,7 @@ import java.util.List;
 public class Table {
     private static final int DRAW = 0;
     private static final int DEALER_INDEX = 0;
+    private static final int BLACK_JACK_NUMBER = 10;
     private List<Player> players = new LinkedList<>();
     private double tableMoney = 0;
 
@@ -23,7 +24,7 @@ public class Table {
 
     public List<Double> calculateMoney() {
         List<Double> balances = new LinkedList<>();
-        int dealerScore = players.get(DEALER_INDEX).calculateScore();
+        int dealerScore = players.get(DEALER_INDEX).calculateScore(BLACK_JACK_NUMBER);
         balances.add(tableMoney);
 
         for (int i = 1; i < players.size(); i++) {
@@ -35,11 +36,11 @@ public class Table {
     }
 
     private double getMoneyPlayer(int index, int dealerScore) {
-        if (players.get(index).calculateScore() > dealerScore) {
+        if (players.get(index).calculateScore(BLACK_JACK_NUMBER) > dealerScore) {
             tableMoney -= players.get(index).getBettingMoney();
             return players.get(index).getBettingMoney();
         }
-        if (players.get(index).calculateScore() < dealerScore) {
+        if (players.get(index).calculateScore(BLACK_JACK_NUMBER) < dealerScore) {
             tableMoney += players.get(index).getBettingMoney();
             return -players.get(index).getBettingMoney();
         }

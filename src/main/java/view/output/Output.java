@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Output {
+    private static final int BLACK_JACK_NUMBER = 10;
+
     public void showMessageInputName() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리");
     }
@@ -49,7 +51,7 @@ public class Output {
                 + "카드: "
                 + player.getCards()
                 + "= 결과: "
-                + player.calculateScore()));
+                + player.calculateScore(BLACK_JACK_NUMBER)));
     }
 
     public void showMessageResultMoney(Table table) {
