@@ -31,6 +31,7 @@ public class BlackJackGame {
             startTurn(newCards);
         }
         printGameResult();
+        printWinner();
     }
 
 
@@ -48,11 +49,15 @@ public class BlackJackGame {
     }
 
     private void printGameResult() {
-        printMessage("\n");
         ConsoleOutput.printCards(dealer.getFinalCardString());
         players.forEach(x-> ConsoleOutput.printCards(x.getFinalCardString()));
     }
 
+    private void printWinner() {
+        if(dealer.isBlackJack()) {
+            players.forEach(x -> )
+        }
+    }
 
     private void printPlayerCards() {
         players.forEach(x-> ConsoleOutput.printCards(x.getCardString()));
