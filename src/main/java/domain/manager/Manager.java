@@ -14,7 +14,10 @@ public class Manager {
     Output output = new Output();
 
     public void start() {
-        output.showMessageInputName();
+        boolean isErrorOccurred = true;
+        while (isErrorOccurred) {
+            isErrorOccurred = splitName(output.showMessageInputName());
+        }
     }
 
     public void processManagement() {
@@ -25,9 +28,13 @@ public class Manager {
 
     }
 
-    public void splitName(String name) {
+    private boolean splitName(String name) {
         List<String> names = Arrays
                 .stream(name.split(","))
                 .collect(Collectors.toList());
+
+        new Validator().checkName(names);
+
+        return true;
     }
 }
