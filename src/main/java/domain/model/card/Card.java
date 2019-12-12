@@ -1,4 +1,4 @@
-package domain.card;
+package domain.model.card;
 
 import java.util.Objects;
 
@@ -18,7 +18,7 @@ public class Card {
     // TODO Card 관련 추가 기능 구현
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) { // 두 객체의 내용이 같은지 확인하는 equals를 Card에 맞게 오버라이드.
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
@@ -29,7 +29,7 @@ public class Card {
     @Override
     public int hashCode() {
         return Objects.hash(symbol, type);
-    }
+    } // 두 객체가 같은 객체인이지 확인, hashCode도 같도록 만들기.
 
     @Override
     public String toString() {

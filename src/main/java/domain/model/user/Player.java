@@ -1,6 +1,6 @@
-package domain.user;
+package domain.model.user;
 
-import domain.card.Card;
+import domain.model.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;

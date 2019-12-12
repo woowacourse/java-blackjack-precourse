@@ -1,4 +1,4 @@
-package domain.card;
+package domain.model.card;
 
 import org.junit.jupiter.api.Test;
 
