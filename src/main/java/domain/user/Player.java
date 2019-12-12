@@ -65,11 +65,8 @@ public class Player {
         return (calculateScore() > SCORE_LIMIT);
     }
 
-    public String isReadyToGo() {
-        if(!isBusted()) {
-            return (name+"은(는) 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
-        }
-        return "";
+    public String isHit() {
+        return (name+"은(는) 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
     }
 
     // 임시

@@ -30,7 +30,6 @@ public class BlackJackGame {
         Collections.shuffle(newCards);
         drawStartCards(newCards, START_DRAW);
         getScoresTest();
-        getBlackJackTest();
         startTurn(newCards);
     }
 
@@ -57,12 +56,6 @@ public class BlackJackGame {
         players.stream().forEach(x -> System.out.println(x.getNameTest() + " 점수: " + x.getScoreTest()));
     }
 
-    private void getBlackJackTest() {
-        // Test
-        System.out.println("딜러 블랙잭: " + dealer.isBlackJack());
-        players.stream().forEach(x -> System.out.println(x.getNameTest() + " 블랙잭: " + x.isBlackJack()));
-    }
-
     private String getUsersTest() {
         List<String> usersName = new ArrayList<>();
         players.stream().forEach(x -> usersName.add(x.getNameTest()));
@@ -76,16 +69,14 @@ public class BlackJackGame {
     }
 
     private void startTurn(List<Card> newCards) {
-        while (true) {
-            if (dealer.isBelowRedraw()) {
-                printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
-                dealer.addCard(drawTopCard(newCards));
-            }
-            players.stream().forEach(x -> askToDraw(x, newCards));
-            printDealerCards();
-            printPlayerCards();
-            getScoresTest();
+        if (dealer.isBelowRedraw()) {
+            printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
+            dealer.addCard(drawTopCard(newCards));
         }
+        players.stream().forEach(x -> askToDraw(x, newCards));
+        printDealerCards();
+        printPlayerCards();
+        getScoresTest();
     }
 
     private Card drawTopCard(List<Card> newCards) {
@@ -93,22 +84,30 @@ public class BlackJackGame {
     }
 
     private void askToDraw(Player player, List<Card> newCards) {
-        String message = player.isReadyToGo();
-        if (!message.isEmpty()) {
+        String message = player.isHit();
+        boolean continueDraw = true;
+        while(continueDraw) {
             printMessage(message);
-            drawOneMore(player, newCards);
+            continueDraw = drawOneMore(player, newCards);
+            printMessage(player.getCardString());
         }
     }
 
-    private void drawOneMore(Player player, List<Card> newCards) {
+    private boolean drawOneMore(Player player, List<Card> newCards) {
         try {
-            if(UserInput.inputYesOrNo()) {
-                player.addCard(drawTopCard(newCards));
-            }
+            return askHit(player, newCards);
         }catch(IllegalArgumentException e) {
             printMessage(e.getMessage());
             drawOneMore(player, newCards);
         }
+        return false;
+    }
 
+    private boolean askHit(Player player, List<Card> newCards) {
+        if(UserInput.inputHit()) {
+            player.addCard(drawTopCard(newCards));
+            return true;
+        }
+        return false;
     }
 }

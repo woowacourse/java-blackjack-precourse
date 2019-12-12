@@ -23,7 +23,7 @@ public class UserInput {
         return SCANNER.nextInt();
     }
 
-    public static Boolean inputYesOrNo() {
+    public static Boolean inputHit() {
         char expression = SCANNER.next().charAt(0);
         if (expression == 'y' || expression == 'Y') {
             return true;
