@@ -2,6 +2,7 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
+import utils.ConsoleOutput;
 
 import java.util.*;
 
@@ -13,7 +14,6 @@ public class BlackJackGame {
     public BlackJackGame(List<Player> players, Dealer dealer) {
         this.players = players;
         this.dealer = dealer;
-        //cards.forEach(x -> System.out.println(x.toString()));
         startGame();
     }
 
@@ -22,28 +22,22 @@ public class BlackJackGame {
         List<Card> newCards = new ArrayList<>();
         newCards.addAll(CardFactory.create());
         Collections.shuffle(newCards);
-        drawCards(newCards, START_DRAW);
+        drawStartCards(newCards, START_DRAW);
+        // Test
+        players.stream().forEach(x-> System.out.println("점수: "+x.getScoreTest()));
+
     }
 
-    private void drawCards(List<Card> newCards, int iteration) {
-        for(int i = 0; i < iteration; i++) {
-            drawOneCard(newCards);
+    private void drawStartCards(List<Card> newCards, int iteration) {
+        for (int i = 0; i < iteration; i++) {
+            drawEachOneCard(newCards);
         }
+        ConsoleOutput.printCardStatus(players,dealer);
     }
 
-    private void drawOneCard(List<Card> newCards) {
-        System.out.println(newCards.size());
-        this.addCard(newCards, dealer);
+    private void drawEachOneCard(List<Card> newCards) {
+        dealer.addCard(newCards.remove(newCards.size() - 1));
         players.stream().forEach(x ->
-                this.addCard(newCards,x));
-        System.out.println(newCards.size());
-    }
-
-    private void addCard(List<Card> newCards, Player player) {
-        player.addCard(newCards.remove(newCards.size()-1));
-    }
-
-    private void addCard(List<Card> newCards, Dealer dealer) {
-        dealer.addCard(newCards.remove(newCards.size()-1));
+                x.addCard(newCards.remove(newCards.size() - 1)));
     }
 }

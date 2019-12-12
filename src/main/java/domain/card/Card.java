@@ -39,4 +39,12 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+    public String toKorean() {
+        return symbol.toString()+type;
+    }
+
+    public int getScore() {
+        return symbol.getScore();
+    }
 }
