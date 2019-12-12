@@ -18,18 +18,6 @@ public abstract class BlackJackPlayer {
         cards.add(card);
     }
 
-    public int getSumOfCards() {
-        int totalScore = 0;
-        int countAce = 0;
-
-        for (Card card : cards) {
-            totalScore += card.getScore();
-            countAce += card.ifAce();
-        }
-        totalScore = reviseAcesScore(totalScore, countAce);
-        return totalScore;
-    }
-
     /**
      * @return 패의 합이 21이하면 패의 합, 21 초과면 0
      */
@@ -42,17 +30,29 @@ public abstract class BlackJackPlayer {
         return sumOfCards;
     }
 
-    /**
-     * 현재 패가 블랙잭인지 확인하는 메소드
-     */
-    public Boolean ifHaveBlackJack() {
-        return getSumOfCards() == BLACK_JACK_NUMBER;
-    }
-
     public String getCardsName() {
         return cards.toString();
     }
 
+    private int getSumOfCards() {
+        int totalScore = 0;
+        int countAce = 0;
+
+        for (Card card : cards) {
+            totalScore += card.getScore();
+            countAce += card.ifAce();
+        }
+        totalScore = reviseAcesScore(totalScore, countAce);
+        return totalScore;
+    }
+
+    /**
+     * 기본 스코어를 다 더한 다음, Ace의 갯수만큼 10을 더해줄지 말지 결정하는 메소드
+     *
+     * @param totalScore 기본 스코어(Ace를 1로 계산)
+     * @param countAce Ace가 나타난 숫자
+     * @return Ace의 추가 점수가 계산된 스코어
+     */
     private int reviseAcesScore(int totalScore, int countAce) {
         for (int i = 0; i < countAce; i++) {
             totalScore = reviseAceScore(totalScore);

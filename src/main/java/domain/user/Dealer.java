@@ -62,7 +62,7 @@ public class Dealer extends BlackJackPlayer {
         int winningScore = getWinningScore(players);
 
         IO.printPlayersCard(players, this);
-        if (getSumOfCards() > BLACK_JACK_NUMBER) {      // 딜러가 21을 넘겼을 경우, 남아있는 모두가 승리
+        if (getScoreOfCards() == BURST_SCORE) {      // 딜러가 21을 넘겼을 경우, 남아있는 모두가 승리
             distributeMoney(players, WINNERS_RATE, BURST_SCORE);
             return;
         }
@@ -88,10 +88,10 @@ public class Dealer extends BlackJackPlayer {
      */
     private Boolean checkIfBlackJack(List<Player> players) {
         Boolean ifPlayerBlackJack = false;
-        Boolean ifDealerBlackJack = ifHaveBlackJack();
+        Boolean ifDealerBlackJack = (getScoreOfCards() == BLACK_JACK_NUMBER);
 
         for (Player player : players) {
-            ifPlayerBlackJack = player.ifHaveBlackJack() || ifPlayerBlackJack;
+            ifPlayerBlackJack = (player.getScoreOfCards() == BLACK_JACK_NUMBER) || ifPlayerBlackJack;
         }
         terminateGameWithFirstBlackJack(players, ifPlayerBlackJack, ifDealerBlackJack);
         return ifDealerBlackJack || ifPlayerBlackJack;
@@ -132,7 +132,8 @@ public class Dealer extends BlackJackPlayer {
     }
 
     private Boolean canHaveMoreCard() {
-        return getSumOfCards() <= DEALER_MAX_THRESHOLD;
+        return getScoreOfCards() != BURST_SCORE &&
+                getScoreOfCards() <= DEALER_MAX_THRESHOLD;
     }
 
     private int getWinningScore(List<Player> players) {
