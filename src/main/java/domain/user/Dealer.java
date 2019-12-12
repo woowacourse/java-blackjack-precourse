@@ -56,17 +56,7 @@ public class Dealer extends BlackJackPlayer {
             haveMoreCardPlayer(cardDeck, player);
         }
         haveMoreCardDealer(cardDeck, this);
-    }
-
-    public void calculateFinalEarn(List<Player> players) {
-        int winningScore = getWinningScore(players);
-
-        IO.printPlayersCard(players, this);
-        if (getScoreOfCards() == BURST_SCORE) {      // 딜러가 21을 넘겼을 경우, 남아있는 모두가 승리
-            distributeMoney(players, WINNERS_RATE, BURST_SCORE);
-            return;
-        }
-        distributeMoney(players, WINNERS_RATE, winningScore);   // 승리한 사람은 배팅금액의 2배를 가져감
+        terminateGameWithGameEnd(players);
     }
 
     private void giveCardToAll(CardDeck cardDeck, List<Player> players) {
@@ -102,7 +92,7 @@ public class Dealer extends BlackJackPlayer {
      */
     private void terminateGameWithFirstBlackJack(List<Player> players,
                                                  Boolean ifPlayerBlackJack, Boolean ifDealerBlackJack) {
-        if (ifDealerBlackJack && ifPlayerBlackJack) {
+        if (ifDealerBlackJack && ifPlayerBlackJack) {           // 플레이어와 딜러 모두 이긴 경우 돈을 돌려줌
             distributeMoney(players, TIE_RATE, BLACK_JACK_NUMBER);
             return;
         }
@@ -137,9 +127,22 @@ public class Dealer extends BlackJackPlayer {
     }
 
     private int getWinningScore(List<Player> players) {
+        /* 플레이어 중 최고 점수를 구하고, 딜러의 점수와 비교해서 승리할 수 있는 점수를 반환 */
+
         int winningScore = players.stream().max(Comparator.comparing(Player::getScoreOfCards)).get().getScoreOfCards();
 
         return Math.max(winningScore, getScoreOfCards());
+    }
+
+    private void terminateGameWithGameEnd(List<Player> players) {
+        int winningScore = getWinningScore(players);
+
+        IO.printPlayersCard(players, this);
+        if (getScoreOfCards() == BURST_SCORE) {      // 딜러가 21을 넘겼을 경우, 남아있는 모두가 승리
+            distributeMoney(players, WINNERS_RATE, BURST_SCORE);
+            return;
+        }
+        distributeMoney(players, WINNERS_RATE, winningScore);   // 승리한 사람은 배팅금액의 2배를 가져감
     }
 
     /**
