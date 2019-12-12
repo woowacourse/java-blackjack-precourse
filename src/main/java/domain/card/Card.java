@@ -23,7 +23,7 @@ public class Card {
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
         return symbol == card.symbol &&
-                type == card.type;
+                 type == card.type;
     }
 
     @Override
