@@ -41,10 +41,14 @@ public class Card {
     }
 
     public String toKorean() {
-        return symbol.toString()+type;
+        return symbol+" "+type;
     }
 
     public int getScore() {
         return symbol.getScore();
+    }
+
+    public boolean isAce() {
+        return symbol.toString() == "ACE";
     }
 }

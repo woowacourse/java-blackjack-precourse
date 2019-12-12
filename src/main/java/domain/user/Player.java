@@ -39,10 +39,30 @@ public class Player {
         return calculateScore();
     }
 
+    public void drawNewCard() {
+        try {
+            System.out.println(name+"님, 한 장의 카드를 더 받겠습니까? (예는 Y, 아니오는 N)");
+            UserInput.inputYesOrNo();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+            drawNewCard();
+            printCards();
+        }
+    }
+
+    public boolean isBlackJack() {
+        return (cards.size() == 2 && (calculateScore() == 21 || calculateScore() == 11 && isAceExists()));
+    }
+
+    private boolean isAceExists() {
+        return (cards.stream().filter(x -> x.isAce()).count() == 1);
+    }
+
     public boolean isBusted() {
         return (calculateScore() > SCORE_LIMIT);
     }
-
-
-    // TODO 추가 기능 구현
+    // 임시
+    public String getNameTest() {
+        return this.name;
+    }
 }

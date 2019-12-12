@@ -13,12 +13,12 @@ public class ConsoleOutput {
     }
 
     public static String concatCardList(List<Card> cards) {
-        return String.join(",", getKoreanName(cards));
+        return String.join(", ", getKoreanName(cards));
     }
 
     private static List<String> getKoreanName(List<Card> cards) {
         List<String> names = new ArrayList<>();
-        cards.stream().forEach(x -> names.add(x.toString()));
+        cards.stream().forEach(x -> names.add(x.toKorean()));
         return names;
     }
 

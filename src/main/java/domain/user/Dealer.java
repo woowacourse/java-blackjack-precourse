@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Dealer {
     protected static final int SCORE_LIMIT = 21;
+    protected static final int REDRAW_LIMIT = 16;
 
     private final List<Card> cards = new ArrayList<>();
 
@@ -39,6 +40,14 @@ public class Dealer {
 
     public int getScoreTest() {
         return calculateScore();
+    }
+
+    public boolean isBlackJack() {
+        return (cards.size() == 2 && calculateScore() == 21);
+    }
+
+    public boolean isBelowRedraw() {
+        return (calculateScore() <= 16);
     }
 
     public boolean isBusted() {

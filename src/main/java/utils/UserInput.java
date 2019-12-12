@@ -32,4 +32,15 @@ public class UserInput {
     public static Dealer enrollDealer() {
         return new Dealer();
     }
+
+    public static Boolean inputYesOrNo() {
+        String expression = SCANNER.nextLine();
+        if (expression.equals("y") || expression.equals("Y")) {
+            return true;
+        }
+        if (expression.equals("n") || expression.equals("N")) {
+            return false;
+        }
+        throw new IllegalArgumentException("다시 입력해 주세요.");
+    }
 }
