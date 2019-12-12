@@ -21,7 +21,10 @@ public class Player {
     public void addCard(Card card) {
         cards.add(card);
     }
-
+    //입출력 실험 메소드
+    public void inputTest(){
+        System.out.println(this.name + " " + this.bettingMoney);
+    }
     // TODO 추가 기능 구현
 
 }
