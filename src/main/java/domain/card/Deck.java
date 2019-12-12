@@ -2,6 +2,7 @@ package domain.card;
 
 import java.util.List;
 import java.util.ListIterator;
+import Exception.DeckHasNoCardException;
 
 public class Deck {
     private List<Card> deck;
@@ -12,10 +13,10 @@ public class Deck {
         deckIterator = deck.listIterator();
     }
 
-    public Card draw() throws Exception {
+    public Card draw() throws DeckHasNoCardException {
         if (deckIterator.hasNext()) {
             return deckIterator.next();
         }
-        throw new Exception("덱에 남아있는 카드가 없습니다.");
+        throw new DeckHasNoCardException("덱에 남아있는 카드가 없습니다.");
     }
 }
