@@ -29,15 +29,26 @@ public class BlackJackGame {
         drawStartCards(newCards, START_DRAW);
         getScoresTest();
         getBlackJackTest();
-        startTurn(newCards);
+        //startTurn(newCards);
     }
+
 
     private void drawStartCards(List<Card> newCards, int iteration) {
         for (int i = 0; i < iteration; i++) {
             drawEachOneCard(newCards);
         }
         System.out.println("딜러와 " + getUsersTest() + "에게 " + START_DRAW + "장의 카드를 나누었습니다.");
-        ConsoleOutput.printCardStatus(players, dealer);
+        printDealerCards();
+        printPlayerCards();
+    }
+
+    private void printDealerCards() {
+        ConsoleOutput.printCards(dealer.getCardString());
+    }
+
+    private void printPlayerCards() {
+
+        players.forEach(x-> ConsoleOutput.printCards(x.getCardString()));
     }
 
     private void getScoresTest() {
@@ -63,16 +74,16 @@ public class BlackJackGame {
                 x.addCard(newCards.remove(newCards.size() - 1)));
     }
 
-    private void startTurn(List<Card> newCards) {
+    /*private void startTurn(List<Card> newCards) {
         while (true) {
             askToDrawNewCards(newCards);
 
         }
-    }
+    }*/
 
-    private void askToDrawNewCards(List<Card> newCards) {
-       players.stream().forEach(x -> x.drawNewCard());
-    }
+    /*private void askToDrawNewCards(List<Card> newCards) {
+        players.stream().forEach(x -> x.drawNewCard());
+    }*/
 
     public boolean isYes() {
         return UserInput.inputYesOrNo();

@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import utils.ConsoleOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +24,18 @@ public class Player {
         cards.add(card);
     }
 
-    public void printCards() {
-        ConsoleOutput.printCards(name, cards);
+    public String getCardString() {
+        return (name+" 카드: "+concatCardList());
+    }
+
+    private String concatCardList() {
+        return String.join(", ", getKoreanName());
+    }
+
+    private List<String> getKoreanName() {
+        List<String> names = new ArrayList<>();
+        cards.stream().forEach(x -> names.add(x.toKorean()));
+        return names;
     }
 
     private int calculateScore() {
@@ -39,16 +48,6 @@ public class Player {
         return calculateScore();
     }
 
-    public void drawNewCard() {
-        try {
-            System.out.println(name+"님, 한 장의 카드를 더 받겠습니까? (예는 Y, 아니오는 N)");
-            UserInput.inputYesOrNo();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-            drawNewCard();
-            printCards();
-        }
-    }
 
     public boolean isBlackJack() {
         return (cards.size() == 2 && (calculateScore() == 21 || calculateScore() == 11 && isAceExists()));

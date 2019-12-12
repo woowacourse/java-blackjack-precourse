@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import utils.ConsoleOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +21,22 @@ public class Dealer {
         cards.add(card);
     }
 
-    public void printFirstCard() {
-        List<Card> firstCard = new ArrayList<>();
-        firstCard.add(cards.get(0));
-        ConsoleOutput.printCards("딜러", firstCard);
+    public String getFirstCardString() {
+        return ("딜러 카드: " + cards.get(0));
     }
 
-    public void printCards() {
-        ConsoleOutput.printCards("딜러", cards);
+    public String getCardString() {
+        return ("딜러 카드: " + concatCardList());
+    }
+
+    private String concatCardList() {
+        return String.join(", ", getKoreanName());
+    }
+
+    private List<String> getKoreanName() {
+        List<String> names = new ArrayList<>();
+        cards.stream().forEach(x -> names.add(x.toKorean()));
+        return names;
     }
 
     private int calculateScore() {
