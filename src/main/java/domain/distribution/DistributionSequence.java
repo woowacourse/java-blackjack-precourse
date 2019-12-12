@@ -14,7 +14,7 @@ public class DistributionSequence {
     public DistributionSequence() {
         sequences = RandomNumbersGenerator.create(MIN_VALUE, calculateMaxValue());
     }
-    
+
     public int get() {
         return sequences.get(index++ % MAX_VALUE);
     }
