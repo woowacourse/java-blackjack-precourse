@@ -49,7 +49,7 @@ public class Card {
      * @return 심볼과 타입을 합친 카드의 분류값(ex : 1스페이드, 3하트)을 반환한다.
      */
     public String getCardName() {
-        return symbol.toString()+type.toString();
+        return symbol.getName()+type.getType();
     }
 
     /**

@@ -22,6 +22,12 @@ public class Player extends Dealer{
         this.bettingMoney = bettingMoney;
     }
 
-    // TODO 추가 기능 구현
-
+    public String getCardString() {
+        List<String> nameList = new ArrayList<String>();
+        String cardString = name+"카드: ";
+        for(Card card : cards) {
+            nameList.add(card.getCardName());
+        }
+        return cardString + String.join(",",nameList);
+    }
 }
