@@ -1,5 +1,6 @@
 package view.output;
 
+import domain.card.Symbol;
 import domain.user.Player;
 
 import java.util.Comparator;
@@ -24,6 +25,17 @@ public class Output {
                 .stream()
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.joining(", "));
-        System.out.println("딜러와 " + names +"에게 2장의 카드를 나누었습니다.");
+        System.out.println("딜러와 " + names + "에게 2장의 카드를 나누었습니다.");
+    }
+
+    public void showMessageHavingCard(List<Player> players) {
+        players.forEach(player
+                -> System.out.println(player.getName()
+                + "카드: "
+                + player.getCards()));
+    }
+
+    public void showMessageOneMoreCard(String name) {
+        System.out.println(name + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
     }
 }

@@ -45,4 +45,11 @@ public class Player {
         deck.removeCardFromDeck(card);
         addCard(card);
     }
+
+    public List<Card> findCardsByName(String name) {
+        if (this.name.equals(name)) {
+            return cards;
+        }
+        return null;
+    }
 }
