@@ -41,8 +41,14 @@ public class Output {
                 + player.getCards()));
     }
 
-    public void showMessageOneMoreCard(String name) {
+    public boolean showMessageOneMoreCard(String name) {
         System.out.println(name + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        return input.oneMoreCard();
+    }
+
+    public void showMessageMisInputErrorClose() {
+        System.out.println("잘못 입력하였습니다.");
+        System.out.println("아니오로 처리됩니다.");
     }
 
     public void showMessageDealerGetCard() {

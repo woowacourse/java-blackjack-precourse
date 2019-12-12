@@ -1,5 +1,7 @@
 package view.input;
 
+import view.output.Output;
+
 import java.util.Scanner;
 
 public class Input {
@@ -11,5 +13,17 @@ public class Input {
 
     public Double inputMoney() {
         return scanner.nextDouble();
+    }
+
+    public boolean oneMoreCard() {
+        String answer = scanner.nextLine();
+        if (answer.equals("y") || answer.equals("Y")) {
+            return true;
+        }
+        if (answer.equals("n") || answer.equals("N")) {
+            return false;
+        }
+        new Output().showMessageMisInputErrorClose();
+        return false;
     }
 }
