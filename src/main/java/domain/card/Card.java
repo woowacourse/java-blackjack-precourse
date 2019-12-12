@@ -37,4 +37,8 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+    
+    public int getScore() {
+    	return this.symbol.getScore();
+    }
 }
