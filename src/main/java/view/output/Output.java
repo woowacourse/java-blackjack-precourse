@@ -1,7 +1,7 @@
 package view.output;
 
-import domain.card.Symbol;
 import domain.user.Player;
+import domain.user.Table;
 
 import java.util.Comparator;
 import java.util.List;
@@ -37,5 +37,27 @@ public class Output {
 
     public void showMessageOneMoreCard(String name) {
         System.out.println(name + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+    }
+
+    public void showMessageDealerGetCard() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+    }
+
+    public void showMessageResult(List<Player> players) {
+        players.forEach(player
+                -> System.out.println(player.getName()
+                + "카드: "
+                + player.getCards()
+                + "= 결과: "
+                + player.calculateScore()));
+    }
+
+    public void showMessageResultMoney(Table table) {
+        System.out.println("## 최종 수익");
+        List<Double> balances = table.calculateMoney();
+
+        for (int i = 0; i < table.getTable().size(); i++) {
+            System.out.println(table.getTable().get(i).getName() + ": " + balances.get(i));
+        }
     }
 }

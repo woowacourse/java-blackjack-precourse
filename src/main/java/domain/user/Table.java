@@ -4,10 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Table {
-    List<Player> players = new LinkedList<>();
+    private static final int DRAW = 0;
+    private static final int DEALER_INDEX = 0;
+    private List<Player> players = new LinkedList<>();
+    private double tableMoney = 0;
 
     public Table() {
-        players.add(new Player("딜러", 0));
+        players.add(new Dealer("딜러", 0));
     }
 
     public void addMember(Player player) {
@@ -16,5 +19,35 @@ public class Table {
 
     public List<Player> getTable() {
         return players;
+    }
+
+    public List<Double> calculateMoney() {
+        List<Double> balances = new LinkedList<>();
+        int dealerScore = players.get(DEALER_INDEX).calculateScore();
+        balances.add(tableMoney);
+
+        for (int i = 1; i < players.size(); i++) {
+            balances.add(getMoneyPlayer(i, dealerScore));
+        }
+        balances.set(DEALER_INDEX, -getMoneyDealer(balances));
+
+        return balances;
+    }
+
+    private double getMoneyPlayer(int index, int dealerScore) {
+        if (players.get(index).calculateScore() > dealerScore) {
+            tableMoney -= players.get(index).getBettingMoney();
+            return players.get(index).getBettingMoney();
+        }
+        if (players.get(index).calculateScore() < dealerScore) {
+            tableMoney += players.get(index).getBettingMoney();
+            return -players.get(index).getBettingMoney();
+        }
+
+        return DRAW;
+    }
+
+    private Double getMoneyDealer(List<Double> playerMoney) {
+        return playerMoney.stream().reduce(Double::sum).orElseThrow(IllegalStateException::new);
     }
 }

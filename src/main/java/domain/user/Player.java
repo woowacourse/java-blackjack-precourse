@@ -46,10 +46,10 @@ public class Player {
         addCard(card);
     }
 
-    public List<Card> findCardsByName(String name) {
-        if (this.name.equals(name)) {
-            return cards;
-        }
-        return null;
+    public int calculateScore() {
+        return cards.stream()
+                .mapToInt(num -> num.getSymbol()
+                        .getScore())
+                .reduce(Integer::sum).orElse(0);
     }
 }
