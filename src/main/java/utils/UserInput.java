@@ -24,11 +24,11 @@ public class UserInput {
     }
 
     public static Boolean inputYesOrNo() {
-        String expression = SCANNER.nextLine();
-        if (expression.equals("y") || expression.equals("Y")) {
+        char expression = SCANNER.next().charAt(0);
+        if (expression == 'y' || expression == 'Y') {
             return true;
         }
-        if (expression.equals("n") || expression.equals("N")) {
+        if (expression == 'n' || expression == 'N') {
             return false;
         }
         throw new IllegalArgumentException("다시 입력해 주세요.");

@@ -48,6 +48,10 @@ public class Player {
         return calculateScore();
     }
 
+    public void drawNewCard() {
+
+    }
+
 
     public boolean isBlackJack() {
         return (cards.size() == 2 && (calculateScore() == 21 || calculateScore() == 11 && isAceExists()));
@@ -60,6 +64,14 @@ public class Player {
     public boolean isBusted() {
         return (calculateScore() > SCORE_LIMIT);
     }
+
+    public String isReadyToGo() {
+        if(!isBusted()) {
+            return (name+"은(는) 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+        }
+        return "";
+    }
+
     // 임시
     public String getNameTest() {
         return this.name;

@@ -10,4 +10,7 @@ public class ConsoleOutput {
         System.out.println(cardString);
     }
 
+    public static void printMessage(String string) {
+        System.out.println(string);
+    }
 }
