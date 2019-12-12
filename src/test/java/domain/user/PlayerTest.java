@@ -1,6 +1,9 @@
 package domain.user;
 
+import domain.card.Card;
 import domain.card.Deck;
+import domain.card.Symbol;
+import domain.card.Type;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -48,5 +51,14 @@ class PlayerTest {
 
         assertThat(player.isDealer()).isFalse();
         assertThat(dealer.isDealer()).isTrue();
+    }
+
+    @Test
+    public void isDealerUnderSixteenTest() {
+        Dealer dealer = new Dealer();
+
+        dealer.addCard(new Card(Symbol.TEN, Type.SPADE));
+        dealer.addCard(new Card(Symbol.TEN, Type.HEART));
+        assertThat(dealer.isDealerUnderSixteen()).isFalse();
     }
 }
