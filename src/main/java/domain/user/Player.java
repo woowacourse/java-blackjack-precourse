@@ -27,10 +27,6 @@ public class Player extends BlackJackPlayer {
         return -bettingMoney;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public Boolean canHaveMoreCard() {
         return getSumOfCards() <= BLACK_JACK_NUMBER;
     }

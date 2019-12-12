@@ -47,7 +47,7 @@ public class IO {
     public static Boolean haveMoreCard(BlackJackPlayer player) {
         String input;
         String inputPattern = "y|n";
-        String question = player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
+        String question = player.toString() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
 
         input = getInputUntilValid(question, inputPattern);
         if (input.equals("y")) {
@@ -62,7 +62,7 @@ public class IO {
     }
 
     public static void printPlayerCard(BlackJackPlayer player) {
-        String name = player.getName();
+        String name = player.toString();
         String cardsName = player.getCardsName();
 
         System.out.println(name + ": " + cardsName);

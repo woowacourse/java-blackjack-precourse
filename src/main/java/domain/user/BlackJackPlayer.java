@@ -14,8 +14,6 @@ public abstract class BlackJackPlayer {
 
     private final List<Card> cards = new ArrayList<>();
 
-    public abstract String getName();
-
     public void addCard(Card card) {
         cards.add(card);
     }

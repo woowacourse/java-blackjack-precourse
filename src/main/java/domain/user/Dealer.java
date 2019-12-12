@@ -22,10 +22,6 @@ public class Dealer extends BlackJackPlayer {
     public Dealer() {
     }
 
-    public String getName() {
-        return "딜러";
-    }
-
     /**
      * 이름을 입력받고, 이름 별로 배팅금액을 입력받아서 Player 객체를 생성하는 메소드
      *
@@ -152,8 +148,13 @@ public class Dealer extends BlackJackPlayer {
         for (Player player : players) {
             double playerEarn = player.calculateEarn(winningScore, rate);
             dealerEarn += -playerEarn;          // 딜러가 번 돈과 플레이어가 잃은 돈이 같음
-            IO.printEarn(player.getName(), playerEarn);
+            IO.printEarn(player.toString(), playerEarn);
         }
-        IO.printEarn(getName(), dealerEarn);
+        IO.printEarn(toString(), dealerEarn);
+    }
+
+    @Override
+    public String toString() {
+        return "딜러";
     }
 }
