@@ -9,7 +9,9 @@ import java.util.List;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player extends Person {
+public class Player {
+    protected static final int SCORE_LIMIT = 21;
+
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();

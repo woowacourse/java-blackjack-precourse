@@ -9,7 +9,9 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer extends Person {
+public class Dealer {
+    protected static final int SCORE_LIMIT = 21;
+
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {
