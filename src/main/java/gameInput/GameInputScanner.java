@@ -1,4 +1,4 @@
-package domain.game;
+package gameInput;
 
 import domain.user.Player;
 
