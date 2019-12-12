@@ -26,4 +26,10 @@ public class Player {
         cards.add(card);
     }
 
+    public int getScore() {
+        return cards.stream()
+                .map(Card::getScore)
+                .reduce(Integer::sum)
+                .orElse(0);
+    }
 }
