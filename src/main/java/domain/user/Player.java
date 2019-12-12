@@ -20,8 +20,10 @@ public class Player extends Dealer{
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+        money = 0;
     }
 
+    @Override
     public String getCardString() {
         List<String> nameList = new ArrayList<String>();
         String cardString = name+"카드: ";
@@ -29,5 +31,9 @@ public class Player extends Dealer{
             nameList.add(card.getCardName());
         }
         return cardString + String.join(",",nameList);
+    }
+    @Override
+    public String getMoneyString() {
+        return name+": "+Double.toString((money - bettingMoney));
     }
 }
