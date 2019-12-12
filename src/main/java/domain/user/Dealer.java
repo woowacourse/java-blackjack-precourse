@@ -142,6 +142,13 @@ public class Dealer extends BlackJackPlayer {
         return Math.max(winningScore, getScoreOfCards());
     }
 
+    /**
+     * 게임이 끝난 뒤, 최종 수익을 계산하는 메소드
+     *
+     * @param players 플레이어 리스트
+     * @param rate  승리했을 때의 배율 (무승부 - 1, 첫 패 블랙잭 - 1.5, 일반적인 승리 - 2)
+     * @param winningScore 승리했을 때의 점수 (딜러 burst - 0, 첫 패 블랙잭 - 21, 일반적인 상황 - 21보다 작은 최대 점수)
+     */
     private void distributeMoney(List<Player> players, double rate, int winningScore) {
         double dealerEarn = 0;
 
