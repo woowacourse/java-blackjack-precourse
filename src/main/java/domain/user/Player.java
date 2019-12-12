@@ -26,8 +26,4 @@ public class Player {
         cards.add(card);
     }
 
-    public void acceptCard() {
-
-    }
-
 }
