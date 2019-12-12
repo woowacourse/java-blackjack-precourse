@@ -10,5 +10,12 @@ public class Players {
 		
 	}
 	
-
+	public static void checkValidNames(List<String> playerNames) {
+		PlayersConstraints.checkValidNumOfNames(playerNames);
+		PlayersConstraints.checkValidEachName(playerNames);
+	}
+	
+	public static void checkValidBettingMoneys(List<Integer> bettingMoneys) {
+		PlayersConstraints.checkValidEachBettingMoney(bettingMoneys);
+	}
 }

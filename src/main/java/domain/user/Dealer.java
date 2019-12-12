@@ -13,7 +13,7 @@ public class Dealer {
 
     public Dealer() {}
 
-    public void addCard(Card card) {
+    public void drawCard(Card card) {
         cards.add(card);
     }
 

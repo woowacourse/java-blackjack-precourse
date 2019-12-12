@@ -4,8 +4,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.List;
 
-import domain.user.PlayerConstraints;
-import domain.user.PlayersConstraints;
+import domain.user.Player;
+import domain.user.Players;
 
 public class InputView {
 	private static Scanner SCANNER = new Scanner(System.in);
@@ -15,7 +15,7 @@ public class InputView {
 		try {
 			System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
 			playerNames = InputParser.parseStringArrToList(SCANNER.nextLine().split(","));
-			PlayersConstraints.checkValidNames(playerNames);
+			Players.checkValidNames(playerNames);
 			System.out.println();
 			return playerNames;
 		} catch(IllegalArgumentException e) {
@@ -35,7 +35,7 @@ public class InputView {
 		try {
 			System.out.println(name + "의 배팅 금액은?");
 			money = InputParser.parseStringToInt(SCANNER.nextLine());
-			PlayerConstraints.checkValidMoney(money);
+			Player.checkValidBettingMoney(money);
 			System.out.println();
 			return money;
 		} catch(IllegalArgumentException e) {

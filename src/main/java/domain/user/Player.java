@@ -18,10 +18,16 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
+    public void drawCard(Card card) {
         cards.add(card);
     }
 
     // TODO 추가 기능 구현
-
+    public static void checkValidName(String name) {
+    	PlayerConstraints.checkEmptyName(name);
+    }
+    
+    public static void checkValidBettingMoney(int money) {
+    	PlayerConstraints.checkMoneyRange(money);
+    }
 }

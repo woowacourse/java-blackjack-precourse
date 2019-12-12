@@ -11,7 +11,7 @@ public class CardDeck {
 		cards = CardFactory.create();
 	}
 	
-	public Card drawCard() {
+	public Card pop() {
 		checkEmpty();
 		Card randomCard = selectRandomCard();
 		this.cards.remove(randomCard);
