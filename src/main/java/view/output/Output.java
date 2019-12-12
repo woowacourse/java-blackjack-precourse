@@ -2,6 +2,7 @@ package view.output;
 
 import domain.user.Player;
 import domain.user.Table;
+import view.input.Input;
 
 import java.util.Comparator;
 import java.util.List;
@@ -9,9 +10,11 @@ import java.util.stream.Collectors;
 
 public class Output {
     private static final int BLACK_JACK_NUMBER = 10;
+    Input input = new Input();
 
-    public void showMessageInputName() {
+    public String showMessageInputName() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리");
+        return input.inputName();
     }
 
     public void showMessageInputMoney(String name) {
