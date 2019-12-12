@@ -18,6 +18,10 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }

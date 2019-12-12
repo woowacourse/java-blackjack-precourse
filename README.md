@@ -77,6 +77,6 @@
 
 ##### Player
 
-- [ ] POJO test
+- [x] POJO test
 
 #### view
