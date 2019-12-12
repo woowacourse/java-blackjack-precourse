@@ -5,12 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import domain.user.Player;
+
 public class BlackJackGame {
     private Scanner sc = new Scanner(System.in);
+    private List<Player> players = new ArrayList<>();
 
     public void runGame() {
         List<String> playerNames = this.getPlayerNames();
         List<Double> bettingMoney = this.getBettingMoney(playerNames);
+        this.setPlayerInformation(playerNames, bettingMoney);
     }
 
     private List<String> getPlayerNames() {
@@ -26,5 +30,12 @@ public class BlackJackGame {
             System.out.println();
         }
         return bettingMoney;
+    }
+
+    private void setPlayerInformation(List<String> playerNames, List<Double> bettingMoney) {
+        int amount = playerNames.size();
+        for (int i = 0; i < amount; i++) {
+            this.players.add(new Player(playerNames.get(i), bettingMoney.get(i)));
+        }
     }
 }
