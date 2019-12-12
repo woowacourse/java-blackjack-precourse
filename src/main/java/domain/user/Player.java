@@ -3,6 +3,7 @@ package domain.user;
 import domain.card.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,10 +19,18 @@ public class Player implements User {
         this.bettingMoney = bettingMoney;
     }
 
+    @Override
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
+    @Override
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(this.cards);
+    }
 }
