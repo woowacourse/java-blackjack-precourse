@@ -13,11 +13,14 @@ public class InitTest {
 		System.out.println("Names");
 		List<String> userInput = UtilityMethods
 			.sliceStringToList(sc.nextLine());
+		List<Double> bettings = new ArrayList<Double>();
+		for (int i = 0; i < userInput.size(); i++) {
+			System.out.println("Bettings");
+			double betting = sc.nextDouble();
+			bettings.add(betting);
+		}
 		System.out.println(userInput);
 		System.out.println("Bettings");
-		double betting = sc.nextDouble();
-		List<Double> bettings = new ArrayList<Double>();
-		bettings.add(betting);
 		List<Player> players = BlackJackInitializingSource
 			.initializePlayers(userInput, bettings);
 		for (Player player : players) {
