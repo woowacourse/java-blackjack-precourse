@@ -3,7 +3,13 @@ package view.input;
 import java.util.Scanner;
 
 public class Input {
+    Scanner scanner = new Scanner(System.in);
+
     public String inputName() {
-        return new Scanner(System.in).nextLine();
+        return scanner.nextLine();
+    }
+
+    public Double inputMoney() {
+        return scanner.nextDouble();
     }
 }

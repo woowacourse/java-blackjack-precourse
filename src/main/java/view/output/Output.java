@@ -10,15 +10,16 @@ import java.util.stream.Collectors;
 
 public class Output {
     private static final int BLACK_JACK_NUMBER = 10;
-    Input input = new Input();
+    private Input input = new Input();
 
     public String showMessageInputName() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리");
         return input.inputName();
     }
 
-    public void showMessageInputMoney(String name) {
+    public Double showMessageInputMoney(String name) {
         System.out.println(name + "의 배팅 금액은?");
+        return input.inputMoney();
     }
 
     public void showMessageDispensing(List<Player> players) {
