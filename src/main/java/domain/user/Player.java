@@ -50,6 +50,8 @@ public class Player extends Dealer {
      * 만약 카드를 더 뽑을 수 없는 경우(이미 블랙잭이거나 게임 오버된 경우)는 예외로 처리한다.
      *
      * @return 카드를 더 뽑을 지 여부를 반환한다.
+     * @exception InputMismatchException 입력된 값이 의도된 타입이 아닐 경우 예외처리한다.
+     * @throws InputMismatchException 입력된 값이 (y/n) 이외일 경우 예외처리한다.
      */
     private boolean checkDrawMoreByInput() {
         Scanner sc = new Scanner(System.in);

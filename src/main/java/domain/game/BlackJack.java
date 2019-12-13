@@ -128,6 +128,8 @@ public class BlackJack {
      * 이를 통해 재귀적으로 올바른 값을 돌려준다.
      *
      * @return int형의 배팅 금액을 리턴해준다.
+     * @exception InputMismatchException 입력된 값이 의도된 타입이 아닐 경우 예외처리한다.
+     * @throws InputMismatchException 입력된 값이 양의 정수가 아닐 경우 예외처리한다.
      */
     private int getBettingMoneyToInput(String name) {
         Scanner sc = new Scanner(System.in);
@@ -151,6 +153,8 @@ public class BlackJack {
      * 그 문자열을 여러 개의 이름 블록으로 분리하여 리스트로 만든다.
      *
      * @return 이름의 목록을 String형 List로 리턴해준다.
+     * @exception InputMismatchException 입력된 값이 의도된 타입이 아닐 경우 예외처리한다.
+     * @throws InputMismatchException 만약 입력된 값이 조건(길이제한, 최소개수 등)에 맞지 않는다면 예외처리한다.
      */
     private List<String> getNameToInput() {
         Scanner sc = new Scanner(System.in);
