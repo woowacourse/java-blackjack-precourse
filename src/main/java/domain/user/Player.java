@@ -2,19 +2,15 @@ package domain.user;
 
 import domain.card.Card;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player extends Gamer {
 	private static final String WHITE_SPACE = " ";
 	private static final double MIN_BETTING_MONEY = 1000;
 
 	private final String name;
 	private final double bettingMoney;
-	private final List<Card> cards = new ArrayList<>();
 
 	public Player(String name, double bettingMoney) {
 		validateName(name);
@@ -36,10 +32,6 @@ public class Player {
 		if (bettingMoney < MIN_BETTING_MONEY) {
 			throw new IllegalArgumentException();
 		}
-	}
-
-	public void addCard(Card card) {
-		cards.add(card);
 	}
 
 	public String getName() {
