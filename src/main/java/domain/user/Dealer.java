@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,5 +18,11 @@ public class Dealer extends Player {
 
     public boolean isDealerUnderSixteen() {
         return getScore() < DEALER_MIN_STAND_NUMBER;
+    }
+
+    public void dealerMoreCard(Deck deck) {
+        if (isDealerUnderSixteen()) {
+            super.moreCard(deck);
+        }
     }
 }

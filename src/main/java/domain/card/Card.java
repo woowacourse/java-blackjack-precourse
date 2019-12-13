@@ -23,8 +23,6 @@ public class Card {
         return symbol == Symbol.ACE;
     }
 
-    // TODO Card 관련 추가 기능 구현
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

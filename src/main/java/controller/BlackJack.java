@@ -23,7 +23,7 @@ public class BlackJack {
     }
 
     public void start() {
-        initGameWithCard();
+        initGameWithCard(); //TODO 나중에 phase 단위 로 메소드 이름 변경
         moreCardsPhase();
     }
 
@@ -35,5 +35,9 @@ public class BlackJack {
 
     public void moreCardsPhase() {
         gamers.moreCard(deck);
+    }
+
+    public void dealerPhase() {
+
     }
 }
