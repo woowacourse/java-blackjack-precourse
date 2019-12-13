@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 게임 딜러를 의미하는 객체이다.
+ * Dealer는 블랙잭 게임의 딜러를 의미하는 객체이다.
+ * 카드 패(리스트)를 가지고 있으며, 이에 대한 점수 부여가 가능하다.
  *
  * @author kafka
+ * @version 1.3
  */
 public class Dealer {
     /**
@@ -26,6 +28,7 @@ public class Dealer {
 
     /**
      * addCard는 카드를 패(리스트)에 추가하는 메서드이다.
+     *
      * @param card 새로 리스트에 추가할 카드 객체이다.
      */
     public void addCard(Card card) {
@@ -54,7 +57,7 @@ public class Dealer {
      * ACE 카드는 11점으로 계산되지만, 그것이 점수를 초과할 경우에는 1점으로 계산된다.
      *
      * @param score 현재 점수이다.
-     * @param card 계산해야 할 카드이다. 이 카드가 ACE가 아니라면 함수는 0을 반환한다.
+     * @param card  계산해야 할 카드이다. 이 카드가 ACE가 아니라면 함수는 0을 반환한다.
      * @return 계산된 추가 점수이다. 만약 카드가 ACE이고 11점을 부여해도 괜찮다면, 10을 반환해 이 값을 더해주도록 한다.(1점은 이미 이전에 더했으므로)
      */
     private int getAceScore(int score, Card card) {
@@ -63,12 +66,13 @@ public class Dealer {
         }
         return 0;
     }
+
     /**
      * getCardListSize는 가지고 있는 패(카드 리스트)의 사이즈를 반환한다.
      *
      * @return 가지고 있는 카드의 수를 반환한다.
      */
-    public int getCardListSize() {
+    protected int getCardListSize() {
         return cards.size();
     }
 
@@ -78,11 +82,12 @@ public class Dealer {
      * @return 양식에 맞는 점수 문자열이 반환된다.
      */
     public String getScoreString() {
-        return Message.PRINT_PlAYER_RESULT + Integer.toString(getScore());
+        return Message.PRINT_PLAYER_RESULT + Integer.toString(getScore());
     }
 
     /**
      * checkDrawMore는 드로우를 더 할 수 있는지(딜러의 경우, 특정 값 이하면 자동 드로우이다) 확인한다.
+     *
      * @return 드로우 가능 여부를 boolean 으로 반환한다.
      */
     public boolean checkDrawMore() {
@@ -104,7 +109,7 @@ public class Dealer {
      * @return 카드의 목록을 합친 문자열을 반환한다.
      */
     protected String getCardString() {
-        List<String> nameList = new ArrayList<String>();
+        List<String> nameList = new ArrayList<>();
         String cardString = "카드: ";
         for (Card card : cards) {
             nameList.add(card.getCardName());
