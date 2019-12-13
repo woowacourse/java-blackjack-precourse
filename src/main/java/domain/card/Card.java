@@ -33,7 +33,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "" + symbol.getScore() + type.getName();
+        return "" + symbol.getAlphabet() + type.getName();
     }
 
     public Symbol getSymbol() {

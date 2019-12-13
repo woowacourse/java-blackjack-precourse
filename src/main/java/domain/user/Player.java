@@ -54,10 +54,19 @@ public class Player {
                 .filter(num -> num > Symbol.ACE.getScore())
                 .reduce(Integer::sum).orElse(0);
 
+        if (hasNotAce()) {
+            return symbolCount;
+        }
         if (calculateScoreAce(symbolCount) <= Manual.BURST.getValue()) {
             return calculateScoreAce(symbolCount);
         }
         return Manual.EMPTY.getValue();
+    }
+
+    private boolean hasNotAce() {
+        return cards.stream()
+                .mapToInt(num -> num.getSymbol().getScore())
+                .anyMatch(num -> num == Symbol.ACE.getScore());
     }
 
     public int calculateScoreAce(int symbolCount) {

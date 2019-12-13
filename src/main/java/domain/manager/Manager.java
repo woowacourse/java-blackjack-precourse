@@ -135,6 +135,7 @@ public class Manager {
     private void end(Table table) {
         output.newLine();
         processManagementFinalResult(table.getTable());
+        output.newLine();
         processManagementBalance(table);
     }
 
