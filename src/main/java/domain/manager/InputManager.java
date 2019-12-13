@@ -57,4 +57,14 @@ public class InputManager {
         return Integer.parseInt(inputString);
     }
 
+    private static boolean isNumberValid(String inputString) {
+        final int minimumBettingMoney = 0;
+
+        if (!(isNumeric(inputString) && Integer.parseInt(inputString) > minimumBettingMoney)) {
+            System.out.printf("%d 보다 큰 '숫자'를 입력해주세요.", minimumBettingMoney);
+            return false;
+        }
+        return true;
+    }
+
 }
