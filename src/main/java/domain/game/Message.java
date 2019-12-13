@@ -16,7 +16,7 @@ import java.lang.String;
  */
 
 public class Message {
-    public static final String GET_NAME = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)/n";
+    public static final String GET_NAME = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)\n";
     public static final String BET_PLAYER = "의 배팅 금액은?\n";
     public static final String START_GAME = "에게 2장의 카드를 나누었습니다.\n";
     public static final String DRAW_PLAYER_QUESTION = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)\n";
@@ -34,11 +34,5 @@ public class Message {
      */
     private Message() {
         throw new AssertionError();
-    }
-    public static void printPlayerBetQuestion(String name) {
-        System.out.println(name + BET_PLAYER);
-    }
-    public static void printPlayerDrawQuestion(String name){
-        System.out.println(name + DRAW_PLAYER_QUESTION);
     }
 }
