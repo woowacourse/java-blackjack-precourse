@@ -1,13 +1,19 @@
 package domain.main;
 
 import domain.user.Player;
+import domain.user.PlayerList;
 
 import java.util.List;
 
 public class OutputPrint {
 
-    public void getPlayerNames() {
+    private static InputScanner inputScanner = new InputScanner();
+    private static PlayerList playerList;
+
+    public String[] getPlayerNames() {
         println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
+        String[] playerNames = inputScanner.stringLine().split(",");
+        return playerNames;
     }
 
     public void getBettingMoney(String playerName) {
