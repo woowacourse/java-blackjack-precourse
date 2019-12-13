@@ -9,12 +9,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Manager {
-    private static final int REMOVE_ERROR_VALUE = 1;
-    private static final int CONTINUE_VALUE = 0;
-    private static final int DEALER_POSITION = 0;
-    private static final int BLACK_JACK_NUMBER = 10;
-    private static final int BURST = 21;
-    private static final int DEALER_DRAW_MIN = 16;
     Deck deck = new Deck();
     Table table = new Table();
     Output output = new Output();
@@ -29,7 +23,8 @@ public class Manager {
         processManagementInputPlayers();
         processManagementCardDispensing(table.getTable());
         processManagementGetOneMoreCard(table.getTable());
-        processManagementDealer(table.getTable().get(DEALER_POSITION));
+        processManagementDealer(table.getTable()
+                .get(Manuel.DEALER_POSITION.getValue()));
     }
 
     private void processManagementInputNames() {
@@ -51,11 +46,11 @@ public class Manager {
     private int checkMoneyValidating(Double bettingMoney) {
         if (validator.isBelowZero(bettingMoney)) {
             output.showMessageMisInputErrorReturn();
-            return REMOVE_ERROR_VALUE;
+            return Manuel.REMOVE_ERROR.getValue();
         }
         bettingMoneys.add(bettingMoney);
 
-        return CONTINUE_VALUE;
+        return Manuel.CONTINUE.getValue();
     }
 
     private void processManagementInputPlayers() {
@@ -65,8 +60,8 @@ public class Manager {
     }
 
     private void processManagementCardDispensing(List<Player> players) {
-        players.get(DEALER_POSITION).pickCardFromDeck(deck);
-        for (int i = 1; i < players.size(); i++) {
+        players.get(Manuel.DEALER_POSITION.getValue()).pickCardFromDeck(deck);
+        for (int i = Manuel.PLAYER_INIT.getValue(); i < players.size(); i++) {
             players.get(i).pickCardFromDeck(deck);
             players.get(i).pickCardFromDeck(deck);
         }
@@ -75,7 +70,7 @@ public class Manager {
     }
 
     private void processManagementGetOneMoreCard(List<Player> players) {
-        for (int i = 1; i < players.size(); i++) {
+        for (int i = Manuel.PLAYER_INIT.getValue(); i < players.size(); i++) {
             pickOneMoreCard(players, i);
         }
     }
@@ -90,13 +85,14 @@ public class Manager {
         }
     }
 
-    private boolean pickOneMoreCardState(List<Player> players, int index, boolean selectDraw) {
+    private boolean pickOneMoreCardState(
+            List<Player> players, int index, boolean selectDraw) {
         if (!selectDraw) {
             return false;
         }
         players.get(index).pickCardFromDeck(deck);
         output.showMessageHavingCard(players.get(index));
-        if (players.get(index).calculateScore(BLACK_JACK_NUMBER) > BURST) {
+        if (players.get(index).calculateScore() > Manuel.BURST.getValue()) {
             output.showMessageBurst(players.get(index).getName());
             return false;
         }
@@ -106,7 +102,7 @@ public class Manager {
     private void processManagementDealer(Player dealer) {
         boolean loop = false;
 
-        if (dealer.calculateScore(BLACK_JACK_NUMBER) <= DEALER_DRAW_MIN) {
+        if (dealer.calculateScore() <= Manuel.DEALER_MIN.getValue()) {
             loop = true;
         }
         while (loop) {
@@ -116,17 +112,17 @@ public class Manager {
     }
 
     private boolean processManagementDealerGetOneMore(Player dealer) {
-        if (dealer.calculateScore(BLACK_JACK_NUMBER) <= DEALER_DRAW_MIN) {
+        if (dealer.calculateScore() <= Manuel.DEALER_MIN.getValue()) {
             output.showMessageDealerGetCard();
             dealer.pickCardFromDeck(deck);
             output.showMessageHavingCard(dealer);
-            System.out.println("딜러 카드합 : " + dealer.calculateScore(BLACK_JACK_NUMBER));
+            System.out.println("딜러 카드합 : " + dealer.calculateScore());
         }
-        if (dealer.calculateScore(BLACK_JACK_NUMBER) > BURST) {
+        if (dealer.calculateScore() > Manuel.BURST.getValue()) {
             output.showMessageBurst(dealer.getName());
             return false;
         }
-        return dealer.calculateScore(BLACK_JACK_NUMBER) <= DEALER_DRAW_MIN;
+        return dealer.calculateScore() <= Manuel.DEALER_MIN.getValue();
     }
 
     private void end() {

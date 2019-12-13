@@ -1,12 +1,11 @@
 package domain.user;
 
+import domain.manager.Manuel;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class Table {
-    private static final int DRAW = 0;
-    private static final int DEALER_INDEX = 0;
-    private static final int BLACK_JACK_NUMBER = 10;
     private List<Player> players = new LinkedList<>();
     private double tableMoney = 0;
 
@@ -24,28 +23,28 @@ public class Table {
 
     public List<Double> calculateMoney() {
         List<Double> balances = new LinkedList<>();
-        int dealerScore = players.get(DEALER_INDEX).calculateScore(BLACK_JACK_NUMBER);
-        balances.add(tableMoney);
 
-        for (int i = 1; i < players.size(); i++) {
-            balances.add(getMoneyPlayer(i, dealerScore));
+        balances.add(tableMoney);
+        for (int i = Manuel.PLAYER_INIT.getValue(); i < players.size(); i++) {
+            balances.add(getMoneyPlayer(i, players.get(
+                    Manuel.DEALER_POSITION.getValue()).calculateScore()));
         }
-        balances.set(DEALER_INDEX, -getMoneyDealer(balances));
+        balances.set(Manuel.DEALER_POSITION.getValue(), -getMoneyDealer(balances));
 
         return balances;
     }
 
     private double getMoneyPlayer(int index, int dealerScore) {
-        if (players.get(index).calculateScore(BLACK_JACK_NUMBER) > dealerScore) {
+        if (players.get(index).calculateScore() > dealerScore) {
             tableMoney -= players.get(index).getBettingMoney();
             return players.get(index).getBettingMoney();
         }
-        if (players.get(index).calculateScore(BLACK_JACK_NUMBER) < dealerScore) {
+        if (players.get(index).calculateScore() < dealerScore) {
             tableMoney += players.get(index).getBettingMoney();
             return -players.get(index).getBettingMoney();
         }
 
-        return DRAW;
+        return Manuel.DEFAULT.getValue();
     }
 
     private Double getMoneyDealer(List<Double> playerMoney) {

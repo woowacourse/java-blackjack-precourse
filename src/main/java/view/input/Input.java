@@ -6,7 +6,7 @@ import view.output.Output;
 import java.util.Scanner;
 
 public class Input {
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public String inputName() {
         return scanner.nextLine();

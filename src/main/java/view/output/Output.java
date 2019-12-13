@@ -4,12 +4,10 @@ import domain.user.Player;
 import domain.user.Table;
 import view.input.Input;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Output {
-    private static final int BLACK_JACK_NUMBER = 10;
     private Input input = new Input();
 
     public String showMessageInputName() {
@@ -73,7 +71,7 @@ public class Output {
                 + "카드: "
                 + player.getCards()
                 + "= 결과: "
-                + player.calculateScore(BLACK_JACK_NUMBER)));
+                + player.calculateScore()));
     }
 
     public void showMessageResultMoney(Table table) {

@@ -3,6 +3,7 @@ package domain.user;
 import domain.card.Card;
 import domain.card.Deck;
 import domain.card.Symbol;
+import domain.manager.Manuel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,23 +48,24 @@ public class Player {
         addCard(card);
     }
 
-    public int calculateScore(int blackJackNumber) {
+    public int calculateScore() {
         int symbolCount = cards.stream()
                 .mapToInt(num -> num.getSymbol().getScore())
                 .filter(num -> num > Symbol.ACE.getScore())
                 .reduce(Integer::sum).orElse(0);
 
-        return calculateScoreAce(blackJackNumber, symbolCount);
+        return calculateScoreAce(symbolCount);
     }
 
-    public int calculateScoreAce(int blackJackNumber, int symbolCount) {
+    public int calculateScoreAce(int symbolCount) {
         int countAce = calculateCountingAce();
 
-        if (countAce > 0 && symbolCount <= blackJackNumber) {
+        if (countAce > Manuel.EMPTY.getValue()
+                && symbolCount <= Manuel.SAFE.getValue()) {
             return symbolCount + Symbol.TEN.getScore()
                     + (Symbol.ACE.getScore() * countAce);
         }
-        if (countAce > 0) {
+        if (countAce > Manuel.EMPTY.getValue()) {
             return symbolCount + (Symbol.ACE.getScore() * countAce);
         }
         return symbolCount;
