@@ -26,7 +26,7 @@ public class Dealer {
     }
 
     public String getFinalCardString() {
-        return ("딜러 카드: " + concatCardList() + " - 결과: "+this.calculateScore()+this.printBust());
+        return ("딜러 카드: " + concatCardList() + " - 결과: " + this.calculateScore() + this.printBust());
     }
 
     private String concatCardList() {
@@ -35,15 +35,15 @@ public class Dealer {
 
     private List<String> getKoreanName() {
         List<String> names = new ArrayList<>();
-        cards.stream().forEach(x -> names.add(x.toKorean()));
+        cards.forEach(x -> names.add(x.toKorean()));
         return names;
     }
 
     private int calculateScore() {
         int score = (cards.stream()
-                .mapToInt(x -> x.getScore())
+                .mapToInt(Card::getScore)
                 .sum());
-        if(cards.stream().filter(x -> x.getScore() == 1).count() != 0
+        if (cards.stream().anyMatch(x -> x.getScore() == 1)
                 && score <= 11) {
             score += 10;
         }
@@ -55,7 +55,7 @@ public class Dealer {
     }
 
     private String printBust() {
-        if(this.isBusted()) {
+        if (this.isBusted()) {
             return (" (버스트)");
         }
         return "";
