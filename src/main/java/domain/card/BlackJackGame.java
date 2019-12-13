@@ -31,6 +31,90 @@ public class BlackJackGame {
     private void playBlackJackGame(List<Player> players, Dealer dealer, List<Card> cardTrump) {
         HashMap<Card, Integer> useCard = new HashMap<>();
         getCardToFirstTurn(useCard, players, dealer, cardTrump);
+
+    }
+
+    private void checkBlackJack(List<Player> players, Dealer dealer) {
+        if(dealer.getCard().size() == 2 && dealer.allScore() == 21) {
+            firstTurnBlackJackPlayerAndDealer(players, dealer);
+        }
+        if(dealer.getCard().size() == 2 && dealer.allScore() != 21) {
+            firstTurnBlackJackOnlyPlayer(players, dealer);
+        }
+    }
+
+    private void firstTurnBlackJackOnlyPlayer(List<Player> players, Dealer dealer) {
+        int winnerMoney = 0;
+        int loseMoney = 0;
+        for(Player player : players) {
+            if(player.allScore() == 21) {
+                winnerMoney += player.firstBlackJackWinnerMoney((int) player.getBettingMoney());
+            }
+            if(player.allScore() != 21) {
+                loseMoney += player.getBettingMoney();
+            }
+        }
+        displayFirstTurnBlackJackOnlyPlayer(players,winnerMoney, loseMoney);
+    }
+
+    private void displayFirstTurnBlackJackOnlyPlayer(List<Player> players, int winnerMoney, int loseMoney) {
+        System.out.println("플레이어가 블랙잭에 당첨되었습니다!");
+        System.out.println("###최종수익");
+        for(Player player : players) {
+            winnerOrLose(player);
+        }
+        System.out.println("딜러 :" + (loseMoney - winnerMoney));
+    }
+
+    private void winnerOrLose(Player player) {
+        if(player.allScore() == 21) {
+            System.out.println(player.getName() + " : " + player.getBettingMoney()*1.5);
+        }
+        if(player.allScore() != 21) {
+            System.out.println(player.getName() + " : "  + -player.getBettingMoney());
+        }
+    }
+
+    private void firstTurnBlackJackPlayerAndDealer(List<Player> players, Dealer dealer) {
+        int losePlayerValue =0;
+        for(Player player : players) {
+            if(player.getCard().size() == 2 && player.allScore() == 21) {
+                displayFirstTurnBlackJackPlayerAndDealer(players);
+                break;
+            }
+            if(player.getCard().size() == 2 && player.allScore() != 21) {
+                losePlayerValue++;
+            }
+        }
+        onlyDealerWin(players, losePlayerValue);
+    }
+
+    private void onlyDealerWin(List<Player> players, int losePlayerValue) {
+        if(losePlayerValue == players.size()) {
+            displayFirstTurnBlackJackOnlyDealer(players);
+        }
+    }
+
+    private void displayFirstTurnBlackJackOnlyDealer(List<Player> players) {
+        System.out.println("딜러가 승리 하였습니다!");
+        System.out.println("###최종수익");
+        int loseMoney =0;
+        for(Player player : players){
+            loseMoney += player.getBettingMoney();
+            System.out.println(player.getName() + " : " + (-player.getBettingMoney()));
+        }
+        System.out.println("딜러: " + loseMoney);
+    }
+
+    private void displayFirstTurnBlackJackPlayerAndDealer(List<Player> players) {
+        int dealerLoseMoney = 0;
+        System.out.println("딜러와 플레이어가 블랙잭이므로 플레이어는 딜러에게 배팅금액을 받습니다.");
+        System.out.println("#최종수익");
+        for(Player player : players) {
+            dealerLoseMoney += player.getBettingMoney();
+            System.out.println(player.getName() + ": " + player.getBettingMoney());
+        }
+        System.out.println("딜러:" + -dealerLoseMoney);
     }
 
     private void getCardToFirstTurn(HashMap<Card, Integer> useCard, List<Player> players, Dealer dealer, List<Card> cardTrump) {
@@ -39,6 +123,7 @@ public class BlackJackGame {
             giveCardToAllPlayer(useCard, players, dealer, cardTrump);
         }
         displayFirstTurn(players, dealer);
+        checkBlackJack(players,dealer);
 
     }
 

@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import domain.card.CardFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +29,11 @@ public class Player {
         cards.add(cardTrump.get(chooseCardIndex));
         useState.put(cardTrump.get(chooseCardIndex),1);
     }
+
+    public int firstBlackJackWinnerMoney(int money) {
+        return (int) (money * 1.5);
+    }
+
     public String getName() {
         return this.name;
     }
@@ -49,6 +53,14 @@ public class Player {
             }
         }
         return false;
+    }
+
+    public int allScore() {
+        int allScore = 0;
+        for(Card card : cards) {
+            allScore += card.getScore();
+        }
+        return allScore;
     }
 
     private boolean isUserCard(HashMap<Card, Integer> useState, int cardIndex, List<Card> cardTrump) {

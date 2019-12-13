@@ -44,6 +44,13 @@ public class Dealer {
         }
         return useState.containsKey(cardTrump.get(cardIndex));
     }
+    public int allScore() {
+        int allScore = 0;
+        for(Card card : cards) {
+            allScore += card.getScore();
+        }
+        return allScore;
+    }
 
     // TODO 추가 기능 구현
 }
