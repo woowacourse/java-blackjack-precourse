@@ -38,4 +38,8 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+    public String toPrintString() {
+        return symbol.toString() + type.toString();
+    }
 }

@@ -24,4 +24,15 @@ public enum Symbol {
     public int getScore() {
         return score;
     }
+
+    public String toString() {
+        if (this.getScore() == 1) {
+            return "A";
+        }
+        if ((this == Symbol.JACK) || (this == Symbol.QUEEN) || (this == Symbol.KING)) {
+            return this.name().substring(0, 1);
+        }
+
+        return Integer.toString(this.getScore());
+    }
 }
