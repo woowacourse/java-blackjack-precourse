@@ -8,7 +8,6 @@ public class BlackJackApplication {
 		Game blackJack = Game.getInstance();
 		
 		blackJack.run();
-		blackJack.showPlayers();
 	}
 
 }

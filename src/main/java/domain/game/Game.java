@@ -5,27 +5,43 @@ import java.util.ArrayList;
 import domain.view.ViewInput;
 
 public class Game {
-	static Game blackJack = new Game();
-	private ArrayList<String> playerList = new ArrayList<String>();
+	private static Game blackJack = new Game();
+	
+	private ArrayList<String> playerName = new ArrayList<String>();
 	
 	public static Game getInstance() {
 		return blackJack;
 	}
 
 	public void run() {
-		ViewInput.getPlayerNames();
+		makePlayerName(ViewInput.getPlayerNames());
 	}
 	
-	public void makePlayers(String name) {
+	public String nameIsValid(String name) throws IllegalArgumentException {
+		if (name.equals("")) {
+			throw new IllegalArgumentException();
+		}
+		
+		return name;
+	}
+	
+	public void makePlayerName(String name) {
 		String[] names = name.split(",");
 		
-		for(String player : names) {
-			playerList.add(player);
+		for (String player : names) {
+			playerName.add(player.trim());
+		}
+		
+		getAllBettingPrice();
+	}
+	
+	public void getAllBettingPrice() {
+		for (String player : playerName) {
+			int money = ViewInput.getBettingPrice(player);
 		}
 	}
-	public void showPlayers() {
-		for(String player : playerList) {
-			System.out.println(player);
-		}
+	
+	public int moneyIsValid(int money) throws IllegalArgumentException {
+		return money;
 	}
-}
+ }
