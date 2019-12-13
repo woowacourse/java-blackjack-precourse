@@ -18,7 +18,14 @@ public class Card {
         this.type = type;
     }
 
-    // 카드의 숫자 계산
+    public int cardNumber()  {
+    	int cardNumber = 0;
+    	cardNumber = symbol.getScore();
+    	if (cardNumber == 1) {
+    		cardNumber = selectAceNumber();
+    	}
+    	return cardNumber;
+    }
     
     private int selectAceNumber() {
     	int aceNumber = 0;
@@ -29,6 +36,7 @@ public class Card {
     		aceNumberString = scanner.nextLine().trim();
     	} while(!selectAceNumberChecked(aceNumberString));
     	aceNumber = Integer.parseInt(aceNumberString);
+    	scanner.close();
     	return aceNumber;
     }
     
