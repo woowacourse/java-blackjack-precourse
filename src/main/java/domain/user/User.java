@@ -12,7 +12,7 @@ public class User {
 	private static final int ACE_UPDATE_SCORE = 10;
 	private static final int BLACKJACK_SCORE = 21;
 	
-	private List<Card> cards = new ArrayList<Card>();
+	protected List<Card> cards = new ArrayList<Card>();
 	
 	public User() {};
 	
