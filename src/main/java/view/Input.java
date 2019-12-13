@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -26,5 +27,9 @@ public class Input {
 
     public boolean endWithComma(String input) {
         return input.endsWith(COMMA);
+    }
+
+    public List<String> splitAsComma(String input) {
+        return Arrays.asList(input.split(COMMA));
     }
 }

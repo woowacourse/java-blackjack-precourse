@@ -24,4 +24,11 @@ class InputTest {
         assertThat(input.endWithComma("자바,")).isTrue();
         assertThat(input.endWithComma("자바,코틀")).isFalse();
     }
+
+    @Test
+    public void splitAsCommaTest() {
+        Input input = new Input();
+        assertThat(input.splitAsComma("가나,다라,마바").toString())
+                .isEqualTo("[가나, 다라, 마바]");
+    }
 }
