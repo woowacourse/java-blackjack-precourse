@@ -72,4 +72,40 @@ class PlayerTest {
         player.addCard(new Card(Symbol.ACE, Type.CLUB));
         assertThat(player.aceCardExist()).isTrue();
     }
+
+    @Test
+    public void isBurstTest() {
+        Player player = new Player("이름1", 10000d);
+        player.addCard(new Card(Symbol.TEN, Type.SPADE));
+        player.addCard(new Card(Symbol.ACE, Type.HEART));
+        assertThat(player.isNotBurst()).isTrue();
+
+        player.addCard(new Card(Symbol.TEN, Type.SPADE));
+        assertThat(player.isNotBurst()).isTrue();
+
+        player.addCard(new Card(Symbol.ACE, Type.HEART));
+        assertThat(player.isNotBurst()).isFalse();
+    }
+
+    @Test
+    public void getScoreWithAceCheck() {
+        Player player = new Player("이름1", 10000d);
+        Player player2 = new Player("이름2", 10000d);
+        Player player3 = new Player("이름3", 10000d);
+
+        player.addCard(new Card(Symbol.TEN, Type.SPADE));
+        player.addCard(new Card(Symbol.ACE, Type.HEART));
+        assertThat(player.getScoreWithAceCheck()).isEqualTo(21);
+
+        player2.addCard(new Card(Symbol.JACK, Type.HEART));
+        player2.addCard(new Card(Symbol.QUEEN, Type.HEART));
+        player2.addCard(new Card(Symbol.ACE, Type.CLUB));
+        assertThat(player2.getScoreWithAceCheck()).isEqualTo(21);
+
+        player3.addCard(new Card(Symbol.ACE, Type.SPADE));
+        player3.addCard(new Card(Symbol.TEN, Type.CLUB));
+        player3.addCard(new Card(Symbol.ACE, Type.HEART));
+        player3.addCard(new Card(Symbol.ACE, Type.DIAMOND));
+        assertThat(player3.getScoreWithAceCheck()).isEqualTo(13);
+    }
 }
