@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.*;
@@ -12,6 +13,7 @@ public class BlackJackGame {
     private static final int LOWER_CASE_ALPHABET_Z = 122;
 
     Scanner scanPlayerInfo = new Scanner(System.in);
+
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
         blackJackGame.startGame();
@@ -19,7 +21,50 @@ public class BlackJackGame {
 
     private void startGame() {
         List<Player> players = registPlayers();
+        Dealer dealer = new Dealer();
+        CardFactory cardFactory = new CardFactory();
+        List<Card> cardTrump = cardFactory.create();
+        playBlackJackGame(players, dealer, cardTrump);
 
+    }
+
+    private void playBlackJackGame(List<Player> players, Dealer dealer, List<Card> cardTrump) {
+        HashMap<Card, Integer> useCard = new HashMap<>();
+        getCardToFirstTurn(useCard, players, dealer, cardTrump);
+    }
+
+    private void getCardToFirstTurn(HashMap<Card, Integer> useCard, List<Player> players, Dealer dealer, List<Card> cardTrump) {
+
+        for(int i=0; i<2; i++) {
+            giveCardToAllPlayer(useCard, players, dealer, cardTrump);
+        }
+        displayFirstTurn(players, dealer);
+
+    }
+
+    private void displayFirstTurn(List<Player> players, Dealer dealer) {
+        System.out.print("딜러와 ");
+        for(Player player : players) {
+            System.out.print(player.getName() + " ");
+        }
+        System.out.println("에게 2장의 카드를 나누었습니다.");
+        System.out.println("딜러 : " + dealer.getCard().get(0));
+        displayCardState(players,dealer);
+
+    }
+
+    private void displayCardState(List<Player> players, Dealer dealer) {
+        for(Player player: players) {
+            System.out.print(player.getName() + " : ");
+            player.displayCardState();
+        }
+    }
+
+    private void giveCardToAllPlayer(HashMap<Card, Integer> useCard, List<Player> players, Dealer dealer, List<Card> cardTrump) {
+        for(Player player : players) {
+            player.addCard(useCard, cardTrump);
+        }
+        dealer.addCard(useCard,cardTrump);
     }
 
     private ArrayList<Player> registPlayers() {
