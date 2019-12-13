@@ -5,14 +5,13 @@ import domain.user.Player;
 import domain.user.Table;
 import view.output.Output;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Manager {
     private static final int REMOVE_ERROR_VALUE = 1;
     private static final int CONTINUE_VALUE = 0;
+    private static final int DEALER_POSITION = 0;
     Deck deck = new Deck();
     Table table = new Table();
     Output output = new Output();
@@ -25,6 +24,7 @@ public class Manager {
         processManagementInputNames();
         processManagementInputBettingMoney();
         processManagementInputPlayers();
+        processManagementCardDispensing(table.getTable());
     }
 
     private void processManagementInputNames() {
@@ -57,6 +57,16 @@ public class Manager {
         for (int i = 0; i < names.size(); i++) {
             table.addMember(new Player(names.get(i), bettingMoneys.get(i)));
         }
+    }
+
+    private void processManagementCardDispensing(List<Player> players) {
+        players.get(DEALER_POSITION).pickCardFromDeck(deck);
+        for (int i = 1; i < players.size(); i++) {
+            players.get(i).pickCardFromDeck(deck);
+            players.get(i).pickCardFromDeck(deck);
+        }
+        output.showMessageDispensing(players);
+        output.showMessageHavingCard(players);
     }
 
     private void end() {

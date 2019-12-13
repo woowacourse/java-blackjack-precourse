@@ -23,14 +23,9 @@ public class Output {
     }
 
     public void showMessageDispensing(List<Player> players) {
-        players.remove(0);
-
-        String names = players.stream()
+        String names = String.join(", ", players.stream()
                 .collect(Collectors.groupingBy(Player::getName))
-                .keySet()
-                .stream()
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.joining(", "));
+                .keySet());
         System.out.println("딜러와 " + names + "에게 2장의 카드를 나누었습니다.");
     }
 
