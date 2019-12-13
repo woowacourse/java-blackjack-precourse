@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Player {
 	private static final String WHITE_SPACE = " ";
+	private static final double MIN_BETTING_MONEY = 1000;
 
 	private final String name;
 	private final double bettingMoney;
@@ -17,6 +18,7 @@ public class Player {
 
 	public Player(String name, double bettingMoney) {
 		validateName(name);
+		validateBettingMoney(bettingMoney);
 		this.name = name;
 		this.bettingMoney = bettingMoney;
 	}
@@ -26,6 +28,12 @@ public class Player {
 			throw new IllegalArgumentException();
 		}
 		if (name.contains(WHITE_SPACE)) {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	public static void validateBettingMoney(double bettingMoney) {
+		if (bettingMoney < MIN_BETTING_MONEY) {
 			throw new IllegalArgumentException();
 		}
 	}
