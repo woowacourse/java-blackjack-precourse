@@ -26,10 +26,6 @@ public class GameBoard {
             gamer.add(createPlayer(player[i], bettingMoney.get(i)));
         }
 
-        for (Gamer g : gamer) {
-            System.out.println(g.toString());
-        }
-
         shuffleCards();
         init();
     }
@@ -41,16 +37,11 @@ public class GameBoard {
     }
 
     public void shuffleCards() {
-
         for (int i = 0; i < cards.size(); i++) {
             cardIndex.add(i);
         }
 
         Collections.shuffle(cardIndex);
-        for (int i : cardIndex){
-            System.out.println(i);
-
-        }
     }
 
     public void init() {
@@ -67,14 +58,33 @@ public class GameBoard {
         for (Gamer g : gamer) {
             g.addCard(cards.get(cardIndex.get(head++)));
             g.addCard(cards.get(cardIndex.get(head++)));
-        }
-
-        for (Gamer g : gamer) {
-            for(Card c : g.getCards()) {
-                System.out.println(c.toString());
-            }
+            printCards(g);
         }
     }
+
+    public void printCards(Gamer gamer) {
+        if (gamer.getClass() == Dealer.class) {
+            System.out.print("딜러 : ");
+
+            for (Card c : gamer.getCards()){
+                System.out.print(c.getSymbol().getScore() + " " + c.getType().name() + " ");
+            }
+            System.out.println("");
+
+        }
+
+        if (gamer.getClass() == Player.class) {
+            Player player = (Player) gamer;
+            System.out.print(player.getName() + " : ");
+
+            for (Card c : gamer.getCards())
+                System.out.print(c.getSymbol().getScore() + " " + c.getType().name() + " ");
+            System.out.println("");
+        }
+
+    }
+
+
 
 
 }
