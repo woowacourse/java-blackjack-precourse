@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import domain.user.Player;
+import domain.card.CardFactory;
+import domain.card.Card;
 
 public class BlackJackGame {
     private Scanner sc = new Scanner(System.in);
@@ -15,6 +17,7 @@ public class BlackJackGame {
         List<String> playerNames = this.getPlayerNames();
         List<Double> bettingMoney = this.getBettingMoney(playerNames);
         this.setPlayerInformation(playerNames, bettingMoney);
+        List<Card> cards =  CardFactory.create();
     }
 
     private List<String> getPlayerNames() {
@@ -23,6 +26,7 @@ public class BlackJackGame {
     }
 
     private List<Double> getBettingMoney(List<String> playerNames) {
+        System.out.println();
         List<Double> bettingMoney = new ArrayList<>();
         for (String playerName : playerNames) {
             System.out.println("" + playerName + "의 배팅 금액은?");
