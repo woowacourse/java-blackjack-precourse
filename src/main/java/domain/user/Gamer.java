@@ -16,16 +16,15 @@ public class Gamer {
         return cards;
     }
 
+    public boolean hasACE() {
+        for (Card c : cards) {
+            if (c.getSymbol().name() == "ACE") {
+                return true;
+            }
+        }
 
-
-
-
-
-
-
-
-
-
+        return false;
+    }
 
 }
 

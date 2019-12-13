@@ -11,12 +11,20 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GameBoard {
     List<Card> cards = CardFactory.create();
     List<Integer> cardIndex = new ArrayList<>();            //카드에 해당하는 인덱스
     List<Gamer> gamer = new ArrayList<>();
+
+    Scanner sc = new Scanner(System.in);
+
     int head = 0;                           //맨 위 카드
+
+    private static final char YES = 'y';
+    private static final char NO = 'n';
+
 
 
     public GameBoard(String[] player, List<Integer> bettingMoney) {
@@ -28,6 +36,8 @@ public class GameBoard {
 
         shuffleCards();
         init();
+        playerTurn();
+        dealerTurn();
     }
 
     public Player createPlayer(String name, int bettingMoney) {
@@ -81,8 +91,46 @@ public class GameBoard {
                 System.out.print(c.getSymbol().getScore() + " " + c.getType().name() + " ");
             System.out.println("");
         }
-
     }
+
+    public int calValue(Gamer gamer) {
+        int sum = 0;
+
+        for (Card c :gamer.getCards()) {
+            sum += c.getSymbol().getScore();
+        }
+
+        return sum;
+    }
+
+    public void playerTurn() {
+        for (int i = 1; i < gamer.size(); i++) {
+            turn(gamer.get(i));
+        }
+    }
+
+    public void turn(Gamer gamer) {
+        boolean oneMore = true;
+
+        while (calValue(gamer) < 21 && oneMore) {
+            Player p = (Player) gamer;
+
+            System.out.println(p.getName() + "는 한 장의 카드를 더 받겠습니까? (예는 y 아니오는 n)");
+
+            char answer = sc.next().charAt(0);
+            if (YES == answer) {
+                gamer.addCard(cards.get(cardIndex.get(head++)));
+                printCards(gamer);
+            }
+            if (NO == answer) {
+                oneMore = false;
+                printCards(gamer);
+            }
+        }
+    }
+
+
+
 
 
 

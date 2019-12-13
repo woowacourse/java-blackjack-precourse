@@ -28,6 +28,7 @@
 gamer class
 카드 뽑기
 카드 값 계산
+예외) ACE 1 or 11로 계산 (유리한 쪽으로 계산되어짐)
 
 dealer class extends gamer
 21 초과 시 무조건 패
@@ -46,3 +47,5 @@ Game Board class
 카드 섞기
 카드 뽑기
 초기 플레이어 카드 세팅
+보유 카드 출력
+승리자 선정( 초기 블랙잭 , 21에 가까운 수)
