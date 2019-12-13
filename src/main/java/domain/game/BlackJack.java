@@ -16,6 +16,4 @@ public class BlackJack {
 		this.players = players;
 		this.dealer = new Dealer();
 	}
-
-	public showHand()
 }

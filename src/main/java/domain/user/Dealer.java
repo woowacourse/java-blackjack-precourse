@@ -11,18 +11,27 @@ import java.util.List;
 public class Dealer {
 	private final List<Card> cards = new ArrayList<>();
 
-	public Dealer() {}
+	public Dealer() {
+	}
 
 	public void addCard(Card card) {
 		cards.add(card);
 	}
 
 	public int getSomOfScore() {
-	    int sumOfScore = 0;
+		int sumOfScore = 0;
 		for (Card card : this.cards) {
-		    sumOfScore += card.getSymbolScore();
+			sumOfScore += card.getSymbolScore();
 		}
-        return sumOfScore;
+		return sumOfScore;
+	}
+
+	public void showHand() {
+		String showHand = "딜러:";
+		for (Card card : cards) {
+			showHand += card.toString() + ",";
+		}
+		System.out.println(showHand);
 	}
 
 	// TODO 추가 기능 구현
