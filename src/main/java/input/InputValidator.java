@@ -14,9 +14,9 @@ import static view.PrintController.*;
  * @since : 2019.12.12 목요일
  */
 public class InputValidator {
-    private static String BLANK = " ";
-    private static String REGEX = "[,]+";
-    private static int ONE = 1;
+    private static final String BLANK = " ";
+    private static final String REGEX = "[,]+";
+    private static final int ONE = 1;
 
     private static String inputString;
     private static double InputDouble;

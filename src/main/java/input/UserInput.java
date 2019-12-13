@@ -22,8 +22,8 @@ import static view.PrintController.askPlayerName;
  * @since : 2019.12.12 목요일
  */
 public class UserInput {
-    private static int DOUBLE_TYPE_INPUT_WRONG_MARKER = 0;
-    private static String COMMA = ",";
+    private static final int DOUBLE_TYPE_INPUT_WRONG_MARKER = 0;
+    private static final String COMMA = ",";
 
     public List<String> getPlayerName() {
         List<String> playerNameList;
