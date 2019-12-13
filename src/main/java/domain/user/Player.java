@@ -1,8 +1,10 @@
 package domain.user;
 
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import controller.BlackJack;
 import domain.card.Card;
 import domain.card.Deck;
+import view.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +85,13 @@ public class Player {
             addCard(deck.drawCard());
         }
         addCard(deck.drawCard());
+    }
+
+    public void moreCard(Deck deck) {
+        if (new Input().asWantMoreCard()) {
+            addCard(deck.drawCard());
+            moreCard(deck);
+        }
     }
 
     @Override
