@@ -12,6 +12,9 @@ public class Player extends Gamer {
         this.bettingMoney = bettingMoney;
     }
 
+    public String getName() {
+        return name;
+    }
 
     // TODO 추가 기능 구현
 

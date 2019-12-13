@@ -11,7 +11,7 @@ public class GameUI {
     String[] players;
     List<Integer> bettingMoney = new ArrayList<Integer>();
 
-    public void play() {
+    public GameUI() {
         players = inputPlayer();
 
         for (String p : players) {
@@ -19,7 +19,6 @@ public class GameUI {
         }
 
         GameBoard board = new GameBoard(players, bettingMoney);
-
     }
 
 
