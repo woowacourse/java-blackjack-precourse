@@ -25,7 +25,7 @@ public class Card {
      * 생성자 메서드는 symbol값과 type값을 받아 이를 할당해준다.
      *
      * @param symbol 할당될 심볼 값이다.
-     * @param type 할당될 타입 값이다.
+     * @param type   할당될 타입 값이다.
      */
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
@@ -39,7 +39,7 @@ public class Card {
      * @return 심볼과 타입을 합친 카드의 분류값(ex : 1스페이드, 3하트)을 반환한다.
      */
     public String getCardName() {
-        return symbol.getName()+type.getType();
+        return symbol.getName() + type.getType();
     }
 
     /**
@@ -62,6 +62,7 @@ public class Card {
 
     /**
      * equals는 카드간 비교를 위해 override한 메서드이다.
+     *
      * @param o 임의의 객체를 받아 이 값과 객체를 비교한다.
      * @return 파라미터로 받은 객체와 이 객체가 같은지 여부를 반환한다.
      */

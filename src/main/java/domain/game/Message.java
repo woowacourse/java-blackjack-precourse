@@ -22,6 +22,7 @@ public class Message {
     public static final String DRAW_PLAYER_QUESTION = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)\n";
     public static final String DRAW_DEALER = "딜러는 16이하라 한장의 카드를 더 받았습니다.\n";
     public static final String PRINT_RESULT = "## 최종수익\n";
+    public static final String PRINT_PlAYER_RESULT = " - 결과: ";
     public static final String ERROR_CARD_EMPTY = "더 이상 뽑을 카드가 없습니다.\n";
     public static final String ERROR_INPUT = "잘못된 값을 입력하셨습니다.\n";
 
