@@ -15,9 +15,7 @@ public class Main {
         List<Card> cards = new ArrayList<Card>();
         cards = cardFactory.create();
 //        System.out.print(cards);
-        outputPrint.getPlayerNames();
-
-
+        System.out.print(outputPrint.getPlayerNames());
 
     }
 

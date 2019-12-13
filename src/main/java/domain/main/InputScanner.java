@@ -6,16 +6,20 @@ public class InputScanner {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public String stringLine() {
+    public String getStringLine() {
         return scanner.nextLine();
     }
 
-    public String string() {
+    public String getString() {
         return scanner.next();
     }
 
-    public int integer() {
+    public int getInteger() {
         return scanner.nextInt();
+    }
+
+    public Double getDouble() {
+        return scanner.nextDouble();
     }
 
 }

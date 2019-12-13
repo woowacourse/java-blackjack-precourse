@@ -5,10 +5,14 @@ import java.util.List;
 
 public class PlayerList {
 
-    private List<Player> playerList = new ArrayList<Player>();
+    private static List<Player> playerList;
+
+    public PlayerList() {
+        playerList = new ArrayList<>();
+    }
 
     public void addPlayer(Player player) {
-        playerList.add(player);
+        this.playerList.add(player);
     }
 
     public String toStringNames() {
@@ -19,4 +23,12 @@ public class PlayerList {
         return String.join(",", players);
     }
 
+    @Override
+    public String toString() {
+        String printPlayerList = "";
+        for (Player player : playerList) {
+            printPlayerList += player.getName() + ":" + player.getBettingMoney() + "\n";
+        }
+        return printPlayerList;
+    }
 }
