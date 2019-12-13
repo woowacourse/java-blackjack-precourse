@@ -1,9 +1,6 @@
 package view;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Input {
     private static final String COMMA = ",";
@@ -18,7 +15,12 @@ public class Input {
     }
 
     public List<String> asGamers() {
-        return Collections.emptyList();
+        //TODO 사용자입력 Output 출력하기 코드
+        return Optional.of(input())
+                .filter(this::containsDoubleComma)
+                .filter(this::endWithComma)
+                .map(this::splitAsComma)
+                .orElseGet(this::asGamers);
     }
 
     public boolean containsDoubleComma(String input) {
