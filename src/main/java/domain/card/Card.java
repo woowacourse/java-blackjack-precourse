@@ -15,7 +15,9 @@ public class Card {
     }
 
     // TODO Card 관련 추가 기능 구현
-
+    public int getSymbolScore() {
+        return this.symbol.getScore();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -36,9 +38,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return " " + this.symbol + this.type;
     }
 }
