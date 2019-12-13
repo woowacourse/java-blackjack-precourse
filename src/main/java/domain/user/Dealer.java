@@ -25,6 +25,12 @@ public class Dealer extends Player {
         if (isDealerUnderSixteen()) {
             Output.showDealerMoreCard();
             addCard(deck.drawCard());
+
+            dealerMoreCard(deck);
         }
+    }
+
+    public void dealerShowHiddenCard(Deck deck) {
+        addCard(deck.drawCard());
     }
 }

@@ -36,6 +36,7 @@ public class BlackJack {
 
     public void moreCardsPhase() {
         gamers.moreCard(deck);
+        gamers.findDealer().dealerShowHiddenCard(deck);
     }
 
     public void dealerPhase() {
