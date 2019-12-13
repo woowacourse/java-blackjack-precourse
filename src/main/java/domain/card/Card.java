@@ -17,6 +17,12 @@ public class Card {
 
     // TODO Card 관련 추가 기능 구현
 
+    public String getCardName() {
+        String scoreName = symbol.getScoreName();
+        String typeName = type.getTypeName();
+        return scoreName+typeName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -24,4 +24,11 @@ public class Player {
 
     // TODO 추가 기능 구현
 
+    public String getAllCardNames() {
+        List<String> allCardNames = new ArrayList<>();
+        for (Card card : cards) {
+            allCardNames.add(card.getCardName());
+        }
+        return String.join(", ", allCardNames);
+    }
 }

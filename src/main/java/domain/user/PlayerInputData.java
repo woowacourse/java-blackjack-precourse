@@ -5,12 +5,13 @@ import java.util.*;
 public class PlayerInputData {
     private static final String SEPARATOR = ",";
     private static final int NO_MONEY = 0;
+    private static List<String> nameList;
     private static boolean doesNeedInput;
     private static String userInput;
 
     public List<Player> getPlayerList() {
         List<Player> playerList = new ArrayList<>();
-        List<String> nameList = getNameList();
+        nameList = getNameList();
         List<Double> bettingMoneyList = new ArrayList<>();
         for (String name : nameList) {
             bettingMoneyList.add(getBettingMoney(name));
@@ -19,6 +20,10 @@ public class PlayerInputData {
             playerList.add(new Player(nameList.get(i), bettingMoneyList.get(i)));
         }
         return playerList;
+    }
+
+    public List<String> getPlayerNameList() {
+        return nameList;
     }
 
     private static String getUserInput(String askMessage) {
