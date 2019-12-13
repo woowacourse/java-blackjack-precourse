@@ -12,29 +12,29 @@ public class Manager {
     Deck deck = new Deck();
     Table table = new Table();
     Output output = new Output();
+    Validator validator = new Validator();
+    List<String> names;
 
     public void start() {
-        boolean isErrorOccurred = true;
+        processManagementInputNames(true);
+    }
+
+    private void processManagementInputNames(boolean isErrorOccurred) {
         while (isErrorOccurred) {
-            isErrorOccurred = splitName(output.showMessageInputName());
+            names = splitName(output.showMessageInputName());
+            isErrorOccurred = validator.checkName(names);
         }
     }
 
-    public void processManagement() {
+    private void end() {
 
     }
 
-    public void end() {
-
-    }
-
-    private boolean splitName(String name) {
+    private List<String> splitName(String name) {
         List<String> names = Arrays
                 .stream(name.split(","))
                 .collect(Collectors.toList());
 
-        new Validator().checkName(names);
-
-        return true;
+        return names;
     }
 }
