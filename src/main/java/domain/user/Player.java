@@ -9,6 +9,8 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  */
 public class Player {
+    private static final int INIT_CARD_SIZE = 2;
+
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -36,4 +38,5 @@ public class Player {
     public boolean isDealer() {
         return this instanceof Dealer;
     }
+
 }
