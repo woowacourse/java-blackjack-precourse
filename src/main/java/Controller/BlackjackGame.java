@@ -21,7 +21,7 @@ public class BlackjackGame {
         distributeInitialCards();
         OutputView.printUserCards(users);
 
-        playturns();
+        playTurns();
     }
 
     private void distributeInitialCards() {
@@ -35,7 +35,7 @@ public class BlackjackGame {
         }
     }
 
-    private void playturns() {
+    private void playTurns() {
         for (User user : users) {
             if(InputController.askIfGetCard(user)) {
                 user.addCard(deck.draw());
