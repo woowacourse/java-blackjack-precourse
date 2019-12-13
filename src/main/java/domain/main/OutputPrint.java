@@ -1,5 +1,9 @@
 package domain.main;
 
+import domain.user.Player;
+
+import java.util.List;
+
 public class OutputPrint {
 
     private void print(String message) {
@@ -16,6 +20,15 @@ public class OutputPrint {
 
     public void getBettingMoney(String playerName) {
         println(playerName + "의 배팅 금액은?");
+    }
+
+    public void giveCardsFirstToPlayers(List<Player> playerList) {
+        String nameList ="딜러와 "+playerList.get(0).getName();
+        for (Player player : playerList) {
+            nameList += ", " + player;
+        }
+
+        println(nameList+"에게 2장의 카드를 나누어주었습니다.");
     }
 
 }
