@@ -23,7 +23,7 @@ public class BlackJack {
     }
 
     public void start() {
-        Output.showInitCardUi(gamers.getPlayers());
-        gamers.getPlayers().forEach(x -> x.initCard(deck));
+        Output.showInitCardUi(gamers.nameString());
+        gamers.initPlayersCards(deck);
     }
 }

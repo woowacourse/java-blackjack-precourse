@@ -14,9 +14,7 @@ public class Output {
         System.out.println(playerName + "의 배팅금액은?");
     }
 
-    public static void showInitCardUi(List<Player> players) {
-        System.out.println(players.stream().map(Player::getName)
-                .collect(Collectors.joining(", "))
-                + "에게 2장의 카드를 나누었습니다.");
+    public static void showInitCardUi(String playersName) {
+        System.out.println(playersName + "에게 2장의 카드를 나누었습니다.");
     }
 }
