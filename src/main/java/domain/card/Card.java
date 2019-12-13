@@ -36,6 +36,6 @@ public class Card {
         return "Card{" +
                 "symbol=" + symbol +
                 ", type=" + type +
-                '}';
+                "}";
     }
 }
