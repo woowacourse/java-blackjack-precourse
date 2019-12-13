@@ -13,4 +13,5 @@ public class PlayerInput {
     public String inputPlayerNames() {
         return scanner.nextLine();
     }
+
 }
