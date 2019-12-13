@@ -9,12 +9,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Manager {
-    Deck deck = new Deck();
-    Table table = new Table();
-    Output output = new Output();
-    Validator validator = new Validator();
-    List<String> names;
-    List<Double> bettingMoneys = new LinkedList<>();
+    private Deck deck = new Deck();
+    private Table table = new Table();
+    private Output output = new Output();
+    private Validator validator = new Validator();
+    private List<String> names;
+    private List<Double> bettingMoneys = new LinkedList<>();
     private boolean isErrorOccurred;
 
     public void start() {
@@ -77,7 +77,7 @@ public class Manager {
     }
 
     private void hasBlackjack(List<Player> players, int index) {
-        if (players.get(index).calculateScore() != Manual.BLACKJACK.getValue()){
+        if (players.get(index).calculateScore() != Manual.BLACKJACK.getValue()) {
             pickOneMoreCard(players, index);
         }
     }
@@ -136,7 +136,7 @@ public class Manager {
         output.showMessageResult(player);
     }
 
-    private void processManagementBalance(Table table) {
+    public void processManagementBalance(Table table) {
         output.showMessageResultMoney(table);
     }
 
@@ -148,9 +148,6 @@ public class Manager {
     }
 
     private List<String> splitName(String name) {
-        List<String> names = Arrays
-                .stream(name.split(","))
-                .collect(Collectors.toList());
-        return names;
+        return Arrays.stream(name.split(",")).collect(Collectors.toList());
     }
 }
