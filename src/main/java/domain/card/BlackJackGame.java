@@ -2,10 +2,7 @@ package domain.card;
 
 import domain.user.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class BlackJackGame {
 
@@ -14,7 +11,7 @@ public class BlackJackGame {
     private static final int LOWER_CASE_ALPHABET_A = 97;
     private static final int LOWER_CASE_ALPHABET_Z = 122;
 
-    Scanner scanPlayersName = new Scanner(System.in);
+    Scanner scanPlayerInfo = new Scanner(System.in);
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
         blackJackGame.startGame();
@@ -28,13 +25,39 @@ public class BlackJackGame {
     private ArrayList<Player> registPlayers() {
         ArrayList<Player> players = new ArrayList<>();
         List<String> playersName = getPlayersName();
+        getBettingMoney();
         return players;
     }
 
+    private int getBettingMoney() {
+        String bettingMoney = scanPlayerInfo.nextLine();
+        while(!isCorrectBettingMoney(bettingMoney)){
+            bettingMoney = scanPlayerInfo.nextLine();
+        }
+        return Integer.parseInt(bettingMoney);
+    }
+
+    private boolean isCorrectBettingMoney(String bettingMoney) {
+        try{
+            int money = Integer.parseInt(bettingMoney);
+            checkBettingMoney(money);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("만원 단위로 입력해주시기 바랍니다.");
+        }
+        return false;
+    }
+
+    private void checkBettingMoney(int bettingMoney) {
+        if(bettingMoney % 10000 != 0) {
+            throw new NumberFormatException();
+        }
+    }
+
     private List<String> getPlayersName() {
-        List<String> playersName = Arrays.asList(scanPlayersName.nextLine().split(","));
+        List<String> playersName = Arrays.asList(scanPlayerInfo.nextLine().split(","));
         while (!isCorrectPlayerName(playersName)) {
-            playersName = Arrays.asList(scanPlayersName.nextLine().split(","));
+            playersName = Arrays.asList(scanPlayerInfo.nextLine().split(","));
         }
         return playersName;
     }
