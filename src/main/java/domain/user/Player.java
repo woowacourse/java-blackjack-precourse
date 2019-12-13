@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Player {
     private static final int INIT_CARD_SIZE = 2;
+    private static final int PLAYER_MIN_BURST = 22;
 
     private final String name;
     private final double bettingMoney;
@@ -39,7 +40,7 @@ public class Player {
         return this instanceof Dealer;
     }
 
-    public int aceCardCount() {
-        return (int) cards.stream().map(Card::isAce).filter(x -> x).count();
+    public boolean aceCardExist() {
+        return cards.stream().anyMatch(Card::isAce);
     }
 }

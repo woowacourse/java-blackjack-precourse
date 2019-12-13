@@ -66,10 +66,10 @@ class PlayerTest {
     public void aceCardCountTest() {
         Player player = new Player("이름1", 10000d);
 
-        assertThat(player.aceCardCount()).isEqualTo(0);
+        assertThat(player.aceCardExist()).isFalse();
         player.addCard(new Card(Symbol.ACE, Type.HEART));
         player.addCard(new Card(Symbol.ACE, Type.SPADE));
         player.addCard(new Card(Symbol.ACE, Type.CLUB));
-        assertThat(player.aceCardCount()).isEqualTo(3);
+        assertThat(player.aceCardExist()).isTrue();
     }
 }
