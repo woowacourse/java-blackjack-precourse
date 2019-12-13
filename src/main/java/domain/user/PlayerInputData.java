@@ -25,7 +25,7 @@ public class PlayerInputData {
         System.out.println(askMessage);
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
-        System.out.println(userInput);
+        System.out.println(userInput+"\n");
         return userInput;
     }
 
