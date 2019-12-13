@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.Card;
+import domain.card.CardDeck;
 
 public class User {
 	private static final int ACE_SCORE = 1;
@@ -18,8 +19,8 @@ public class User {
 		return this.cards;
 	}
 	
-	public void drawCard(Card card) {
-		this.cards.add(card);
+	public void drawCard(CardDeck deck) {
+		this.cards.add(deck.pop());
 	}
 
 	public int calculateScore() {

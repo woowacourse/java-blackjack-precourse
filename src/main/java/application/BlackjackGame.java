@@ -8,12 +8,15 @@ import domain.user.Players;
 import inputview.InputView;
 
 public class BlackjackGame {
+	private static final int NUM_INITIAL_CARDS = 2;
+	
 	public void makeNewGame() {
 		List<String> playerNames = InputView.enterPlayerNames();
 		List<Integer> bettingMoney = InputView.enterAllBettingMoney(playerNames);
 		Players players = new Players(playerNames, bettingMoney);
-		CardDeck cardDeck = new CardDeck();
 		Dealer dealer = new Dealer();
+		CardDeck cardDeck = new CardDeck();
+
 		
 		proceedGame(dealer, players, cardDeck);
 	}
@@ -28,7 +31,18 @@ public class BlackjackGame {
 	}
 	
 	private void drawFirstCards(Dealer dealer, Players players, CardDeck cardDeck) {
+		for(int i = 0; i < NUM_INITIAL_CARDS; i++) {
+			dealer.drawCard(cardDeck);
+			players.drawCard(cardDeck);
+		}
 		
+		//나중에 지울 테스트 부분
+		System.out.println("dealer: " + dealer.getCards().toString());
+		System.out.println("dealer score: " + dealer.calculateScore());
+		for(int i = 0; i < players.getSize(); i++) {
+			System.out.println("player " + i + ": " + players.getPlayerAt(i).getCards().toString());
+			System.out.println("player " + i + " score: " + players.getPlayerAt(i).calculateScore());
+		}
 	}
 	
 	private void drawAdditionalCards(Dealer dealer, Players players, CardDeck cardDeck) {
