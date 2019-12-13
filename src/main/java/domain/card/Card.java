@@ -17,6 +17,14 @@ public class Card {
         this.symbol = symbol;
         this.type = type;
     }
+    
+    public String cardInfo() {
+    	StringBuilder cardInfo = new StringBuilder();
+    	cardInfo.append(symbol);
+    	cardInfo.append("-");
+    	cardInfo.append(type);
+    	return cardInfo.toString();
+    }
 
     public int cardNumber()  {
     	int cardNumber = 0;
