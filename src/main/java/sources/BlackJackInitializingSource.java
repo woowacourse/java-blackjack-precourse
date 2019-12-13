@@ -1,11 +1,12 @@
 package sources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * 플레이어, 딜러, 카드 초기화 클래스
@@ -20,7 +21,7 @@ public class BlackJackInitializingSource {
 	}
 
 	public static List<Card> initializeCardDeck() {
-		List<Card> deck = CardFactory.create();
-		return deck;
+		List<Card> cardDeck = CardFactory.create();
+		return cardDeck;
 	}
 }

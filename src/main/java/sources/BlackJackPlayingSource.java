@@ -1,15 +1,14 @@
 package sources;
 
 import domain.card.Card;
-import domain.card.CardFactory;
 import domain.user.Player;
 import utils.UtilityMethods;
 
 import java.util.List;
 
 public class BlackJackPlayingSource {
-	public void startBlackJack(List<Player> players) {
-		List<Card> cardDeck = CardFactory.create();
+	public void startRound(List<Player> players, List<Card> cardDeck) {
+
 	}
 
 	private Card popRandomCard(List<Card> cards) {
