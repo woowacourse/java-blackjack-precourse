@@ -7,6 +7,7 @@ import utils.UserInput;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static utils.ConsoleOutput.printMessage;
@@ -31,7 +32,7 @@ public class BlackJackGame {
             startTurn(newCards);
         }
         printGameResult();
-        printWinner();
+        findWinner();
     }
 
 
@@ -53,27 +54,13 @@ public class BlackJackGame {
         players.forEach(x-> ConsoleOutput.printCards(x.getFinalCardString()));
     }
 
-    private void printWinner() {
-        boolean isPull = false;
-        boolean isDealerBust = false;
-        int dealerMoney = 0;
-        // 딜러가 블랙잭이면 블랙잭이 없는 모든 플레이어의 배당을 수거합니다.
-        if(dealer.isBlackJack()) {
-            dealerIsBlackJack(dealerMoney);
-        }
-    }
+    private void findWinner() {
+        double dealerMoney = 0;
+        // 딜러보다 낮으면 패배 높으면 승
+        List<MoneyDTO> playerMoney = new ArrayList<>();
+        printMessage("## 최종 수익");
+        printMessage("딜러: "+dealerMoney);
 
-    private void dealerIsBlackJack(int dealerMoney) {
-        players.stream().forEach(x -> playerIsStandOff(x, dealerMoney));
-        printMessage(Integer.toString(dealerMoney));
-    }
-
-    private void playerIsStandOff(Player player, int dealerMoney) {
-        if(player.isBlackJack()) {
-            printMessage(player.getStandOff());
-        }
-        dealerMoney += player.getBettingMoney();
-        printMessage(player.loseAll());
     }
 
     private void printPlayerCards() {
