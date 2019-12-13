@@ -9,7 +9,9 @@ public class Players {
 	private List<Player> players = new ArrayList<Player>();
 	
 	public Players(List<String> names, List<Integer> money) {
-		
+		for (int i = 0; i < names.size(); i++) {
+			players.add(new Player(names.get(i), money.get(i)));
+		}
 	}
 
 	public static void checkValidNames(List<String> playerNames) {
@@ -31,6 +33,6 @@ public class Players {
 	}
 	
 	public int getSize() {
-		return players.size();
+		return this.players.size();
 	}
 }

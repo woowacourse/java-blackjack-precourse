@@ -24,14 +24,14 @@ public class User {
 	}
 
 	public int calculateScore() {
-		Integer score = calculateWithAceAsOne();
+		int score = calculateWithAceAsOne();
 		for (int i = 0; i < countNumOfAce(); i++) {
-			updateScoreWithAce(score);
+			score = updateScoreWithAce(score);
 		}
 		return score;
 	}
 
-	private Integer updateScoreWithAce(Integer score) {
+	private int updateScoreWithAce(int score) {
 		score += ACE_UPDATE_SCORE;
 		if (score > BLACKJACK_SCORE) {
 			score -= ACE_UPDATE_SCORE;
