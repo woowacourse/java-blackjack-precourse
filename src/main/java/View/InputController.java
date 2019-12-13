@@ -25,7 +25,7 @@ public class InputController {
 
     public static boolean askIfGetCard(User user) {
         try {
-            String input = InputView.inputIfGetCard(user);
+            String input = InputView.inputIfGetCard(user).toLowerCase();
             InputValidator.validateIfGetCard(input);
             return stringToBoolean(input);
         } catch (IllegalArgumentException e) {
