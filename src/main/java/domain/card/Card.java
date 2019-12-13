@@ -19,6 +19,10 @@ public class Card {
         return symbol.getScore();
     }
 
+    public boolean isAce() {
+        return symbol == Symbol.ACE;
+    }
+
     // TODO Card 관련 추가 기능 구현
 
     @Override
