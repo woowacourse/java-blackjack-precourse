@@ -24,7 +24,13 @@ public class InputView {
 	}
 
 	public static int getBettingMoney(String name) {
-		System.out.println(name + GET_BETTING_MONEY_MESSAGE);
-		return Integer.parseInt(SCANNER.nextLine());
+		try {
+			System.out.println(name + GET_BETTING_MONEY_MESSAGE);
+			int bettingMoney = Integer.parseInt(SCANNER.nextLine());
+			Player.validateBettingMoney(bettingMoney);
+			return bettingMoney;
+		} catch (IllegalArgumentException e) {
+			return getBettingMoney(name);
+		}
 	}
 }
