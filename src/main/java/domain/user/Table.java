@@ -39,6 +39,7 @@ public class Table {
                 && players.get(index).calculateScore()
                 < Manual.BURST.getValue())) {
             tableMoney -= players.get(index).getBettingMoney();
+
             return players.get(index).getBettingMoney();
         }
         return loseMoneyPlayer(index, dealerScore);
@@ -49,9 +50,10 @@ public class Table {
                 || players.get(index).calculateScore()
                 > Manual.BURST.getValue()) {
             tableMoney += players.get(index).getBettingMoney();
+
             return -players.get(index).getBettingMoney();
         }
-        return Manual.EMPTY.getValue();
+        return Manual.DEFAULT.getValue();
     }
 
     private Double getMoneyDealer(List<Double> playerMoney) {

@@ -25,7 +25,7 @@ public class Manager {
         processManagementGetOneMoreCard(table.getTable());
         processManagementDealer(table.getTable()
                 .get(Manual.DEALER_POSITION.getValue()));
-        end(table.getTable());
+        end(table);
     }
 
     private void processManagementInputNames() {
@@ -128,8 +128,14 @@ public class Manager {
         output.showMessageResult(player);
     }
 
-    private void end(List<Player> player) {
-        processManagementFinalResult(player);
+    private void processManagementBalance(Table table) {
+        output.showMessageResultMoney(table);
+    }
+
+    private void end(Table table) {
+        output.newLine();
+        processManagementFinalResult(table.getTable());
+        processManagementBalance(table);
     }
 
     private List<String> splitName(String name) {
