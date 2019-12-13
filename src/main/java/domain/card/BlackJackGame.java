@@ -9,8 +9,12 @@ import java.util.Scanner;
 
 public class BlackJackGame {
 
-    Scanner scanPlayersName = new Scanner(System.in);
+    private static final int BIGGER_CASE_ALPHABET_A = 65;
+    private static final int BIGGER_CASE_ALPHABET_Z = 90;
+    private static final int LOWER_CASE_ALPHABET_A = 97;
+    private static final int LOWER_CASE_ALPHABET_Z = 122;
 
+    Scanner scanPlayersName = new Scanner(System.in);
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
         blackJackGame.startGame();
@@ -18,6 +22,7 @@ public class BlackJackGame {
 
     private void startGame() {
         List<Player> players = registPlayers();
+
     }
 
     private ArrayList<Player> registPlayers() {
@@ -27,17 +32,21 @@ public class BlackJackGame {
     }
 
     private List<String> getPlayersName() {
-        List<String> playersName;
-        while (true) {
-            try {
-                playersName = Arrays.asList(scanPlayersName.nextLine().split(","));
-                checkPlayerName(playersName);
-                break;
-            } catch (Exception e) {
-                System.out.println("에러");
-            }
+        List<String> playersName = Arrays.asList(scanPlayersName.nextLine().split(","));
+        while (!isCorrectPlayerName(playersName)) {
+            playersName = Arrays.asList(scanPlayersName.nextLine().split(","));
         }
         return playersName;
+    }
+
+    private boolean isCorrectPlayerName(List<String> playersName) {
+        try {
+            checkPlayerName(playersName);
+            return true;
+        } catch (Exception e) {
+            System.out.println("에러");
+        }
+        return false;
     }
 
     private void checkPlayerName(List<String> playersName) throws Exception {
@@ -58,7 +67,8 @@ public class BlackJackGame {
     }
 
     private void isAlphabet(char alphabet) throws Exception {
-        if(alphabet < 65 || alphabet > 90 && alphabet < 97 || alphabet > 122) {
+        if(alphabet < BIGGER_CASE_ALPHABET_A || alphabet > BIGGER_CASE_ALPHABET_Z
+                && alphabet < LOWER_CASE_ALPHABET_A || alphabet > LOWER_CASE_ALPHABET_Z) {
             throw new Exception();
         }
     }
