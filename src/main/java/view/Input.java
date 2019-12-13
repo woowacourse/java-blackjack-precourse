@@ -6,6 +6,8 @@ import java.util.*;
 
 public class Input {
     private static final String COMMA = ",";
+    private static final String Y = "y";
+    private static final String N = "n";
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -32,10 +34,25 @@ public class Input {
                 .orElseGet(this::asBettingMoney);
     }
 
+    public boolean asWantMoreCard() {
+        return Optional.of(input())
+                .filter(this::isYesOrNo)
+                .map(this::parseToBoolean)
+                .orElseGet(this::asWantMoreCard);
+    }
+
+    public boolean isYesOrNo(String input) {
+        return input.equals(Y) || input.equals(N);
+    }
+
+    public boolean parseToBoolean(String input) {
+        return input.equals(Y);
+    }
+
     public Optional<Double> stringToDouble(String input) {
         try {
             return Optional.of(Double.parseDouble(input));
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return Optional.empty();
         }
     }
