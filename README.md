@@ -1,5 +1,5 @@
 # blackjack game
-## package : Card
+## package : domain.card
 ### class : Card
 variable
 - private final Symbol symbol
@@ -31,7 +31,7 @@ method
 - Symbol(int score)
 - public int getScore()
 	
-## package : user
+## package : domain.user
 ### class : Dealer
 variable
 - private final List<Card> cards  = new ArrayList<>()
@@ -49,3 +49,17 @@ variable
 method
 - public Player(String name, double bettingMoney)
 - public void addCard(Card card)
+
+## pacakge : domain
+### class: BlackJackGame
+vairiable
+- private List<String> playerNames
+- private int numberOfPlayers
+- private List<Player> players
+
+method
+- public void setPlayerNames()
+- public void setNumberOfPlayers()
+- public void setPlayers()
+- public int getNumberOfPlayers()
+- public String getPlayerNameByIndex(int index)
