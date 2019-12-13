@@ -80,10 +80,10 @@ class PlayerTest {
         player.addCard(new Card(Symbol.ACE, Type.HEART));
         assertThat(player.isNotBurst()).isTrue();
 
-        player.addCard(new Card(Symbol.TEN, Type.SPADE));
+        player.addCard(new Card(Symbol.TEN, Type.DIAMOND));
         assertThat(player.isNotBurst()).isTrue();
 
-        player.addCard(new Card(Symbol.ACE, Type.HEART));
+        player.addCard(new Card(Symbol.ACE, Type.DIAMOND));
         assertThat(player.isNotBurst()).isFalse();
     }
 
@@ -107,5 +107,16 @@ class PlayerTest {
         player3.addCard(new Card(Symbol.ACE, Type.HEART));
         player3.addCard(new Card(Symbol.ACE, Type.DIAMOND));
         assertThat(player3.getScoreWithAceCheck()).isEqualTo(13);
+    }
+
+    @Test
+    public void isBlackJackTest() {
+        Player player = new Player("이름1", 10000d);
+        player.addCard(new Card(Symbol.TEN, Type.SPADE));
+        player.addCard(new Card(Symbol.ACE, Type.HEART));
+        assertThat(player.isBlackJack()).isTrue();
+
+        player.addCard(new Card(Symbol.TEN, Type.HEART));
+        assertThat(player.isBlackJack()).isFalse();
     }
 }

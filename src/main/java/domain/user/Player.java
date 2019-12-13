@@ -1,5 +1,6 @@
 package domain.user;
 
+import controller.BlackJack;
 import domain.card.Card;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Optional;
 public class Player {
     private static final int INIT_CARD_SIZE = 2;
     private static final int PLAYER_MIN_BURST = 22;
+    private static final int BLACK_JACK = 21;
     private static final int ACE_BONUS_SCORE = 10;
 
     private final String name;
@@ -58,11 +60,15 @@ public class Player {
         return getScoreWithAceCheck() < PLAYER_MIN_BURST;
     }
 
-    public boolean isNotBurstWithBonusScore(){
+    public boolean isNotBurstWithBonusScore() {
         return getScore() + ACE_BONUS_SCORE < PLAYER_MIN_BURST;
     }
 
     public int aceBonusScore(int score) {
         return score + ACE_BONUS_SCORE;
+    }
+
+    public boolean isBlackJack() {
+        return cards.size() == INIT_CARD_SIZE && getScoreWithAceCheck() == BLACK_JACK;
     }
 }
