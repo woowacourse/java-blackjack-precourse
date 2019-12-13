@@ -39,4 +39,7 @@ public class Player {
         return this instanceof Dealer;
     }
 
+    public int aceCardCount() {
+        return (int) cards.stream().map(Card::isAce).filter(x -> x).count();
+    }
 }

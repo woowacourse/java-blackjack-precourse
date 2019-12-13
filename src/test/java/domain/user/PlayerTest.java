@@ -61,4 +61,15 @@ class PlayerTest {
         dealer.addCard(new Card(Symbol.TEN, Type.HEART));
         assertThat(dealer.isDealerUnderSixteen()).isFalse();
     }
+
+    @Test
+    public void aceCardCountTest() {
+        Player player = new Player("이름1", 10000d);
+
+        assertThat(player.aceCardCount()).isEqualTo(0);
+        player.addCard(new Card(Symbol.ACE, Type.HEART));
+        player.addCard(new Card(Symbol.ACE, Type.SPADE));
+        player.addCard(new Card(Symbol.ACE, Type.CLUB));
+        assertThat(player.aceCardCount()).isEqualTo(3);
+    }
 }
