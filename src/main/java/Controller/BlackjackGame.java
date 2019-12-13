@@ -3,6 +3,8 @@ package Controller;
 import View.InputController;
 import View.OutputView;
 import domain.card.Deck;
+import domain.user.Dealer;
+import domain.user.Player;
 import domain.user.User;
 import Exception.DeckHasNoCardException;
 
@@ -21,7 +23,7 @@ public class BlackjackGame {
         distributeInitialCards();
         OutputView.printCardsOfAllUsers(users);
 
-        playTurns();
+        playTurnsForAllUsers();
     }
 
     private void distributeInitialCards() {
@@ -35,13 +37,29 @@ public class BlackjackGame {
         }
     }
 
-    private void playTurns() {
+    private void playTurnsForAllUsers() {
         for (User user : users) {
-            while (InputController.askIfGetCard(user)) {
-                user.addCard(deck.draw());
-                OutputView.printCardsOfOneUser(user);
-            }
-            OutputView.printCardsOfOneUser(user);
+            playTurnForOneUser(user);
         }
+    }
+
+    private void playTurnForOneUser(User user) {
+        if(user instanceof Player) {
+            playTurnForOnePlayer((Player)user);
+            return;
+        }
+        playTurnForOneDealer((Dealer)user);
+    }
+
+    private void playTurnForOnePlayer(Player player) {
+        while (InputController.askIfGetCard(player)) {
+            player.addCard(deck.draw());
+            OutputView.printCardsOfOneUser(player);
+        }
+        OutputView.printCardsOfOneUser(player);
+    }
+
+    private void playTurnForOneDealer(Dealer dealer) {
+
     }
 }
