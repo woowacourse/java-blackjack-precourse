@@ -1,5 +1,6 @@
 package view.output;
 
+import domain.manager.Manual;
 import domain.user.Player;
 import domain.user.Table;
 import view.input.Input;
@@ -79,8 +80,10 @@ public class Output {
         System.out.println("## 최종 수익");
         List<Double> balances = table.calculateMoney();
 
-        for (int i = 0; i < table.getTable().size(); i++) {
-            System.out.println(table.getTable().get(i).getName() + ": " + balances.get(i));
+        for (int i = Manual.DEALER_POSITION.getValue();
+             i < table.getTable().size(); i++) {
+            System.out.println(table.getTable()
+                    .get(i).getName() + ": " + balances.get(i));
         }
     }
 

@@ -34,24 +34,24 @@ public class Table {
     }
 
     private double getMoneyPlayer(int index, int dealerScore) {
-        if (players.get(index).calculateScore() > dealerScore
-                || (dealerScore > Manual.BURST.getValue()
-                && players.get(index).calculateScore()
-                < Manual.BURST.getValue())) {
-            tableMoney -= players.get(index).getBettingMoney();
-
-            return players.get(index).getBettingMoney();
-        }
-        return loseMoneyPlayer(index, dealerScore);
-    }
-
-    private double loseMoneyPlayer(int index, int dealerScore) {
-        if (players.get(index).calculateScore() < dealerScore
+        if ((players.get(index).calculateScore() < dealerScore
+                && dealerScore <= Manual.BURST.getValue())
                 || players.get(index).calculateScore()
                 > Manual.BURST.getValue()) {
             tableMoney += players.get(index).getBettingMoney();
-
             return -players.get(index).getBettingMoney();
+        }
+        return winMoneyPlayer(index, dealerScore);
+    }
+
+    private double winMoneyPlayer(int index, int dealerScore) {
+        if (players.get(index).calculateScore() > dealerScore
+                || (dealerScore > Manual.BURST.getValue()
+                && players.get(index).calculateScore()
+                <= Manual.BURST.getValue())) {
+            tableMoney -= players.get(index).getBettingMoney();
+
+            return players.get(index).getBettingMoney();
         }
         return Manual.DEFAULT.getValue();
     }
