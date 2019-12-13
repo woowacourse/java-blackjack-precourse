@@ -28,8 +28,16 @@ public class Input {
     public double asBettingMoney() {
         //TODO 사용자이름과 배팅금액 Output 출력코드
         return Optional.of(input())
-                .map(Double::parseDouble)
+                .flatMap(this::stringToDouble)
                 .orElseGet(this::asBettingMoney);
+    }
+
+    public Optional<Double> stringToDouble(String input) {
+        try {
+            return Optional.of(Double.parseDouble(input));
+        } catch (NumberFormatException e){
+            return Optional.empty();
+        }
     }
 
     public boolean containsDoubleComma(String input) {
