@@ -9,19 +9,20 @@ public class GameUI {
 
     Scanner sc = new Scanner(System.in);
     String[] players;
-
+    List<Integer> bettingMoney = new ArrayList<Integer>();
 
     public void play() {
-        createPlayer();
-    }
-
-    public void createPlayer() {
         players = inputPlayer();
-        for (String p : players) {
-            int b = inputBetting(p);
 
+        for (String p : players) {
+            bettingMoney.add(inputBetting(p));
         }
+
+        GameBoard board = new GameBoard(players, bettingMoney);
+
     }
+
+
 
     public String[] inputPlayer() {
         String INPUTPLAYER = "게임에 참여할 사람의 이름을 입력하세요 (쉼표로 분리)";
@@ -64,6 +65,8 @@ public class GameUI {
 
         return betting;
     }
+
+
 
 
 }
