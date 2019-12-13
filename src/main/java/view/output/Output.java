@@ -51,6 +51,11 @@ public class Output {
         System.out.println("아니오로 처리됩니다.");
     }
 
+    public void showMessageMisInputErrorReturn() {
+        System.out.println("잘못 입력하였습니다.");
+        System.out.println("다시 입력하세요.");
+    }
+
     public void showMessageDealerGetCard() {
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }

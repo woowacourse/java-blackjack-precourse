@@ -1,5 +1,6 @@
 package domain.manager;
 
+import com.sun.corba.se.impl.io.TypeMismatchException;
 import domain.card.Deck;
 import domain.user.Table;
 import view.output.Output;
@@ -14,15 +15,42 @@ public class Manager {
     Output output = new Output();
     Validator validator = new Validator();
     List<String> names;
+    List<Double> bettingMoneys;
+    private boolean isErrorOccurred;
 
     public void start() {
-        processManagementInputNames(true);
+        processManagementInputNames();
+        processManagementInputBettingMoney();
     }
 
-    private void processManagementInputNames(boolean isErrorOccurred) {
+    private void processManagementInputNames() {
+        isErrorOccurred = true;
         while (isErrorOccurred) {
             names = splitName(output.showMessageInputName());
-            isErrorOccurred = validator.checkName(names);
+            isErrorOccurred = validator.isContainsSpace(names);
+        }
+    }
+
+    private void processManagementInputBettingMoney() {
+        try {
+            inputBettingMoneyIterating();
+            checkMoneyValidating();
+        } catch (TypeMismatchException e) {
+            output.showMessageMisInputErrorReturn();
+        }
+    }
+
+    private void inputBettingMoneyIterating() {
+        for (String name : names) {
+            bettingMoneys.add(output.showMessageInputMoney(name));
+        }
+    }
+
+    private void checkMoneyValidating() {
+        isErrorOccurred = true;
+
+        while (isErrorOccurred) {
+            isErrorOccurred = validator.isBelowZero(bettingMoneys);
         }
     }
 
