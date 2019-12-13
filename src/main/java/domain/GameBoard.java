@@ -24,6 +24,11 @@ public class GameBoard {
 
     private static final char YES = 'y';
     private static final char NO = 'n';
+    private static final int BLACKJACK = 21;
+    private static final int DELAER_INDEX = 0;
+    private static final int SIXTEEN = 16;
+    private static final int EXTRA_ACE = 10;            //ACE 11 or 1 선택 여부에 따른 추가 값
+
 
 
 
@@ -38,6 +43,7 @@ public class GameBoard {
         init();
         playerTurn();
         dealerTurn();
+        endGame();
     }
 
     public Player createPlayer(String name, int bettingMoney) {
@@ -74,22 +80,19 @@ public class GameBoard {
 
     public void printCards(Gamer gamer) {
         if (gamer.getClass() == Dealer.class) {
-            System.out.print("딜러 : ");
+            System.out.print("\n딜러 : ");
 
             for (Card c : gamer.getCards()){
                 System.out.print(c.getSymbol().getScore() + " " + c.getType().name() + " ");
             }
-            System.out.println("");
-
         }
 
         if (gamer.getClass() == Player.class) {
             Player player = (Player) gamer;
-            System.out.print(player.getName() + " : ");
+            System.out.print("\n" + player.getName() + " : ");
 
             for (Card c : gamer.getCards())
                 System.out.print(c.getSymbol().getScore() + " " + c.getType().name() + " ");
-            System.out.println("");
         }
     }
 
@@ -115,7 +118,7 @@ public class GameBoard {
         while (calValue(gamer) < 21 && oneMore) {
             Player p = (Player) gamer;
 
-            System.out.println(p.getName() + "는 한 장의 카드를 더 받겠습니까? (예는 y 아니오는 n)");
+            System.out.println("\n" + p.getName() + "는 한 장의 카드를 더 받겠습니까? (예는 y 아니오는 n)");
 
             char answer = sc.next().charAt(0);
             if (YES == answer) {
@@ -128,6 +131,32 @@ public class GameBoard {
             }
         }
     }
+
+    public void dealerTurn() {
+        if (calValue(gamer.get(DELAER_INDEX)) <= SIXTEEN) {
+            System.out.println("\n딜러는 16이하라 카드를 한 장 더 받았습니다.");
+            gamer.get(DELAER_INDEX).addCard(cards.get(cardIndex.get(head++)));
+        }
+    }
+
+    public void endGame() {
+        for (Gamer g : gamer) {
+            printCards(g);
+            System.out.println(result(g));
+        }
+    }
+
+    public int result(Gamer gamer) {
+        int result = calValue(gamer);
+
+        if (gamer.hasACE() && (result + EXTRA_ACE) <= BLACKJACK) {
+            result += EXTRA_ACE;
+        }
+
+        return result;
+    }
+
+
 
 
 
