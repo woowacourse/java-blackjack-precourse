@@ -2,6 +2,7 @@ package domain.user;
 
 import controller.BlackJack;
 import domain.card.Card;
+import domain.card.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,5 +71,12 @@ public class Player {
 
     public boolean isBlackJack() {
         return cards.size() == INIT_CARD_SIZE && getScoreWithAceCheck() == BLACK_JACK;
+    }
+
+    public void initCard(Deck deck) {
+        if(!isDealer()){
+            addCard(deck.drawCard());
+        }
+        addCard(deck.drawCard());
     }
 }
