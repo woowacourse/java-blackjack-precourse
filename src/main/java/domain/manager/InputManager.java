@@ -18,4 +18,14 @@ public class InputManager {
         } while (!isNameValid(inputString));
         return playerNameList;
     }
+
+    private static boolean isNameValid(String inputString) {
+        final int validDifference = 1;
+        int delimiterCount = 0;
+
+        for (int i = 0; i < inputString.length(); i++) {
+            delimiterCount = updateDelimiterCount(delimiterCount, inputString.charAt(i));
+        }
+        return (playerNameList.size() - delimiterCount) == validDifference;
+    }
 }
