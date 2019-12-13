@@ -1,6 +1,6 @@
 package Controller;
 
-import View.InputView;
+import View.InputController;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersFactory {
+    private static final String DELIMITER_FOR_SPLIT = ",";
     public static List<User> createUsers(String playerNames) {
         List<User> users = new ArrayList<>();
         users.addAll(createPlayersByNames(playerNames));
@@ -19,7 +20,7 @@ public class UsersFactory {
     private static List<Player> createPlayersByNames(String playerNames) {
         List<Player> players = new ArrayList<>();
 
-        String[] playerNamesSplit = playerNames.split(",");
+        String[] playerNamesSplit = playerNames.split(DELIMITER_FOR_SPLIT);
         for (String playerName : playerNamesSplit) {
             createPlayerByName(playerName);
         }
@@ -28,7 +29,7 @@ public class UsersFactory {
     }
 
     private static Player createPlayerByName(String playerName) {
-        double bettingMoney = InputView.inputBettingMoney(playerName);
+        double bettingMoney = InputController.askBettingMoney(playerName);
         return new Player(playerName, bettingMoney);
     }
 

@@ -1,5 +1,7 @@
 package Controller;
 
+import View.InputController;
+import View.OutputView;
 import domain.card.Deck;
 import domain.user.User;
 import Exception.DeckHasNoCardException;
@@ -7,7 +9,22 @@ import Exception.DeckHasNoCardException;
 import java.util.List;
 
 public class BlackjackGame {
-    public static void play(List<User> users, Deck deck) throws DeckHasNoCardException {
+    private List<User> users;
+    private Deck deck;
+
+    public BlackjackGame(List<User> users, Deck deck) {
+        this.users = users;
+        this.deck = deck;
+    }
+
+    public void play() {
+        distributeInitialCards();
+        OutputView.printUserCards(users);
+
+        playturns();
+    }
+
+    private void distributeInitialCards() {
         try {
             for (User user : users) {
                 user.addCard(deck.draw());
@@ -15,6 +32,14 @@ public class BlackjackGame {
             }
         } catch (DeckHasNoCardException e) {
 
+        }
+    }
+
+    private void playturns() {
+        for (User user : users) {
+            if(InputController.askIfGetCard(user)) {
+                user.addCard(deck.draw());
+            }
         }
     }
 }
