@@ -41,6 +41,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return symbol.getScore() + "" + type;
+        return symbol.getName() + "" + type.getName();
     }
 }
