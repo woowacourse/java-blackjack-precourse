@@ -1,5 +1,5 @@
 # blackjack game
-## package : Card
+# package : Card
 ### class : Card
 variable
 - private final Symbol symbol
@@ -31,7 +31,7 @@ method
 - Symbol(int score)
 - public int getScore()
 	
-##package : user
+#package : user
 ###class : Dealer
 variable
 - private final List<Card> cards  = new ArrayList<>()
