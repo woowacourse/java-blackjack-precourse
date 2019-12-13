@@ -40,12 +40,12 @@ class PlayerTest {
         Player player = new Player("tester", 5000);
 
         player.addCard(CardFactory.create().get(0));
-        assertThat(player.calculateScoreAce(10, 5)).isEqualTo(16);
+        assertThat(player.calculateScoreAce(5)).isEqualTo(16);
 
         player.addCard(CardFactory.create().get(1));
-        assertThat(player.calculateScoreAce(10, 5)).isEqualTo(17);
+        assertThat(player.calculateScoreAce(5)).isEqualTo(17);
 
         player.addCard(CardFactory.create().get(2));
-        assertThat(player.calculateScoreAce(10, 12)).isEqualTo(15);
+        assertThat(player.calculateScoreAce(12)).isEqualTo(15);
     }
 }

@@ -77,7 +77,7 @@ public class Manager {
     }
 
     private void hasBlackjack(List<Player> players, int index) {
-        if (players.get(index).calculateScore() == Manual.BLACKJACK.getValue()){
+        if (players.get(index).calculateScore() != Manual.BLACKJACK.getValue()){
             pickOneMoreCard(players, index);
         }
     }
@@ -86,6 +86,7 @@ public class Manager {
         boolean loop = true;
 
         output.newLine();
+        output.showMessageHavingCard(players.get(index));
         while (loop) {
             loop = pickOneMoreCardState(players, index
                     , output.showMessageOneMore(players.get(index).getName()));
