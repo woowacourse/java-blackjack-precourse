@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class InputManager {
     final static Scanner scanner = new Scanner(System.in);
@@ -65,6 +66,15 @@ public class InputManager {
             return false;
         }
         return true;
+    }
+
+    private static boolean isNumeric(String inputString) {
+        Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+        if (inputString == null) {
+            return false;
+        }
+        return pattern.matcher(inputString).matches();
     }
 
 }
