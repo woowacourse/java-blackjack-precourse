@@ -31,7 +31,7 @@ public class Manager {
         isErrorOccurred = true;
         while (isErrorOccurred) {
             names = splitName(output.showMessageInputName());
-            isErrorOccurred = validator.isContainsSpace(names);
+            isErrorOccurred = validator.isContainsSpace(names) || validator.hasOverlap(names);
         }
     }
 

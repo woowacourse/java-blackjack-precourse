@@ -7,6 +7,10 @@ public class Validator {
         return items.stream().anyMatch(x -> x.contains(" "));
     }
 
+    public boolean hasOverlap(List<String> items) {
+        return items.size() != items.stream().distinct().count();
+    }
+
     public boolean isBelowZero(Double bettingMoney) {
         return bettingMoney <= 0;
     }
