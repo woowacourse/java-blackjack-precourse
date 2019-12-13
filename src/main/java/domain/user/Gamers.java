@@ -26,7 +26,8 @@ public class Gamers {
     }
 
     public void moreCard(Deck deck) {
-        players.forEach(x -> x.moreCard(deck));
+        players.stream().filter(x -> !x.isDealer())
+                .forEach(x -> x.moreCard(deck));
     }
 
     @Override

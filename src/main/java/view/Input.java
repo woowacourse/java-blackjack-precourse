@@ -34,11 +34,12 @@ public class Input {
                 .orElseGet(() -> asBettingMoney(playerName));
     }
 
-    public boolean asWantMoreCard() {
+    public boolean asWantMoreCard(String playerName) {
+        Output.showWantMoreCard(playerName);
         return Optional.of(input())
                 .filter(this::isYesOrNo)
                 .map(this::parseToBoolean)
-                .orElseGet(this::asWantMoreCard);
+                .orElseGet(() -> asWantMoreCard(playerName));
     }
 
     public boolean isYesOrNo(String input) {

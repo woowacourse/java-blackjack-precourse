@@ -89,9 +89,10 @@ public class Player {
     }
 
     public void moreCard(Deck deck) {
-        Output.showWantMoreCard(name);
-        if (new Input().asWantMoreCard()) {
+        if (isNotBurst() && new Input().asWantMoreCard(this.name)) {
             addCard(deck.drawCard());
+            Output.showPlayerInfo(this);
+
             moreCard(deck);
         }
     }
