@@ -12,4 +12,24 @@ public class PlayersWinLoseInfo {
 			this.playersInfo.add(info);
 		}
 	}
+	
+	public WinLoseInfo getInfoAt(int index) {
+		return this.playersInfo.get(index);
+	}
+	
+	public void setBlackjackAt(int index) {
+		this.playersInfo.set(index,WinLoseInfo.BLACKJACK);
+	}
+	
+	public void setWinAt(int index) {
+		this.playersInfo.set(index,WinLoseInfo.WIN);
+	}
+	
+	public void setLoseAt(int index) {
+		this.playersInfo.set(index,WinLoseInfo.LOSE);
+	}
+	
+	public void setDrawAt(int index) {
+		this.playersInfo.set(index,WinLoseInfo.DRAW);
+	}
 }
