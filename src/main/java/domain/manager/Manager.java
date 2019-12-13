@@ -1,7 +1,7 @@
 package domain.manager;
 
-import com.sun.corba.se.impl.io.TypeMismatchException;
 import domain.card.Deck;
+import domain.user.Player;
 import domain.user.Table;
 import view.output.Output;
 
@@ -24,7 +24,7 @@ public class Manager {
     public void start() {
         processManagementInputNames();
         processManagementInputBettingMoney();
-        bettingMoneys.forEach(System.out::println);
+        processManagementInputPlayers();
     }
 
     private void processManagementInputNames() {
@@ -39,6 +39,7 @@ public class Manager {
         for (int i = 0; i < names.size(); i++) {
             Double bettingMoney = output.showMessageInputMoney(names.get(i));
             i -= checkMoneyValidating(bettingMoney);
+            System.out.println();
         }
     }
 
@@ -50,6 +51,12 @@ public class Manager {
         bettingMoneys.add(bettingMoney);
 
         return CONTINUE_VALUE;
+    }
+
+    private void processManagementInputPlayers() {
+        for (int i = 0; i < names.size(); i++) {
+            table.addMember(new Player(names.get(i), bettingMoneys.get(i)));
+        }
     }
 
     private void end() {
