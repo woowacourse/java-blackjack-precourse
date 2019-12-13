@@ -30,4 +30,11 @@ public class Dealer implements User {
     public List<Card> getCards() {
         return Collections.unmodifiableList(this.cards);
     }
+
+    @Override
+    public int getScoreOfCards() {
+        return cards.stream()
+                .mapToInt(Card::getScore)
+                .sum();
+    }
 }

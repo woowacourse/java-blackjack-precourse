@@ -10,4 +10,6 @@ public interface User {
     String getName();
 
     List<Card> getCards();
+
+    int getScoreOfCards();
 }
