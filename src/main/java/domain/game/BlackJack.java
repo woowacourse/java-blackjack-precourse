@@ -21,12 +21,21 @@ import java.util.*;
  */
 
 public class BlackJack {
+    /**
+     * MAX_SCORE는 블랙잭에서 최대로 가질 수 있는 점수값을 나타내는 상수값이다.
+     */
     public static final int MAX_SCORE = 21;
+
+    /**
+     * ACE_BONUS_SCORE는 ACE카드를 11로 쓸 경우 추가되는 점수 10점을 의미한다.
+     */
     public static final int ACE_BONUS_SCORE = 10;
+
     /**
      * playerList는 플레이어 객체를 모아둔 리스트이다.
      */
     private List<Player> playerList;
+
     /**
      * dealer는 딜러 객체를 저장하는 인스턴스 변수이다.
      */
@@ -175,30 +184,46 @@ public class BlackJack {
      */
     public void firstDraw() {
         dealer.addCard(drawCard());
-        System.out.println(dealer.getOneCardString());
+        System.out.println(dealer.getCardStringWithName());
         dealer.addCard(drawCard());
         for (Player player : playerList) {
             player.addCard(drawCard());
             player.addCard(drawCard());
-            System.out.println(player.getCardString());
+            System.out.println(player.getCardStringWithName());
         }
         System.out.print("\n");
     }
 
     public void printResultScore() {
-        System.out.println(dealer.getCardString() + dealer.getScoreString());
+        System.out.println(dealer.getCardStringWithName() + dealer.getScoreString());
         for (Player player : playerList) {
-            System.out.println(player.getCardString() + player.getScoreString());
+            System.out.println(player.getCardStringWithName() + player.getScoreString());
         }
         System.out.print("\n");
     }
 
     public void printResultMoney() {
         System.out.print(Message.PRINT_RESULT);
-        System.out.println(dealer.getMoneyString());
+        printDealerResultMoney();
         for (Player player : playerList) {
-            System.out.println(player.getMoneyString());
+            System.out.println(player.getResultMoneyString(dealer.getScore()));
         }
+    }
+
+    /**
+     * dealer 클래스에 만약 money라는 인스턴스를 추가할 수 있다면,
+     * 이를 수정하는 식으로 설계할 수 있다.
+     * 그러나 플레이어들의 잃은 돈의 누적합을 계산하는 상황에서
+     * 내부 인자를 통한 해결법이 보이지 않아, 부득이하게 블랙잭 객체 내에 함수를 선언하게 되었다.
+     *
+     */
+    public void printDealerResultMoney() {
+        String resultString = "딜러: ";
+        double sumOfMoney = 0.0;
+        for(Player player : playerList) {
+            sumOfMoney -= player.getResultMoney(dealer.getScore());
+        }
+        System.out.println(resultString + Integer.toString((int)sumOfMoney));
     }
 
     public void playGame() {
