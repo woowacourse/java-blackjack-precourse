@@ -10,6 +10,7 @@ import java.util.List;
 
 public class UsersFactory {
     private static final String DELIMITER_FOR_SPLIT = ",";
+
     public static List<User> createUsers(String playerNames) {
         List<User> users = new ArrayList<>();
         users.addAll(createPlayersByNames(playerNames));
@@ -22,7 +23,7 @@ public class UsersFactory {
 
         String[] playerNamesSplit = playerNames.split(DELIMITER_FOR_SPLIT);
         for (String playerName : playerNamesSplit) {
-            createPlayerByName(playerName);
+            players.add(createPlayerByName(playerName));
         }
 
         return players;

@@ -2,6 +2,7 @@ package View;
 
 import domain.user.User;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputView {
@@ -18,9 +19,9 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public static double inputBettingMoney(String playerName) throws NumberFormatException {
+    public static String inputBettingMoney(String playerName) {
         System.out.println(playerName + INPUT_BETTING_MONEY_MESSAGE);
-        return scanner.nextDouble();
+        return scanner.nextLine();
     }
 
     public static String inputIfGetCard(User user) {

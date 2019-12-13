@@ -11,8 +11,8 @@ import Exception.DeckHasNoCardException;
 import java.util.List;
 
 public class BlackjackGame {
-    public static final int DEALER_MINIMUM_SCORE_TO_PASS = 17;
-    public static final String DEALER_SCORE_IS_UNDER_MINIMUM_MESSAGE = "딜러의 점수가 17미만이므로 1장의 카드를 더 받습니다.";
+    private static final int DEALER_MINIMUM_SCORE_TO_PASS = 17;
+    private static final String DEALER_SCORE_IS_UNDER_MINIMUM_MESSAGE = "딜러의 점수가 17미만이므로 1장의 카드를 더 받습니다.";
 
     private List<User> users;
     private Deck deck;

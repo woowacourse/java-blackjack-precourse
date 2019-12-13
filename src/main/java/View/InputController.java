@@ -16,7 +16,7 @@ public class InputController {
 
     public static double askBettingMoney(String playerName) {
         try {
-            return InputView.inputBettingMoney(playerName);
+            return Double.parseDouble(InputView.inputBettingMoney(playerName));
         } catch (NumberFormatException e) {
             System.out.println(NOT_A_NUMBER_EXCEPTION_MESSAGE);
             return askBettingMoney(playerName);
