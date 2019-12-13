@@ -55,12 +55,32 @@ public class BlackJackGame {
     }
 
     private void findWinner() {
-        double dealerMoney = 0;
         // 딜러보다 낮으면 패배 높으면 승
         List<MoneyDTO> playerMoney = new ArrayList<>();
+        MoneyDTO dealerMoney = new MoneyDTO("dealer", 0);
+        players.stream().forEach(x -> playerMoney.add(compareScore(x, dealer, dealerMoney)));
         printMessage("## 최종 수익");
-        printMessage("딜러: "+dealerMoney);
+        printMessage("딜러: "+(int)dealerMoney.getMoney());
+        playerMoney.forEach(x->printMessage(x.getName()+": "+x.getMoney()));
+    }
 
+    private MoneyDTO compareScore(Player player, Dealer dealer, MoneyDTO dealerMoney) {
+        int profit = getProfit(player, dealer);
+        dealerMoney.setMoney(dealerMoney.getMoney()+(-1*profit));
+        return new MoneyDTO(player.getName(), profit);
+    }
+
+    private int getProfit(Player player, Dealer dealer) {
+        if(!player.isBusted() && (player.getScore() > dealer.getScore() || dealer.isBusted())) {
+            return (int)player.getBettingMoney();
+        }
+        if(player.getScore() < dealer.getScore() || player.isBusted()) {
+            return (int)(-1*player.getBettingMoney());
+        }
+        if(player.isBlackJack() && !dealer.isBlackJack()) {
+            return (int)(1.5* player.getBettingMoney());
+        }
+        return 0;
     }
 
     private void printPlayerCards() {
@@ -70,7 +90,7 @@ public class BlackJackGame {
 
     private String getUsersTest() {
         List<String> usersName = new ArrayList<>();
-        players.stream().forEach(x -> usersName.add(x.getNameTest()));
+        players.stream().forEach(x -> usersName.add(x.getName()));
         return String.join(", ", usersName);
     }
 

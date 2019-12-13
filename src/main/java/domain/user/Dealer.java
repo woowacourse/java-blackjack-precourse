@@ -50,6 +50,10 @@ public class Dealer {
         return score;
     }
 
+    public int getScore() {
+        return calculateScore();
+    }
+
     private String printBust() {
         if(this.isBusted()) {
             return (" (버스트)");

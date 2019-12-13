@@ -53,6 +53,10 @@ public class Player {
         return score;
     }
 
+    public int getScore() {
+        return calculateScore();
+    }
+
     private String printBust() {
         if(this.isBusted()) {
             return (" (버스트)");
@@ -78,7 +82,7 @@ public class Player {
     }
 
     public String isHit() {
-        return (name+"은(는) 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+        return (name+"님, 한장의 카드를 더 받으시겠습니까? (힛: Y, 스탠드: N)");
     }
 
     // 스탠드오프. 무승부.
@@ -102,7 +106,7 @@ public class Player {
     }
 
     // 임시
-    public String getNameTest() {
+    public String getName() {
         return this.name;
     }
 
