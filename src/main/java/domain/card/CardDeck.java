@@ -1,14 +1,17 @@
 package domain.card;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Stack;
 
 public class CardDeck {
-	private final List<Card> cards = new ArrayList<>();
+	private final Stack<Card> cards = new Stack<>();
 
 	public CardDeck() {
-		CardFactory.create().forEach(cards::add);
+		cards.addAll(CardFactory.create());
 		Collections.shuffle(cards);
+	}
+
+	public Card draw() {
+		return cards.pop();
 	}
 }
