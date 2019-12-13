@@ -8,7 +8,7 @@ package domain.model.card;
 /**
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
- * @apiNote Card 객체에 사용될 Type을 구현한 클래스입니다.
+ * @apiNote Card 객체에 사용될 Type enum입니다.
  * @since : 2019.12.13 금요일
  */
 public enum Type {
