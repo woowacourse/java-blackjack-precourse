@@ -5,6 +5,7 @@
 
 	private final Symbol symbol
 	private final Type type
+	
 - method
 
 	public Card (Symbol symbol, Type type)
@@ -18,6 +19,7 @@
 
 	public static List<Card> create()
 	private static void createByType()
+	
 ### enum : Type
 - variable
 
@@ -29,15 +31,18 @@
 	{ ACE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6),
 		 SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10)}
 	private int score
+	
 - method
 
 	Symbol(int score)
 	public int getScore()
+	
 ##package : user
 ###class : Dealer
 - variable
 
 	private final List<Card> cards  = new ArrayList<>()
+	
 - method
 
 	public Dealer()
@@ -49,6 +54,7 @@
 	private final String name
 	privare final double bettingMoney
 	private final List<Card> cards = new ArrayList<>()
+	
 - method
 
 	public Player(String name, double bettingMoney)
