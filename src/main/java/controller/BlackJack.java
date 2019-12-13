@@ -2,6 +2,7 @@ package controller;
 
 import domain.card.Deck;
 import domain.user.Dealer;
+import domain.user.Gamers;
 import domain.user.Player;
 import view.Input;
 import view.Output;
@@ -10,20 +11,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BlackJack {
-    private List<Player> players;
+    private Gamers gamers;
     private Deck deck;
 
     public BlackJack() {
-        players = new Input().asGamers()
-                .stream()
+        gamers = new Gamers(new Input().asGamers().stream()
                 .map(x -> new Player(x, new Input().asBettingMoney(x)))
-                .collect(Collectors.toList());
-        players.add(new Dealer());
+                .collect(Collectors.toList()));
+        gamers.getPlayers().add(new Dealer());
         deck = new Deck();
     }
 
     public void start() {
-        Output.showInitCardUi(players);
-        players.forEach(x -> x.initCard(deck));
+        Output.showInitCardUi(gamers.getPlayers());
+        gamers.getPlayers().forEach(x -> x.initCard(deck));
     }
 }
