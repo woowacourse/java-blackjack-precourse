@@ -38,4 +38,12 @@ public class Gamer {
 		}
 		return sum;
 	}
+
+	public boolean isCardSize(int size) {
+		return cards.size() == size;
+	}
+
+	public boolean isScore(int score) {
+		return getSumOfCards() == score;
+	}
 }
