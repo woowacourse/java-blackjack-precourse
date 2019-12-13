@@ -35,4 +35,10 @@ public class PlayManager {
             dealCards();
         }
     }
+
+    private void dealCards() {
+        for (Gamer gamer : gamers) {
+            gamer.addCard(deck.giveRandomCard());
+        }
+    }
 }
