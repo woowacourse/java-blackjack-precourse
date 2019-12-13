@@ -2,11 +2,10 @@ package domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import domain.card.Card;
 
-public class Gamer {
+public class User {
 	private static final int ZERO_SCORE = 0;
 	private static final int ACE_EXTRA_SCORE = 10;
 	private static final int OPTIMAL_SCORE = 21;
