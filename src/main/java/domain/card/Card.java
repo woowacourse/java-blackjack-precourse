@@ -1,21 +1,44 @@
 package domain.card;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * 카드 한장을 의미하는 객체
  */
 public class Card {
     private final Symbol symbol;
-
     private final Type type;
+    private final String ACE_CHOICE_NUMBER_ONE = "1";
+    private final String ACE_CHOICE_NUMBER_TWO = "11";
+
 
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    // 카드의 숫자 계산
+    
+    private int selectAceNumber() {
+    	int aceNumber = 0;
+    	String aceNumberString = "";
+    	Scanner scanner = new Scanner(System.in);
+    	do {
+    		System.out.println("Ace 카드를 어떤 수로 사용하시겠습니까? (1 또는 11만 입력 가능)");
+    		aceNumberString = scanner.nextLine().trim();
+    	} while(!selectAceNumberChecked(aceNumberString));
+    	aceNumber = Integer.parseInt(aceNumberString);
+    	return aceNumber;
+    }
+    
+    private boolean selectAceNumberChecked(String aceNumberString) {
+    	if (aceNumberString.equals(ACE_CHOICE_NUMBER_ONE) || aceNumberString.equals(ACE_CHOICE_NUMBER_TWO)) {
+    		return true;
+    	}
+    	System.out.println("1 또는 11만 입력 가능합니다");
+    	return false;
+    }   
 
     @Override
     public boolean equals(Object o) {
