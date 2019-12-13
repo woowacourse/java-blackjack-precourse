@@ -1,5 +1,7 @@
 package view;
 
+import domain.user.Player;
+
 import java.util.*;
 
 public class Input {
@@ -21,6 +23,13 @@ public class Input {
                 .filter(this::endWithComma)
                 .map(this::splitAsComma)
                 .orElseGet(this::asGamers);
+    }
+
+    public double asBettingMoney() {
+        //TODO 사용자이름과 배팅금액 Output 출력코드
+        return Optional.of(input())
+                .map(Double::parseDouble)
+                .orElseGet(this::asBettingMoney);
     }
 
     public boolean containsDoubleComma(String input) {
