@@ -42,4 +42,8 @@ public class Card {
     public String toPrintString() {
         return symbol.toString() + type.toString();
     }
+
+    public int getSymbolValue(){
+        return symbol.getScore();
+    }
 }
