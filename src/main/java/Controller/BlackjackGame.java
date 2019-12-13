@@ -11,6 +11,7 @@ import Exception.DeckHasNoCardException;
 import java.util.List;
 
 public class BlackjackGame {
+    private static final int INITIAL_NUMBER_OF_CARDS = 2;
     private static final int DEALER_MINIMUM_SCORE_TO_PASS = 17;
     private static final String DEALER_SCORE_IS_UNDER_MINIMUM_MESSAGE = "딜러의 점수가 17미만이므로 1장의 카드를 더 받습니다.";
 
@@ -23,21 +24,41 @@ public class BlackjackGame {
     }
 
     public void play() {
-        distributeInitialCards();
-        OutputView.printCardsOfAllUsers(users);
-
-        playTurnsForAllUsers();
-    }
-
-    private void distributeInitialCards() {
         try {
-            for (User user : users) {
-                user.addCard(deck.draw());
-                user.addCard(deck.draw());
-            }
+            distributeInitialCardsToAllUsers();
+            playTurnsForAllUsers();
+
         } catch (DeckHasNoCardException e) {
 
         }
+    }
+
+    private void distributeInitialCardsToAllUsers() {
+        for (User user : users) {
+            distributeInitialCardsToOneUser(user);
+        }
+    }
+
+    private void distributeInitialCardsToOneUser(User user) {
+        if (user instanceof Player) {
+            distributeInitialCardsToOnePlayer((Player) user);
+            return;
+        }
+        distributeInitialCardsToOneDealer((Dealer) user);
+    }
+
+    private void distributeInitialCardsToOnePlayer(Player player) {
+        for (int i = 0; i < INITIAL_NUMBER_OF_CARDS; i++) {
+            player.addCard(deck.draw());
+        }
+        OutputView.printCardsOfOneUser(player);
+    }
+
+    private void distributeInitialCardsToOneDealer(Dealer dealer) {
+        for (int i = 0; i < INITIAL_NUMBER_OF_CARDS; i++) {
+            dealer.addCard(deck.draw());
+        }
+        OutputView.printCardsOfOneDealerExceptOneCard(dealer);
     }
 
     private void playTurnsForAllUsers() {
@@ -47,11 +68,11 @@ public class BlackjackGame {
     }
 
     private void playTurnForOneUser(User user) {
-        if(user instanceof Player) {
-            playTurnForOnePlayer((Player)user);
+        if (user instanceof Player) {
+            playTurnForOnePlayer((Player) user);
             return;
         }
-        playTurnForOneDealer((Dealer)user);
+        playTurnForOneDealer((Dealer) user);
     }
 
     private void playTurnForOnePlayer(Player player) {

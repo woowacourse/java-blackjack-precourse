@@ -47,4 +47,8 @@ public class Dealer implements User {
     public boolean isBlackjack() {
         return getScoreOfCards() == BLACKJACK_NUMBER;
     }
+
+    public List<Card> getCardsExceptOneCard() {
+        return Collections.unmodifiableList(this.cards.subList(1, this.cards.size()));
+    }
 }

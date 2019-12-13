@@ -6,8 +6,9 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
-    private final Symbol symbol;
+    private static final String BLANK = " ";
 
+    private final Symbol symbol;
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
@@ -35,9 +36,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return type.getName() + BLANK +  symbol.getName();
     }
 }
