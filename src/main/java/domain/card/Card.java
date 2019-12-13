@@ -32,8 +32,8 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return this.symbol.getStringSymbol()
-				+ this.type.getKorType();
+		return this.symbol.toString()
+				+ this.type.toString();
 	}
 
 	public int getScore() {

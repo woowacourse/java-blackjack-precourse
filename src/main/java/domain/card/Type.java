@@ -12,7 +12,7 @@ public enum Type {
 		this.korType = kor;
 	}
 	
-	public String getKorType() {
+	public String toString() {
 		return this.korType;
 	}
 }

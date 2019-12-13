@@ -25,4 +25,8 @@ public class Player extends User{
 	public static void checkValidBettingMoney(int money) {
 		PlayerConstraints.checkMoneyRange(money);
 	}
+	
+	public String getName() {
+		return this.name;
+	}
 }

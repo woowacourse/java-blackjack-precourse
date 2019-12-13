@@ -25,7 +25,7 @@ public enum Symbol {
 		return score;
 	}
 	
-	public String getStringSymbol() {
+	public String toString() {
 		String output = Integer.toString(this.getScore());
 		if (this == ACE
 				|| this == JACK

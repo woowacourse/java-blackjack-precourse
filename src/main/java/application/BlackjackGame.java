@@ -4,6 +4,7 @@ import java.util.List;
 
 import domain.card.CardDeck;
 import domain.user.Dealer;
+import domain.user.Player;
 import domain.user.Players;
 import inputview.InputView;
 
@@ -35,18 +36,15 @@ public class BlackjackGame {
 			dealer.drawCard(cardDeck);
 			players.drawCard(cardDeck);
 		}
-		
-		//나중에 지울 테스트 부분
-		System.out.println("dealer: " + dealer.getAllCardsInString());
-		System.out.println("dealer score: " + dealer.calculateScore());
-		for(int i = 0; i < players.getSize(); i++) {
-			System.out.println("player " + i + ": " + players.getPlayerAt(i).getAllCardsInString());
-			System.out.println("player " + i + " score: " + players.getPlayerAt(i).calculateScore());
-		}
 	}
 	
 	private void showFirstCards(Dealer dealer, Players players) {
-		
+		System.out.println("딜러와 " + players.toString() + "에게 2장의 카드를 나누었습니다.");
+		System.out.println("딜러: " + );
+		for (int i = 0; i < players.getSize(); i++) {
+			Player player = players.getPlayerAt(i);
+			System.out.println(player.getName() + "카드: " + player.getAllCardsInString());
+		}
 	}
 	
 	private void drawAdditionalCards(Dealer dealer, Players players, CardDeck cardDeck) {

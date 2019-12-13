@@ -1,6 +1,7 @@
 package domain.user;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 import domain.card.CardDeck;
@@ -30,6 +31,12 @@ public class Players {
 	
 	public Player getPlayerAt(int index) {
 		return this.players.get(index);
+	}
+	
+	public String toString() {
+		return this.players.stream()
+				.map(player -> player.getName())
+				.collect(Collectors.joining(", "));
 	}
 	
 	public int getSize() {
