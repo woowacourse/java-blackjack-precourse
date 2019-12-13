@@ -26,8 +26,7 @@ public class Table {
 
         balances.add(tableMoney);
         for (int i = Manual.PLAYER_INIT.getValue(); i < players.size(); i++) {
-            balances.add(getMoneyPlayer(i, players.get(
-                    Manual.DEALER_POSITION.getValue()).calculateScore()));
+            balances.add(getMoneyPlayer(i, players.get(Manual.DEALER_POSITION.getValue()).calculateScore()));
         }
         balances.set(Manual.DEALER_POSITION.getValue(), -getMoneyDealer(balances));
 
@@ -35,16 +34,24 @@ public class Table {
     }
 
     private double getMoneyPlayer(int index, int dealerScore) {
-        if (players.get(index).calculateScore() > dealerScore) {
+        if (players.get(index).calculateScore() > dealerScore
+                || (dealerScore > Manual.BURST.getValue()
+                && players.get(index).calculateScore()
+                < Manual.BURST.getValue())) {
             tableMoney -= players.get(index).getBettingMoney();
             return players.get(index).getBettingMoney();
         }
-        if (players.get(index).calculateScore() < dealerScore) {
+        return loseMoneyPlayer(index, dealerScore);
+    }
+
+    private double loseMoneyPlayer(int index, int dealerScore) {
+        if (players.get(index).calculateScore() < dealerScore
+                || players.get(index).calculateScore()
+                > Manual.BURST.getValue()) {
             tableMoney += players.get(index).getBettingMoney();
             return -players.get(index).getBettingMoney();
         }
-
-        return Manual.DEFAULT.getValue();
+        return Manual.EMPTY.getValue();
     }
 
     private Double getMoneyDealer(List<Double> playerMoney) {
