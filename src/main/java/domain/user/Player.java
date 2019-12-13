@@ -29,7 +29,7 @@ public class Player extends BlackJackPlayer {
 
     public Boolean canHaveMoreCard() {
         return getScoreOfCards() != BURST_SCORE &&
-                getScoreOfCards() <= BLACK_JACK_NUMBER;
+                getScoreOfCards() < BLACK_JACK_NUMBER;
     }
 
     @Override
