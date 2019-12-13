@@ -2,7 +2,6 @@ package View;
 
 import domain.user.User;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputView {

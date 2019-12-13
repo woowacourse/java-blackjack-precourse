@@ -37,4 +37,14 @@ public class Dealer implements User {
                 .mapToInt(Card::getScore)
                 .sum();
     }
+
+    @Override
+    public boolean isBust() {
+        return getScoreOfCards() > BLACKJACK_NUMBER;
+    }
+
+    @Override
+    public boolean isBlackjack() {
+        return getScoreOfCards() == BLACKJACK_NUMBER;
+    }
 }

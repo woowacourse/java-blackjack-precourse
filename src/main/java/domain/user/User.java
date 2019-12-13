@@ -5,6 +5,8 @@ import domain.card.Card;
 import java.util.List;
 
 public interface User {
+    int BLACKJACK_NUMBER = 21;
+
     void addCard(Card card);
 
     String getName();
@@ -12,4 +14,8 @@ public interface User {
     List<Card> getCards();
 
     int getScoreOfCards();
+
+    boolean isBust();
+
+    boolean isBlackjack();
 }
