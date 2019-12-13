@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 import domain.card.Deck;
+import view.Output;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,13 @@ public class Dealer extends Player {
     }
 
     public boolean isDealerUnderSixteen() {
-        return getScore() < DEALER_MIN_STAND_NUMBER;
+        return getScoreWithAceCheck() < DEALER_MIN_STAND_NUMBER;
     }
 
     public void dealerMoreCard(Deck deck) {
         if (isDealerUnderSixteen()) {
-            super.moreCard(deck);
+            Output.showDealerMoreCard();
+            moreCard(deck);
         }
     }
 }

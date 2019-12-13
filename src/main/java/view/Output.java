@@ -28,6 +28,10 @@ public class Output {
     }
 
     public static void showWantMoreCard(String playerName) {
-        System.out.println(playerName+"은(는) 카드를 더받겠습니까?");
+        System.out.println(playerName + "은(는) 카드를 더받겠습니까?");
+    }
+
+    public static void showDealerMoreCard() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다");
     }
 }
