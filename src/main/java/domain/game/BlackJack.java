@@ -32,6 +32,11 @@ public class BlackJack {
     public static final int ACE_BONUS_SCORE = 10;
 
     /**
+     * DEALER_DRAW_SCORE는 딜러가 카드를 더 뽑을 수 있는 점수값의 상한선을 나타내는 상수이다.
+     */
+    public static final int DEALER_DRAW_SCORE = 16;
+
+    /**
      * playerList는 플레이어 객체를 모아둔 리스트이다.
      */
     private List<Player> playerList;
@@ -182,7 +187,7 @@ public class BlackJack {
      * 딜러는 1장만 공개하고, 나머지는 2장의 카드 모두 출력한다.
      * 마지막엔 공백을 넣어준다.
      */
-    public void firstDraw() {
+    private void firstDraw() {
         dealer.addCard(drawCard());
         System.out.println(dealer.getCardStringWithName());
         dealer.addCard(drawCard());
@@ -194,7 +199,7 @@ public class BlackJack {
         System.out.print("\n");
     }
 
-    public void printResultScore() {
+    private void printResultScore() {
         System.out.println(dealer.getCardStringWithName() + dealer.getScoreString());
         for (Player player : playerList) {
             System.out.println(player.getCardStringWithName() + player.getScoreString());
@@ -202,7 +207,7 @@ public class BlackJack {
         System.out.print("\n");
     }
 
-    public void printResultMoney() {
+    private void printResultMoney() {
         System.out.print(Message.PRINT_RESULT);
         printDealerResultMoney();
         for (Player player : playerList) {
@@ -215,20 +220,44 @@ public class BlackJack {
      * 이를 수정하는 식으로 설계할 수 있다.
      * 그러나 플레이어들의 잃은 돈의 누적합을 계산하는 상황에서
      * 내부 인자를 통한 해결법이 보이지 않아, 부득이하게 블랙잭 객체 내에 함수를 선언하게 되었다.
-     *
      */
-    public void printDealerResultMoney() {
+    private void printDealerResultMoney() {
         String resultString = "딜러: ";
         double sumOfMoney = 0.0;
-        for(Player player : playerList) {
+        for (Player player : playerList) {
             sumOfMoney -= player.getResultMoney(dealer.getScore());
         }
-        System.out.println(resultString + Integer.toString((int)sumOfMoney));
+        System.out.println(resultString + Integer.toString((int) sumOfMoney));
     }
 
-    public void playGame() {
+    /**
+     * addDraw는 플레이어와 딜러에게 추가로 카드를 뽑을지 확인해주는 메서드이다.
+     */
+    private void addDraw() {
+        dealerDraw();
+        for(Player player : playerList) {
+            playerDraw(player);
+        }
+    }
+
+    private void dealerDraw() {
+        while (dealer.checkDrawMore()) {
+            dealer.addCard(drawCard());
+            System.out.print(Message.DRAW_DEALER);
+        }
+    }
+
+    private void playerDraw(Player player) {
+        //nothing
+    }
+
+    /**
+     * playBlackJack은 실제 블랙잭 게임을 수행하는 메서드이다. 상위 객체로부터 호출된다.
+     */
+    public void playBlackJack() {
         initBlackJack();
         firstDraw();
+        addDraw();
         printResultScore();
         printResultMoney();
     }
