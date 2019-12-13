@@ -11,7 +11,8 @@ public class Card {
     private final Type type;
     private final String ACE_CHOICE_NUMBER_ONE = "1";
     private final String ACE_CHOICE_NUMBER_TWO = "11";
-
+    private final int Dealer_ACE_NUMBER_BASE = 6;
+    private int number = 0;
 
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
@@ -26,16 +27,26 @@ public class Card {
     	return cardInfo.toString();
     }
 
-    public int cardNumber()  {
+    public int cardNumber(String user, int sumNumbers)  {
     	int cardNumber = 0;
     	cardNumber = symbol.getScore();
-    	if (cardNumber == 1) {
-    		cardNumber = selectAceNumber();
-    	}
+    	if (cardNumber == 1 && user.equals("Player")) {
+    		cardNumber = selectAceNumberPlayer();
+    	} else if (cardNumber == 1 && user.equals("Dealer")) {
+    		cardNumber = selectAceNumberDealer(sumNumbers);
+    	} 
     	return cardNumber;
     }
     
-    private int selectAceNumber() {
+    private int selectAceNumberDealer(int sumNumbers) {
+    	int aceNumber = 1;
+    	if (sumNumbers > Dealer_ACE_NUMBER_BASE) {
+    		aceNumber = 11;
+    	}
+    	return aceNumber;
+    }
+    
+    private int selectAceNumberPlayer() {
     	int aceNumber = 0;
     	String aceNumberString = "";
     	Scanner scanner = new Scanner(System.in);
