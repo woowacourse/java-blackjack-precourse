@@ -5,6 +5,7 @@ import controller.BlackJack;
 import domain.card.Card;
 import domain.card.Deck;
 import view.Input;
+import view.Output;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,7 @@ public class Player {
     }
 
     public void moreCard(Deck deck) {
+        Output.showWantMoreCard(name);
         if (new Input().asWantMoreCard()) {
             addCard(deck.drawCard());
             moreCard(deck);

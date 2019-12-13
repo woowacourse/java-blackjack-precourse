@@ -26,4 +26,8 @@ public class Output {
     public static void showPlayerInfo(Player player) {
         System.out.println(player);
     }
+
+    public static void showWantMoreCard(String playerName) {
+        System.out.println(playerName+"은(는) 카드를 더받겠습니까?");
+    }
 }
