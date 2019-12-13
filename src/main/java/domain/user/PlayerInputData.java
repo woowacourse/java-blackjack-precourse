@@ -8,6 +8,19 @@ public class PlayerInputData {
     private static boolean doesNeedInput;
     private static String userInput;
 
+    public List<Player> getPlayerList() {
+        List<Player> playerList = new ArrayList<>();
+        List<String> nameList = getNameList();
+        List<Double> bettingMoneyList = new ArrayList<>();
+        for (String name : nameList) {
+            bettingMoneyList.add(getBettingMoney(name));
+        }
+        for (int i=0; i<nameList.size(); i++) {
+            playerList.add(new Player(nameList.get(i), bettingMoneyList.get(i)));
+        }
+        return playerList;
+    }
+
     private static String getUserInput(String askMessage) {
         System.out.println(askMessage);
         Scanner scanner = new Scanner(System.in);
