@@ -85,26 +85,6 @@ public class Player {
         return (name+"님, 한장의 카드를 더 받으시겠습니까? (힛: Y, 스탠드: N)");
     }
 
-    // 스탠드오프. 무승부.
-    public String getStandOff() {
-        return (name+": "+0);
-    }
-
-    // 블랙잭이 나와 우승.
-    public String winBlackJack() {
-        return (name+": "+1.5*bettingMoney);
-    }
-
-    // 가장 21에 가까운 수로 우승.
-    public String winNearestScore() {
-        return (name+": "+bettingMoney);
-    }
-
-    // 패배
-    public String loseAll() {
-        return (name+": "+-1*bettingMoney);
-    }
-
     // 임시
     public String getName() {
         return this.name;

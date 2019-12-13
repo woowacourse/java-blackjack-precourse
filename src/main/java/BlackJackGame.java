@@ -7,7 +7,6 @@ import utils.UserInput;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import static utils.ConsoleOutput.printMessage;
@@ -28,7 +27,7 @@ public class BlackJackGame {
         newCards.addAll(CardFactory.create());
         Collections.shuffle(newCards);
         drawStartCards(newCards, START_DRAW);
-        if(!checkBlackJack()) {
+        if (!checkBlackJack()) {
             startTurn(newCards);
         }
         printGameResult();
@@ -51,7 +50,7 @@ public class BlackJackGame {
 
     private void printGameResult() {
         ConsoleOutput.printCards(dealer.getFinalCardString());
-        players.forEach(x-> ConsoleOutput.printCards(x.getFinalCardString()));
+        players.forEach(x -> ConsoleOutput.printCards(x.getFinalCardString()));
     }
 
     private void findWinner() {
@@ -60,31 +59,31 @@ public class BlackJackGame {
         MoneyDTO dealerMoney = new MoneyDTO("dealer", 0);
         players.stream().forEach(x -> playerMoney.add(compareScore(x, dealer, dealerMoney)));
         printMessage("## 최종 수익");
-        printMessage("딜러: "+(int)dealerMoney.getMoney());
-        playerMoney.forEach(x->printMessage(x.getName()+": "+x.getMoney()));
+        printMessage("딜러: " + (int) dealerMoney.getMoney());
+        playerMoney.forEach(x -> printMessage(x.getName() + ": " + x.getMoney()));
     }
 
     private MoneyDTO compareScore(Player player, Dealer dealer, MoneyDTO dealerMoney) {
         int profit = getProfit(player, dealer);
-        dealerMoney.setMoney(dealerMoney.getMoney()+(-1*profit));
+        dealerMoney.setMoney(dealerMoney.getMoney() + (-1 * profit));
         return new MoneyDTO(player.getName(), profit);
     }
 
     private int getProfit(Player player, Dealer dealer) {
-        if(!player.isBusted() && (player.getScore() > dealer.getScore() || dealer.isBusted())) {
-            return (int)player.getBettingMoney();
+        if (!player.isBusted() && (player.getScore() > dealer.getScore() || dealer.isBusted())) {
+            return (int) player.getBettingMoney();
         }
-        if(player.getScore() < dealer.getScore() || player.isBusted()) {
-            return (int)(-1*player.getBettingMoney());
+        if (player.getScore() < dealer.getScore() || player.isBusted()) {
+            return (int) (-1 * player.getBettingMoney());
         }
-        if(player.isBlackJack() && !dealer.isBlackJack()) {
-            return (int)(1.5* player.getBettingMoney());
+        if (player.isBlackJack() && !dealer.isBlackJack()) {
+            return (int) (1.5 * player.getBettingMoney());
         }
         return 0;
     }
 
     private void printPlayerCards() {
-        players.forEach(x-> ConsoleOutput.printCards(x.getCardString()));
+        players.forEach(x -> ConsoleOutput.printCards(x.getCardString()));
     }
 
 
@@ -101,11 +100,11 @@ public class BlackJackGame {
     }
 
     private boolean checkBlackJack() {
-        if(dealer.isBlackJack()) {
+        if (dealer.isBlackJack()) {
             printMessage("딜러가 블랙잭입니다.");
             return true;
         }
-        if(players.stream().filter(x -> x.isBlackJack()).count() != 0) {
+        if (players.stream().filter(x -> x.isBlackJack()).count() != 0) {
             printMessage("플레이어가 블랙잭입니다.");
             return true;
         }
@@ -127,12 +126,12 @@ public class BlackJackGame {
     private void askToDraw(Player player, List<Card> newCards) {
         String message = player.isHit();
         boolean continueDraw = true;
-        while(continueDraw && !player.isBusted()) {
+        while (continueDraw && !player.isBusted()) {
             printMessage(message);
             continueDraw = drawOneMore(player, newCards);
             printMessage(player.getCardString());
         }
-        if(player.isBusted()) {
+        if (player.isBusted()) {
             printMessage("\n버스트! 배팅 금액을 모두 잃습니다.\n");
         }
     }
@@ -140,7 +139,7 @@ public class BlackJackGame {
     private boolean drawOneMore(Player player, List<Card> newCards) {
         try {
             return askHit(player, newCards);
-        }catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             printMessage(e.getMessage());
             drawOneMore(player, newCards);
         }
@@ -148,7 +147,7 @@ public class BlackJackGame {
     }
 
     private boolean askHit(Player player, List<Card> newCards) {
-        if(UserInput.inputYesNo()) {
+        if (UserInput.inputYesNo()) {
             player.addCard(drawTopCard(newCards));
             return true;
         }
