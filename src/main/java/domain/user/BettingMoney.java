@@ -1,5 +1,7 @@
 package domain.user;
 
+import java.util.Objects;
+
 public class BettingMoney {
     private static final double BAT_NOTHING = 0;
     private static final double BLACK_JACK_RATE = 1.5;
@@ -33,5 +35,18 @@ public class BettingMoney {
 
     public double lose() {
         return money * LOSE_RATE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BettingMoney that = (BettingMoney) o;
+        return Objects.equals(money, that.money);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(money);
     }
 }
