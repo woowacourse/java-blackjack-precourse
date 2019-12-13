@@ -30,6 +30,12 @@ public class Gamers {
                 .forEach(x -> x.moreCard(deck));
     }
 
+    public Dealer findDealer() {
+        return (Dealer) players.stream().filter(Player::isDealer)
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
+    }
+
     @Override
     public String toString() {
         return players.stream().map(Player::toString).collect(Collectors.joining("\n"));
