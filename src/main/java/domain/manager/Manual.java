@@ -7,9 +7,11 @@ public enum Manual {
     CONTINUE(0),
     PLAYER_INIT(1),
     REMOVE_ERROR(1),
+    Pair(2),
     SAFE(10),
+    DEALER_MIN(16),
     BURST(21),
-    DEALER_MIN(16);
+    BLACKJACK(21);
 
     private int value;
 

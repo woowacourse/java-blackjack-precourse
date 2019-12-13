@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Table {
     private List<Player> players = new LinkedList<>();
+    private List<Boolean> blackjack = new LinkedList<>();
     private double tableMoney = 0;
 
     public Table() {
@@ -30,7 +31,17 @@ public class Table {
         }
         balances.set(Manual.DEALER_POSITION.getValue(), -getMoneyDealer(balances));
 
+        for (int i = 0; i < players.size(); i++) {
+            blackjackBonus(balances, i);
+        }
+
         return balances;
+    }
+
+    private void blackjackBonus(List<Double> balances, int index) {
+        if (blackjack.get(index)) {
+            balances.set(index, balances.get(index) * 1.5);
+        }
     }
 
     private double getMoneyPlayer(int index, int dealerScore) {
@@ -58,5 +69,24 @@ public class Table {
 
     private Double getMoneyDealer(List<Double> playerMoney) {
         return playerMoney.stream().reduce(Double::sum).orElseThrow(IllegalStateException::new);
+    }
+
+    public void iteratePlayer() {
+        for (Player player : players) {
+            hasBlackjackPlayer(player);
+        }
+    }
+
+    private void hasBlackjackPlayer(Player player) {
+        if (player.calculateScore()
+                == Manual.BLACKJACK.getValue() && player.getCards().size()
+                == Manual.Pair.getValue()) {
+            blackjack.add(true);
+        }
+        if (player.calculateScore()
+                != Manual.BLACKJACK.getValue() || player.getCards().size()
+                != Manual.Pair.getValue()) {
+            blackjack.add(false);
+        }
     }
 }

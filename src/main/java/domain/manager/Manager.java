@@ -71,7 +71,14 @@ public class Manager {
 
     private void processManagementGetOneMoreCard(List<Player> players) {
         for (int i = Manual.PLAYER_INIT.getValue(); i < players.size(); i++) {
-            pickOneMoreCard(players, i);
+            hasBlackjack(players, i);
+        }
+        table.iteratePlayer();
+    }
+
+    private void hasBlackjack(List<Player> players, int index) {
+        if (players.get(index).calculateScore() == Manual.BLACKJACK.getValue()){
+            pickOneMoreCard(players, index);
         }
     }
 
