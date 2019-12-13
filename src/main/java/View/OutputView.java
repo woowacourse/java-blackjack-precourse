@@ -9,9 +9,13 @@ public class OutputView {
 
     public OutputView() { }
 
-    public static void printUserCards(List<User> users) {
+    public static void printCardsOfAllUsers(List<User> users) {
         for (User user : users) {
-            System.out.println(user.getName() + DELIMITER + user.getCards());
+            printCardsOfOneUser(user);
         }
+    }
+
+    public static void printCardsOfOneUser(User user) {
+        System.out.println(user.getName() + DELIMITER + user.getCards());
     }
 }

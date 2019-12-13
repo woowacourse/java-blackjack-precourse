@@ -19,7 +19,7 @@ public class BlackjackGame {
 
     public void play() {
         distributeInitialCards();
-        OutputView.printUserCards(users);
+        OutputView.printCardsOfAllUsers(users);
 
         playTurns();
     }
@@ -37,9 +37,11 @@ public class BlackjackGame {
 
     private void playTurns() {
         for (User user : users) {
-            if(InputController.askIfGetCard(user)) {
+            while (InputController.askIfGetCard(user)) {
                 user.addCard(deck.draw());
+                OutputView.printCardsOfOneUser(user);
             }
+            OutputView.printCardsOfOneUser(user);
         }
     }
 }
