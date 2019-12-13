@@ -46,4 +46,15 @@ public class InputManager {
         }
         return bettingMoneyList;
     }
+
+    private static int getBettingMoney(int i) {
+        String inputString;
+
+        do {
+            System.out.printf("%s의 배팅 금액은?\n", playerNameList.get(i));
+            inputString = scanner.nextLine();
+        } while (!isNumberValid(inputString));
+        return Integer.parseInt(inputString);
+    }
+
 }
