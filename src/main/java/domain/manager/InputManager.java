@@ -28,4 +28,12 @@ public class InputManager {
         }
         return (playerNameList.size() - delimiterCount) == validDifference;
     }
+
+    private static int updateDelimiterCount(int delimiterCount, char inputCharacter) {
+        final char delimiter = ',';
+        if (inputCharacter == delimiter) {
+            delimiterCount++;
+        }
+        return delimiterCount;
+    }
 }
