@@ -39,13 +39,20 @@ public class Dealer extends BlackJackPlayer {
     }
 
     /**
+     * 처음에 카드를 2장 나눠주고 블랙잭이 있는지 체크해서 있다면 종료하는 함수
+     */
+    public Boolean checkIfBlackJackInFirstDraws(List<Player> players, CardDeck cardDeck) {
+        drawFirstTwoCards(players, cardDeck);
+        return checkIfBlackJack(players);
+    }
+
+    /**
      * 처음 카드 2장을 나눠주는 메소드
      */
-    public Boolean giveCardsFirst(CardDeck cardDeck, List<Player> players) {
-        giveCardToAll(cardDeck, players);
-        giveCardToAll(cardDeck, players);
+    private void drawFirstTwoCards(List<Player> players, CardDeck cardDeck) {
+        giveCardToAll(players, cardDeck);
+        giveCardToAll(players, cardDeck);
         IO.printGiveCardsFirst(players, this);
-        return checkIfBlackJack(players);
     }
 
     /**
@@ -53,20 +60,20 @@ public class Dealer extends BlackJackPlayer {
      */
     public void haveMoreCards(List<Player> players, CardDeck cardDeck) {
         for (Player player : players) {
-            haveMoreCardPlayer(cardDeck, player);
+            haveMoreCardPlayer(player, cardDeck);
         }
-        haveMoreCardDealer(cardDeck, this);
+        haveMoreCardDealer(this, cardDeck);
         terminateGameWithNormalEnd(players);
     }
 
-    private void giveCardToAll(CardDeck cardDeck, List<Player> players) {
+    private void giveCardToAll(List<Player> players, CardDeck cardDeck) {
         for (Player player : players) {
-            giveCard(cardDeck, player);
+            giveCard(player, cardDeck);
         }
-        giveCard(cardDeck, this);
+        giveCard(this, cardDeck);
     }
 
-    private void giveCard(CardDeck cardDeck, BlackJackPlayer player) {
+    private void giveCard(BlackJackPlayer player, CardDeck cardDeck) {
         player.addCard(cardDeck.drawCard());
     }
 
@@ -104,9 +111,9 @@ public class Dealer extends BlackJackPlayer {
     /**
      * Player가 더 카드를 받을 것인지 묻고, 더 주는 메소드
      */
-    private void haveMoreCardPlayer(CardDeck cardDeck, Player player) {
+    private void haveMoreCardPlayer(Player player, CardDeck cardDeck) {
         while (player.canHaveMoreCard() && IO.haveMoreCard(player)) {
-            giveCard(cardDeck, player);
+            giveCard(player, cardDeck);
             IO.printPlayerCard(player);
         }
     }
@@ -114,9 +121,9 @@ public class Dealer extends BlackJackPlayer {
     /**
      * 딜러는 16 이하일 경우 카드를 받고, 17 이상일 경우 그만둠
      */
-    private void haveMoreCardDealer(CardDeck cardDeck, Dealer dealer) {
+    private void haveMoreCardDealer(Dealer dealer, CardDeck cardDeck) {
         while (dealer.canHaveMoreCard()) {
-            giveCard(cardDeck, dealer);
+            giveCard(dealer, cardDeck);
             IO.printDealerHaveMore();
         }
     }

@@ -13,7 +13,7 @@ public class Main {
         CardDeck cardDeck = new CardDeck(CardFactory.create());
 
         List<Player> players = dealer.makePlayers();
-        if (!dealer.giveCardsFirst(cardDeck, players)) {    // 첫 패에 블랙잭이 있다면 종료
+        if (!dealer.checkIfBlackJackInFirstDraws(players, cardDeck)) {    // 첫 패에 블랙잭이 있다면 종료
             dealer.haveMoreCards(players, cardDeck);
         }
     }
