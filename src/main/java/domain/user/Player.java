@@ -30,4 +30,12 @@ public class Player {
         }
         return false;
     }
+
+    public int getCardsPoint() {
+        int point = 0;
+        for (Card card : cards) {
+            point += card.getSymbolValue();
+        }
+        return point;
+    }
 }
