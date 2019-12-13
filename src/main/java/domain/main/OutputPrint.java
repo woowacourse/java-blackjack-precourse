@@ -10,14 +10,17 @@ public class OutputPrint {
     private static InputScanner inputScanner = new InputScanner();
     private static PlayerList playerList;
 
-    public String[] getPlayerNames() {
+    public void getPlayerNames() {
         println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
         String[] playerNames = inputScanner.stringLine().split(",");
-        return playerNames;
+        for (String name : playerNames) {
+            Player player = new Player(name, getBettingMoney(name));
+        }
     }
 
-    public void getBettingMoney(String playerName) {
+    private int getBettingMoney(String playerName) {
         println(playerName + "의 배팅 금액은?");
+        return inputScanner.integer();
     }
 
     public void giveCardsFirstToPlayers(List<Player> playerList) {
