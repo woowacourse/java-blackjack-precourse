@@ -10,6 +10,7 @@ import inputview.InputView;
 
 public class BlackjackGame {
 	private static final int NUM_INITIAL_CARDS = 2;
+	private static final int BLACKJACK = 21;
 	
 	public void makeNewGame() {
 		List<String> playerNames = InputView.enterPlayerNames();
@@ -26,7 +27,7 @@ public class BlackjackGame {
 		
 		drawFirstCards(dealer, players, cardDeck);
 		showFirstCards(dealer, players);
-		checkWinLose(dealer, players, info);
+		checkBlackjack(dealer, players, info);
 		drawAdditionalCards(dealer, players, cardDeck);
 		checkFinalWinLose(dealer, players, info);
 	}
@@ -47,14 +48,26 @@ public class BlackjackGame {
 		}
 	}
 	
+	private void checkBlackjack(Dealer dealer, Players players, PlayersWinLoseInfo info) {
+		for (int i = 0; i < players.getSize(); i++) {
+			Player player = players.getPlayerAt(i);
+			if (player.calculateScore() == BLACKJACK) {
+				if(dealer.calculateScore() == BLACKJACK) {
+					info.setBlackjackAt(i);
+				}
+				info.setDrawAt(i);
+			}
+		}
+	}
+	
+	private void chkBlackjack(int index, PlayersWinLoseInfo info) {
+		
+	}
+	
 	private void drawAdditionalCards(Dealer dealer, Players players, CardDeck cardDeck) {
 		
 	}
 	
-	private void checkWinLose(Dealer dealer, Players players, PlayersWinLoseInfo info) {
-		
-	}
-
 	private void checkFinalWinLose(Dealer dealer, Players players, PlayersWinLoseInfo info) {
 		
 	}
