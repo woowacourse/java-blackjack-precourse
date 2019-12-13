@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2019 Seungwan Park,
+ * All rights reserved.
+ */
+
 package domain.model.card;
 
 import java.util.ArrayList;
@@ -9,7 +14,7 @@ import java.util.List;
  */
 public class CardFactory {
     public static List<Card> create() {
-        List<Card> cards = new ArrayList<>();
+        ArrayList<Card> cards = new ArrayList<>();
         Symbol[] symbols = Symbol.values();
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);

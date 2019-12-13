@@ -1,5 +1,16 @@
+/**
+ * Copyright (c) 2019 Seungwan Park,
+ * All rights reserved.
+ */
+
 package domain.model.card;
 
+/**
+ * @author Seungwan Park, github.com/toneyparky
+ * @version 1.0
+ * @apiNote Card 객체에 사용될 Symbol을 구현한 클래스입니다.
+ * @since : 2019.12.13 금요일
+ */
 public enum Symbol {
     ACE(1),
     TWO(2),
