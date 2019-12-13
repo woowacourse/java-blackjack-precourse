@@ -4,8 +4,17 @@ import java.util.*;
 
 public class PlayerInputData {
     private static final String SEPARATOR = ",";
+    private static final int NO_MONEY = 0;
     private static boolean doesNeedInput;
     private static String userInput;
+
+    private static String getUserInput(String askMessage) {
+        System.out.println(askMessage);
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        System.out.println(userInput);
+        return userInput;
+    }
 
     private static List<String> getNameList() {
         List<String> nameList = new ArrayList<>();
@@ -17,14 +26,6 @@ public class PlayerInputData {
             setDoesNeedInputForName(nameList);
         }
         return nameList;
-    }
-
-    private static String getUserInput(String askMessage) {
-        System.out.println(askMessage);
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-        System.out.println(userInput);
-        return userInput;
     }
 
     private static List<String> getTrimmedNameList(String[] names) {
@@ -56,6 +57,44 @@ public class PlayerInputData {
     private static boolean haveDuplicatedName(List<String> nameList) {
         Set<String> nameSet = new HashSet<>(nameList);
         return nameList.size() != nameSet.size();
+    }
+
+    private static double getBettingMoney(String name) {
+        doesNeedInput = true;
+        while (doesNeedInput) {
+            userInput = getUserInput(String.format("%s의 베팅 금액은?", name));
+            setDoesNeedInputForMoney(userInput);
+        }
+        return Double.parseDouble(userInput);
+    }
+
+    private static void setDoesNeedInputForMoney(String userInput) {
+        if (isNoMoney(userInput)) {
+            doesNeedInput = true;
+            System.out.println("※ 베팅 금액은 0을 초과하는 숫자이어야 합니다.");
+            return;
+        }
+        doesNeedInput = false;
+    }
+
+    private static boolean isNoMoney(String input) {
+        if (isNotNumber(input)) {
+            return true;
+        }
+        return Double.parseDouble(input) <= NO_MONEY;
+    }
+
+    private static boolean isNotNumber(String input) {
+        Set<Boolean> isNotNumberCharacterAnswer = new HashSet<>();
+        for (int i = 0; i < input.length(); i++) {
+            char inputCharacter = input.charAt(i);
+            isNotNumberCharacterAnswer.add(isNotNumberCharacter(inputCharacter));
+        }
+        return isNotNumberCharacterAnswer.contains(true);
+    }
+
+    private static boolean isNotNumberCharacter(char inputCharacter) {
+        return inputCharacter < '0' || '9' < inputCharacter;
     }
 
 }
