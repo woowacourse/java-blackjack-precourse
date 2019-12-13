@@ -19,6 +19,6 @@ public class MainClass {
     public static void main(String[] args) {
         BlackJack blackJack = BlackJack.getInstance();
 
-        blackJack.playGame();
+        blackJack.playBlackJack();
     }
 }
