@@ -45,6 +45,6 @@ public class BlackJack {
     }
 
     public void resultPhase() {
-
+        Output.showGamersResult(gamers);
     }
 }

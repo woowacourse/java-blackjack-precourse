@@ -38,7 +38,7 @@ public class Gamers {
 
     public String toStringWithResult() {
         return players.stream()
-                .map(x -> x.toString() + "-결과: " + x.getResultScore())
+                .map(x -> x.toString() + " - 결과: " + x.getResultScore())
                 .collect(Collectors.joining("\n"));
     }
 

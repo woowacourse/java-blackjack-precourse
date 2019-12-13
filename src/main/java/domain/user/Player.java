@@ -99,8 +99,7 @@ public class Player {
     }
 
     public int getResultScore() {
-        return cards.stream().map(Card::getScore)
-                .reduce(Integer::sum)
+        return Optional.of(getScoreWithAceCheck())
                 .filter(x -> isNotBurst())
                 .orElse(BURST);
     }
