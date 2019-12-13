@@ -21,13 +21,32 @@ import java.util.*;
  */
 
 public class BlackJack {
+    public static final int MAX_SCORE = 21;
+    public static final int ACE_BONUS_SCORE = 10;
+    /**
+     * playerList는 플레이어 객체를 모아둔 리스트이다.
+     */
     private List<Player> playerList;
+    /**
+     * dealer는 딜러 객체를 저장하는 인스턴스 변수이다.
+     */
     private Dealer dealer;
+
+    /**
+     * cardList는 카드 한 덱(52장)의 뭉치이다.
+     * cardFactory의 create 메소드를 통해 섞인 52장의 카드가 입력된다.
+     */
     private List<Card> cardList;
+
+    /**
+     * cardIterator는 덱을 순회하는 번지값 저장 변수이다.
+     * 우리는 섞여있는 52장의 카드 리스트를 가지고 있으며, 이는 변경 불가하다.(뽑은 카드 pop 불가)
+     * 그렇기 때문에, 대신 선형으로 순회하며 카드를 전달하는 식으로 중복을 피하고 랜덤한 뽑기를 구현한다.
+     */
     private int cardIterator;
 
     /**
-     * 정적이고 보호되는 객체 BlackJackHolder는,
+     * 정적이고 보호되는 클래스 BlackJackHolder는,
      * 프로그램 전체에 유일하게 존재함이 보장되어야 하는 블랙잭 인스턴스를 생성한다.
      */
     private static class BlackJackHolder {
@@ -158,26 +177,30 @@ public class BlackJack {
         dealer.addCard(drawCard());
         System.out.println(dealer.getOneCardString());
         dealer.addCard(drawCard());
-        for(Player player : playerList) {
+        for (Player player : playerList) {
             player.addCard(drawCard());
             player.addCard(drawCard());
             System.out.println(player.getCardString());
         }
         System.out.print("\n");
     }
+
     public void printResultScore() {
         System.out.println(dealer.getCardString() + dealer.getScoreString());
-        for(Player player : playerList) {
+        for (Player player : playerList) {
             System.out.println(player.getCardString() + player.getScoreString());
         }
+        System.out.print("\n");
     }
+
     public void printResultMoney() {
-        System.out.println(Message.PRINT_RESULT);
+        System.out.print(Message.PRINT_RESULT);
         System.out.println(dealer.getMoneyString());
-        for(Player player : playerList) {
+        for (Player player : playerList) {
             System.out.println(player.getMoneyString());
         }
     }
+
     public void playGame() {
         initBlackJack();
         firstDraw();

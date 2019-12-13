@@ -22,16 +22,6 @@ public class Card {
     private final Type type;
 
     /**
-     * ACE_BONUS는 1(ACE) 카드를 1점 혹은 11점으로 계산할 수 있으므로, 10점의 보너스가 부여된다는 의미이다.
-     */
-    public static final int ACE_BONUS = 10;
-
-    /**
-     * MAX_SCORE는 점수 계산 과정에서 넘으면 패배하는 상한선 값이다.
-     */
-    private static final int MAX_SCORE = 21;
-
-    /**
      * 생성자 메서드는 symbol값과 type값을 받아 이를 할당해준다.
      *
      * @param symbol 할당될 심볼 값이다.
@@ -60,11 +50,14 @@ public class Card {
     public int getScore() {
         return symbol.getScore();
     }
-    public int getAceScore(int score) {
-        if(symbol.equals(ACE) && score <= MAX_SCORE - ACE_BONUS) {
-            return ACE_BONUS;
-        }
-        return 0;
+
+    /**
+     * isAceCard는 symbol을 검사하여 그것이 Ace(1) 카드인지 검증한다.
+     *
+     * @return 이 카드가 Ace카드가 맞다면 true를, 아니라면 false를 반환한다.
+     */
+    public boolean isAceCard() {
+        return symbol.equals(ACE);
     }
 
     /**
