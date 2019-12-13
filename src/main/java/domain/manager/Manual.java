@@ -1,6 +1,6 @@
 package domain.manager;
 
-public enum Manuel {
+public enum Manual {
     DEALER_POSITION(0),
     DEFAULT(0),
     EMPTY(0),
@@ -13,7 +13,7 @@ public enum Manuel {
 
     private int value;
 
-    Manuel(int value) {
+    Manual(int value) {
         this.value = value;
     }
 

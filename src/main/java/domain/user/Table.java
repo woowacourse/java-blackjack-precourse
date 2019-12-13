@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.manager.Manuel;
+import domain.manager.Manual;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,11 +25,11 @@ public class Table {
         List<Double> balances = new LinkedList<>();
 
         balances.add(tableMoney);
-        for (int i = Manuel.PLAYER_INIT.getValue(); i < players.size(); i++) {
+        for (int i = Manual.PLAYER_INIT.getValue(); i < players.size(); i++) {
             balances.add(getMoneyPlayer(i, players.get(
-                    Manuel.DEALER_POSITION.getValue()).calculateScore()));
+                    Manual.DEALER_POSITION.getValue()).calculateScore()));
         }
-        balances.set(Manuel.DEALER_POSITION.getValue(), -getMoneyDealer(balances));
+        balances.set(Manual.DEALER_POSITION.getValue(), -getMoneyDealer(balances));
 
         return balances;
     }
@@ -44,7 +44,7 @@ public class Table {
             return -players.get(index).getBettingMoney();
         }
 
-        return Manuel.DEFAULT.getValue();
+        return Manual.DEFAULT.getValue();
     }
 
     private Double getMoneyDealer(List<Double> playerMoney) {

@@ -66,6 +66,7 @@ public class Output {
     }
 
     public void showMessageResult(List<Player> players) {
+        newLine();
         players.forEach(player
                 -> System.out.println(player.getName()
                 + "카드: "
@@ -81,5 +82,9 @@ public class Output {
         for (int i = 0; i < table.getTable().size(); i++) {
             System.out.println(table.getTable().get(i).getName() + ": " + balances.get(i));
         }
+    }
+
+    public void newLine() {
+        System.out.println();
     }
 }

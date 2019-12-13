@@ -3,7 +3,7 @@ package domain.user;
 import domain.card.Card;
 import domain.card.Deck;
 import domain.card.Symbol;
-import domain.manager.Manuel;
+import domain.manager.Manual;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,18 +54,21 @@ public class Player {
                 .filter(num -> num > Symbol.ACE.getScore())
                 .reduce(Integer::sum).orElse(0);
 
-        return calculateScoreAce(symbolCount);
+        if (calculateScoreAce(symbolCount) <= Manual.BURST.getValue()) {
+            return calculateScoreAce(symbolCount);
+        }
+        return Manual.EMPTY.getValue();
     }
 
     public int calculateScoreAce(int symbolCount) {
         int countAce = calculateCountingAce();
 
-        if (countAce > Manuel.EMPTY.getValue()
-                && symbolCount <= Manuel.SAFE.getValue()) {
+        if (countAce > Manual.EMPTY.getValue()
+                && symbolCount <= Manual.SAFE.getValue()) {
             return symbolCount + Symbol.TEN.getScore()
                     + (Symbol.ACE.getScore() * countAce);
         }
-        if (countAce > Manuel.EMPTY.getValue()) {
+        if (countAce > Manual.EMPTY.getValue()) {
             return symbolCount + (Symbol.ACE.getScore() * countAce);
         }
         return symbolCount;

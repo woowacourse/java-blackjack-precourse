@@ -24,7 +24,8 @@ public class Manager {
         processManagementCardDispensing(table.getTable());
         processManagementGetOneMoreCard(table.getTable());
         processManagementDealer(table.getTable()
-                .get(Manuel.DEALER_POSITION.getValue()));
+                .get(Manual.DEALER_POSITION.getValue()));
+        end(table.getTable());
     }
 
     private void processManagementInputNames() {
@@ -39,18 +40,17 @@ public class Manager {
         for (int i = 0; i < names.size(); i++) {
             Double bettingMoney = output.showMessageInputMoney(names.get(i));
             i -= checkMoneyValidating(bettingMoney);
-            System.out.println();
+            output.newLine();
         }
     }
 
     private int checkMoneyValidating(Double bettingMoney) {
         if (validator.isBelowZero(bettingMoney)) {
             output.showMessageMisInputErrorReturn();
-            return Manuel.REMOVE_ERROR.getValue();
+            return Manual.REMOVE_ERROR.getValue();
         }
         bettingMoneys.add(bettingMoney);
-
-        return Manuel.CONTINUE.getValue();
+        return Manual.CONTINUE.getValue();
     }
 
     private void processManagementInputPlayers() {
@@ -60,8 +60,8 @@ public class Manager {
     }
 
     private void processManagementCardDispensing(List<Player> players) {
-        players.get(Manuel.DEALER_POSITION.getValue()).pickCardFromDeck(deck);
-        for (int i = Manuel.PLAYER_INIT.getValue(); i < players.size(); i++) {
+        players.get(Manual.DEALER_POSITION.getValue()).pickCardFromDeck(deck);
+        for (int i = Manual.PLAYER_INIT.getValue(); i < players.size(); i++) {
             players.get(i).pickCardFromDeck(deck);
             players.get(i).pickCardFromDeck(deck);
         }
@@ -70,7 +70,7 @@ public class Manager {
     }
 
     private void processManagementGetOneMoreCard(List<Player> players) {
-        for (int i = Manuel.PLAYER_INIT.getValue(); i < players.size(); i++) {
+        for (int i = Manual.PLAYER_INIT.getValue(); i < players.size(); i++) {
             pickOneMoreCard(players, i);
         }
     }
@@ -78,7 +78,7 @@ public class Manager {
     private void pickOneMoreCard(List<Player> players, int index) {
         boolean loop = true;
 
-        System.out.println();
+        output.newLine();
         while (loop) {
             loop = pickOneMoreCardState(players, index
                     , output.showMessageOneMore(players.get(index).getName()));
@@ -92,7 +92,7 @@ public class Manager {
         }
         players.get(index).pickCardFromDeck(deck);
         output.showMessageHavingCard(players.get(index));
-        if (players.get(index).calculateScore() > Manuel.BURST.getValue()) {
+        if (players.get(index).calculateScore() > Manual.BURST.getValue()) {
             output.showMessageBurst(players.get(index).getName());
             return false;
         }
@@ -102,31 +102,34 @@ public class Manager {
     private void processManagementDealer(Player dealer) {
         boolean loop = false;
 
-        if (dealer.calculateScore() <= Manuel.DEALER_MIN.getValue()) {
+        if (dealer.calculateScore() <= Manual.DEALER_MIN.getValue()) {
             loop = true;
         }
         while (loop) {
-            System.out.println();
+            output.newLine();
             loop = processManagementDealerGetOneMore(dealer);
         }
     }
 
     private boolean processManagementDealerGetOneMore(Player dealer) {
-        if (dealer.calculateScore() <= Manuel.DEALER_MIN.getValue()) {
+        if (dealer.calculateScore() <= Manual.DEALER_MIN.getValue()) {
             output.showMessageDealerGetCard();
             dealer.pickCardFromDeck(deck);
             output.showMessageHavingCard(dealer);
-            System.out.println("딜러 카드합 : " + dealer.calculateScore());
         }
-        if (dealer.calculateScore() > Manuel.BURST.getValue()) {
+        if (dealer.calculateScore() > Manual.BURST.getValue()) {
             output.showMessageBurst(dealer.getName());
             return false;
         }
-        return dealer.calculateScore() <= Manuel.DEALER_MIN.getValue();
+        return dealer.calculateScore() <= Manual.DEALER_MIN.getValue();
     }
 
-    private void end() {
+    private void processManagementFinalResult(List<Player> player) {
+        output.showMessageResult(player);
+    }
 
+    private void end(List<Player> player) {
+        processManagementFinalResult(player);
     }
 
     private List<String> splitName(String name) {
