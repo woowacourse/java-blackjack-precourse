@@ -26,6 +26,10 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public List<Card> getCards() {
         return cards;
     }
@@ -74,7 +78,7 @@ public class Player {
     }
 
     public void initCard(Deck deck) {
-        if(!isDealer()){
+        if (!isDealer()) {
             addCard(deck.drawCard());
         }
         addCard(deck.drawCard());
