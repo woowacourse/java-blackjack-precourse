@@ -234,10 +234,10 @@ public class BlackJack {
      * addDraw는 플레이어와 딜러에게 추가로 카드를 뽑을지 확인해주는 메서드이다.
      */
     private void addDraw() {
-        dealerDraw();
-        for(Player player : playerList) {
+        for (Player player : playerList) {
             playerDraw(player);
         }
+        dealerDraw();
     }
 
     private void dealerDraw() {
@@ -248,11 +248,18 @@ public class BlackJack {
     }
 
     private void playerDraw(Player player) {
-        //nothing
+        while (player.checkDrawMore()) {
+            player.addCard(drawCard());
+            System.out.println(player.getCardStringWithName());
+        }
     }
 
     /**
      * playBlackJack은 실제 블랙잭 게임을 수행하는 메서드이다. 상위 객체로부터 호출된다.
+     * 먼저 블랙잭 초기화 작업을 하고,
+     * 이후 첫 2장씩의 패를 돌린다.
+     * 각 유저 및 딜러의 카드 뽑기를 진행하고,
+     * 이어서 최종 점수와 배팅에 대한 수익을 공개한다.
      */
     public void playBlackJack() {
         initBlackJack();
