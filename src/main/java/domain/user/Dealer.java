@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dealer {
-    private final List<Card> cards = new ArrayList<>();
+	private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+	public Dealer() {
+	}
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
+	public void addCard(Card card) {
+		cards.add(card);
+	}
 }

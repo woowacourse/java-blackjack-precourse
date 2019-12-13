@@ -14,8 +14,7 @@ public class InputOutputView {
 	}
 
 	public static double inputBettingMoney(String name) {
-		System.out.println(name+"의 배팅 금액은?");
+		System.out.println(name + "의 배팅 금액은?");
 		return ExceptionHandler.inputBettingMoneyHandler();
 	}
-
 }
