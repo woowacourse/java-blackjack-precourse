@@ -2,16 +2,17 @@ package sources;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Player;
 import utils.UtilityMethods;
 
 import java.util.List;
 
 public class BlackJackPlayingSource {
-	public void startBlackJack(){
+	public void startBlackJack(List<Player> players) {
 		List<Card> cardDeck = CardFactory.create();
 	}
 
-	private Card popRandomCard(List<Card> cards){
+	private Card popRandomCard(List<Card> cards) {
 		int popIndex = UtilityMethods.generateRandomNumber(cards.size());
 		return cards.remove(popIndex);
 	}
