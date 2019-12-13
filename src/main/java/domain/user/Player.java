@@ -53,6 +53,10 @@ public class Player {
                 .filter(num -> num > Symbol.ACE.getScore())
                 .reduce(Integer::sum).orElse(0);
 
+        return calculateAce(blackJackNumber, symbolCount);
+    }
+
+    private int calculateAce(int blackJackNumber, int symbolCount) {
         if (calculateScoreAce() && symbolCount <= blackJackNumber) {
             return symbolCount + Symbol.ACE.getScore() + Symbol.TEN.getScore();
         }

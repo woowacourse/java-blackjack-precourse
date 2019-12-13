@@ -12,6 +12,8 @@ public class Manager {
     private static final int REMOVE_ERROR_VALUE = 1;
     private static final int CONTINUE_VALUE = 0;
     private static final int DEALER_POSITION = 0;
+    private static final int BLACK_JACK_NUMBER = 10;
+    private static final int BURST = 21;
     Deck deck = new Deck();
     Table table = new Table();
     Output output = new Output();
@@ -25,6 +27,7 @@ public class Manager {
         processManagementInputBettingMoney();
         processManagementInputPlayers();
         processManagementCardDispensing(table.getTable());
+        processManagementGetOneMoreCard(table.getTable());
     }
 
     private void processManagementInputNames() {
@@ -69,6 +72,35 @@ public class Manager {
         output.showMessageHavingCard(players);
     }
 
+    private void processManagementGetOneMoreCard(List<Player> players) {
+        for (int i = 1; i < players.size(); i++) {
+            pickOneMoreCard(players, i);
+        }
+    }
+
+    private void pickOneMoreCard(List<Player> players, int index) {
+        boolean loop = true;
+
+        System.out.println();
+        while (loop) {
+            loop = pickOneMoreCardState(players, index
+                    , output.showMessageOneMore(players.get(index).getName()));
+        }
+    }
+
+    private boolean pickOneMoreCardState(List<Player> players, int index, boolean selectDraw) {
+        if (!selectDraw) {
+            return false;
+        }
+        players.get(index).pickCardFromDeck(deck);
+        output.showMessageHavingCard(players.get(index));
+        if (players.get(index).calculateScore(BLACK_JACK_NUMBER) > BURST) {
+            output.showMessageBurst(players.get(index).getName());
+            return false;
+        }
+        return true;
+    }
+
     private void end() {
 
     }
@@ -77,7 +109,6 @@ public class Manager {
         List<String> names = Arrays
                 .stream(name.split(","))
                 .collect(Collectors.toList());
-
         return names;
     }
 }

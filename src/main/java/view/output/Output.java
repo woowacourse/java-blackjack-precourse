@@ -36,9 +36,17 @@ public class Output {
                 + player.getCards()));
     }
 
-    public boolean showMessageOneMoreCard(String name) {
-        System.out.println(name + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+    public void showMessageHavingCard(Player player) {
+        System.out.println(player.getName() + "카드: " + player.getCards());
+    }
+
+    public boolean showMessageOneMore(String name) {
+        System.out.println(name + "(은)는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
         return input.oneMoreCard();
+    }
+
+    public void showMessageBurst(String name) {
+        System.out.println(name + "(은)는 Burst 하였습니다...");
     }
 
     public void showMessageMisInputErrorClose() {
