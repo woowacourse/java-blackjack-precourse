@@ -25,6 +25,10 @@ public class Player {
         return this.name;
     }
 
+    public double getBettingMoney() {
+        return this.bettingMoney;
+    }
+
     // TODO 추가 기능 구현
 
 }

@@ -25,8 +25,11 @@ public class BlackJackGame {
     private ArrayList<Player> registPlayers() {
         ArrayList<Player> players = new ArrayList<>();
         List<String> playersName = getPlayersName();
-        getBettingMoney();
         return players;
+    }
+
+    private void playerJoinGame(List<Player> players, String playerName) {
+        players.add(new Player(playerName, getBettingMoney()));
     }
 
     private int getBettingMoney() {
