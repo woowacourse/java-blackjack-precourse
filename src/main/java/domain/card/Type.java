@@ -10,13 +10,13 @@ public enum Type {
     HEART("하트"),
     CLUB("클럽");
 
-    private String type;
+    private String typeString;
 
     Type(String type) {
-        this.type = type;
+        this.typeString = type;
     }
 
     public String getType() {
-        return type;
+        return typeString;
     }
 }

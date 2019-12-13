@@ -79,7 +79,7 @@ public class BlackJack {
     /**
      * initBlackJack은 블랙잭 수행을 위한 유저, 카드, 플레이어들의 생성과 초기화를 담당한다.
      */
-    public void initBlackJack() {
+    private void initBlackJack() {
         cardList = CardFactory.create();
         cardIterator = 0;
         dealer = new Dealer();
@@ -91,10 +91,15 @@ public class BlackJack {
      * 카드의 리스트는 생성시 셔플되므로, 이를 선형으로 순회하게 되면
      * 중복 없이 랜덤한 카드가 뽑히는 것을 보장할 수 있다.
      *
+     * 카드가 다 떨어지는 극단적인 경우(예를 들어 20명 이상의 플레이어가 3장씩 뽑는다던가 하는 경우)를 고려하여
+     * 카드가 떨어지면 예외를 던지도록 구현하였다.
+     * 다 떨어졌을 때 새로운 덱을 create하는 것도 고려하였으나,
+     * 덱이 다 떨어지는 상황은 예외적 상황으로 보는 것이 더 올바르다고 판단하였다.
+     *
      * @return 뽑힌 카드를 반환해준다.
      * @throws AssertionError 뽑을 카드가 없는 경우, 논리적 에러를 생성한다.
      */
-    public Card drawCard() {
+    private Card drawCard() {
         if (cardIterator >= cardList.size()) {
             System.out.print(Message.ERROR_CARD_EMPTY);
             throw new AssertionError();
@@ -108,8 +113,8 @@ public class BlackJack {
      *
      * @return Player 객체 List를 반환한다.
      */
-    public List<Player> createPlayerList() {
-        List<Player> playerList = new ArrayList<Player>();
+    private List<Player> createPlayerList() {
+        List<Player> playerList = new ArrayList<>();
         List<String> nameList = getNameToInput();
         for (String name : nameList) {
             playerList.add(new Player(name, getBettingMoneyToInput(name)));
@@ -188,6 +193,7 @@ public class BlackJack {
      * 마지막엔 공백을 넣어준다.
      */
     private void firstDraw() {
+        printNameInFirstDraw();
         dealer.addCard(drawCard());
         System.out.println(dealer.getCardStringWithName());
         dealer.addCard(drawCard());
@@ -199,14 +205,35 @@ public class BlackJack {
         System.out.print("\n");
     }
 
+    /**
+     * printNameInFirstDraw는 첫 드로우 시 ~~~에게 2장씩 나누어 줬습니다 라는 메세지를 출력해준다.
+     * 굳이 필요없는 부분으로 느껴질수도 있지만, 일단 별도 메서드로 작성해두었다.
+     */
+    private void printNameInFirstDraw() {
+        String nameListString = "딜러와 ";
+        for (Player player : playerList) {
+            nameListString += player.getName();
+        }
+        System.out.println(nameListString + Message.FIRST_DRAW);
+    }
+
+    /**
+     * printResultScore는 블랙잭 게임이 끝난 후 딜러와 플레이어의 최종 점수를 출력해 준다.
+     */
     private void printResultScore() {
-        System.out.println(dealer.getCardStringWithName() + dealer.getScoreString());
+        System.out.println("\n" + dealer.getCardStringWithName() + dealer.getScoreString());
         for (Player player : playerList) {
             System.out.println(player.getCardStringWithName() + player.getScoreString());
         }
         System.out.print("\n");
     }
 
+    /**
+     * printResultMoney는 블랙잭 게임이 끝난 후 딜러와 플레이어의 수익 현황을 출력해 준다.
+     * 이 때, 딜러 객체에는 별도의 돈 관련 변수나 메서드가 없고,
+     * 딜러의 수익은 나머지 플레이어들의 수익/손실의 합의 역(플레이어가 벌면 잃고, 잃으면 번다)임을 고려하여
+     * 플레이어의 수익을 누적시켜 별도로 출력하는 메서드를 만들었다.
+     */
     private void printResultMoney() {
         System.out.print(Message.PRINT_RESULT);
         printDealerResultMoney();
@@ -220,6 +247,8 @@ public class BlackJack {
      * 이를 수정하는 식으로 설계할 수 있다.
      * 그러나 플레이어들의 잃은 돈의 누적합을 계산하는 상황에서
      * 내부 인자를 통한 해결법이 보이지 않아, 부득이하게 블랙잭 객체 내에 함수를 선언하게 되었다.
+     * 딜러의 수익은 플레이어의 수익/손실 합을 구해 -1을 곱한 값이다.
+     * 그래서 누적 변수에 계속 빼주는 방식으로 구현하였다.
      */
     private void printDealerResultMoney() {
         String resultString = "딜러: ";
@@ -240,13 +269,23 @@ public class BlackJack {
         dealerDraw();
     }
 
+    /**
+     * dealerDraw는 딜러가 카드를 더 뽑는 경우를 확인하는 메서드이다.
+     * 무한루프를 돌리면서 더 뽑을 수 없는 경우까지 카드를 뽑게 한다.
+     */
     private void dealerDraw() {
         while (dealer.checkDrawMore()) {
             dealer.addCard(drawCard());
-            System.out.print(Message.DRAW_DEALER);
+            System.out.println(Message.DRAW_DEALER);
         }
     }
 
+    /**
+     * playerDraw는 플레이어가 카드를 더 뽑는 경우를 확인하는 메서드이다.
+     * 플레이어 객체를 받아, 이 플레이어가 카드를 뽑기를 윈하고 뽑을 수 있는 경우에 한해 카드를 뽑게 한다.
+     *
+     * @param player 카드를 뽑게 할 플레이어 객체이다.
+     */
     private void playerDraw(Player player) {
         while (player.checkDrawMore()) {
             player.addCard(drawCard());
