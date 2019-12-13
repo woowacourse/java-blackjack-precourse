@@ -25,6 +25,10 @@ public class Gamers {
                 .collect(Collectors.joining(", "));
     }
 
+    public void moreCard(Deck deck) {
+        players.forEach(x -> x.moreCard(deck));
+    }
+
     @Override
     public String toString() {
         return players.stream().map(Player::toString).collect(Collectors.joining("\n"));
