@@ -56,7 +56,7 @@ public class Dealer extends BlackJackPlayer {
             haveMoreCardPlayer(cardDeck, player);
         }
         haveMoreCardDealer(cardDeck, this);
-        terminateGameWithGameEnd(players);
+        terminateGameWithNormalEnd(players);
     }
 
     private void giveCardToAll(CardDeck cardDeck, List<Player> players) {
@@ -88,7 +88,7 @@ public class Dealer extends BlackJackPlayer {
     }
 
     /**
-     * 첫 패에 블랙잭이 잡혔을 경우, 나눠서 처리하는 메소드
+     * 첫 패에 블랙잭이 잡혔을 경우, 무승부 또는 승리를 판단해서 게임을 끝내는 메소드
      */
     private void terminateGameWithFirstBlackJack(List<Player> players,
                                                  Boolean ifPlayerBlackJack, Boolean ifDealerBlackJack) {
@@ -134,7 +134,10 @@ public class Dealer extends BlackJackPlayer {
         return Math.max(winningScore, getScoreOfCards());
     }
 
-    private void terminateGameWithGameEnd(List<Player> players) {
+    /**
+     * 게임이 일반적인 상황(첫번째 패에 블랙잭이 없을 때)에서 끝났을 경우 실행
+     */
+    private void terminateGameWithNormalEnd(List<Player> players) {
         int winningScore = getWinningScore(players);
 
         IO.printPlayersCard(players, this);
