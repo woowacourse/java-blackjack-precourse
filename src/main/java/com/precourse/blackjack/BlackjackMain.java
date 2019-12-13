@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.precourse.blackjack.controller.GameController;
 import com.precourse.blackjack.domain.card.Card;
+import com.precourse.blackjack.domain.user.Player;
 
 /**
  * 블랙잭 게임을 진행하는 메인 클래스입니다.
@@ -21,6 +22,6 @@ import com.precourse.blackjack.domain.card.Card;
  */
 public class BlackjackMain {
 	public static void main(String[] args) throws IOException {
-		List<Card> allCards = GameController.createCards();
+		GameController.startGame();
 	}
 }
