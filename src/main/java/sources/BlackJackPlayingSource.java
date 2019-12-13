@@ -2,6 +2,7 @@ package sources;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import utils.UtilityMethods;
 
 import java.util.List;
 
@@ -11,12 +12,7 @@ public class BlackJackPlayingSource {
 	}
 
 	private Card popRandomCard(List<Card> cards){
-		int popIndex = generateRandomNumber(cards.size());
+		int popIndex = UtilityMethods.generateRandomNumber(cards.size());
 		return cards.remove(popIndex);
-	}
-
-	private int generateRandomNumber(int limit){
-		int randomNumber = (int) (Math.random()*limit);
-		return  randomNumber;
 	}
 }

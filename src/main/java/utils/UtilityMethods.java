@@ -13,4 +13,9 @@ public class UtilityMethods {
 		targetList.add(targetDouble);
 		return targetList;
 	}
+
+	public static int generateRandomNumber(int limit) {
+		int randomNumber = (int) (Math.random() * limit);
+		return randomNumber;
+	}
 }
