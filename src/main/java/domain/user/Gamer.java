@@ -15,4 +15,8 @@ public class Gamer {
 	public List<Card> getCards() {
 		return cards;
 	}
+
+	public int getSumOfCards() {
+		return cards.stream().mapToInt(Card::getScore).sum();
+	}
 }

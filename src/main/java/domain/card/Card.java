@@ -18,6 +18,10 @@ public class Card {
 		return symbol.getAlias() + type.getAlias();
 	}
 
+	public int getScore() {
+		return symbol.getScore();
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
