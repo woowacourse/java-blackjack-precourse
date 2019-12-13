@@ -43,3 +43,5 @@ game UI class
 
 Game Board class
 플레이어 객체 생성
+카드 섞기
+카드 뽑기
