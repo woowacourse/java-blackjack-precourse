@@ -19,7 +19,7 @@ public class Input {
     }
 
     public List<String> asGamers() {
-        //TODO 사용자입력 Output 출력하기 코드
+        Output.showGamePlayerInput();
         return Optional.of(input())
                 .filter(this::containsDoubleComma)
                 .filter(this::endWithComma)
