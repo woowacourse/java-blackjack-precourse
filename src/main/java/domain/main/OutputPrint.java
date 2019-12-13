@@ -31,4 +31,8 @@ public class OutputPrint {
         println(nameList+"에게 2장의 카드를 나누어주었습니다.");
     }
 
+    public void wantMoreCards(String playerName) {
+        println(playerName+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n");
+    }
+
 }
