@@ -22,6 +22,12 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
-
+    public boolean cardsContainsAce() {
+        for (Card card : cards) {
+            if (card.isAce()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
