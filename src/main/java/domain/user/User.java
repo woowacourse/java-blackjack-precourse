@@ -2,6 +2,7 @@ package domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.card.Card;
 import domain.card.CardDeck;
@@ -50,5 +51,11 @@ public class User {
 		return (int) this.cards.stream()
 				.filter(card -> card.getScore() == ACE_SCORE)
 				.count();
+	}
+	
+	public String getAllCardsInString() {
+		return this.cards.stream()
+				.map(card -> card.toString())
+				.collect(Collectors.joining(", "));
 	}
 }
