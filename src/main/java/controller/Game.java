@@ -10,7 +10,7 @@ import view.InputOutputView;
 
 public class Game {
 	private static List<Player> players = new ArrayList<>();
-	private static List<Card> cards = new ArrayList<>();
+	private static List<Card> cards = CardFactory.create();
 
 	public void start() {
 		init();
@@ -21,16 +21,11 @@ public class Game {
 
 	private static void init() {
 		initPlayers(InputOutputView.inputPlayerName());
-		initCards();
 	}
 
 	private static void initPlayers(String inputPlayer) {
 		for (String name : inputPlayer.split(",")) {
 			players.add(new Player(name, InputOutputView.inputBettingMoney(name)));
 		}
-	}
-
-	private static void initCards() {
-		cards = CardFactory.create();
 	}
 }
