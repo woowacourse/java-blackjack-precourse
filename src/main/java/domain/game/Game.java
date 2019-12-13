@@ -8,8 +8,8 @@ import domain.view.ViewInput;
 public class Game {
 	private static Game blackJack = new Game();
 	
-	private ArrayList<String> playerName = new ArrayList<String>();
-	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<String> playerNames = new ArrayList<String>();
+	private ArrayList<Player> playerList = new ArrayList<Player>();
 	
 	public static Game getInstance() {
 		return blackJack;
@@ -17,35 +17,23 @@ public class Game {
 
 	public void run() {
 		makePlayerName(ViewInput.getPlayerNames());
-		makePlayer();
-	}
-	
-	public String nameIsValid(String name) throws IllegalArgumentException {
-		if (name.equals("")) {
-			throw new IllegalArgumentException();
-		}
-		
-		return name;
+		makePlayerList();
 	}
 	
 	public void makePlayerName(String name) {
 		String[] names = name.split(",");
 		
 		for (String player : names) {
-			playerName.add(player.trim());
+			playerNames.add(player.trim());
 		}
 	}
 	
-	public void makePlayer() {
-		for (String name : playerName) {
+	public void makePlayerList() {
+		for (String name : playerNames) {
 			Player player = new Player(name, ViewInput.getBettingPrice(name));
 			
-			players.add(player);
+			playerList.add(player);
 		}
-	}
-	
-	public int moneyIsValid(int money) throws IllegalArgumentException {
-		return money;
 	}
 	
  }
