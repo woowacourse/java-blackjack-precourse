@@ -1,5 +1,6 @@
 package view;
 
+import domain.user.Gamers;
 import domain.user.Player;
 
 import java.util.List;
@@ -16,5 +17,13 @@ public class Output {
 
     public static void showInitCardUi(String playersName) {
         System.out.println(playersName + "에게 2장의 카드를 나누었습니다.");
+    }
+
+    public static void showGamersInfo(Gamers gamers) {
+        System.out.println(gamers);
+    }
+
+    public static void showPlayerInfo(Player player) {
+        System.out.println(player);
     }
 }

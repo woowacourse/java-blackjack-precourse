@@ -23,6 +23,11 @@ public class BlackJack {
     }
 
     public void start() {
+        initGameWithCard();
+        Output.showGamersInfo(gamers);
+    }
+
+    public void initGameWithCard() {
         Output.showInitCardUi(gamers.nameString());
         gamers.initPlayersCards(deck);
     }
