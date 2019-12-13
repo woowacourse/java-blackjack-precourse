@@ -25,7 +25,15 @@ public class BlackJackGame {
     private ArrayList<Player> registPlayers() {
         ArrayList<Player> players = new ArrayList<>();
         List<String> playersName = getPlayersName();
+        readyToGame(players, playersName);
         return players;
+    }
+
+    private void readyToGame(ArrayList<Player> players, List<String> playersName) {
+        for(String playerName : playersName) {
+            System.out.println(playerName + "의 베팅 금액은?");
+            playerJoinGame(players, playerName);
+        }
     }
 
     private void playerJoinGame(List<Player> players, String playerName) {
