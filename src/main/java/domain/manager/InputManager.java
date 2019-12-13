@@ -1,5 +1,6 @@
 package domain.manager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -35,5 +36,14 @@ public class InputManager {
             delimiterCount++;
         }
         return delimiterCount;
+    }
+
+    public static List<Integer> getBettingMoneyList() {
+        List<Integer> bettingMoneyList = new ArrayList<Integer>();
+
+        for (int i = 0; i < playerNameList.size(); i++) {
+            bettingMoneyList.add(getBettingMoney(i));
+        }
+        return bettingMoneyList;
     }
 }
