@@ -14,6 +14,7 @@ public class Manager {
     private static final int DEALER_POSITION = 0;
     private static final int BLACK_JACK_NUMBER = 10;
     private static final int BURST = 21;
+    private static final int DEALER_DRAW_MIN = 16;
     Deck deck = new Deck();
     Table table = new Table();
     Output output = new Output();
@@ -28,6 +29,7 @@ public class Manager {
         processManagementInputPlayers();
         processManagementCardDispensing(table.getTable());
         processManagementGetOneMoreCard(table.getTable());
+        processManagementDealer(table.getTable().get(DEALER_POSITION));
     }
 
     private void processManagementInputNames() {
@@ -99,6 +101,32 @@ public class Manager {
             return false;
         }
         return true;
+    }
+
+    private void processManagementDealer(Player dealer) {
+        boolean loop = false;
+
+        if (dealer.calculateScore(BLACK_JACK_NUMBER) <= DEALER_DRAW_MIN) {
+            loop = true;
+        }
+        while (loop) {
+            System.out.println();
+            loop = processManagementDealerGetOneMore(dealer);
+        }
+    }
+
+    private boolean processManagementDealerGetOneMore(Player dealer) {
+        if (dealer.calculateScore(BLACK_JACK_NUMBER) <= DEALER_DRAW_MIN) {
+            output.showMessageDealerGetCard();
+            dealer.pickCardFromDeck(deck);
+            output.showMessageHavingCard(dealer);
+            System.out.println("딜러 카드합 : " + dealer.calculateScore(BLACK_JACK_NUMBER));
+        }
+        if (dealer.calculateScore(BLACK_JACK_NUMBER) > BURST) {
+            output.showMessageBurst(dealer.getName());
+            return false;
+        }
+        return dealer.calculateScore(BLACK_JACK_NUMBER) <= DEALER_DRAW_MIN;
     }
 
     private void end() {

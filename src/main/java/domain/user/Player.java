@@ -53,23 +53,26 @@ public class Player {
                 .filter(num -> num > Symbol.ACE.getScore())
                 .reduce(Integer::sum).orElse(0);
 
-        return calculateAce(blackJackNumber, symbolCount);
+        return calculateScoreAce(blackJackNumber, symbolCount);
     }
 
-    private int calculateAce(int blackJackNumber, int symbolCount) {
-        if (calculateScoreAce() && symbolCount <= blackJackNumber) {
-            return symbolCount + Symbol.ACE.getScore() + Symbol.TEN.getScore();
+    public int calculateScoreAce(int blackJackNumber, int symbolCount) {
+        int countAce = calculateCountingAce();
+
+        if (countAce > 0 && symbolCount <= blackJackNumber) {
+            return symbolCount + Symbol.TEN.getScore()
+                    + (Symbol.ACE.getScore() * countAce);
         }
-        if (calculateScoreAce()) {
-            return symbolCount + Symbol.ACE.getScore();
+        if (countAce > 0) {
+            return symbolCount + (Symbol.ACE.getScore() * countAce);
         }
         return symbolCount;
     }
 
-    private boolean calculateScoreAce() {
-        return cards.stream()
+    public int calculateCountingAce() {
+        return (int) cards.stream()
                 .mapToInt(num -> num.getSymbol()
                         .getScore())
-                .anyMatch(num -> num == Symbol.ACE.getScore());
+                .filter(num -> num == Symbol.ACE.getScore()).count();
     }
 }
