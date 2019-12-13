@@ -23,5 +23,4 @@ public class Player {
     }
 
     // TODO 추가 기능 구현
-
 }
