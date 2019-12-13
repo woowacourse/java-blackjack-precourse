@@ -1,39 +1,18 @@
 package domain.game;
 
-import java.util.ArrayList;
-
-import domain.user.Player;
-import domain.view.ViewInput;
+import domain.user.PlayerRepository;
+import domain.view.ViewInput;;
 
 public class Game {
 	private static Game blackJack = new Game();
-	
-	private ArrayList<String> playerNames = new ArrayList<String>();
-	private ArrayList<Player> playerList = new ArrayList<Player>();
-	
+	private PlayerRepository playerRepository = new PlayerRepository();
+
 	public static Game getInstance() {
 		return blackJack;
 	}
 
 	public void run() {
-		makePlayerName(ViewInput.getPlayerNames());
-		makePlayerList();
+		playerRepository.makePlayerName(ViewInput.getPlayerNames());
+		playerRepository.makePlayerList();
 	}
-	
-	public void makePlayerName(String name) {
-		String[] names = name.split(",");
-		
-		for (String player : names) {
-			playerNames.add(player.trim());
-		}
-	}
-	
-	public void makePlayerList() {
-		for (String name : playerNames) {
-			Player player = new Player(name, ViewInput.getBettingPrice(name));
-			
-			playerList.add(player);
-		}
-	}
-	
  }
