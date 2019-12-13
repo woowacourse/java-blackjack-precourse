@@ -20,6 +20,7 @@ public class Player {
     private static final int PLAYER_MIN_BURST = 22;
     private static final int BLACK_JACK = 21;
     private static final int ACE_BONUS_SCORE = 10;
+    private static final int BURST = 0;
 
     private final String name;
     private final double bettingMoney;
@@ -95,6 +96,13 @@ public class Player {
 
             moreCard(deck);
         }
+    }
+
+    public int getResultScore() {
+        return cards.stream().map(Card::getScore)
+                .reduce(Integer::sum)
+                .filter(x -> isNotBurst())
+                .orElse(BURST);
     }
 
     @Override

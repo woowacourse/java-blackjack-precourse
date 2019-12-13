@@ -36,6 +36,12 @@ public class Gamers {
                 .orElseThrow(IllegalStateException::new);
     }
 
+    public String toStringWithResult() {
+        return players.stream()
+                .map(x -> x.toString() + "-결과: " + x.getResultScore())
+                .collect(Collectors.joining("\n"));
+    }
+
     @Override
     public String toString() {
         return players.stream().map(Player::toString).collect(Collectors.joining("\n"));
