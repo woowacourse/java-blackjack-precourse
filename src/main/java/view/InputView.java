@@ -2,6 +2,8 @@ package view;
 
 import java.util.Scanner;
 
+import domain.user.Player;
+
 public class InputView {
 	private static final Scanner SCANNER = new Scanner(System.in);
 	private static final String NAMES_DELIMITER = ",";
@@ -9,8 +11,16 @@ public class InputView {
 	private static final String GET_BETTING_MONEY_MESSAGE = "의 베팅 금액은?";
 
 	public static String[] getPlayerNames() {
-		System.out.println(GET_PLAYER_NAMES_MESSAGE);
-		return SCANNER.nextLine().split(NAMES_DELIMITER);
+		try {
+			System.out.println(GET_PLAYER_NAMES_MESSAGE);
+			String[] names = SCANNER.nextLine().split(NAMES_DELIMITER);
+			for (String name : names) {
+				Player.validateName(name);
+			}
+			return names;
+		} catch (IllegalArgumentException e) {
+			return getPlayerNames();
+		}
 	}
 
 	public static int getBettingMoney(String name) {
