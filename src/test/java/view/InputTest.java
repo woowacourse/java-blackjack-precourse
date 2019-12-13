@@ -12,17 +12,17 @@ class InputTest {
     }
 
     @Test
-    public void containsDoubleCommaTest() {
+    public void notContainsDoubleCommaTest() {
         Input input = new Input();
-        assertThat(input.containsDoubleComma("자바,안드,아이,,냄비,마스")).isTrue();
-        assertThat(input.containsDoubleComma("자바,안드,아이,냄비,마스")).isFalse();
+        assertThat(input.notContainsDoubleComma("자바,안드,아이,,냄비,마스")).isFalse();
+        assertThat(input.notContainsDoubleComma("자바,안드,아이,냄비,마스")).isTrue();
     }
 
     @Test
-    public void endWithCommaTest() {
+    public void notEndWithCommaTest() {
         Input input = new Input();
-        assertThat(input.endWithComma("자바,")).isTrue();
-        assertThat(input.endWithComma("자바,코틀")).isFalse();
+        assertThat(input.notEndWithComma("자바,")).isFalse();
+        assertThat(input.notEndWithComma("자바,코틀")).isTrue();
     }
 
     @Test

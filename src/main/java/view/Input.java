@@ -21,17 +21,17 @@ public class Input {
     public List<String> asGamers() {
         Output.showGamePlayerInput();
         return Optional.of(input())
-                .filter(this::containsDoubleComma)
-                .filter(this::endWithComma)
+                .filter(this::notContainsDoubleComma)
+                .filter(this::notEndWithComma)
                 .map(this::splitAsComma)
                 .orElseGet(this::asGamers);
     }
 
-    public double asBettingMoney() {
-        //TODO 사용자이름과 배팅금액 Output 출력코드
+    public double asBettingMoney(String playerName) {
+        Output.showBettingMoneyInput(playerName);
         return Optional.of(input())
                 .flatMap(this::stringToDouble)
-                .orElseGet(this::asBettingMoney);
+                .orElseGet(() -> asBettingMoney(playerName));
     }
 
     public boolean asWantMoreCard() {
@@ -57,12 +57,12 @@ public class Input {
         }
     }
 
-    public boolean containsDoubleComma(String input) {
-        return input.contains(COMMA + COMMA);
+    public boolean notContainsDoubleComma(String input) {
+        return !input.contains(COMMA + COMMA);
     }
 
-    public boolean endWithComma(String input) {
-        return input.endsWith(COMMA);
+    public boolean notEndWithComma(String input) {
+        return !input.endsWith(COMMA);
     }
 
     public List<String> splitAsComma(String input) {
