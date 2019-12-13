@@ -1,5 +1,6 @@
 package view.input;
 
+import domain.manager.DoubleConverter;
 import view.output.Output;
 
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class Input {
     }
 
     public Double inputMoney() {
-        return scanner.nextDouble();
+        return new DoubleConverter().stringToDouble(scanner.nextLine());
     }
 
     public boolean oneMoreCard() {

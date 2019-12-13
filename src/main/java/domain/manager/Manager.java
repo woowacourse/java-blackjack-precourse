@@ -6,21 +6,25 @@ import domain.user.Table;
 import view.output.Output;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Manager {
+    private static final int REMOVE_ERROR_VALUE = 1;
+    private static final int CONTINUE_VALUE = 0;
     Deck deck = new Deck();
     Table table = new Table();
     Output output = new Output();
     Validator validator = new Validator();
     List<String> names;
-    List<Double> bettingMoneys;
+    List<Double> bettingMoneys = new LinkedList<>();
     private boolean isErrorOccurred;
 
     public void start() {
         processManagementInputNames();
         processManagementInputBettingMoney();
+        bettingMoneys.forEach(System.out::println);
     }
 
     private void processManagementInputNames() {
@@ -32,26 +36,20 @@ public class Manager {
     }
 
     private void processManagementInputBettingMoney() {
-        try {
-            inputBettingMoneyIterating();
-            checkMoneyValidating();
-        } catch (TypeMismatchException e) {
+        for (int i = 0; i < names.size(); i++) {
+            Double bettingMoney = output.showMessageInputMoney(names.get(i));
+            i -= checkMoneyValidating(bettingMoney);
+        }
+    }
+
+    private int checkMoneyValidating(Double bettingMoney) {
+        if (validator.isBelowZero(bettingMoney)) {
             output.showMessageMisInputErrorReturn();
+            return REMOVE_ERROR_VALUE;
         }
-    }
+        bettingMoneys.add(bettingMoney);
 
-    private void inputBettingMoneyIterating() {
-        for (String name : names) {
-            bettingMoneys.add(output.showMessageInputMoney(name));
-        }
-    }
-
-    private void checkMoneyValidating() {
-        isErrorOccurred = true;
-
-        while (isErrorOccurred) {
-            isErrorOccurred = validator.isBelowZero(bettingMoneys);
-        }
+        return CONTINUE_VALUE;
     }
 
     private void end() {

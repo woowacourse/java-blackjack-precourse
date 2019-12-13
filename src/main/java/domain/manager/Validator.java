@@ -7,7 +7,7 @@ public class Validator {
         return items.stream().anyMatch(x -> x.contains(" "));
     }
 
-    public boolean isBelowZero(List<Double> doubles) {
-        return doubles.stream().anyMatch(num -> num <= 0);
+    public boolean isBelowZero(Double bettingMoney) {
+        return bettingMoney <= 0;
     }
 }

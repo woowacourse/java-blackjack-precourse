@@ -13,7 +13,7 @@ public class Output {
     private Input input = new Input();
 
     public String showMessageInputName() {
-        System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리");
+        System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
         return input.inputName();
     }
 
@@ -54,6 +54,10 @@ public class Output {
     public void showMessageMisInputErrorReturn() {
         System.out.println("잘못 입력하였습니다.");
         System.out.println("다시 입력하세요.");
+    }
+
+    public void showMessageTypeMismatching() {
+        System.out.println("양의 숫자 타입만 입력 가능합니다.");
     }
 
     public void showMessageDealerGetCard() {

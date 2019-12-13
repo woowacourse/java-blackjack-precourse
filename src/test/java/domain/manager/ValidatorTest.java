@@ -25,13 +25,11 @@ class ValidatorTest {
     @Test
     public void isBelowZeroTest() {
         Validator validator = new Validator();
-        List<Double> example = new LinkedList<>();
 
-        example.add((double) 50);
-        example.add((double) 1.2);
-        assertThat(validator.isBelowZero(example)).isEqualTo(false);
+        assertThat(validator.isBelowZero((double) 1)).isEqualTo(false);
+        assertThat(validator.isBelowZero(0.4)).isEqualTo(false);
 
-        example.add((double) -1);
-        assertThat(validator.isBelowZero(example)).isEqualTo(true);
+        assertThat(validator.isBelowZero((double) 0)).isEqualTo(true);
+        assertThat(validator.isBelowZero(-1.5)).isEqualTo(true);
     }
 }
