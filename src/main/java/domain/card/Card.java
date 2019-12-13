@@ -46,4 +46,8 @@ public class Card {
     public int getSymbolValue(){
         return symbol.getScore();
     }
+    
+    public boolean isAce() {
+        return (symbol == Symbol.ACE);
+    }
 }
