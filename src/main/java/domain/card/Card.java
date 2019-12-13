@@ -17,6 +17,18 @@ public class Card {
 
     // TODO Card 관련 추가 기능 구현
 
+    public int getNumber() {
+        return symbol.getScore();
+    }
+
+    public String getType() {
+        return type.getName();
+    }
+
+    public String getName() {
+        return getNumber() + getType();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
