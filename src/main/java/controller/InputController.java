@@ -21,11 +21,32 @@ public class InputController {
 		return playerNameList;
 	}
 
-	private void checkValidNameList(List<String> playerNameList) {
-		playerNameList.stream()
+	public double getPlayerBettingMoney(String name) {
+		double bettingMoney;
+		try {
+			bettingMoney = inputView.getBettingMoney(name);
+			checkValidBettingMoney(bettingMoney);
+		} catch (Exception e) {
+			System.out.println(ERROR_MESSAGE);
+			return getPlayerBettingMoney(name);
+		}
+		return bettingMoney;
+	}
+
+	private void checkValidNameList(List<String> playerNameList) throws Exception {
+		boolean checkResult = playerNameList.stream()
 			.map(name -> isValidName(name))
 			.reduce((validity1, validity2) -> validity1 & validity2)
 			.get();
+		if (checkResult == false) {
+			throw new Exception();
+		}
+	}
+
+	private void checkValidBettingMoney(double bettingMoney) throws Exception {
+		if (bettingMoney <= 0) {
+			throw new Exception();
+		}
 	}
 
 	private boolean isValidName(String name) {
