@@ -22,37 +22,36 @@ public class OutputView {
     }
 
     public static void printCardsState(Dealer dealer, ArrayList<Player> players) {
-        for (Card card : dealer.showCards()) {
-            System.out.println(DEALER_CARDS_STATE_MESSAGE + card.toString());
-        }
+        System.out.println(DEALER_CARDS_STATE_MESSAGE + dealer.showFirstCard().toString());
         System.out.println(getPlayersCardsState(players));
     }
 
     private static String getPlayersCardsState(ArrayList<Player> players) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Player player : players) {
-            stringBuilder.append(player.getName());
-            stringBuilder.append(PLAYER_CARDS_STATE_MESSAGE);
-            stringBuilder.append(getPlayerCardState(player));
-            stringBuilder.append("\n");
+            getCardStateLine(stringBuilder, player);
         }
         return stringBuilder.toString();
     }
 
-    private static String getPlayerCardState(Player player) {
+    public static void printPlayerCardState(Player player) {
+        StringBuilder stringBuilder = new StringBuilder();
+        getCardStateLine(stringBuilder, player);
+        System.out.println(stringBuilder.toString());
+    }
+
+    private static void getCardStateLine(StringBuilder stringBuilder, Player player) {
+        stringBuilder.append(player.getName());
+        stringBuilder.append(PLAYER_CARDS_STATE_MESSAGE);
+        stringBuilder.append(cardState(player));
+        stringBuilder.append("\n");
+    }
+
+    private static String cardState(Player player) {
         ArrayList<String> playerCardState = new ArrayList<>();
         for (Card card : player.showCards()) {
             playerCardState.add(card.toString());
         }
         return String.join(", ", playerCardState);
-    }
-
-    public static void printPlayerCardState(Player player) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(player.getName());
-        stringBuilder.append(PLAYER_CARDS_STATE_MESSAGE);
-        stringBuilder.append(getPlayerCardState(player));
-        stringBuilder.append("\n");
-        System.out.println(stringBuilder.toString());
     }
 }

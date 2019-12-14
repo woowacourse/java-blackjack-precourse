@@ -19,12 +19,18 @@ public class BlackJack {
     private Dealer dealer = new Dealer();
 
     void play() {
-        setPlayers();
         setFirstState();
-        printFirstResult();
+        OutputView.printFirstDistributionMessage(players);
+        OutputView.printCardsState(dealer, players);
         for (Player player : players) {
             runAddCardPhase(player);
         }
+    }
+
+    private void setFirstState() {
+        setPlayers();
+        setDeck();
+        distributeCards();
     }
 
     private void setPlayers() {
@@ -33,11 +39,6 @@ public class BlackJack {
             Player player = new Player(playerName, bettingMoney);
             players.add(player);
         }
-    }
-
-    private void setFirstState() {
-        setDeck();
-        distributeCards();
     }
 
     private void setDeck() {
@@ -50,11 +51,10 @@ public class BlackJack {
     }
 
     private void distributeCards() {
-        dealer.addCard(deck.pop());
         for (int i = 0; i < FIRST_PLAYER_CARD_COUNTS; i++) {
+            dealer.addCard(deck.pop());
             distributeCardsToPlayers();
         }
-        OutputView.printFirstDistributionMessage(players);
     }
 
     private void distributeCardsToPlayers() {
@@ -63,12 +63,7 @@ public class BlackJack {
         }
     }
 
-    private void printFirstResult() {
-        OutputView.printCardsState(dealer, players);
-    }
-
     private void runAddCardPhase(Player player) {
-        OutputView.printPlayerCardState(player);
         boolean isStop = false;
         while (!player.isScoreExceed() && !isStop) {
             isStop = getIsStop(InputView.playerIntent(player), player);
