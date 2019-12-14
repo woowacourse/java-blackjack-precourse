@@ -12,7 +12,8 @@ import java.util.List;
 public class Dealer extends CardScoreCalculator {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
@@ -20,7 +21,32 @@ public class Dealer extends CardScoreCalculator {
 
     // TODO 추가 기능 구현
 
-    public String getFirstCardName() {
-        return cards.get(0).getCardName();
+    public void printFirstCardOnly() {
+        String firstCardName = cards.get(0).getName();
+        System.out.println(String.format("딜러 카드: %s", firstCardName));
     }
+
+    private String getAllCardNames() {
+        List<String> allCardNames = new ArrayList<>();
+        for (Card card : cards) {
+            allCardNames.add(card.getName());
+        }
+        return String.join(", ", allCardNames);
+    }
+
+    public void printAllCards() {
+        String cardNames = getAllCardNames();
+        System.out.print(String.format("딜러 카드: %s", cardNames));
+    }
+
+    public int getTotalScore() {
+        return calculateTotalScore(cards);
+    }
+
+    public void printTotalScore() {
+        printAllCards();
+        int totalScore = calculateTotalScore(cards);
+        System.out.println(String.format(" - 결과: %d", totalScore));
+    }
+
 }

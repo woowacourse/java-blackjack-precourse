@@ -1,7 +1,6 @@
 package domain;
 
 import domain.function.CardDistributor;
-import domain.function.CardPrinter;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.PlayerInputData;
@@ -24,6 +23,7 @@ public class BlackJackGame {
         printDistributedCards();
         addCardToPlayer();
         addCardToDealer();
+        printGameParticipantTotalScore();
     }
 
     private static void setGameParticipant() {
@@ -44,8 +44,11 @@ public class BlackJackGame {
     private static void printDistributedCards() {
         String playerName = String.join(",", playerNameList);
         System.out.println(String.format("딜러와 %s에게 각각 %d장의 카드를 나누어 주었습니다.", playerName, FIRST_DISTRIBUTED_CARD_AMOUNT));
-        CardPrinter.printDealerFirstCardOnly(dealer);
-        CardPrinter.printAllPlayerCards(playerList, playerNameList);
+        dealer.printFirstCardOnly();
+        for (Player player : playerList) {
+            player.printAllCards();
+            System.out.println();
+        }
         System.out.println();
     }
 
@@ -86,6 +89,13 @@ public class BlackJackGame {
             return;
         }
         System.out.println(String.format("딜러는 %d 초과로 카드를 더 받지 않습니다. \n", MAX_SCORE_NEEDS_MORE_CARD));
+    }
+
+    private static void printGameParticipantTotalScore() {
+        dealer.printTotalScore();
+        for (Player player : playerList) {
+            player.printTotalScore();
+        }
     }
 
 }

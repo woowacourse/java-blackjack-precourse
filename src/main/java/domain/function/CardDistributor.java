@@ -1,5 +1,7 @@
-package domain.card;
+package domain.function;
 
+import domain.card.Card;
+import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 

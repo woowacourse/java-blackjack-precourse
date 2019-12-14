@@ -8,20 +8,19 @@ import java.util.List;
 public class CardScoreCalculator {
     private static final int ACE_MIN_SCORE = 1;
     private static final int ACE_MAX_SCORE = 11;
-    private final List<Card> cards = new ArrayList<>();
 
-    public int calculateTotalCardScore() {
-        int totalCardScore = 0;
+    public int calculateTotalScore(List<Card> cards) {
+        int totalScore = 0;
         for (Card card : cards) {
-            totalCardScore += card.calculateCardScore();
+            totalScore += card.calculateScore();
         }
-        if (haveAce()) {
-            addOneOrEleven(totalCardScore);
+        if (haveAce(cards)) {
+            totalScore = addOneOrEleven(totalScore);
         }
-        return totalCardScore;
+        return totalScore;
     }
 
-    private boolean haveAce() {
+    private boolean haveAce(List<Card> cards) {
         List<String> cardNames = new ArrayList<>();
         for (Card card : cards) {
             cardNames.add(card.getSymbolScoreName());
@@ -29,12 +28,11 @@ public class CardScoreCalculator {
         return cardNames.contains("A");
     }
 
-    private void addOneOrEleven(int totalCardScore) {
-        totalCardScore -= ACE_MIN_SCORE;
-        if (totalCardScore < ACE_MAX_SCORE) {
-            totalCardScore += ACE_MAX_SCORE;
-        } else {
-            totalCardScore += ACE_MIN_SCORE;
+    private int addOneOrEleven(int totalScore) {
+        int totalScoreExcludingAce = totalScore - ACE_MIN_SCORE;
+        if (totalScoreExcludingAce < ACE_MAX_SCORE) {
+            totalScore = totalScoreExcludingAce + ACE_MAX_SCORE;
         }
+        return totalScore;
     }
 }
