@@ -31,12 +31,20 @@ public class InputUtil {
 		List<String> playersName = Arrays.asList(reader.readLine().replaceAll(SPACE, EMPTY).split(COMMA, SPLIT_LIMIT));
 
 		try {
+			checkPlayersName(playersName);
+		} catch (IOException e) {
+			throw e;
+		}
+		return playersName;
+	}
+
+	private static void checkPlayersName(List<String> playersName) throws IOException {
+		try {
 			checkNameEmpty(playersName);
 			checkNameDuplicate(playersName);
 		} catch (IOException e) {
 			throw e;
 		}
-		return playersName;
 	}
 
 	private static void checkNameEmpty(List<String> playersName) throws IOException {
