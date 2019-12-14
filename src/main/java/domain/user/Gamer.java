@@ -21,5 +21,7 @@ public abstract class Gamer {
         return cards.getCards();
     }
 
+    public abstract String getName();
+
     public abstract boolean canReceive();
 }

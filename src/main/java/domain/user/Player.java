@@ -15,6 +15,11 @@ public class Player extends Gamer {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public boolean canReceive() {
         return getScore() < BLACK_JACK;
     }

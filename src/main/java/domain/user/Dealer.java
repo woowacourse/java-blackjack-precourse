@@ -9,6 +9,7 @@ import domain.dispenser.RandomDispenser;
  */
 public class Dealer extends Gamer {
     private static final int DEALER_BOUND = 16;
+    private static final String DEALER_NAME = "딜러";
 
     private final CardDispenser cardDispenser;
 
@@ -18,6 +19,11 @@ public class Dealer extends Gamer {
 
     public Card pickCard() {
         return cardDispenser.pick();
+    }
+
+    @Override
+    public String getName() {
+        return DEALER_NAME;
     }
 
     @Override
