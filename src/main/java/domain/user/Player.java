@@ -1,7 +1,7 @@
 package domain.user;
 
 import domain.game.BlackJack;
-import domain.game.Message;
+import domain.game.ConstMessage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -56,14 +56,14 @@ public class Player extends Dealer {
     private boolean checkDrawMoreByInput() {
         Scanner sc = new Scanner(System.in);
         String inputString;
-        System.out.print(name + Message.DRAW_PLAYER_QUESTION);
+        System.out.print(name + ConstMessage.DRAW_PLAYER_QUESTION);
         try {
             inputString = sc.nextLine();
             if (!inputString.equals("y") && !inputString.equals("n")) {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.print(Message.ERROR_INPUT);
+            System.out.print(ConstMessage.ERROR_INPUT);
             return checkDrawMoreByInput();
         }
         return inputString.equals("y");

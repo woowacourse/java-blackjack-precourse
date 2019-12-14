@@ -101,7 +101,7 @@ public class BlackJack {
      */
     private Card drawCard() {
         if (cardIterator >= cardList.size()) {
-            System.out.print(Message.ERROR_CARD_EMPTY);
+            System.out.print(ConstMessage.ERROR_CARD_EMPTY);
             throw new AssertionError();
         }
         return cardList.get(cardIterator++);
@@ -135,14 +135,14 @@ public class BlackJack {
         Scanner sc = new Scanner(System.in);
         int money;
 
-        System.out.print(name + Message.BET_PLAYER);
+        System.out.print(name + ConstMessage.BET_PLAYER);
         try {
             money = sc.nextInt();
             if (money <= 0) {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.print(Message.ERROR_INPUT);
+            System.out.print(ConstMessage.ERROR_INPUT);
             return getBettingMoneyToInput(name);
         }
         return money;
@@ -160,14 +160,14 @@ public class BlackJack {
         Scanner sc = new Scanner(System.in);
         List<String> nameList;
 
-        System.out.println(Message.GET_NAME);
+        System.out.println(ConstMessage.GET_NAME);
         try {
             nameList = Arrays.asList(sc.nextLine().split(","));
             if (findExceptionOnName(nameList)) {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.print(Message.ERROR_INPUT);
+            System.out.print(ConstMessage.ERROR_INPUT);
             return getNameToInput();
         }
         return nameList;
@@ -218,7 +218,7 @@ public class BlackJack {
         for (Player player : playerList) {
             nameListString += player.getName();
         }
-        System.out.println(nameListString + Message.FIRST_DRAW);
+        System.out.println(nameListString + ConstMessage.FIRST_DRAW);
     }
 
     /**
@@ -239,7 +239,7 @@ public class BlackJack {
      * 플레이어의 수익을 누적시켜 별도로 출력하는 메서드를 만들었다.
      */
     private void printResultMoney() {
-        System.out.print(Message.PRINT_RESULT);
+        System.out.print(ConstMessage.PRINT_RESULT);
         printDealerResultMoney();
         for (Player player : playerList) {
             System.out.println(player.getResultMoneyString(dealer.getScore()));
@@ -280,7 +280,7 @@ public class BlackJack {
     private void dealerDraw() {
         while (dealer.checkDrawMore()) {
             dealer.addCard(drawCard());
-            System.out.println(Message.DRAW_DEALER);
+            System.out.println(ConstMessage.DRAW_DEALER);
         }
     }
 

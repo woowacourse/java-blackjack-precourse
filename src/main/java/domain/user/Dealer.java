@@ -2,7 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 import domain.game.BlackJack;
-import domain.game.Message;
+import domain.game.ConstMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +82,7 @@ public class Dealer {
      * @return 양식에 맞는 점수 문자열이 반환된다.
      */
     public String getScoreString() {
-        return Message.PRINT_PLAYER_RESULT + Integer.toString(getScore());
+        return ConstMessage.PRINT_PLAYER_RESULT + Integer.toString(getScore());
     }
 
     /**
