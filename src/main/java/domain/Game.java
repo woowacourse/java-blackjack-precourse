@@ -20,6 +20,7 @@ public class Game {
     List<Card> cards = new ArrayList<>(CardFactory.create());
 
     Scanner sc = new Scanner(System.in);
+    int index = 0;
 
     public void init() {
         inputPlayerName();
@@ -64,7 +65,6 @@ public class Game {
 
     public void Game() {
         //boolean flag = false;
-        //딜러와 플레이어에게 처음 2장씩 카드 나눠줌
         initDistributeCard();
         //처음 두 장의 카드 합이 21이면 블랙잭
         /*
@@ -76,10 +76,14 @@ public class Game {
             }
         }
 */
-        for(int i = 0; i < player.size(); i++) {
+        for(index = 0; index < player.size(); index++) {
             //블랙잭 여부 확인
-            askOneMoreCard(i);
+
+            askOneMoreCard();
         }
+        giveMoreCardToDealer();
+        finishGame();
+
     }
 
     public void initDistributeCard() {
@@ -131,27 +135,61 @@ public class Game {
         }
     }
 
-    public void askOneMoreCard(int i) {
-        System.out.println(player.get(i).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
+    public void askOneMoreCard() {
+        System.out.println(player.get(index).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
         String answer = sc.next();
         boolean flag = true;
         if (Objects.equals(answer, "y") && flag) {
-            player.get(i).addCard(cards.remove(cards.size() - 1));
-            flag = checkCurrScore(i);
+            actAddOneMoreCard();
+            flag = checkIfOver21();
         }
         if(Objects.equals(answer, "n") || !flag){
             return;
         }
-        askOneMoreCard(i);
+        askOneMoreCard();
     }
 
-    public boolean checkCurrScore(int i) {
-        if(player.get(i).sumScore() > BLACKJACK) {
-            player.get(i).getBettingMoney(0);
+    public void actAddOneMoreCard() {
+        player.get(index).addCard(cards.remove(cards.size() - 1));
+        System.out.print(player.get(index).getinfo()+"카드: ");
+        System.out.println(player.get(index).toString());
+    }
+
+    public boolean checkIfOver21() {
+        if(player.get(index).sumScore() > BLACKJACK) {
+            player.remove(index--);
             System.out.println("21을 초과하여 게임에서 지셨습니다.");
             return false;
         }
         return true;
+    }
+
+    public void giveMoreCardToDealer() {
+        if(dealer.sumScore() <= DEALER_STANDARD) {
+            System.out.println("딜러가 16 이하라 한장 더 받았습니다.");
+            dealer.addCard(cards.remove(cards.size() - 1));
+            giveMoreCardToDealer();
+        }
+        if(dealer.sumScore() > BLACKJACK) {
+            LooseDealer();
+        }
+    }
+
+    public void LooseDealer() {
+        System.out.println("딜러가 21을 초과하여 패하였습니다.");
+        for(int i = 0; i < player.size(); i++) {
+            player.get(i).getBettingMoney(1);
+            dealer.addCost(-player.get(i).finalScore());
+        }
+    }
+
+    public void finishGame() {
+        printInfo();
+        System.out.println("최종 수익");
+        System.out.println("딜러: "+dealer.finalCost());
+        for(int i = 0; i < player.size(); i++) {
+            System.out.println(player.get(i).getinfo()+": "+player.get(i).finalScore());
+        }
     }
 
    /* public boolean checkBlackJack(boolean flag) {
