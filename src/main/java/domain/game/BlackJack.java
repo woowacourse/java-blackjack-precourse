@@ -84,7 +84,7 @@ public class BlackJack {
         cardList = CardFactory.create();
         cardIterator = 0;
         dealer = new Dealer();
-        playerList = createPlayerList();
+        createPlayerList();
     }
 
     /**
@@ -114,13 +114,12 @@ public class BlackJack {
      *
      * @return Player 객체 List를 반환한다.
      */
-    private List<Player> createPlayerList() {
-        List<Player> playerList = new ArrayList<>();
+    private void createPlayerList() {
+        playerList = new ArrayList<>();
         List<String> nameList = getNameToInput();
         for (String name : nameList) {
             playerList.add(new Player(name, getBettingMoneyToInput(name)));
         }
-        return playerList;
     }
 
     /**
@@ -229,11 +228,11 @@ public class BlackJack {
      * 굳이 필요없는 부분으로 느껴질수도 있지만, 일단 별도 메서드로 작성해두었다.
      */
     private void printNameInFirstDraw() {
-        String nameListString = "딜러와 ";
+        List<String> playerNameList = new ArrayList<>();
         for (Player player : playerList) {
-            nameListString += player.getName();
+            playerNameList.add(player.getName());
         }
-        System.out.println(nameListString + ConstMessage.FIRST_DRAW);
+        System.out.println("딜러와 " + String.join(",", playerNameList) + ConstMessage.FIRST_DRAW);
     }
 
     /**
