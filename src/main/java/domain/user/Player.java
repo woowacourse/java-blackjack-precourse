@@ -1,10 +1,6 @@
 package domain.user;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
-
-import domain.card.Card;
 
 /**
  * 게임 참여자를 의미하는 객체
