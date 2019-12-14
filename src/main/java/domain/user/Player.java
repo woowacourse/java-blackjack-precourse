@@ -48,4 +48,14 @@ public class Player {
         }
         return false;
     }
+
+    public boolean isWinner(int maxValue) {
+        if (getCardsPoint() > 21) {
+            return false;
+        }
+        if (getCardsPoint() >= maxValue) {
+            return true;
+        }
+        return false;
+    }
 }
