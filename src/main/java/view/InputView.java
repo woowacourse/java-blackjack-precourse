@@ -9,6 +9,9 @@ public class InputView {
 	private static final String NAMES_DELIMITER = ",";
 	private static final String GET_PLAYER_NAMES_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
 	private static final String GET_BETTING_MONEY_MESSAGE = "의 베팅 금액은?";
+	private static final String GET_MORE_CARD_MESSAGE = "는 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
+	private static final String GET_MORE_CARD_YES = "y";
+	private static final String GET_MORE_CARD_NO = "n";
 
 	public static String[] getPlayerNames() {
 		try {
@@ -31,6 +34,23 @@ public class InputView {
 			return bettingMoney;
 		} catch (IllegalArgumentException e) {
 			return getBettingMoney(name);
+		}
+	}
+
+	private static void validateMoreCard(String moreCard) {
+		if (!(GET_MORE_CARD_YES.equals(moreCard) || GET_MORE_CARD_NO.equals(moreCard))) {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	public static String getMoreCard(String name) {
+		try {
+			System.out.println(name + GET_MORE_CARD_MESSAGE);
+			String moreCard = SCANNER.nextLine();
+			validateMoreCard(moreCard);
+			return moreCard;
+		} catch (IllegalArgumentException e) {
+			return getMoreCard(name);
 		}
 	}
 }
