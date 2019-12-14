@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.CardDeck;
+import domain.profit.ProfitCalculator;
 import domain.rule.Rule;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -78,10 +79,16 @@ public class BlackjackController {
 		}
 	}
 
+	private void printProfits() {
+		ProfitCalculator calculator = new ProfitCalculator(dealer, players);
+		OutputView.printProfits(calculator.getProfits());
+	}
+
 	public void run() {
 		giveTwoCard();
 		printFaceUpCards();
 		getMoreCards();
 		printAllUsersScore();
+		printProfits();
 	}
 }
