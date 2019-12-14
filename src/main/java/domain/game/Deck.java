@@ -8,6 +8,7 @@ import domain.card.Card;
 import domain.card.CardFactory;
 
 public class Deck {
+    private static int MINIMUM_CARD_NUM = 1;
     private List<Card> deck;
 
     public Deck() {
@@ -16,7 +17,10 @@ public class Deck {
     }
 
     public Card draw() {
-        // TODO: 카드가 0개 이하가 될 때 예외처리
-        return deck.remove(deck.size() - 1);
+        if (deck.size() > MINIMUM_CARD_NUM) {
+            return deck.remove(deck.size() - 1);
+        }
+        deck = new ArrayList<>(CardFactory.create());
+        return draw();
     }
 }

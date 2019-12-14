@@ -7,6 +7,7 @@ import java.util.Scanner;
 import exception.InvalidInputException;
 
 public class Input {
+    private static final int MAX_PLAYER = 25;
     private Scanner scanner = new Scanner(System.in);
 
     public String[] getNames() {
@@ -16,6 +17,7 @@ public class Input {
             validateNames(answer);
             String[] split = answer.split(",");
             validateNames(split);
+            validateNumberOfPlayers(split);
             return split;
         } catch (Exception e) {
             System.out.println("에러: " + e.getMessage());
@@ -31,10 +33,16 @@ public class Input {
 
     private void validateNames(String[] split) throws Exception {
         if (split.length != new HashSet<String>(Arrays.asList(split)).size()) {
-            throw new InvalidInputException("잘못된 형식의 입력입니다.");
+            throw new InvalidInputException("이름은 중복될 수 없습니다.");
         }
         for (String name : split) {
             validateNames(name);
+        }
+    }
+
+    private void validateNumberOfPlayers(String[] split) throws Exception {
+        if (split.length > MAX_PLAYER) {
+            throw new InvalidInputException("25명 이하의 참가자만 플레이 가능합니다.");
         }
     }
 
