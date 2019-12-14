@@ -2,10 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -76,6 +73,7 @@ public class Player {
         }
         System.out.println();
     }
+
 
 
     // TODO 추가 기능 구현

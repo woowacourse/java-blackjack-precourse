@@ -25,7 +25,6 @@ public class BlackJackGame {
         CardFactory cardFactory = new CardFactory();
         List<Card> cardTrump = cardFactory.create();
         playBlackJackGame(players, dealer, cardTrump);
-
     }
 
     private void playBlackJackGame(List<Player> players, Dealer dealer, List<Card> cardTrump) {
@@ -34,14 +33,37 @@ public class BlackJackGame {
 
     }
 
-    private void checkBlackJack(List<Player> players, Dealer dealer) {
-        if(dealer.getCard().size() == 2 && dealer.allScore() == 21) {
-            firstTurnBlackJackPlayerAndDealer(players, dealer);
-        }
-        if(dealer.getCard().size() == 2 && dealer.allScore() != 21) {
-            firstTurnBlackJackOnlyPlayer(players, dealer);
+    private void duringGetCard(HashMap<Card, Integer> useCard, List<Card> cardTrump, Player player) {
+        while(true) {
+            System.out.println(player.getName()+ "는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+            String goOrStop = scanPlayerInfo.nextLine();
+            addGetCard(useCard,cardTrump,player,goOrStop);
+            if(goOrStop.equals("n")) {
+                System.out.println("카드를 그만 받습니다.");
+                break;
+            }
+            if(player.allScore() > 21) {
+                System.out.println("21을 초과 하였습니다. 다음 플레이어로 넘어갑니다");
+                break;
+            }
+            if(player.allScore() == 21) {
+                System.out.println("블랙잭!! 다음 플레이어로 넘어갑니다.");
+                break;
+            }
+
         }
     }
+
+    private void addGetCard(HashMap<Card, Integer> useCard, List<Card> cardTrump, Player player,String goOrStop) {
+        if(!goOrStop.equals("y") && !goOrStop.equals("n")){
+            System.out.println("y 또는 n을 입력해주시기 바랍니다.");
+        }
+        if(goOrStop.equals("y")) {
+            player.addCard(useCard, cardTrump);
+            System.out.println(player.getName()+"카드:" +player.getCard().toString());
+        }
+    }
+
 
     private void firstTurnBlackJackOnlyPlayer(List<Player> players, Dealer dealer) {
         int winnerMoney = 0;
@@ -64,6 +86,22 @@ public class BlackJackGame {
             winnerOrLose(player);
         }
         System.out.println("딜러 :" + (loseMoney - winnerMoney));
+    }
+
+    private void checkBlackJack(List<Player> players, Dealer dealer) {
+        for(Player player : players) {
+            if(dealer.getCard().size() == 2 && dealer.allScore() == 21
+                    && player.getCard().size() == 2 && player.allScore() == 21) {
+                firstTurnBlackJackPlayerAndDealer(players, dealer);
+                break;
+            }
+            if(dealer.getCard().size() == 2 && dealer.allScore() != 21
+                    && player.getCard().size() == 2 && player.allScore() == 21) {
+                firstTurnBlackJackOnlyPlayer(players, dealer);
+                break;
+            }
+        }
+
     }
 
     private void winnerOrLose(Player player) {
