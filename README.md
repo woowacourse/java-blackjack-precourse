@@ -45,6 +45,7 @@
 
 
 ## Player 클래스
++ 이름을 얻을 수 있는 getter 함수 구현
 
 
 # Controller 클래스
