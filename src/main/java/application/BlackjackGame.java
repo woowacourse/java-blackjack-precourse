@@ -1,18 +1,20 @@
 package application;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import domain.card.CardDeck;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.Players;
 import inputview.InputView;
+import outputview.OutputView;
 
 public class BlackjackGame {
 	private static final int NUM_INITIAL_CARDS = 2;
 	private static final int BLACKJACK = 21;
 	
-	public void makeNewGame() {
+	public void play() {
 		List<String> playerNames = InputView.enterPlayerNames();
 		List<Integer> bettingMoney = InputView.enterAllBettingMoney(playerNames);
 		Players players = new Players(playerNames, bettingMoney);
@@ -23,52 +25,42 @@ public class BlackjackGame {
 	}
 	
 	private void proceedGame(Dealer dealer, Players players, CardDeck cardDeck) {
-		PlayersWinLoseInfo info = new PlayersWinLoseInfo(players.getSize());
+		List<WinLoseInfo> playersWinLoseInfo = new ArrayList<WinLoseInfo>();
+		for (int i = 0; i < players.getSize() ; i++) {
+			playersWinLoseInfo.add(WinLoseInfo.UNDETERMINED);
+		}
 		
-		drawFirstCards(dealer, players, cardDeck);
-		showFirstCards(dealer, players);
-		checkBlackjack(dealer, players, info);
-		drawAdditionalCards(dealer, players, cardDeck);
-		checkFinalWinLose(dealer, players, info);
+		initialDrawPhase(dealer, players, cardDeck);
+		checkBlackjack(dealer, players, playersWinLoseInfo);
+		additionalDrawPhase(dealer, players, cardDeck);
+		checkFinalWinLose(dealer, players, playersWinLoseInfo);
 	}
 	
-	private void drawFirstCards(Dealer dealer, Players players, CardDeck cardDeck) {
+	private void initialDrawPhase(Dealer dealer, Players players, CardDeck cardDeck) {
 		for (int i = 0; i < NUM_INITIAL_CARDS; i++) {
 			dealer.drawCard(cardDeck);
 			players.drawCard(cardDeck);
 		}
+		OutputView.showInitialCards(dealer, players);
 	}
 	
-	private void showFirstCards(Dealer dealer, Players players) {
-		System.out.println("딜러와 " + players.toString() + "에게 2장의 카드를 나누었습니다.");
-		System.out.println("딜러: " + dealer.getCardsExceptFirstInString());
-		for (int i = 0; i < players.getSize(); i++) {
-			Player player = players.getPlayerAt(i);
-			System.out.println(player.getName() + "카드: " + player.getAllCardsInString());
-		}
-	}
-	
-	private void checkBlackjack(Dealer dealer, Players players, PlayersWinLoseInfo info) {
+	private void checkBlackjack(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		for (int i = 0; i < players.getSize(); i++) {
 			Player player = players.getPlayerAt(i);
 			if (player.calculateScore() == BLACKJACK) {
 				if(dealer.calculateScore() == BLACKJACK) {
-					info.setBlackjackAt(i);
+					info.set(i,WinLoseInfo.BLACKJACK);
 				}
-				info.setDrawAt(i);
+				info.set(i,WinLoseInfo.BLACKJACK);
 			}
 		}
 	}
 	
-	private void chkBlackjack(int index, PlayersWinLoseInfo info) {
+	private void additionalDrawPhase(Dealer dealer, Players players, CardDeck cardDeck) {
 		
 	}
 	
-	private void drawAdditionalCards(Dealer dealer, Players players, CardDeck cardDeck) {
-		
-	}
-	
-	private void checkFinalWinLose(Dealer dealer, Players players, PlayersWinLoseInfo info) {
+	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		
 	}
 }
