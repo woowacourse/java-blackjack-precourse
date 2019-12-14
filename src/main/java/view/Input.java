@@ -1,6 +1,5 @@
 package view;
 
-import domain.user.Player;
 
 import java.util.*;
 
@@ -15,7 +14,7 @@ public class Input {
     public Input() {
     }
 
-    public String input() {
+    private String input() {
         return scanner.nextLine();
     }
 
@@ -44,15 +43,15 @@ public class Input {
                 .orElseGet(() -> asWantMoreCard(playerName));
     }
 
-    public boolean isYesOrNo(String input) {
+    private boolean isYesOrNo(String input) {
         return input.equals(Y) || input.equals(N);
     }
 
-    public boolean parseToBoolean(String input) {
+    private boolean parseToBoolean(String input) {
         return input.equals(Y);
     }
 
-    public Optional<Double> stringToDouble(String input) {
+    private Optional<Double> stringToDouble(String input) {
         try {
             return Optional.of(Double.parseDouble(input));
         } catch (NumberFormatException e) {
@@ -68,7 +67,7 @@ public class Input {
         return !input.endsWith(COMMA);
     }
 
-    public boolean noMoreThenTenPlayers(String input) {
+    private boolean noMoreThenTenPlayers(String input) {
         return input.chars().mapToObj(x -> (char) x)
                 .map(String::valueOf)
                 .filter(x -> x.equals(COMMA))

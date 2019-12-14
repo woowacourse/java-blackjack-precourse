@@ -4,15 +4,13 @@ import domain.user.Gamers;
 import domain.user.Player;
 
 import java.text.DecimalFormat;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Output {
-    public static void showGamePlayerInput() {
+    static void showGamePlayerInput() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리) 최대 10명");
     }
 
-    public static void showBettingMoneyInput(String playerName) {
+    static void showBettingMoneyInput(String playerName) {
         System.out.println(playerName + "의 배팅금액은?");
     }
 
@@ -28,7 +26,7 @@ public class Output {
         System.out.println(player);
     }
 
-    public static void showWantMoreCard(String playerName) {
+    static void showWantMoreCard(String playerName) {
         System.out.println(playerName + "은(는) 카드를 더받겠습니까?");
     }
 
@@ -37,7 +35,7 @@ public class Output {
     }
 
     public static void showGamersResult(Gamers gamers) {
-        System.out.println(gamers.toStringWithResult());
+        System.out.println("\n" + gamers.toStringWithResult());
         System.out.println("$$$$$$$$$$$$$$$$$최종수익$$$$$$$$$$$$$$$$$");
     }
 

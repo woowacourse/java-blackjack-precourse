@@ -1,6 +1,5 @@
 package domain.card;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,7 +13,7 @@ public class Deck {
         return deck;
     }
 
-    public void removeCardFromDeck(Card card) {
+    private void removeCardFromDeck(Card card) {
         deck.remove(card);
     }
 

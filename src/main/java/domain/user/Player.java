@@ -1,7 +1,5 @@
 package domain.user;
 
-import com.sun.org.apache.bcel.internal.generic.ARETURN;
-import controller.BlackJack;
 import domain.card.Card;
 import domain.card.Deck;
 import view.Input;
@@ -74,11 +72,11 @@ public class Player {
         return getScoreWithAceCheck() < PLAYER_MIN_BURST;
     }
 
-    public boolean isNotBurstWithBonusScore() {
+    private boolean isNotBurstWithBonusScore() {
         return getScore() + ACE_BONUS_SCORE < PLAYER_MIN_BURST;
     }
 
-    public int aceBonusScore(int score) {
+    private int aceBonusScore(int score) {
         return score + ACE_BONUS_SCORE;
     }
 

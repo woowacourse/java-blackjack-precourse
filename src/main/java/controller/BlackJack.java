@@ -7,7 +7,6 @@ import domain.user.Player;
 import view.Input;
 import view.Output;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class BlackJack {
@@ -30,24 +29,24 @@ public class BlackJack {
         new StakeManager(gamers).start();
     }
 
-    public void initCardPhase() {
+    private void initCardPhase() {
         Output.showInitCardUi(gamers.nameString());
         gamers.initPlayersCards(deck);
         Output.showGamersInfo(gamers);
     }
 
-    public void moreCardsPhase() {
+    private void moreCardsPhase() {
         gamers.moreCard(deck);
         gamers.findDealer().dealerShowHiddenCard(deck);
     }
 
-    public void dealerPhase() {
+    private void dealerPhase() {
         if (!gamers.findDealer().isBlackJack()) {
             gamers.findDealer().dealerMoreCard(deck);
         }
     }
 
-    public void resultPhase() {
+    private void resultPhase() {
         Output.showGamersResult(gamers);
     }
 }
