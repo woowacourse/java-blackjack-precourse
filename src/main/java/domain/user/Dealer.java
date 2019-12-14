@@ -11,7 +11,8 @@ import java.util.List;
 public class Dealer extends User {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
