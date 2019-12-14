@@ -108,6 +108,14 @@ public class Player {
                 .orElse(BURST);
     }
 
+    public boolean isHigherScoreThen(Player player) {
+        return getResultScore() > player.getResultScore();
+    }
+
+    public boolean isSameScoreWith(Player player) {
+        return getResultScore() == player.getResultScore();
+    }
+
     @Override
     public String toString() {
         return name + "카드: " + cards.stream()
