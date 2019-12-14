@@ -43,7 +43,7 @@ public class BlackJackGame {
         }
         System.out.printf("\n\n");
         getdealerMoreCard(useCard,cardTrump,dealer);
-
+        displayBlackJackResult(players, dealer);
     }
 
     private void displayBlackJackResult(List<Player> players, Dealer dealer) {
@@ -52,10 +52,20 @@ public class BlackJackGame {
             displayPlayerWin(players);
         }
         if(maxMoney <= 21) {
-
+            displayResult(players, dealer, maxMoney);
         }
     }
+    private void displayResult(List<Player> players, Dealer dealer, int maxScore) {
+        System.out.println("딜러 카드: " + dealer.getCard().toString() + "- 결과: " + dealer.allScore());
+        for(Player player : players) {
+            if(maxScore < player.allScore() && player.allScore() < 22) {
+                maxScore = player.allScore();
+            }
+            System.out.println(player.getName() + "카드 : " + player.getCard().toString() + "-결과: " + player.allScore());
+        }
+        System.out.printf("\n\n");
 
+    }
 
     private void displayPlayerWin(List<Player> players) {
         System.out.println("딜러가 21을 초과 했으므로 모든 플레이어는 배팅 금액을 받습니다.");
