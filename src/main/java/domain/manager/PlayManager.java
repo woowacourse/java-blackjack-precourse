@@ -25,8 +25,9 @@ public class PlayManager {
         }
     }
 
-    public void PlayGame() {
+    public void playGame() {
         setBasicCards();
+        printGamersHand();
     }
 
     private void setBasicCards() {
@@ -39,6 +40,12 @@ public class PlayManager {
     private void dealCards() {
         for (Gamer gamer : gamers) {
             gamer.addCard(deck.giveRandomCard());
+        }
+    }
+
+    private void printGamersHand() {
+        for (Gamer gamer : gamers) {
+            System.out.println(gamer.toString());
         }
     }
 }
