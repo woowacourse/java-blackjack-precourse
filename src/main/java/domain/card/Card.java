@@ -15,8 +15,6 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,5 +43,16 @@ public class Card {
 
     public Type getType() {
         return type;
+    }
+
+    // 1 또는 11이 될 수 있는 ACE의 경우 0으로 예외처리하였다.
+    public int getCardScore() {
+        if (this.type == Type.KING
+                || this.type == Type.QUEEEN
+                || this.type == Type.JACK)
+            return 10;
+        if (this.type == Type.ACE)
+            return 0;
+        return this.symbol.getScore();
     }
 }
