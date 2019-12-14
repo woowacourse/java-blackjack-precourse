@@ -6,8 +6,9 @@ import java.util.List;
 import domain.card.Card;
 import domain.game.Deck;
 
-public abstract class Contender {
+public abstract class Contender implements Comparable<Contender> {
     private static final int PAIR_NUMBER = 2;
+    private static final int BLACK_JACK_NUMBER = 21;
     private static final int BUSTED_NUMBER = 22;
     private final List<Card> cards = new ArrayList<>();
 
@@ -49,5 +50,8 @@ public abstract class Contender {
         return String.join(", ", cardList);
     }
 
-
+    @Override
+    public int compareTo(Contender compared) {
+        return compared.getSum() - getSum();
+    }
 }
