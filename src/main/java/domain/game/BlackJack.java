@@ -90,7 +90,7 @@ public class BlackJack {
      * drawCard 메서드는 카드를 한 장 뽑아 반환하고, iterator 값을 올려준다.
      * 카드의 리스트는 생성시 셔플되므로, 이를 선형으로 순회하게 되면
      * 중복 없이 랜덤한 카드가 뽑히는 것을 보장할 수 있다.
-     *
+     * <p>
      * 카드가 다 떨어지는 극단적인 경우(예를 들어 20명 이상의 플레이어가 3장씩 뽑는다던가 하는 경우)를 고려하여
      * 카드가 떨어지면 예외를 던지도록 구현하였다.
      * 다 떨어졌을 때 새로운 덱을 create하는 것도 고려하였으나,
@@ -128,7 +128,7 @@ public class BlackJack {
      * 이를 통해 재귀적으로 올바른 값을 돌려준다.
      *
      * @return int형의 배팅 금액을 리턴해준다.
-     * @exception InputMismatchException 입력된 값이 의도된 타입이 아닐 경우 예외처리한다.
+     * @throws InputMismatchException 입력된 값이 의도된 타입이 아닐 경우 예외처리한다.
      * @throws InputMismatchException 입력된 값이 양의 정수가 아닐 경우 예외처리한다.
      */
     private int getBettingMoneyToInput(String name) {
@@ -138,9 +138,7 @@ public class BlackJack {
         System.out.print(name + ConstMessage.BET_PLAYER);
         try {
             money = sc.nextInt();
-            if (money <= 0) {
-                throw new InputMismatchException();
-            }
+            validateInputMoney(money);
         } catch (InputMismatchException e) {
             System.out.print(ConstMessage.ERROR_INPUT);
             return getBettingMoneyToInput(name);
@@ -149,11 +147,22 @@ public class BlackJack {
     }
 
     /**
+     * validateInputMoney는 금액에 대한 예외처리(양수가 아닌 경우)에 대해 예외처리를 발생시킨다.
+     *
+     * @param money 검사할 금액 정수 변수이다.
+     */
+    private void validateInputMoney(int money) {
+        if (money <= 0) {
+            throw new InputMismatchException();
+        }
+    }
+
+    /**
      * getNameToInput은 하나의 문자열 입력을 받아,
      * 그 문자열을 여러 개의 이름 블록으로 분리하여 리스트로 만든다.
      *
      * @return 이름의 목록을 String형 List로 리턴해준다.
-     * @exception InputMismatchException 입력된 값이 의도된 타입이 아닐 경우 예외처리한다.
+     * @throws InputMismatchException 입력된 값이 의도된 타입이 아닐 경우 예외처리한다.
      * @throws InputMismatchException 만약 입력된 값이 조건(길이제한, 최소개수 등)에 맞지 않는다면 예외처리한다.
      */
     private List<String> getNameToInput() {
@@ -163,9 +172,7 @@ public class BlackJack {
         System.out.println(ConstMessage.GET_NAME);
         try {
             nameList = Arrays.asList(sc.nextLine().split(","));
-            if (findExceptionOnName(nameList)) {
-                throw new InputMismatchException();
-            }
+            validateInputName(nameList);
         } catch (InputMismatchException e) {
             System.out.print(ConstMessage.ERROR_INPUT);
             return getNameToInput();
@@ -174,21 +181,28 @@ public class BlackJack {
     }
 
     /**
+     * validateInputName은 이름 입력에 대한 예외처리를 발생시킨다.
+     *
+     * @param nameList 이름의 목록을 담은 리스트이다.
+     */
+    private void validateInputName(List<String> nameList) {
+        if (nameList.isEmpty()) {
+            throw new InputMismatchException();
+        }
+        for (String name : nameList) {
+            findExceptionOnName(name);
+        }
+    }
+
+    /**
      * findExceptionOnName은 이름의 목록을 받아 그 중 예외처리될 사항을 검사한다.
      *
-     * @param nameList : 이름의 목록을 담은 리스트이다.
-     * @return : 만약 입력에 예외처리될 사항이 있다면 true를, 아니라면 false를 리턴해준다.
+     * @param name : 검사할 이름 String 객체이다.
      */
-    private boolean findExceptionOnName(List<String> nameList) {
-        if (nameList.isEmpty()) {
-            return true;
+    private void findExceptionOnName(String name) {
+        if (name.length() > 5 || name.isEmpty()) {
+            throw new InputMismatchException();
         }
-        for (String i : nameList) {
-            if (i.length() > 5 || i.isEmpty()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

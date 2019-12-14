@@ -59,14 +59,23 @@ public class Player extends Dealer {
         System.out.print(name + ConstMessage.DRAW_PLAYER_QUESTION);
         try {
             inputString = sc.nextLine();
-            if (!inputString.equals("y") && !inputString.equals("n")) {
-                throw new InputMismatchException();
-            }
+            validateDrawInput(inputString);
         } catch (InputMismatchException e) {
             System.out.print(ConstMessage.ERROR_INPUT);
             return checkDrawMoreByInput();
         }
         return inputString.equals("y");
+    }
+
+    /**
+     * validateDrawInput은 플레이어의 대답 입력에 대한 예외처리(y/n 외의 값에 대한 입력)를 발생시킨디ㅏ.
+     *
+     * @param answer 플레이어에 대한 입력값 String 객체이다.
+     */
+    private void validateDrawInput(String answer) {
+        if (!answer.equals("y") && !answer.equals("n")) {
+            throw new InputMismatchException();
+        }
     }
 
     /**
