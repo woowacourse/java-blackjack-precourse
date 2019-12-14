@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +61,18 @@ public class Dealer {
             return true;
         }
         return false;
+    }
+
+    public Card getSmallestCard() {
+        Card smallestCard = cards.get(0);
+        int smallestScore = smallestCard.getSymbolValue();
+
+        for (Card card : cards) {
+            if (card.getSymbolValue() < smallestScore) {
+                smallestScore = card.getSymbolValue();
+                smallestCard = card;
+            }
+        }
+        return smallestCard;
     }
 }
