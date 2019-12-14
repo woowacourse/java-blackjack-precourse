@@ -38,9 +38,11 @@ public class BlackJackGame {
         if (gamers.hasNotBlackJack()) {
             distributeCardToPlayers();
             distributeCardToDealer();
-            OutputView.showLastStatus(gamers.getGamers());
         }
-        OutputView.showResult(gamers.getDealer(), gamers.getPlayers());
+        OutputView.showLastStatus(gamers.getGamers());
+
+        GameResults gameResults = new GameResults(gamers);
+        OutputView.showResult(gameResults.getGameResults());
     }
 
     private void distributeCardToPlayers() {

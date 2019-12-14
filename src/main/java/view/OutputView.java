@@ -1,9 +1,9 @@
 package view;
 
-import domain.user.Dealer;
 import domain.user.Gamer;
 import domain.user.Gamers;
 import view.dto.CardStatus;
+import view.dto.GameResult;
 
 import java.util.List;
 
@@ -52,8 +52,10 @@ public class OutputView {
         }
     }
 
-    public static void showResult(Dealer dealer, List<Gamer> players) {
-        System.out.println("## 최종 수익");
-
+    public static void showResult(List<GameResult> gameResults) {
+        System.out.println("\n## 최종 수익\n");
+        for (GameResult gameResult : gameResults) {
+            System.out.println(gameResult.getResult());
+        }
     }
 }

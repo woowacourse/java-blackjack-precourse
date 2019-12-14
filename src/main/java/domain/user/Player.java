@@ -14,6 +14,26 @@ public class Player extends Gamer {
         this.bettingMoney = new BettingMoney(bettingMoney);
     }
 
+    public double getResultMoney(boolean isDealerBlackJack, boolean isWinner) {
+        if (isDealerBlackJack) {
+            return getBlackJackMoney();
+        }
+        if (isBlackJack()) {
+            return bettingMoney.blackJack();
+        }
+        if (isWinner) {
+            return bettingMoney.earn();
+        }
+        return bettingMoney.lose();
+    }
+
+    private double getBlackJackMoney() {
+        if (isBlackJack()) {
+            return bettingMoney.push();
+        }
+        return bettingMoney.lose();
+    }
+
     @Override
     public String getName() {
         return name;

@@ -8,10 +8,9 @@ import java.util.NoSuchElementException;
 import static java.util.stream.Collectors.toList;
 
 public class Gamers {
-    private final List<Gamer> gamers;
+    private final List<Gamer> gamers = new ArrayList<>();
 
     public Gamers(Dealer dealer, List<Player> players) {
-        gamers = new ArrayList<>();
         gamers.add(dealer);
         gamers.addAll(players);
         initCard(dealer);
@@ -34,9 +33,10 @@ public class Gamers {
                 .noneMatch(Gamer::isBlackJack);
     }
 
-    public List<Gamer> getPlayers() {
+    public List<Player> getPlayers() {
         return Collections.unmodifiableList(gamers.stream()
                 .filter(Gamer::isPlayer)
+                .map(Player.class::cast)
                 .collect(toList()));
     }
 
@@ -48,7 +48,22 @@ public class Gamers {
                 .orElseThrow(() -> new NoSuchElementException("딜러가 없습니다."));
     }
 
+    public boolean isDealerBlackJack() {
+        return getDealer().isBlackJack();
+    }
+
     public List<Gamer> getGamers() {
         return Collections.unmodifiableList(gamers);
+    }
+
+    public boolean isWinner(Player player) {
+        return player.getScore() == findMaxScore();
+    }
+
+    private double findMaxScore() {
+        return gamers.stream()
+                .mapToInt(Gamer::getScore)
+                .max()
+                .orElseThrow(() -> new NoSuchElementException("참가자가 없습니다."));
     }
 }
