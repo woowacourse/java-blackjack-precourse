@@ -37,4 +37,8 @@ public class OutputView {
 	public static void showPlayerCards(Player player) {
 		System.out.println(player.getName() + "카드: " + player.getAllCardsInString());
 	}
+	
+	public static void showBlankLine() {
+		System.out.println();
+	}
 }

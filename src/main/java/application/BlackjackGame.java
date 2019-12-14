@@ -82,11 +82,12 @@ public class BlackjackGame {
 	
 	private void drawAdditionalCards(Player player, CardDeck cardDeck, WinLoseInfo info) {
 		try {
-			checkOverBlackJack(player);
 			drawUntilDontWant(player, cardDeck);
 		} catch (IllegalStateException e) {
 			System.out.println(e.getMessage());
 			info = WinLoseInfo.LOSE;
+		} finally {
+			OutputView.showBlankLine();
 		}
 	}
 	
@@ -94,6 +95,7 @@ public class BlackjackGame {
 		while(InputView.enterIfDrawAdditionalCard(player)) {
 			player.drawCard(cardDeck);
 			OutputView.showPlayerCards(player);
+			checkOverBlackJack(player);
 		}
 	}
 	
