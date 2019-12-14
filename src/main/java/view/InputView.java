@@ -15,7 +15,7 @@ public class InputView {
     private static final String MORE_CARD = "y";
     private static final String NO_MORE_CARD = "n";
 
-    private static Scanner SCANNER = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     public static List<String> inputNames() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)");

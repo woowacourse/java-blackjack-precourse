@@ -1,5 +1,6 @@
 package view.dto;
 
+import domain.dispenser.RandomDispenser;
 import domain.user.Dealer;
 import domain.user.Gamer;
 import domain.user.Gamers;
@@ -16,7 +17,7 @@ public class BlackJackGame {
     private final Gamers gamers;
 
     private BlackJackGame() {
-        gamers = new Gamers(new Dealer(), makePlayers());
+        gamers = new Gamers(new Dealer(new RandomDispenser()), makePlayers());
 
         OutputView.showStartStatus(gamers);
     }

@@ -2,7 +2,6 @@ package domain.user;
 
 import domain.card.Card;
 import domain.dispenser.CardDispenser;
-import domain.dispenser.RandomDispenser;
 
 /**
  * 게임 딜러를 의미하는 객체
@@ -13,8 +12,8 @@ public class Dealer extends Gamer {
 
     private final CardDispenser cardDispenser;
 
-    public Dealer() {
-        cardDispenser = new RandomDispenser();
+    public Dealer(CardDispenser dispenser) {
+        cardDispenser = dispenser;
     }
 
     public Card pickCard() {
