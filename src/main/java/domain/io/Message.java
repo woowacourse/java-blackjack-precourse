@@ -30,4 +30,12 @@ public class Message {
     public void showCardStatus(String name,List<Card> card) {
 	System.out.println(name+" 카드 : "+String.join(",",card.toString()));
     }
+    
+    public void showGettingCardQuestion(String name) {
+	System.out.println(name+"은(는) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n 입력)");
+    }
+    
+    public void showGettingCardErrorMessage() {
+	System.out.println("입력이 잘못되었습니다. y(Y)혹은 n(N)만 입력해주세요");
+    }
 }
