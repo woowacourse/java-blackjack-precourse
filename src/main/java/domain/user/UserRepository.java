@@ -1,13 +1,14 @@
 package domain.user;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import domain.view.ViewInput;
 
-public class PlayerRepository {
-	private ArrayList<String> playerNames = new ArrayList<String>();
-	private ArrayList<Player> playerList = new ArrayList<Player>();
-	
+public class UserRepository {
+	private List<String> playerNames = new ArrayList<String>();
+	private List<Player> playerList = new ArrayList<Player>(); 
+			
 	public void makePlayerName(String name) {
 		String[] names = name.split(",");
 		
@@ -24,4 +25,8 @@ public class PlayerRepository {
 		}
 	}
 
+	public String getPlayerList() {
+		String name = String.join(", ", playerNames);
+		return name;
+	}
 }

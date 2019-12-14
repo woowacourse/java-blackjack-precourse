@@ -1,18 +1,19 @@
 package domain.game;
 
-import domain.user.PlayerRepository;
+import domain.user.UserRepository;
 import domain.view.ViewInput;;
 
 public class Game {
 	private static Game blackJack = new Game();
-	private PlayerRepository playerRepository = new PlayerRepository();
+	private UserRepository userRepository = new UserRepository();
 
 	public static Game getInstance() {
 		return blackJack;
 	}
 
 	public void run() {
-		playerRepository.makePlayerName(ViewInput.getPlayerNames());
-		playerRepository.makePlayerList();
+		userRepository.makePlayerName(ViewInput.getPlayerNames());
+		userRepository.makePlayerList();
+		
 	}
  }
