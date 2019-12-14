@@ -33,7 +33,7 @@ public class ProfitCalculator {
 	}
 
 	private Profit getDealerProfit() {
-		double profit = 0;
+		double profit = DEFAULT_PROFIT;
 		for (Player player : players) {
 			profit -= calculateProfit(player);
 		}
