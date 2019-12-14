@@ -15,6 +15,8 @@ public class Game {
 
     public void play() {
         addPlayers();
+        giveFirstPair();
+        printContenders();
     }
 
     private void addPlayers() {
@@ -25,5 +27,15 @@ public class Game {
         stake = new Stake(contenders);
     }
 
+    private void giveFirstPair() {
+        for (Contender contender : contenders) {
+            contender.drawPairFrom(deck);
+        }
+    }
 
+    private void printContenders() {
+        for (Contender contender : contenders) {
+            System.out.println(contender);
+        }
+    }
 }
