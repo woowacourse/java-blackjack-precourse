@@ -26,6 +26,8 @@ public class InputUtil {
 	private static final String EMPTY = "";
 	private static final String COMMA = ",";
 	private static final int SPLIT_LIMIT = -1;
+	private static final int MINIMUM_PLAYER_NUMBER = 1;
+	private static final int MAXIMUM_PLAYER_NUMBER = 7;
 
 	public static List<String> readPlayersName() throws IOException {
 		List<String> playersName = Arrays.asList(reader.readLine().replaceAll(SPACE, EMPTY).split(COMMA, SPLIT_LIMIT));
@@ -42,6 +44,7 @@ public class InputUtil {
 		try {
 			checkNameEmpty(playersName);
 			checkNameDuplicate(playersName);
+			checkNameCount(playersName);
 		} catch (IOException e) {
 			throw e;
 		}
@@ -56,6 +59,12 @@ public class InputUtil {
 	private static void checkNameDuplicate(List<String> playersName) throws IOException {
 		if (Arrays.asList(playersName).stream().distinct().count() != playersName.size()) {
 			throw new IOException("Player's name is duplicated");
+		}
+	}
+
+	private static void checkNameCount(List<String> playersName) throws IOException {
+		if ((playersName.size() < MINIMUM_PLAYER_NUMBER) || (playersName.size() > MAXIMUM_PLAYER_NUMBER)) {
+			throw new IOException("The number of players is wrong");
 		}
 	}
 }
