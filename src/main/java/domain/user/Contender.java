@@ -8,6 +8,7 @@ import domain.game.Deck;
 
 public abstract class Contender {
     private static final int PAIR_NUMBER = 2;
+    private static final int BUSTED_NUMBER = 22;
     private final List<Card> cards = new ArrayList<>();
 
     public abstract String getName();
@@ -21,6 +22,18 @@ public abstract class Contender {
         for (int i = 0; i < PAIR_NUMBER; i++) {
             addCard(deck.draw());
         }
+    }
+
+    public boolean isBusted() {
+        return getSum() >= BUSTED_NUMBER;
+    }
+
+    private int getSum() {
+        int sum = 0;
+        for (Card card : cards) {
+            sum += card.getScore();
+        }
+        return sum;
     }
 
     @Override
