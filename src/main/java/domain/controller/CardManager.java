@@ -2,17 +2,17 @@ package domain.controller;
 
 import domain.card.Card;
 import domain.card.CardFactory;
-import domain.user.Player;
+import domain.user.User;
 
 import java.util.List;
 
 public class CardManager {
 
 
-    public void giveCard(Player player, int numOfCard) {
+    public void giveCard(User user, int numOfCard) {
         List<Card> cardList = createCard();
         for (int i = 0; i < numOfCard; i++) {
-            player.addCard(cardList.get(i));
+            user.addCard(cardList.get(i));
         }
     }
 
