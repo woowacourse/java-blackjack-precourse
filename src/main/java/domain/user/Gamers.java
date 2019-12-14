@@ -50,6 +50,10 @@ public class Gamers {
         return players.stream().filter(x -> !x.isNotBurst()).collect(Collectors.toList());
     }
 
+    public void diePlayers(List<Player> players) {
+        this.players.removeAll(players);
+    }
+
     @Override
     public String toString() {
         return players.stream().map(Player::toString).collect(Collectors.joining("\n"));
