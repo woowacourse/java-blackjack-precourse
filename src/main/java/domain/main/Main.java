@@ -16,6 +16,7 @@ public class Main {
         cards = cardFactory.create();
 //        System.out.print(cards);
         System.out.print(outputPrint.getPlayerNames());
+        outputPrint.giveCardsFirstToPlayers();
 
     }
 

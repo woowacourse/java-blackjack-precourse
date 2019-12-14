@@ -1,14 +1,18 @@
 package domain.main;
 
+import domain.card.Card;
+import domain.card.CardFactory;
 import domain.user.Player;
 import domain.user.PlayerList;
 
+import java.util.Collections;
 import java.util.List;
 
 public class OutputPrint {
 
     private static InputScanner inputScanner = new InputScanner();
     private static PlayerList playerList = new PlayerList();
+    private static CardFactory cardFactory = new CardFactory();
 
     public PlayerList getPlayerNames() {
         println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
@@ -24,13 +28,10 @@ public class OutputPrint {
         return inputScanner.getDouble();
     }
 
-    public void giveCardsFirstToPlayers(List<Player> playerList) {
-        String nameList ="딜러와 "+playerList.get(0).getName();
-        for (Player player : playerList) {
-            nameList += ", " + player;
-        }
-
-        println(nameList+"에게 2장의 카드를 나누어주었습니다.");
+    public void giveCardsFirstToPlayers() {
+        println("딜러와 " + playerList.toStringNames() + "에게 2장의 카드를 나누어주었습니다.");
+        List<Card> cardsList = cardFactory.create();
+        Collections.shuffle(cardsList);
     }
 
     public void wantMoreCards(String playerName) {
