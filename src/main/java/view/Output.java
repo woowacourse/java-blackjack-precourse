@@ -38,6 +38,7 @@ public class Output {
 
     public static void showGamersResult(Gamers gamers) {
         System.out.println(gamers.toStringWithResult());
+        System.out.println("$$$$$$$$$$$$$$$$$최종수익$$$$$$$$$$$$$$$$$");
     }
 
     public static void showResultWithMoney(String name, double money) {

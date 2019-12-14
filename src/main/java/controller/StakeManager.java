@@ -29,6 +29,7 @@ public class StakeManager {
         checkNumberHighScoreThenDealer();
         checkNumberSameScoreWithDealer();
         checkNumberLowerScoreThenDealer();
+        showDealerMoney();
     }
 
     public void checkBurst() {
@@ -95,5 +96,9 @@ public class StakeManager {
                     x.getName(), x.getBettingMoney() * LOSE_MULTIPLE));
             gamers.getPlayers().forEach(x -> dealerMoney -= x.getBettingMoney() * LOSE_MULTIPLE);
         }
+    }
+
+    public void showDealerMoney() {
+        Output.showResultWithMoney(dealer.getName(), dealerMoney);
     }
 }
