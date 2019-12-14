@@ -5,6 +5,8 @@
 
 package input;
 
+import view.PrintController;
+
 import static view.PrintController.*;
 
 /**
@@ -17,16 +19,20 @@ public class InputValidator {
     private static final String BLANK = " ";
     private static final String REGEX = "[,]+";
     private static final int ONE = 1;
+    private static final String YES = "y";
+    private static final String NO = "n";
 
     private static String inputString;
-    private static double InputDouble;
+    private static double inputDouble;
+    private static String inputAnswer;
+
 
     public static boolean inputStringValidator(String userInputString) {
         inputString = userInputString;
-        return checkNameIsEmpty() && checkNameHasBlank() && checkNameIsComma();
+        return checkStringIsEmpty() && checkNameHasBlank() && checkNameIsComma();
     }
 
-    public static boolean checkNameIsEmpty() {
+    public static boolean checkStringIsEmpty() {
         if (inputString.isEmpty()) {
             printInputEmptyError();
             return false;
@@ -51,16 +57,29 @@ public class InputValidator {
     }
 
     public static boolean inputDoubleValidator(double userInputDouble) {
-        InputDouble = userInputDouble;
+        inputDouble = userInputDouble;
         return checkNumberIsBiggerThanZero();
     }
 
     public static boolean checkNumberIsBiggerThanZero() {
-        if (InputDouble < ONE) {
+        if (inputDouble < ONE) {
             printInputNumberIsSmallError();
             return false;
         }
         return true;
 
+    }
+
+    public static boolean inputAnswerValidator(String userAnswer) {
+        inputAnswer = userAnswer;
+        return checkStringIsYesOrNo();
+    }
+
+    public static boolean checkStringIsYesOrNo(){
+        if (!inputAnswer.equals(YES) && !inputAnswer.equals(NO)) {
+            PrintController.printInputIsNotYOrNError();
+            return false;
+        }
+        return true;
     }
 }

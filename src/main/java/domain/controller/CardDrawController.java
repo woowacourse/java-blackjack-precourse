@@ -9,6 +9,8 @@ import domain.model.card.Card;
 import domain.model.card.CardFactory;
 import domain.model.user.Dealer;
 import domain.model.user.Player;
+import input.UserInput;
+import view.PrintController;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ import static util.RandomIntegerGenerator.generateRandomIntegerByInputInteger;
  * @since : 2019.12.13 금요일
  */
 public class CardDrawController {
+    private static final int EXTRA_CARD_LIMIT_FOR_DEALER = 16;
     private static ArrayList<Card> entireCards = new ArrayList<>();
 
     public static void makeEntireCardSet() {
@@ -49,6 +52,30 @@ public class CardDrawController {
 
     public void drawInitialDealerCards(Dealer dealer) {
         dealer.addCard(drawCard());
+        dealer.addCard(drawCard());
+    }
+
+    public boolean controlPlayerExtraDrawing(Player player) {
+        UserInput userInput = new UserInput();
+        boolean userAnswer = userInput.getPlayerAnswer(player);
+
+        ResultController resultController = new ResultController();
+        if (userAnswer) {
+            player.addCard(drawCard());
+            PrintController.printPlayerCardInformation(player);
+        }
+
+        if (resultController.checkBurstOrNot(player.getCurrentScore())) {
+            // 버스트라도 그 판은 종료해야함. 다음 플레이어도 갈 수 있도록!! (휴먼카지노에 넣어줘도 좋을듯)
+            System.out.println("버스트 처리해주기");
+            return false;
+        }
+
+        return userAnswer;
+
+    }
+
+    public void controlDealerExtraDrawing(Dealer dealer) {
         dealer.addCard(drawCard());
     }
 

@@ -5,15 +5,13 @@
 
 package input;
 
+import domain.model.user.Player;
+import view.PrintController;
+
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
-import static input.InputValidator.inputDoubleValidator;
-import static input.InputValidator.inputStringValidator;
-import static view.PrintController.askBettingMoney;
-import static view.PrintController.askPlayerName;
 
 /**
  * @author Seungwan Park, github.com/toneyparky
@@ -24,14 +22,15 @@ import static view.PrintController.askPlayerName;
 public class UserInput {
     private static final int DOUBLE_TYPE_INPUT_WRONG_MARKER = 0;
     private static final String COMMA = ",";
+    private static final String YES = "y";
 
     public List<String> getPlayerName() {
         List<String> playerNameList;
         String inputString;
         do {
-            askPlayerName();
+            PrintController.askPlayerName();
             inputString = getInputString();
-        } while (!inputStringValidator(inputString));
+        } while (!InputValidator.inputStringValidator(inputString));
         playerNameList = separateStringToPlayerNameList(inputString);
         return playerNameList;
 
@@ -52,9 +51,9 @@ public class UserInput {
     public double getBettingMoney(String playerName) {
         double bettingMoney;
         do {
-            askBettingMoney(playerName);
+            PrintController.askBettingMoney(playerName);
             bettingMoney = getInputDouble();
-        } while (!inputDoubleValidator(bettingMoney));
+        } while (!InputValidator.inputDoubleValidator(bettingMoney));
         return bettingMoney;
     }
 
@@ -66,6 +65,19 @@ public class UserInput {
         } catch (InputMismatchException e) {
             return DOUBLE_TYPE_INPUT_WRONG_MARKER;
         }
+    }
+
+    public boolean getPlayerAnswer(Player player) {
+        String inputString;
+        do {
+            PrintController.askDrawMoreCard(player);
+            inputString = getInputString();
+        } while (!InputValidator.inputAnswerValidator(inputString));
+
+        if (inputString.equals(YES)) {
+            return true;
+        }
+        return false;
     }
 
 

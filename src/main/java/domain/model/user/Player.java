@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class Player extends HumanInCasino{
     private static final String COMMA = ", ";
+    private static final String A = "A";
+    private static final String NOTHING = "";
     private final List<Card> cards = new ArrayList<>();
     private final String name;
     private final double bettingMoney;
@@ -34,7 +36,7 @@ public class Player extends HumanInCasino{
     }
 
     public void getBettingMoney() {
-        // 근데 이건 메시지를 보내는 방법으로 작성해보자.
+        // TODO 이건 메시지를 보내는 방법으로 작성해보자.
     }
 
     public String getCardsInformation() { // 카드리스트를 이용해서 출력될 카드 정보를 String으로 만들어서 보내는 메서드
@@ -43,6 +45,23 @@ public class Player extends HumanInCasino{
             cardInfoArrayList.add(card.toString());
         }
         return String.join(COMMA, cardInfoArrayList);
+    }
+
+    public ArrayList<Integer> getAllCardsScore() {
+        ArrayList<Integer> scoreList = new ArrayList<>();
+        for (Card card : this.cards) {
+            scoreList.add(card.getSymbolScore());
+        }
+        return scoreList;
+    }
+
+    public int getCurrentScore() {
+        ArrayList<Integer> scoreList = getAllCardsScore();
+        return scoreList.stream().mapToInt(Integer::intValue).sum();
+    }
+
+    public int checkHowManyAceInCards() {
+        return getCardsInformation().length() - getCardsInformation().replace(A, NOTHING).length();
     }
 
 }

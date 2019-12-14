@@ -5,7 +5,6 @@
 
 package view;
 
-import domain.model.card.Card;
 import domain.model.user.Dealer;
 import domain.model.user.Player;
 
@@ -24,8 +23,25 @@ public class PrintController {
     private static final String INPUT_NUMBER_IS_SMALL_ERROR = "오류 : 1 이상의 정수만 입력해주세요.";
     private static final String DEALER_AND = "딜러와 ";
     private static final String HANDING_TWO_CARDS_INFORMATION = "에게 2장의 카드를 나누었습니다.";
-    private static final String DEALER_IS = "딜러: ";
-    private static final String CARD_IS = "카드: ";
+    private static final String DEALER_COLON = "딜러: ";
+    private static final String CARD_COLON = "카드: ";
+    private static final String ASK_DRAW_MORE_CARD = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
+    private static final String INPUT_IS_NOT_Y_OR_N_ERROR = "y나 n만 입력해주세요.";
+    private static final String PRINT_DEALER_CAN_NOT_DRAW_MORE_CARD = "딜러는 17이상이라 카드를 받지 않습니다.";
+    private static final String DEALER_IS = "딜러는 ";
+    private static final String LOWER_THAN_SIXTEEN = "16이하라 ";
+    private static final String GET_N_NUMBER_CARDS = "장의 카드를 더 받았습니다.";
+
+    public static String integerToKoreanNumber(int number) {
+        if (number == 1) { return "한"; }
+        if (number == 2) { return "두"; }
+        if (number == 3) { return "세"; }
+        if (number == 4) { return "네"; }
+        if (number == 5) { return "다섯"; }
+        if (number == 6) { return "여섯"; }
+        return "여러"; // 딜러가 추가로 카드를 7장 이상 뽑을 가능성은 무척 낮기에 다 적기보다 여러장으로 표기한다.
+    }
+
 
     public static void askPlayerName() {
         System.out.println(ASKING_PLAYER_NAME);
@@ -56,11 +72,24 @@ public class PrintController {
     }
 
     public static void printDealerCardInformation(Dealer dealer) {
-        System.out.println(DEALER_IS + dealer.getCard().toString());
+        System.out.println(DEALER_COLON + dealer.getCard().toString());
     }
 
     public static void printPlayerCardInformation(Player player) {
-        System.out.println(player.getName() + CARD_IS + player.getCardsInformation());
+        System.out.println(player.getName() + CARD_COLON + player.getCardsInformation());
     }
 
+    public static void askDrawMoreCard(Player player) {
+        System.out.println(player.getName() + ASK_DRAW_MORE_CARD);
+    }
+
+    public static void printInputIsNotYOrNError() {
+        System.out.println(INPUT_IS_NOT_Y_OR_N_ERROR);
+    }
+
+    public static void printDealerCanNotDrawMoreCard() {System.out.println(PRINT_DEALER_CAN_NOT_DRAW_MORE_CARD);}
+
+    public static void printDealerExtraCards(int extraCounts) {
+        System.out.println(DEALER_IS + LOWER_THAN_SIXTEEN + integerToKoreanNumber(extraCounts) + GET_N_NUMBER_CARDS);
+    }
 }

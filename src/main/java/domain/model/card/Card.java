@@ -40,4 +40,12 @@ public class Card {
         return symbol.getScore() + type.getType();
     }
 
+    public int getSymbolScore() {
+        return symbol.getScore();
+    }
+
+    public boolean isAce() {
+        return symbol == Symbol.ACE;
+    }
+
 }
