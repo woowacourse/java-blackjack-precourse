@@ -28,4 +28,8 @@ public abstract class Gamer {
     public abstract String getName();
 
     public abstract boolean canReceive();
+
+    public abstract boolean isDealer();
+
+    public abstract boolean isPlayer();
 }

@@ -24,4 +24,13 @@ public class Player extends Gamer {
         return getScore() < BLACK_JACK;
     }
 
+    @Override
+    public boolean isDealer() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return true;
+    }
 }

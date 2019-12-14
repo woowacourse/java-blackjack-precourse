@@ -31,4 +31,13 @@ public class Dealer extends Gamer {
         return getScore() <= DEALER_BOUND;
     }
 
+    @Override
+    public boolean isDealer() {
+        return true;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
 }

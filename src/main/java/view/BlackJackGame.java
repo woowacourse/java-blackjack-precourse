@@ -1,6 +1,7 @@
 package view;
 
 import domain.user.Dealer;
+import domain.user.Gamer;
 import domain.user.Gamers;
 import domain.user.Player;
 import domain.user.Players;
@@ -11,23 +12,19 @@ import static java.util.stream.Collectors.toList;
 
 public class BlackJackGame {
 
-    private final Dealer dealer;
-    private final Players players;
+    private final Gamers gamers;
 
     private BlackJackGame() {
-        this.dealer = new Dealer();
-        this.players = new Players(makePlayers());
-        initGamer();
+        Dealer dealer = new Dealer();
+        Players players = new Players(makePlayers());
+
+        gamers = new Gamers(dealer, players.getPlayers());
+
         OutputView.showStartStatus(dealer, players);
     }
 
     public static BlackJackGame init() {
         return new BlackJackGame();
-    }
-
-    private void initGamer() {
-        Gamers gamers = new Gamers(dealer, players.getPlayers());
-        gamers.initCard(dealer);
     }
 
     private List<Player> makePlayers() {
@@ -42,16 +39,17 @@ public class BlackJackGame {
     public void start() {
         distributeCardToPlayers();
         distributeCardToDealer();
-        OutputView.showLastStatus(dealer, players);
+        OutputView.showLastStatus(gamers.getGamers());
     }
 
     private void distributeCardToPlayers() {
-        for (Player player : players.getPlayers()) {
-            pickCard(player);
+        for (Gamer player : gamers.getPlayers()) {
+            pickCard(player, gamers.getDealer());
         }
     }
 
     private void distributeCardToDealer() {
+        Dealer dealer = gamers.getDealer();
         boolean canReceive = dealer.canReceive();
         OutputView.showDealerCanReceive(canReceive);
         if (canReceive) {
@@ -59,7 +57,7 @@ public class BlackJackGame {
         }
     }
 
-    private void pickCard(Player player) {
+    private void pickCard(Gamer player, Dealer dealer) {
         while (player.canReceive() && InputView.receiveCard(player.getName())) {
             player.addCard(dealer.pickCard());
             OutputView.showGamerStatus(player);

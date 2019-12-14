@@ -53,12 +53,15 @@ public class OutputView {
         System.out.println("딜러는 17이상이라 카드를 받지 않습니다.\n");
     }
 
-    public static void showLastStatus(Dealer dealer, Players players) {
-        List<Gamer> gamers = collectGamer(dealer, players);
+    public static void showLastStatus(List<Gamer> gamers) {
         for (Gamer gamer : gamers) {
             String status = makeGamerStatus(gamer);
             int score = gamer.getScore();
             System.out.println(status + " - 결과 : " + score);
         }
+    }
+
+    public static void showResult() {
+        System.out.println("## 최종 수익");
     }
 }
