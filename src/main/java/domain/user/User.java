@@ -9,11 +9,16 @@ public class User {
 	private static final int ZERO_SCORE = 0;
 	private static final int ACE_EXTRA_SCORE = 10;
 	private static final int OPTIMAL_SCORE = 21;
+	private static final String NAME = "사용자";
 
 	private final List<Card> cards = new ArrayList<>();
 
 	public void addCard(Card card) {
 		cards.add(card);
+	}
+
+	public String getName() {
+		return NAME;
 	}
 
 	public List<Card> getCards() {

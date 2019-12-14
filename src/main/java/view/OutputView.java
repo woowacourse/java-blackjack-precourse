@@ -9,6 +9,7 @@ public class OutputView {
 	private static final String CARD_NAMES_DELIMITER = ", ";
 	private static final String DEALER_ADD_CARD_MESSAGE = "는 16이하라 한 장의 카드를 더 받았습니다.";
 	private static final String CONCAT_DELIMITER = ": ";
+	private static final String SCORE_DELIMITER = " - 결과: ";
 
 	private static String concatNameAndCards(String name, List<Card> cards) {
 		String cardNames = String.join(CARD_NAMES_DELIMITER,
@@ -21,6 +22,10 @@ public class OutputView {
 
 	public static void printCards(String name, List<Card> cards) {
 		System.out.println(concatNameAndCards(name, cards));
+	}
+
+	public static void printScore(String name, List<Card> cards, int score) {
+		System.out.println(concatNameAndCards(name, cards) + SCORE_DELIMITER + score);
 	}
 
 	public static void printDealerAddCard(String name) {

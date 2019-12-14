@@ -7,6 +7,7 @@ import domain.card.CardDeck;
 import domain.rule.Rule;
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.User;
 import view.InputView;
 import view.OutputView;
 
@@ -45,6 +46,15 @@ public class BlackjackController {
 		}
 	}
 
+	private void printScore(User user) {
+		OutputView.printScore(user.getName(), user.getCards(), user.getSumOfCards());
+	}
+
+	private void printAllUsersScore() {
+		printScore(dealer);
+		players.forEach(this::printScore);
+	}
+
 	private void onHit(boolean isHit, Player player) {
 		if (isHit) {
 			dealer.giveCard(cardDeck, player);
@@ -72,5 +82,6 @@ public class BlackjackController {
 		giveTwoCard();
 		printFaceUpCards();
 		getMoreCards();
+		printAllUsersScore();
 	}
 }
