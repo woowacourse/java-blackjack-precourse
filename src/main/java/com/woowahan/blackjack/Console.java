@@ -1,5 +1,6 @@
 package com.woowahan.blackjack;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 import com.woowahan.user.User;
@@ -29,6 +30,16 @@ public class Console {
 		return playerNames;
 	}
 
+	private static int tryParseInt(String string){
+		int parsed = 0;
+		string = string.trim();
+		try {
+			parsed = Integer.parseInt(string);
+		}
+		catch (NumberFormatException e) { }
+		return parsed;
+	}
+
 	public static int enterBetting(String playerName) {
 		int betting = 0;
 		String input;
@@ -36,9 +47,8 @@ public class Console {
 			System.out.print(playerName + "의 베팅 금액: ");
 
 			input = getLine();
-			betting = Integer.parseInt(input);
+			betting = tryParseInt(input);
 		}
-
 		return betting;
 	}
 
