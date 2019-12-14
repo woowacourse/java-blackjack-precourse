@@ -12,6 +12,7 @@ public class InputView {
 	private static final String GET_MORE_CARD_MESSAGE = "는 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
 	private static final String GET_MORE_CARD_YES = "y";
 	private static final String GET_MORE_CARD_NO = "n";
+	private static final String GET_MORE_CARD_ERROR = "y 또는 n을 입력하지 않았다.";
 
 	public static String[] getPlayerNames() {
 		try {
@@ -22,6 +23,7 @@ public class InputView {
 			}
 			return names;
 		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 			return getPlayerNames();
 		}
 	}
@@ -33,13 +35,14 @@ public class InputView {
 			Player.validateBettingMoney(bettingMoney);
 			return bettingMoney;
 		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 			return getBettingMoney(name);
 		}
 	}
 
 	private static void validateMoreCard(String moreCard) {
 		if (!(GET_MORE_CARD_YES.equals(moreCard) || GET_MORE_CARD_NO.equals(moreCard))) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(GET_MORE_CARD_ERROR);
 		}
 	}
 
@@ -50,6 +53,7 @@ public class InputView {
 			validateMoreCard(moreCard);
 			return moreCard;
 		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 			return getMoreCard(name);
 		}
 	}
