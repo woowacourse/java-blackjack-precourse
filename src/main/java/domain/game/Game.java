@@ -33,4 +33,26 @@ public class Game {
 		userRepository.dealOutCard();
 	}
 	
+	public void giveTwoCard(User user) {
+		for (int i = 0; i < firstCardCnt; i++) {
+			user.addCard(selectedCard());
+		}
+	}
+	
+	public Card selectedCard() {
+		return deck.get(getCardIndex());
+	}
+	
+	public int getCardIndex() {
+		try {
+			return validity.cardIsUsed(selectCard(CardFactory.cardSize));
+		} catch (Exception e) {
+			return getCardIndex();
+		}
+	}
+	
+	public int selectCard(int cardSize) {
+		return (int)(Math.random() * cardSize);
+	}
+	
  }
