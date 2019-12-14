@@ -46,7 +46,7 @@ public class InputView {
 	public static String getMoreCard(String name) {
 		try {
 			System.out.println(name + GET_MORE_CARD_MESSAGE);
-			String moreCard = SCANNER.nextLine();
+			String moreCard = SCANNER.nextLine().toLowerCase();
 			validateMoreCard(moreCard);
 			return moreCard;
 		} catch (IllegalArgumentException e) {
