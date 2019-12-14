@@ -19,8 +19,15 @@ public class Dealer {
 
     // TODO 추가 기능 구현
 
-    public void showCard(){
+    public void showInitCard(){
         System.out.println("딜러 : "+cards.get(1));
+    }
+
+    public void showFinalCard(){
+        System.out.print("딜러카드 : ");
+        for (Card card:cards){
+            System.out.print(card+" ");
+        }
     }
 
     public int getScore(){

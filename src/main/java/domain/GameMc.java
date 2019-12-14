@@ -5,6 +5,7 @@ import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -67,9 +68,15 @@ public class GameMc {
         for (Player player : players){
             init(player);
         }
-        dealer.showCard();
+        dealer.showInitCard();
         for (Player player : players){
             player.showCard();
+        }
+    }
+
+    public void isBlackJack(){
+        if(makeScoreList().contains(21)){
+            endGame();
         }
     }
 
@@ -80,5 +87,19 @@ public class GameMc {
             scoreList.add(player.getScore());
         }
         return scoreList;
+    }
+
+    public void endGame(){
+        finalScoring();
+    }
+
+    public void finalScoring(){
+        Iterator iter = makeScoreList().iterator();
+        dealer.showFinalCard();
+        System.out.println("- 결과 : "+iter.next());
+        for(Player player : players){
+            player.showFinalCard();
+            System.out.println("- 결과 : "+iter.next());
+        }
     }
 }

@@ -31,6 +31,13 @@ public class Player{
         System.out.println("");
     }
 
+    public void showFinalCard(){
+        System.out.print(name+" : ");
+        for (Card card :this.cards){
+            System.out.print(card+" ");
+        }
+    }
+
     public int getScore(){
         return cards.stream().mapToInt(Card::getScore).sum();
     }
