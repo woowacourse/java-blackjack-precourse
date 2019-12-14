@@ -27,10 +27,10 @@ public class BlackJackGame {
 
     private List<Player> makePlayers() {
         List<String> names = InputView.inputNames();
-        List<PlayerDto> playerDtos = InputView.inputBettingMoney(names);
+        List<PlayerDTO> playerDTOs = InputView.inputBettingMoney(names);
 
-        return playerDtos.stream()
-                .map(PlayerDto::toEntity)
+        return playerDTOs.stream()
+                .map(PlayerDTO::toEntity)
                 .collect(toList());
     }
 

@@ -1,6 +1,6 @@
 package view;
 
-import view.dto.PlayerDto;
+import view.dto.PlayerDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,11 +12,13 @@ public class InputView {
 
     private static final String DELIMITER = ",";
     private static final String BLANK = "";
+    private static final String MORE_CARD = "y";
+    private static final String NO_MORE_CARD = "n";
 
     private static Scanner SCANNER = new Scanner(System.in);
 
     public static List<String> inputNames() {
-        System.out.println("게임에 참여할 사람의 이름을 입력하세. (쉼표 기준으로 분리)");
+        System.out.println("게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)");
         String input = SCANNER.nextLine();
         List<String> names = Arrays.stream(input.split(DELIMITER))
                 .collect(Collectors.toList());
@@ -38,26 +40,26 @@ public class InputView {
         return name.trim().equals(BLANK);
     }
 
-    public static List<PlayerDto> inputBettingMoney(List<String> names) {
-        List<PlayerDto> playerDtos = new ArrayList<>();
+    public static List<PlayerDTO> inputBettingMoney(List<String> names) {
+        List<PlayerDTO> playerDTOs = new ArrayList<>();
         for (String name : names) {
             System.out.println(name + "의 베팅 금액은?");
             Double money = Double.parseDouble(SCANNER.nextLine());
-            PlayerDto playerDto = new PlayerDto(name, money);
-            playerDtos.add(playerDto);
+            PlayerDTO playerDTO = new PlayerDTO(name, money);
+            playerDTOs.add(playerDTO);
         }
-        return playerDtos;
+        return playerDTOs;
     }
 
     public static boolean receiveCard(String name) {
-        System.out.println(name + "은 한장의 카드를 더 받겠습니까?");
+        System.out.println(name + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
         String receiveCommand = SCANNER.nextLine();
-        if ("y".equals(receiveCommand)) {
+        if (MORE_CARD.equals(receiveCommand)) {
             return true;
         }
-        if ("n".equals(receiveCommand)) {
+        if (NO_MORE_CARD.equals(receiveCommand)) {
             return false;
         }
-        throw new IllegalArgumentException("잘못된 입력입니다.");
+        return receiveCard(name);
     }
 }

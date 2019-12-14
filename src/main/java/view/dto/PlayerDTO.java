@@ -2,11 +2,11 @@ package view.dto;
 
 import domain.user.Player;
 
-public class PlayerDto {
+public class PlayerDTO {
     private final String name;
     private final Double money;
 
-    public PlayerDto(String name, Double money) {
+    public PlayerDTO(String name, Double money) {
         this.name = name;
         this.money = money;
     }
