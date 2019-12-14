@@ -37,4 +37,8 @@ public class Card {
     public int getScore() {
     	return symbol.getScore();
     }
+    
+    public Symbol getSymbol() {
+    	return symbol;
+    }
 }

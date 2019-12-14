@@ -28,7 +28,7 @@ public enum Symbol {
     
     @Override
     public String toString() {
-    	if (score < TEN.score | this.equals(TEN)) {
+    	if ((ACE.score < score && score < TEN.score) | this.equals(TEN)) {
     		return String.valueOf(score);
     	}
     	return "" + this.name().charAt(FIRST_INDEX);

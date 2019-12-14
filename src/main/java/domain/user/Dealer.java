@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,23 @@ public class Dealer {
     }
     
     public int getDealerScore() {
-    	return cards.stream()
-    				.mapToInt(card -> card.getScore())
-    				.sum();
+    	int score = cards.stream()
+	    				.mapToInt(card -> card.getScore())
+	    				.sum();
+    	return aceScoreChange(score);
+    	
+    }
+    
+    private int aceScoreChange(int score) {
+    	boolean hasAce = false;
+    	for (Card card : cards) {
+    		if (card.getSymbol().equals(Symbol.ACE)) {
+    			hasAce = true;
+    		}
+    	}
+    	if (hasAce && score <= Symbol.ACE.getScore() + Symbol.TEN.getScore()) {
+    		return score + Symbol.TEN.getScore();
+    	}
+    	return score;
     }
 }
