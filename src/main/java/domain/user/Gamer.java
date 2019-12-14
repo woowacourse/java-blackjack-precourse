@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Gamer {
-
     private final List<Card> cards = new ArrayList<>();
 
     public void addCard(Card card) {
@@ -22,10 +21,8 @@ public class Gamer {
                 return true;
             }
         }
-
         return false;
     }
-
 }
 
 

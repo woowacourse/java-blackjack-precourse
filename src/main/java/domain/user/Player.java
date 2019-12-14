@@ -5,8 +5,6 @@ package domain.user;
  */
 public class Player extends Gamer {
     private final String name;
-
-
     private final double bettingMoney;
     private double status;
 
@@ -35,10 +33,6 @@ public class Player extends Gamer {
         status += (1.5)*bettingMoney;
     }
 
-
-
-    // TODO 추가 기능 구현
-
     @Override
     public String toString() {
         return "Player{" +
@@ -46,5 +40,4 @@ public class Player extends Gamer {
                 ", bettingMoney=" + bettingMoney +
                 '}';
     }
-
 }

@@ -6,8 +6,6 @@ package domain.user;
 public class Dealer extends Gamer{
     public Dealer() {}
 
-
-    // TODO 추가 기능 구현
     @Override
     public String toString() {
         return "Dealer{" +

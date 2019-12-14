@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameUI {
-
     Scanner sc = new Scanner(System.in);
     String[] players;
     List<Double> bettingMoney = new ArrayList<Double>();
@@ -20,8 +19,6 @@ public class GameUI {
 
         GameBoard board = new GameBoard(players, bettingMoney);
     }
-
-
 
     public String[] inputPlayer() {
         String INPUTPLAYER = "게임에 참여할 사람의 이름을 입력하세요 (쉼표로 분리)";
@@ -64,8 +61,4 @@ public class GameUI {
 
         return betting;
     }
-
-
-
-
 }

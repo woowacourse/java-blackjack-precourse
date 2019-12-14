@@ -20,8 +20,6 @@ public class GameBoard {
     private static final int DELAER_INDEX = 0;
     private static final int SIXTEEN = 16;
     private static final int EXTRA_ACE = 10;            //ACE 11 or 1 선택 여부에 따른 추가 값
-    private static final int WIN = 0;
-    private static final int LOSE = -1;
 
     List<Card> cards = CardFactory.create();
     List<Integer> cardIndex = new ArrayList<>();            //카드에 해당하는 인덱스
