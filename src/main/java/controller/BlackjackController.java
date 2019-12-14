@@ -25,9 +25,11 @@ public class BlackjackController {
 
 	private void initPlayers() {
 		String[] names = InputView.getPlayerNames();
+		OutputView.printNewLine();
 		for (String name : names) {
 			int bettingMoney = InputView.getBettingMoney(name);
 			players.add(new Player(name, bettingMoney));
+			OutputView.printNewLine();
 		}
 	}
 
@@ -45,6 +47,7 @@ public class BlackjackController {
 		for (Player player : players) {
 			OutputView.printCards(player.getName(), player.getCards());
 		}
+		OutputView.printNewLine();
 	}
 
 	private void printScore(User user) {
@@ -54,6 +57,7 @@ public class BlackjackController {
 	private void printAllUsersScore() {
 		printScore(dealer);
 		players.forEach(this::printScore);
+		OutputView.printNewLine();
 	}
 
 	private void onHit(boolean isHit, Player player) {
@@ -75,8 +79,10 @@ public class BlackjackController {
 		players.forEach(this::getMoreCard);
 		if (Rule.shouldAddCard(dealer)) {
 			dealer.giveCard(cardDeck, dealer);
+			OutputView.printNewLine();
 			OutputView.printDealerAddCard(dealer.getName());
 		}
+		OutputView.printNewLine();
 	}
 
 	private void printProfits() {
