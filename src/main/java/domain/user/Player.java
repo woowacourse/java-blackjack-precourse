@@ -11,6 +11,7 @@ public class Player {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
+    private final Scanner scanGetCardState = new Scanner(System.in);
 
     public Player(String name, double bettingMoney) {
         this.name = name;
