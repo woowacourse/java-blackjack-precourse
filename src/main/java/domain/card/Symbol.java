@@ -20,6 +20,19 @@ public enum Symbol {
     Symbol(int score) {
         this.score = score;
     }
+    
+    public String getFigure() {
+    	switch(this) {
+    	case JACK:
+    		return "J";
+    	case QUEEN:
+    		return "Q";
+    	case KING:
+    		return "K";
+    	default:
+    		return String.valueOf(getScore());
+    	}		
+    }
 
     public int getScore() {
         return score;

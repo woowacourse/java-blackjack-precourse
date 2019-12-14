@@ -1,9 +1,9 @@
 package domain.user;
 
-import domain.card.Card;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import domain.card.Card;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -23,5 +23,23 @@ public class Player {
     }
 
     // TODO 추가 기능 구현
-
+    public String getName() {
+    	return this.name;
+    }
+    
+    public int sumScore() {
+    	int sum = 0;
+    	for(int i=0; i<cards.size(); i++) {
+    		sum += cards.get(i).getSymbol().getScore();
+    	}
+    	return sum;
+    }
+    
+    @Override
+    public String toString() {
+    	String str = this.name + " 카드: ";
+    	String joinStr = String.join(", ", cards.toString());
+    	str += joinStr.substring(1, joinStr.length()-1);
+    	return str;
+    }
 }

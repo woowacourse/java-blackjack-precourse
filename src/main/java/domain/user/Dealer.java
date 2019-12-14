@@ -1,9 +1,9 @@
 package domain.user;
 
-import domain.card.Card;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import domain.card.Card;
 
 /**
  * 게임 딜러를 의미하는 객체
@@ -18,4 +18,23 @@ public class Dealer {
     }
 
     // TODO 추가 기능 구현
+    public int sumScore() {
+    	int sum = 0;
+    	for(int i=0; i<cards.size(); i++) {
+    		sum += cards.get(i).getSymbol().getScore();
+    	}
+    	return sum;
+    }
+    
+    public boolean neededExtra() {
+    	return sumScore() <= 16;
+    }
+    
+    @Override
+    public String toString() {
+    	String str = "딜러 : ";
+    	String joinStr = String.join(",", cards.toString());
+    	str += joinStr.substring(1, joinStr.length()-1);
+    	return str;
+    }
 }
