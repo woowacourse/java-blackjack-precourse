@@ -24,7 +24,6 @@ public class Player {
     
     public List<Card> getCards(){
 	return cards;
-
-    // TODO 추가 기능 구현
+    }
 
 }
