@@ -55,4 +55,10 @@ public class Dealer {
         return false;
     }
 
+    public boolean getMoreDraw() {
+        if (getScore() <= DEALER_CRITERIA) {
+            return true;
+        }
+        return false;
+    }
 }
