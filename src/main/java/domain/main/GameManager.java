@@ -154,6 +154,6 @@ public class GameManager {
 
 	public boolean isWinner(Player currentPlayer) {
 		return (dealer.sumScore() > 21 ||
-		(currentPlayer.sumScore() <= 21 && currentPlayer.sumScore() > dealer.sumScore()));
+		(currentPlayer.sumScore() <= 21 && currentPlayer.sumScore() >= dealer.sumScore()));
 	}
 }
