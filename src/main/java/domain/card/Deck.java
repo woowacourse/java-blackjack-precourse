@@ -42,6 +42,9 @@ public class Deck {
      * <p>
      * 카드가 다 떨어지는 극단적인 경우(예를 들어 20명 이상의 플레이어가 3장씩 뽑는다던가 하는 경우)를 고려하여
      * 카드가 떨어지면 새 덱을 불러오도록 구현하였다.
+     * 하지만 한 게임에서 2개 이상의 덱을 쓰는 것은 예상되지 못한 상황이므로,
+     * 일단 예외처리도 같이 넣도록 하였다.
+     * 만약 이것이 정상적인 기능으로 고려된다면, 예외처리를 지우고 사용하면 된다.
      *
      * @return 뽑힌 카드를 반환해준다.
      */
@@ -49,6 +52,7 @@ public class Deck {
         if (cardIterator >= cardList.size()) {
             System.out.print(ConstMessage.ERROR_CARD_EMPTY);
             createDeck();
+            throw new AssertionError();
         }
         return cardList.get(cardIterator++);
     }
