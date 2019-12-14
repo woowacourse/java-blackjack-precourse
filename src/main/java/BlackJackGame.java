@@ -73,10 +73,10 @@ public class BlackJackGame {
         if (player.isBlackJack() && !dealer.isBlackJack()) {
             return (int) (1.5 * player.getBettingMoney());
         }
-        if (!player.isBusted() && (player.getScore() > dealer.getScore() || dealer.isBusted())) {
+        if (!player.isBusted() && (player.getScore() > dealer.getScore() || (dealer.isBusted() && !player.isBusted()))) {
             return (int) player.getBettingMoney();
         }
-        if (player.getScore() < dealer.getScore() || player.isBusted()) {
+        if (player.getScore() < dealer.getScore() || (player.isBusted() && !dealer.isBusted())) {
             return (int) (-1 * player.getBettingMoney());
         }
         return 0;
