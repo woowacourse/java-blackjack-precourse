@@ -82,21 +82,22 @@ public class BlackjackGame {
 	
 	private void drawAdditionalCards(Player player, CardDeck cardDeck, WinLoseInfo info) {
 		try {
-			drawIfWant(player, cardDeck);
+			checkOverBlackJack(player);
+			drawUntilDontWant(player, cardDeck);
 		} catch (IllegalStateException e) {
 			System.out.println(e.getMessage());
 			info = WinLoseInfo.LOSE;
 		}
 	}
 	
-	private void drawIfWant(Player player, CardDeck cardDeck) {
+	private void drawUntilDontWant(Player player, CardDeck cardDeck) {
 		while(InputView.enterIfDrawAdditionalCard(player)) {
 			player.drawCard(cardDeck);
 			OutputView.showPlayerCards(player);
 		}
 	}
 	
-	public static void checkOverBlackJack(Player player) {
+	private static void checkOverBlackJack(Player player) {
 		if (player.calculateScore() > BLACKJACK) {
 			throw new IllegalStateException("점수합이 21을 초과했습니다." + player.getName() + "는 패배했습니다.");
 		}
