@@ -39,7 +39,7 @@ public class BlackJackGame {
         for (int i = 0; i < START_DRAW; i++) {
             drawEachOneCard(newCards);
         }
-        System.out.println("딜러와 " + getUsersTest() + "에게 " + START_DRAW + "장의 카드를 나누었습니다.");
+        ConsoleOutput.printFirstDraw(getPlayerNames(), START_DRAW);
         printDealerCard();
         printPlayerCards();
     }
@@ -87,10 +87,10 @@ public class BlackJackGame {
     }
 
 
-    private String getUsersTest() {
-        List<String> usersName = new ArrayList<>();
-        players.forEach(x -> usersName.add(x.getName()));
-        return String.join(", ", usersName);
+    private String getPlayerNames() {
+        List<String> playerNames = new ArrayList<>();
+        players.forEach(x -> playerNames.add(x.getName()));
+        return String.join(", ", playerNames);
     }
 
     private void drawEachOneCard(List<Card> newCards) {
@@ -110,7 +110,7 @@ public class BlackJackGame {
     private void startTurn(List<Card> newCards) {
         players.forEach(x -> askToDraw(x, newCards));
         while (dealer.isBelowRedraw()) {
-            printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.\n");
+            ConsoleOutput.printDealerRedraw();
             dealer.addCard(drawTopCard(newCards));
         }
     }
@@ -124,13 +124,13 @@ public class BlackJackGame {
             printMessage(player.getCardString());
         }
         if (player.isBusted()) {
-            printMessage("\n버스트! 배팅 금액을 모두 잃습니다.\n");
+            ConsoleOutput.printBusted();
         }
     }
 
     private boolean drawOneMore(Player player, List<Card> newCards) {
         try {
-            return askHit(player, newCards);
+            return askToHit(player, newCards);
         } catch (IllegalArgumentException e) {
             printMessage(e.getMessage());
             drawOneMore(player, newCards);
@@ -138,7 +138,7 @@ public class BlackJackGame {
         return false;
     }
 
-    private boolean askHit(Player player, List<Card> newCards) {
+    private boolean askToHit(Player player, List<Card> newCards) {
         if (UserInput.inputYesNo()) {
             player.addCard(drawTopCard(newCards));
             return true;
