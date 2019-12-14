@@ -28,6 +28,7 @@ public class BlackJack {
             runAddCardPhase(player);
         }
         runDealerPhase();
+        OutputView.printResultState(dealer, players);
     }
 
     private void setFirstState() {

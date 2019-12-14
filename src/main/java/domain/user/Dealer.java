@@ -9,6 +9,6 @@ public class Dealer extends User {
     public Dealer() {}
 
     public Card showFirstCard() {
-        return super.cards.get(0);
+        return cards.get(0);
     }
 }

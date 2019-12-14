@@ -6,10 +6,16 @@ import java.util.List;
 import domain.card.Card;
 
 public class User {
+    private static final String DEALER_NAME = "딜러 ";
+
     final List<Card> cards = new ArrayList<>();
     private int score = 0;
     private boolean isAce = false;
     private boolean isBigAce = false;
+
+    public List<Card> showCards() {
+        return cards;
+    }
 
     public void addCard(Card card) {
         cards.add(card);
@@ -39,15 +45,19 @@ public class User {
         this.isBigAce = isBigAce;
     }
 
-    public List<Card> showCards() {
-        return cards;
-    }
-
     public boolean isScoreGreaterThan(int maxScore) {
         return score > maxScore;
     }
 
     public boolean isBlackJack(int maxScore) {
         return score == maxScore;
+    }
+
+    public String getName() {
+        return DEALER_NAME;
+    }
+
+    public String openScore() {
+        return Integer.toString(score);
     }
 }
