@@ -35,6 +35,11 @@ public class Player {
     	return sum;
     }
     
+    public double getBettingMoney(boolean flag) {
+    	if(!flag) return this.bettingMoney * -1;
+    	return this.bettingMoney;
+    }
+    
     @Override
     public String toString() {
     	String str = this.name + " 카드: ";

@@ -90,12 +90,6 @@ public class GameManager {
 		dealer.addCard(handOutCard());
 	}
 
-	public void addExtraCard() {
-		if (dealer.sumScore() <= 16) {
-			dealer.addCard(handOutCard());
-		}
-	}
-
 	public Card handOutCard() {
 		return cardset.remove(cardset.size() - 1);
 	}
@@ -110,6 +104,7 @@ public class GameManager {
 			iterCard(flag, currentPlayer);
 		}
 		printResult();
+		printReward();
 	}
 
 	public void iterCard(boolean flag, Player currentPlayer) {
@@ -140,10 +135,25 @@ public class GameManager {
 	public void printResult() {
 		if (dealer.neededExtra()) {
 			write("딜러는 16 이하라 한 장의 카드를 더 받았습니다.\n");
+			dealer.addCard(handOutCard());
 		}
 		write(dealer.toString() + " - 결과: " + dealer.sumScore() + "\n");
 		for (int i = 0; i < playerList.size(); i++) {
 			write(playerList.get(i).toString() + " - 결과: " + playerList.get(i).sumScore() + "\n");
 		}
+	}
+	
+	public void printReward() {
+		write("## 최종수익\n");
+		for(int i=0; i<playerList.size(); i++) {
+			Player currentPlayer = playerList.get(i);
+			write(currentPlayer.getName() + ": "
+					+ currentPlayer.getBettingMoney(isWinner(currentPlayer)) + "\n");
+		}
+	}
+
+	public boolean isWinner(Player currentPlayer) {
+		return (dealer.sumScore() > 21 ||
+		(currentPlayer.sumScore() <= 21 && currentPlayer.sumScore() > dealer.sumScore()));
 	}
 }

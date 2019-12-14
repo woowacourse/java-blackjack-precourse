@@ -22,16 +22,14 @@ public enum Symbol {
     }
     
     public String getFigure() {
-    	switch(this) {
-    	case JACK:
+    	if(this == JACK) {
     		return "J";
-    	case QUEEN:
+    	} else if (this == QUEEN) {
     		return "Q";
-    	case KING:
+    	} else if (this == KING) {
     		return "K";
-    	default:
-    		return String.valueOf(getScore());
-    	}		
+    	}
+    	return String.valueOf(getScore());	
     }
 
     public int getScore() {
