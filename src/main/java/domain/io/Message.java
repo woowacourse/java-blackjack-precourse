@@ -1,6 +1,7 @@
 package domain.io;
 
 import domain.card.Card;
+import domain.user.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +24,9 @@ public class Message {
 	System.out.println("금액 입력이 잘못되었습니다. 1 이상의 숫자만 입력해주세요.");
     }   
     
-    public void showInitCardDistributedMessage(String[] player) {
-	System.out.print("딜러와 "+" "+String.join(",", player)+"에게 2장의 카드를 나눠줬습니다.");
+    public void showInitCardDistributedMessage(Player[] player) {
+	String[] name = new String[player.length];
+	System.out.print("딜러와 "+" "+String.join(",", name)+"에게 2장의 카드를 나눠줬습니다.");
     }
     
     public void showCardStatus(String name,List<Card> card) {
