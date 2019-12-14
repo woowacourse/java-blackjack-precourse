@@ -19,7 +19,6 @@ public class User {
 
 	protected String getCardsStringWithComma() {
 		StringBuilder cardsStringWithComma = new StringBuilder();
-
 		for (Card card : cards) {
 			cardsStringWithComma.append(card.toString());
 			cardsStringWithComma.append(", ");
@@ -28,5 +27,27 @@ public class User {
 		removeLastComma(cardsStringWithComma.toString());
 
 		return cardsStringWithComma.toString();
+	}
+
+	private boolean hasAce() {
+		boolean hasAce = false;
+		for (Card card : cards) {
+			hasAce = hasAce || card.isAce();
+		}
+		
+		return hasAce;
+	}
+
+	public int getScore(boolean isUpperAce) {
+		int score = 0;
+		for (Card card : cards) {
+			score += card.getScore();
+		}
+
+		if (hasAce() && isUpperAce && score <= 11) {
+			score += 10;
+		}
+
+		return score;
 	}
 }
