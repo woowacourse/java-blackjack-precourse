@@ -14,6 +14,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameBoard {
+    private static final char YES = 'y';
+    private static final char NO = 'n';
+    private static final int BLACKJACK = 21;
+    private static final int DELAER_INDEX = 0;
+    private static final int SIXTEEN = 16;
+    private static final int EXTRA_ACE = 10;            //ACE 11 or 1 선택 여부에 따른 추가 값
+    private static final int WIN = 0;
+    private static final int LOSE = -1;
+
     List<Card> cards = CardFactory.create();
     List<Integer> cardIndex = new ArrayList<>();            //카드에 해당하는 인덱스
     List<Gamer> gamer = new ArrayList<>();
@@ -22,17 +31,7 @@ public class GameBoard {
 
     int head = 0;                           //맨 위 카드
 
-    private static final char YES = 'y';
-    private static final char NO = 'n';
-    private static final int BLACKJACK = 21;
-    private static final int DELAER_INDEX = 0;
-    private static final int SIXTEEN = 16;
-    private static final int EXTRA_ACE = 10;            //ACE 11 or 1 선택 여부에 따른 추가 값
-
-
-
-
-    public GameBoard(String[] player, List<Integer> bettingMoney) {
+    public GameBoard(String[] player, List<Double> bettingMoney) {
         gamer.add(new Dealer());
 
         for (int i = 0; i < player.length; i++) {
@@ -44,9 +43,10 @@ public class GameBoard {
         playerTurn();
         dealerTurn();
         endGame();
+        winner();
     }
 
-    public Player createPlayer(String name, int bettingMoney) {
+    public Player createPlayer(String name, double bettingMoney) {
         Player player = new Player(name, bettingMoney);
 
         return player;
@@ -156,11 +156,85 @@ public class GameBoard {
         return result;
     }
 
+    public void winner() {
+        List<Gamer> winner;
 
+        winner = blackjack();
 
+        if (winner.isEmpty()) {
+            winner = closeBlackjack();
+        }
 
+        if (!(winner.isEmpty()) && winner.size() == 1) {
+            if (winner.get(0).getClass() != Dealer.class) {             //딜러 패배
+                playerWin(winner);
+            }
+        }
+        for (Gamer g : winner) {
+            System.out.println(g);
 
+        }
 
+    }
+
+    public List<Gamer> blackjack() {
+        List<Gamer> winner = new ArrayList<>();
+
+        for (Gamer g : gamer) {
+            if (result(g) == BLACKJACK) {
+                winner.add(g);
+            }
+        }
+
+        return winner;
+    }
+
+    public List<Gamer> closeBlackjack() {
+        List<Gamer> winner = new ArrayList<>();
+
+        if (result(gamer.get(DELAER_INDEX)) > BLACKJACK) {                  //dealer가 21을 초과 시 전원 승리
+            for (int i = 0 ; i < gamer.size(); i++) {
+                winner.add(gamer.get(i));
+            }
+
+            return winner;
+        }
+        for (Gamer g : gamer) {
+            boolean onlyOne = true;                     //중복으로 winner 에 add 방지
+
+            if (winner.isEmpty() && result(g) <= BLACKJACK && onlyOne) {
+                onlyOne = false;
+                winner.add(g);
+            }
+            if (!(winner.isEmpty()) && result(g) > result(winner.get(0)) && result(g) <= BLACKJACK && onlyOne) {
+                winner.clear();
+                winner.add(g);
+                onlyOne = false;
+
+            }
+            if (!(winner.isEmpty()) && result(g) == result(winner.get(0)) && onlyOne ) {
+                winner.add(g);
+                onlyOne = false;
+            }
+        }
+
+        return winner;
+    }
+
+    public void playerWin(List<Gamer> winner) {
+        System.out.println("###최종 수익");
+        System.out.println("딜러 : 0");
+        for (Gamer g : winner) {
+            Player p = (Player) g;
+            p.win();
+        }
+
+        for (int i = 1; i <gamer.size(); i++) {
+            Player p = (Player) gamer.get(i);
+            System.out.println(p.getName() + " : " + p.getStatus());
+        }
+
+    }
 
 
 

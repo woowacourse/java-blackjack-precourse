@@ -5,16 +5,30 @@ package domain.user;
  */
 public class Player extends Gamer {
     private final String name;
+
+
     private final double bettingMoney;
+    private double status;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+        this.status = -bettingMoney;
     }
 
     public String getName() {
         return name;
     }
+
+    public double getStatus() {
+        return status;
+    }
+
+    public void win() {
+        status += 2*bettingMoney;
+    }
+
+
 
     // TODO 추가 기능 구현
 

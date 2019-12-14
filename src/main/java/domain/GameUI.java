@@ -9,7 +9,7 @@ public class GameUI {
 
     Scanner sc = new Scanner(System.in);
     String[] players;
-    List<Integer> bettingMoney = new ArrayList<Integer>();
+    List<Double> bettingMoney = new ArrayList<Double>();
 
     public GameUI() {
         players = inputPlayer();
@@ -40,14 +40,14 @@ public class GameUI {
         return players;
     }
 
-    public int inputBetting(String name) {
-        int betting = 0;
+    public double inputBetting(String name) {
+        double betting = 0;
         boolean success = false;
 
         System.out.println(name+"의 베팅금액은?");
         do {
             try {
-                betting = sc.nextInt();
+                betting = sc.nextDouble();
                 if (betting <= 0) {
                     throw new Exception();
                 }
