@@ -58,4 +58,11 @@ public class Player {
         }
         return false;
     }
+
+    public double getEarnMoney(int maxValue, double battingRatio) {
+        if (isWinner(maxValue)) {
+            return bettingMoney * battingRatio;
+        }
+        return (-1) * bettingMoney * battingRatio;
+    }
 }
