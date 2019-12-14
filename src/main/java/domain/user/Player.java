@@ -21,6 +21,9 @@ public class Player {
     public void addCard(Card card) {
         cards.add(card);
     }
+    
+    public List<Card> getCards(){
+	return cards;
 
     // TODO 추가 기능 구현
 
