@@ -12,7 +12,7 @@ package domain.model.card;
  * @since : 2019.12.13 금요일
  */
 public enum Symbol {
-    ACE(1),
+    ACE(11),
     TWO(2),
     THREE(3),
     FOUR(4),
