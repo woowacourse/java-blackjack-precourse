@@ -1,5 +1,6 @@
 package domain.manager;
 
+import domain.card.CardFactory;
 import domain.card.Deck;
 import domain.user.Player;
 import domain.user.Table;
@@ -149,6 +150,17 @@ public class Manager {
         output.showMessageDealerGetCard();
         dealer.pickCardFromDeck(deck);
         output.showMessageHavingCard(dealer);
+        hasBlackjackDealer(dealer);
+    }
+
+    private void hasBlackjackDealer(Player dealer) {
+        if (dealer.calculateScore() == Manual.BLACKJACK.getValue()
+                && dealer.getCards().size() == Manual.Pair.getValue()) {
+            List<Boolean> blackjack = table.getBlackjack();
+
+            blackjack.set(Manual.DEALER_POSITION.getValue(), true);
+            table.setBlackjack(blackjack);
+        }
     }
 
     private void processManagementFinalResult(List<Player> player) {

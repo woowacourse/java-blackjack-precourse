@@ -81,8 +81,13 @@ public class Player {
         return symbolCount;
     }
 
-    private int containAce() {
+    public int containAce() {
         return (int) cards.stream()
                 .mapToInt(num -> num.getSymbol().getScore()).filter(num -> num == Symbol.ACE.getScore()).count();
+    }
+
+    boolean hasBlackjackPlayer(Player player) {
+        return player.calculateScore()
+                == Manual.BLACKJACK.getValue() && player.getCards().size() == Manual.Pair.getValue();
     }
 }

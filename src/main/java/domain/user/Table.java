@@ -37,7 +37,7 @@ public class Table {
     private List<Double> calculateDealerMoney(List<Double> balances) {
         balances.set(Manual.DEALER_POSITION.getValue(), -getMoneyDealer(balances));
 
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = Manual.DEALER_POSITION.getValue(); i < players.size(); i++) {
             blackjackBonus(balances, i);
         }
 
@@ -56,8 +56,8 @@ public class Table {
     }
 
     private double getMoneyPlayer(int index, int dealerScore) {
-        if (calculateBlackjack(index) != Manual.EMPTY.getValue()) {
-            return calculateBlackjack(index);
+        if (blackjackWin(index) != Manual.EMPTY.getValue()) {
+            return blackjackWin(index);
         }
 
         if ((players.get(index).calculateScore() < dealerScore && dealerScore <= Manual.BURST.getValue())
@@ -84,24 +84,8 @@ public class Table {
 
     public void iteratePlayer() {
         for (Player player : players) {
-            hasBlackjackPlayer(player);
+            blackjack.add(player.hasBlackjackPlayer(player));
         }
-    }
-
-    private void hasBlackjackPlayer(Player player) {
-        if (player.calculateScore()
-                == Manual.BLACKJACK.getValue() && player.getCards().size() == Manual.Pair.getValue()) {
-            blackjack.add(true);
-        }
-
-        if (player.calculateScore()
-                != Manual.BLACKJACK.getValue() || player.getCards().size() != Manual.Pair.getValue()) {
-            blackjack.add(false);
-        }
-    }
-
-    private double calculateBlackjack(int index) {
-        return blackjackWin(index);
     }
 
     private double blackjackWin(int index) {

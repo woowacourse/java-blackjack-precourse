@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PlayerTest {
     @Test
-    public void pickCardTest() {
+    void pickCardTest() {
         Player player = new Player("Bob", 1000);
         Deck deck = new Deck();
 
@@ -25,18 +25,18 @@ class PlayerTest {
     }
 
     @Test
-    public void aceTest() {
+    void aceTest() {
         Player player = new Player("tester", 5000);
         player.addCard(CardFactory.create().get(0));
         player.addCard(CardFactory.create().get(1));
         player.addCard(CardFactory.create().get(2));
         player.addCard(CardFactory.create().get(3));
 
-        assertThat(player.calculateCountingAce()).isEqualTo(4);
+        assertThat(player.containAce()).isEqualTo(4);
     }
 
     @Test
-    public void aceScoreTest() {
+    void aceScoreTest() {
         Player player = new Player("tester", 5000);
 
         player.addCard(CardFactory.create().get(0));
