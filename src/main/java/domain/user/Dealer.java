@@ -23,7 +23,20 @@ public class Dealer {
     	for(int i=0; i<cards.size(); i++) {
     		sum += cards.get(i).getSymbol().getScore();
     	}
+    	if(existAce() && sum <= 11) return sum + 10;
     	return sum;
+    }
+    
+    public boolean isAce(Card card) {
+    	return card.getSymbol().getFigure() == "A";
+    }
+    
+    public boolean existAce() {
+    	boolean flag = false;
+    	for(int i=0; i<cards.size(); i++) {
+    		flag = isAce(cards.get(i));
+    	}
+    	return flag;
     }
     
     public boolean neededExtra() {
