@@ -31,7 +31,7 @@ public class GameController {
 
 	public static List<Player> initializePlayers() {
 		List<Player> players = new ArrayList<>();
-		String[] playersName = new String[1]; // getPlayersNames();
+		String[] playersName = getPlayersName();
 		Double[] playersBettingMoney = new Double[1]; // getPlayersBettingMoney();
 
 		for (int i = 0; i < playersName.length; i++) {
@@ -39,5 +39,18 @@ public class GameController {
 		}
 
 		return players;
+	}
+
+	public static String[] getPlayersName() {
+		String[] playersName;
+
+		try {
+			InputView.printPlayerNameQuestion();
+			playersName = InputUtil.readPlayersName();
+		} catch (IOException e) {
+			OutputView.printWrongPlayerNameInput();
+			return getPlayersName();
+		}
+		return playersName;
 	}
 }
