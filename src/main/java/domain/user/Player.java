@@ -37,6 +37,10 @@ public class Player {
         reward = this.bettingMoney * interest;
     }
 
+    public double finalScore() {
+        return reward;
+    }
+
     public String toString() {
         String str = "";
         String joinStr = String.join(",", cards.toString());
