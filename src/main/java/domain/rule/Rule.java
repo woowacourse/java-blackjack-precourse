@@ -12,6 +12,10 @@ public class Rule {
 		return user.isCardSize(FIRST_DRAW_CARD_SIZE) && user.isScore(BEST_SCORE);
 	}
 
+	public static boolean isBust(User user) {
+		return user.isScoreGreaterThan(BEST_SCORE);
+	}
+
 	public static boolean canGetMoreCards(User user) {
 		return user.isScoreLessThan(BEST_SCORE);
 	}

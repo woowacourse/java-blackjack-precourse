@@ -54,4 +54,8 @@ public class User {
 	public boolean isScoreLessThan(int score) {
 		return getSumOfCards() < score;
 	}
+
+	public boolean isScoreGreaterThan(int score) {
+		return getSumOfCards() > score;
+	}
 }
