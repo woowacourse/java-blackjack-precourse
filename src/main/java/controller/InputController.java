@@ -9,7 +9,11 @@ public class InputController {
 	private static String ERROR_MESSAGE = "유효하지 않은 입력입니다.";
 	private static final int NAME_MIN_LEN = 1;
 	private static String YES_NO[] = {"y", "n"};
-	InputView inputView;
+	private InputView inputView;
+
+	public InputController(InputView inputView) {
+		this.inputView = inputView;
+	}
 
 	public List<String> getPlayerNames() {
 		List<String> playerNameList;
@@ -23,14 +27,14 @@ public class InputController {
 		return playerNameList;
 	}
 
-	public double getPlayerBettings(String name) {
+	public double getPlayerBetting(String name) {
 		double bettingMoney;
 		try {
 			bettingMoney = inputView.getBettingMoney(name);
 			checkValidBetting(bettingMoney);
 		} catch (Exception e) {
 			System.out.println(ERROR_MESSAGE);
-			return getPlayerBettings(name);
+			return getPlayerBetting(name);
 		}
 		return bettingMoney;
 	}
