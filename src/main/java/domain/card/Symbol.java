@@ -15,6 +15,7 @@ public enum Symbol {
     QUEEN(10),
     KING(10);
 
+	private static final int FIRST_INDEX = 0;
     private int score;
 
     Symbol(int score) {
@@ -23,5 +24,13 @@ public enum Symbol {
 
     public int getScore() {
         return score;
+    }
+    
+    @Override
+    public String toString() {
+    	if (score < TEN.score | this.equals(TEN)) {
+    		return String.valueOf(score);
+    	}
+    	return "" + this.name().charAt(FIRST_INDEX);
     }
 }
