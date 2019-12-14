@@ -123,6 +123,6 @@ public class BlackjackGame {
 	}
 	
 	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
-
+		OutputView.showAllFinalResults(dealer, players, info);
 	}
 }

@@ -42,6 +42,24 @@ public class OutputView {
 		System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
 	}
 	
+	public static void showAllFinalResults(Dealer dealer, Players players, List<WinLoseInfo> info) {
+		System.out.println("딜러 카드: " + dealer.getAllCardsInString()
+					+ " - 결과: "
+					+ dealer.calculateScore());
+		for (int i = 0; i < players.getSize(); i++) {
+			showPlayerCardsWithScore(players.getPlayerAt(i), info.get(i));
+		}
+		System.out.println();
+	}
+	
+	private static void showPlayerCardsWithScore(Player player, WinLoseInfo info) {
+		System.out.println(player.getName() + " 카드: " 
+				+ player.getAllCardsInString()
+				+ " - 결과: "
+				+ player.calculateScore()
+				+ ", " + info.toString());
+	}
+	
 	public static void showBlankLine() {
 		System.out.println();
 	}
