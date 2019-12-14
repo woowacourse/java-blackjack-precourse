@@ -23,7 +23,7 @@ public class GamePrinter {
         return splitedPlayerName;
     }
 
-    Boolean checkPlayerName(String playerNameFromUser) {
+    boolean checkPlayerName(String playerNameFromUser) {
         if (playerNameFromUser.length() == 0
                 || playerNameFromUser.charAt(playerNameFromUser.length() - 1) == ',') {
             System.out.println("이름을 잘못 입력했습니다.");
@@ -32,9 +32,25 @@ public class GamePrinter {
         return true;
     }
 
-    int getBettingMoneyFromUser(String name){
-        System.out.println(name+"의 배팅 금액은?");
-        int bettingMoney = Integer.parseInt(scanner.nextLine());
-        return bettingMoney;
+    int getBettingMoneyFromUser(String name) {
+        System.out.println(name + "의 배팅 금액은?");
+        int bettingMoney;
+        try {
+            bettingMoney = Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            bettingMoney = -1; // 문자이거나 정수가 아니라면 -1을 반환한다.
+        }
+
+        if(checkBettingMoney(bettingMoney))
+            return bettingMoney;
+        return getBettingMoneyFromUser(name);
+    }
+
+    boolean checkBettingMoney(int bettingMoney) {
+        if (bettingMoney <= 0) {
+            System.out.println("배팅 금액이 잘못되었습니다.");
+            return false;
+        }
+        return true;
     }
 }
