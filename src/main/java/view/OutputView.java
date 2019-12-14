@@ -22,7 +22,7 @@ public class OutputView {
     }
 
     public static void printCardsState(Dealer dealer, ArrayList<Player> players) {
-        for(Card card : dealer.showCards()) {
+        for (Card card : dealer.showCards()) {
             System.out.println(DEALER_CARDS_STATE_MESSAGE + card.toString());
         }
         System.out.println(getPlayersCardsState(players));
@@ -30,7 +30,7 @@ public class OutputView {
 
     private static String getPlayersCardsState(ArrayList<Player> players) {
         StringBuilder stringBuilder = new StringBuilder();
-        for(Player player : players) {
+        for (Player player : players) {
             stringBuilder.append(player.getName());
             stringBuilder.append(PLAYER_CARDS_STATE_MESSAGE);
             stringBuilder.append(getPlayerCardState(player));
@@ -41,7 +41,7 @@ public class OutputView {
 
     private static String getPlayerCardState(Player player) {
         ArrayList<String> playerCardState = new ArrayList<>();
-        for(Card card : player.showCards()) {
+        for (Card card : player.showCards()) {
             playerCardState.add(card.toString());
         }
         return String.join(", ", playerCardState);
