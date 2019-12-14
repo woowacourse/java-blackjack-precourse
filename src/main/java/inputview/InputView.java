@@ -6,6 +6,7 @@ import java.util.List;
 
 import domain.user.Player;
 import domain.user.Players;
+import application.BlackjackGame;
 
 public class InputView {
 	private static Scanner SCANNER = new Scanner(System.in);
@@ -41,6 +42,17 @@ public class InputView {
 		} catch(IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 			return enterBettingMoney(name);
+		}
+	}
+	
+	public static boolean enterIfDrawAdditionalCard(Player player) {
+		try {
+			System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+			BlackjackGame.checkOverBlackJack(player);
+			return YesNo.valueOf(SCANNER.nextLine()).toBoolean();
+		} catch (IllegalArgumentException e) {
+			System.out.println("y 또는 n만 입력해 주세요");
+			return enterIfDrawAdditionalCard(player);
 		}
 	}
 }

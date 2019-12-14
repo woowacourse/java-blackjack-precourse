@@ -34,7 +34,8 @@ public class BlackjackGame {
 		
 		initialDrawPhase(dealer, players, cardDeck);
 		checkBlackjack(dealer, players, playersWinLoseInfo);
-		additionalDrawPhase(dealer, players, cardDeck);
+		playerAdditionalDrawPhase(players, cardDeck, playersWinLoseInfo);
+		dealerAdditionalDrawPhase(dealer, cardDeck);
 		checkFinalWinLose(dealer, players, playersWinLoseInfo);
 	}
 	
@@ -66,7 +67,42 @@ public class BlackjackGame {
 		BlackjackIndex.stream().forEach(index -> info.set(index, WinLoseInfo.BLACKJACK));
 	}
 	
-	private void additionalDrawPhase(Dealer dealer, Players players, CardDeck cardDeck) {
+	private void playerAdditionalDrawPhase(Players players, CardDeck cardDeck, List<WinLoseInfo> info) {
+		List<Integer> indexOfNotBlackjack = findNotBlackjackIndex(players);
+		indexOfNotBlackjack.stream()
+				.forEach(index -> drawAdditionalCards(players.getPlayerAt(index), cardDeck, info.get(index)));
+	}
+	
+	private List<Integer> findNotBlackjackIndex(Players players) {
+		return players.getPlayers().stream()
+				.filter(player -> (player.calculateScore() != BLACKJACK))
+				.map(player -> players.getPlayers().indexOf(player))
+				.collect(Collectors.toList());
+	}
+	
+	private void drawAdditionalCards(Player player, CardDeck cardDeck, WinLoseInfo info) {
+		try {
+			drawIfWant(player, cardDeck);
+		} catch (IllegalStateException e) {
+			System.out.println(e.getMessage());
+			info = WinLoseInfo.LOSE;
+		}
+	}
+	
+	private void drawIfWant(Player player, CardDeck cardDeck) {
+		while(InputView.enterIfDrawAdditionalCard(player)) {
+			player.drawCard(cardDeck);
+			OutputView.showPlayerCards(player);
+		}
+	}
+	
+	public static void checkOverBlackJack(Player player) {
+		if (player.calculateScore() > BLACKJACK) {
+			throw new IllegalStateException("점수합이 21을 초과했습니다." + player.getName() + "는 패배했습니다.");
+		}
+	}
+	
+	private void dealerAdditionalDrawPhase(Dealer dealer, CardDeck cardDeck) {
 		
 	}
 	

@@ -12,8 +12,7 @@ public class OutputView {
 		System.out.println("딜러와 " + players.toString() + "에게 2장의 카드를 나누었습니다.");
 		System.out.println("딜러: " + dealer.getCardsExceptFirstInString());
 		for (int i = 0; i < players.getSize(); i++) {
-			Player player = players.getPlayerAt(i);
-			System.out.println(player.getName() + "카드: " + player.getAllCardsInString());
+			showPlayerCards(players.getPlayerAt(i));
 		}
 		System.out.println();
 	}
@@ -25,6 +24,7 @@ public class OutputView {
 		for (int i = 0; i < blackjackIndex.size(); i++) {
 			showEachResult(players, info, blackjackIndex.get(i));
 		}
+		System.out.println();
 	}
 	
 	private static void showEachResult(Players players, List<WinLoseInfo> info, int index) {
@@ -32,5 +32,9 @@ public class OutputView {
 		if (info.get(index) == WinLoseInfo.DRAW) {
 			System.out.println("하지만 딜러도 블랙잭으로 무승부 입니다.");
 		}
+	}
+	
+	public static void showPlayerCards(Player player) {
+		System.out.println(player.getName() + "카드: " + player.getAllCardsInString());
 	}
 }
