@@ -27,6 +27,7 @@ public class BlackJack {
         moreCardsPhase();
         dealerPhase();
         resultPhase();
+        new StakeManager(gamers).start();
     }
 
     public void initGameWithCard() {

@@ -3,15 +3,11 @@ package view;
 import domain.user.Gamers;
 import domain.user.Player;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Output {
-    private static final double BLACK_JACK_WIN_MULTIPLE = 1.5D;
-    private static final int WIN_MULTIPLE = 1;
-    private static final int LOSE_MULTIPLE = -1;
-    private static final int DRAW_MULTIPLE = 0;
-
     public static void showGamePlayerInput() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
     }
@@ -44,27 +40,11 @@ public class Output {
         System.out.println(gamers.toStringWithResult());
     }
 
-    public static void resultProxy(Player player) {
-        System.out.print(player.getName() + ": ");
+    public static void showResultWithMoney(String name, double money) {
+        System.out.println(name + ": " + withoutPoint(money));
     }
 
-    public static void showBlackJackWinResult(Player player) {
-        resultProxy(player);
-        System.out.println(player.getBettingMoney() * BLACK_JACK_WIN_MULTIPLE);
-    }
-
-    public static void showDrawResult(Player player) {
-        resultProxy(player);
-        System.out.println(player.getBettingMoney() * DRAW_MULTIPLE);
-    }
-
-    public static void showWinResult(Player player) {
-        resultProxy(player);
-        System.out.println(player.getBettingMoney() * WIN_MULTIPLE);
-    }
-
-    public static void showLoseResult(Player player) {
-        resultProxy(player);
-        System.out.println(player.getBettingMoney() * LOSE_MULTIPLE);
+    private static String withoutPoint(double money) {
+        return new DecimalFormat("#.##").format(money);
     }
 }
