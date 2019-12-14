@@ -2,7 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 import domain.game.BlackJack;
-import domain.game.ConstMessage;
+import domain.util.ConstMessage;
 
 import java.util.ArrayList;
 import java.util.List;

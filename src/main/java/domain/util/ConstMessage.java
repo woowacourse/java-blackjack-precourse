@@ -1,4 +1,4 @@
-package domain.game;
+package domain.util;
 
 /**
  * ConstMessage 클래스는 블랙잭 게임을 실행하면서 사용되는 시스템 출력 메세지들을 모아놓은 유틸리티 클래스이다.
