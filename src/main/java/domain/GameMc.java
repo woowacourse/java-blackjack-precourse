@@ -65,7 +65,7 @@ public class GameMc {
     }
 
     public void gameStart() {
-        System.out.print("딜러와 " + playerNames + "에게 2장씩 나누었습니다.");
+        System.out.print("\n딜러와 " + playerNames + "에게 2장씩 나누었습니다.");
         init(dealer);
         for (Player player : players) {
             init(player);
@@ -97,20 +97,21 @@ public class GameMc {
         for (Player player : players) {
             isWinner(player);
         }
+        System.exit(0);
     }
 
     public void finalScoring() {
         Iterator iter = makeScoreList().iterator();
         dealer.showFinalCard();
-        System.out.println("- 결과 : " + iter.next());
+        System.out.print("- 결과 : " + iter.next());
         for (Player player : players) {
-            player.showFinalCard();
-            System.out.println("- 결과 : " + iter.next());
+            player.showCard();
+            System.out.print("- 결과 : " + iter.next());
         }
     }
 
     public void isWinner(Dealer dealer) {
-        System.out.println("## 최종수익");
+        System.out.println("\n\n## 최종수익");
         System.out.println("딜러 : 0");
     }
 

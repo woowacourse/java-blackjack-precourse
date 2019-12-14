@@ -20,11 +20,11 @@ public class Dealer {
     // TODO 추가 기능 구현
 
     public void showInitCard(){
-        System.out.println("딜러 : "+cards.get(1));
+        System.out.print("\n딜러 : "+cards.get(1));
     }
 
     public void showFinalCard(){
-        System.out.print("딜러카드 : ");
+        System.out.print("\n\n딜러카드 : ");
         for (Card card:cards){
             System.out.print(card+" ");
         }

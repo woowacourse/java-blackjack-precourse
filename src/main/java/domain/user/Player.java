@@ -24,15 +24,7 @@ public class Player{
     }
 
     public void showCard(){
-        System.out.print(name+" : ");
-        for (Card card :this.cards){
-            System.out.print(card+" ");
-        }
-        System.out.println("");
-    }
-
-    public void showFinalCard(){
-        System.out.print(name+" : ");
+        System.out.print("\n"+name+" : ");
         for (Card card :this.cards){
             System.out.print(card+" ");
         }
