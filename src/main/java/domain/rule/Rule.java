@@ -1,6 +1,5 @@
 package domain.rule;
 
-import domain.user.Dealer;
 import domain.user.User;
 
 public class Rule {
@@ -12,7 +11,7 @@ public class Rule {
 		return user.isCardSize(FIRST_DRAW_CARD_SIZE) && user.isScore(BEST_SCORE);
 	}
 
-	public static boolean isBust(User user) {
+	private static boolean isBust(User user) {
 		return user.isScoreGreaterThan(BEST_SCORE);
 	}
 
