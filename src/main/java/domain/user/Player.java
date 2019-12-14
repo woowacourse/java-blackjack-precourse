@@ -39,6 +39,10 @@ public class Player {
         return cards;
     }
 
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }

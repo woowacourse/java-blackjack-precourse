@@ -46,6 +46,10 @@ public class Gamers {
         return players.stream().filter(Player::isBlackJack).collect(Collectors.toList());
     }
 
+    public List<Player> isBurst() {
+        return players.stream().filter(x -> !x.isNotBurst()).collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return players.stream().map(Player::toString).collect(Collectors.joining("\n"));
