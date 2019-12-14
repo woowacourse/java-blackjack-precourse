@@ -9,10 +9,12 @@ public class Pregame {
     Scanner sc = new Scanner(System.in);
     String[] name;
     Player[] player;
+    double bettingMoney[];
 
     public void run() {
         inputPlayerName();
         player = new Player[name.length];
+        inputBettingMoney();
         createPlayer();
     }
 
@@ -35,9 +37,17 @@ public class Pregame {
         return true;
     }
 
+    private void inputBettingMoney() {
+        bettingMoney = new double[name.length];
+        for(int i = 0; i < name.length; i++) {
+            System.out.println(name[i]+"의 배팅 금액은?");
+            bettingMoney[i] = sc.nextDouble();
+        }
+    }
+
     public void createPlayer() {
         for (int i = 0; i < name.length; i++) {
-            player[i] = new Player(name[i], 0);
+            player[i] = new Player(name[i], bettingMoney[i]);
         }
     }
 }
