@@ -69,10 +69,10 @@ public class Game {
         //딜러와 플레이어에게 처음 2장씩 카드 나눠줌
         initDistributeCard();
 
-        while(dealer.sumScore() > DEALER_STANDARD){
+        while(dealer.sumScore() < DEALER_STANDARD){
             dealer.addCard(cards.remove(cards.size() - 1));
         }
-        
+
 
     }
 
