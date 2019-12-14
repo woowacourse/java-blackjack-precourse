@@ -44,7 +44,18 @@ public class InputView {
             PlayerDto playerDto = new PlayerDto(name, money);
             playerDtos.add(playerDto);
         }
-
         return playerDtos;
+    }
+
+    public static boolean receiveCard(String name) {
+        System.out.println(name + "은 한장의 카드를 더 받겠습니까?");
+        String receiveCommand = SCANNER.nextLine();
+        if ("y".equals(receiveCommand)) {
+            return true;
+        }
+        if ("n".equals(receiveCommand)) {
+            return false;
+        }
+        throw new IllegalArgumentException("잘못된 입력입니다.");
     }
 }

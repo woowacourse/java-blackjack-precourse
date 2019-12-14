@@ -21,6 +21,10 @@ public abstract class Gamer {
         return cards.getCards();
     }
 
+    public boolean isBlackJack() {
+        return cards.isBlackJack();
+    }
+
     public abstract String getName();
 
     public abstract boolean canReceive();

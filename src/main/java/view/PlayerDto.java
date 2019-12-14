@@ -11,14 +11,6 @@ public class PlayerDto {
         this.money = money;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Double getMoney() {
-        return money;
-    }
-
     public Player toEntity() {
         return new Player(this.name, this.money);
     }
