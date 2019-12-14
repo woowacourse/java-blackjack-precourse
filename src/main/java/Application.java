@@ -1,6 +1,4 @@
-import java.util.Arrays;
-
-import domain.card.Deck;
+import domain.game.Deck;
 import ui.Input;
 
 public class Application {
@@ -9,6 +7,5 @@ public class Application {
         Deck deck = new Deck();
         input.getNames();
         System.out.println(deck.draw());
-
     }
 }
