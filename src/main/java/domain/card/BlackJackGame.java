@@ -55,16 +55,62 @@ public class BlackJackGame {
             displayResult(players, dealer, maxMoney);
         }
     }
+
     private void displayResult(List<Player> players, Dealer dealer, int maxScore) {
         System.out.println("딜러 카드: " + dealer.getCard().toString() + "- 결과: " + dealer.allScore());
         for(Player player : players) {
             if(maxScore < player.allScore() && player.allScore() < 22) {
                 maxScore = player.allScore();
             }
-            System.out.println(player.getName() + "카드 : " + player.getCard().toString() + "-결과: " + player.allScore());
+            System.out.println(player.getName() + "카드 : " + player.getCard().toString() + "- 결과: " + player.allScore());
         }
         System.out.printf("\n\n");
+        displaydealerOrPlayerWinCase(players, dealer, maxScore);
+    }
 
+    private void displaydealerOrPlayerWinCase(List<Player> players, Dealer dealer, int maxScore) {
+        for(Player player: players) {
+            if(dealer.allScore() == maxScore && player.allScore() == maxScore) {
+                displayBlackJack(players, maxScore);
+                break;
+            }
+            if(dealer.allScore() != maxScore && player.allScore() == maxScore) {
+                displayBlackJack(players, maxScore);
+                break;
+            }
+            if(dealer.allScore() == maxScore && player.allScore() != maxScore) {
+                displayBlackJackDealer(players, dealer, maxScore);
+                break;
+            }
+        }
+    }
+
+    private void displayBlackJackDealer(List<Player> players, Dealer dealer, int maxScore) {
+        int dealerMoney = 0;
+        for(Player player : players) {
+            System.out.println(player.getName() + " : " + (-player.getBettingMoney()));
+            dealerMoney += player.getBettingMoney();
+        }
+        System.out.println("딜러 : " + dealerMoney);
+
+    }
+
+    private void displayBlackJack(List<Player> players, int maxScore) {
+        int winnerMoney = 0;
+        int loseMoney = 0;
+        System.out.println("###최종수익");
+        for(Player player : players) {
+            if(player.allScore() == maxScore) {
+                System.out.println(player.getName() + " : " + player.getBettingMoney());
+                winnerMoney += player.getBettingMoney();
+            }
+            if(player.allScore() != maxScore) {
+                System.out.println(player.getName() + " : " + (-player.getBettingMoney()));
+                loseMoney += player.getBettingMoney();
+            }
+
+        }
+        System.out.println("딜러 : " + (loseMoney - winnerMoney));
     }
 
     private void displayPlayerWin(List<Player> players) {
@@ -121,6 +167,7 @@ public class BlackJackGame {
     private void firstTurnBlackJackOnlyPlayer(List<Player> players, Dealer dealer) {
         int winnerMoney = 0;
         int loseMoney = 0;
+        System.out.println("###최종수익");
         for(Player player : players) {
             winnerMoney = getWinnerMoney(winnerMoney, player);
             loseMoney = getLoseMoney(loseMoney, player);
@@ -269,7 +316,7 @@ public class BlackJackGame {
 
     private void readyToGame(ArrayList<Player> players, List<String> playersName) {
         for(String playerName : playersName) {
-            System.out.printf("\n\n");
+            System.out.printf("\n");
             System.out.println(playerName + "의 베팅 금액은?");
             playerJoinGame(players, playerName);
         }
