@@ -5,7 +5,7 @@ package domain.user;
  */
 public class Player extends User {
 	private static final String WHITE_SPACE = " ";
-	private static final double MIN_BETTING_MONEY = 1000;
+	private static final int MIN_BETTING_MONEY = 1;
 
 	private final String name;
 	private final double bettingMoney;
