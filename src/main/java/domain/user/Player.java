@@ -25,5 +25,9 @@ public class Player {
     public List<Card> getCards(){
 	return cards;
     }
+    
+    public double getBettingMoney() {
+	return bettingMoney;
+    }
 
 }
