@@ -16,4 +16,12 @@ public class Player extends User {
 	public String toString() {
 		return name + "의 카드: " + getCardsStringWithComma();
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getBettingMoney() {
+		return bettingMoney;
+	}
 }
