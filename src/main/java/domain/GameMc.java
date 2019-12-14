@@ -93,15 +93,21 @@ public class GameMc {
     }
 
     public void endGame() {
-        finalScoring();
-        isWinner(dealer);
+        finalScoring();  //최종 보유 카드와 점수
+        System.out.println("\n\n## 최종수익\n딜러 : 0");
         for (Player player : players) {
-            isWinner(player);
+            awardWinner(player);
+        }
+        for (Player dead : dead){
+            System.out.println(dead.getName()+" : -"+dead.getBettingMoney());
         }
         System.exit(0);
     }
 
     public void finalScoring() {
+        for (Player dead : dead){
+            players.remove(dead);
+        }
         Iterator iter = makeScoreList().iterator();
         dealer.showFinalCard();
         System.out.print("- 결과 : " + iter.next());
@@ -111,12 +117,7 @@ public class GameMc {
         }
     }
 
-    public void isWinner(Dealer dealer) {
-        System.out.println("\n\n## 최종수익");
-        System.out.println("딜러 : 0");
-    }
-
-    public void isWinner(Player player) {
+    public void awardWinner(Player player) {
         if (player.getScore() < dealer.getScore()) {
             System.out.println(player.getName() + " : -" + player.getBettingMoney());
         } else if (player.getScore() == dealer.getScore()) {
@@ -135,19 +136,23 @@ public class GameMc {
     }
 
     public void isHit(Player player) {
-        System.out.println("\n"+player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
+        System.out.println("\n" + player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
         String answer = Input();
         if ("y".equals(answer)) {
-            hit(player,answer);
+            hit(player, answer);
         }
     }
 
-    public void hit(Player player,String answer) {
-        while ("y".equals(answer)){
+    public void hit(Player player, String answer) {
+        while ("y".equals(answer)) {
             player.addCard(makeRandomCard());
             player.showCard();
-            System.out.println("\n"+player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
+            System.out.println("\n" + player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
             answer = Input();
+        }
+        if (player.getScore() > 21) {
+            System.out.println("스코어가 21을 넘어 패하였습니다.");
+            dead.add(player);
         }
     }
 

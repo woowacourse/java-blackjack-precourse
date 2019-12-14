@@ -15,6 +15,5 @@ public class Main {
         Mc.askHit();
 
         Mc.endGame();
-
     }
 }
