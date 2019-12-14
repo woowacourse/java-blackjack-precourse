@@ -54,6 +54,16 @@ public class Gamers {
         this.players.removeAll(players);
     }
 
+    public List<Player> isHigherScoreThen(final Player player) {
+        return players.stream().filter(x -> x.isHigherScoreThen(player))
+                .collect(Collectors.toList());
+    }
+
+    public List<Player> isSameScoreWith(final Player player) {
+        return players.stream().filter(x -> x.isSameScoreWith(player))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return players.stream().map(Player::toString).collect(Collectors.joining("\n"));
