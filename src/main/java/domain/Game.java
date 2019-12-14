@@ -2,6 +2,7 @@ package domain;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Game {
     double bettingMoney[];
 
     List<Player> player = new ArrayList<>();
+    Dealer dealer = new Dealer();
     List<Card> cards = new ArrayList<>(CardFactory.create());
 
     Scanner sc = new Scanner(System.in);
@@ -56,7 +58,7 @@ public class Game {
         }
     }
 
-    public void createPlayer() {
+    private void createPlayer() {
         for (int i = 0; i < name.length; i++) {
             Player tmpPlayer = new Player(name[i], bettingMoney[i]);
             player.add(tmpPlayer);
@@ -81,15 +83,18 @@ public class Game {
             distributeCardToPlayer();
             distributeCardToDealer();
         }
+        for(int i=0;i<player.size();i++){
+            System.out.println(player.get(i).getCard());
+        }
     }
 
     public void distributeCardToPlayer() {
         for(int i = 0; i < player.size(); i++) {
-            
+            player.get(i).addCard(cards.remove(cards.size() - 1));
         }
     }
 
     public void distributeCardToDealer() {
-
+        dealer.addCard(cards.remove(cards.size() - 1));
     }
 }
