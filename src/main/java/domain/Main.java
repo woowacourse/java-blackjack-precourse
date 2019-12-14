@@ -5,6 +5,8 @@ public class Main {
         GameMc Mc = new GameMc();
         Mc.gameMc();
         Mc.gameStart();
+        Mc.isBlackJack();
+
         Mc.endGame();
 
 

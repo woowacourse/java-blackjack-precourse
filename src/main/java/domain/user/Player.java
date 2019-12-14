@@ -42,4 +42,12 @@ public class Player{
         return cards.stream().mapToInt(Card::getScore).sum();
     }
 
+    public String getName(){
+        return name;
+    }
+
+    public double getBettingMoney(){
+        return bettingMoney;
+    }
+
 }
