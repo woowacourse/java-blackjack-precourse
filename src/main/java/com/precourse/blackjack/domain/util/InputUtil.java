@@ -28,8 +28,19 @@ public class InputUtil {
 	private static final int SPLIT_LIMIT = -1;
 
 	public static List<String> readPlayersName() throws IOException {
-		String[] playersName = reader.readLine().split(COMMA, SPLIT_LIMIT);
+		String[] playersName = reader.readLine().replaceAll(SPACE, EMPTY).split(COMMA, SPLIT_LIMIT);
 
+		try {
+			checkNameEmpty(playersName);
+		} catch (IOException e) {
+			throw e;
+		}
 		return Arrays.asList(playersName);
+	}
+
+	private static void checkNameEmpty(String[] playersName) throws IOException {
+		if (Arrays.asList(playersName).contains(EMPTY)) {
+			throw new IOException("Player's name is empty");
+		}
 	}
 }
