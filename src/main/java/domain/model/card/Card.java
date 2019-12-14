@@ -37,7 +37,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return symbol.getScore() + type.getType();
+        return getSymbolScoreByLetter(symbol) + type.getType();
     }
 
     public int getSymbolScore() {
@@ -48,4 +48,12 @@ public class Card {
         return symbol == Symbol.ACE;
     }
 
+    public String getSymbolScoreByLetter(Symbol symbol) {
+        if (symbol == Symbol.JACK) { return "J"; }
+        if (symbol == Symbol.QUEEN) { return "Q"; }
+        if (symbol == Symbol.KING) { return "K"; }
+        if (symbol == Symbol.ACE) { return "A"; }
+        return  Integer.toString(symbol.getScore());
+
+    }
 }
