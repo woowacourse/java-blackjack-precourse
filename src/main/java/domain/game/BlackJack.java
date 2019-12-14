@@ -69,15 +69,6 @@ public class BlackJack {
     }
 
     /**
-     * initBlackJack은 블랙잭 수행을 위한 유저, 카드, 플레이어들의 생성과 초기화를 담당한다.
-     */
-    private void initBlackJack() {
-        deck = new Deck();
-        dealer = new Dealer();
-        createPlayerList();
-    }
-
-    /**
      * createPlayerList는 플레이어 목록에 새로운 플레이어들을 생성해준다.
      * 이름의 목록을 받아 이름을 집어넣고, 각자의 배팅 금액도 집어넣는다.
      *
@@ -281,6 +272,33 @@ public class BlackJack {
     }
 
     /**
+     * initBlackJack은 블랙잭 수행을 위한 유저, 카드, 플레이어들의 생성과 초기화를 담당한다.
+     */
+    private void initMethod() {
+        deck = new Deck();
+        dealer = new Dealer();
+        createPlayerList();
+    }
+
+    /**
+     * drawMethod는 draw 관련된 메서드를 종합하여 호출해준다.
+     * playBlackJack에서 로직의 파악이 간결하도록 별도 메서드를 구현하였다.
+     */
+    private void drawMethod() {
+        firstDraw();
+        addDraw();
+    }
+
+    /**
+     * printResultMethod는 결과 출력에 관련된 메서드를 종합하여 호출해준다.
+     * playBlackJack에서 로직의 파악이 간결하도록 별도 메서드를 구현하였다.
+     */
+    private void printResultMethod() {
+        printResultScore();
+        printResultMoney();
+    }
+
+    /**
      * playBlackJack은 실제 블랙잭 게임을 수행하는 메서드이다. 상위 객체로부터 호출된다.
      * 먼저 블랙잭 초기화 작업을 하고,
      * 이후 첫 2장씩의 패를 돌린다.
@@ -288,10 +306,8 @@ public class BlackJack {
      * 이어서 최종 점수와 배팅에 대한 수익을 공개한다.
      */
     public void playBlackJack() {
-        initBlackJack();
-        firstDraw();
-        addDraw();
-        printResultScore();
-        printResultMoney();
+        initMethod();
+        drawMethod();
+        printResultMethod();
     }
 }
