@@ -83,4 +83,8 @@ public class Player {
         }
         return (-1) * bettingMoney * battingRatio;
     }
+
+    public String getName() {
+        return name;
+    }
 }
