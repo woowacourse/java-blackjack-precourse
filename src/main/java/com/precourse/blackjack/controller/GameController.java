@@ -31,18 +31,18 @@ public class GameController {
 
 	public static List<Player> initializePlayers() {
 		List<Player> players = new ArrayList<>();
-		String[] playersName = getPlayersName();
-		Double[] playersBettingMoney = new Double[1]; // getPlayersBettingMoney();
+		List<String> playersName = getPlayersName();
+		List<Double> playersBettingMoney = new ArrayList<>(); // getPlayersBettingMoney();
 
-		for (int i = 0; i < playersName.length; i++) {
-			players.add(new Player(playersName[i], playersBettingMoney[i]));
+		for (int i = 0; i < playersName.size(); i++) {
+			players.add(new Player(playersName.get(i), playersBettingMoney.get(i)));
 		}
 
 		return players;
 	}
 
-	public static String[] getPlayersName() {
-		String[] playersName;
+	public static List<String> getPlayersName() {
+		List<String> playersName;
 
 		try {
 			InputView.printPlayerNameQuestion();

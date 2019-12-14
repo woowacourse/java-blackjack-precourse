@@ -11,6 +11,9 @@ package com.precourse.blackjack.domain.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 인풋 유틸리티 클래스입니다.
@@ -24,9 +27,9 @@ public class InputUtil {
 	private static final String COMMA = ",";
 	private static final int SPLIT_LIMIT = -1;
 
-	public static String[] readPlayersName() throws IOException {
+	public static List<String> readPlayersName() throws IOException {
 		String[] playersName = reader.readLine().split(COMMA, SPLIT_LIMIT);
 
-		return playersName;
+		return Arrays.asList(playersName);
 	}
 }
