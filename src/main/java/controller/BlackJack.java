@@ -33,17 +33,17 @@ public class BlackJack {
         Output.showInitCardUi(gamers.nameString());
         gamers.initPlayersCards(deck);
         Output.showGamersInfo(gamers);
-        //TODO check black jack
     }
 
     public void moreCardsPhase() {
         gamers.moreCard(deck);
         gamers.findDealer().dealerShowHiddenCard(deck);
-        //TODO check dealer black jack
     }
 
     public void dealerPhase() {
-        gamers.findDealer().dealerMoreCard(deck);
+        if (!gamers.findDealer().isBlackJack()) {
+            gamers.findDealer().dealerMoreCard(deck);
+        }
     }
 
     public void resultPhase() {
