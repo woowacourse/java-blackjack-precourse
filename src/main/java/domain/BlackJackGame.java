@@ -1,7 +1,7 @@
 package domain;
 
-import domain.card.CardDistributor;
-import domain.card.CardPrinter;
+import domain.function.CardDistributor;
+import domain.function.CardPrinter;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.PlayerInputData;
@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class BlackJackGame {
     private static final int FIRST_DISTRIBUTED_CARD_AMOUNT = 2;
     private static final int ADDABLE_CARD_AMOUNT = 1;
+    private static final int MAX_SCORE_NEEDS_MORE_CARD = 16;
     private static List<Player> playerList;
     private static List<String> playerNameList;
     private static Dealer dealer;
@@ -22,6 +23,7 @@ public class BlackJackGame {
         distributeCardsToGameParticipant();
         printDistributedCards();
         addCardToPlayer();
+        addCardToDealer();
     }
 
     private static void setGameParticipant() {
@@ -75,6 +77,15 @@ public class BlackJackGame {
         }
         System.out.println("※ y와 n만 입력할 수 있습니다.");
         return true;
+    }
+
+    private static void addCardToDealer() {
+        if (dealer.calculateTotalCardScore() <= MAX_SCORE_NEEDS_MORE_CARD) {
+            cardDistributor.giveCardToDealer(ADDABLE_CARD_AMOUNT, dealer);
+            System.out.println(String.format("딜러는 %d 이하라 한 장의 카드를 더 받았습니다. \n", MAX_SCORE_NEEDS_MORE_CARD));
+            return;
+        }
+        System.out.println(String.format("딜러는 %d 초과로 카드를 더 받지 않습니다. \n", MAX_SCORE_NEEDS_MORE_CARD));
     }
 
 }

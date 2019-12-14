@@ -23,6 +23,14 @@ public class Card {
         return scoreName+typeName;
     }
 
+    public int calculateCardScore() {
+        return symbol.getScore();
+    }
+
+    public String getSymbolScoreName() {
+        return symbol.getScoreName();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
