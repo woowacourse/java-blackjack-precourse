@@ -115,25 +115,40 @@ public class Blackjack {
 		Console.printOutcome("딜러", -playerOutcomes);
 	}
 
-	// 17줄
-	private double judgePlayerOutcome(Player player) {
+	private boolean judgeDealerRetire() {
 		Dealer dealer = (Dealer)users.get(DEALER);
-		if (dealer.getScore(true) > 21) {
+		return dealer.getScore(true) > 21;
+	}
+
+	private boolean judgePlayerDefeat(Player player) {
+		Dealer dealer = (Dealer)users.get(DEALER);
+		return player.getScore(true) > 21 ||
+			player.getScore(true) < dealer.getScore(true);
+	}
+
+	private boolean judgePlayerDraw(Player player) {
+		Dealer dealer = (Dealer)users.get(DEALER);
+		return player.getScore(true) == dealer.getScore(true);
+	}
+
+	private double judgeBlackjack(Player player) {
+		if (player.getScore(true) == 21) {
+			return 1.5;
+		}
+		return 1;
+	}
+
+	private double judgePlayerOutcome(Player player) {
+		if (judgeDealerRetire()) {
 			return player.getBettingMoney();
 		}
-		if (player.getScore(true) > 21) {
+		if (judgePlayerDefeat(player)) {
 			return -player.getBettingMoney();
 		}
-		if (player.getScore(true) == dealer.getScore(true)) {
+		if (judgePlayerDraw(player)) {
 			return 0;
 		}
-		if (player.getScore(true) == 21) {
-			return player.getBettingMoney() * 1.5;
-		}
-		if (player.getScore(true) < dealer.getScore(true)) {
-			return -player.getBettingMoney();
-		}
-		return player.getBettingMoney();
+		return player.getBettingMoney() * judgeBlackjack(player);
 	}
 
 	public void run() {
