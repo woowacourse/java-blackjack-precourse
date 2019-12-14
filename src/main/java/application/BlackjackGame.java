@@ -71,7 +71,8 @@ public class BlackjackGame {
 	private void playerAdditionalDrawPhase(Players players, CardDeck cardDeck, List<WinLoseInfo> info) {
 		List<Integer> indexOfNotBlackjack = findNotBlackjackIndex(players);
 		indexOfNotBlackjack.stream()
-				.forEach(index -> drawAdditionalCards(players.getPlayerAt(index), cardDeck, info.get(index)));
+				.forEach(index -> drawAdditionalCards(players.getPlayerAt(index), cardDeck));
+		updateLoser(players, info);
 	}
 	
 	private List<Integer> findNotBlackjackIndex(Players players) {
@@ -81,12 +82,11 @@ public class BlackjackGame {
 				.collect(Collectors.toList());
 	}
 	
-	private void drawAdditionalCards(Player player, CardDeck cardDeck, WinLoseInfo info) {
+	private void drawAdditionalCards(Player player, CardDeck cardDeck) {
 		try {
 			drawUntilDontWant(player, cardDeck);
 		} catch (IllegalStateException e) {
 			System.out.println(e.getMessage());
-			info = WinLoseInfo.LOSE;
 		}
 		OutputView.showBlankLine();
 	}
@@ -97,6 +97,13 @@ public class BlackjackGame {
 			OutputView.showPlayerCards(player);
 			checkOverBlackJack(player);
 		}
+	}
+	
+	private void updateLoser(Players players, List<WinLoseInfo> info) {
+		players.getPlayers().stream()
+				.filter(player -> (player.calculateScore() > BLACKJACK))
+				.map(player -> players.getPlayers().indexOf(player))
+				.forEach(index -> info.set(index, WinLoseInfo.LOSE));
 	}
 	
 	private static void checkOverBlackJack(Player player) {
@@ -123,6 +130,39 @@ public class BlackjackGame {
 	}
 	
 	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
+		updateFinalWinLoseInfo(dealer, players, info);
 		OutputView.showAllFinalResults(dealer, players, info);
+	}
+	
+	private void updateFinalWinLoseInfo(Dealer dealer, Players players, List<WinLoseInfo> info) {
+		List<Integer> indexOfUndetermined = findUndeterminedIndex(players);
+		indexOfUndetermined.stream()
+				.forEach(index -> info.set(index, decideResult(dealer, players.getPlayerAt(index))));
+		if (dealer.calculateScore() > BLACKJACK) {
+			indexOfUndetermined.stream()
+					.forEach(index -> info.set(index, WinLoseInfo.WIN));
+		}
+	}
+	
+	private List<Integer> findUndeterminedIndex(Players players) {
+		return players.getPlayers().stream()
+				.filter(player -> player.calculateScore() < BLACKJACK)
+				.map(player -> players.getPlayers().indexOf(player))
+				.collect(Collectors.toList());
+	}
+	
+	private WinLoseInfo decideResult(Dealer dealer, Player player) {
+		if (dealer.calculateScore() == player.calculateScore() ) {
+			return WinLoseInfo.DRAW;
+		}
+		return decideWinOrLose(dealer, player);
+	}
+	
+	private WinLoseInfo decideWinOrLose(Dealer dealer, Player player) {
+		if (dealer.calculateScore() > player.calculateScore() 
+				|| player.calculateScore() > BLACKJACK) {
+			return WinLoseInfo.LOSE;
+		}
+		return WinLoseInfo.WIN;
 	}
 }
