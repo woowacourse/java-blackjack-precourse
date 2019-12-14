@@ -30,6 +30,7 @@ public class Player {
         }
         return score;
     }
+
     public boolean cardsContainsAce() {
         for (Card card : cards) {
             if (card.isAce()) {
@@ -45,6 +46,15 @@ public class Player {
             point += card.getSymbolValue();
         }
         return point;
+    }
+
+    public String getCardListString() {
+        List<String> cardStringList = new ArrayList<>();
+
+        for (Card card : cards) {
+            cardStringList.add(card.toPrintString());
+        }
+        return String.join(", ", cardStringList);
     }
 
 //    public boolean completeBlackJack() {

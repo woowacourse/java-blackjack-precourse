@@ -46,6 +46,15 @@ public class Dealer {
         return point;
     }
 
+    public String getCardListString() {
+        List<String> cardStringList = new ArrayList<>();
+
+        for (Card card : cards) {
+            cardStringList.add(card.toPrintString());
+        }
+        return String.join(", ", cardStringList);
+    }
+
     public boolean isWinner(int maxValue) {
         if (getScore() > 21) {
             return false;
