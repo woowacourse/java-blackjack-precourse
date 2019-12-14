@@ -30,6 +30,10 @@ public class Player extends Gamer {
     public void draw() {
         status += bettingMoney;
     }
+    public void blackjack() {
+        status = + bettingMoney;
+        status += (1.5)*bettingMoney;
+    }
 
 
 

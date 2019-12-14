@@ -40,10 +40,7 @@ public class GameBoard {
 
         shuffleCards();
         init();
-        playerTurn();
-        dealerTurn();
-        endGame();
-        winner();
+
     }
 
     public Player createPlayer(String name, double bettingMoney) {
@@ -61,6 +58,8 @@ public class GameBoard {
     }
 
     public void init() {
+        List<Gamer> winner = new ArrayList<>();
+
         System.out.print("딜러와 ");
         for (int i = 1 ; i < gamer.size(); i++) {
             Player player = (Player)gamer.get(i);
@@ -75,6 +74,19 @@ public class GameBoard {
             g.addCard(cards.get(cardIndex.get(head++)));
             g.addCard(cards.get(cardIndex.get(head++)));
             printCards(g);
+        }
+
+        winner  = blackjack();
+
+        if (winner.isEmpty()) {
+            playerTurn();
+            dealerTurn();
+            endGame();
+            winner();
+        }
+
+        if (!winner.isEmpty()) {
+            blackjackWinner(winner);
         }
     }
 
@@ -173,7 +185,7 @@ public class GameBoard {
 
         if (!(winner.isEmpty()) && winner.size() != 1) {
             if (winner.get(0).getClass() == Dealer.class) {             //딜러 승리 ( 플레이어 중 동점자 있을 시)
-                draw();
+                draw(winner);
             }
         }
 
@@ -182,11 +194,6 @@ public class GameBoard {
                 playerWin(winner);
             }
         }
-        for (Gamer g : winner) {
-            System.out.println(g);
-
-        }
-
     }
 
     public List<Gamer> blackjack() {
@@ -205,12 +212,13 @@ public class GameBoard {
         List<Gamer> winner = new ArrayList<>();
 
         if (result(gamer.get(DELAER_INDEX)) > BLACKJACK) {                  //dealer가 21을 초과 시 전원 승리
-            for (int i = 0 ; i < gamer.size(); i++) {
+            for (int i = 1 ; i < gamer.size(); i++) {
                 winner.add(gamer.get(i));
             }
 
             return winner;
         }
+
         for (Gamer g : gamer) {
             boolean onlyOne = true;                     //중복으로 winner 에 add 방지
 
@@ -267,16 +275,52 @@ public class GameBoard {
 
     public void draw(List<Gamer> winner) {
         System.out.println("\n###최종 수익");
-        System.out.println("딜러 : 0");
-        for (Gamer g : winner) {
-            Player p = (Player) g;
+        for (int i = 1; i < winner.size(); i++) {
+            Player p = (Player) winner.get(i);
             p.draw();
         }
 
-        for (int i = 1; i <gamer.size(); i++) {
+        double sum = 0;
+
+        for (int i = 1; i < gamer.size(); i++) {
+            Player p = (Player) gamer.get(i);
+            sum = sum - p.getStatus();
+        }
+
+        System.out.println("딜러 : " + sum);
+
+        for (int i = 1; i < gamer.size(); i++) {
             Player p = (Player) gamer.get(i);
             System.out.println(p.getName() + " : " + p.getStatus());
         }
     }
 
+    public void blackjackWinner(List<Gamer> winner) {
+        System.out.println("######BLACKJACK######");
+
+        if (winner.get(0) != gamer.get(DELAER_INDEX)) {             //플레이어 블랙잭
+            double sum = 0;
+
+            System.out.println("\n###최종 수익");
+
+            for (int i = 0; i < winner.size(); i++) {
+                Player p = (Player) gamer.get(i);
+                p.blackjack();
+                sum = sum - p.getStatus();
+            }
+            System.out.print("딜러 : " + sum);
+            System.out.println("");
+
+            for (int i = 1; i < gamer.size(); i++) {
+                Player p = (Player) gamer.get(i);
+                System.out.println(p.getName() + " : " + p.getStatus());
+            }
+        }
+        if (winner.get(0) != gamer.get(DELAER_INDEX) && winner.size() == 1) {           //딜러 블랙잭
+            dealerWin();
+        }
+        if (winner.get(0) != gamer.get(DELAER_INDEX) && winner.size() != 1) {           //딜러 블랙잭
+            draw(winner);
+        }
+    }
 }
