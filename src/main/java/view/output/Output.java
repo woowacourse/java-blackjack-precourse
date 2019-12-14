@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Output {
+    private static final String MONEY_IMG = "\uD83D\uDCB5";
     private Input input = new Input();
 
     public String showMessageInputName() {
@@ -77,14 +78,22 @@ public class Output {
     }
 
     public void showMessageResultMoney(Table table) {
-        System.out.println("## 최종 수익");
-        List<Double> balances = table.calculateMoney();
+        System.out.println("## 최종 수익  " + MONEY_IMG);
 
         for (int i = Manual.DEALER_POSITION.getValue();
              i < table.getTable().size(); i++) {
-            System.out.println(table.getTable()
-                    .get(i).getName() + ": " + balances.get(i));
+            System.out.println(table.getTable().get(i).getName()
+                    + ": "
+                    + table.calculateMoney().get(i)
+                    + showMessageBlackjack(table, i));
         }
+    }
+
+    private String showMessageBlackjack(Table table, int index) {
+        if (table.getBlackjack().get(index)) {
+            return "   " + MONEY_IMG + " 블랙잭!! " + MONEY_IMG;
+        }
+        return "";
     }
 
     public void newLine() {

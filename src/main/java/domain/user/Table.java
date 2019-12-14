@@ -1,6 +1,5 @@
 package domain.user;
 
-import domain.manager.Manager;
 import domain.manager.Manual;
 
 import java.util.LinkedList;
@@ -126,6 +125,10 @@ public class Table {
             return -players.get(index).getBettingMoney();
         }
         return Manual.EMPTY.getValue();
+    }
+
+    public List<Boolean> getBlackjack() {
+        return blackjack;
     }
 
     public void setBlackjack(List<Boolean> blackjack) {
