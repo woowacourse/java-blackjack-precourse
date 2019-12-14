@@ -1,7 +1,9 @@
 package domain.game;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import domain.user.Contender;
 import domain.user.Dealer;
@@ -32,5 +34,17 @@ public class Stake {
             total += bettingMoney;
         }
         return total;
+    }
+
+    @Override
+    public String toString() {
+        Set<String> players = new HashSet<>(stake.keySet());
+        players.remove(Dealer.NAME);
+        StringBuilder sb = new StringBuilder("\n");
+        sb.append(Dealer.NAME + ": " + stake.get(Dealer.NAME) + "\n");
+        for (String key : players) {
+            sb.append(key + ": " + stake.get(key) + "\n");
+        }
+        return sb.toString();
     }
 }

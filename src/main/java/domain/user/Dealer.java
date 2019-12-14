@@ -10,7 +10,7 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer extends Contender {
-    public static final String NAME = "Dealer";
+    public static final String NAME = "딜러";
     public static final int DRAW_NUM = 16;
 
     @Override

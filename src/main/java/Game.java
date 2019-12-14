@@ -21,6 +21,7 @@ public class Game {
         printContenders();
         askContenders();
         showResult();
+        showStake();
     }
 
     private void addPlayers() {
@@ -64,5 +65,9 @@ public class Game {
         for (Contender contender : contenders) {
             System.out.println(contender + " - 결과: " + contender.getSum());
         }
+    }
+
+    private void showStake() {
+        System.out.println(stake);
     }
 }
