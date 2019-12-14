@@ -15,6 +15,7 @@ import outputview.OutputView;
 public class BlackjackGame {
 	private static final int NUM_INITIAL_CARDS = 2;
 	private static final int BLACKJACK = 21;
+	private static final int DEALER_THRESHOLD = 16;
 	
 	public void play() {
 		List<String> playerNames = InputView.enterPlayerNames();
@@ -86,9 +87,8 @@ public class BlackjackGame {
 		} catch (IllegalStateException e) {
 			System.out.println(e.getMessage());
 			info = WinLoseInfo.LOSE;
-		} finally {
-			OutputView.showBlankLine();
 		}
+		OutputView.showBlankLine();
 	}
 	
 	private void drawUntilDontWant(Player player, CardDeck cardDeck) {
@@ -106,10 +106,23 @@ public class BlackjackGame {
 	}
 	
 	private void dealerAdditionalDrawPhase(Dealer dealer, CardDeck cardDeck) {
-		
+		try {
+			checkOverThreshold(dealer);
+			dealer.drawCard(cardDeck);
+			OutputView.showDealerDrawsCard();
+		} catch (IllegalStateException e) {
+			System.out.println(e.getMessage());
+		}
+		OutputView.showBlankLine();
+	}
+	
+	private static void checkOverThreshold(Dealer dealer) {
+		if (dealer.calculateScore() > DEALER_THRESHOLD) {
+			throw new IllegalStateException("딜러의 점수합이 17이상입니다. 카드를 더 뽑지 않습니다.");
+		}
 	}
 	
 	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		
+
 	}
 }
