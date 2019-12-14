@@ -79,10 +79,10 @@ public class Blackjack {
 
 	private void askPlayerIfDrawCard(Player player) {
 		int score = 0;
-		while (score <= 20) {
+		boolean ifWant = true;
+		while (score <= 20 && ifWant != false) {
 			score = player.getScore(false);
-			
-			boolean ifWant = Console.inputDrawOrNot(player.getName());
+			ifWant = Console.inputDrawOrNot(player.getName());
 			drawCard(player, ifWant);
 			Console.printCardsOwnedBy(player, false);
 		}
