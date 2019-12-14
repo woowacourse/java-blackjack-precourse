@@ -31,4 +31,10 @@ public class Console implements UserInterface {
 
         return names;
     }
+
+    @Override
+    public int getBettingMoney() {
+        int bettingMoney = Integer.parseInt(scanner.nextLine());
+        return bettingMoney;
+    }
 }
