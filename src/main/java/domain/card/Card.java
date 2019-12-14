@@ -33,4 +33,8 @@ public class Card {
     public String toString() {
     	return symbol.toString() + type.getKoreanType();
     }
+    
+    public int getScore() {
+    	return symbol.getScore();
+    }
 }

@@ -21,7 +21,7 @@ public class Player {
     public void addCard(Card card) {
         cards.add(card);
     }
-
+    
     public String getName() {
     	return name;
     }
@@ -33,4 +33,11 @@ public class Player {
     	}
     	return cardInfo;
     }
+    
+    public int getPlayerScore() {
+    	return cards.stream()
+    				.mapToInt(card -> card.getScore())
+    				.sum();
+    }
+    
 }

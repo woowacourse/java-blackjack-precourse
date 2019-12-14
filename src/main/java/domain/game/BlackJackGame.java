@@ -10,7 +10,9 @@ import domain.user.Player;
 
 public class BlackJackGame {
 	private static final int INITIAL_CARDS = 2;
-	
+	private static final int BLACKJACK_SCORE = 21;
+	private static final char HIT = 'y';
+
 	private CardShoe cardShoe;
 	private Dealer dealer;
 	private List<Player> playerList = new ArrayList<>();
@@ -27,6 +29,8 @@ public class BlackJackGame {
 		inputPlayerInfos();
 		initialDeal();
 		showInitialDeal();
+		
+		playersTurn();
 	}
 	
 	private void inputPlayerInfos() {
@@ -57,6 +61,35 @@ public class BlackJackGame {
 			System.out.println(player.showCardInfo());
 		}
 		System.out.println();
+	}
+	
+	private void playersTurn() {
+		for (Player player : playerList) {
+			eachPlayerTurn(player);
+			// playerScore save to playerScoreMap
+		}
+	}
+	
+	private int eachPlayerTurn(Player player) {
+		int playerScore = player.getPlayerScore();
+		boolean hit = true;
+		while (playerScore < BLACKJACK_SCORE && hit) {
+			System.out.println(player.getName() + "의 현재 점수는 " + playerScore + "입니다.\n한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)" );
+			char choice = input.next().charAt(0);
+			hit = isChoiceHit(choice, player);
+			playerScore = player.getPlayerScore();
+		}
+		return playerScore;
+	}
+	
+	private boolean isChoiceHit(char choice, Player player) {
+		if (choice == HIT) {
+			player.addCard(cardShoe.getOneCard());
+			System.out.print(player.getName() + " : ");
+			System.out.println(player.showCardInfo());
+			return true;
+		}
+		return false;
 	}
 	
 }
