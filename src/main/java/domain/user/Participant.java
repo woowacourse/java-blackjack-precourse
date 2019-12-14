@@ -11,9 +11,24 @@ abstract public class Participant {
     String name;
     List<Card> cards;
 
-    Participant(String name) {
+    protected Participant(String name) {
         this.name = name;
     }
 
     abstract public void addCard(Card card);
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public Card getCard(int index) {
+        if (index >= cards.size())
+            return null;
+        return cards.get(index);
+    }
+
 }

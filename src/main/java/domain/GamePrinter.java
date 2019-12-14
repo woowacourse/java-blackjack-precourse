@@ -1,5 +1,10 @@
 package domain;
 
+import domain.card.Card;
+import domain.user.Participant;
+import domain.user.Player;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -41,7 +46,7 @@ public class GamePrinter {
             bettingMoney = -1; // 문자이거나 정수가 아니라면 -1을 반환한다.
         }
 
-        if(checkBettingMoney(bettingMoney))
+        if (checkBettingMoney(bettingMoney))
             return bettingMoney;
         return getBettingMoneyFromUser(name);
     }
@@ -52,5 +57,30 @@ public class GamePrinter {
             return false;
         }
         return true;
+    }
+
+    void printInitialParticipantCardInfo(List<Participant> participantList) {
+        for (int i = 0; i < participantList.size() - 1; i++) {
+            System.out.print(participantList.get(i).getName() + ", ");
+        }
+        System.out.println(participantList.get(participantList.size() - 1).getName() + "에게 2장의 카드를 나누어주었습니다.");
+    }
+
+    void printParticipantCardInfo(Participant participant, boolean onlyOpenOneCard) {
+        System.out.print(participant.getName() + "카드:");
+        int cardSize = participant.getCards().size();
+        if (onlyOpenOneCard) {
+            cardSize = 1;
+        }
+        for (int i = 0; i < cardSize - 1; i++) {
+            printCardInfo(participant.getCard(i));
+            System.out.print(",");
+        }
+        printCardInfo(participant.getCard(cardSize - 1));
+        System.out.println();
+    }
+
+    void printCardInfo(Card card) {
+        System.out.print(card.getSymbol().getScore() + card.getType().getKoreaType());
     }
 }
