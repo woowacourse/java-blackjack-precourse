@@ -23,6 +23,6 @@ public class ConsoleOutput {
     }
 
     public static void printFirstDraw(String user, int cardNumber) {
-        System.out.println("딜러와 " + getUsersTest() + "에게 " + cardNumber + "장의 카드를 나누었습니다.");
+        System.out.println("딜러와 " + user + "에게 " + cardNumber + "장의 카드를 나누었습니다.");
     }
 }
