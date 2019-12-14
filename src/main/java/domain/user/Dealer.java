@@ -75,4 +75,13 @@ public class Dealer {
         }
         return smallestCard;
     }
+
+    public double getEarnMoney(ArrayList<Player> players, int maxValue, double battingRatio) {
+        double dealerMoney = 0;
+
+        for (Player player : players) {
+            dealerMoney -= player.getEarnMoney(maxValue, battingRatio);
+        }
+        return dealerMoney;
+    }
 }
