@@ -13,5 +13,12 @@ public class Message {
     public void showNameInputErrorMessage() {
 	System.out.println("이름 입력이 잘못되었습니다. 1글자 이상의 이름을 입력해주세요.");
     }
-
+    
+    public void showMoneyInputMessage(String name) {
+	System.out.println(name+"의 배팅 금액은?");
+    }
+    
+    public void showMoneyInputErrorMessage() {
+	System.out.println("금액 입력이 잘못되었습니다. 1 이상의 숫자만 입력해주세요.");
+    }   
 }
