@@ -22,6 +22,14 @@ public class Player {
         cards.add(card);
     }
 
+    public int getScore() {
+        int score = getCardsPoint();
+
+        if (cardsContainsAce() && (score+10) <= 21) {
+            score += 10;
+        }
+        return score;
+    }
     public boolean cardsContainsAce() {
         for (Card card : cards) {
             if (card.isAce()) {
@@ -31,7 +39,7 @@ public class Player {
         return false;
     }
 
-    public int getCardsPoint() {
+    private int getCardsPoint() {
         int point = 0;
         for (Card card : cards) {
             point += card.getSymbolValue();
@@ -39,21 +47,21 @@ public class Player {
         return point;
     }
 
-    public boolean completeBlackJack() {
-        if (getCardsPoint() == 21) {
-            return true;
-        }
-        if ((getCardsPoint() == 11) && cardsContainsAce()) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean completeBlackJack() {
+//        if (getCardsPoint() == 21) {
+//            return true;
+//        }
+//        if ((getCardsPoint() == 11) && cardsContainsAce()) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     public boolean isWinner(int maxValue) {
-        if (getCardsPoint() > 21) {
+        if (getScore() > 21) {
             return false;
         }
-        if (getCardsPoint() >= maxValue) {
+        if (getScore() >= maxValue) {
             return true;
         }
         return false;
