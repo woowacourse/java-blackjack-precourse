@@ -1,6 +1,7 @@
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
+import domain.user.Person;
 import domain.user.Player;
 import utils.ConsoleOutput;
 import utils.UserInput;
@@ -25,7 +26,7 @@ public class BlackJackGame {
     private void startGame() {
         List<Card> newCards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(newCards);
-        drawStartCards(newCards, START_DRAW);
+        drawStartCards(newCards);
         if (!checkBlackJack()) {
             startTurn(newCards);
         }
@@ -34,8 +35,8 @@ public class BlackJackGame {
     }
 
 
-    private void drawStartCards(List<Card> newCards, int iteration) {
-        for (int i = 0; i < iteration; i++) {
+    private void drawStartCards(List<Card> newCards) {
+        for (int i = 0; i < START_DRAW; i++) {
             drawEachOneCard(newCards);
         }
         System.out.println("딜러와 " + getUsersTest() + "에게 " + START_DRAW + "장의 카드를 나누었습니다.");
@@ -56,9 +57,9 @@ public class BlackJackGame {
         // 딜러보다 낮으면 패배 높으면 승
         List<MoneyDTO> playerMoney = new ArrayList<>();
         MoneyDTO dealerMoney = new MoneyDTO("dealer", 0);
-        players.stream().forEach(x -> playerMoney.add(compareScore(x, dealer, dealerMoney)));
+        players.forEach(x -> playerMoney.add(compareScore(x, dealer, dealerMoney)));
         printMessage("## 최종 수익");
-        printMessage("딜러: " + (int) dealerMoney.getMoney());
+        printMessage("딜러: " + dealerMoney.getMoney());
         playerMoney.forEach(x -> printMessage(x.getName() + ": " + x.getMoney()));
     }
 
@@ -69,14 +70,14 @@ public class BlackJackGame {
     }
 
     private int getProfit(Player player, Dealer dealer) {
+        if (player.isBlackJack() && !dealer.isBlackJack()) {
+            return (int) (1.5 * player.getBettingMoney());
+        }
         if (!player.isBusted() && (player.getScore() > dealer.getScore() || dealer.isBusted())) {
             return (int) player.getBettingMoney();
         }
         if (player.getScore() < dealer.getScore() || player.isBusted()) {
             return (int) (-1 * player.getBettingMoney());
-        }
-        if (player.isBlackJack() && !dealer.isBlackJack()) {
-            return (int) (1.5 * player.getBettingMoney());
         }
         return 0;
     }
@@ -88,38 +89,30 @@ public class BlackJackGame {
 
     private String getUsersTest() {
         List<String> usersName = new ArrayList<>();
-        players.stream().forEach(x -> usersName.add(x.getName()));
+        players.forEach(x -> usersName.add(x.getName()));
         return String.join(", ", usersName);
     }
 
     private void drawEachOneCard(List<Card> newCards) {
         dealer.addCard(drawTopCard(newCards));
-        players.stream().forEach(x ->
+        players.forEach(x ->
                 x.addCard(drawTopCard(newCards)));
-    }
-
-    private boolean checkBlackJack() {
-        if (dealer.isBlackJack()) {
-            printMessage("딜러가 블랙잭입니다.");
-            return true;
-        }
-        if (players.stream().filter(x -> x.isBlackJack()).count() != 0) {
-            printMessage("플레이어가 블랙잭입니다.");
-            return true;
-        }
-        return false;
-    }
-
-    private void startTurn(List<Card> newCards) {
-        players.stream().forEach(x -> askToDraw(x, newCards));
-        while (dealer.isBelowRedraw()) {
-            printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.\n");
-            dealer.addCard(drawTopCard(newCards));
-        }
     }
 
     private Card drawTopCard(List<Card> newCards) {
         return newCards.remove(newCards.size() - 1);
+    }
+
+    private boolean checkBlackJack() {
+        return dealer.isBlackJack() || players.stream().anyMatch(Person::isBlackJack);
+    }
+
+    private void startTurn(List<Card> newCards) {
+        players.forEach(x -> askToDraw(x, newCards));
+        while (dealer.isBelowRedraw()) {
+            printMessage("딜러는 16이하라 한 장의 카드를 더 받았습니다.\n");
+            dealer.addCard(drawTopCard(newCards));
+        }
     }
 
     private void askToDraw(Player player, List<Card> newCards) {

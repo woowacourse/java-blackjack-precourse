@@ -35,7 +35,7 @@ public abstract class Person {
         int score = (cards.stream()
                 .mapToInt(Card::getScore)
                 .sum());
-        if (cards.stream().anyMatch(x -> x.getScore() == 1)
+        if (cards.stream().anyMatch(Card::isAce)
                 && score <= 11) {
             score += 10;
         }
