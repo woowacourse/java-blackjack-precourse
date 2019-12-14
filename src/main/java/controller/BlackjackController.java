@@ -26,7 +26,16 @@ public class BlackjackController {
 		}
 	}
 
-	public void run() {
+	private void giveTwoCard() {
+		dealer.giveCard(cardDeck, dealer);
+		dealer.giveCard(cardDeck, dealer);
+		for (Player player : players) {
+			dealer.giveCard(cardDeck, player);
+			dealer.giveCard(cardDeck, player);
+		}
+	}
 
+	public void run() {
+		giveTwoCard();
 	}
 }
