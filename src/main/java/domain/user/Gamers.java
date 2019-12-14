@@ -11,10 +11,9 @@ public class Gamers {
     private final List<Gamer> gamers;
 
     public Gamers(Dealer dealer, List<Player> players) {
-        List<Gamer> gamers = new ArrayList<>();
+        gamers = new ArrayList<>();
         gamers.add(dealer);
         gamers.addAll(players);
-        this.gamers = gamers;
         initCard(dealer);
     }
 
@@ -22,6 +21,17 @@ public class Gamers {
         for (int i = 0; i < 2; i++) {
             gamers.forEach(gamer -> gamer.addCard(dealer.pickCard()));
         }
+    }
+
+    public List<String> getPlayerName() {
+        return getPlayers().stream()
+                .map(Gamer::getName)
+                .collect(toList());
+    }
+
+    public boolean hasNotBlackJack() {
+        return gamers.stream()
+                .noneMatch(Gamer::isBlackJack);
     }
 
     public List<Gamer> getPlayers() {

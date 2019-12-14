@@ -1,10 +1,11 @@
-package view;
+package view.dto;
 
 import domain.user.Dealer;
 import domain.user.Gamer;
 import domain.user.Gamers;
 import domain.user.Player;
-import domain.user.Players;
+import view.InputView;
+import view.OutputView;
 
 import java.util.List;
 
@@ -15,12 +16,9 @@ public class BlackJackGame {
     private final Gamers gamers;
 
     private BlackJackGame() {
-        Dealer dealer = new Dealer();
-        Players players = new Players(makePlayers());
+        gamers = new Gamers(new Dealer(), makePlayers());
 
-        gamers = new Gamers(dealer, players.getPlayers());
-
-        OutputView.showStartStatus(dealer, players);
+        OutputView.showStartStatus(gamers);
     }
 
     public static BlackJackGame init() {
@@ -37,9 +35,12 @@ public class BlackJackGame {
     }
 
     public void start() {
-        distributeCardToPlayers();
-        distributeCardToDealer();
-        OutputView.showLastStatus(gamers.getGamers());
+        if (gamers.hasNotBlackJack()) {
+            distributeCardToPlayers();
+            distributeCardToDealer();
+            OutputView.showLastStatus(gamers.getGamers());
+        }
+        OutputView.showResult(gamers.getDealer(), gamers.getPlayers());
     }
 
     private void distributeCardToPlayers() {
