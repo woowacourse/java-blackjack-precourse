@@ -36,4 +36,12 @@ public class Card {
     public String toString() {
 	return symbol.getSymbol() + " " + type.getTypeName();
     }
+    
+    public int getScore() {
+	return symbol.getScore();
+    }
+    
+    public boolean isAce() {
+	return symbol.equals(Symbol.ACE);
+    }
 }
