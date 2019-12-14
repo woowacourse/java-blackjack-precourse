@@ -1,6 +1,7 @@
 package domain.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class BlackJackGame {
 	public void play() {
 		inputPlayerInfos();
 		initialDeal();
+		showInitialDeal();
 	}
 	
 	private void inputPlayerInfos() {
@@ -44,6 +46,17 @@ public class BlackJackGame {
 			playerList.stream()
 					.forEach(player -> player.addCard(cardShoe.getOneCard()));
 		}
+	}
+	
+	private void showInitialDeal() {
+		System.out.println("딜러와 " + String.join(",", Arrays.asList(playerNames)) + "에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다."); 
+		System.out.print("딜러 : ");
+		System.out.println(dealer.showCardInfo());
+		for (Player player : playerList) {
+			System.out.print(player.getName() + " : ");
+			System.out.println(player.showCardInfo());
+		}
+		System.out.println();
 	}
 	
 }

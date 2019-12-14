@@ -22,4 +22,15 @@ public class Player {
         cards.add(card);
     }
 
+    public String getName() {
+    	return name;
+    }
+    
+    public String showCardInfo() {
+    	String cardInfo = "";
+    	for (Card card : cards) {
+    		cardInfo += card.toString() + " ";
+    	}
+    	return cardInfo;
+    }
 }

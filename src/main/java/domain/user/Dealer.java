@@ -17,4 +17,11 @@ public class Dealer {
         cards.add(card);
     }
 
+    public String showCardInfo() {
+    	String cardInfo = "";
+    	for (Card card : cards) {
+    		cardInfo += card.toString() + " ";
+    	}
+    	return cardInfo;
+    }
 }
