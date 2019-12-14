@@ -5,10 +5,7 @@ import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     private static final int BLACKJACK = 21;
@@ -66,27 +63,23 @@ public class Game {
     }
 
     public void Game() {
-        boolean flag = false;
+        //boolean flag = false;
         //딜러와 플레이어에게 처음 2장씩 카드 나눠줌
         initDistributeCard();
         //처음 두 장의 카드 합이 21이면 블랙잭
+        /*
         flag = checkBlackJack(flag);
-
-
-
         //flag가 false인 경우만 뒤에 코드 동작
         if(flag == false){
             while(dealer.sumScore() < DEALER_STANDARD){
                 dealer.addCard(cards.remove(cards.size() - 1));
             }
         }
-
-        for(int i=0;i<player.size();i++){
-            System.out.print(player.get(i).getCard());
-            System.out.println(player.get(i).getbet());
+*/
+        for(int i = 0; i < player.size(); i++) {
+            //블랙잭 여부 확인
+            askOneMoreCard(i);
         }
-
-
     }
 
     public void initDistributeCard() {
@@ -138,7 +131,20 @@ public class Game {
         }
     }
 
-    public boolean checkBlackJack(boolean flag) {
+    public void askOneMoreCard(int i) {
+        String answer;
+        System.out.println(player.get(i).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
+        answer = sc.next();
+        if (Objects.equals(answer, "y")) {
+            player.get(i).addCard(cards.remove(cards.size() - 1));
+            askOneMoreCard(i);
+        }
+        if (Objects.equals(answer, "n")) {
+            return;
+        }
+    }
+
+   /* public boolean checkBlackJack(boolean flag) {
         //블랙잭이면 flag true
         boolean dealerBJ = false;
         List<Integer> bjPlayer = new ArrayList<>();
@@ -175,5 +181,5 @@ public class Game {
         }
 
         return flag;
-    }
+    }*/
 }
