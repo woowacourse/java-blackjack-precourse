@@ -4,7 +4,7 @@
 
 # Features
 - **블랙잭 게임 기능**
-    - 랜덤 카드 뽑기 기능
+    - 랜덤 카드 뽑기 기능, 그러나 중복된 카드가 나오진 않음 
     - 점수 계산 기능 
 - **Card 객체 구현**
     - 기본적으로 카드에 적힌 숫자를 따라 점수 계산
@@ -25,6 +25,11 @@
   - 턴을 마칠 때마다 딜러와 플레이어가 들고 있는 카드 합 출력
   - 게임 종료 후 딜러와 플레이어의 최종 수익 출력  
     
+# Structure
+- \<User> has a card list
+- \<Player>, \<Dealer> extends a \<User>
+- 
+
 # Required Coding Convention
 - Indent Depth <= 1 
 - 3항 연산자(Ternary Op.) 사용 금지
@@ -36,8 +41,15 @@
 - 'else' 키워드 사용 금지
 
 # Additional Implements 
-- $
+- 사용자 입력을 받을 때 다음 요구사항을 만족하지 못하면 재입력을 요구한다.
+    - 올바른 사용자 입력 형태는 한 줄에 각 이름을 쉼표로 구분해서 입력하는 형태이다.
+    - 베팅 금액 입력 시 오직 숫자만 입력 받는다.
+    - 카드를 추가로 받을지 의사를 물을 땐 오직 y, n만 입력 받는다. 이때 대소문자는 상관없다.
+     
 
 # TODO
-- 자바의 상속을 이용해 Player와 Dealer 간 중복 코드 제거
+- 상속을 이용해 Player와 Dealer 간 중복 코드 제거
+    > 기존 Player과 Dealer의 인스턴스 변수를 User로 올려도 되나? 
 - Card, Player, Dealer 객체 예외 처리
+- 한 번 뽑은 카드가 다시 나오지 않도록 어떻게?
+- Card 객체의 getScore()가 정말 필요한가?

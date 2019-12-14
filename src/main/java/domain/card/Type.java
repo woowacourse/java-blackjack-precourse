@@ -4,5 +4,11 @@ public enum Type {
     SPADE,
     DIAMOND,
     HEART,
-    CLUB
+    CLUB;
+
+    private static final int length = Type.values().length;
+
+    public int getTypeLength() {
+        return length;
+    }
 }
