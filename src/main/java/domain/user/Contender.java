@@ -33,7 +33,7 @@ public abstract class Contender implements Comparable<Contender> {
     }
 
     public boolean isBlackJack() {
-        return getSum() == BLACK_JACK_NUMBER;
+        return getSum() == BLACK_JACK_NUMBER && cards.size() == 2;
     }
 
     public int getSum() {
