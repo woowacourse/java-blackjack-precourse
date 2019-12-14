@@ -31,6 +31,16 @@ public class Player{
     }
 
     public int getScore(){
+        if(cards.toString().contains("A")){
+            return getScoreIncludeA();
+        }
+        return cards.stream().mapToInt(Card::getScore).sum();
+    }
+
+    public int getScoreIncludeA(){
+        if (cards.stream().mapToInt(Card::getScore).sum() < 12){
+            return cards.stream().mapToInt(Card::getScore).sum()+10;
+        }
         return cards.stream().mapToInt(Card::getScore).sum();
     }
 

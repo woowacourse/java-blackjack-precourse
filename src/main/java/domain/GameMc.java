@@ -57,7 +57,6 @@ public class GameMc {
             dealer.addCard(makeRandomCard());
         }
     }
-
     public void init(Player player) {
         for (int i = 0; i < 2; i++) {
             player.addCard(makeRandomCard());
@@ -76,12 +75,6 @@ public class GameMc {
         }
     }
 
-    public void isBlackJack() {
-        if (makeScoreList().contains(21)) {
-            endGame();
-        }
-    }
-
     public ArrayList<Integer> makeScoreList() {
         ArrayList<Integer> scoreList = new ArrayList<Integer>();
         scoreList.add(dealer.getScore());
@@ -89,6 +82,12 @@ public class GameMc {
             scoreList.add(player.getScore());
         }
         return scoreList;
+    }
+
+    public void isBlackJack() {
+        if (makeScoreList().contains(21)) {
+            endGame();
+        }
     }
 
     public void endGame() {
@@ -114,11 +113,10 @@ public class GameMc {
         System.out.println("\n\n## 최종수익");
         System.out.println("딜러 : 0");
     }
-
     public void isWinner(Player player) {
         if (player.getScore() < dealer.getScore()) {
             System.out.println(player.getName() + " : -" + player.getBettingMoney());
-        } else if (player.getScore() == 21 && dealer.getScore() == 21){
+        } else if (player.getScore() == dealer.getScore()){
             System.out.println(player.getName() + " : 0");
         } else if (player.getScore() == 21 && dealer.getScore() != 21){
             System.out.println(player.getName() + " : " + player.getBettingMoney()*1.5);
