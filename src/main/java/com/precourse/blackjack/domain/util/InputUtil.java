@@ -28,19 +28,26 @@ public class InputUtil {
 	private static final int SPLIT_LIMIT = -1;
 
 	public static List<String> readPlayersName() throws IOException {
-		String[] playersName = reader.readLine().replaceAll(SPACE, EMPTY).split(COMMA, SPLIT_LIMIT);
+		List<String> playersName = Arrays.asList(reader.readLine().replaceAll(SPACE, EMPTY).split(COMMA, SPLIT_LIMIT));
 
 		try {
 			checkNameEmpty(playersName);
+			checkNameDuplicate(playersName);
 		} catch (IOException e) {
 			throw e;
 		}
-		return Arrays.asList(playersName);
+		return playersName;
 	}
 
-	private static void checkNameEmpty(String[] playersName) throws IOException {
+	private static void checkNameEmpty(List<String> playersName) throws IOException {
 		if (Arrays.asList(playersName).contains(EMPTY)) {
 			throw new IOException("Player's name is empty");
+		}
+	}
+
+	private static void checkNameDuplicate(List<String> playersName) throws IOException {
+		if (Arrays.asList(playersName).stream().distinct().count() != playersName.size()) {
+			throw new IOException("Player's name is duplicated");
 		}
 	}
 }
