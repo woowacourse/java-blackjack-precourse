@@ -20,8 +20,8 @@ public class Stake {
 
     private void initialize() {
         double total = getTotal();
-        for (String key : stake.keySet()) {
-            stake.put(key, -stake.get(key));
+        for (String name : stake.keySet()) {
+            stake.put(name, -stake.get(name));
         }
         stake.put(Dealer.NAME, total);
     }
@@ -43,12 +43,12 @@ public class Stake {
 
     @Override
     public String toString() {
-        Set<String> players = new HashSet<>(stake.keySet());
-        players.remove(Dealer.NAME);
+        Set<String> names = new HashSet<>(stake.keySet());
+        names.remove(Dealer.NAME);
         StringBuilder sb = new StringBuilder("\n## 최종수익\n");
         sb.append(Dealer.NAME + ": ").append(stake.get(Dealer.NAME)).append("\n");
-        for (String key : players) {
-            sb.append(key).append(": ").append(stake.get(key)).append("\n");
+        for (String name : names) {
+            sb.append(name).append(": ").append(stake.get(name)).append("\n");
         }
         return sb.toString();
     }
