@@ -3,6 +3,8 @@ package domain;
 import java.util.List;
 
 import domain.card.Card;
+import domain.user.Dealer;
+import domain.user.Player;
 
 public class Score {
     
@@ -20,6 +22,13 @@ public class Score {
 	    return sum+1;
 	}
 	return sum+11;
+    }
+    
+    public boolean isBlackJack(List<Card> card) {
+	if(getSum(card)==21) {
+	    return true;
+	}
+	return false;
     }
     
 }
