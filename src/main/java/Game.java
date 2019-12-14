@@ -19,7 +19,8 @@ public class Game {
         addPlayers();
         giveFirstPair();
         printContenders();
-        askPlayers();
+        askContenders();
+        showResult();
     }
 
     private void addPlayers() {
@@ -34,9 +35,11 @@ public class Game {
         for (Contender contender : contenders) {
             contender.drawPairFrom(deck);
         }
+        dealer.drawPairFrom(deck);
     }
 
     private void printContenders() {
+        System.out.println("\n" + dealer);
         for (Contender contender : contenders) {
             System.out.println(contender);
         }
@@ -49,9 +52,17 @@ public class Game {
         }
     }
 
-    private void askPlayers() {
+    private void askContenders() {
         for (Contender contender : contenders) {
             askPlayer(contender);
+        }
+        dealer.drawOneMoreFrom(deck);
+    }
+
+    private void showResult() {
+        System.out.println(dealer + " - 결과: " + dealer.getSum());
+        for (Contender contender : contenders) {
+            System.out.println(contender + " - 결과: " + contender.getSum());
         }
     }
 }

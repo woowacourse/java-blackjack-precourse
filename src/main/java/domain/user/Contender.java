@@ -28,7 +28,7 @@ public abstract class Contender {
         return getSum() >= BUSTED_NUMBER;
     }
 
-    private int getSum() {
+    public int getSum() {
         int sum = 0;
         for (Card card : cards) {
             sum += card.getScore();
