@@ -16,15 +16,19 @@ public class Input {
         return new DoubleConverter().stringToDouble(scanner.nextLine());
     }
 
-    public boolean oneMoreCard() {
-        String answer = scanner.nextLine();
+    public String inputChoice() {
+        return scanner.nextLine();
+    }
 
-        if (answer.equals("y") || answer.equals("Y")) {
+    public boolean oneMoreCard(String choice) {
+        if (choice.equals("y") || choice.equals("Y")) {
             return true;
         }
-        if (answer.equals("n") || answer.equals("N")) {
+
+        if (choice.equals("n") || choice.equals("N")) {
             return false;
         }
+
         new Output().showMessageMisInputErrorClose();
 
         return false;

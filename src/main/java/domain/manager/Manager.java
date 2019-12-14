@@ -30,6 +30,7 @@ public class Manager {
 
     private void processManagementInputNames() {
         isErrorOccurred = true;
+
         while (isErrorOccurred) {
             names = splitName(output.showMessageInputName());
             isErrorOccurred = validator.isContainsSpace(names) || validator.hasOverlap(names);
@@ -38,8 +39,7 @@ public class Manager {
 
     private void processManagementInputBettingMoney() {
         for (int i = 0; i < names.size(); i++) {
-            Double bettingMoney = output.showMessageInputMoney(names.get(i));
-            i -= checkMoneyValidating(bettingMoney);
+            i -= checkMoneyValidating(output.showMessageInputMoney(names.get(i)));
             output.newLine();
         }
     }
@@ -47,9 +47,12 @@ public class Manager {
     private int checkMoneyValidating(Double bettingMoney) {
         if (validator.isBelowZero(bettingMoney)) {
             output.showMessageMisInputErrorReturn();
+
             return Manual.REMOVE_ERROR.getValue();
         }
+
         bettingMoneys.add(bettingMoney);
+
         return Manual.CONTINUE.getValue();
     }
 
@@ -61,10 +64,12 @@ public class Manager {
 
     private void processManagementCardDispensing(List<Player> players) {
         players.get(Manual.DEALER_POSITION.getValue()).pickCardFromDeck(deck);
+
         for (int i = Manual.PLAYER_INIT.getValue(); i < players.size(); i++) {
             players.get(i).pickCardFromDeck(deck);
             players.get(i).pickCardFromDeck(deck);
         }
+
         output.showMessageDispensing(players);
         output.showMessageHavingCard(players);
     }
@@ -73,6 +78,7 @@ public class Manager {
         for (int i = Manual.PLAYER_INIT.getValue(); i < players.size(); i++) {
             hasBlackjack(players, i);
         }
+
         table.iteratePlayer();
     }
 
@@ -87,23 +93,29 @@ public class Manager {
 
         output.newLine();
         output.showMessageHavingCard(players.get(index));
+
         while (loop) {
-            loop = pickOneMoreCardState(players, index
-                    , output.showMessageOneMore(players.get(index).getName()));
+            loop = pickOneMoreCardState(players, index, output.showMessageOneMore(players.get(index).getName()));
         }
     }
 
-    private boolean pickOneMoreCardState(
-            List<Player> players, int index, boolean selectDraw) {
+    private boolean pickOneMoreCardState(List<Player> players, int index, boolean selectDraw) {
         if (!selectDraw) {
             return false;
         }
+
         players.get(index).pickCardFromDeck(deck);
         output.showMessageHavingCard(players.get(index));
+
+        return isNotBurst(players, index);
+    }
+
+    private boolean isNotBurst(List<Player> players, int index) {
         if (players.get(index).calculateScore() > Manual.BURST.getValue()) {
             output.showMessageBurst(players.get(index).getName());
             return false;
         }
+
         return true;
     }
 
@@ -113,6 +125,7 @@ public class Manager {
         if (dealer.calculateScore() <= Manual.DEALER_MIN.getValue()) {
             loop = true;
         }
+
         while (loop) {
             output.newLine();
             loop = processManagementDealerGetOneMore(dealer);
@@ -121,15 +134,21 @@ public class Manager {
 
     private boolean processManagementDealerGetOneMore(Player dealer) {
         if (dealer.calculateScore() <= Manual.DEALER_MIN.getValue()) {
-            output.showMessageDealerGetCard();
-            dealer.pickCardFromDeck(deck);
-            output.showMessageHavingCard(dealer);
+            dealerDrawOneMoreCard(dealer);
         }
+
         if (dealer.calculateScore() > Manual.BURST.getValue()) {
             output.showMessageBurst(dealer.getName());
             return false;
         }
+
         return dealer.calculateScore() <= Manual.DEALER_MIN.getValue();
+    }
+
+    private void dealerDrawOneMoreCard(Player dealer) {
+        output.showMessageDealerGetCard();
+        dealer.pickCardFromDeck(deck);
+        output.showMessageHavingCard(dealer);
     }
 
     private void processManagementFinalResult(List<Player> player) {

@@ -40,10 +40,12 @@ public class Player {
 
     public void pickCardFromDeck(Deck deck) {
         Collections.shuffle(deck.getDeck());
+
         Card card = deck.getDeck()
                 .stream()
                 .findAny()
                 .orElseThrow(IllegalStateException::new);
+
         deck.removeCardFromDeck(card);
         addCard(card);
     }
@@ -68,23 +70,19 @@ public class Player {
     }
 
     public int calculateScoreAce(int symbolCount) {
-        int countAce = calculateCountingAce();
+        if (containAce() > Manual.EMPTY.getValue() && symbolCount <= Manual.SAFE.getValue()) {
+            return symbolCount + Symbol.TEN.getScore() + (Symbol.ACE.getScore() * containAce());
+        }
 
-        if (countAce > Manual.EMPTY.getValue()
-                && symbolCount <= Manual.SAFE.getValue()) {
-            return symbolCount + Symbol.TEN.getScore()
-                    + (Symbol.ACE.getScore() * countAce);
+        if (containAce() > Manual.EMPTY.getValue()) {
+            return symbolCount + (Symbol.ACE.getScore() * containAce());
         }
-        if (countAce > Manual.EMPTY.getValue()) {
-            return symbolCount + (Symbol.ACE.getScore() * countAce);
-        }
+
         return symbolCount;
     }
 
-    public int calculateCountingAce() {
+    private int containAce() {
         return (int) cards.stream()
-                .mapToInt(num -> num.getSymbol()
-                        .getScore())
-                .filter(num -> num == Symbol.ACE.getScore()).count();
+                .mapToInt(num -> num.getSymbol().getScore()).filter(num -> num == Symbol.ACE.getScore()).count();
     }
 }
