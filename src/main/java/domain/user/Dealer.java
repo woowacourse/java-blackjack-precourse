@@ -24,4 +24,10 @@ public class Dealer {
     	}
     	return cardInfo;
     }
+    
+    public int getDealerScore() {
+    	return cards.stream()
+    				.mapToInt(card -> card.getScore())
+    				.sum();
+    }
 }

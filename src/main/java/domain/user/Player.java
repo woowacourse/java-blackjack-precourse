@@ -40,4 +40,8 @@ public class Player {
     				.sum();
     }
     
+    public double getBettingMoney() {
+    	return bettingMoney;
+    }
+    
 }

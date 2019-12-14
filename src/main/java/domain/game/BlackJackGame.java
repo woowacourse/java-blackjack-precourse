@@ -2,6 +2,7 @@ package domain.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,15 +10,19 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 public class BlackJackGame {
+	private static final int FIRST_INDEX = 0;
 	private static final int INITIAL_CARDS = 2;
 	private static final int BLACKJACK_SCORE = 21;
+	private static final double BLACKJACK_RATIO = 1.5;
 	private static final char HIT = 'y';
 
 	private CardShoe cardShoe;
 	private Dealer dealer;
-	private List<Player> playerList = new ArrayList<>();
 	private String[] playerNames;
-	
+	private List<Player> playerList = new ArrayList<>();
+	private HashMap<String, Integer> playerScoreMap = new HashMap<>();
+	private HashMap<String, Double> playerRewardMap = new HashMap<>();
+	private double dealerReward;
 	Scanner input = new Scanner(System.in);
 	
 	public BlackJackGame() {
@@ -65,17 +70,19 @@ public class BlackJackGame {
 	
 	private void playersTurn() {
 		for (Player player : playerList) {
-			eachPlayerTurn(player);
-			// playerScore save to playerScoreMap
+			playerScoreMap.put(player.getName(), eachPlayerTurn(player));
 		}
 	}
 	
 	private int eachPlayerTurn(Player player) {
 		int playerScore = player.getPlayerScore();
+		if (playerScore == BLACKJACK_SCORE) {
+			return blackJack(player, playerScore);
+		}
 		boolean hit = true;
 		while (playerScore < BLACKJACK_SCORE && hit) {
-			System.out.println(player.getName() + "의 현재 점수는 " + playerScore + "입니다.\n한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)" );
-			char choice = input.next().charAt(0);
+			System.out.println(player.getName() + "의 현재 점수는 " + playerScore + "입니다.\n한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+			char choice = input.next().charAt(FIRST_INDEX);
 			hit = isChoiceHit(choice, player);
 			playerScore = player.getPlayerScore();
 		}
@@ -90,6 +97,14 @@ public class BlackJackGame {
 			return true;
 		}
 		return false;
+	}
+	
+	private int blackJack(Player player, int playerScore) {
+		if (playerScore != dealer.getDealerScore()) {
+			playerRewardMap.put(player.getName(), player.getBettingMoney() * BLACKJACK_RATIO);
+			dealerReward -= player.getBettingMoney() * BLACKJACK_RATIO;
+		}
+		return playerScore;
 	}
 	
 }
