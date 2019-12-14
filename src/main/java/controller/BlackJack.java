@@ -23,14 +23,14 @@ public class BlackJack {
     }
 
     public void start() {
-        initGameWithCard(); //TODO 나중에 phase 단위 로 메소드 이름 변경
+        initCardPhase();
         moreCardsPhase();
         dealerPhase();
         resultPhase();
         new StakeManager(gamers).start();
     }
 
-    public void initGameWithCard() {
+    public void initCardPhase() {
         Output.showInitCardUi(gamers.nameString());
         gamers.initPlayersCards(deck);
         Output.showGamersInfo(gamers);

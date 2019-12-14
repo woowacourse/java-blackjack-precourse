@@ -8,6 +8,7 @@ public class Input {
     private static final String COMMA = ",";
     private static final String Y = "y";
     private static final String N = "n";
+    private static final int MAX_PLAYER = 10;
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -23,6 +24,7 @@ public class Input {
         return Optional.of(input())
                 .filter(this::notContainsDoubleComma)
                 .filter(this::notEndWithComma)
+                .filter(this::noMoreThenTenPlayers)
                 .map(this::splitAsComma)
                 .orElseGet(this::asGamers);
     }
@@ -64,6 +66,13 @@ public class Input {
 
     public boolean notEndWithComma(String input) {
         return !input.endsWith(COMMA);
+    }
+
+    public boolean noMoreThenTenPlayers(String input) {
+        return input.chars().mapToObj(x -> (char) x)
+                .map(String::valueOf)
+                .filter(x -> x.equals(COMMA))
+                .count() < MAX_PLAYER;
     }
 
     public List<String> splitAsComma(String input) {
