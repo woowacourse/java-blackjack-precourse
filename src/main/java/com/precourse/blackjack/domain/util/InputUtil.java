@@ -11,7 +11,6 @@ package com.precourse.blackjack.domain.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,13 +50,13 @@ public class InputUtil {
 	}
 
 	private static void checkNameEmpty(List<String> playersName) throws IOException {
-		if (Arrays.asList(playersName).contains(EMPTY)) {
+		if (playersName.contains(EMPTY)) {
 			throw new IOException("Player's name is empty");
 		}
 	}
 
 	private static void checkNameDuplicate(List<String> playersName) throws IOException {
-		if (Arrays.asList(playersName).stream().distinct().count() != playersName.size()) {
+		if (playersName.stream().distinct().count() != playersName.size()) {
 			throw new IOException("Player's name is duplicated");
 		}
 	}
