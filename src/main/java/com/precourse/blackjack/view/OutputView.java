@@ -9,14 +9,14 @@
 package com.precourse.blackjack.view;
 
 /**
- * 출력을 담당하는 클래스입니다.
+ * 출력 뷰를 담당하는 클래스입니다.
  *
  * @author HyungjuAn
  */
 public class OutputView {
-	private static final String PLAYER_NAME_QUESTION = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
+	private static final String WRONG_PLAYER_NAME_INPUT = "2명 이상 7명 이하의 이름을 입력하세요.";
 
-	public static void printPlayersNameQuestion() {
-		System.out.println(PLAYER_NAME_QUESTION);
+	public static void printWrongPlayerNameInput() {
+		System.out.println(WRONG_PLAYER_NAME_INPUT);
 	}
 }

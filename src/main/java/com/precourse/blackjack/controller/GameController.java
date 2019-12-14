@@ -8,12 +8,14 @@
 
 package com.precourse.blackjack.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.precourse.blackjack.domain.card.Card;
-import com.precourse.blackjack.domain.card.CardFactory;
 import com.precourse.blackjack.domain.game.Game;
 import com.precourse.blackjack.domain.user.Player;
+import com.precourse.blackjack.domain.util.InputUtil;
+import com.precourse.blackjack.view.InputView;
 import com.precourse.blackjack.view.OutputView;
 
 /**
@@ -23,10 +25,19 @@ import com.precourse.blackjack.view.OutputView;
  */
 public class GameController {
 	public static void startGame() {
-		//Game.start();
+		Game game = new Game(initializePlayers());
+		//game.start();
 	}
 
-	public static List<Card> createCards() {
-		return CardFactory.create();
+	public static List<Player> initializePlayers() {
+		List<Player> players = new ArrayList<>();
+		String[] playersName = new String[1]; // getPlayersNames();
+		Double[] playersBettingMoney = new Double[1]; // getPlayersBettingMoney();
+
+		for (int i = 0; i < playersName.length; i++) {
+			players.add(new Player(playersName[i], playersBettingMoney[i]));
+		}
+
+		return players;
 	}
 }

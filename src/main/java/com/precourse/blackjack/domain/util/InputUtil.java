@@ -18,4 +18,9 @@ import java.io.InputStreamReader;
  */
 public class InputUtil {
 	private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private static final String SPACE = " ";
+	private static final String EMPTY = "";
+	private static final String COMMA = ",";
+	private static final int SPLIT_LIMIT = -1;
+
 }

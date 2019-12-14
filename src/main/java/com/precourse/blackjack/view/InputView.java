@@ -8,14 +8,15 @@
 
 package com.precourse.blackjack.view;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 /**
- * 입력을 담당하는 클래스입니다.
+ * 입력 뷰를 담당하는 클래스입니다.
  *
  * @author HyungjuAn
  */
 public class InputView {
-	private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private static final String PLAYER_NAME_QUESTION = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
+
+	public static void printPlayerNameQuestion() {
+		System.out.println(PLAYER_NAME_QUESTION);
+	}
 }
