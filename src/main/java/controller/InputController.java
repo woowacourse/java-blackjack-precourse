@@ -11,26 +11,26 @@ public class InputController {
 	private static String YES_NO[] = {"y", "n"};
 	InputView inputView;
 
-	public List<String> getPlayerNameList() {
+	public List<String> getPlayerNames() {
 		List<String> playerNameList;
 		try {
 			playerNameList = inputView.getNameList();
 			checkValidNameList(playerNameList);
 		} catch (Exception e) {
 			System.out.println(ERROR_MESSAGE);
-			return getPlayerNameList();
+			return getPlayerNames();
 		}
 		return playerNameList;
 	}
 
-	public double getPlayerBettingMoney(String name) {
+	public double getPlayerBettings(String name) {
 		double bettingMoney;
 		try {
 			bettingMoney = inputView.getBettingMoney(name);
-			checkValidBettingMoney(bettingMoney);
+			checkValidBetting(bettingMoney);
 		} catch (Exception e) {
 			System.out.println(ERROR_MESSAGE);
-			return getPlayerBettingMoney(name);
+			return getPlayerBettings(name);
 		}
 		return bettingMoney;
 	}
@@ -57,7 +57,7 @@ public class InputController {
 		}
 	}
 
-	private void checkValidBettingMoney(double bettingMoney) throws Exception {
+	private void checkValidBetting(double bettingMoney) throws Exception {
 		if (bettingMoney <= 0) {
 			throw new Exception();
 		}
