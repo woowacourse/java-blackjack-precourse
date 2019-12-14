@@ -66,7 +66,14 @@ public class Game {
     }
 
     public void Game() {
+        //딜러와 플레이어에게 처음 2장씩 카드 나눠줌
         initDistributeCard();
+
+        while(dealer.sumScore() > DEALER_STANDARD){
+            dealer.addCard(cards.remove(cards.size() - 1));
+        }
+        
+
     }
 
     public void initDistributeCard() {
@@ -83,9 +90,9 @@ public class Game {
             distributeCardToPlayer();
             distributeCardToDealer();
         }
-        for(int i=0;i<player.size();i++){
+       /* for(int i=0;i<player.size();i++){
             System.out.println(player.get(i).getCard());
-        }
+        }*/
     }
 
     public void distributeCardToPlayer() {
