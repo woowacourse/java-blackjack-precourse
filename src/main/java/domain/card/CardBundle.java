@@ -1,11 +1,12 @@
 package domain.card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class CardBundle {
-    private static final int BLACK_JACK = 21;
+    public static final int BLACK_JACK = 21;
     private static final int OPTIONAL_ACE_SCORE = 10;
 
     private final List<Card> cards = new ArrayList<>();
@@ -48,6 +49,10 @@ public class CardBundle {
 
     public boolean isOver() {
         return getCardSum() > BLACK_JACK;
+    }
+
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
     }
 
     @Override
