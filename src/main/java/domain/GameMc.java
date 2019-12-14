@@ -52,13 +52,24 @@ public class GameMc {
 
     public void gameStart(){
         System.out.println("딜러와 " +nameInput+"에게 2장씩 나누었습니다.");
-        dealer.gameStart(makeRandomCard());
+        init(dealer);
         for (Player player : players){
-            player.gameStart(makeRandomCard());
+            init(player);
         }
         dealer.showCard();
         for (Player player : players){
             player.showCard();
+        }
+    }
+
+    public void init(Dealer dealer){
+        for(int i=0;i<2;i++){
+            dealer.addCard(makeRandomCard());
+        }
+    }
+    public void init(Player player){
+        for(int i=0;i<2;i++){
+            player.addCard(makeRandomCard());
         }
     }
 }
