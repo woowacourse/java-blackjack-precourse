@@ -60,6 +60,16 @@ public class OutputView {
 				+ ", " + info.toString());
 	}
 	
+	public static void showFinalProfit(Players players, List<Double> profits) {
+		StringBuilder output = new StringBuilder();
+		output.append("##최종 수익\n");
+		output.append("딜러: " + profits.get(profits.size() - 1) + "\n");
+		for (int i = 0; i < profits.size() - 1; i++) {
+			output.append(players.getPlayerAt(i).getName() + ": " + profits.get(i) + "\n");
+		}
+		System.out.println(output);
+	}
+	
 	public static void showBlankLine() {
 		System.out.println();
 	}

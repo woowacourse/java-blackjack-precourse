@@ -3,7 +3,7 @@ package application;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 import domain.card.CardDeck;
 import domain.user.Dealer;
@@ -132,23 +132,24 @@ public class BlackjackGame {
 	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		updateFinalWinLoseInfo(dealer, players, info);
 		OutputView.showAllFinalResults(dealer, players, info);
+		List<Double> finalProfit = calculateFinalProfit(players, info);
+		OutputView.showFinalProfit(players, finalProfit);
 	}
 	
 	private void updateFinalWinLoseInfo(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		List<Integer> indexOfUndetermined = findUndeterminedIndex(players);
-		indexOfUndetermined.stream()
-				.forEach(index -> info.set(index, decideResult(dealer, players.getPlayerAt(index))));
 		if (dealer.calculateScore() > BLACKJACK) {
-			indexOfUndetermined.stream()
-					.forEach(index -> info.set(index, WinLoseInfo.WIN));
+			System.out.println("딜러 파산");		//나중에 outputView로 옮긴다
+			IntStream.range(0, info.size())
+					.filter(i -> (info.get(i) == WinLoseInfo.UNDETERMINED))
+					.forEach(i -> info.set(i, WinLoseInfo.WIN));
 		}
+		updateUndeterminedInfo(dealer, players, info);
 	}
 	
-	private List<Integer> findUndeterminedIndex(Players players) {
-		return players.getPlayers().stream()
-				.filter(player -> player.calculateScore() < BLACKJACK)
-				.map(player -> players.getPlayers().indexOf(player))
-				.collect(Collectors.toList());
+	private void updateUndeterminedInfo(Dealer dealer, Players players, List<WinLoseInfo> info) {
+		IntStream.range(0, info.size())
+				.filter(i -> (info.get(i) == WinLoseInfo.UNDETERMINED))
+				.forEach(i -> info.set(i, decideResult(dealer, players.getPlayerAt(i))));
 	}
 	
 	private WinLoseInfo decideResult(Dealer dealer, Player player) {
@@ -164,5 +165,24 @@ public class BlackjackGame {
 			return WinLoseInfo.LOSE;
 		}
 		return WinLoseInfo.WIN;
+	}
+	
+	private List<Double> calculateFinalProfit(Players players, List<WinLoseInfo> info) {
+		List<Double> output = new ArrayList<Double>();
+		Double sum = 0.0;
+		for (int i = 0; i < info.size(); i++) {
+			if (info.get(i) == WinLoseInfo.BLACKJACK) {
+				output.add(1.5 * players.getPlayerAt(i).getBettingMoney());
+			} else if (info.get(i) == WinLoseInfo.WIN) {
+				output.add(players.getPlayerAt(i).getBettingMoney());
+			} else if (info.get(i) == WinLoseInfo.DRAW) {
+				output.add(0.0);
+			} else if (info.get(i) == WinLoseInfo.LOSE) {
+				output.add(-players.getPlayerAt(i).getBettingMoney());
+			}
+			sum -= output.get(i); 
+		}
+		output.add(sum);
+		return output;
 	}
 }

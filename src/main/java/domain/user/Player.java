@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Player extends User{
 	private final String name;
-	private final int bettingMoney;
+	private final double bettingMoney;
 
 	public Player(String name, int bettingMoney) {
 		this.name = name;
@@ -28,5 +28,9 @@ public class Player extends User{
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public double getBettingMoney() {
+		return this.bettingMoney;
 	}
 }
