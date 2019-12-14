@@ -22,11 +22,13 @@ public class BlackJack {
         setPlayers();
         setFirstState();
         printFirstResult();
-        runAddCardPhase();
+        for (Player player : players) {
+            runAddCardPhase(player);
+        }
     }
 
     private void setPlayers() {
-        for(String playerName : InputHandler.splitByComma(InputView.playerNames())) {
+        for (String playerName : InputHandler.splitByComma(InputView.playerNames())) {
             int bettingMoney = InputView.bettingMoney(playerName);
             Player player = new Player(playerName, bettingMoney);
             players.add(player);
@@ -42,21 +44,21 @@ public class BlackJack {
         List<Card> defaultCards = CardFactory.create();
         List<Card> cards = new ArrayList<>(defaultCards);
         Collections.shuffle(cards);
-        for(Card card : cards) {
+        for (Card card : cards) {
             deck.push(card);
         }
     }
 
     private void distributeCards() {
         dealer.addCard(deck.pop());
-        for(int i = 0; i < FIRST_PLAYER_CARD_COUNTS; i++) {
+        for (int i = 0; i < FIRST_PLAYER_CARD_COUNTS; i++) {
             distributeCardsToPlayers();
         }
         OutputView.printFirstDistributionMessage(players);
     }
 
     private void distributeCardsToPlayers() {
-        for(Player player : players) {
+        for (Player player : players) {
             player.addCard(deck.pop());
         }
     }
@@ -65,16 +67,20 @@ public class BlackJack {
         OutputView.printCardsState(dealer, players);
     }
 
-    private void runAddCardPhase() {
-        for(Player player : players) {
-            getAdditionalCard(InputView.playerIntent(player), player);
+    private void runAddCardPhase(Player player) {
+        OutputView.printPlayerCardState(player);
+        boolean isStop = false;
+        while (!player.isScoreExceed() && !isStop) {
+            isStop = getIsStop(InputView.playerIntent(player), player);
+            OutputView.printPlayerCardState(player);
         }
     }
 
-    private void getAdditionalCard(String playerIntent, Player player) {
-        if(playerIntent.equals("y")) {
+    private boolean getIsStop(String playerIntent, Player player) {
+        if (playerIntent.equals("y")) {
             player.addCard(deck.pop());
-            OutputView.printPlayerCardState(player);
+            return false;
         }
+        return true;
     }
 }
