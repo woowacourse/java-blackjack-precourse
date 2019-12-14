@@ -1,20 +1,16 @@
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
-    private final List<Card> cards = new ArrayList<>();
+public class Dealer extends Gamer {
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    @Override
+    public boolean canReceive() {
+        return false;
     }
 
     // TODO 추가 기능 구현
