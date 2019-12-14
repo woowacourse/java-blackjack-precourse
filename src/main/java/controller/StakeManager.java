@@ -42,4 +42,20 @@ public class StakeManager {
         blackJackPlayers.forEach(Output::showDrawResult);
         gamers.diePlayers(blackJackPlayers);
     }
+
+    public void checkNumberHighScoreThenDealer() {
+        List<Player> higherScorePlayers = gamers.isHigherScoreThen(dealer);
+        higherScorePlayers.forEach(Output::showWinResult);
+        gamers.diePlayers(higherScorePlayers);
+    }
+
+    public void checkNumberSameScoreWithDealer() {
+        List<Player> sameScorePlayers = gamers.isSameScoreWith(dealer);
+        sameScorePlayers.forEach(Output::showDrawResult);
+        gamers.diePlayers(sameScorePlayers);
+    }
+
+    public void checkNumberLowerScoreThenDealer() {
+        gamers.getPlayers().forEach(Output::showLoseResult);
+    }
 }
