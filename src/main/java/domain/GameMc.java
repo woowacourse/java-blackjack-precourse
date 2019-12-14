@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class GameMc {
     private ArrayList<Player> players = new ArrayList<Player>();
-    private ArrayList<Player> dead = new ArrayList<Player>();
+    private ArrayList<Player> looser = new ArrayList<Player>();
     private String playerNames;
     private List<Integer> isPickedCard = new ArrayList<Integer>();
     private Dealer dealer = new Dealer();
@@ -95,18 +95,28 @@ public class GameMc {
     public void endGame() {
         finalScoring();  //최종 보유 카드와 점수
         System.out.println("\n\n## 최종수익\n딜러 : 0");
+        if (dealer.getScore() > 21){
+            everyoneWin();
+        }
         for (Player player : players) {
             awardWinner(player);
         }
-        for (Player dead : dead){
-            System.out.println(dead.getName()+" : -"+dead.getBettingMoney());
+        for (Player looser : looser){
+            System.out.println(looser.getName()+" : -"+looser.getBettingMoney());
+        }
+        System.exit(0);
+    }
+
+    public void everyoneWin(){
+        for (Player player : players){
+            System.out.println(playerNames+" : "+player.getBettingMoney());
         }
         System.exit(0);
     }
 
     public void finalScoring() {
-        for (Player dead : dead){
-            players.remove(dead);
+        for (Player looser : looser){
+            players.remove(looser);
         }
         Iterator iter = makeScoreList().iterator();
         dealer.showFinalCard();
@@ -122,8 +132,6 @@ public class GameMc {
             System.out.println(player.getName() + " : -" + player.getBettingMoney());
         } else if (player.getScore() == dealer.getScore()) {
             System.out.println(player.getName() + " : 0");
-        } else if (player.getScore() == 21 && dealer.getScore() != 21) {
-            System.out.println(player.getName() + " : " + player.getBettingMoney() * 1.5);
         } else if (player.getScore() > dealer.getScore()) {
             System.out.println(player.getName() + " : " + player.getBettingMoney());
         }
@@ -131,12 +139,12 @@ public class GameMc {
 
     public void askHit() {
         for (Player player : players) {
-            isHit(player);
+            System.out.println("\n" + player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
+            inputHitOrNo(player);
         }
     }
 
-    public void isHit(Player player) {
-        System.out.println("\n" + player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
+    public void inputHitOrNo(Player player) {
         String answer = Input();
         if ("y".equals(answer)) {
             hit(player, answer);
@@ -152,7 +160,13 @@ public class GameMc {
         }
         if (player.getScore() > 21) {
             System.out.println("스코어가 21을 넘어 패하였습니다.");
-            dead.add(player);
+            looser.add(player);
+        }
+    }
+
+    public void addDealerCard(){
+         while (dealer.getScore() < 17){
+            dealer.addCard(makeRandomCard());
         }
     }
 

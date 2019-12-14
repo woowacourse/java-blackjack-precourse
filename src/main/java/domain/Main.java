@@ -13,7 +13,7 @@ public class Main {
         Mc.gameStart();
         Mc.isBlackJack();
         Mc.askHit();
-
+        Mc.addDealerCard();
         Mc.endGame();
     }
 }
