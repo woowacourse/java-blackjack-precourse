@@ -23,8 +23,7 @@ public class BlackJackGame {
     }
 
     private void startGame() {
-        List<Card> newCards = new ArrayList<>();
-        newCards.addAll(CardFactory.create());
+        List<Card> newCards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(newCards);
         drawStartCards(newCards, START_DRAW);
         if (!checkBlackJack()) {
@@ -45,7 +44,7 @@ public class BlackJackGame {
     }
 
     private void printDealerCard() {
-        ConsoleOutput.printCards(dealer.getFirstCardString());
+        ConsoleOutput.printCards(dealer.getCardString());
     }
 
     private void printGameResult() {

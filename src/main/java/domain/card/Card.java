@@ -41,7 +41,7 @@ public class Card {
     }
 
     public String toKorean() {
-        return symbol+" "+type;
+        return type.getAlias() + " " + symbol.getAlias();
     }
 
     public int getScore() {
