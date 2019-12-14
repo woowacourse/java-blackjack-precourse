@@ -20,6 +20,7 @@ public class BlackJackGame {
     }
 
     private void startGame() {
+        System.out.println("게임에 참여할 사람의 이름을 입력하세요 (쉼표로 구분합니다)");
         List<Player> players = registPlayers();
         Dealer dealer = new Dealer();
         CardFactory cardFactory = new CardFactory();
@@ -40,11 +41,37 @@ public class BlackJackGame {
         for(Player player : players) {
             duringGetCard(useCard, cardTrump, player);
         }
+        System.out.printf("\n\n");
         getdealerMoreCard(useCard,cardTrump,dealer);
+
+    }
+
+    private void displayBlackJackResult(List<Player> players, Dealer dealer) {
+        int maxMoney = dealer.allScore();
+        if(maxMoney >21) {
+            displayPlayerWin(players);
+        }
+        if(maxMoney <= 21) {
+
+        }
+    }
+
+
+    private void displayPlayerWin(List<Player> players) {
+        System.out.println("딜러가 21을 초과 했으므로 모든 플레이어는 배팅 금액을 받습니다.");
+        System.out.println("###최종수익");
+        int loseMoney = 0;
+        for(Player player : players) {
+            System.out.println(player.getName() + " : " + player.getBettingMoney());
+            loseMoney += player.getBettingMoney();
+        }
+        System.out.println("딜러 :" + (-loseMoney));
     }
 
     private void getdealerMoreCard(HashMap<Card, Integer> useCard, List<Card> cardTrump, Dealer dealer) {
         if(dealer.allScore()<17) {
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받습니다.");
+            System.out.printf("\n\n");
             dealer.addCard(useCard,cardTrump);
         }
     }
@@ -67,6 +94,7 @@ public class BlackJackGame {
                 break;
             }
         }
+
     }
 
     private void addGetCard(HashMap<Card, Integer> useCard, List<Card> cardTrump, Player player,String goOrStop) {
@@ -205,7 +233,7 @@ public class BlackJackGame {
         System.out.println("에게 2장의 카드를 나누었습니다.");
         System.out.println("딜러 : " + dealer.getCard().get(0));
         displayCardState(players,dealer);
-
+        System.out.printf("\n\n");
     }
 
     private void displayCardState(List<Player> players, Dealer dealer) {
@@ -231,6 +259,7 @@ public class BlackJackGame {
 
     private void readyToGame(ArrayList<Player> players, List<String> playersName) {
         for(String playerName : playersName) {
+            System.out.printf("\n\n");
             System.out.println(playerName + "의 베팅 금액은?");
             playerJoinGame(players, playerName);
         }
