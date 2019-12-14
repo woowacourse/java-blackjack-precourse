@@ -3,10 +3,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+import domain.Rule;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.User;
 import utils.InputHandler;
 import view.InputView;
 import view.OutputView;
@@ -52,20 +54,25 @@ public class BlackJack {
 
     private void distributeCards() {
         for (int i = 0; i < FIRST_PLAYER_CARD_COUNTS; i++) {
-            dealer.addCard(deck.pop());
+            addCard(dealer, deck.pop());
             distributeCardsToPlayers();
         }
     }
 
+    private void addCard(User user, Card card) {
+        user.addCard(card);
+        Rule.setScore(user, card);
+    }
+
     private void distributeCardsToPlayers() {
         for (Player player : players) {
-            player.addCard(deck.pop());
+            addCard(player, deck.pop());
         }
     }
 
     private void runAddCardPhase(Player player) {
         boolean isStop = false;
-        while (!player.isScoreExceed() && !isStop) {
+        while (Rule.canDrawMore(player) && !isStop) {
             isStop = getIsStop(InputView.playerIntent(player), player);
             OutputView.printPlayerCardState(player);
         }
@@ -73,7 +80,7 @@ public class BlackJack {
 
     private boolean getIsStop(String playerIntent, Player player) {
         if (playerIntent.equals("y")) {
-            player.addCard(deck.pop());
+            addCard(player, deck.pop());
             return false;
         }
         return true;
