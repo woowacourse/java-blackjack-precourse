@@ -1,7 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.game.Deck;
+import domain.game.Discriminator;
 import domain.game.Stake;
 import domain.user.Contender;
 import domain.user.Dealer;
@@ -13,6 +16,7 @@ public class Game {
     private Deck deck = new Deck();
     private List<Contender> contenders = new ArrayList<>();
     private Dealer dealer = new Dealer();
+    private Discriminator discriminator;
     private Stake stake;
 
     public void play() {
@@ -68,6 +72,7 @@ public class Game {
     }
 
     private void showStake() {
+        discriminator = new Discriminator(contenders);
         System.out.println(stake);
     }
 }
