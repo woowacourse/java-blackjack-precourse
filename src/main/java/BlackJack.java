@@ -27,6 +27,7 @@ public class BlackJack {
         for (Player player : players) {
             runAddCardPhase(player);
         }
+        runDealerPhase();
     }
 
     private void setFirstState() {
@@ -84,5 +85,12 @@ public class BlackJack {
             return false;
         }
         return true;
+    }
+
+    private void runDealerPhase() {
+        while (Rule.isDealDraw(dealer)) {
+          addCard(dealer, deck.pop());
+          OutputView.printDealerDrawMessage();
+        }
     }
 }

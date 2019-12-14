@@ -11,6 +11,7 @@ public class OutputView {
     private static final String[] FIRST_DISTRIBUTION_MESSAGES = {"딜러와 ", "에게 2장의 카드를 나누었습니다."};
     private static final String DEALER_CARDS_STATE_MESSAGE = "딜러: ";
     private static final String PLAYER_CARDS_STATE_MESSAGE = "카드: ";
+    private static final String DEALER_DRAW_MESSAGE = "딜러는 16이하라 한장의 카드를 더 받았습니다.";
 
     public static void printFirstDistributionMessage(ArrayList<Player> players) {
         List<String> playerNames = new ArrayList<>();
@@ -53,5 +54,9 @@ public class OutputView {
             playerCardState.add(card.toString());
         }
         return String.join(", ", playerCardState);
+    }
+
+    public static void printDealerDrawMessage() {
+        System.out.println(DEALER_DRAW_MESSAGE);
     }
 }

@@ -2,6 +2,8 @@ package domain;
 
 import domain.card.Card;
 import domain.card.Symbol;
+import domain.user.Dealer;
+import domain.user.Player;
 import domain.user.User;
 
 public class Rule {
@@ -10,6 +12,7 @@ public class Rule {
     private static final int BIG_ACE_SCORE = 11;
     private static final int SMALL_ACE_SCORE = 1;
     private static final int DIFFERENCE_BETWEEN_SMALL_AND_BIG_ACE = BIG_ACE_SCORE - SMALL_ACE_SCORE;
+    private static final int MIN_DEALER_SCORE = 17;
 
     public static void setScore(User user, Card card) {
         user.addScore(card.getScore());
@@ -26,7 +29,11 @@ public class Rule {
         }
     }
 
-    public static boolean canDrawMore(User user) {
-        return !user.isScoreGreaterThan(MAX_SCORE) && !user.isBlackJack(MAX_SCORE);
+    public static boolean canDrawMore(Player player) {
+        return !player.isScoreGreaterThan(MAX_SCORE) && !player.isBlackJack(MAX_SCORE);
+    }
+
+    public static boolean isDealDraw(Dealer dealer) {
+        return !dealer.isScoreGreaterThan(MIN_DEALER_SCORE);
     }
 }
