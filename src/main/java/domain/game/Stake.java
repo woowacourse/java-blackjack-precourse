@@ -40,7 +40,7 @@ public class Stake {
     public String toString() {
         Set<String> players = new HashSet<>(stake.keySet());
         players.remove(Dealer.NAME);
-        StringBuilder sb = new StringBuilder("\n");
+        StringBuilder sb = new StringBuilder("\n## 최종수익\n");
         sb.append(Dealer.NAME + ": " + stake.get(Dealer.NAME) + "\n");
         for (String key : players) {
             sb.append(key + ": " + stake.get(key) + "\n");
