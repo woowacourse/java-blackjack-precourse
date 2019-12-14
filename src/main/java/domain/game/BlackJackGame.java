@@ -2,7 +2,6 @@ package domain.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,16 +13,14 @@ public class BlackJackGame {
 	private static final int INITIAL_CARDS = 2;
 	private static final int DEALER_BORDER_SCORE = 16;
 	private static final int BLACKJACK_SCORE = 21;
-	private static final double LOSE_RATIO = -1.0;
-	private static final double BLACKJACK_RATIO = 1.5;
 	private static final char HIT = 'y';
+	private static final char STAY = 'n';
 
 	private CardShoe cardShoe;
 	private Dealer dealer;
 	private String[] playerNames;
 	private List<Player> playerList = new ArrayList<>();
-	private HashMap<String, Double> playerRewardMap = new HashMap<>();
-	private double dealerReward;
+	private RewardCalculator rewardCalculator;
 	Scanner input = new Scanner(System.in);
 	
 	public BlackJackGame() {
@@ -35,11 +32,13 @@ public class BlackJackGame {
 		inputPlayerInfos();
 		initialDeal();
 		showInitialDeal();
+		rewardCalculator = new RewardCalculator(playerNames);
 		
 		playersTurn();
 		dealerTurn();
 		
 		showGameScore();
+		showGameReward();
 	}
 	
 	private void inputPlayerInfos() {
@@ -74,18 +73,14 @@ public class BlackJackGame {
 	
 	private void playersTurn() {
 		for (Player player : playerList) {
-			int playerScore = eachPlayerTurn(player);
-			if (playerScore > BLACKJACK_SCORE) {
-				playerRewardMap.put(player.getName(), player.getBettingMoney() * LOSE_RATIO);
-				dealerReward += player.getBettingMoney();
-			}
+			eachPlayerTurn(player);
 		}
 	}
-	
-	private int eachPlayerTurn(Player player) {
+
+	private void eachPlayerTurn(Player player) {
 		int playerScore = player.getPlayerScore();
-		if (playerScore == BLACKJACK_SCORE) {
-			return blackJack(player, playerScore);
+		if (playerScore == BLACKJACK_SCORE && playerScore != dealer.getDealerScore()) {
+			rewardCalculator.blackJackReward(player);
 		}
 		boolean hit = true;
 		while (playerScore < BLACKJACK_SCORE && hit) {
@@ -94,7 +89,9 @@ public class BlackJackGame {
 			hit = isChoiceHit(choice, player);
 			playerScore = player.getPlayerScore();
 		}
-		return playerScore;
+		if (playerScore > BLACKJACK_SCORE) {
+			rewardCalculator.playerBustReward(player);
+		}
 	}
 	
 	private boolean isChoiceHit(char choice, Player player) {
@@ -105,14 +102,6 @@ public class BlackJackGame {
 			return true;
 		}
 		return false;
-	}
-	
-	private int blackJack(Player player, int playerScore) {
-		if (playerScore != dealer.getDealerScore()) {
-			playerRewardMap.put(player.getName(), player.getBettingMoney() * BLACKJACK_RATIO);
-			dealerReward -= player.getBettingMoney() * BLACKJACK_RATIO;
-		}
-		return playerScore;
 	}
 	
 	private void dealerTurn() {
@@ -132,6 +121,12 @@ public class BlackJackGame {
 			System.out.println(player.showCardInfo() + "-" + player.getPlayerScore());
 		}
 		System.out.println();
+	}
+	
+	private void showGameReward() {
+		System.out.println("## 최종 수익");
+		rewardCalculator.calculateRewards(playerList, dealer.getDealerScore());
+		rewardCalculator.showRewardInfo();
 	}
 	
 }
