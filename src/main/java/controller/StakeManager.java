@@ -23,4 +23,23 @@ public class StakeManager {
         gamers.diePlayers(burstPlayers);
     }
 
+    public void checkBlackJackWithDealerBlackJack() {
+        List<Player> blackJackPlayers = gamers.isBlackJack();
+        if (dealer.isBlackJack()) {
+            blackJackWithDealer(blackJackPlayers);
+            return;
+        }
+
+        blackJack(blackJackPlayers);
+    }
+
+    public void blackJack(List<Player> blackJackPlayers) {
+        blackJackPlayers.forEach(Output::showBlackJackWinResult);
+        gamers.diePlayers(blackJackPlayers);
+    }
+
+    public void blackJackWithDealer(List<Player> blackJackPlayers) {
+        blackJackPlayers.forEach(Output::showDrawResult);
+        gamers.diePlayers(blackJackPlayers);
+    }
 }
