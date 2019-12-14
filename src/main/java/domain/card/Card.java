@@ -23,6 +23,14 @@ public class Card {
         return symbol.equals(Symbol.ACE);
     }
 
+    public String getSymbol() {
+        return symbol.getValue();
+    }
+
+    public String getType() {
+        return type.getName();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
