@@ -12,12 +12,17 @@ public class CardPrinter {
         System.out.println(String.format("딜러 카드: %s", firstCardName));
     }
 
-    public static void printPlayerAllCards(List<Player> playerList, List<String> playerNameList) {
+    public static void printAllPlayerCards(List<Player> playerList, List<String> playerNameList) {
         for (int i = 0; i < playerList.size(); i++) {
             String playerName = playerNameList.get(i);
             String cardNames = playerList.get(i).getAllCardNames();
             System.out.println(String.format("%s 카드: %s", playerName, cardNames));
         }
+    }
+
+    public static void printPlayerCards(Player player, String playerName) {
+        String cardNames = player.getAllCardNames();
+        System.out.println(String.format("%s 카드: %s", playerName, cardNames));
     }
 
 }

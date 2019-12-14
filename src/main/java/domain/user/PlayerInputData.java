@@ -114,5 +114,4 @@ public class PlayerInputData {
     private static boolean isNotNumberCharacter(char inputCharacter) {
         return inputCharacter < '0' || '9' < inputCharacter;
     }
-
 }
