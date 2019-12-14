@@ -17,10 +17,20 @@ public class StakeManager {
         gamers.getPlayers().remove(dealer);
     }
 
+    public void start() {
+        checkBurst();
+        checkBlackJackWithDealerBlackJack();
+        checkNumberHighScoreThenDealer();
+        checkNumberSameScoreWithDealer();
+        checkNumberLowerScoreThenDealer();
+    }
+
     public void checkBurst() {
         List<Player> burstPlayers = gamers.isBurst();
-        burstPlayers.forEach(Output::showLoseResult);
-        gamers.diePlayers(burstPlayers);
+        if(burstPlayers != null){
+            burstPlayers.forEach(Output::showLoseResult);
+            gamers.diePlayers(burstPlayers);
+        }
     }
 
     public void checkBlackJackWithDealerBlackJack() {
@@ -34,28 +44,38 @@ public class StakeManager {
     }
 
     public void blackJack(List<Player> blackJackPlayers) {
-        blackJackPlayers.forEach(Output::showBlackJackWinResult);
-        gamers.diePlayers(blackJackPlayers);
+        if(blackJackPlayers != null){
+            blackJackPlayers.forEach(Output::showBlackJackWinResult);
+            gamers.diePlayers(blackJackPlayers);
+        }
     }
 
     public void blackJackWithDealer(List<Player> blackJackPlayers) {
-        blackJackPlayers.forEach(Output::showDrawResult);
-        gamers.diePlayers(blackJackPlayers);
+        if(blackJackPlayers != null){
+            blackJackPlayers.forEach(Output::showDrawResult);
+            gamers.diePlayers(blackJackPlayers);
+        }
     }
 
     public void checkNumberHighScoreThenDealer() {
         List<Player> higherScorePlayers = gamers.isHigherScoreThen(dealer);
-        higherScorePlayers.forEach(Output::showWinResult);
-        gamers.diePlayers(higherScorePlayers);
+        if(higherScorePlayers != null) {
+            higherScorePlayers.forEach(Output::showWinResult);
+            gamers.diePlayers(higherScorePlayers);
+        }
     }
 
     public void checkNumberSameScoreWithDealer() {
         List<Player> sameScorePlayers = gamers.isSameScoreWith(dealer);
-        sameScorePlayers.forEach(Output::showDrawResult);
-        gamers.diePlayers(sameScorePlayers);
+        if(sameScorePlayers != null) {
+            sameScorePlayers.forEach(Output::showDrawResult);
+            gamers.diePlayers(sameScorePlayers);
+        }
     }
 
     public void checkNumberLowerScoreThenDealer() {
-        gamers.getPlayers().forEach(Output::showLoseResult);
+        if(gamers.getPlayers() != null) {
+            gamers.getPlayers().forEach(Output::showLoseResult);
+        }
     }
 }
