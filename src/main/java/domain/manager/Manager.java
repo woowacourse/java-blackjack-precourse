@@ -15,7 +15,6 @@ public class Manager {
     private Validator validator = new Validator();
     private List<String> names;
     private List<Double> bettingMoneys = new LinkedList<>();
-    private boolean isErrorOccurred;
 
     public void start() {
         processManagementInputNames();
@@ -23,13 +22,12 @@ public class Manager {
         processManagementInputPlayers();
         processManagementCardDispensing(table.getTable());
         processManagementGetOneMoreCard(table.getTable());
-        processManagementDealer(table.getTable()
-                .get(Manual.DEALER_POSITION.getValue()));
+        processManagementDealer(table.getTable().get(Manual.DEALER_POSITION.getValue()));
         end(table);
     }
 
     private void processManagementInputNames() {
-        isErrorOccurred = true;
+        boolean isErrorOccurred = true;
 
         while (isErrorOccurred) {
             names = splitName(output.showMessageInputName());
