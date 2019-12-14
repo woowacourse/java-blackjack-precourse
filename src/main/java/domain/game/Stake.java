@@ -21,7 +21,7 @@ public class Stake {
     private void initialize() {
         double total = getTotal();
         for (String key : stake.keySet()) {
-            stake.put(key, ZERO);
+            stake.put(key, -stake.get(key));
         }
         stake.put(Dealer.NAME, total);
     }
