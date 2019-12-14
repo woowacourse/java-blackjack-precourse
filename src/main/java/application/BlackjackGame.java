@@ -168,21 +168,19 @@ public class BlackjackGame {
 	}
 	
 	private List<Double> calculateFinalProfit(Players players, List<WinLoseInfo> info) {
-		List<Double> output = new ArrayList<Double>();
-		Double sum = 0.0;
-		for (int i = 0; i < info.size(); i++) {
-			if (info.get(i) == WinLoseInfo.BLACKJACK) {
-				output.add(1.5 * players.getPlayerAt(i).getBettingMoney());
-			} else if (info.get(i) == WinLoseInfo.WIN) {
-				output.add(players.getPlayerAt(i).getBettingMoney());
-			} else if (info.get(i) == WinLoseInfo.DRAW) {
-				output.add(0.0);
-			} else if (info.get(i) == WinLoseInfo.LOSE) {
-				output.add(-players.getPlayerAt(i).getBettingMoney());
-			}
-			sum -= output.get(i); 
+		return IntStream.range(0, info.size())
+				.mapToObj(i -> calculateProfit(players.getPlayerAt(i), info.get(i)))
+				.collect(Collectors.toList());
+	}
+	
+	private Double calculateProfit(Player player, WinLoseInfo info) {
+		if (info == WinLoseInfo.BLACKJACK) {
+			return 1.5 * player.getBettingMoney();
+		} else if (info == WinLoseInfo.WIN) {
+			return player.getBettingMoney();
+		} else if (info == WinLoseInfo.LOSE) {
+			return - player.getBettingMoney();
 		}
-		output.add(sum);
-		return output;
+		return 0.0;
 	}
 }
