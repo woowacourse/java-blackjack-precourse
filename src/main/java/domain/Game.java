@@ -132,16 +132,26 @@ public class Game {
     }
 
     public void askOneMoreCard(int i) {
-        String answer;
         System.out.println(player.get(i).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
-        answer = sc.next();
-        if (Objects.equals(answer, "y")) {
+        String answer = sc.next();
+        boolean flag = true;
+        if (Objects.equals(answer, "y") && flag) {
             player.get(i).addCard(cards.remove(cards.size() - 1));
-            askOneMoreCard(i);
+            flag = checkCurrScore(i);
         }
-        if (Objects.equals(answer, "n")) {
+        if(Objects.equals(answer, "n") || !flag){
             return;
         }
+        askOneMoreCard(i);
+    }
+
+    public boolean checkCurrScore(int i) {
+        if(player.get(i).sumScore() > BLACKJACK) {
+            player.get(i).getBettingMoney(0);
+            System.out.println("21을 초과하여 게임에서 지셨습니다.");
+            return false;
+        }
+        return true;
     }
 
    /* public boolean checkBlackJack(boolean flag) {
