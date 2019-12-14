@@ -62,7 +62,7 @@ public class BlackJackGame {
 	private void showInitialDeal() {
 		System.out.println(
 				"딜러와 " + String.join(",", Arrays.asList(playerNames)) + "에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.");
-		System.out.println("딜러 : " + dealer.showCardInfo());
+		System.out.println("딜러 : " + dealer.showInitialCardInfo());
 		for (Player player : playerList) {
 			System.out.println(player.getName() + " : " + player.showCardInfo());
 		}

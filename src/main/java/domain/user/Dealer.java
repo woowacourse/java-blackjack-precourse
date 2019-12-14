@@ -19,6 +19,11 @@ public class Dealer {
 		cards.add(card);
 	}
 
+	public String showInitialCardInfo() {
+		final int FIRST_INDEX = 0;
+		return cards.get(FIRST_INDEX).toString();
+	}
+	
 	public String showCardInfo() {
 		String cardInfo = "";
 		for (Card card : cards) {
