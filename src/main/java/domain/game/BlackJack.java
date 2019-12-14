@@ -1,7 +1,5 @@
 package domain.game;
 
-import domain.card.Card;
-import domain.card.CardFactory;
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;

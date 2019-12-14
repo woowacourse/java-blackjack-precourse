@@ -26,6 +26,7 @@ public class Deck {
         cardList = CardFactory.create();
         cardIterator = 0;
     }
+
     /**
      * drawCard 메서드는 카드를 한 장 뽑아 반환하고, iterator 값을 올려준다.
      * 카드의 리스트는 생성시 셔플되므로, 이를 선형으로 순회하게 되면
