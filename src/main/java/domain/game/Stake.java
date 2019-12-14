@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import domain.user.Contender;
+import domain.user.Contenders;
 import domain.user.Dealer;
 
 public class Stake {
     private HashMap<String, Double> stake = new HashMap<>();
 
-    public Stake(List<Contender> contenders) {
+    public Stake(Contenders contenders) {
         for (Contender contender : contenders) {
             stake.put(contender.getName(), contender.getBettingMoney());
         }

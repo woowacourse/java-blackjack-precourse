@@ -5,6 +5,7 @@ import domain.game.Deck;
 import domain.game.Discriminator;
 import domain.game.Stake;
 import domain.user.Contender;
+import domain.user.Contenders;
 import domain.user.Dealer;
 import domain.user.Player;
 import ui.Input;
@@ -12,7 +13,7 @@ import ui.Input;
 public class Game {
     private Input input = new Input();
     private Deck deck = new Deck();
-    private List<Contender> contenders = new ArrayList<>();
+    private Contenders contenders = new Contenders();
     private Dealer dealer = new Dealer();
     private Stake stake;
 
@@ -34,17 +35,13 @@ public class Game {
     }
 
     private void giveFirstPair() {
-        for (Contender contender : contenders) {
-            contender.drawPairFrom(deck);
-        }
+        contenders.eachDrawsPair(deck);
         dealer.drawPairFrom(deck);
     }
 
     private void printContenders() {
         System.out.println("\n" + dealer);
-        for (Contender contender : contenders) {
-            System.out.println(contender);
-        }
+        System.out.println(contenders);
     }
 
     private void askPlayer(Contender contender) {
@@ -63,9 +60,7 @@ public class Game {
 
     private void showResult() {
         System.out.println(dealer + " - 결과: " + dealer.getSum());
-        for (Contender contender : contenders) {
-            System.out.println(contender + " - 결과: " + contender.getSum());
-        }
+        contenders.printResult();
     }
 
     private void calculateStake() {
