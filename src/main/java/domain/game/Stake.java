@@ -9,11 +9,9 @@ import domain.user.Contender;
 import domain.user.Dealer;
 
 public class Stake {
-    private static final double ZERO = 0;
-    private HashMap<String, Double> stake;
+    private HashMap<String, Double> stake = new HashMap<>();
 
     public Stake(List<Contender> contenders) {
-        this.stake = new HashMap<>();
         for (Contender contender : contenders) {
             stake.put(contender.getName(), contender.getBettingMoney());
         }
@@ -29,7 +27,7 @@ public class Stake {
     }
 
     private double getTotal() {
-        double total = ZERO;
+        double total = 0;
         for (double bettingMoney : stake.values()) {
             total += bettingMoney;
         }

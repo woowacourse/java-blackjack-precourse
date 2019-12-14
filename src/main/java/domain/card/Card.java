@@ -20,11 +20,13 @@ public class Card {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Card card = (Card)o;
         return symbol == card.symbol &&
-                type == card.type;
+            type == card.type;
     }
 
     @Override

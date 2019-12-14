@@ -8,10 +8,8 @@ import domain.user.Contender;
 import domain.user.Dealer;
 
 public class Discriminator {
-    List<Contender> survivors;
-    List<Contender> blackJacks;
-    Contender firstSurvivor;
-    Dealer dealer;
+    private List<Contender> survivors;
+    private Dealer dealer;
 
     public Discriminator(List<Contender> contenders, Dealer dealer) {
         this.dealer = dealer;
@@ -20,20 +18,18 @@ public class Discriminator {
             .filter(Contender::notBusted)
             .sorted()
             .collect(Collectors.toList());
-        this.blackJacks = this.survivors.stream().filter(Contender::isBlackJack).collect(Collectors.toList());
-        this.firstSurvivor = survivors.get(0);
     }
 
     public List<Contender> discrimination() {
         return getWinners();
     }
 
-    private boolean sameWithDealer(Contender survivor) {
+    private boolean scoreEqualsToDealer(Contender survivor) {
         return survivor.getSum() == dealer.getSum();
     }
 
-    private boolean sameWithFirst(Contender survivor) {
-        return survivor.getSum() == firstSurvivor.getSum();
+    private boolean scoreEqualsToFirst(Contender survivor) {
+        return survivor.getSum() == survivors.get(0).getSum();
     }
 
     private List<Contender> getWinners() {
@@ -44,24 +40,24 @@ public class Discriminator {
     }
 
     private List<Contender> getBlackJacks() {
-        if (dealer.isBlackJack() || firstSurvivor.isBlackJack()) {
-            return blackJacks;
+        if (dealer.isBlackJack() || survivors.get(0).isBlackJack()) {
+            return survivors.stream().filter(Contender::isBlackJack).collect(Collectors.toList());
         }
         return playerLoses();
     }
 
     private List<Contender> playerLoses() {
-        if (firstSurvivor.getSum() < dealer.getSum()) {
+        if (survivors.get(0).getSum() < dealer.getSum()) {
             return new ArrayList<>();
         }
         return draws();
     }
 
     private List<Contender> draws() {
-        if (firstSurvivor.getSum() == dealer.getSum()) {
-            return survivors.stream().filter(this::sameWithDealer).collect(Collectors.toList());
+        if (survivors.get(0).getSum() == dealer.getSum()) {
+            return survivors.stream().filter(this::scoreEqualsToDealer).collect(Collectors.toList());
         }
-        return survivors.stream().filter(this::sameWithFirst).collect(Collectors.toList());
+        return survivors.stream().filter(this::scoreEqualsToFirst).collect(Collectors.toList());
     }
 
     // 딜러의 중도 탈락

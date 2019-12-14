@@ -7,11 +7,12 @@ import domain.card.Card;
 import domain.game.Deck;
 
 public abstract class Contender implements Comparable<Contender> {
-    private static final int PAIR_NUMBER = 2;
     public static final int BLACK_JACK_NUMBER = 21;
+    private static final int PAIR_NUMBER = 2;
     private final List<Card> cards = new ArrayList<>();
 
     public abstract String getName();
+
     public abstract double getBettingMoney();
 
     public void addCard(Card card) {
@@ -33,7 +34,7 @@ public abstract class Contender implements Comparable<Contender> {
     }
 
     public boolean isBlackJack() {
-        return getSum() == BLACK_JACK_NUMBER && cards.size() == 2;
+        return getSum() == BLACK_JACK_NUMBER && cards.size() == PAIR_NUMBER;
     }
 
     public int getSum() {
