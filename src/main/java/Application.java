@@ -6,6 +6,8 @@ public class Application {
         Input input = new Input();
         Deck deck = new Deck();
         input.getNames();
-        System.out.println(deck.draw());
+        for (int i = 0; i < 5; i++) {
+            System.out.println(deck.draw());
+        }
     }
 }
