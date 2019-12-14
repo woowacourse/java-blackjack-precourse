@@ -63,6 +63,7 @@ public class Blackjack {
 	}
 
 	private void drawCardsEachUser() {
+		Console.printDistribution();
 		for (User user : users) {
 			drawCardTwice(user);
 			Console.printCardsOwnedBy(user, false);
