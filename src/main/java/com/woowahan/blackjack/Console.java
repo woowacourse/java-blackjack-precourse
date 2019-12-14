@@ -1,6 +1,5 @@
 package com.woowahan.blackjack;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 import com.woowahan.user.User;
