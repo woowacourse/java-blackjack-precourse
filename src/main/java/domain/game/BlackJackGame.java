@@ -22,7 +22,6 @@ public class BlackJackGame {
 	private Dealer dealer;
 	private String[] playerNames;
 	private List<Player> playerList = new ArrayList<>();
-	private HashMap<String, Integer> playerScoreMap = new HashMap<>();
 	private HashMap<String, Double> playerRewardMap = new HashMap<>();
 	private double dealerReward;
 	Scanner input = new Scanner(System.in);
@@ -39,6 +38,8 @@ public class BlackJackGame {
 		
 		playersTurn();
 		dealerTurn();
+		
+		showGameScore();
 	}
 	
 	private void inputPlayerInfos() {
@@ -78,7 +79,6 @@ public class BlackJackGame {
 				playerRewardMap.put(player.getName(), player.getBettingMoney() * LOSE_RATIO);
 				dealerReward += player.getBettingMoney();
 			}
-			playerScoreMap.put(player.getName(), playerScore);
 		}
 	}
 	
@@ -116,10 +116,22 @@ public class BlackJackGame {
 	}
 	
 	private void dealerTurn() {
+		System.out.println();
 		while (dealer.getDealerScore() <= DEALER_BORDER_SCORE) {
 			System.out.println("딜러는 " + DEALER_BORDER_SCORE + "이하라 한장의 카드를 더 받았습니다.");
 			dealer.addCard(cardShoe.getOneCard());
 		}
+		System.out.println();
+	}
+	
+	private void showGameScore() {
+		System.out.print("딜러 : ");
+		System.out.println(dealer.showCardInfo() + "-" + dealer.getDealerScore());
+		for (Player player : playerList) {
+			System.out.print(player.getName() + " : ");
+			System.out.println(player.showCardInfo() + "-" + player.getPlayerScore());
+		}
+		System.out.println();
 	}
 	
 }
