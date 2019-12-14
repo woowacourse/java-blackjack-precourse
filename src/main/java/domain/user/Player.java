@@ -38,4 +38,14 @@ public class Player {
         }
         return point;
     }
+
+    public boolean completeBlackJack() {
+        if (getCardsPoint() == 21) {
+            return true;
+        }
+        if ((getCardsPoint() == 11) && cardsContainsAce()) {
+            return true;
+        }
+        return false;
+    }
 }
