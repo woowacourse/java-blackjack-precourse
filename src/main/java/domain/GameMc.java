@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class GameMc {
     private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Player> dead = new ArrayList<Player>();
     private String playerNames;
     private List<Integer> isPickedCard = new ArrayList<Integer>();
     private Dealer dealer = new Dealer();
@@ -57,6 +58,7 @@ public class GameMc {
             dealer.addCard(makeRandomCard());
         }
     }
+
     public void init(Player player) {
         for (int i = 0; i < 2; i++) {
             player.addCard(makeRandomCard());
@@ -113,15 +115,40 @@ public class GameMc {
         System.out.println("\n\n## 최종수익");
         System.out.println("딜러 : 0");
     }
+
     public void isWinner(Player player) {
         if (player.getScore() < dealer.getScore()) {
             System.out.println(player.getName() + " : -" + player.getBettingMoney());
-        } else if (player.getScore() == dealer.getScore()){
+        } else if (player.getScore() == dealer.getScore()) {
             System.out.println(player.getName() + " : 0");
-        } else if (player.getScore() == 21 && dealer.getScore() != 21){
-            System.out.println(player.getName() + " : " + player.getBettingMoney()*1.5);
-        } else if (player.getScore() > dealer.getScore()){
+        } else if (player.getScore() == 21 && dealer.getScore() != 21) {
+            System.out.println(player.getName() + " : " + player.getBettingMoney() * 1.5);
+        } else if (player.getScore() > dealer.getScore()) {
             System.out.println(player.getName() + " : " + player.getBettingMoney());
         }
     }
+
+    public void askHit() {
+        for (Player player : players) {
+            isHit(player);
+        }
+    }
+
+    public void isHit(Player player) {
+        System.out.println("\n"+player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
+        String answer = Input();
+        if ("y".equals(answer)) {
+            hit(player,answer);
+        }
+    }
+
+    public void hit(Player player,String answer) {
+        while ("y".equals(answer)){
+            player.addCard(makeRandomCard());
+            player.showCard();
+            System.out.println("\n"+player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
+            answer = Input();
+        }
+    }
+
 }

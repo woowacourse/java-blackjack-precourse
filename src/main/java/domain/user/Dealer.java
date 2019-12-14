@@ -23,7 +23,6 @@ public class Dealer {
     public void showInitCard(){
         System.out.print("\n딜러 : "+cards.get(1));
     }
-
     public void showFinalCard(){
         System.out.print("\n\n딜러카드 : ");
         for (Card card:cards){
@@ -37,12 +36,12 @@ public class Dealer {
         }
         return cards.stream().mapToInt(Card::getScore).sum();
     }
-
     public int getScoreIncludeA(){
         if (cards.stream().mapToInt(Card::getScore).sum() < 12){
             return cards.stream().mapToInt(Card::getScore).sum()+10;
         }
         return cards.stream().mapToInt(Card::getScore).sum();
     }
+
 
 }

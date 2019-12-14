@@ -1,12 +1,9 @@
 package domain;
 
-import domain.card.Card;
-import domain.card.CardFactory;
-import domain.card.Symbol;
+import domain.user.Player;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -15,17 +12,9 @@ public class Main {
         Mc.gameMc();
         Mc.gameStart();
         Mc.isBlackJack();
+        Mc.askHit();
 
         Mc.endGame();
-
-//        List<Card> card = CardFactory.create();
-//        ArrayList<Card> deck = new ArrayList<Card>();
-//        deck.add(card.get(1));
-//        deck.add(card.get(30));
-//        System.out.println(deck);
-//
-//        System.out.println(deck.toString().contains("A"));
-
 
     }
 }
