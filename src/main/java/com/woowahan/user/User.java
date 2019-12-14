@@ -12,9 +12,9 @@ public class User {
 		cards.add(card);
 	}
 
-	private void removeLastComma(String stringWithComma) {
+	private void removeLastComma(StringBuilder stringWithComma) {
 		int len = stringWithComma.length();
-		stringWithComma = stringWithComma.substring(0, len - 2);
+		stringWithComma.delete(len-2, len);
 	}
 
 	protected String getCardsStringWithComma() {
@@ -24,7 +24,7 @@ public class User {
 			cardsStringWithComma.append(", ");
 		}
 
-		removeLastComma(cardsStringWithComma.toString());
+		removeLastComma(cardsStringWithComma);
 
 		return cardsStringWithComma.toString();
 	}
