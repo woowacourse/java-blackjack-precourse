@@ -16,8 +16,8 @@ public class Rule {
 		return user.isScoreGreaterThan(BEST_SCORE);
 	}
 
-	public static boolean isPush(User dealer, User player) {
-		return dealer.isScore(player.getSumOfCards());
+	public static boolean isWin(User dealer, User player) {
+		return !isBust(dealer) && dealer.isScoreGreaterThan(player.getSumOfCards());
 	}
 
 	public static boolean canGetMoreCards(User user) {
