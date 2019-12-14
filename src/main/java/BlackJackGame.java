@@ -1,4 +1,5 @@
 import java.util.*;
+
 import domain.user.User;
 
 public class BlackJackGame {
@@ -6,14 +7,20 @@ public class BlackJackGame {
     Map<String, Integer> playerInfo = new HashMap<String, Integer>();
     Scanner scanner = new Scanner(System.in);
 
-
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
         blackJackGame.playGame();
     }
 
     private void playGame() {
-
+        boolean loop = false;
+        startGame();
+        firstProceedGame();
+        secondProceedGame();
+        do {
+            loop = !proceedGame();
+        } while (loop);
+        endGame();
     }
 
     private void startGame() {
@@ -23,8 +30,16 @@ public class BlackJackGame {
         }
     }
 
-    private void proceedGame() {
+    private void firstProceedGame() {
 
+    }
+
+    private void secondProceedGame() {
+
+    }
+
+    private boolean proceedGame() {
+        return true;
     }
 
     private void endGame() {

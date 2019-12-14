@@ -4,7 +4,7 @@ import java.util.HashSet;
 public class PlayerNamingChecker {
 
     boolean playerNamingCheck(String playerNames) {
-        if(playerNamingCheckBlank(playerNames)) {
+        if (playerNamingCheckBlank(playerNames)) {
             return false;
         }
         return true;
@@ -15,7 +15,7 @@ public class PlayerNamingChecker {
         for (String playerName : playerNames.split(",")) {
             checkBlankSet.add(playerName.trim().isEmpty());
         }
-        if(checkBlankSet.contains(true)) {
+        if (checkBlankSet.contains(true)) {
             return true;
         }
         return false;
