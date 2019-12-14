@@ -23,14 +23,24 @@ public abstract class User {
     	return false;
     }
 
-	void userCardInfo(List<Card> cards) {
+	void userCardsInfo(List<Card> cards, String name) {
+		System.out.print(name + "카드 : ");
 		for (int i = 0; i < cards.size() - 2; i++) {
 			System.out.print(cards.get(i).cardInfo() + ", ");
 		}
 		System.out.print(cards.get(cards.size() - 1).cardInfo());
 	}
 
-	void userCardInfo(List<Card> cards, String dealer) {
+	void userCardsInfo(List<Card> cards) {
+		System.out.print("딜러 : ");
 		System.out.print(cards.get(0).cardInfo());
+	}
+
+	void userSumNumbers() {
+		System.out.println(" - 결과 : " + sumNumbers);
+	}
+
+	void userProfit(String name) {
+		System.out.println(name + " : " + profit);
 	}
 }
