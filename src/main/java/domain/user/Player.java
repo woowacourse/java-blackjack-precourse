@@ -24,32 +24,32 @@ public class Player {
         cards.add(card);
     }
 
-    public void showCard(){
-        System.out.print("\n"+name+" : ");
-        for (Card card :this.cards){
-            System.out.print(card+" ");
+    public void showCard() {
+        System.out.print("\n" + name + " : ");
+        for (Card card : this.cards) {
+            System.out.print(card + " ");
         }
     }
 
-    public int getScore(){
-        if(cards.toString().contains("A")){
+    public int getScore() {
+        if (cards.toString().contains("A")) {
             return getScoreIncludeA();
         }
         return cards.stream().mapToInt(Card::getScore).sum();
     }
 
-    public int getScoreIncludeA(){
-        if (cards.stream().mapToInt(Card::getScore).sum() < 12){
-            return cards.stream().mapToInt(Card::getScore).sum()+10;
+    public int getScoreIncludeA() {
+        if (cards.stream().mapToInt(Card::getScore).sum() < 12) {
+            return cards.stream().mapToInt(Card::getScore).sum() + 10;
         }
         return cards.stream().mapToInt(Card::getScore).sum();
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public double getBettingMoney(){
+    public double getBettingMoney() {
         return bettingMoney;
     }
 

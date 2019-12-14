@@ -88,34 +88,52 @@ public class GameMc {
 
     public void isBlackJack() {
         if (makeScoreList().contains(21)) {
-            endGame();
+            blackjackEnding();
+        }
+    }
+
+    public void blackjackEnding(){
+        int participant = players.size();
+        players.removeIf(n->(n.getScore()!=21));
+        if(dealer.getScore()==21){
+            everyonePrincipal();
+        }
+        for (Player player : players){
+            System.out.println(player.getName()+" : "+player.getBettingMoney()*1.5);
         }
     }
 
     public void endGame() {
         finalScoring();  //최종 보유 카드와 점수
         System.out.println("\n\n## 최종수익\n딜러 : 0");
-        if (dealer.getScore() > 21){
+        if (dealer.getScore() > 21) {
             everyoneWin();
         }
         for (Player player : players) {
             awardWinner(player);
         }
-        for (Player looser : looser){
-            System.out.println(looser.getName()+" : -"+looser.getBettingMoney());
+        for (Player looser : looser) {
+            System.out.println(looser.getName() + " : -" + looser.getBettingMoney());
         }
         System.exit(0);
     }
 
-    public void everyoneWin(){
+    public void everyoneWin() {
+        for (Player player : players) {
+            System.out.println(playerNames + " : " + player.getBettingMoney());
+        }
+        System.exit(0);
+    }
+
+    public void everyonePrincipal(){
         for (Player player : players){
-            System.out.println(playerNames+" : "+player.getBettingMoney());
+            System.out.println(playerNames + " : 0");
         }
         System.exit(0);
     }
 
     public void finalScoring() {
-        for (Player looser : looser){
+        for (Player looser : looser) {
             players.remove(looser);
         }
         Iterator iter = makeScoreList().iterator();
@@ -164,8 +182,8 @@ public class GameMc {
         }
     }
 
-    public void addDealerCard(){
-         while (dealer.getScore() < 17){
+    public void addDealerCard() {
+        while (dealer.getScore() < 17) {
             dealer.addCard(makeRandomCard());
         }
     }
