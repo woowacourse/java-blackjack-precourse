@@ -5,9 +5,11 @@ import java.util.List;
 
 import domain.card.Card;
 import domain.card.CardDeck;
+import domain.rule.Rule;
 import domain.user.Dealer;
 import domain.user.Player;
 import view.InputView;
+import view.OutputView;
 
 public class BlackjackController {
 	private final CardDeck cardDeck = new CardDeck();
@@ -35,7 +37,15 @@ public class BlackjackController {
 		}
 	}
 
+	private void printFaceUpCards() {
+		OutputView.printCards(dealer.getName(), dealer.getFaceUpCards());
+		for (Player player : players) {
+			OutputView.printCards(player.getName(), player.getCards());
+		}
+	}
+
 	public void run() {
 		giveTwoCard();
+		printFaceUpCards();
 	}
 }
