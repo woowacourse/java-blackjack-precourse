@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ê²Œì„ ë”œëŸ¬ë¥¼ ì˜ë¯¸í•˜ëŠ” ê°ì²´
+ * °ÔÀÓ µô·¯¸¦ ÀÇ¹ÌÇÏ´Â °´Ã¼
  */
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
@@ -17,5 +17,4 @@ public class Dealer {
         cards.add(card);
     }
 
-    // TODO ì¶”ê°€ ê¸°ëŠ¥ êµ¬í˜„
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ê²Œì„ ì°¸ì—¬ìë¥¼ ì˜ë¯¸í•˜ëŠ” ê°ì²´
+ * °ÔÀÓ Âü¿©ÀÚ¸¦ ÀÇ¹ÌÇÏ´Â °´Ã¼
  */
 public class Player {
     private final String name;
@@ -21,7 +21,5 @@ public class Player {
     public void addCard(Card card) {
         cards.add(card);
     }
-
-    // TODO ì¶”ê°€ ê¸°ëŠ¥ êµ¬í˜„
 
 }
