@@ -52,4 +52,11 @@ public class BlackjackManager {
         if (newCard.equals(addedCard))
             availableToGive = false;
     }
+
+    void giveInitialCards() {
+        for (int i = 0; i < participants.size(); i++) {
+            giveCardToParticipant(participants.get(i));
+            giveCardToParticipant(participants.get(i));
+        }
+    }
 }
