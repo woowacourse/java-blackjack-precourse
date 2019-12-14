@@ -36,14 +36,21 @@ public class Stake {
         return total;
     }
 
+    public void calculate(List<Contender> winners) {
+        for (Contender winner : winners) {
+            stake.put(winner.getName(), winner.getBettingMoney());
+            stake.put(Dealer.NAME, stake.get(Dealer.NAME) - winner.getBettingMoney());
+        }
+    }
+
     @Override
     public String toString() {
         Set<String> players = new HashSet<>(stake.keySet());
         players.remove(Dealer.NAME);
         StringBuilder sb = new StringBuilder("\n## 최종수익\n");
-        sb.append(Dealer.NAME + ": " + stake.get(Dealer.NAME) + "\n");
+        sb.append(Dealer.NAME + ": ").append(stake.get(Dealer.NAME)).append("\n");
         for (String key : players) {
-            sb.append(key + ": " + stake.get(key) + "\n");
+            sb.append(key).append(": ").append(stake.get(key)).append("\n");
         }
         return sb.toString();
     }
