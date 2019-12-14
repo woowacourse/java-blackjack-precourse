@@ -109,18 +109,22 @@ public class GameManager {
 			boolean flag = read().matches(yReg);
 			iterCard(flag, currentPlayer);
 		}
-		exitGame(true);
+		printResult();
 	}
 
 	public void iterCard(boolean flag, Player currentPlayer) {
 		while (flag) {
-			String yReg = "^[yY]$";
 			currentPlayer.addCard(handOutCard());
 			write(currentPlayer.toString() + "\n");
-			exitGame(isFinished(currentPlayer));
-			write(currentPlayer.getName() + "는 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)\n");
-			flag = read().matches(yReg);
+			flag = isContinued(currentPlayer);
 		}
+	}
+	
+	public boolean isContinued(Player currentPlayer) {
+		if(isFinished(currentPlayer)) return false;
+		String yReg = "^[yY]$";
+		write(currentPlayer.getName() + "는 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)\n");
+		return read().matches(yReg);
 	}
 
 	public void printCards() {
@@ -131,13 +135,6 @@ public class GameManager {
 
 	public boolean isFinished(Player currentPlayer) {
 		return currentPlayer.sumScore() >= 21;
-	}
-
-	public void exitGame(boolean flag) {
-		if (flag) {
-			printResult();
-			System.exit(0);
-		}
 	}
 
 	public void printResult() {
