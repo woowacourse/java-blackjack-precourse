@@ -12,6 +12,7 @@ import domain.user.Player;
 public class BlackJackGame {
 	private static final int FIRST_INDEX = 0;
 	private static final int INITIAL_CARDS = 2;
+	private static final int DEALER_BORDER_SCORE = 16;
 	private static final int BLACKJACK_SCORE = 21;
 	private static final double LOSE_RATIO = -1.0;
 	private static final double BLACKJACK_RATIO = 1.5;
@@ -37,6 +38,7 @@ public class BlackJackGame {
 		showInitialDeal();
 		
 		playersTurn();
+		dealerTurn();
 	}
 	
 	private void inputPlayerInfos() {
@@ -111,6 +113,13 @@ public class BlackJackGame {
 			dealerReward -= player.getBettingMoney() * BLACKJACK_RATIO;
 		}
 		return playerScore;
+	}
+	
+	private void dealerTurn() {
+		while (dealer.getDealerScore() <= DEALER_BORDER_SCORE) {
+			System.out.println("딜러는 " + DEALER_BORDER_SCORE + "이하라 한장의 카드를 더 받았습니다.");
+			dealer.addCard(cardShoe.getOneCard());
+		}
 	}
 	
 }
