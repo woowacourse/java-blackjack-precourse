@@ -1,10 +1,9 @@
 package domain;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Participant;
 import domain.user.Player;
-import sun.print.BackgroundLookupListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,5 +28,10 @@ public class BlackjackManager {
 
     void makeCard(){
         cards = cardFactory.create();
+    }
+
+    void giveCard(Participant participant){
+        int cardIndex = (int) (Math.random() * cards.size());
+        participant.addCard(cards.get(cardIndex));
     }
 }
