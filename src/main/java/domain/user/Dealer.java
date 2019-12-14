@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
+    private double cost = 0;
 
     public Dealer() {}
 
@@ -24,6 +25,14 @@ public class Dealer {
             score += cards.get(i).getScore();
         }
         return score;
+    }
+
+    public void addCost(double playerCost) {
+        cost += playerCost;
+    }
+
+    public double finalCost() {
+        return cost;
     }
 
     public String getCard() {
