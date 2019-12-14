@@ -22,4 +22,8 @@ public class Dealer {
     public void showCard(){
         System.out.println("딜러 : "+cards.get(1));
     }
+
+    public int getScore(){
+        return cards.stream().mapToInt(Card::getScore).sum();
+    }
 }

@@ -50,6 +50,17 @@ public class GameMc {
         return card.get(cardIdx);
     }
 
+    public void init(Dealer dealer){
+        for(int i=0;i<2;i++){
+            dealer.addCard(makeRandomCard());
+        }
+    }
+    public void init(Player player){
+        for(int i=0;i<2;i++){
+            player.addCard(makeRandomCard());
+        }
+    }
+
     public void gameStart(){
         System.out.println("딜러와 " +nameInput+"에게 2장씩 나누었습니다.");
         init(dealer);
@@ -62,14 +73,12 @@ public class GameMc {
         }
     }
 
-    public void init(Dealer dealer){
-        for(int i=0;i<2;i++){
-            dealer.addCard(makeRandomCard());
+    public ArrayList<Integer> makeScoreList(){
+        ArrayList<Integer> scoreList = new ArrayList<Integer>();
+        scoreList.add(dealer.getScore());
+        for (Player player : players){
+            scoreList.add(player.getScore());
         }
-    }
-    public void init(Player player){
-        for(int i=0;i<2;i++){
-            player.addCard(makeRandomCard());
-        }
+        return scoreList;
     }
 }
