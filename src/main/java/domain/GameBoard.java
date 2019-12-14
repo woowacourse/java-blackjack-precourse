@@ -166,12 +166,20 @@ public class GameBoard {
         }
 
         if (!(winner.isEmpty()) && winner.size() == 1) {
+            if (winner.get(0).getClass() == Dealer.class) {             //딜러 승리 ( 플레이어 중 동점자 없을 시)
+                dealerWin();
+            }
+        }
+
+        if (!(winner.isEmpty()) && winner.size() != 1) {
+            if (winner.get(0).getClass() == Dealer.class) {             //딜러 승리 ( 플레이어 중 동점자 있을 시)
+                draw();
+            }
+        }
+
+        if (!(winner.isEmpty())) {
             if (winner.get(0).getClass()!=Dealer.class) {             //딜러 패배
                 playerWin(winner);
-            }
-
-            if (winner.get(0).getClass()==Dealer.class) {             //딜러 승리 ( 플레이어 중 동점자 없을 시)
-                dealerWin();
             }
         }
         for (Gamer g : winner) {
@@ -255,8 +263,20 @@ public class GameBoard {
             Player p = (Player) gamer.get(i);
             System.out.println(p.getName() + " : " + p.getStatus());
         }
+    }
 
+    public void draw(List<Gamer> winner) {
+        System.out.println("\n###최종 수익");
+        System.out.println("딜러 : 0");
+        for (Gamer g : winner) {
+            Player p = (Player) g;
+            p.draw();
+        }
 
+        for (int i = 1; i <gamer.size(); i++) {
+            Player p = (Player) gamer.get(i);
+            System.out.println(p.getName() + " : " + p.getStatus());
+        }
     }
 
 }

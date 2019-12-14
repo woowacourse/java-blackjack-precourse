@@ -27,6 +27,9 @@ public class Player extends Gamer {
     public void win() {
         status += 2*bettingMoney;
     }
+    public void draw() {
+        status += bettingMoney;
+    }
 
 
 
