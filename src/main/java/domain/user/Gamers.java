@@ -13,10 +13,10 @@ public class Gamers {
     public Gamers(Dealer dealer, List<Player> players) {
         gamers.add(dealer);
         gamers.addAll(players);
-        initCard(dealer);
     }
 
-    private void initCard(Dealer dealer) {
+    public void initCard() {
+        Dealer dealer = getDealer();
         for (int i = 0; i < 2; i++) {
             gamers.forEach(gamer -> gamer.addCard(dealer.pickCard()));
         }

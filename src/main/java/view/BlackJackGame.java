@@ -18,6 +18,7 @@ public class BlackJackGame {
 
     private BlackJackGame() {
         gamers = new Gamers(new Dealer(new RandomDispenser()), makePlayers());
+        gamers.initCard();
 
         OutputView.showStartStatus(gamers);
     }
