@@ -13,8 +13,8 @@ public class Console {
 	}
 
 	private static void trimStringArray(String[] array) {
-		for (String item : array) {
-			item = item.trim();
+		for (int i = 0; i < array.length; i++) {
+			array[i] = array[i].trim();
 		}
 	}
 
@@ -58,12 +58,12 @@ public class Console {
 	public static boolean inputDrawOrNot(String playerName) {
 		String input = "";
 
-		while (input != "y" && input != "n") {
+		while (!input.equals("y") && !input.equals("n")) {
 			System.out.print(playerName + ", 한장의 카드를 더 받겠습니까? (y/n): ");
 			input = getLine();
 			input = input.trim();
 		}
-		return input == "y";
+		return input.equals("y");
 	}
 
 	public static void printDealerDraw() {
