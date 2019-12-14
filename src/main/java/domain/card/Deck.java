@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Deck {
     private List<Card> cards;
-    private HashMap<Integer, Boolean> cardsOnTable = new HashMap<Integer, Boolean>();
+    public HashMap<Integer, Boolean> cardsOnTable = new HashMap<Integer, Boolean>();
 
     public Deck(List<Card> cards) {
         this.cards = cards;
