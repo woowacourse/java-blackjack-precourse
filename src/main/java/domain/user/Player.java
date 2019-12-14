@@ -21,4 +21,12 @@ public class Player extends Gamer {
     public String toString() {
         return name + " : " + cardsToString(getCards());
     }
+
+    public String cardsToString(List<Card> cards) {
+        StringJoiner stringJoiner = new StringJoiner(", ");
+        for (Card card : cards) {
+            stringJoiner.add(card.toString());
+        }
+        return stringJoiner.toString();
+    }
 }
