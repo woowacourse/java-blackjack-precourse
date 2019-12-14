@@ -20,7 +20,8 @@ public class GameManager {
 
     public void startGame() {
         List<String> playerNames = Arrays.asList(setPlayerNames());//player 이름 입력
-        List<Integer> bettingMoney = setBettingMoney(playerNames);//각 player의 배팅 금액 입력
+        List<Double> bettingMoney = setBettingMoney(playerNames);//각 player의 배팅 금액 입력
+        initializePlayers(playerNames, bettingMoney);
         //딜러, 플레이어 각각 두장의 카드 발급
         //현재 상황 출력
     }
@@ -33,15 +34,22 @@ public class GameManager {
         return playerNamesArray;
     }
 
-    public List<Integer> setBettingMoney(List<String> playerNames){
+    public List<Double> setBettingMoney(List<String> playerNames){
         Scanner sc = SC;
-        List<Integer> bettingMoney = new List<Integer>;
+        List<Double> bettingMoney = new List<Double>;
         for(String tmp: playerNames){
             System.out.println(tmp + "의 배팅 금액은?");
-            Integer input = sc.nextInt();
+            Double input = sc.nextDouble();
             bettingMoney.add(input);
         }
         return bettingMoney;
+    }
+
+    public void initializePlayers(List<String> playerNames, List<Double> bettingMoney){
+        for(int i = 0; i < playerNames.size(); i++){
+            Player p = new Player(playerNames.get(i), bettingMoney.get(i));
+            players.add(p);
+        }
     }
 
 
