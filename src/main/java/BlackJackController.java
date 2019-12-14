@@ -1,4 +1,4 @@
-import view.dto.BlackJackGame;
+import view.BlackJackGame;
 
 public class BlackJackController {
 

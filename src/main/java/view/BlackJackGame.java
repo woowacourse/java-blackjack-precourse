@@ -1,12 +1,12 @@
-package view.dto;
+package view;
 
 import domain.dispenser.RandomDispenser;
 import domain.user.Dealer;
 import domain.user.Gamer;
 import domain.user.Gamers;
 import domain.user.Player;
-import view.InputView;
-import view.OutputView;
+import view.dto.GameResults;
+import view.dto.PlayerDTO;
 
 import java.util.List;
 
