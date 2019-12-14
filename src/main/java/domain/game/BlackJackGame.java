@@ -13,6 +13,7 @@ public class BlackJackGame {
 	private static final int FIRST_INDEX = 0;
 	private static final int INITIAL_CARDS = 2;
 	private static final int BLACKJACK_SCORE = 21;
+	private static final double LOSE_RATIO = -1.0;
 	private static final double BLACKJACK_RATIO = 1.5;
 	private static final char HIT = 'y';
 
@@ -70,7 +71,12 @@ public class BlackJackGame {
 	
 	private void playersTurn() {
 		for (Player player : playerList) {
-			playerScoreMap.put(player.getName(), eachPlayerTurn(player));
+			int playerScore = eachPlayerTurn(player);
+			if (playerScore > BLACKJACK_SCORE) {
+				playerRewardMap.put(player.getName(), player.getBettingMoney() * LOSE_RATIO);
+				dealerReward += player.getBettingMoney();
+			}
+			playerScoreMap.put(player.getName(), playerScore);
 		}
 	}
 	
