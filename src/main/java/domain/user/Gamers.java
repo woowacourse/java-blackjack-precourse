@@ -42,6 +42,10 @@ public class Gamers {
                 .collect(Collectors.joining("\n"));
     }
 
+    public List<Player> isBlackJack() {
+        return players.stream().filter(Player::isBlackJack).collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return players.stream().map(Player::toString).collect(Collectors.joining("\n"));

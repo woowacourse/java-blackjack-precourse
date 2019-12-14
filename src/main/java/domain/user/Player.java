@@ -90,7 +90,7 @@ public class Player {
     }
 
     public void moreCard(Deck deck) {
-        if (isNotBurst() && new Input().asWantMoreCard(this.name)) {
+        if (isNotBurst() && !isBlackJack() && new Input().asWantMoreCard(this.name)) {
             addCard(deck.drawCard());
             Output.showPlayerInfo(this);
 
