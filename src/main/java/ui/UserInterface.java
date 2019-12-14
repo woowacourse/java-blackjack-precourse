@@ -1,4 +1,5 @@
 package ui;
 
-public class UserInterface {
+public interface UserInterface {
+    String[] extractNames();
 }
