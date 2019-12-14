@@ -4,6 +4,7 @@ import domain.card.Card;
 import domain.card.Deck;
 import domain.card.Symbol;
 import domain.manager.Manual;
+import view.output.Output;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,13 +42,14 @@ public class Player {
     public void pickCardFromDeck(Deck deck) {
         Collections.shuffle(deck.getDeck());
 
-        Card card = deck.getDeck()
-                .stream()
-                .findAny()
-                .orElseThrow(IllegalStateException::new);
-
-        deck.removeCardFromDeck(card);
-        addCard(card);
+        try {
+            Card card = deck.getDeck().stream().findAny().orElseThrow(IllegalStateException::new);
+            deck.removeCardFromDeck(card);
+            addCard(card);
+        } catch (IllegalStateException e) {
+            new Output().showMessageCardEmptyClose();
+            System.exit(0);
+        }
     }
 
     public int calculateScore() {

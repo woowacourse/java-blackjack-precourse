@@ -1,6 +1,5 @@
 package domain.manager;
 
-import domain.card.CardFactory;
 import domain.card.Deck;
 import domain.user.Player;
 import domain.user.Table;

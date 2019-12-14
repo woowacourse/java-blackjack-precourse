@@ -62,6 +62,11 @@ public class Output {
         System.out.println("다시 입력하세요.");
     }
 
+    public void showMessageCardEmptyClose() {
+        System.out.println("카드를 모두 소모하였습니다.");
+        System.out.println("게임을 종료합니다.");
+    }
+
     public void showMessageTypeMismatching() {
         System.out.println("양의 숫자 타입만 입력 가능합니다.");
     }
