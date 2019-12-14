@@ -31,4 +31,10 @@ public class Score {
 	return false;
     }
     
+    public boolean isLessthanSeventeen(List<Card> card) {
+	if(getSum(card)<17) {
+	    return true;
+	}
+	return false;
+    }
 }
