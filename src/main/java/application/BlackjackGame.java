@@ -49,7 +49,7 @@ public class BlackjackGame {
 	private void checkBlackjack(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		List<Integer> indexOfBlackjack = findBlackjackIndex(players);
 		updateBlackjackInfo(dealer, indexOfBlackjack, info);
-		OutputView.showBlackjackResult(players, info, indexOfBlackjack);
+		OutputView.showInitialResult(players, info, indexOfBlackjack);
 	}
 	
 	private List<Integer> findBlackjackIndex(Players players) {

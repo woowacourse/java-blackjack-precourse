@@ -18,7 +18,7 @@ public class OutputView {
 		System.out.println();
 	}
 	
-	public static void showBlackjackResult(Players players, List<WinLoseInfo> info, List<Integer> blackjackIndex) {
+	public static void showInitialResult(Players players, List<WinLoseInfo> info, List<Integer> blackjackIndex) {
 		if (blackjackIndex.isEmpty()) {
 			System.out.println("처음에 아무도 블랙잭들 만들지 못했습니다");
 		}
@@ -30,7 +30,7 @@ public class OutputView {
 	private static void showEachResult(Players players, List<WinLoseInfo> info, int index) {
 		System.out.println(players.getPlayerAt(index).getName() + "는 블랙잭입니다.");
 		if (info.get(index) == WinLoseInfo.DRAW) {
-			System.out.println(players.getPlayerAt(index) + "하지만 딜러도 블랙잭으로 무승부 입니다\n");
+			System.out.println("하지만 딜러도 블랙잭으로 무승부 입니다.");
 		}
 	}
 }
