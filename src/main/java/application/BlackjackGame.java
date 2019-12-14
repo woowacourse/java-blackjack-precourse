@@ -2,6 +2,8 @@ package application;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import domain.card.CardDeck;
 import domain.user.Dealer;
@@ -45,15 +47,23 @@ public class BlackjackGame {
 	}
 	
 	private void checkBlackjack(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		for (int i = 0; i < players.getSize(); i++) {
-			Player player = players.getPlayerAt(i);
-			if (player.calculateScore() == BLACKJACK) {
-				if(dealer.calculateScore() == BLACKJACK) {
-					info.set(i,WinLoseInfo.BLACKJACK);
-				}
-				info.set(i,WinLoseInfo.BLACKJACK);
-			}
+		List<Integer> indexOfBlackjack = findBlackjackIndex(players);
+		updateBlackjackInfo(dealer, indexOfBlackjack, info);
+		OutputView.showBlackjackResult(players, info, indexOfBlackjack);
+	}
+	
+	private List<Integer> findBlackjackIndex(Players players) {
+		return players.getPlayers().stream()
+				.filter(player -> (player.calculateScore() == BLACKJACK))
+				.map(player -> players.getPlayers().indexOf(player))
+				.collect(Collectors.toList());
+	}
+	
+	private void updateBlackjackInfo(Dealer dealer, List<Integer> BlackjackIndex, List<WinLoseInfo> info) {
+		if (dealer.calculateScore() == BLACKJACK) {
+			BlackjackIndex.stream().forEach(index -> info.set(index, WinLoseInfo.DRAW));
 		}
+		BlackjackIndex.stream().forEach(index -> info.set(index, WinLoseInfo.BLACKJACK));
 	}
 	
 	private void additionalDrawPhase(Dealer dealer, Players players, CardDeck cardDeck) {

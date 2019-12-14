@@ -29,6 +29,10 @@ public class Players {
 				.forEach(player -> player.drawCard(deck));
 	}
 	
+	public List<Player> getPlayers() {
+		return this.players;
+	}
+	
 	public Player getPlayerAt(int index) {
 		return this.players.get(index);
 	}
