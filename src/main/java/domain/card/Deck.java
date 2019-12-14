@@ -20,9 +20,17 @@ public class Deck {
 
     /**
      * Deck은 생성자 메서드이다.
-     * 새로운 덱을 CardFactory로부터 받고, 이터레이터를 초기화한다.
+     * 새로운 덱을 만든다.
      */
     public Deck() {
+        createDeck();
+    }
+
+    /**
+     * createDeck은 덱을 만드는 메서드이다.
+     * 새로운 덱을 CardFactory로부터 받고, 이터레이터를 초기화한다.
+     */
+    private void createDeck() {
         cardList = CardFactory.create();
         cardIterator = 0;
     }
@@ -33,17 +41,14 @@ public class Deck {
      * 중복 없이 랜덤한 카드가 뽑히는 것을 보장할 수 있다.
      * <p>
      * 카드가 다 떨어지는 극단적인 경우(예를 들어 20명 이상의 플레이어가 3장씩 뽑는다던가 하는 경우)를 고려하여
-     * 카드가 떨어지면 예외를 던지도록 구현하였다.
-     * 다 떨어졌을 때 새로운 덱을 create하는 것도 고려하였으나,
-     * 덱이 다 떨어지는 상황은 예외적 상황으로 보는 것이 더 올바르다고 판단하였다.
+     * 카드가 떨어지면 새 덱을 불러오도록 구현하였다.
      *
      * @return 뽑힌 카드를 반환해준다.
-     * @throws AssertionError 뽑을 카드가 없는 경우, 논리적 에러를 생성한다.
      */
     public Card drawCard() {
         if (cardIterator >= cardList.size()) {
             System.out.print(ConstMessage.ERROR_CARD_EMPTY);
-            throw new AssertionError();
+            createDeck();
         }
         return cardList.get(cardIterator++);
     }
