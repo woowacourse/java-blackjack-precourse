@@ -8,4 +8,12 @@ public class Profit {
 		this.name = name;
 		this.profit = profit;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getProfit() {
+		return profit;
+	}
 }
