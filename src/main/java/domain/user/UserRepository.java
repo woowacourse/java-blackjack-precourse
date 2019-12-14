@@ -3,14 +3,10 @@ package domain.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.card.CardFactory;
 import domain.game.Game;
 import domain.view.ViewInput;
 
 public class UserRepository {
-	private final int firstCardCnt = 2;
-	
-	private Dealer dealer = new Dealer();
 	private List<String> playerNames = new ArrayList<String>();
 	private List<User> userList = new ArrayList<User>();
 	private Game blackJack = Game.getInstance();
@@ -24,6 +20,7 @@ public class UserRepository {
 	}
 	
 	public void makeUserList() {
+		Dealer dealer = new Dealer();
 		userList.add(dealer);
 		
 		for (String name : playerNames) {
@@ -32,5 +29,11 @@ public class UserRepository {
 			userList.add(player);
 		}
 	}
-
+	
+	public void dealOutCard() {
+		for (User user : userList) {
+			blackJack.giveTwoCard(user);
+		}
+	}
+	
 }
