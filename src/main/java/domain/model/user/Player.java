@@ -6,20 +6,18 @@
 package domain.model.user;
 
 import domain.model.card.Card;
-import view.PrintController;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player extends HumanInCasino{
+    private static final String COMMA = ", ";
+    private final List<Card> cards = new ArrayList<>();
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
-    private static final String COMMA = ", ";
 
     public Player(String name, double bettingMoney) {
         this.name = name;

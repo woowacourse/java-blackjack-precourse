@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
+public class Dealer extends  HumanInCasino{
     private final List<Card> cards = new ArrayList<>();
     private static final String COMMA = ", ";
 
