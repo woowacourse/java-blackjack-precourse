@@ -6,7 +6,6 @@ import domain.user.Dealer;
 import domain.user.Participant;
 import domain.user.Player;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +15,16 @@ import java.util.List;
 public class BlackjackManager {
     GamePrinter gamePrinter = new GamePrinter();
     CardFactory cardFactory = new CardFactory();
-    List<Player> players = new ArrayList<>();
+    List<Participant> participants = new ArrayList<>(); // 딜러와 플레이어를 모두 포함하는 리스트
     List<Card> cards;
-    List<Card> addedCards;
-    Dealer dealer = new Dealer();
+    List<Card> addedCards = new ArrayList<>();
 
-    void makePlayer() {
+    void makeParticipants() {
+        participants.add(new Dealer());
         String[] playerName = gamePrinter.getPlayerNameFromUser();
         for (int i = 0; i < playerName.length; i++) {
             int bettingMoney = gamePrinter.getBettingMoneyFromUser(playerName[i]);
-            players.add(new Player(playerName[i], bettingMoney));
+            participants.add(new Player(playerName[i], bettingMoney));
         }
     }
 
