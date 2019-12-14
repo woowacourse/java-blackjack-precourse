@@ -18,6 +18,7 @@ public class BlackjackManager {
     List<Participant> participants = new ArrayList<>(); // 딜러와 플레이어를 모두 포함하는 리스트
     List<Card> cards;
     List<Card> addedCards = new ArrayList<>();
+    List<Participant> winners = new ArrayList<>();
 
     void makeParticipants() {
         participants.add(new Dealer());
@@ -58,5 +59,16 @@ public class BlackjackManager {
             giveCardToParticipant(participants.get(i));
             giveCardToParticipant(participants.get(i));
         }
+    }
+
+    boolean checkBlackjackParticipants(){
+        for(int i = 0; i < participants.size(); i++){
+            if(participants.get(i).getSumScore() == 21) {
+                winners.add(participants.get(i));
+            }
+        }
+        if(winners.size() == 0)
+            return false;
+        return true;
     }
 }
