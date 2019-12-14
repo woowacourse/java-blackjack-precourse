@@ -2,7 +2,6 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class PlayerNamingChecker {
-
     boolean playerNamingCheck(String playerNames) {
         if (playerNamingCheckBlank(playerNames)) {
             return false;

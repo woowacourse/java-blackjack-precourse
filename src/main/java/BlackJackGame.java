@@ -4,8 +4,8 @@ import domain.user.User;
 
 public class BlackJackGame {
     private List<User> users = new ArrayList<User>();
-    Map<String, Integer> playerInfo = new HashMap<String, Integer>();
-    Scanner scanner = new Scanner(System.in);
+    private Map<String, Integer> playerInfo = new HashMap<String, Integer>();
+    private Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
@@ -31,6 +31,7 @@ public class BlackJackGame {
     }
 
     private void firstProceedGame() {
+        System.out.println("딜러와 " + getPlayerNamesALine() + "에게 2장의 카드를 나누었습니다.");
 
     }
 
@@ -66,5 +67,15 @@ public class BlackJackGame {
             bettingMoney = scanner.nextLine().trim();
         } while (!playerBettingMoneyChecker.playerBettingMoneyCheck(bettingMoney));
         return Integer.parseInt(bettingMoney);
+    }
+
+    private String getPlayerNamesALine() {
+        StringBuilder playerNamesALineSB = new StringBuilder();
+        for (String playerName : playerInfo.keySet()) {
+            playerNamesALineSB.append(playerName);
+            playerNamesALineSB.append(", ");
+        }
+        String playerNamesALine = playerNamesALineSB.toString();
+        return playerNamesALine.substring(0, playerNamesALine.length() - 2);
     }
 }
