@@ -36,7 +36,8 @@ public class GameProcess {
         String[] playerNames = userInterfaceMachine.scanNames();
 
         for (String playerName : playerNames) {
-            players.add(new Player(playerName, userInterfaceMachine.scanBetAmountOfPlayer(playerName)));
+            players.add(new Player(playerName,
+                userInterfaceMachine.scanBetAmountOfPlayer(playerName)));
         }
 
         return players;
