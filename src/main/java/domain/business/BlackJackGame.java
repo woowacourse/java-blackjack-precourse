@@ -1,11 +1,12 @@
 /*
- * @(#)BlackJackGame.java       0.2 2019.12.15
+ * @(#)BlackJackGame.java       0.3 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
 
 package domain.business;
 
+import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -16,9 +17,14 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.15
  */
 public class BlackJackGame {
+    /**
+     * 첫 턴에 덱에서 카드를 2개씩 뽑을 때 사용할 상수.
+     */
+    private static final int DRAW_TWICE = 2;
+
     /**
      * 생성된 Player 인스턴스들을 담을 Player 인스턴스 List.
      */
@@ -30,11 +36,17 @@ public class BlackJackGame {
     private Dealer dealer;
 
     /**
+     * 카드를 생성하고 담당할 Deck 인스턴스.
+     */
+    private Deck deck;
+
+    /**
      * 블랙잭 게임을 생성하면 Player List와 Dealer를 생성하는 생성자.
      */
-    public BlackJackGame() {
+    public BlackJackGame() throws Exception {
         players = new ArrayList<>();
         dealer = new Dealer();
+        deck = new Deck();
     }
 
     /**
@@ -45,5 +57,35 @@ public class BlackJackGame {
      */
     public void generatePlayerInstance(String userName, double bettingMoney) {
         players.add(new Player(userName, bettingMoney));
+    }
+
+    /**
+     * Dealer와 Player가 첫 턴에 2장의 카드를 뽑도록 하는 메소드.
+     */
+    public void drawTwoCardsDealerAndPlayer() {
+        drawTwoCardsDealer();
+        for (Player player : players) {
+            drawTwoCardsPlayer(player);
+        }
+    }
+
+    /**
+     * Dealer에게 2장의 카드를 뽑도록 하는 메소드.
+     */
+    private void drawTwoCardsDealer() {
+        for(int i = 0; i < DRAW_TWICE; i++) {
+            dealer.addCard(deck.drawCard());
+        }
+    }
+
+    /**
+     * Player에게 2장의 카드를 뽑도록 하는 메소드.
+     *
+     * @param player Player 한명.
+     */
+    private void drawTwoCardsPlayer(Player player) {
+        for(int i = 0; i < DRAW_TWICE; i++) {
+            player.addCard(deck.drawCard());
+        }
     }
 }
