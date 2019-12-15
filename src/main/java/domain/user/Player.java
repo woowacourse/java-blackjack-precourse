@@ -1,5 +1,5 @@
 /*
- * @(#)Player.java      0.4 2019.12.15
+ * @(#)Player.java      0.5 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,7 +17,7 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.4 2019.12.15
+ * @version 0.5 2019.12.15
  */
 public class Player {
     /**
@@ -34,6 +34,7 @@ public class Player {
      * ACE를 11로 사용할 경우 추가로 더해야 할 숫자로 사용되는 상수.
      */
     private static final int ACE_USED_ELEVEN = 10;
+
     /**
      * Player의 이름을 저장할 변수.
      */
@@ -80,12 +81,20 @@ public class Player {
     }
 
     /**
+     *
+     */
+    public void printFinalResult() {
+        Output out = new Output();
+        out.printUserFinalResult(name, StringUtil.joinCardName(cards), getTotalScore());
+    }
+
+    /**
      * Player가 가지고 있는 모든 카드의 숫자 합을 구하는 메소드.
      * ACE인 경우 추가 연산 완료.
      *
      * @return 가지고 있는 모든 카드의 숫자 총합을 반환.
      */
-    public int getTotalScore() {
+    private int getTotalScore() {
         int totalScore = 0;
 
         for (Card card : cards) {
