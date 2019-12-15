@@ -23,10 +23,6 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
     private void validateName(String name) {
         if (name.length() < MINIMUM_LENGTH_OF_PLAYER_NAME) {
             throw new IllegalArgumentException("각 플레이어의 이름은 1자 이상만 가능합니다.");
@@ -39,4 +35,16 @@ public class Player {
         }
     }
 
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    public String getCards() {
+        String result =  this.name + "의 카드: ";
+        for (Card card : this.cards) {
+            result += card.getCardInfo();
+            result += " ";
+        }
+        return result;
+    }
 }

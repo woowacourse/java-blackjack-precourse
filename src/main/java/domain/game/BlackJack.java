@@ -1,16 +1,33 @@
 package domain.game;
 
-import domain.user.*;
+import domain.card.Deck;
+import domain.user.Dealer;
+import domain.user.Player;
+import domain.user.Players;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class BlackJack {
     private static final String PROMPT_PLAYER_NAMES = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
     private static final String PROMPT_BETTING_MONEY = "의 베팅 금액은?";
 
     public static void main(String[] args) {
+        Dealer dealer = new Dealer();
         Players players = new Players(createPlayers(receiveInput(PROMPT_PLAYER_NAMES)));
-        System.out.println(players);
+
+        Deck deck = new Deck();
+        deck.shuffle();
+
+        dealer.addCard(deck.pop());
+        dealer.addCard(deck.pop());
+
+        players.addCards(deck);
+        players.addCards(deck);
+
+        System.out.println(dealer.getCards());
+        players.getCards().forEach(System.out::println);
     }
 
     private static List<Player> createPlayers(String playerNames) {

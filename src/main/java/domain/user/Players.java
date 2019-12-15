@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.card.Deck;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Players {
@@ -24,5 +25,13 @@ public class Players {
         for (Player player : this.players) {
             player.addCard(deck.pop());
         }
+    }
+
+    public List<String> getCards() {
+        List<String> cardInfos = new ArrayList<>();
+        for (Player player : this.players) {
+            cardInfos.add(player.getCards());
+        }
+        return cardInfos;
     }
 }

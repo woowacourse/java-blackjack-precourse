@@ -17,5 +17,12 @@ public class Dealer {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public String getCards() {
+        String result =  "딜러의 카드: ";
+        for (Card card : this.cards) {
+            result += card.getCardInfo();
+            result += " ";
+        }
+        return result;
+    }
 }
