@@ -1,9 +1,11 @@
 package controller;
 
 import domain.card.Card;
+import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
-import services.BlackJackPlayingService;
+import services.BlackJackInputService;
+import utils.UtilityMethods;
 
 import java.util.List;
 
@@ -12,16 +14,23 @@ public class BlackJackController {
 	private List<Player> players;
 	private Dealer dealer;
 
-	public BlackJackController(List<Card> cardDeck, List<Player> players) {
-		this.cardDeck = cardDeck;
-		this.players = players;
+	public BlackJackController() {
+		this.cardDeck = CardFactory.create();
 		this.dealer = new Dealer();
+		List<String> names = BlackJackInputService.getPlayersName();
 	}
+
+	public void startBlackJack() {}
 
 	private void drawFromCardDeck() {
 		for ( Player player : this.players ) {
-			player.addCard(BlackJackPlayingService.popRandomCard(this.cardDeck));
+			player.addCard(popRandomCard(this.cardDeck));
 		}
-		dealer.addCard(BlackJackPlayingService.popRandomCard(this.cardDeck));
+		dealer.addCard(popRandomCard(this.cardDeck));
+	}
+
+	public Card popRandomCard(List<Card> cards) {
+		int popIndex = UtilityMethods.generateRandomNumber(cards.size());
+		return cards.remove(popIndex);
 	}
 }
