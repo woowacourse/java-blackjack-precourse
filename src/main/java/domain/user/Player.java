@@ -1,12 +1,14 @@
 /*
- * @(#)Player.java      0.2 2019.12.15
+ * @(#)Player.java      0.3 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
 
 package domain.user;
 
+import domain.business.StringUtil;
 import domain.card.Card;
+import domain.ui.Output;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.15
  */
 public class Player {
     /**
@@ -55,4 +57,20 @@ public class Player {
 
     // TODO 추가 기능 구현
 
+    /**
+     * Player가 현재 가지고 있는 카드를 출력하는 메소드.
+     */
+    public void printPlayerCurrentCardStatus() {
+        Output out = new Output();
+        out.printUserCurrentCardStatus(name, StringUtil.joinCardName(cards));
+    }
+
+    /**
+     * name getter
+     *
+     * @return Player 이름 반환.
+     */
+    public String getName() {
+        return name;
+    }
 }

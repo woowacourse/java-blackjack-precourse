@@ -1,5 +1,5 @@
 /*
- * @(#)Card.java        0.1 2019.12.15
+ * @(#)Card.java        0.2 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.1 2019.12.15
+ * @version 0.2 2019.12.15
  */
 public class Card {
     private final Symbol symbol;
@@ -40,11 +40,15 @@ public class Card {
         return Objects.hash(symbol, type);
     }
 
+    /**
+     * 카드의 symbol의 숫자와 type을 문자열로 만들어 반환하는 메소드.
+     * 기존의 코드에서 해당 프로그램에 사용하기 편하도록 리펙토링.
+     *
+     * @return 카드의 symbol의 숫자와 type을 합친 문자열.
+     */
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return symbol.getScore() +
+                " " + type;
     }
 }

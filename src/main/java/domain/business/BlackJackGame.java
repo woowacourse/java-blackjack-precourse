@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       0.3 2019.12.15
+ * @(#)BlackJackGame.java       0.4 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -7,6 +7,7 @@
 package domain.business;
 
 import domain.card.Deck;
+import domain.ui.Output;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -17,13 +18,18 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.15
+ * @version 0.4 2019.12.15
  */
 public class BlackJackGame {
     /**
      * 첫 턴에 덱에서 카드를 2개씩 뽑을 때 사용할 상수.
      */
     private static final int DRAW_TWICE = 2;
+
+    /**
+     * 출력과 관련된 기능을 담당할 Output 인스턴스.
+     */
+    private Output out = new Output();
 
     /**
      * 생성된 Player 인스턴스들을 담을 Player 인스턴스 List.
@@ -60,12 +66,15 @@ public class BlackJackGame {
     }
 
     /**
-     * Dealer와 Player가 첫 턴에 2장의 카드를 뽑도록 하는 메소드.
+     * Dealer와 Player가 첫 턴에 2장의 카드를 뽑고 현재 카드 상태를 출력하는 메소드.
      */
     public void drawTwoCardsDealerAndPlayer() {
+        out.printHandOutTwoCards(StringUtil.joinPlayerName(players));
         drawTwoCardsDealer();
+        dealer.printDealerCurrentCardStatus();
         for (Player player : players) {
             drawTwoCardsPlayer(player);
+            player.printPlayerCurrentCardStatus();
         }
     }
 
