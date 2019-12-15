@@ -85,7 +85,7 @@ public class Dealer {
     }
 
     public boolean isUnderMaxScore() {
-        return MAX_Score >= getCardScore();
+        return MAX_Score > getCardScore();
     }
 
     public boolean isOverMaxScore() {
