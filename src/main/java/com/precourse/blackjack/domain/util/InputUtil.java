@@ -27,6 +27,7 @@ public class InputUtil {
 	private static final int SPLIT_LIMIT = -1;
 	private static final int MINIMUM_PLAYER_NUMBER = 1;
 	private static final int MAXIMUM_PLAYER_NUMBER = 7;
+	private static final int MINIMUM_BETTING_MONEY = 1000;
 
 	public static List<String> readPlayersName() throws IOException {
 		List<String> playersName = Arrays.asList(reader.readLine().replaceAll(SPACE, EMPTY).split(COMMA, SPLIT_LIMIT));
@@ -72,10 +73,16 @@ public class InputUtil {
 
 		try {
 			playerBettingMoney = Integer.parseInt(reader.readLine());
-			// checkBettingMoney(playerBettingMoney); 자연수인지 확인
+			checkMinimumBettingMoney(playerBettingMoney);
 		} catch (IOException | NumberFormatException e) {
 			throw e;
 		}
 		return playerBettingMoney;
+	}
+
+	private static void checkMinimumBettingMoney(double playerBettingMoney) throws IOException {
+		if (playerBettingMoney < MINIMUM_BETTING_MONEY) {
+			throw new IOException("Betting money is less than minimum");
+		}
 	}
 }
