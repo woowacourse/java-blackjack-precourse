@@ -1,5 +1,6 @@
 package domain;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
@@ -10,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class GameMc {
     private ArrayList<Player> players = new ArrayList<Player>();
@@ -33,12 +35,20 @@ public class GameMc {
     }
 
     public int bettingMoneyInput() {
-        int money = Integer.valueOf(Input());
-        while (money <= 0) {
+        String money = Input();
+        System.out.println("isInt : "+isNotInt(money));
+        while (isNotInt(money) || Integer.valueOf(money) <= 0){
+            System.out.println("숫자만 입력해주세요");
             System.out.println("0보다 큰 수를 입력하세요");
-            money = Integer.valueOf(Input());
+            money = Input();
         }
-        return money;
+        return Integer.valueOf(money);
+    }
+
+    public Boolean isNotInt(String str){
+        String pattern = "^[0-9]+$";
+        return !str.matches(pattern);
+
     }
 
     public Card makeRandomCard() {
