@@ -15,11 +15,9 @@ public class OutputView {
 	private static final String PROFIT_FORMAT = "%s: %+d\n";
 
 	private static String concatNameAndCards(String name, List<Card> cards) {
-		String cardNames = String.join(CARD_NAMES_DELIMITER,
-				cards.stream()
-						.map(Card::getName)
-						.collect(Collectors.toList())
-		);
+		String cardNames = cards.stream()
+				.map(Card::getName)
+				.collect(Collectors.joining(CARD_NAMES_DELIMITER));
 		return name + CONCAT_DELIMITER + cardNames;
 	}
 
