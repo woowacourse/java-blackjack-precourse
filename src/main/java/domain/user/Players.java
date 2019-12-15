@@ -30,7 +30,7 @@ public class Players {
     public List<String> getCards() {
         List<String> cardInfos = new ArrayList<>();
         for (Player player : this.players) {
-            cardInfos.add(player.getCards());
+            cardInfos.add(player.getCardInfos());
         }
         return cardInfos;
     }

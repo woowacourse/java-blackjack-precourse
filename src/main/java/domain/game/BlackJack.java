@@ -22,9 +22,8 @@ public class BlackJack {
 
         dealCards(dealer, players, deck);
 
-        System.out.println(dealer.getCards());
+        System.out.println(dealer.getCardInfos());
         players.getCards().forEach(System.out::println);
-
     }
 
     private static void dealCards(Dealer dealer, Players players, Deck deck) {

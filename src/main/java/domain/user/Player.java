@@ -39,7 +39,11 @@ public class Player {
         cards.add(card);
     }
 
-    public String getCards() {
+    public List<Card> getCards() {
+        return this.cards;
+    }
+
+    public String getCardInfos() {
         String result =  this.name + "의 카드: ";
         for (Card card : this.cards) {
             result += card.getCardInfo();

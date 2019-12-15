@@ -17,7 +17,11 @@ public class Dealer {
         cards.add(card);
     }
 
-    public String getCards() {
+    public List<Card> getCards() {
+        return this.cards;
+    }
+
+    public String getCardInfos() {
         String result =  "딜러의 카드: ";
         for (Card card : this.cards) {
             result += card.getCardInfo();
