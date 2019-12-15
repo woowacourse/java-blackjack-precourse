@@ -13,9 +13,13 @@ import java.util.List;
 
 public class Validator {
     public static final int PLAYER_NAME_MAX_SIZE = 10;
+    public static final int MAX_PLAYER_NUMBER = 8;
 
     public boolean isValidName(List<String> input) {
         boolean validation = true;
+        if (isOverMaxPlayerNumber(input)) {
+            return false;
+        }
         Iterator itr = input.iterator();
         while (itr.hasNext() && validation) {
             String playerName = (String) itr.next();
@@ -36,6 +40,10 @@ public class Validator {
             return true;
         }
         return false;
+    }
+
+    public boolean isOverMaxPlayerNumber(List<String> input) {
+        return input.size() > MAX_PLAYER_NUMBER;
     }
 
     public boolean isValidBettingAmount(int input) {
