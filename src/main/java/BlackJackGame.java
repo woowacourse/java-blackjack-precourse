@@ -9,7 +9,7 @@ import static domain.card.CardDeck.drawACard;
 public class BlackJackGame {
     private List<User> users = new ArrayList<User>();
     private Scanner scanner = new Scanner(System.in);
-    private int step = 2;
+    private int step = 1;
 
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
@@ -38,8 +38,10 @@ public class BlackJackGame {
     }
 
     private void proceedGame() {
-        step++;
-        nextProceed();
+        boolean NextTF = proceedHandOutCards();
+        if (NextTF == true) {
+            nextProceed();
+        }
     }
 
     private void endGame() {
@@ -102,30 +104,59 @@ public class BlackJackGame {
         }
     }
 
-    private void proceedHandOutCards() {
+    private boolean proceedHandOutCards() {
+        Set<Boolean> finishTFSet = new HashSet<Boolean>();
         for (int i = 1; i < users.size(); i++) {
-            askHandOutCards((Player) users.get(i));
+            finishTFSet.add(askHandOutCards((Player) users.get(i)));
             users.get(i).userCardsInfo(((Player) users.get(i)).getCards(), ((Player) users.get(i)).getPlayerName());
         }
         if (step == 2) {
             System.out.println("딜러는 16이하라 카드 한 장을 더 받았습니다.");
             handOutCards((Dealer) users.get(0));
         }
+        return !finishTFSet.contains(true);
     }
 
-    private void askHandOutCards(Player player) {
-        System.out.println("는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+    private boolean askHandOutCards(Player player) {
+        System.out.println(player.getPlayerName() + "(은)는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
         String cardHandOut = "";
         do {
             cardHandOut = scanner.nextLine();
-        } while (cardHandOut.equals("y") || cardHandOut.equals("n"));
+        } while (!cardHandOut.equals("y") && !cardHandOut.equals("n"));
         if (cardHandOut.equals("y")) {
             handOutCards(player);
+            return true;
         }
+        return false;
     }
 
     private void nextProceed() {
-
+        boolean NextTF = false;
+        if (step == 1) {
+            NextTF = ScoreCheckerWithBlackJack();
+        } else {
+            NextTF = ScoreChecker();
+        }
+        if (NextTF == true) {
+            proceedGame();
+        }
     }
 
+    private boolean ScoreCheckerWithBlackJack() {
+        Set<Boolean> stopSet = new HashSet<Boolean>();
+        for (User user : users) {
+            stopSet.add(user.blackJackYN(user.getSumNumber()));
+            stopSet.add(user.bustYN(user.getSumNumber()));
+        }
+        return !stopSet.contains(true);
+    }
+
+    private boolean ScoreChecker() {
+        Set<Boolean> stopSet = new HashSet<Boolean>();
+        for (User user : users) {
+            stopSet.add(user.twentyoneYN(user.getSumNumber()));
+            stopSet.add(user.bustYN(user.getSumNumber()));
+        }
+        return !stopSet.contains(true);
+    }
 }

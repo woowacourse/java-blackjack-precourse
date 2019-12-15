@@ -36,7 +36,7 @@ public class PlayerBettingMoneyChecker {
     }
 
     private boolean bettingMoneyCheckValue(int bettingMoney) {
-        if (bettingMoney < 0) {
+        if (bettingMoney <= 0) {
             return false;
         }
         return true;

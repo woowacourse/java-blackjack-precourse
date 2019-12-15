@@ -7,18 +7,31 @@ import domain.card.Card;
 public abstract class User {
     int profit = 0;
     int sumNumbers = 0;
+    private boolean blackJackTF = false;
+    private boolean bustTF = false;
+    private boolean twentyoneTF = false;
 
     abstract void addCard(Card card);
 
-    boolean blackJackYN(int sumNumbers) {
+    public boolean blackJackYN(int sumNumbers) {
         if (sumNumbers == 21) {
+            blackJackTF = true;
             return true;
         }
         return false;
     }
 
-    boolean bustYN(int sumNumbers) {
+    public boolean bustYN(int sumNumbers) {
         if (sumNumbers > 21) {
+            bustTF = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean twentyoneYN(int sumNumbers) {
+        if (sumNumbers == 21) {
+            twentyoneTF = true;
             return true;
         }
         return false;
@@ -30,6 +43,10 @@ public abstract class User {
             System.out.print(cards.get(i).cardInfo() + ", ");
         }
         System.out.println(cards.get(cards.size() - 1).cardInfo());
+    }
+
+    public int getSumNumber() {
+        return sumNumbers;
     }
 
     void userSumNumbers() {

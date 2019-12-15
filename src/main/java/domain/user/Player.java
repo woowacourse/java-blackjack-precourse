@@ -27,8 +27,7 @@ public class Player extends User {
 
     public void addCard(Card card) {
         cards.add(card);
+        sumNumbers += card.cardNumber("Player", sumNumbers);
     }
-
-    // TODO 추가 기능 구현
 
 }
