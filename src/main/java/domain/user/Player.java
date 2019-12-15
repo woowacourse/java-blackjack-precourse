@@ -95,7 +95,7 @@ public class Player implements User {
 
     @Override
     public boolean isGettingAdditionalCard() {
-        return InputController.askIfGetCard(this.name);
+        return !isBust() && InputController.askIfGetCard(this.name);
     }
 
     @Override

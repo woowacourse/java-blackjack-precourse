@@ -49,9 +49,6 @@ public class BlackjackGame {
             user.addCard(deck, ADDITIONAL_NUMBER_OF_CARDS);
             OutputController.printHoldingCards(user);
             OutputController.printUser(user);
-            if (user.isBust()) {
-                break;
-            }
         }
         OutputController.printHoldingCards(user);
     }

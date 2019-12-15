@@ -91,7 +91,7 @@ public class Dealer implements User {
 
     @Override
     public boolean isGettingAdditionalCard() {
-        return getScoreOfCards() < DEALER_MINIMUM_SCORE_TO_STAY;
+        return (getScoreOfCards() < DEALER_MINIMUM_SCORE_TO_STAY) && !isBust();
     }
 
     @Override
