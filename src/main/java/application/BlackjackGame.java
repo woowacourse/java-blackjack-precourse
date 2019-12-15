@@ -14,7 +14,7 @@ import outputview.OutputView;
 
 public class BlackjackGame {
 	private static final int NUM_INITIAL_CARDS = 2;
-	private static final int BLACKJACK = 21;
+	private static final int BLACKJACK_SCORE = 21;
 	private static final int DEALER_THRESHOLD = 16;
 	
 	public void play() {
@@ -35,6 +35,7 @@ public class BlackjackGame {
 		
 		initialDrawPhase(dealer, players, cardDeck);
 		checkBlackjack(dealer, players, playersWinLoseInfo);
+		
 		playerAdditionalDrawPhase(players, cardDeck, playersWinLoseInfo);
 		dealerAdditionalDrawPhase(dealer, cardDeck);
 		checkFinalWinLose(dealer, players, playersWinLoseInfo);
@@ -50,29 +51,22 @@ public class BlackjackGame {
 	
 	private void checkBlackjack(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		IntStream.range(0, players.getSize())
-				.filter(i -> (players.getPlayerAt(i).calculateScore() == BLACKJACK ))
+				.filter(i -> (players.getPlayerAt(i).calculateScore() == BLACKJACK_SCORE ))
 				.forEach(
 					i -> {
-						updateBlackjackInfo(dealer, info, i);
+						WinLoseInfoUpdater.updateBlackjackInfo(dealer, info, i);
 						OutputView.showInitialResult(players.getPlayerAt(i), info.get(i));
 					}
 				);
 	}
 	
-	private void updateBlackjackInfo(Dealer dealer, List<WinLoseInfo> info, int index) {
-		if (dealer.calculateScore() == BLACKJACK) {
-			info.set(index, WinLoseInfo.DRAW);
-		}
-		info.set(index, WinLoseInfo.BLACKJACK);
-	}
-	
 	private void playerAdditionalDrawPhase(Players players, CardDeck cardDeck, List<WinLoseInfo> info) {
 		IntStream.range(0, players.getSize())
-				.filter(i -> (players.getPlayerAt(i).calculateScore() != BLACKJACK ))
+				.filter(i -> (players.getPlayerAt(i).calculateScore() != BLACKJACK_SCORE ))
 				.forEach(
 						i -> {
 							drawAdditionalCards(players.getPlayerAt(i), cardDeck);
-							updateLoser(players.getPlayerAt(i), info, i);
+							WinLoseInfoUpdater.updateLoser(players.getPlayerAt(i), info, i);
 						}
 					);
 	}
@@ -95,14 +89,8 @@ public class BlackjackGame {
 	}
 	
 	private static void checkOverBlackJack(Player player) {
-		if (player.calculateScore() > BLACKJACK) {
+		if (player.calculateScore() > BLACKJACK_SCORE) {
 			throw new IllegalStateException("점수합이 21을 초과했습니다." + player.getName() + "는 패배했습니다.");
-		}
-	}
-	
-	private void updateLoser(Player player, List<WinLoseInfo> info, int index) {
-		if (player.calculateScore() > BLACKJACK) {
-			info.set(index, WinLoseInfo.LOSE);
 		}
 	}
 
@@ -124,43 +112,12 @@ public class BlackjackGame {
 	}
 	
 	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		updateFinalWinLoseInfo(dealer, players, info);
+		WinLoseInfoUpdater.updateFinalWinLoseInfo(dealer, players, info);
 		OutputView.showAllFinalResults(dealer, players, info);
 		List<Double> finalProfit = calculateFinalProfit(players, info);
 		OutputView.showFinalProfit(players, finalProfit);
 	}
-	
-	private void updateFinalWinLoseInfo(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		if (dealer.calculateScore() > BLACKJACK) {
-			System.out.println("딜러 파산");		//나중에 outputView로 옮긴다
-			IntStream.range(0, info.size())
-					.filter(i -> (info.get(i) == WinLoseInfo.UNDETERMINED))
-					.forEach(i -> info.set(i, WinLoseInfo.WIN));
-		}
-		updateUndeterminedInfo(dealer, players, info);
-	}
-	
-	private void updateUndeterminedInfo(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		IntStream.range(0, info.size())
-				.filter(i -> (info.get(i) == WinLoseInfo.UNDETERMINED))
-				.forEach(i -> info.set(i, decideResult(dealer, players.getPlayerAt(i))));
-	}
-	
-	private WinLoseInfo decideResult(Dealer dealer, Player player) {
-		if (dealer.calculateScore() == player.calculateScore() ) {
-			return WinLoseInfo.DRAW;
-		}
-		return decideWinOrLose(dealer, player);
-	}
-	
-	private WinLoseInfo decideWinOrLose(Dealer dealer, Player player) {
-		if (dealer.calculateScore() > player.calculateScore() 
-				|| player.calculateScore() > BLACKJACK) {
-			return WinLoseInfo.LOSE;
-		}
-		return WinLoseInfo.WIN;
-	}
-	
+
 	private List<Double> calculateFinalProfit(Players players, List<WinLoseInfo> info) {
 		return IntStream.range(0, info.size())
 				.mapToObj(i -> calculateProfit(players.getPlayerAt(i), info.get(i)))
