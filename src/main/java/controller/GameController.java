@@ -1,7 +1,9 @@
 package controller;
 
 import java.util.ArrayList;
-
+import deck.CardDeck;
+import domain.card.Card;
+import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 import io.InputSystem;
@@ -12,13 +14,16 @@ public class GameController {
     final static int MAXIUM_VALUE = 21;
     final static int DEALER_MAXIUMM_VALUE = 16;
 
+    private CardDeck cardDeck;
     private Dealer dealer;
     private ArrayList<Player> players;
     private InputSystem inputSystem;
 
     public GameController() {
         players = new ArrayList<>();
+        dealer = new Dealer();
         inputSystem = new InputSystem();
+        cardDeck = new CardDeck(CardFactory.create());
     }
 
     public void initGame() {
@@ -32,6 +37,7 @@ public class GameController {
 
     public void gameStart() {
         OutputSystem.printGetTwoCards(players);
+        drawTwoCard();
         for (int i = 0; i < players.size(); i++) {
             drawPlayerCard(i);
         }
@@ -54,16 +60,29 @@ public class GameController {
             answer = inputSystem.inputBettingAnswer();
         }
         if (answer) {
-            // 카드를 뽑는다.
+            players.get(playerIdx).addCard(cardDeck.drawCard());
             drawPlayerCard(playerIdx);
         }
     }
 
     private void drawDealerCard() {
-        if(dealer.getTotalNumber() <= DEALER_MAXIUMM_VALUE) {
+        if (dealer.getTotalNumber() <= DEALER_MAXIUMM_VALUE) {
             OutputSystem.printDealerGetCard();
-            //카드를 뽑는다
+            dealer.addCard(cardDeck.drawCard());
             drawDealerCard();
+        }
+    }
+
+    private void drawTwoCard() {
+        for (int i = 0; i < 2; i++) {
+            dealer.addCard(cardDeck.drawCard());
+            playersDrawTwoCard(cardDeck.drawCard());
+        }
+    }
+
+    private void playersDrawTwoCard(Card card) {
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).addCard(card);
         }
     }
 }

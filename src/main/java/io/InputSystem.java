@@ -18,8 +18,8 @@ public class InputSystem {
     }
 
     public boolean inputBettingAnswer() {
-        String answer = sc.nextLine();
-        if (answer == "y") {
+        String answer = sc.next();
+        if (answer.equals("y")) {
             return true;
         }
         return false;
