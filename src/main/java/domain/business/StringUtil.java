@@ -1,5 +1,5 @@
 /*
- * @(#)StringUtil.java      0.2 2019.12.15
+ * @(#)StringUtil.java      0.3 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -13,7 +13,7 @@ import java.util.List;
  * 문자열을 처리하는 기능을 담당하는 클래스
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.15
  */
 public class StringUtil {
     /**
@@ -29,5 +29,16 @@ public class StringUtil {
      */
     public static List<String> splitPlayerName(String userInput) {
         return Arrays.asList(userInput.split(COMMA_DELIMITER));
+    }
+
+    /**
+     * Player 이름의 앞, 뒤에 불필요한 공백을 제거하는 메소드.
+     *
+     * @param playerNames Player 이름 List.
+     */
+    public static void trimPlayerName(List<String> playerNames) {
+        for (int i = 0; i < playerNames.size(); i++) {
+            playerNames.set(i, playerNames.get(i).trim());
+        }
     }
 }
