@@ -20,4 +20,9 @@ public class OutputUtil {
                 "\n" +
                 "(1, 11 로 대답해주세요!");
     }
+
+    public static void printAddCardQuestion(String name) {
+        System.out.println(name + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+    }
+
 }
