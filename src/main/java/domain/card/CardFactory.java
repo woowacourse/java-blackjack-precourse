@@ -1,3 +1,9 @@
+/*
+ * @(#)CardFactory.java     0.1 2019.12.15
+ *
+ * Copyright (c) 2019 lxxjn0
+ */
+
 package domain.card;
 
 import java.util.ArrayList;
@@ -6,6 +12,9 @@ import java.util.List;
 
 /**
  * 트럼프 카드 전체 생성을 담당하는 객체
+ *
+ * @author JUNYOUNG LEE (lxxjn0)
+ * @version 0.1 2019.12.15
  */
 public class CardFactory {
     public static List<Card> create() {
