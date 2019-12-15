@@ -17,6 +17,14 @@ public class Card {
 
     // TODO Card 관련 추가 기능 구현
 
+    public Type getType() {
+        return type;
+    }
+
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,5 +45,9 @@ public class Card {
                 "symbol=" + symbol +
                 ", type=" + type +
                 '}';
+    }
+
+    public String getCardInfo() {
+        return String.valueOf(symbol.getName())+ type;
     }
 }

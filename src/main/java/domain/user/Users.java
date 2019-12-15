@@ -37,4 +37,9 @@ public class Users {
             user.addCard(RandomCardFactory.create(cards));
         });
     }
+
+    public void printCards() {
+        users.stream().findAny();
+    }
+
 }

@@ -13,4 +13,8 @@ public class Dealer extends User {
     }
 
     // TODO 추가 기능 구현
+    public void printFirstCard() {
+        super.checkCardsEmpty();
+        System.out.println("딜러: " + super.getCards().get(0).getCardInfo());
+    }
 }

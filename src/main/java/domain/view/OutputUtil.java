@@ -9,7 +9,9 @@ public class OutputUtil {
         System.out.println(user + " 의 배팅 금액은?");
     }
 
-    public static void print(String Money) {
-        System.out.println(Money);
+    public static void printDevideMessage(String[] names) {
+        System.out.println("딜러와 " +
+                String.join(",", names) +
+                "에게 2장을 나눴습니다.");
     }
 }
