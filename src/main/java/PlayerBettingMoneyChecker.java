@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PlayerBettingMoneyChecker {
-    private final int digitsLimit = 9; //10억 단위 미만만 허용
+    private final int digitsLimit = 10; //10억 단위 미만만 허용
 
     boolean playerBettingMoneyCheck(String bettingMoney) {
         if (bettingMoney.isEmpty()) {
@@ -22,7 +22,7 @@ public class PlayerBettingMoneyChecker {
         for (int i = 0; i < bettingMoney.length(); i++) {
             checkBlankSet.add(charIsNumber(bettingMoney.charAt(i)));
         }
-        if (checkBlankSet.contains(true) || bettingMoney.length() > digitsLimit) {
+        if (checkBlankSet.contains(true) && bettingMoney.length() < digitsLimit) {
             return true;
         }
         return false;
@@ -37,10 +37,8 @@ public class PlayerBettingMoneyChecker {
 
     private boolean bettingMoneyCheckValue(int bettingMoney) {
         if (bettingMoney < 0) {
-            System.out.println("1");
             return false;
         } else if (bettingMoney % 10 != 0) {
-            System.out.println(2);
             return false;
         }
         return true;
