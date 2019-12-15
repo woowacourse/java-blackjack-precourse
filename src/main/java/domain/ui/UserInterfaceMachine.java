@@ -28,8 +28,12 @@ public class UserInterfaceMachine {
     private boolean isCorrectNames(List<String> names) {
         boolean ret = true;
 
+        if (names.size() < 1) {
+            return false;
+        }
+
         for (int idx = 0; idx < names.size() && ret; idx++) {
-            /* 아직 잘못 입력된 이름이 발견되지 않았으면 실행됨 */
+            /* 이름들을 각각 확인하여, 아직 잘못된 이름이 발견되지 않았으면 실행됨 */
             ret = isCorrectName(names.get(idx));
         }
 
@@ -38,7 +42,20 @@ public class UserInterfaceMachine {
 
     private boolean isCorrectName(String name) {
 
+        if (isTooShort(name)) {
+            return false;
+        }
+
         if (areThereSpecialCharacters(name)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isTooShort(String name) {
+
+        if (name.length() > 0) {
             return false;
         }
 
