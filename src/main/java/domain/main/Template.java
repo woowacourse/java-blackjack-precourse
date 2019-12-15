@@ -15,10 +15,10 @@ public class Template {
 		return inputName;
 	}
 	
-	public static double bettingMoneyRequest(String name) {
+	public static String bettingMoneyRequest(String name) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println(name + "의 배팅 금액은?");
-		double bettingMoney = scanner.nextDouble();
+		String bettingMoney = scanner.nextLine();
 		return bettingMoney;
 	}
 	
