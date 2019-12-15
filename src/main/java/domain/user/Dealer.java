@@ -38,6 +38,11 @@ public class Dealer {
 
 	}
 
+	/**
+	 * 에이스 카드의 점수를 1 또는 11로 유연하게 사용
+	 * @param score
+	 * @return
+	 */
 	private int aceScoreChange(int score) {
 		boolean hasAce = false;
 		for (Card card : cards) {
