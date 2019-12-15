@@ -1,4 +1,4 @@
-package sources;
+package services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class InitTest {
 		}
 		System.out.println(userInput);
 		System.out.println("Bettings");
-		List<Player> players = BlackJackInitializingSource
+		List<Player> players = BlackJackInitializingService
 			.initializePlayers(userInput, bettings);
 		for (Player player : players) {
 			player.inputTest();

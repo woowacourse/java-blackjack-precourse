@@ -1,4 +1,4 @@
-package sources;
+package services;
 
 import domain.card.Card;
 import domain.card.CardFactory;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 플레이어, 딜러, 카드 초기화 클래스
  */
-public class BlackJackInitializingSource {
+public class BlackJackInitializingService {
 	public static List<Player> initializePlayers(List<String> names, List<Double> bettings) {
 		List<Player> players = new ArrayList<Player>();
 		for (int i = 0; i < names.size(); i++) {
