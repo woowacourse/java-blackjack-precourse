@@ -2,6 +2,7 @@ package ui;
 
 import common.BlackjackConfig;
 import domain.UserInterface;
+import domain.user.Will;
 
 import java.util.Scanner;
 
@@ -40,7 +41,7 @@ public class Console implements UserInterface {
     }
 
     @Override
-    public String getWilling() {
+    public Will getWillForMoreCard() {
         return null;
     }
 }
