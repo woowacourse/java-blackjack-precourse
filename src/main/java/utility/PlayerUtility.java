@@ -1,6 +1,7 @@
 package utility;
 
 import domain.user.Player;
+import domain.user.Players;
 import view.inputView;
 
 import java.util.ArrayList;
@@ -11,9 +12,38 @@ public class PlayerUtility {
     private static final String PLAYER_NAME_DELIMITER = ",";
     private static final int INITIAL_BETTING_MONEY = 0;
 
-    public static List<Player> generatePlayers() {
+    public static Players generatePlayers() {
         String[] playerNames = getPlayerNames();
-        return makePlayers(playerNames);
+        ArrayList<Integer> playerBets = getPlayerBets(playerNames);
+        return makePlayers(playerNames, playerBets);
+    }
+
+    private static ArrayList<Integer> getPlayerBets(String[] playerNames) {
+        ArrayList<Integer> playerBets = new ArrayList<>();
+
+        for (String playerName : playerNames) {
+            playerBets.add(getPlayerBet(playerName));
+        }
+        return playerBets;
+    }
+
+    private static int getPlayerBet(String playerName) {
+        String inputPlayerBet;
+        do {
+            inputPlayerBet = inputView.inputPlayerBet(playerName);
+        } while (!validatePlayerBet(inputPlayerBet));
+
+        return Integer.parseInt(inputPlayerBet);
+    }
+
+    private static boolean validatePlayerBet(String inputPlayerBet) {
+        try {
+            Integer.parseInt(inputPlayerBet);
+            return true;
+        } catch (Exception e) {
+            System.out.println("정수를 입력해주세요");    //추후 상세한 예외처리
+            return false;
+        }
     }
 
     private static String[] getPlayerNames() {
@@ -31,12 +61,12 @@ public class PlayerUtility {
         return true;
     }
 
-    private static List<Player> makePlayers(String[] playerNames) {
-        List<Player> players = new ArrayList<>();
-        for (String playerName : playerNames) {
-            Player player = new Player(playerName, INITIAL_BETTING_MONEY);
-            players.add(player);
+    private static Players makePlayers(String[] playerNames, ArrayList<Integer> playerBets) {
+        List<Player> playersList = new ArrayList<>();
+        for (int i = 0; i < playerNames.length; i++) {
+            Player player = new Player(playerNames[i], playerBets.get(i));
+            playersList.add(player);
         }
-        return players;
+        return new Players(playersList);
     }
 }

@@ -11,8 +11,9 @@ import static utility.PlayerUtility.generatePlayers;
 
 public class PlayBlackjackGame {
     public static void main(String[] args) {
-        List<Player> players = generatePlayers();
-        //BlackjackGame blackjackGame = new BlackjackGame(players);
+        Players players = generatePlayers();
+        BlackjackGame blackjackGame = new BlackjackGame(players);
+        blackjackGame.execute();
 
     }
 

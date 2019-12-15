@@ -12,4 +12,12 @@ public class inputView {
 
         return playersName;
     }
+
+    public static String inputPlayerBet(String playerName) {
+        scanner = new Scanner(System.in);
+        System.out.println(playerName + "의 베팅 금액은?");
+        String playersName = scanner.nextLine();
+
+        return playersName;
+    }
 }
