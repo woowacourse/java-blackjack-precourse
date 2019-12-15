@@ -23,6 +23,14 @@ public class Card {
     	cards.remove(cards.size()-1);
     	return target;
     }
+    
+    public String showSymbol() {
+    	return symbol.name();
+    }
+    
+    public String showType() {
+    	return type.name();
+    }
 
     @Override
     public boolean equals(Object o) {
