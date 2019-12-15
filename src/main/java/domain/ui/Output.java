@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      0.2 2019.12.15
+ * @(#)Output.java      0.3 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,17 +10,38 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.15
  */
 public class Output {
     /**
      * print나 printf를 사용할 때 개행을 하기 위한 문자열 상수.
      */
     private static final String NEW_LINE_STRING = "%n";
+
     /**
      * 게임 참여자 이름 입력 요청때 출력할 메시지 상수.
      */
     private static final String PLAYER_NAME_INPUT_REQUEST_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요.(쉼표(,) 기준으로 분리";
+
+    /**
+     * 게임 참여자 이름의 길이에 예외가 발생할 경우 출력할 메시지 상수.
+     */
+    private static final String PLAYER_NAME_LENGTH_EXCEPTION = "게임에 참여할 사람의 이름은 1자 이상 입력하셔야 합니다.";
+
+    /**
+     * 게임 참여자 이름의 형식에 예외가 발생할 경우 출력할 메시지 상수.
+     */
+    private static final String PLAYER_NAME_FORMAT_EXCEPTION = "게임에 참여할 사람의 이름은 대소문자만 입력 가능합니다.";
+
+    /**
+     * 게임 참여자 이름에 중복이 존재할 경우 출력할 메시지 상수.
+     */
+    private static final String PLAYER_NAME_DUPLICATE_EXCEPTION = "게임에 참여할 사람의 이름에 중복이 존재합니다.";
+
+    /**
+     * 사용자에게 재입력을 요청할 때 출력할 메시지 상수.
+     */
+    private static final String INPUT_REQUEST_AGAIN_MESSAGE = " 다시 입력해주세요.";
 
     /**
      * Player의 베팅 금액 입력 요청때 출력할 메시지 상수.
@@ -67,6 +88,34 @@ public class Output {
      */
     public void printPlayerNameInputRequest() {
         System.out.println(PLAYER_NAME_INPUT_REQUEST_MESSAGE);
+    }
+
+    /**
+     * 게임 참여자 이름의 길이가 유효하지 않음을 출력하는 메소드.
+     */
+    public void printPlayerNameLengthError() {
+        System.out.print(PLAYER_NAME_LENGTH_EXCEPTION);
+    }
+
+    /**
+     * 게임 참여자 이름의 형식이 유효하지 않음을 출력하는 메소드.
+     */
+    public void printPlayerNameFormatError() {
+        System.out.print(PLAYER_NAME_FORMAT_EXCEPTION);
+    }
+
+    /**
+     * 게임 참여자 이름에 중복이 존재함을 출력하는 메소드.
+     */
+    public void printPlayerNameDuplicateError() {
+        System.out.print(PLAYER_NAME_DUPLICATE_EXCEPTION);
+    }
+
+    /**
+     * 게임 참여자 이름 재입력 요청을 출력하는 메소드.
+     */
+    public void printInputRequestAgain() {
+        System.out.println(INPUT_REQUEST_AGAIN_MESSAGE);
     }
 
     /**
