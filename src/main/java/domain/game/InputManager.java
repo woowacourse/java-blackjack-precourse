@@ -1,0 +1,100 @@
+/*
+ * InputManager.java
+ *
+ * version 1.0
+ *
+ * 20191215
+ *
+ * copyright by jiwonSong(s26788761@naver.com)
+ *
+ */
+
+package domain.game;
+
+import java.util.*;
+
+public class InputManager {
+    private static int MINIMUM_NAME_COUNT = 1;
+    private static int MINIMUM_NAME_LENGTH = 1;
+
+    Message message = new Message();
+    Scanner scanner = new Scanner(System.in);
+
+    public ArrayList<String> getPlayerNames() {
+        String[] nameArray;
+
+        do {
+            System.out.println(message.makeMessageAskPlayerNames());
+            nameArray = scanner.nextLine().split(",");
+            trimWhiteSpace(nameArray);
+        } while (checkNamesValid(nameArray));
+
+        return makeArrayToArrayList(nameArray);
+    }
+
+    public boolean checkNamesValid(String[] nameArray) {
+        if (checkNamesCountValid(nameArray)
+                && checkNamesLengthValid(nameArray)
+                && !checkNamesDuplicated(makeArrayToArrayList(nameArray))) {
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList<String> makeArrayToArrayList(String[] input) {
+        return new ArrayList<>(Arrays.asList(input));
+    }
+
+    public void trimWhiteSpace(String[] nameArray) {
+
+        for (int i = 0; i < nameArray.length; i++) {
+            nameArray[i] = nameArray[i].trim();
+        }
+    }
+
+    public boolean checkNamesCountValid(String[] nameArray) {
+        if (nameArray.length < MINIMUM_NAME_COUNT) {
+            //플레이어가 입력되지 않았습니다 에러 출력
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkNamesLengthValid(String[] nameArray) {
+        boolean isValid = true;
+
+        for (String string : nameArray) {
+            isValid &= checkNameLengthValid(string);
+        }
+        if (!isValid) {
+            //문자열 길이 에러 메시지 출력
+        }
+        return isValid;
+    }
+
+    public boolean checkNameLengthValid(String input) {
+        if (input.length() < MINIMUM_NAME_LENGTH) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkNamesDuplicated(ArrayList<String> names) {
+        boolean isDuplicated = false;
+
+        for (String name : names) {
+            isDuplicated |= listContainsString(names, name);
+        }
+        if (isDuplicated) {
+            //이름 중복 에러 메시지 출
+        }
+        return isDuplicated;
+    }
+
+    public boolean listContainsString(ArrayList<String> list, String string) {
+        if (list.contains(string)) {
+            return true;
+        }
+        return false;
+    }
+}
