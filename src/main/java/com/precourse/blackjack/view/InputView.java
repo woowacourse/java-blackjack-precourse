@@ -14,7 +14,8 @@ package com.precourse.blackjack.view;
  * @author HyungjuAn
  */
 public class InputView {
-	private static final String PLAYER_NAME_QUESTION = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
+	private static final String PLAYER_NAME_QUESTION = "게임에 참여할 사람의 이름을 입력하세요. "
+		+ "(2명 이상일 경우 쉼표(,)로 분리)";
 
 	public static void printPlayerNameQuestion() {
 		System.out.println(PLAYER_NAME_QUESTION);
