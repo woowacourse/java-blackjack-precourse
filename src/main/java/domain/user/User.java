@@ -12,6 +12,7 @@ public class User {
     private int score = 0;
     private boolean isAce = false;
     private boolean isBigAce = false;
+    private boolean isBurst = false;
 
     public List<Card> showCards() {
         return cards;
@@ -23,6 +24,10 @@ public class User {
 
     public void addScore(int score) {
         this.score += score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public void subtractScore(int score) {
@@ -45,19 +50,27 @@ public class User {
         this.isBigAce = isBigAce;
     }
 
-    public boolean isScoreGreaterThan(int maxScore) {
-        return score > maxScore;
+    public boolean isScoreGreaterThan(int score) {
+        return this.score > score;
     }
 
-    public boolean isBlackJack(int maxScore) {
-        return score == maxScore;
+    public boolean isScoreEquals(int score) {
+        return this.score == score;
     }
 
     public String getName() {
         return DEALER_NAME;
     }
 
-    public String openScore() {
-        return Integer.toString(score);
+    public int getScore() {
+        return score;
+    }
+
+    public void setIsBurst(boolean isBurst) {
+        this.isBurst = isBurst;
+    }
+
+    public boolean getIsBurst() {
+        return isBurst;
     }
 }

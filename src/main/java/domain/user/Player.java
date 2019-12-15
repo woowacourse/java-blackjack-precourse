@@ -16,4 +16,8 @@ public class Player extends User {
     public String getName() {
         return name;
     }
+
+    public double getResultProfit(double moneyRatio) {
+        return bettingMoney * moneyRatio;
+    }
 }

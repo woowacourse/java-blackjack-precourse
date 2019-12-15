@@ -13,7 +13,7 @@ import utils.InputHandler;
 import view.InputView;
 import view.OutputView;
 
-public class BlackJack {
+class BlackJack {
     private static final int FIRST_PLAYER_CARD_COUNTS = 2;
 
     private ArrayList<Player> players = new ArrayList<>();
@@ -29,6 +29,7 @@ public class BlackJack {
         }
         runDealerPhase();
         OutputView.printResultState(dealer, players);
+        OutputView.printResultProfit(dealer, players);
     }
 
     private void setFirstState() {
@@ -89,7 +90,7 @@ public class BlackJack {
     }
 
     private void runDealerPhase() {
-        while (Rule.isDealDraw(dealer)) {
+        while (Rule.isDealerDraw(dealer)) {
           addCard(dealer, deck.pop());
           OutputView.printDealerDrawMessage();
         }
