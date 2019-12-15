@@ -10,8 +10,8 @@ public class OutputSystem {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)");
     }
 
-    static public void printBettingPrice(Player player) {
-        System.out.println(player.getName() + "의 배팅금액은?");
+    static public void printBettingPrice(String player) {
+        System.out.println(player + "의 배팅금액은?");
     }
 
     static public void printGetTwoCards(ArrayList<Player> players) {
