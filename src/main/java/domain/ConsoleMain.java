@@ -5,9 +5,13 @@ import java.util.Scanner;
 public class ConsoleMain {
     private static Scanner sc = new Scanner(System.in);
     private static String[] playerName;
+    private static int[] betting;
+    private static int playerNumber;
+    private static final int ZERO_BETTING = 0;
 
     public static void main(String[] args){
         inputName();
+        inputBetting();
     }
 
     private static void inputName(){
@@ -19,7 +23,18 @@ public class ConsoleMain {
             inputName();
             return;
         }
-
         playerName = input.split(",");
+        playerNumber = playerName.length;
+    }
+
+    private static void inputBetting(){
+        betting = new int[playerNumber];
+        for(int i = 0; i < playerName.length; i++){
+            System.out.println(playerName[i] + "의 배팅 금액은?");
+
+            while(betting[i] <= ZERO_BETTING){
+                betting[i] = sc.nextInt();
+            }
+        }
     }
 }
