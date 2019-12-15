@@ -19,7 +19,7 @@ public class Input {
     public List<Player> inputPlayerNames() {
         List<String> playerNames;
         do {
-            System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
+            System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리, 공백 없이, 8명 이내)");
             playerNames = splitNames(scan.nextLine());
         } while (!validator.isValidName(playerNames));
         return inputPlayerBettingAmount(playerNames);
