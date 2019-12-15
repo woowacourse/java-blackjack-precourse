@@ -14,6 +14,7 @@ public class CardFactory {
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);
         }
+        Collections.shuffle(cards);
         return Collections.unmodifiableList(cards);
     }
 

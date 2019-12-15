@@ -23,4 +23,10 @@ public class Player {
     }
 
     // TODO 추가 기능 구현
+
+    public void getCards() {
+        for (int i = 0 ; i < cards.size() ;i++) {
+            System.out.println(cards.get(i).toString());
+        }
+    }
 }
