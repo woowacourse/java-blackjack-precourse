@@ -62,6 +62,21 @@ public class Dealer {
         return addAceWeight(score, aceCount);
     }
 
+    public int aceCounter(Card card) {
+        if (card.getScore() == 1) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public int addAceWeight(int score, int aceCount) {
+        while (score + ACE_WEIGHT <= MAX_Score && aceCount > 0) {
+            aceCount--;
+            score += 10;
+        }
+        return score;
+    }
+
     public boolean isBlackJack() {
         if (getCardScore() == MAX_Score && getCards().size() == 2) {
             return true;
