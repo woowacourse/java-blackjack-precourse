@@ -25,12 +25,12 @@ public class OutputSystem {
 
     static private void printDealerCardList(Dealer dealer) {
         System.out.print("딜러 : ");
-        System.out.println(dealer.getCardList());
+        System.out.print(dealer.getCardList());
     }
 
-    static private void printUserCardList(Player player) {
+    static public void printUserCardList(Player player) {
         System.out.print("유저의카드 : ");
-        System.out.println(player.getCardList());
+        System.out.print(player.getCardList());
     }
 
     static public void printPeopleCardList(Dealer dealer, ArrayList<Player> players) {

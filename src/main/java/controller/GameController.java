@@ -38,6 +38,7 @@ public class GameController {
     public void gameStart() {
         OutputSystem.printGetTwoCards(players);
         drawTwoCard();
+        OutputSystem.printPeopleCardList(dealer, players);
         for (int i = 0; i < players.size(); i++) {
             drawPlayerCard(i);
         }
@@ -61,6 +62,7 @@ public class GameController {
         }
         if (answer) {
             players.get(playerIdx).addCard(cardDeck.drawCard());
+            OutputSystem.printUserCardList(players.get(playerIdx));
             drawPlayerCard(playerIdx);
         }
     }
@@ -76,13 +78,13 @@ public class GameController {
     private void drawTwoCard() {
         for (int i = 0; i < 2; i++) {
             dealer.addCard(cardDeck.drawCard());
-            playersDrawTwoCard(cardDeck.drawCard());
+            playersDrawTwoCard();
         }
     }
 
-    private void playersDrawTwoCard(Card card) {
+    private void playersDrawTwoCard() {
         for (int i = 0; i < players.size(); i++) {
-            players.get(i).addCard(card);
+            players.get(i).addCard(cardDeck.drawCard());
         }
     }
 }
