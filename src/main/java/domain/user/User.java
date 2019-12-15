@@ -37,4 +37,14 @@ public class User {
                 card.getSymbol() == Symbol.ACE
         );
     }
+
+    public boolean checkExcess() {
+        int sum = cards.stream()
+                .map(card -> card.getSymbol().getScore())
+                .reduce((integer, integer2) -> {
+                    return Integer.sum(integer, integer2);
+                })
+                .get();
+        return sum > 21;
+    }
 }
