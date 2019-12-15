@@ -144,6 +144,7 @@ public class BlackJack {
      * validateInputName은 이름 입력에 대한 예외처리를 발생시킨다.
      *
      * @param nameList 이름의 목록을 담은 리스트이다.
+     * @throws InputMismatchException 만약 이름이 들어오지 않았거나, 길이조건을 미충족(findExceptionOnName)하면 예외처리한다.
      */
     private void validateInputName(List<String> nameList) {
         if (nameList.isEmpty()) {
@@ -158,6 +159,7 @@ public class BlackJack {
      * findExceptionOnName은 이름의 목록을 받아 그 중 예외처리될 사항을 검사한다.
      *
      * @param name : 검사할 이름 String 객체이다.
+     * @throws InputMismatchException 만약 이름의 길이가 5글자를 넘거나 혹은 비어있을(0글자일) 경우 예외처리한다.
      */
     private void findExceptionOnName(String name) {
         if (name.length() > 5 || name.isEmpty()) {
