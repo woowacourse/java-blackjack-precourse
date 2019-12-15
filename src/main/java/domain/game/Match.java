@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import controller.InputController;
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Gambler;
+import domain.user.Player;
 import domain.user.PlayerFactory;
 
 public class Match {
@@ -53,7 +55,7 @@ public class Match {
 			.collect(Collectors.toList());
 	}
 
-	public void findPointWinner(){
+	public void findPointWinner() {
 
 	}
 
@@ -61,17 +63,33 @@ public class Match {
 		return winnerList.size() > 0;
 	}
 
-	public void doPlayerPhase() {
+	public void doPlayersPhase(InputController inputController) {
+		for (Gambler player:playerList
+			 ) {
+			doPlayerPhase((Player)player,inputController);
+		}
+	}
+
+	private void doPlayerPhase(Player player, InputController inputController) {
+		if (player.isBust(Rule.getBlackjackPoint()) || inputController.getYesOrNo(player.getName()) == false) {
+			return;
+		}
+		try {
+			drawCards(player, 1);
+			doPlayerPhase(player, inputController);
+		} catch (Exception e) {
+			System.out.println(Rule.getOutOfCardsMessage());
+		}
 	}
 
 	public void doDealerPhase() {
-		if(dealer.sumCardsMax()>Rule.getDealerDrawPoint()||dealer.isBust(Rule.getBlackjackPoint())){
+		if (dealer.sumCardsMax() > Rule.getDealerDrawPoint() || dealer.isBust(Rule.getBlackjackPoint())) {
 			return;
 		}
-		try{
-			drawCards(dealer,1);
+		try {
+			drawCards(dealer, 1);
 			doDealerPhase();
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(Rule.getOutOfCardsMessage());
 		}
 	}
