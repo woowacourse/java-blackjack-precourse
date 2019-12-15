@@ -38,7 +38,7 @@ public class Player {
     }
 
     /**
-     * 카드중 A가 포함되어있을 경우 1과 11중 유리한 쪽으로 계산하는 메소드
+     * 카드중 A가 포함되어있을 경우 1과 11중 유리한 쪽으로 계산
      */
     public int getScoreIncludeA() {
         if (cards.stream().mapToInt(Card::getScore).sum() < 12) {
