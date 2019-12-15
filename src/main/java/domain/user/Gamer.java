@@ -31,4 +31,12 @@ public class Gamer {
         }
         return sum;
     }
+
+    private boolean haveAce() {
+        boolean presenceOfAce = false;
+        for (Card card : cards) {
+            presenceOfAce = card.isAce();
+        }
+        return presenceOfAce;
+    }
 }
