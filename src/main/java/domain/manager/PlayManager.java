@@ -14,6 +14,8 @@ public class PlayManager {
     private final int dealerIndex = 0;
     private final Deck deck = new Deck(CardFactory.create());
 
+    boolean blackjackStatus = true;
+
     public PlayManager(List<String> playerNameList, List<Integer> bettingMoneyList) {
         gamers.add(new Dealer());
         this.getPlayers(playerNameList, bettingMoneyList);
@@ -27,7 +29,8 @@ public class PlayManager {
 
     public void playGame() {
         setBasicCards();
-        printGamersHand();
+        printAllGamersHand();
+        checkMidway();
     }
 
     private void setBasicCards() {
@@ -43,9 +46,17 @@ public class PlayManager {
         }
     }
 
-    private void printGamersHand() {
+    private void printAllGamersHand() {
         for (Gamer gamer : gamers) {
             System.out.println(gamer.toString());
         }
+    }
+
+    private List<Integer> makeScoreList() {
+        List<Integer> scoreList = new ArrayList<>();
+        for (Gamer gamer : gamers) {
+            scoreList.add(gamer.calculateScore());
+        }
+        return scoreList;
     }
 }
