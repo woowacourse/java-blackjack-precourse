@@ -72,9 +72,6 @@ public class BlackjackController {
 	}
 
 	private void getMoreCards() {
-		if (Rule.isBlackjack(dealer)) {
-			return;
-		}
 		players.forEach(this::getMoreCard);
 		if (Rule.shouldAddCard(dealer)) {
 			dealer.giveCard(cardDeck, dealer);
@@ -89,11 +86,26 @@ public class BlackjackController {
 		OutputView.printProfits(calculator.getProfits());
 	}
 
-	public void run() {
+	private void runFirstPhase() {
 		giveTwoCard();
 		printFaceUpCards();
+	}
+
+	private void runSecondPhase() {
+		if (Rule.isBlackjack(dealer)) {
+			return;
+		}
 		getMoreCards();
+	}
+
+	private void runLastPhase() {
 		printAllUsersScore();
 		printProfits();
+	}
+
+	public void run() {
+		runFirstPhase();
+		runSecondPhase();
+		runLastPhase();
 	}
 }
