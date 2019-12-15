@@ -1,6 +1,6 @@
 package domain.ui;
 
-import domain.user.User;
+import domain.user.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +31,7 @@ public class UserInterfaceMachine {
         return true;
     }
 
-    public void printUsersCardsResults(List<User> users) {
+    public void printUsersCardsResults(Dealer dealer, List<Player> players) {
 
     }
 
@@ -39,7 +39,7 @@ public class UserInterfaceMachine {
 
     }
 
-    public void printUsersFinalRevenues(List<User> users) {
+    public void printUsersFinalRevenues(Dealer dealer, List<Player> players) {
 
     }
 
