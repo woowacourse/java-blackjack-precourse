@@ -17,7 +17,11 @@ public class InputSystem {
         return sc.nextInt();
     }
 
-    public String inputBettingAnswer() {
-        return sc.nextLine();
+    public boolean inputBettingAnswer() {
+        String answer = sc.nextLine();
+        if (answer == "y") {
+            return true;
+        }
+        return false;
     }
 }
