@@ -3,7 +3,7 @@ package controller;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
-import sources.BlackJackPlayingSource;
+import services.BlackJackPlayingService;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class BlackJackController {
 
 	private void drawFromCardDeck() {
 		for ( Player player : this.players ) {
-			player.addCard(BlackJackPlayingSource.popRandomCard(this.cardDeck));
+			player.addCard(BlackJackPlayingService.popRandomCard(this.cardDeck));
 		}
-		dealer.addCard(BlackJackPlayingSource.popRandomCard(this.cardDeck));
+		dealer.addCard(BlackJackPlayingService.popRandomCard(this.cardDeck));
 	}
 }
