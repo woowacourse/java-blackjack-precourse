@@ -64,7 +64,7 @@ public class RewardCalculator {
 	 * @param playerScore
 	 */
 	private void playerWinReward(Player player, int playerScore) {
-		if (playerScore < BLACKJACK_SCORE) {
+		if (playerScore <= BLACKJACK_SCORE) {
 			playerRewardMap.put(player.getName(), player.getBettingMoney());
 			dealerReward -= player.getBettingMoney();
 		}
