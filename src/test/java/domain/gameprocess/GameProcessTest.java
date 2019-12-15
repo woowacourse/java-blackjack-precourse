@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class GameProcessTest {
     @Test
     void play() {
-        String input = "yelim,helim";
+        String input = "yelim,helim\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         new GameProcess().play();

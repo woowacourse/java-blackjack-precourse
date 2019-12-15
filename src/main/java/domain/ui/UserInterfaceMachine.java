@@ -10,15 +10,15 @@ public class UserInterfaceMachine {
     private Scanner scanner = new Scanner(System.in);
 
     public List<String> scanNames() {
-        final String StringGetNamesHeader = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
+        final String NAME_INPUT_HEADER = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
         ArrayList<String> names;
 
-        System.out.println(StringGetNamesHeader);
+        System.out.println(NAME_INPUT_HEADER);
         names = new ArrayList<String>(Arrays.asList(scanner.nextLine().split(",")));
 
         while (!isCorrectNames(names)) {
-            System.out.println(names);
             printNameError();
+            System.out.println(NAME_INPUT_HEADER);
             names = new ArrayList<String>(Arrays.asList(scanner.nextLine().split(",")));
         }
 
@@ -26,7 +26,7 @@ public class UserInterfaceMachine {
     }
 
     private boolean isCorrectNames(List<String> names) {
-        return true;
+        return false;
     }
 
     private boolean isCorrectName() {
