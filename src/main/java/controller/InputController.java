@@ -7,13 +7,21 @@ import java.util.List;
 import view.InputView;
 
 public class InputController {
+	private static InputController inputController;
 	private static final String ERROR_MESSAGE = "유효하지 않은 입력입니다.";
 	private static final int NAME_MIN_LEN = 1;
 	private static String YES_NO[] = {"y", "n"};
 	private InputView inputView;
 
-	public InputController(InputView inputView) {
-		this.inputView = inputView;
+	private InputController() {
+		inputView = new InputView();
+	}
+
+	public static InputController getInputController() {
+		if (inputController == null) {
+			inputController = new InputController();
+		}
+		return inputController;
 	}
 
 	public List<String> getPlayerNames() {

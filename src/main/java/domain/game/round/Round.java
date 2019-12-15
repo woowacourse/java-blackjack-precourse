@@ -10,10 +10,6 @@ public abstract class Round {
 	protected boolean dealerWin;
 	protected List<Gambler> winnerList;
 
-	public Round(){
-
-	}
-
 	abstract void run(Table table);
 	abstract void findWinner(Table table);
 	public boolean hasWinners(){

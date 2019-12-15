@@ -3,6 +3,7 @@ package domain.game.round;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import controller.InputController;
 import domain.game.Rule;
 import domain.game.Table;
 import domain.user.Gambler;
@@ -11,7 +12,8 @@ import domain.user.Player;
 public class HitRound extends Round {
 	@Override
 	void run(Table table) {
-		doPlayersPhase(table,inputController);
+		InputController inputController=InputController.getInputController();
+		doPlayersPhase(table, inputController);
 		doDealerPhase(table);
 		findWinner(table);
 	}
@@ -39,20 +41,22 @@ public class HitRound extends Round {
 		}
 	}
 
-	private void doPlayerPhase(Table table,Player player, InputController inputController) {
-		if (player.isBust(Rule.getBlackjackPoint()) || !inputController.getYesOrNo(player.getName())) {
+	private void doPlayerPhase(Table table, Player player, InputController inputController) {
+		if (player.isBust(Rule.getBlackjackPoint())
+			|| !inputController.getYesOrNo(player.getName())) {
 			return;
 		}
 		try {
 			table.drawCards(player, 1);
-			doPlayerPhase(table,player, inputController);
+			doPlayerPhase(table, player, inputController);
 		} catch (Exception e) {
 			System.out.println(Rule.getOutOfCardsMessage());
 		}
 	}
 
 	private void doDealerPhase(Table table) {
-		if (table.getDealer().sumCardsMax() > Rule.getDealerDrawPoint() || table.getDealer().isBust(Rule.getBlackjackPoint())) {
+		if (table.getDealer().sumCardsMax() > Rule.getDealerDrawPoint()
+			|| table.getDealer().isBust(Rule.getBlackjackPoint())) {
 			return;
 		}
 		try {

@@ -3,53 +3,24 @@ package domain.game;
 import java.util.List;
 
 import controller.InputController;
-import view.InputView;
+import controller.OutputController;
 
 public class BlackJack {
-	private InputController inputController;
-	private InputView inputView;
-	private Match match;
-	private boolean firstDone;
+	private Table table;
 
 	public BlackJack() {
-		inputView = new InputView();
-		inputController = new InputController(inputView);
+		setUp();
 	}
 
 	public void run() {
-		setUp();
 
-		firstRound();
-		if (firstDone) {
-			finish();
-			return;
-		}
 
-		secondRound();
-		finish();
 	}
 
 	private void setUp() {
+		InputController inputController=InputController.getInputController();
 		List<String> playerNames = inputController.getPlayerNames();
 		List<Double> bettings = inputController.getBettings(playerNames);
-		match = new Match(playerNames, bettings);
-	}
-
-	private void firstRound() {
-		match.distribute(Rule.getBasicDraw());
-		match.findBlackJackWinners(Rule.getBlackjackPoint());
-		if (match.hasWinners()) {
-			firstDone = true;
-		}
-	}
-
-	private void secondRound() {
-		match.doPlayersPhase(inputController);
-		match.doDealerPhase();
-		match.findPointWinners();
-	}
-
-	private void finish() {
-
+		table = new Table(playerNames, bettings);
 	}
 }
