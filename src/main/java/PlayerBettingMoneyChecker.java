@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PlayerBettingMoneyChecker {
-    private final int digitsLimit = 10; //10억단위까지 허용
+    private final int digitsLimit = 9; //10억 단위 미만만 허용
 
     boolean playerBettingMoneyCheck(String bettingMoney) {
         if (bettingMoney.isEmpty()) {

@@ -76,7 +76,7 @@ public class BlackJackGame {
         String bettingMoney = "";
         PlayerBettingMoneyChecker playerBettingMoneyChecker = new PlayerBettingMoneyChecker();
         do {
-            System.out.println(playerName + "의 배팅 금액은?(10원단위로 쉼표없이 입력해주세요)");
+            System.out.println(playerName + "의 배팅 금액은? (10원 단위로 쉼표없이 입력해주세요, 10억 미만으로만 가능합니다.)");
             bettingMoney = scanner.nextLine().trim();
         } while (!playerBettingMoneyChecker.playerBettingMoneyCheck(bettingMoney));
         return Integer.parseInt(bettingMoney);
