@@ -76,6 +76,9 @@ public class BlackjackController {
 	}
 
 	private void getMoreCards() {
+		if (Rule.isBlackjack(dealer)) {
+			return;
+		}
 		players.forEach(this::getMoreCard);
 		if (Rule.shouldAddCard(dealer)) {
 			dealer.giveCard(cardDeck, dealer);
