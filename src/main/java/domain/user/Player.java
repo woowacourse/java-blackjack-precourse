@@ -8,25 +8,19 @@ import java.util.List;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player extends Dealer {
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
     // TODO 추가 기능 구현
 
-    public void getCards() {
-        for (int i = 0 ; i < cards.size() ;i++) {
-            System.out.println(cards.get(i).toString());
-        }
+    @Override
+    public String print() {
+        return name + "카드: " + printCardList();
     }
 }

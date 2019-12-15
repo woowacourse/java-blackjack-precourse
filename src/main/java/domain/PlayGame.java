@@ -21,6 +21,8 @@ public class PlayGame {
     public void play() {
         shuffleCard();
         shuffleCard();
+        printCardStatus();
+
     }
 
     private void shuffleCard() {
@@ -34,5 +36,12 @@ public class PlayGame {
     private Card pickCard() {
         usedCardIndex++;
         return cards.get(usedCardIndex);
+    }
+
+    private void printCardStatus() {
+        System.out.println(dealer.print());
+        for (Player player : players) {
+            System.out.println(player.print());
+        }
     }
 }

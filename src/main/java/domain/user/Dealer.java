@@ -18,4 +18,23 @@ public class Dealer {
     }
 
     // TODO 추가 기능 구현
+    public int cardSum() {
+        int sum = 0;
+        for (int i = 0 ; i < cards.size() ; i++) {
+            sum += cards.get(i).getSymbol().getScore();
+        }
+        return sum;
+    }
+
+    public String print() {
+        return "딜러: " + printCardList();
+    }
+
+    protected String printCardList() {
+        List<String> cardList = new ArrayList<>();
+        for (Card card : cards) {
+            cardList.add(card.getCard());
+        }
+        return String.join(", ", cardList);
+    }
 }

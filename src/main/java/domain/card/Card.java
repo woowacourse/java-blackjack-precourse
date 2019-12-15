@@ -38,11 +38,11 @@ public class Card {
                 '}';
     }
 
-    public Symbol getSymbol() {
-        return symbol;
+    public String getCard() {
+        return symbol.getScore() + type.toString();
     }
 
-    public Type getType() {
-        return type;
+    public Symbol getSymbol() {
+        return symbol;
     }
 }
