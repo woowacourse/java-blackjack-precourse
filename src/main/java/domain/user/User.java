@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
 public abstract class User {
     protected final List<Card> cards = new ArrayList<>();
 
+    public List<Card> getCards() {
+        return cards;
+    }
     public void addCard(Card card) {
         cards.add(card);
     }
