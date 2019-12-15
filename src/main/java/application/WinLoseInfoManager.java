@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -7,8 +8,16 @@ import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.Players;
 
-public class WinLoseInfoUpdater {
+public class WinLoseInfoManager {
 	private static final int BLACKJACK_SCORE = 21;
+	
+	public static List<WinLoseInfo> create(int size) {
+		List<WinLoseInfo> playersWinLoseInfo = new ArrayList<WinLoseInfo>();
+		for (int i = 0; i < size ; i++) {
+			playersWinLoseInfo.add(WinLoseInfo.UNDETERMINED);
+		}
+		return playersWinLoseInfo;
+	}
 	
 	public static void updateBlackjackInfo(Dealer dealer, List<WinLoseInfo> info, int index) {
 		if (dealer.calculateScore() == BLACKJACK_SCORE) {
@@ -25,7 +34,6 @@ public class WinLoseInfoUpdater {
 	
 	public static void updateFinalWinLoseInfo(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		if (dealer.calculateScore() > BLACKJACK_SCORE) {
-			System.out.println("딜러 파산");		//나중에 outputView로 옮긴다
 			IntStream.range(0, info.size())
 					.filter(i -> (info.get(i) == WinLoseInfo.UNDETERMINED))
 					.forEach(i -> info.set(i, WinLoseInfo.WIN));
@@ -45,7 +53,6 @@ public class WinLoseInfoUpdater {
 		}
 		return decideWinOrLose(dealer, player);
 	}
-	
 	
 	private static WinLoseInfo decideWinOrLose(Dealer dealer, Player player) {
 		if (dealer.calculateScore() > player.calculateScore() 

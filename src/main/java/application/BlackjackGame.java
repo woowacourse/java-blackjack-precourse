@@ -28,10 +28,7 @@ public class BlackjackGame {
 	}
 	
 	private void proceedGame(Dealer dealer, Players players, CardDeck cardDeck) {
-		List<WinLoseInfo> playersWinLoseInfo = new ArrayList<WinLoseInfo>();
-		for (int i = 0; i < players.getSize() ; i++) {
-			playersWinLoseInfo.add(WinLoseInfo.UNDETERMINED);
-		}
+		List<WinLoseInfo> playersWinLoseInfo = WinLoseInfoManager.create(players.getSize());
 		
 		initialDrawPhase(dealer, players, cardDeck);
 		checkBlackjack(dealer, players, playersWinLoseInfo);
@@ -54,7 +51,7 @@ public class BlackjackGame {
 				.filter(i -> (players.getPlayerAt(i).calculateScore() == BLACKJACK_SCORE ))
 				.forEach(
 					i -> {
-						WinLoseInfoUpdater.updateBlackjackInfo(dealer, info, i);
+						WinLoseInfoManager.updateBlackjackInfo(dealer, info, i);
 						OutputView.showInitialResult(players.getPlayerAt(i), info.get(i));
 					}
 				);
@@ -66,7 +63,7 @@ public class BlackjackGame {
 				.forEach(
 						i -> {
 							drawAdditionalCards(players.getPlayerAt(i), cardDeck);
-							WinLoseInfoUpdater.updateLoser(players.getPlayerAt(i), info, i);
+							WinLoseInfoManager.updateLoser(players.getPlayerAt(i), info, i);
 						}
 					);
 	}
@@ -112,7 +109,7 @@ public class BlackjackGame {
 	}
 	
 	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		WinLoseInfoUpdater.updateFinalWinLoseInfo(dealer, players, info);
+		WinLoseInfoManager.updateFinalWinLoseInfo(dealer, players, info);
 		OutputView.showAllFinalResults(dealer, players, info);
 		List<Double> finalProfit = calculateFinalProfit(players, info);
 		OutputView.showFinalProfit(players, finalProfit);
@@ -120,18 +117,7 @@ public class BlackjackGame {
 
 	private List<Double> calculateFinalProfit(Players players, List<WinLoseInfo> info) {
 		return IntStream.range(0, info.size())
-				.mapToObj(i -> calculateProfit(players.getPlayerAt(i), info.get(i)))
+				.mapToObj(i -> info.get(i).toProfit(players.getPlayerAt(i).getBettingMoney()))
 				.collect(Collectors.toList());
-	}
-	
-	private Double calculateProfit(Player player, WinLoseInfo info) {
-		if (info == WinLoseInfo.BLACKJACK) {
-			return 1.5 * player.getBettingMoney();
-		} else if (info == WinLoseInfo.WIN) {
-			return player.getBettingMoney();
-		} else if (info == WinLoseInfo.LOSE) {
-			return - player.getBettingMoney();
-		}
-		return 0.0;
 	}
 }
