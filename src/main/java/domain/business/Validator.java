@@ -1,5 +1,5 @@
 /*
- * @(#)Validator.java       0.2 2019.12.15
+ * @(#)Validator.java       0.3 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,13 +17,23 @@ import java.util.regex.Pattern;
  * 입력의 유효성 검증을 담당하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.15
  */
 public class Validator {
     /**
      * Player 이름이 영문자로만 이루어져 있는지 확인하기 위한 regex 문자열 상수.
      */
     private static final String PLAYER_NAME_FORMAT = "^[a-zA-Z]*$";
+
+    /**
+     * Player BettingMoney의 가능한 최소 금액을 확인하기 위한 상수.
+     */
+    private static final int MIN_BETTING_MONEY = 2;
+
+    /**
+     * Player BettingMoney에서 가능한 금액을 수익으로 얻기 위해 입력 값이 짝수인지를 판단하기 위한 상수.
+     */
+    private static final int EVEN_NUMBER = 2;
 
     /**
      * 예외 발생시 출력을 담당할 Output 객체.
@@ -36,7 +46,7 @@ public class Validator {
      * @param playerNames Player 이름.
      * @throws InputMismatchException Player 이름 중 유효하지 않은 이름이 존재할 시 발생하는 예외.
      */
-    public void isValidPlayerName(List<String> playerNames) throws InputMismatchException {
+    public static void isValidPlayerName(List<String> playerNames) throws InputMismatchException {
         try {
             isValidPlayerNameLength(playerNames);
             isValidPlayerNameFormat(playerNames);
@@ -53,7 +63,7 @@ public class Validator {
      * @param playerNames Player 이름.
      * @throws InputMismatchException Player 이름 중 길이가 유효하지 않은 이름이 존재할 시 발생하는 예외.
      */
-    private void isValidPlayerNameLength(List<String> playerNames) throws InputMismatchException {
+    private static void isValidPlayerNameLength(List<String> playerNames) throws InputMismatchException {
         for (String playerName : playerNames) {
             isValidOnePlayerNameLength(playerName);
         }
@@ -65,7 +75,7 @@ public class Validator {
      * @param playerName Player 이름(한명).
      * @throws InputMismatchException Player 이름의 길이가 유효하지 않을 경우 발생하는 예외.
      */
-    private void isValidOnePlayerNameLength(String playerName) throws InputMismatchException {
+    private static void isValidOnePlayerNameLength(String playerName) throws InputMismatchException {
         if (playerName.length() < 1) {
             out.printPlayerNameLengthError();
             throw new InputMismatchException();
@@ -78,7 +88,7 @@ public class Validator {
      * @param playerNames Player 이름.
      * @throws InputMismatchException Player 이름 중 형식이 유효하지 않은 이름이 존재할 시 발생하는 예외.
      */
-    private void isValidPlayerNameFormat(List<String> playerNames) throws InputMismatchException {
+    private static void isValidPlayerNameFormat(List<String> playerNames) throws InputMismatchException {
         for (String playerName : playerNames) {
             isValidOnePlayerNameFormat(playerName);
         }
@@ -90,7 +100,7 @@ public class Validator {
      * @param playerName Player 이름(한명).
      * @throws InputMismatchException Player 이름의 형식이 유효하지 않을 경우 발생하는 예외.
      */
-    private void isValidOnePlayerNameFormat(String playerName) throws InputMismatchException {
+    private static void isValidOnePlayerNameFormat(String playerName) throws InputMismatchException {
         if (!Pattern.matches(PLAYER_NAME_FORMAT, playerName)) {
             out.printPlayerNameFormatError();
             throw new InputMismatchException();
@@ -103,11 +113,54 @@ public class Validator {
      * @param playerNames Player 이름.
      * @throws InputMismatchException Player 이름 중에 중복이 존재할 경우 발생하는 예외.
      */
-    private void isNoDuplicatePlayerName(List<String> playerNames) throws InputMismatchException {
+    private static void isNoDuplicatePlayerName(List<String> playerNames) throws InputMismatchException {
         HashSet<String> noDuplicatePlayerNames = new HashSet<>(playerNames);
         if (noDuplicatePlayerNames.size() != playerNames.size()) {
             out.printPlayerNameDuplicateError();
             throw new InputMismatchException();
         }
     }
+
+    /**
+     * Player의 bettingMoney가 유효한지(2이상, 짝수) 확인하는 메소드.
+     *
+     * @param bettingMoney Player의 bettingMoney.
+     * @throws InputMismatchException bettingMoney가 유효하지 않은 경우 발생하는 예외.
+     */
+    public static void isValidPlayerBettingMoney(int bettingMoney) throws InputMismatchException {
+        try {
+            isValidBettingMoney(bettingMoney);
+            isEvenBettingMoney(bettingMoney);
+        } catch (InputMismatchException e) {
+            out.printInputRequestAgain();
+            throw new InputMismatchException();
+        }
+    }
+
+    /**
+     * bettingMoney가 최소 금액보다 높은지 확인하고 메시지를 출력하는 메소드.
+     *
+     * @param bettingMoney Player의 bettingMoney.
+     * @throws InputMismatchException bettingMoney가 최소 금액보다 작다면 발생하는 예외.
+     */
+    private static void isValidBettingMoney(int bettingMoney) throws InputMismatchException {
+        if (bettingMoney < MIN_BETTING_MONEY) {
+            out.printBettingMoneyUnderMinNumberError();
+            throw new InputMismatchException();
+        }
+    }
+
+    /**
+     * bettingMoney가 짝수인지 확인하고 메시지를 출력하는 메소드.
+     *
+     * @param bettingMoney Player의 bettingMoney.
+     * @throws InputMismatchException bettingMoney가 짝수가 아니라면 발생하는 예외.
+     */
+    private static void isEvenBettingMoney(int bettingMoney) throws InputMismatchException {
+        if ((bettingMoney % EVEN_NUMBER) != 0) {
+            out.printBettingMoneyNotEvenNumberError();
+            throw new InputMismatchException();
+        }
+    }
+
 }

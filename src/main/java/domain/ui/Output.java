@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      0.3 2019.12.15
+ * @(#)Output.java      0.4 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,7 +10,7 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.15
+ * @version 0.4 2019.12.15
  */
 public class Output {
     /**
@@ -47,6 +47,16 @@ public class Output {
      * Player의 베팅 금액 입력 요청때 출력할 메시지 상수.
      */
     private static final String PLAYER_BETTING_MONEY_REQUEST_MESSAGE = "의 베팅 금액은?";
+
+    /**
+     * 베팅 금액이 최소 금액보다 작은 경우 출력할 메시지 상수.
+     */
+    private static final String BETTING_MONEY_UNDER_MIN_NUMBER_ERROR_MESSAGE = "베팅 금액이 최소 금액(2원)보다 작습니다.";
+
+    /**
+     * 베팅 금액이 짝수가 아닌 경우 출력할 메시지 상수.
+     */
+    private static final String BETTING_MONEY_NOT_EVEN_NUMBER_ERROR_MESSAGE = "베팅 금액이 짝수가 아닙니다.";
 
     /**
      * Dealer와 Player에게 2장의 카드를 나누어 줄때 출력할 메시지 상수.
@@ -116,6 +126,20 @@ public class Output {
      */
     public void printInputRequestAgain() {
         System.out.println(INPUT_REQUEST_AGAIN_MESSAGE);
+    }
+
+    /**
+     * 베팅 머니가 최소 베팅 금액보다 작음을 출력하는 메소드.
+     */
+    public void printBettingMoneyUnderMinNumberError() {
+        System.out.print(BETTING_MONEY_UNDER_MIN_NUMBER_ERROR_MESSAGE);
+    }
+
+    /**
+     * 베팅 머니가 짝수가 아님을 출력하는 메소드.
+     */
+    public void printBettingMoneyNotEvenNumberError() {
+        System.out.print(BETTING_MONEY_NOT_EVEN_NUMBER_ERROR_MESSAGE);
     }
 
     /**
