@@ -13,11 +13,13 @@ public class GameRequest {
 	private StringTokenizer usersToken;
 	private ArrayList<Player> userList;
 	private GameUI gameUI;
+	private RequestException requestException;
 
 	public GameRequest() {
 		scan = new Scanner(System.in);
 		userList = new ArrayList<Player>();
 		gameUI = new GameUI();
+		requestException = new RequestException();
 	}
 
 	public ArrayList<Player> requestName() {
@@ -26,19 +28,27 @@ public class GameRequest {
 		usersToken = new StringTokenizer(name);
 		for (int i = 1; usersToken.hasMoreTokens(); i++) {
 			String name = usersToken.nextToken(",");
-			userList.add(new Player(name, requestBettingMoney(name)));
+			requestBettingMoney(name);
+			userList.add(new Player(name, money));
 		}
 		test();
 		return userList;
 	}
-	private void test(){
+
+	private void test() {
 		for (int i = 0; i < userList.size(); i++) {
 			System.out.println(userList.get(i).getName() + "   " + userList.get(i).getMoney());
 		}
 	}
-	private double requestBettingMoney(String name) {
-		gameUI.requestUserBettingMoneyInterface(name);
-		money = scan.nextInt();
-		return money;
+
+	private void requestBettingMoney(String name) {
+		try{
+			gameUI.requestUserBettingMoneyInterface(name);
+			money = scan.nextDouble();
+		}catch (Exception e){
+			System.out.println("숫자를 입력하세요");
+			scan = new Scanner(System.in);
+			requestBettingMoney(name);
+		}
 	}
 }
