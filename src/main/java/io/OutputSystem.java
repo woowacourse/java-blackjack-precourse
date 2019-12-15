@@ -24,11 +24,13 @@ public class OutputSystem {
     }
 
     static private void printDealerCardList(Dealer dealer) {
-        System.out.print("딜러 : 다이아몬드3");
+        System.out.print("딜러 : ");
+        System.out.println(dealer.getCardList());
     }
 
     static private void printUserCardList(Player player) {
-        System.out.print("유저의카드 : 다이아몬드3");
+        System.out.print("유저의카드 : ");
+        System.out.println(player.getCardList());
     }
 
     static public void printPeopleCardList(Dealer dealer, ArrayList<Player> players) {
@@ -50,16 +52,16 @@ public class OutputSystem {
 
     static public void printResultValue(Dealer dealer, ArrayList<Player> players) {
         printDealerCardList(dealer);
-        System.out.println("- 결과 : 21");
+        System.out.println("- 결과 : " + dealer.getTotalNumber());
         for (Player player : players) {
             printUserCardList(player);
-            System.out.println("- 결과 : 21");
+            System.out.println("- 결과 : " + player.getTotalNumber());
         }
     }
 
     static public void printResultMoney(Dealer dealer, ArrayList<Player> players) {
         System.out.println("## 최종수익");
-        System.out.print("딜러 : 10000");
+        System.out.println("딜러 : 10000");
         for (Player player : players) {
             System.out.println(player.getName() + ":" + "1234");
         }
