@@ -50,5 +50,9 @@ public class EntryManager {
                 .collect(Collectors.toList());
     }
 
-
+    public String getEntryResultScore() {
+        return players.stream()
+                .map(x -> x.toString() + " - 결과: " + x.getCountedScoreWithAceBonus())
+                .collect(Collectors.joining("\n"));
+    }
 }
