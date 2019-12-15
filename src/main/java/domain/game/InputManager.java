@@ -2,14 +2,21 @@ package domain.game;
 
 import java.util.Scanner;
 
+/**
+ * 플레이어의 입력과 유효성 검사를 담당하는 객체
+ */
 public class InputManager {
 	private static final double DEFAULT_BETTING_MONEY = 0.0;
 	private static final int FIRST_INDEX = 0;
 	private static final char HIT = 'y';
 	private static final char STAY = 'n';
-
+	
 	Scanner input = new Scanner(System.in);
 
+	/**
+	 * 플레이어의 이름 입력 메서드
+	 * @return
+	 */
 	public String[] inputPlayerNames() {
 		input = new Scanner(System.in);
 		String[] playerNames;
@@ -32,6 +39,11 @@ public class InputManager {
 		}
 	}
 
+	/**
+	 * 플레이어의 배팅 금액 입력 메서드
+	 * @param name
+	 * @return
+	 */
 	public double inputBettingMoney(String name) {
 		input = new Scanner(System.in);
 		double bettingMoney = DEFAULT_BETTING_MONEY;
@@ -52,6 +64,10 @@ public class InputManager {
 		}
 	}
 
+	/**
+	 * 플레이어의 Hit 또는 Stay 입력 메서드
+	 * @return
+	 */
 	public char chooseHitOrStay() {
 		input = new Scanner(System.in);
 		char choice = ' ';
