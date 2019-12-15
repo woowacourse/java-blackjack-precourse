@@ -71,7 +71,7 @@ public class InputUtil {
 		double playerBettingMoney;
 
 		try {
-			playerBettingMoney = Double.parseDouble(reader.readLine());
+			playerBettingMoney = Integer.parseInt(reader.readLine());
 			// checkBettingMoney(playerBettingMoney); 자연수인지 확인
 		} catch (IOException | NumberFormatException e) {
 			throw e;
