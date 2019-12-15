@@ -34,11 +34,12 @@ public class BlackJackGame {
         for (Player player : playerList) {
             cardDistributor.giveTwoCardsToBlackjackUser(player);
         }
+        printDistributedCards(dealer, playerList);
     }
 
-    private static void printDistributedCards() {
-        String playerName = String.join(",", playerNameList);
-        System.out.println(String.format("딜러와 %s에게 각각 %d장의 카드를 나누어 주었습니다.", playerName, FIRST_DISTRIBUTED_CARD_AMOUNT));
+    private static void printDistributedCards(Dealer dealer, List<Player> playerList) {
+        String playerName = String.join(",", getPlayerNameList(playerList));
+        System.out.println(String.format("딜러와 %s에게 각각 2장의 카드를 나누어 주었습니다.", playerName));
         dealer.printFirstCardOnly();
         for (Player player : playerList) {
             player.printAllCards();
@@ -47,10 +48,12 @@ public class BlackJackGame {
         System.out.println();
     }
 
-    private static void addCardToPlayer() {
-        for (int i = 0; i < playerList.size(); i++) {
-            askCardAddition(playerNameList.get(i), playerList.get(i));
+    private static List<String> getPlayerNameList(List<Player> playerList) {
+        List<String> playerNameList = new ArrayList<>();
+        for (Player player : playerList) {
+            playerNameList.add(player.getName());
         }
+        return playerNameList;
     }
 
     private static void askCardAddition(String playerName, Player player) {
