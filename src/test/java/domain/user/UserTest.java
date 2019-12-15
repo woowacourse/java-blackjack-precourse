@@ -11,8 +11,8 @@ class UserTest {
     @Test
     void checkAce() {
         User user = new User();
-        user.addCard(new Card(Symbol.EIGHT, Type.다이아몬드));
-        user.addCard(new Card(Symbol.ACE, Type.다이아몬드));
+        user.addRandomCard(new Card(Symbol.EIGHT, Type.다이아몬드));
+        user.addRandomCard(new Card(Symbol.ACE, Type.다이아몬드));
         assertEquals(true, user.checkAce());
     }
 }

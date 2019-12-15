@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import domain.card.RandomCardFactory;
 import domain.view.InputUtil;
 import domain.view.OutputUtil;
 
@@ -33,8 +32,8 @@ public class Users {
 
     public static void receiveBeginningCard(List<Card> cards) {
         users.forEach(user -> {
-            user.addCard(RandomCardFactory.create(cards));
-            user.addCard(RandomCardFactory.create(cards));
+            user.addRandomCard();
+            user.addRandomCard();
         });
     }
 

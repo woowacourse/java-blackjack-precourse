@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.RandomCardFactory;
 import domain.card.Symbol;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class User {
     private final List<Card> cards = new ArrayList<>();
     private static final int LIMIT = 21;
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public void addRandomCard() {
+        cards.add(RandomCardFactory.create());
     }
 
     public List<Card> getCards() {
@@ -48,7 +49,7 @@ public class User {
     }
 
     public boolean isBlackJack() {
-        if(!checkAce())     // A가 있고
+        if (!checkAce())     // A가 있고
             return false;
 
         return cards.stream().anyMatch(card ->      // K,J,Q 중 하나가 존재해야 블랙잭이다.

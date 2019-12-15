@@ -1,6 +1,10 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
+import domain.view.InputUtil;
+import domain.view.OutputUtil;
+import jdk.internal.util.xml.impl.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +24,22 @@ public class Dealer extends User {
         System.out.println("딜러: " + super.getCards().get(0).getCardInfo());
     }
 
-    public boolean checkAddLimitExcess() {
+    private boolean checkAddLimitExcess() {
         int sum = super.getCards().stream()
+                .filter(card -> card.getSymbol() != Symbol.ACE)
                 .map(card -> card.getSymbol().getScore())
                 .reduce(Integer::sum)
                 .get();
+        if (checkAce()) {
+            OutputUtil.printAceScoreQuestion();
+            sum += InputUtil.inputAceUse();
+        }
         return sum > ADD_CARD_LIMIT;
+    }
+
+    private void doCheckAddLimitExcessAndFollowAction() {
+        if (checkAddLimitExcess() == false) {
+            addRandomCard();
+        }
     }
 }
