@@ -18,12 +18,12 @@ public class Player extends User {
         this.bettingMoney = bettingMoney;
     }
 
-    java.lang.String getName() {
+    public String getName() {
         return this.name;
     }
 
     public void printCards() {
-        System.out.println(getName() + ": " + getCardValue());
+        System.out.println(getName() + ": " + printCardValue());
     }
 
 

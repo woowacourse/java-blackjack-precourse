@@ -41,6 +41,10 @@ public class Users {
             Player player = (Player) user;
             player.printCards();
         }
+        if (user instanceof Dealer) {
+            Dealer dealer = (Dealer) user;
+            dealer.printCards();
+        }
     }
 
     private void getNameOfPlayer(ArrayList<String> playerNames, User user) {

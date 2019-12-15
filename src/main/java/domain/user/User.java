@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +16,17 @@ public class User {
         cards.add(card);
     }
 
-    public void printCards() {
-    }
-
-    public String getCardValue() {
+    public ArrayList<String> getCardValue() {
         ArrayList<String> cardInfo = new ArrayList<>();
         for (Card card : this.cards) {
             cardInfo.add(card.printSymbolAndNumber());
         }
-        return String.join(", ", cardInfo);
+        return cardInfo;
     }
+
+    public String printCardValue() {
+        return String.join(", ", getCardValue());
+    }
+
+
 }

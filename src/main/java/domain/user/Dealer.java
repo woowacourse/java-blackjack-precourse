@@ -14,9 +14,15 @@ public class Dealer extends User {
     public Dealer() {
     }
 
-    /*public void addCard(Card card) {
-        cards.add(card);
-    }*/
+    public void printCards() {
+        System.out.println("딜러: " + printCardValue());
+    }
+
+    @Override
+    public String printCardValue() {
+        ArrayList<String> CardValue = getCardValue();
+        return String.join(", ", CardValue.get(0));
+    }
 
     // TODO 추가 기능 구현
 }
