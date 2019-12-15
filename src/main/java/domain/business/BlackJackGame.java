@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       0.6 2019.12.15
+ * @(#)BlackJackGame.java       0.7 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -20,9 +20,14 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.6 2019.12.15
+ * @version 0.7 2019.12.15
  */
 public class BlackJackGame {
+    /**
+     * Dealer와 관련된 정보를 출력할 때 사용할 상수.
+     */
+    private static final String DEALER_NAME = "딜러";
+
     /**
      * 첫 턴에 덱에서 카드를 2개씩 뽑을 때 사용할 상수.
      */
@@ -183,6 +188,23 @@ public class BlackJackGame {
     }
 
     /**
+     * Player의 수익과 총점을 미리 초기화해두는 메소드.
+     */
+    private void initPlayerInformation() {
+        initPlayerProfit();
+        getPlayerTotalScores();
+    }
+
+    /**
+     * Player들의 수익을 -배팅금액으로 초기화하는 메소드.
+     */
+    private void initPlayerProfit() {
+        for (Player player : players) {
+            playerProfits.add(-player.getBettingMoney());
+        }
+    }
+
+    /**
      * Player들의 점수를 List에 저장하는 메소드.
      */
     private void getPlayerTotalScores() {
@@ -192,23 +214,6 @@ public class BlackJackGame {
             int playerTotalScore = player.getTotalScore();
             playerScores.add(playerTotalScore);
         }
-    }
-
-    /**
-     * Player들의 수익을 - 배팅금액으로 초기화하는 메소드.
-     */
-    private void initPlayerProfit() {
-        for (Player player : players) {
-            playerProfits.add(-player.getBettingMoney());
-        }
-    }
-
-    /**
-     * Player의 수익과 총점을 미리 초기화해두는 메소드.
-     */
-    private void initPlayerInformation() {
-        initPlayerProfit();
-        getPlayerTotalScores();
     }
 
     /**
@@ -335,5 +340,16 @@ public class BlackJackGame {
      */
     private boolean isBust(int userScore) {
         return (userScore >= BUST_NUMBER);
+    }
+
+    /**
+     * 블랙잭 게임 전체의 수익 결과를 출력하는 메소드.
+     */
+    public void printFinalProfit() {
+        out.printFinalProfitNotice();
+        out.printUserFinalProfit(DEALER_NAME, dealerProfit);
+        for (int i = 0; i < players.size(); i++) {
+            out.printUserFinalProfit(players.get(i).getName(), playerProfits.get(i));
+        }
     }
 }

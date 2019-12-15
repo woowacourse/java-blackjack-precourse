@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      0.7 2019.12.15
+ * @(#)Output.java      0.8 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,7 +10,7 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.15
+ * @version 0.8 2019.12.15
  */
 public class Output {
     /**
@@ -224,7 +224,7 @@ public class Output {
      * @param userName User의 이름.
      * @param profit   해당 User의 최종 수익.
      */
-    public void printUserFinalProfit(String userName, int profit) {
+    public void printUserFinalProfit(String userName, double profit) {
         System.out.printf(USER_PROFIT_MESSAGE + NEW_LINE_STRING, userName, profit);
     }
 
