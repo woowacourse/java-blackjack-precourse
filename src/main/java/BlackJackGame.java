@@ -1,5 +1,8 @@
 import java.util.*;
 
+import domain.card.Card;
+import domain.card.CardFactory;
+import domain.card.Symbol;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
@@ -31,7 +34,7 @@ public class BlackJackGame {
     private void firstProceedGame() {
         boolean proceed = false;
         System.out.println("딜러와 " + getPlayerNamesALine() + "에게 2장의 카드를 나누었습니다.");
-        handOutCards(2);
+        //handOutCards(2);
         if (proceed == true) {
             secondProceedGame();
         }
@@ -95,11 +98,16 @@ public class BlackJackGame {
         return playerNamesALine.substring(0, playerNamesALine.length() - 2);
     }
 
-    private void handOutCards(int cardNumber) {
-
+    private void handOutCards(Dealer dealer) {
+        //dealer.addCard();
     }
 
-    private void handOutCards(int cardNumber, User user) {
+    private void handOutCards(Player player) {
+        //Card card = new Card(new Object, new Object);
+        //player.addCard();
+    }
 
+    private void takeOutACard() {
+        //
     }
 }
