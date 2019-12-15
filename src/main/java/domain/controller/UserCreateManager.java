@@ -1,6 +1,5 @@
 package domain.controller;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import domain.exception.InputException;
 import domain.input.MoneyInput;
 import domain.input.PlayerInput;
@@ -12,7 +11,6 @@ import domain.view.Announcer;
 import java.util.List;
 
 public class UserCreateManager {
-    Dealer dealer;
     CardManager cardManager;
     PlayerInput input;
     ToolBox toolbox;
@@ -20,25 +18,25 @@ public class UserCreateManager {
     InputException inputException;
     MoneyInput moneyinput;
     Player[] players;
+    Dealer dealer;
 
     final static int MAKE_TWO_CARD = 2;
     final static int MAKE_ONE_CARD = 1;
 
-    public UserCreateManager() {
+    public UserCreateManager(Dealer dealer) {
         cardManager = new CardManager();
         input = new PlayerInput();
         toolbox = new ToolBox();
         announce = new Announcer();
         inputException = new InputException();
         moneyinput = new MoneyInput();
-        dealer = new Dealer();
+        this.dealer = dealer;
     }
 
-    public void playerStandBy(){
+    public Player[] playerStandBy(){
         createPlayer(createPlayerName());
         createDealer();
-        announce.announceDoneUserCreate(
-                toolbox.makePlayerNameString(players));
+        return players;
     }
 
     private void createPlayer(List<String> nameList) {
@@ -48,13 +46,13 @@ public class UserCreateManager {
             announce.announceMoneyInput(name);
             players[i] = new Player(
                     name, moneyinput.inputBettingMoney());
-            cardManager.giveCard(players[i], MAKE_ONE_CARD);
+            cardManager.giveCard(players[i], MAKE_TWO_CARD);
             i++;
         }
     }
 
     private void createDealer() {
-        cardManager.giveCard(dealer, MAKE_TWO_CARD);
+        cardManager.giveCard(dealer, MAKE_ONE_CARD);
     }
 
     private List<String> createPlayerName() {

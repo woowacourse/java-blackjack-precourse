@@ -8,10 +8,11 @@ import java.util.List;
 
 public class CardManager {
 
-
     public void giveCard(User user, int numOfCard) {
+        final int CARD_NUMBER = user.getCards().size();
         List<Card> cardList = createCard();
-        for (int i = 0; i < numOfCard; i++) {
+        for (int i = CARD_NUMBER;
+             i < CARD_NUMBER + numOfCard; i++) {
             user.addCard(cardList.get(i));
         }
     }
@@ -19,7 +20,5 @@ public class CardManager {
     private List<Card> createCard() {
         return CardFactory.create();
     }
-
-
 
 }

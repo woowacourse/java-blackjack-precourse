@@ -6,14 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private final String name;
     private final List<Card> cards = new ArrayList<>();
+
+    public User(String name) {
+        this.name = name;
+    }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    public void printCards() {
-        cards.stream()
-             .forEach(x->System.out.println(x.toString()));
+
+    public String getName() {
+        return this.name;
+    }
+
+    public List<Card> getCards() {
+        return this.cards;
     }
 }

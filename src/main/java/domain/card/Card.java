@@ -26,6 +26,10 @@ public class Card {
                 type == card.type;
     }
 
+    public int getSymbolByScore() {
+        return this.symbol.getScore();
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(symbol, type);
@@ -33,9 +37,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return symbol.getScore() + type.toString();
     }
 }

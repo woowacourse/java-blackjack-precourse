@@ -5,7 +5,9 @@ package domain.user;
  */
 public class Dealer extends User{
 
-    public Dealer() { }
+    public Dealer(String name) {
+        super(name);
+    }
 
 
     // TODO 추가 기능 구현
