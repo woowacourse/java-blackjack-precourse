@@ -38,4 +38,8 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+    public Symbol getSymbol() {
+        return symbol;
+    }
 }

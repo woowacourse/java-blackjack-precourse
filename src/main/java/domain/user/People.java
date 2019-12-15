@@ -16,7 +16,8 @@ public class People {
     public int getTotalNumber(){
         int result = 0;
         for(Card card : cards) {
+            result += card.getSymbol().getScore();
         }
-        return 1;
+        return result;
     }
 }
