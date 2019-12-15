@@ -27,6 +27,14 @@ public class Card {
         return this.symbol.getDisplay() + this.type.getDisplay();
     }
 
+    public int getScore() {
+        return this.symbol.getScore();
+    }
+
+    public boolean isAce() {
+        return this.symbol == Symbol.ACE;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

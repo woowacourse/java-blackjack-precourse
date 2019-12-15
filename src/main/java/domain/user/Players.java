@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Deck;
+import domain.game.Scorer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Players {
     public List<Integer> sumCardScores() {
         List<Integer> scoreSums = new ArrayList<>();
         for (Player player : this.players) {
-            scoreSums.add(new Integer(player.sumCardScores()));
+            scoreSums.add(new Integer(Scorer.sumCardScores(player)));
         }
         return scoreSums;
     }

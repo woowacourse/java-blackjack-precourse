@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +39,9 @@ public class Player {
         cards.add(card);
     }
 
-    public int sumCardScores() {
+    public boolean hasAce() {
         return this.cards.stream()
-                .map(Card::getSymbol)
-                .mapToInt(Symbol::getScore)
-                .sum();
+                .anyMatch(Card::isAce);
     }
 
     public List<Card> getCards() {

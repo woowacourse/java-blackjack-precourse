@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +17,13 @@ public class Dealer {
         cards.add(card);
     }
 
-    public List<Card> getCards() {
-        return this.cards;
+    public boolean hasAce() {
+        return this.cards.stream()
+                .anyMatch(Card::isAce);
     }
 
-    public int sumCardScores() {
-        return this.cards.stream()
-                .map(Card::getSymbol)
-                .mapToInt(Symbol::getScore)
-                .sum();
+    public List<Card> getCards() {
+        return this.cards;
     }
 
     public String getCardInfo() {

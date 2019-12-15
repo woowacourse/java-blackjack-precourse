@@ -25,7 +25,7 @@ public class BlackJack {
         System.out.println(dealer.getCardInfo());
         players.getCardInfo().forEach(System.out::println);
 
-        System.out.println(dealer.sumCardScores());
+        System.out.println(Scorer.sumCardScores(dealer));
         players.sumCardScores().forEach(System.out::println);
     }
 
