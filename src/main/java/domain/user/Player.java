@@ -13,10 +13,20 @@ public class Player extends User {
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
-    public Player (String name, double bettingMoney) {
+    public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
+
+    java.lang.String getName() {
+        return this.name;
+    }
+
+    public void printCards() {
+        System.out.println(getName() + ": " + getCardValue());
+    }
+
+
 
 
     /*

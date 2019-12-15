@@ -10,18 +10,14 @@ public class BlackjackGame {
 
     public BlackjackGame(Users users) {
         this.users = users;
+        users.addDealer();
         this.stack = new Stack(CardFactory.create());
         stack.shuffle();
     }
 
     public void execute() {
-        Distribute();
-
-    }
-
-    private void Distribute() {
         users.distribute(stack);
-        //users.print
+
     }
 
 }

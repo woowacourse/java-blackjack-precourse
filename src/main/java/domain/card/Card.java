@@ -38,4 +38,8 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+    public String printSymbolAndNumber() {
+        return symbol.getDisplay() + type.getDisplay();
+    }
 }

@@ -15,4 +15,14 @@ public class User {
         cards.add(card);
     }
 
+    public void printCards() {
+    }
+
+    public String getCardValue() {
+        ArrayList<String> cardInfo = new ArrayList<>();
+        for (Card card : this.cards) {
+            cardInfo.add(card.printSymbolAndNumber());
+        }
+        return String.join(", ", cardInfo);
+    }
 }
