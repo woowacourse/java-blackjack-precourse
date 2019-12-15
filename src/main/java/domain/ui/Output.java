@@ -182,7 +182,7 @@ public class Output {
      * @param playerName 카드를 받을 Player의 이름.
      */
     public void printPlayerGetOneMoreCard(String playerName) {
-        System.out.println(playerName + PLAYER_GET_ONE_MORE_CARD_MESSAGE);
+        System.out.println(NEW_LINE_STRING + playerName + PLAYER_GET_ONE_MORE_CARD_MESSAGE);
     }
 
     /**
@@ -226,5 +226,12 @@ public class Output {
      */
     public void printUserFinalProfit(String userName, int profit) {
         System.out.printf(USER_PROFIT_MESSAGE + NEW_LINE_STRING, userName, profit);
+    }
+
+    /**
+     * 개행을 위한 출력 메소드.
+     */
+    public void printNewLine() {
+        System.out.println(" ");
     }
 }
