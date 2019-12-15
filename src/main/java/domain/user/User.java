@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,5 +30,11 @@ public class User {
         if (cards.size() == 0) {
             throw new IndexOutOfBoundsException("딜러의 카드가 존재하지 않습니다.");
         }
+    }
+
+    public boolean checkAce() {
+        return cards.stream().anyMatch(card ->
+                card.getSymbol() == Symbol.ACE
+        );
     }
 }
