@@ -1,5 +1,5 @@
 /*
- * @(#)Deck.java        0.2 2019.12.15
+ * @(#)Deck.java        0.3 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -15,7 +15,7 @@ import java.util.List;
  * 카드 덱을 생성하고 관리하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.15
  */
 public class Deck {
     /**
@@ -61,8 +61,9 @@ public class Deck {
     }
 
     /**
+     * 카드 덱에서 카드 한장을 뽑는 기능 구현.
      *
-     * @return
+     * @return 뽑은 한장의 카드 반환.
      */
     public Card drawCard() {
         return cards.get(cardIterator++);
