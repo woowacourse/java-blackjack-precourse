@@ -31,6 +31,8 @@ public class PrintController {
     private static final String DEALER_IS = "딜러는 ";
     private static final String LOWER_THAN_SIXTEEN = "16이하라 ";
     private static final String GET_N_NUMBER_CARDS = "장의 카드를 더 받았습니다.";
+    private static final String RESULT_COLON = " - 결과: ";
+    private static final String TOTAL_PROFIT = "## 최종 수익";
 
     public static String integerToKoreanNumber(int number) {
         if (number == 1) { return "한"; }
@@ -91,5 +93,13 @@ public class PrintController {
 
     public static void printDealerExtraCards(int extraCounts) {
         System.out.println(DEALER_IS + LOWER_THAN_SIXTEEN + integerToKoreanNumber(extraCounts) + GET_N_NUMBER_CARDS);
+    }
+
+    public static void printDealerCardFinalInformation(Dealer dealer) {
+        System.out.println(DEALER_COLON + dealer.getCardsInformation() + RESULT_COLON + dealer.getCurrentScore());
+    }
+
+    public static void printPlayerCardFinalInformation(Player player) {
+        System.out.println(player.getName() + CARD_COLON + player.getCardsInformation() + RESULT_COLON + player.getCurrentScore());
     }
 }

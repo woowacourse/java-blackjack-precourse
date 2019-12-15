@@ -55,12 +55,14 @@ public class ResultController {
     public void startBlackJackProcedure(ArrayList<Player> playerList, Dealer dealer) {
         if (checkDealerBlackJackOrNot(dealer) && checkPlayerBlackJackOrNot(playerList)) {
             // 둘 다 블랙잭이 있는 경우 -> 어떤 플레이어인지 보고 해당 플레이어는 잃지 않고 블랙잭 아닌 플레이어만 돈 잃기.
+            controlFinalResult(playerList, dealer);
             // 돈계산으로 넘어가야함.
             System.out.println("둘다!");
             return ;
         }
         if (checkDealerBlackJackOrNot(dealer)) {
             // 딜러만 블랙잭인 경우 -> 다 잃고 경기 종료
+            controlFinalResult(playerList, dealer);
             // 돈계산으로 넘어가야함.
             System.out.println("딜러만!");
             return ;
@@ -88,4 +90,10 @@ public class ResultController {
         return ifSomePlayerBlackJack;
     }
 
+    public void controlFinalResult(ArrayList<Player> playerList, Dealer dealer) {
+        PrintController.printDealerCardFinalInformation(dealer);
+        for (Player player : playerList) {
+            PrintController.printPlayerCardFinalInformation(player);
+        }
+    }
 }
