@@ -60,18 +60,14 @@ public class BlackjackController {
 		OutputView.printNewLine();
 	}
 
-	private void onHit(boolean isHit, Player player) {
-		if (isHit) {
-			dealer.giveCard(cardDeck, player);
-			OutputView.printCards(player.getName(), player.getCards());
-		}
+	private boolean wantMoreCard(Player player) {
+		return InputView.getMoreCard(player.getName()).equals(HIT);
 	}
 
 	private void getMoreCard(Player player) {
-		boolean isHit = true;
-		while (Rule.canGetMoreCards(player) && isHit) {
-			isHit = InputView.getMoreCard(player.getName()).equals(HIT);
-			onHit(isHit, player);
+		while (Rule.canGetMoreCards(player) && wantMoreCard(player)) {
+			dealer.giveCard(cardDeck, player);
+			OutputView.printCards(player.getName(), player.getCards());
 		}
 	}
 
