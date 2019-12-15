@@ -143,7 +143,7 @@ public class BlackJackGame {
 	private void showGameReward() {
 		System.out.println("## 최종 수익");
 		rewardCalculator.calculateRewards(playerList, dealer.getDealerScore());
-		rewardCalculator.showRewardInfo();
+		System.out.println(rewardCalculator.showRewardInfo());;
 	}
 
 }

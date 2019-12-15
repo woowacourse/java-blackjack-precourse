@@ -98,10 +98,11 @@ public class RewardCalculator {
 		}
 	}
 
-	public void showRewardInfo() {
-		System.out.println("µô·¯ : " + dealerReward);
+	public String showRewardInfo() {
+		String rewardInfo = "µô·¯ : " + dealerReward + "\n";
 		for (String key : playerRewardMap.keySet()) {
-			System.out.println(key + " : " + playerRewardMap.get(key));
+			rewardInfo += key + " : " + playerRewardMap.get(key) + "\n";
 		}
+		return rewardInfo;
 	}
 }
