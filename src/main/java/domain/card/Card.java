@@ -43,12 +43,4 @@ public class Card {
     public int getScore() {
         return symbol.getScore();
     }
-
-    public String getWord() {
-        return symbol.getWord();
-    }
-
-    public Type getType() {
-        return type;
-    }
 }
