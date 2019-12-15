@@ -23,4 +23,12 @@ public class Gamer {
         }
         return basicScore;
     }
+
+    private int calculateBasicScore() {
+        int sum = 0;
+        for (Card card : cards) {
+            sum += card.getScore();
+        }
+        return sum;
+    }
 }
