@@ -27,10 +27,18 @@ public class Players {
         }
     }
 
-    public List<String> getCards() {
+    public List<Integer> sumCardScores() {
+        List<Integer> scoreSums = new ArrayList<>();
+        for (Player player : this.players) {
+            scoreSums.add(new Integer(player.sumCardScores()));
+        }
+        return scoreSums;
+    }
+
+    public List<String> getCardInfo() {
         List<String> cardInfos = new ArrayList<>();
         for (Player player : this.players) {
-            cardInfos.add(player.getCardInfos());
+            cardInfos.add(player.getCardInfo());
         }
         return cardInfos;
     }

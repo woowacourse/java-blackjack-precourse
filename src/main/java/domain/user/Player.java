@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +40,18 @@ public class Player {
         cards.add(card);
     }
 
+    public int sumCardScores() {
+        return this.cards.stream()
+                .map(Card::getSymbol)
+                .mapToInt(Symbol::getScore)
+                .sum();
+    }
+
     public List<Card> getCards() {
         return this.cards;
     }
 
-    public String getCardInfos() {
+    public String getCardInfo() {
         String result =  this.name + "의 카드: ";
         for (Card card : this.cards) {
             result += card.getCardInfo();

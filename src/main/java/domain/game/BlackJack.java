@@ -22,8 +22,11 @@ public class BlackJack {
 
         dealCards(dealer, players, deck);
 
-        System.out.println(dealer.getCardInfos());
-        players.getCards().forEach(System.out::println);
+        System.out.println(dealer.getCardInfo());
+        players.getCardInfo().forEach(System.out::println);
+
+        System.out.println(dealer.sumCardScores());
+        players.sumCardScores().forEach(System.out::println);
     }
 
     private static void dealCards(Dealer dealer, Players players, Deck deck) {

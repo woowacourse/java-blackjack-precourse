@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,14 @@ public class Dealer {
         return this.cards;
     }
 
-    public String getCardInfos() {
+    public int sumCardScores() {
+        return this.cards.stream()
+                .map(Card::getSymbol)
+                .mapToInt(Symbol::getScore)
+                .sum();
+    }
+
+    public String getCardInfo() {
         String result =  "딜러의 카드: ";
         for (Card card : this.cards) {
             result += card.getCardInfo();
