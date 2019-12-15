@@ -73,11 +73,15 @@ public class BlackJackGameController {
             // TODO 처음에 블랙잭이 발생하면 If문으로 들어옴. 이 안에는 결과를 내야함.
             // 블랙잭이 딜러인지 플레이어인지 판단하고 그에 따라서 총 결과와 돈 내보이고 출력하기.
             // resultcontroller에 만들어서 처리하기
+
+            resultController.startBlackJackProcedure(playerList, dealer);
+
             System.out.println("누가 블랙잭인지 보고 돈계산하고 끝내야함~");
         }
         // test
         System.out.println("DEALER?" + dealer.getAllCardsScore());
         System.out.println("DEALER?" + dealer.getCurrentScore());
+        System.out.println("DEALER?" + dealer.checkHowManyAceInCards());
 
     }
 

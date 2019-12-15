@@ -20,6 +20,7 @@ public abstract class BlackJackParticipant {
     private static final String COMMA = ", ";
     private static final String A = "A";
     private static final String NOTHING = "";
+    private static final int BLACKJACK = 21;
 
     private final List<Card> cards = new ArrayList<>();
 
@@ -41,6 +42,16 @@ public abstract class BlackJackParticipant {
             scoreList.add(card.getSymbolScore());
         }
         return scoreList;
+    }
+
+    public int getSumOfFirstTwoCardsScore() {
+        List<Integer> scoreList = getAllCardsScore().subList(0, 2);
+        return scoreList.stream().mapToInt(Integer::intValue).sum();
+    }
+
+    public boolean isBlackJack() {
+        List<Integer> scoreList = getAllCardsScore().subList(0, 2);
+        return scoreList.stream().mapToInt(Integer::intValue).sum() == BLACKJACK;
     }
 
     public int getCurrentScore() {

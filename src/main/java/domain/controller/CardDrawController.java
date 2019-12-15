@@ -7,6 +7,8 @@ package domain.controller;
 
 import domain.model.card.Card;
 import domain.model.card.CardFactory;
+import domain.model.card.Symbol;
+import domain.model.card.Type;
 import domain.model.user.Dealer;
 import domain.model.user.Player;
 import input.UserInput;
@@ -51,8 +53,13 @@ public class CardDrawController {
     }
 
     public void drawInitialDealerCards(Dealer dealer) {
+//        Card card1 = new Card(Symbol.ACE, Type.CLUB);
+//        Card card2 = new Card(Symbol.QUEEN, Type.CLUB);
+//        dealer.addCard(card1);
+//        dealer.addCard(card2);
         dealer.addCard(drawCard());
         dealer.addCard(drawCard());
+
     }
 
     public boolean controlPlayerExtraDrawing(Player player) {

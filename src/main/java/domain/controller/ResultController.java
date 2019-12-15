@@ -7,6 +7,7 @@ package domain.controller;
 
 import domain.model.user.Dealer;
 import domain.model.user.Player;
+import view.PrintController;
 
 import java.util.ArrayList;
 
@@ -31,11 +32,11 @@ public class ResultController {
     }
 
     public boolean checkInitialBlackJack(ArrayList<Player> playerList, Dealer dealer) {
-        boolean ifDealerBlackJack = checkBlackJackOrNot(dealer.getCurrentScore());
+        boolean ifDealerBlackJack = dealer.isBlackJack();
         boolean ifSomePlayerBlackJack = false;
 
         for (Player player : playerList) {
-            ifSomePlayerBlackJack = checkBlackJackOrNot(player.getCurrentScore()) || ifSomePlayerBlackJack;
+            ifSomePlayerBlackJack = player.isBlackJack() || ifSomePlayerBlackJack;
         }
 
         return ifDealerBlackJack || ifSomePlayerBlackJack;
@@ -50,4 +51,41 @@ public class ResultController {
         return true;
 
     }
+
+    public void startBlackJackProcedure(ArrayList<Player> playerList, Dealer dealer) {
+        if (checkDealerBlackJackOrNot(dealer) && checkPlayerBlackJackOrNot(playerList)) {
+            // 둘 다 블랙잭이 있는 경우 -> 어떤 플레이어인지 보고 해당 플레이어는 잃지 않고 블랙잭 아닌 플레이어만 돈 잃기.
+            // 돈계산으로 넘어가야함.
+            System.out.println("둘다!");
+            return ;
+        }
+        if (checkDealerBlackJackOrNot(dealer)) {
+            // 딜러만 블랙잭인 경우 -> 다 잃고 경기 종료
+            // 돈계산으로 넘어가야함.
+            System.out.println("딜러만!");
+            return ;
+        }
+        if (checkPlayerBlackJackOrNot(playerList)) {
+            // 플레이어만 블랙잭인 경우
+            // 누군지 체크해서 다음더 뽑기 진행 안시키기
+            // 돈 계산 시키기.
+            System.out.println("플레이어만!");
+            return ;
+        }
+    }
+
+    public boolean checkDealerBlackJackOrNot(Dealer dealer) {
+        return dealer.isBlackJack();
+    }
+
+    public boolean checkPlayerBlackJackOrNot(ArrayList<Player> playerList) {
+        boolean ifSomePlayerBlackJack = false;
+
+        for (Player player : playerList) {
+            ifSomePlayerBlackJack = player.isBlackJack() || ifSomePlayerBlackJack;
+        }
+
+        return ifSomePlayerBlackJack;
+    }
+
 }
