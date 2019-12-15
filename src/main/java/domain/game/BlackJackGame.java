@@ -1,29 +1,26 @@
 package domain.game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import domain.user.Dealer;
 import domain.user.Player;
 
 public class BlackJackGame {
-	private static final int FIRST_INDEX = 0;
 	private static final int INITIAL_CARDS = 2;
 	private static final int DEALER_BORDER_SCORE = 16;
 	private static final int BLACKJACK_SCORE = 21;
 	private static final char HIT = 'y';
-	private static final char STAY = 'n';
 
+	private InputManager inputManager;
 	private CardShoe cardShoe;
 	private Dealer dealer;
 	private List<Player> playerList = new ArrayList<>();
 	private RewardCalculator rewardCalculator;
-	Scanner input = new Scanner(System.in);
 
 	public BlackJackGame() {
+		inputManager = new InputManager();
 		cardShoe = new CardShoe();
 		dealer = new Dealer();
 	}
@@ -33,21 +30,16 @@ public class BlackJackGame {
 		initialDeal();
 		showInitialDeal();
 		rewardCalculator = new RewardCalculator(playerList);
-
 		playersTurn();
 		dealerTurn();
-
 		showGameScore();
 		showGameReward();
 	}
 
 	private void inputPlayerInfos() {
-		System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉽표 기준으로 분리)");
-		String[] playerNames = input.next().split(",");
-
+		String[] playerNames = inputManager.inputPlayerNames();
 		for (String name : playerNames) {
-			System.out.println(name + "의 배팅 금액은?");
-			double bettingMoney = input.nextDouble();
+			double bettingMoney = inputManager.inputBettingMoney(name);
 			playerList.add(new Player(name, bettingMoney));
 		}
 	}
@@ -60,10 +52,7 @@ public class BlackJackGame {
 	}
 
 	private void showInitialDeal() {
-		System.out.println(
-				"딜러와 " + playerList.stream()
-									.map(player -> player.getName())
-									.collect(Collectors.joining(",")) 
+		System.out.println("딜러와 " + playerList.stream().map(player -> player.getName()).collect(Collectors.joining(","))
 				+ "에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.");
 		System.out.println("딜러 : " + dealer.showInitialCardInfo());
 		for (Player player : playerList) {
@@ -85,8 +74,8 @@ public class BlackJackGame {
 		}
 		boolean hit = true;
 		while (playerScore < BLACKJACK_SCORE && hit) {
-			System.out.println(player.getName() + "의 현재 점수는 " + playerScore + "입니다.\n한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
-			char choice = input.next().charAt(FIRST_INDEX);
+			System.out.println(player.getName() + "의 현재 점수는 " + playerScore + "입니다.");
+			char choice = inputManager.chooseHitOrStay();
 			hit = isChoiceHit(choice, player);
 			playerScore = player.getPlayerScore();
 		}
