@@ -7,8 +7,6 @@ import java.util.Objects;
  */
 public class Card {
 
-
-
 	private final Symbol symbol;
 
 	private final Type type;
@@ -44,11 +42,11 @@ public class Card {
 			'}';
 	}
 
-	public String getCardText(){
-		return type.name()+symbol.getScore();
+	public String getCardText() {
+		return type.name() + symbol.getScore();
 	}
 
-	public Symbol getSymbol() {
-		return symbol;
+	public int getSymbolScore() {
+		return symbol.getScore();
 	}
 }
