@@ -1,7 +1,8 @@
 package utility;
 
 import domain.user.Player;
-import domain.user.Players;
+import domain.user.User;
+import domain.user.Users;
 import view.inputView;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class PlayerUtility {
     private static final String PLAYER_NAME_DELIMITER = ",";
     private static final int INITIAL_BETTING_MONEY = 0;
 
-    public static Players generatePlayers() {
+    public static Users generatePlayers() {
         String[] playerNames = getPlayerNames();
         ArrayList<Integer> playerBets = getPlayerBets(playerNames);
         return makePlayers(playerNames, playerBets);
@@ -61,12 +62,12 @@ public class PlayerUtility {
         return true;
     }
 
-    private static Players makePlayers(String[] playerNames, ArrayList<Integer> playerBets) {
-        List<Player> playersList = new ArrayList<>();
+    private static Users makePlayers(String[] playerNames, ArrayList<Integer> playerBets) {
+        List<User> playersList = new ArrayList<>();
         for (int i = 0; i < playerNames.length; i++) {
             Player player = new Player(playerNames[i], playerBets.get(i));
             playersList.add(player);
         }
-        return new Players(playersList);
+        return new Users(playersList);
     }
 }

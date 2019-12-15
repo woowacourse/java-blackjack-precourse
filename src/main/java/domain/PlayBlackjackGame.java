@@ -1,18 +1,14 @@
 package domain;
 
 import domain.blackjackgame.BlackjackGame;
-import domain.user.Player;
-import domain.user.Players;
-import view.inputView;
-
-import java.util.List;
+import domain.user.Users;
 
 import static utility.PlayerUtility.generatePlayers;
 
 public class PlayBlackjackGame {
     public static void main(String[] args) {
-        Players players = generatePlayers();
-        BlackjackGame blackjackGame = new BlackjackGame(players);
+        Users users = generatePlayers();
+        BlackjackGame blackjackGame = new BlackjackGame(users);
         blackjackGame.execute();
 
     }

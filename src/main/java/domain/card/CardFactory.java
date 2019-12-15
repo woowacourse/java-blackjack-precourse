@@ -14,7 +14,8 @@ public class CardFactory {
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);
         }
-        return Collections.unmodifiableList(cards);
+        //return Collections.unmodifiableList(cards);
+        return cards;
     }
 
     private static void createByType(List<Card> cards, Symbol symbol) {
