@@ -16,13 +16,13 @@ import domain.user.Player;
 import java.util.*;
 
 public class InputManager {
-    private static int MINIMUM_NAME_COUNT = 1;
-    private static int MINIMUM_NAME_LENGTH = 1;
-    public static String YES = "y";
-    public static String NO = "n";
+    private static final int MINIMUM_NAME_COUNT = 1;
+    private static final int MINIMUM_NAME_LENGTH = 1;
+    public static final String YES = "y";
+    public static final String NO = "n";
 
-    Message message = new Message();
-    Scanner scanner = new Scanner(System.in);
+    private Message message = new Message();
+    private Scanner scanner = new Scanner(System.in);
 
     public ArrayList<String> getPlayerNames() {
         String[] nameArray;
@@ -36,7 +36,7 @@ public class InputManager {
         return makeArrayToArrayList(nameArray);
     }
 
-    public boolean checkNamesValid(String[] nameArray) {
+    private boolean checkNamesValid(String[] nameArray) {
         if (checkNamesCountValid(nameArray)
                 && checkNamesLengthValid(nameArray)
                 && !checkNamesDuplicated(makeArrayToArrayList(nameArray))) {
@@ -45,18 +45,17 @@ public class InputManager {
         return false;
     }
 
-    public ArrayList<String> makeArrayToArrayList(String[] input) {
+    private ArrayList<String> makeArrayToArrayList(String[] input) {
         return new ArrayList<>(Arrays.asList(input));
     }
 
-    public void trimWhiteSpace(String[] nameArray) {
-
+    private void trimWhiteSpace(String[] nameArray) {
         for (int i = 0; i < nameArray.length; i++) {
             nameArray[i] = nameArray[i].trim();
         }
     }
 
-    public boolean checkNamesCountValid(String[] nameArray) {
+    private boolean checkNamesCountValid(String[] nameArray) {
         if (nameArray.length < MINIMUM_NAME_COUNT) {
             //플레이어가 입력되지 않았습니다 에러 출력
             return false;
@@ -64,7 +63,7 @@ public class InputManager {
         return true;
     }
 
-    public boolean checkNamesLengthValid(String[] nameArray) {
+    private boolean checkNamesLengthValid(String[] nameArray) {
         boolean isValid = true;
 
         for (String string : nameArray) {
@@ -76,14 +75,14 @@ public class InputManager {
         return isValid;
     }
 
-    public boolean checkNameLengthValid(String input) {
+    private boolean checkNameLengthValid(String input) {
         if (input.length() < MINIMUM_NAME_LENGTH) {
             return false;
         }
         return true;
     }
 
-    public boolean checkNamesDuplicated(ArrayList<String> names) {
+    private boolean checkNamesDuplicated(ArrayList<String> names) {
         boolean isDuplicated = false;
 
         for (String name : names) {
@@ -95,7 +94,7 @@ public class InputManager {
         return isDuplicated;
     }
 
-    public boolean listContainsString(ArrayList<String> list, String string) {
+    private boolean listContainsString(ArrayList<String> list, String string) {
         if (list.contains(string)) {
             return true;
         }
@@ -113,7 +112,7 @@ public class InputManager {
         return Double.parseDouble(battingMoneyString);
     }
 
-    public boolean checkBattingMoneyValid(String battingMoneyString) {
+    private boolean checkBattingMoneyValid(String battingMoneyString) {
         if (!checkBattingMoneyContainsChar(battingMoneyString)
                 && !checkBattingMoneyIsMinus(battingMoneyString)
                 && !checkBattingMoneyIsZero(battingMoneyString)) {
@@ -122,7 +121,7 @@ public class InputManager {
         return false;
     }
 
-    public boolean checkBattingMoneyContainsChar(String battingMoneyString) {
+    private boolean checkBattingMoneyContainsChar(String battingMoneyString) {
         try {
             Integer.parseInt(battingMoneyString);
         } catch (NumberFormatException e) {
@@ -132,7 +131,7 @@ public class InputManager {
         return false;
     }
 
-    public boolean checkBattingMoneyIsMinus(String battingMoneyString) {
+    private boolean checkBattingMoneyIsMinus(String battingMoneyString) {
         if (Integer.parseInt(battingMoneyString) < 0) {
             //입력한 베팅금액이 음수 에러 메시지 출력
             return true;
@@ -140,7 +139,7 @@ public class InputManager {
         return false;
     }
 
-    public boolean checkBattingMoneyIsZero(String battingMoneyString) {
+    private boolean checkBattingMoneyIsZero(String battingMoneyString) {
         if (Integer.parseInt(battingMoneyString) == 0) {
             //입력한 베팅금액이 0 에러 메시지 출력
             return true;
@@ -155,14 +154,13 @@ public class InputManager {
             System.out.println(player.getName() + message.makeMessagePlayerWantMoreCard(player));
             playerChoice = scanner.nextLine().trim();
         } while (!checkPlayerInputIsYesOrNo(playerChoice));
-
         if (playerChoice == YES) {
             return true;
         }
         return false;
     }
 
-    public boolean checkPlayerInputIsYesOrNo(String playerChoice) {
+    private boolean checkPlayerInputIsYesOrNo(String playerChoice) {
         if ((playerChoice == YES) || (playerChoice == NO)) {
             return true;
         }
