@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +19,8 @@ public class Player extends User {
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    @Override
+    public String toString() {
+        return name;
     }
-
-    public void bet() {
-
-    }
-
-    public void confirmCards() {
-    }
-
-    // TODO 추가 기능 구현
-
 }

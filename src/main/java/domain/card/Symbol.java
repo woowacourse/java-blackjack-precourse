@@ -24,4 +24,23 @@ public enum Symbol {
     public int getScore() {
         return score;
     }
+
+    @Override
+    public String toString() {
+        //todo: check rafactoring
+        if (this == ACE) {
+            return "A";
+        }
+        if (this == JACK) {
+            return "J";
+        }
+        if (this == QUEEN) {
+            return "Q";
+        }
+        if (this == KING) {
+            return "K";
+        }
+
+        return String.valueOf(score);
+    }
 }
