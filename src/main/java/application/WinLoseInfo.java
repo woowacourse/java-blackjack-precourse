@@ -1,32 +1,20 @@
 package application;
 
 public enum WinLoseInfo {
-	BLACKJACK,
-	WIN,
-	LOSE,
-	DRAW,
-	UNDETERMINED;
+	BLACKJACK(1.5),
+	WIN(1.0),
+	LOSE(-1.0),
+	DRAW(0.0),
+	UNDETERMINED(0.0);
 	
-	private final double NO_GAIN_NO_LOSE = 0.0;
+	private double coefficient;
+	
+	WinLoseInfo(double input){
+		this.coefficient = input;
+	}
 	
 	public double toProfit(double bettingMoney) {
-		if (this == WinLoseInfo.BLACKJACK || this == WinLoseInfo.WIN) {
-			return win(bettingMoney);
-		}
-		return notWin(bettingMoney);
+		return this.coefficient * bettingMoney;
 	}
-	
-	private double win(double bettingMoney) {
-		if (this == WinLoseInfo.BLACKJACK) {
-			return 1.5 * bettingMoney;
-		} 
-		return bettingMoney;
-	}
-	
-	private double notWin(double bettingMoney) {
-		if (this == WinLoseInfo.LOSE) {
-			return -bettingMoney;
-		} 
-		return NO_GAIN_NO_LOSE;
-	}
+
 }

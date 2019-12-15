@@ -33,6 +33,10 @@ public class OutputView {
 		System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
 	}
 	
+	public static void showDealerLose() {
+		System.out.println("딜러의 카드 합이 21을 초과해 파산했습니다. 남아있는 사람은 모두 승리합니다.");
+	}
+	
 	public static void showAllFinalResults(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		showDealerCardsWithScore(dealer);
 		for (int i = 0; i < players.getSize(); i++) {

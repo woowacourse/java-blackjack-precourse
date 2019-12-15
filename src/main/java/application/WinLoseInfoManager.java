@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.Players;
+import outputview.OutputView;
 
 public class WinLoseInfoManager {
 	private static final int BLACKJACK_SCORE = 21;
@@ -37,6 +38,7 @@ public class WinLoseInfoManager {
 			IntStream.range(0, info.size())
 					.filter(i -> (info.get(i) == WinLoseInfo.UNDETERMINED))
 					.forEach(i -> info.set(i, WinLoseInfo.WIN));
+			OutputView.showDealerLose();
 		}
 		updateUndeterminedInfo(dealer, players, info);
 	}
