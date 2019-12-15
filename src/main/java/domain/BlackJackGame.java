@@ -29,11 +29,10 @@ public class BlackJackGame {
         printGameParticipantProfit(dealer, playerList);
     }
 
-    private static void distributeCardsToGameParticipant() {
-        cardDistributor = new CardDistributor();
-        cardDistributor.giveCardToDealer(FIRST_DISTRIBUTED_CARD_AMOUNT, dealer);
+    private static void distributeCardsToGameParticipant(Dealer dealer, List<Player> playerList, CardDistributor cardDistributor) {
+        cardDistributor.giveTwoCardsToBlackjackUser(dealer);
         for (Player player : playerList) {
-            cardDistributor.giveCardToPlayer(FIRST_DISTRIBUTED_CARD_AMOUNT, player);
+            cardDistributor.giveTwoCardsToBlackjackUser(player);
         }
     }
 

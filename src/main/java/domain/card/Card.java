@@ -17,13 +17,13 @@ public class Card {
 
     // TODO Card 관련 추가 기능 구현
 
-    public String getCardName() {
+    public String getName() {
         String scoreName = symbol.getScoreName();
         String typeName = type.getTypeName();
         return scoreName+typeName;
     }
 
-    public int calculateCardScore() {
+    public int calculateScore() {
         return symbol.getScore();
     }
 

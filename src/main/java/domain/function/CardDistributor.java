@@ -2,35 +2,27 @@ package domain.function;
 
 import domain.card.Card;
 import domain.card.CardFactory;
-import domain.user.Dealer;
-import domain.user.Player;
+import domain.user.BlackjackUser;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 public class CardDistributor {
-    private static ArrayList<Card> gameCards;
+    private LinkedList<Card> gameCards = createGameCards();
 
-    public CardDistributor() {
-        setGameCards();
-    }
-
-    private static void setGameCards() {
-        gameCards = new ArrayList<>(CardFactory.create());
+    private static LinkedList<Card> createGameCards() {
+        LinkedList<Card> gameCards = new LinkedList<>(CardFactory.create());
         Collections.shuffle(gameCards);
+        return gameCards;
     }
 
-    public void giveCardToDealer(int count, Dealer dealer) {
-        while (count-- > 0) {
-            dealer.addCard(gameCards.get(0));
-            gameCards.remove(0);
-        }
+    public void giveCardToBlackjackUser(BlackjackUser blackjackUser) {
+        blackjackUser.addCard(gameCards.poll());
     }
 
-    public void giveCardToPlayer(int count, Player player) {
-        while (count-- > 0) {
-            player.addCard(gameCards.get(0));
-            gameCards.remove(0);
+    public void giveTwoCardsToBlackjackUser(BlackjackUser blackjackUser) {
+        for (int i=0; i<2; i++) {
+            blackjackUser.addCard(gameCards.poll());
         }
     }
 
