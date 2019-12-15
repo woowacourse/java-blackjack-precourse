@@ -14,4 +14,8 @@ public class Dealer {
 	public void addCard(Card card) {
 		cards.add(card);
 	}
+
+	public List<Card> getCards() {
+		return cards;
+	}
 }

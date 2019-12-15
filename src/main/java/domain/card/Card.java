@@ -31,4 +31,12 @@ public class Card {
 	public String toString() {
 		return "Card{" + "symbol=" + symbol + ", type=" + type + '}';
 	}
+
+	public Symbol getSymbol() {
+		return symbol;
+	}
+
+	public Type getType() {
+		return type;
+	}
 }

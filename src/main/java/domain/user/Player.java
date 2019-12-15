@@ -18,4 +18,17 @@ public class Player {
 	public void addCard(Card card) {
 		cards.add(card);
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getBettingMoney() {
+		return bettingMoney;
+	}
+
+	public List<Card> getCards() {
+		return cards;
+	}
+
 }
