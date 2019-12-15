@@ -1,15 +1,15 @@
 import java.util.*;
 
 import domain.card.Card;
-import domain.card.CardFactory;
-import domain.card.Symbol;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
+import static domain.card.CardDeck.drawACard;
 
 public class BlackJackGame {
     private List<User> users = new ArrayList<User>();
     private Scanner scanner = new Scanner(System.in);
+    private int step = 2;
 
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
@@ -32,31 +32,14 @@ public class BlackJackGame {
     }
 
     private void firstProceedGame() {
-        boolean proceed = false;
         System.out.println("딜러와 " + getPlayerNamesALine() + "에게 2장의 카드를 나누었습니다.");
-        //handOutCards(2);
-        if (proceed == true) {
-            secondProceedGame();
-        }
-    }
-
-    private void secondProceedGame() {
-        boolean proceed = false;
-        System.out.println("는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
-        if (true) {
-            System.out.println("딜러는 16이하라 카드 한 장을 더 받았습니다.");
-        }
-        if (proceed == true) {
-            proceedGame();
-        }
+        FirstHandOutCards();
+        nextProceed();
     }
 
     private void proceedGame() {
-        boolean proceed = false;
-        System.out.println("" + "는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
-        if (proceed == true) {
-            proceedGame();
-        }
+        step++;
+        nextProceed();
     }
 
     private void endGame() {
@@ -82,7 +65,7 @@ public class BlackJackGame {
         String bettingMoney = "";
         PlayerBettingMoneyChecker playerBettingMoneyChecker = new PlayerBettingMoneyChecker();
         do {
-            System.out.println(playerName + "의 배팅 금액은? (10원 단위로 쉼표없이 입력해주세요, 10억 미만으로만 가능합니다.)");
+            System.out.println(playerName + "의 배팅 금액은? (1원 단위로 쉼표없이 입력해주세요, 10억 미만으로만 가능합니다.)");
             bettingMoney = scanner.nextLine().trim();
         } while (!playerBettingMoneyChecker.playerBettingMoneyCheck(bettingMoney));
         return Double.parseDouble(bettingMoney);
@@ -99,15 +82,50 @@ public class BlackJackGame {
     }
 
     private void handOutCards(Dealer dealer) {
-        //dealer.addCard();
+        Card card = drawACard();
+        dealer.addCard(card);
     }
 
     private void handOutCards(Player player) {
-        //Card card = new Card(new Object, new Object);
-        //player.addCard();
+        Card card = drawACard();
+        player.addCard(card);
     }
 
-    private void takeOutACard() {
-        //
+    private void FirstHandOutCards() {
+        handOutCards((Dealer) users.get(0));
+        handOutCards((Dealer) users.get(0));
+        ((Dealer) users.get(0)).userCardsInfo(((Dealer) users.get(0)).getCards());
+        for (int i = 1; i < users.size(); i++) {
+            handOutCards((Player) users.get(i));
+            handOutCards((Player) users.get(i));
+            users.get(i).userCardsInfo(((Player) users.get(i)).getCards(), ((Player) users.get(i)).getPlayerName());
+        }
     }
+
+    private void proceedHandOutCards() {
+        for (int i = 1; i < users.size(); i++) {
+            askHandOutCards((Player) users.get(i));
+            users.get(i).userCardsInfo(((Player) users.get(i)).getCards(), ((Player) users.get(i)).getPlayerName());
+        }
+        if (step == 2) {
+            System.out.println("딜러는 16이하라 카드 한 장을 더 받았습니다.");
+            handOutCards((Dealer) users.get(0));
+        }
+    }
+
+    private void askHandOutCards(Player player) {
+        System.out.println("는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+        String cardHandOut = "";
+        do {
+            cardHandOut = scanner.nextLine();
+        } while (cardHandOut.equals("y") || cardHandOut.equals("n"));
+        if (cardHandOut.equals("y")) {
+            handOutCards(player);
+        }
+    }
+
+    private void nextProceed() {
+
+    }
+
 }

@@ -1,9 +1,8 @@
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import domain.card.Card;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -20,6 +19,10 @@ public class Player extends User {
 
     public String getPlayerName() {
         return name;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 
     public void addCard(Card card) {

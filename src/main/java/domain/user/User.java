@@ -1,8 +1,8 @@
 package domain.user;
 
+import java.util.List;
 import domain.card.Card;
 
-import java.util.List;
 
 public abstract class User {
     int profit = 0;
@@ -24,17 +24,12 @@ public abstract class User {
         return false;
     }
 
-    void userCardsInfo(List<Card> cards, String name) {
+    public void userCardsInfo(List<Card> cards, String name) {
         System.out.print(name + "카드 : ");
-        for (int i = 0; i < cards.size() - 2; i++) {
+        for (int i = 0; i < cards.size() - 1; i++) {
             System.out.print(cards.get(i).cardInfo() + ", ");
         }
-        System.out.print(cards.get(cards.size() - 1).cardInfo());
-    }
-
-    void userCardsInfo(List<Card> cards) {
-        System.out.print("딜러 : ");
-        System.out.print(cards.get(0).cardInfo());
+        System.out.println(cards.get(cards.size() - 1).cardInfo());
     }
 
     void userSumNumbers() {

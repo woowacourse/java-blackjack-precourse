@@ -1,8 +1,6 @@
 package domain.card;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class CardDeck {
     private static List<Card> cardDeck = new ArrayList<Card>();
@@ -21,30 +19,46 @@ public class CardDeck {
 
     private static Symbol randomSymbol() {
         Symbol selectSymbol = null;
-        int randomNumber = new Random().nextInt(Symbol.values().length + 1);
+        int randomNumber = new Random().nextInt(Symbol.values().length);
+        selectSymbol = randomSymbolSelect(randomNumber);
+        return selectSymbol;
+    }
+
+    private static Symbol randomSymbolSelect(int randomNumber) {
+        Set<Object> randomSet = new HashSet<Object>();
         int loopTempNumber = 0;
         for (Symbol symbol : Symbol.values()) {
-            selectSymbol = (Symbol) enumRandomSelect(symbol, randomNumber, loopTempNumber);
+            randomSet.add(enumRandomSelect(symbol, randomNumber, loopTempNumber));
             loopTempNumber++;
         }
-        return selectSymbol;
+        randomSet.remove(0);
+        Symbol symbol = (Symbol) new ArrayList(randomSet).get(0);
+        return symbol;
     }
 
     private static Type randomType() {
         Type selectType = null;
-        int randomNumber = new Random().nextInt(Type.values().length + 1);
+        int randomNumber = new Random().nextInt(Type.values().length);
+        selectType = randomTypeSelect(randomNumber);
+        return selectType;
+    }
+
+    private static Type randomTypeSelect(int randomNumber) {
+        Set<Object> randomSet = new HashSet<Object>();
         int loopTempNumber = 0;
         for (Type type : Type.values()) {
-            selectType = (Type) enumRandomSelect(type, randomNumber, loopTempNumber);
+            randomSet.add(enumRandomSelect(type, randomNumber, loopTempNumber));
             loopTempNumber++;
         }
-        return selectType;
+        randomSet.remove(0);
+        Type type = (Type) new ArrayList(randomSet).get(0);
+        return type;
     }
 
     private static Object enumRandomSelect(Object object, int randomNumber, int loopTempNumber) {
         if (randomNumber == loopTempNumber) {
             return object;
         }
-        return null;
+        return 0;
     }
 }
