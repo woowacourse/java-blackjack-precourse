@@ -54,3 +54,6 @@
     - 게임 종료 후 최종 수익 계산 및 출력
 9. **Main**
     - BlackJackGame 게임 실행
+
+## 클래스 다이어그램
+![blackjack](https://user-images.githubusercontent.com/42382027/70868473-88f48a00-1fc4-11ea-9084-1925161f1080.JPG)
