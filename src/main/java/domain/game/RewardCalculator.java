@@ -14,13 +14,9 @@ public class RewardCalculator {
 	private HashMap<String, Double> playerRewardMap = new HashMap<>();
 	private double dealerReward;
 
-	public RewardCalculator(String[] playerNames) {
-		initializeRewards(playerNames);
-	}
-
-	private void initializeRewards(String[] playerNames) {
-		for (String name : playerNames) {
-			playerRewardMap.put(name, DEFAULT_REWARD);
+	public RewardCalculator(List<Player> playerList) {
+		for (Player player : playerList) {
+			playerRewardMap.put(player.getName(), DEFAULT_REWARD);
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import domain.user.Dealer;
 import domain.user.Player;
@@ -18,7 +19,6 @@ public class BlackJackGame {
 
 	private CardShoe cardShoe;
 	private Dealer dealer;
-	private String[] playerNames;
 	private List<Player> playerList = new ArrayList<>();
 	private RewardCalculator rewardCalculator;
 	Scanner input = new Scanner(System.in);
@@ -32,7 +32,7 @@ public class BlackJackGame {
 		inputPlayerInfos();
 		initialDeal();
 		showInitialDeal();
-		rewardCalculator = new RewardCalculator(playerNames);
+		rewardCalculator = new RewardCalculator(playerList);
 
 		playersTurn();
 		dealerTurn();
@@ -43,7 +43,7 @@ public class BlackJackGame {
 
 	private void inputPlayerInfos() {
 		System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉽표 기준으로 분리)");
-		playerNames = input.next().split(",");
+		String[] playerNames = input.next().split(",");
 
 		for (String name : playerNames) {
 			System.out.println(name + "의 배팅 금액은?");
@@ -61,7 +61,10 @@ public class BlackJackGame {
 
 	private void showInitialDeal() {
 		System.out.println(
-				"딜러와 " + String.join(",", Arrays.asList(playerNames)) + "에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.");
+				"딜러와 " + playerList.stream()
+									.map(player -> player.getName())
+									.collect(Collectors.joining(",")) 
+				+ "에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.");
 		System.out.println("딜러 : " + dealer.showInitialCardInfo());
 		for (Player player : playerList) {
 			System.out.println(player.getName() + " : " + player.showCardInfo());
