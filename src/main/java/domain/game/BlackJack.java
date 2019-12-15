@@ -20,14 +20,18 @@ public class BlackJack {
         Deck deck = new Deck();
         deck.shuffle();
 
-        dealer.addCard(deck.pop());
-        dealer.addCard(deck.pop());
-
-        players.addCards(deck);
-        players.addCards(deck);
+        dealCards(dealer, players, deck);
 
         System.out.println(dealer.getCards());
         players.getCards().forEach(System.out::println);
+
+    }
+
+    private static void dealCards(Dealer dealer, Players players, Deck deck) {
+        dealer.addCard(deck.pop());
+        dealer.addCard(deck.pop());
+        players.addCards(deck);
+        players.addCards(deck);
     }
 
     private static List<Player> createPlayers(String playerNames) {
