@@ -1,6 +1,8 @@
 package domain;
 
 import domain.function.CardDistributor;
+import domain.function.OutcomeRateCalculator;
+import domain.user.BlackjackUserResult;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.PlayerInputData;
@@ -18,19 +20,13 @@ public class BlackJackGame {
     private static CardDistributor cardDistributor;
 
     public static void main(String[] args) {
-        setGameParticipant();
-        distributeCardsToGameParticipant();
-        printDistributedCards();
-        addCardToPlayer();
-        addCardToDealer();
-        printGameParticipantTotalScore();
-    }
-
-    private static void setGameParticipant() {
-        PlayerInputData inputData = new PlayerInputData();
-        playerList = inputData.getPlayerList();
-        playerNameList = inputData.getPlayerNameList();
-        dealer = new Dealer();
+        Dealer dealer = new Dealer();
+        List<Player> playerList = PlayerInputData.getPlayerList();
+        CardDistributor cardDistributor = new CardDistributor();
+        distributeCardsToGameParticipant(dealer, playerList, cardDistributor);
+        addCardToParticipant(dealer, playerList, cardDistributor);
+        printGameParticipantTotalScore(dealer, playerList);
+        printGameParticipantProfit(dealer, playerList);
     }
 
     private static void distributeCardsToGameParticipant() {
@@ -96,6 +92,36 @@ public class BlackJackGame {
         for (Player player : playerList) {
             player.printTotalScore();
         }
+        System.out.println();
+    }
+
+    private static void printGameParticipantProfit(Dealer dealer, List<Player> playerList) {
+        System.out.println("## 최종수익 ##");
+        List<Integer> playerProfitList = getPlayerProfitList(dealer, playerList);
+        int dealerProfit = getDealerProfitSum(playerProfitList);
+        System.out.println("딜러: " + dealerProfit);
+        for (int i = 0; i < playerList.size(); i++) {
+            System.out.println(playerList.get(i).getName() + ": " + playerProfitList.get(i));
+        }
+    }
+
+    private static List<Integer> getPlayerProfitList(Dealer dealer, List<Player> playerList) {
+        List<Integer> playerProfitList = new ArrayList<>();
+        for (Player player : playerList) {
+            OutcomeRateCalculator calculator = new OutcomeRateCalculator(dealer.createBlackjackUserResult(), player.createBlackjackUserResult());
+            double profitRate = calculator.getPlayerOutcomeRate();
+            int profit = player.getProfit(profitRate);
+            playerProfitList.add(profit);
+        }
+        return playerProfitList;
+    }
+
+    private static int getDealerProfitSum(List<Integer> playerProfitList) {
+        int dealerProfitSum = 0;
+        for (int playerProfit : playerProfitList) {
+            dealerProfitSum += playerProfit;
+        }
+        return dealerProfitSum * -1;
     }
 
 }

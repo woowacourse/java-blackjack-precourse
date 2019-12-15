@@ -38,10 +38,8 @@ public class Player extends CardScoreCalculator{
         System.out.print(String.format("%s 카드: %s", name, cardNames));
     }
 
-    public void printTotalScore() {
-        printAllCards();
-        int totalScore = calculateTotalScore(cards);
-        System.out.println(String.format(" - 결과: %d", totalScore));
+    public int getProfit(double profitRate) {
+        return (int) (bettingMoney * profitRate);
     }
 
 }
