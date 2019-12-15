@@ -1,8 +1,6 @@
 package domain.card;
 
-import java.util.Collections;
 import java.util.Objects;
-import java.util.List;
 
 public class Card {
     private final Symbol symbol;
@@ -12,16 +10,6 @@ public class Card {
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
-    }
-
-    public void cardShuffled() {
-    	Collections.shuffle(CardFactory.create());
-    }
-    
-    public Card pickOneCard(List<Card> cards) {
-    	Card target = cards.get(cards.size()-1);
-    	cards.remove(cards.size()-1);
-    	return target;
     }
     
     public String showSymbol() {

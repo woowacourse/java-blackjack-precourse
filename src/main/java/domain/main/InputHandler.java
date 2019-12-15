@@ -78,7 +78,7 @@ public class InputHandler {
 	
 	
 	
-	public static void makePlayer() {
+	public static List<Player> makePlayer() {
 		List<Player> playerList = new ArrayList<>();
 		int count = 0;
 		for (String name : nameStringList) {
@@ -86,5 +86,6 @@ public class InputHandler {
 			playerList.add(new Player(name, bettingMoney));
 			count += 1;
 		}
+		return playerList;
 	}
 }
