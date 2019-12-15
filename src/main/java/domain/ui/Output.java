@@ -51,7 +51,12 @@ public class Output {
     /**
      * 배팅 금액이 최소 금액보다 작은 경우 출력할 메시지 상수.
      */
-    private static final String BETTING_MONEY_UNDER_MIN_NUMBER_ERROR_MESSAGE = "배팅 금액은 0보다 큰 수여야 합니다.";
+    private static final String BETTING_MONEY_UNDER_MIN_NUMBER_EXCEPTION_MESSAGE = "배팅 금액은 0보다 큰 수여야 합니다.";
+
+    /**
+     * 생성된 카드 덱에 중복된 카드가 존재하는 경우 출력할 메시지 상수.
+     */
+    private static final String CARD_DECK_DUPLICATE_EXCEPTION = "생성된 카드 덱에 중복된 카드가 존재합니다.";
 
     /**
      * Dealer와 Player에게 2장의 카드를 나누어 줄때 출력할 메시지 상수.
@@ -136,7 +141,14 @@ public class Output {
      * 베팅 머니가 최소 배팅 금액보다 작음을 출력하는 메소드.
      */
     public void printBettingMoneyUnderMinNumberError() {
-        System.out.print(BETTING_MONEY_UNDER_MIN_NUMBER_ERROR_MESSAGE);
+        System.out.print(BETTING_MONEY_UNDER_MIN_NUMBER_EXCEPTION_MESSAGE);
+    }
+
+    /**
+     * 생성된 카드 덱에 중복된 카드가 존재함을 출력하는 메소드.
+     */
+    public void printCardDeckDuplicateError() {
+        System.out.println(CARD_DECK_DUPLICATE_EXCEPTION);
     }
 
     /**

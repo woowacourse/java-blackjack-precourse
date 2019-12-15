@@ -6,6 +6,7 @@
 
 package domain.business;
 
+import domain.card.Card;
 import domain.ui.Output;
 
 import java.util.HashSet;
@@ -141,6 +142,20 @@ public class Validator {
         if (!(bettingMoney > MIN_BETTING_MONEY)) {
             out.printBettingMoneyUnderMinNumberError();
             throw new InputMismatchException();
+        }
+    }
+
+    /**
+     * 카드 덱이 중복된 카드가 존재하는지 확인하고 메시지를 출력하는 메소드.
+     *
+     * @param cards 생성된 카드 덱.
+     * @throws Exception 중복된 카드가 존재할 경우 발생하는 예외.
+     */
+    public static void isValidCardDeck(List<Card> cards) throws Exception {
+        HashSet<Card> noDuplicateCardDeck = new HashSet<>(cards);
+        if (noDuplicateCardDeck.size() != cards.size()) {
+            out.printCardDeckDuplicateError();
+            throw new Exception();
         }
     }
 }
