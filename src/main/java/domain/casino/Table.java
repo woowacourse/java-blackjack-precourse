@@ -9,13 +9,13 @@ import domain.card.CardSupplier;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.view.InputView;
+import domain.view.OutputView;
 
 public class Table {
 	private static List<Card> cards = CardFactory.create();
 	private List<Player> playerList;
 	private Dealer dealer = new Dealer();
 	private CardSupplier cardSupplier = new CardSupplier(cards);
-
 
 	public void playBlackjack() {
 		getPlayers();
@@ -39,6 +39,7 @@ public class Table {
 		for (int i = 0; i < 2; i++) {
 			distributeCardsToDealer();
 			distributeCardsToPlayers();
+			goHitOrStand();
 		}
 	}
 
@@ -50,6 +51,28 @@ public class Table {
 		for (Player player : playerList) {
 			player.addCard(cardSupplier.getDeal());
 		}
+	}
+
+	// 딜러 블랙잭 여부 확인 -- 딜러가 블랙잭이면 바로 최종 결과로 이동
+	private void goHitOrStand() {
+
+		// 딜러 카드 한 장 오픈
+		openDealerInitialCard();
+
+		// 플레이어 카드 오픈
+		openPlayersCards();
+
+	}
+
+	private void openDealerInitialCard() {
+		OutputView.printDealerInitialCards(dealer);
+	}
+
+	private void openPlayersCards() {
+		for (Player player : playerList) {
+			OutputView.printPlayerCards(player);
+		}
+		System.out.println();
 	}
 
 }
