@@ -11,4 +11,16 @@ public class Gamer {
     public void addCard(Card card) {
         cards.add(card);
     }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public int calculateScore() {
+        int basicScore = calculateBasicScore();
+        if (haveAce()) {
+            return adjustAce(basicScore);
+        }
+        return basicScore;
+    }
 }
