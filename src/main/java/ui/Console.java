@@ -1,6 +1,7 @@
 package ui;
 
 import common.BlackjackConfig;
+import domain.UserInterface;
 
 import java.util.Scanner;
 
@@ -36,5 +37,10 @@ public class Console implements UserInterface {
     public int getBettingMoney() {
         int bettingMoney = Integer.parseInt(scanner.nextLine());
         return bettingMoney;
+    }
+
+    @Override
+    public String getWilling() {
+        return null;
     }
 }
