@@ -59,4 +59,13 @@ public class PlayManager {
         }
         return scoreList;
     }
+
+    private List<Integer> makeBlackjackIndexList() {
+        List<Integer> scoreList = makeScoreList();
+        List<Integer> blackjackIndexList = new ArrayList<>();
+        for (int i = 0; i < scoreList.size(); i++) {
+            findBlackjack(scoreList, blackjackIndexList, i);
+        }
+        return blackjackIndexList;
+    }
 }
