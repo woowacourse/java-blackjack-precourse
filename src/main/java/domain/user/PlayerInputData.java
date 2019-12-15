@@ -5,43 +5,34 @@ import java.util.*;
 public class PlayerInputData {
     private static final String SEPARATOR = ",";
     private static final int NO_MONEY = 0;
-    private static List<String> nameList;
-    private static boolean doesNeedInput;
-    private static String userInput;
 
-    public List<Player> getPlayerList() {
-        List<Player> playerList = new ArrayList<>();
-        nameList = getNameList();
-        List<Double> bettingMoneyList = new ArrayList<>();
-        for (String name : nameList) {
-            bettingMoneyList.add(getBettingMoney(name));
-        }
-        for (int i=0; i<nameList.size(); i++) {
-            playerList.add(new Player(nameList.get(i), bettingMoneyList.get(i)));
-        }
-        return playerList;
+    private PlayerInputData() {
     }
 
-    public List<String> getPlayerNameList() {
-        return nameList;
+    public static List<Player> getPlayerList() {
+        List<Player> playerList = new ArrayList<>();
+        for (String name : getNameList()) {
+            playerList.add(new Player(name, getBettingMoney(name)));
+        }
+        return playerList;
     }
 
     private static String getUserInput(String askMessage) {
         System.out.println(askMessage);
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
-        System.out.println(userInput+"\n");
+        System.out.println();
         return userInput;
     }
 
     private static List<String> getNameList() {
-        List<String> nameList = new ArrayList<>();
-        doesNeedInput = true;
-        while (doesNeedInput) {
-            userInput = getUserInput("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
+        List<String> nameList = null;
+        boolean needInput = true;
+        while (needInput) {
+            String userInput = getUserInput("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
             String[] names = userInput.split(SEPARATOR);
             nameList = getTrimmedNameList(names);
-            setDoesNeedInputForName(nameList);
+            needInput = isUnusableName(nameList);
         }
         return nameList;
     }
@@ -54,18 +45,16 @@ public class PlayerInputData {
         return trimmedNameList;
     }
 
-    private static void setDoesNeedInputForName(List<String> nameList) {
+    private static boolean isUnusableName(List<String> nameList) {
         if (haveBlankName(nameList)) {
-            doesNeedInput = true;
             System.out.println("※ 공백으로만 구성된 이름은 사용할 수 없습니다.");
-            return;
+            return true;
         }
         if (haveDuplicatedName(nameList)) {
-            doesNeedInput = true;
             System.out.println("※ 중복되는 이름은 사용할 수 없습니다.");
-            return;
+            return true;
         }
-        doesNeedInput = false;
+        return false;
     }
 
     private static boolean haveBlankName(List<String> nameList) {
@@ -78,21 +67,25 @@ public class PlayerInputData {
     }
 
     private static double getBettingMoney(String name) {
-        doesNeedInput = true;
-        while (doesNeedInput) {
+        boolean needInput = true;
+        String userInput = "";
+        while (needInput) {
             userInput = getUserInput(String.format("%s의 베팅 금액은?", name));
-            setDoesNeedInputForMoney(userInput);
+            needInput = isUnusableMoney(userInput);
         }
         return Double.parseDouble(userInput);
     }
 
-    private static void setDoesNeedInputForMoney(String userInput) {
-        if (isNoMoney(userInput)) {
-            doesNeedInput = true;
-            System.out.println("※ 베팅 금액은 0을 초과하는 숫자이어야 합니다.");
-            return;
+    private static boolean isUnusableMoney(String userInput) {
+        if (userInput.equals("")) {
+            System.out.println("※ 베팅 금액은 반드시 입력해야 합니다.");
+            return true;
         }
-        doesNeedInput = false;
+        if (isNoMoney(userInput)) {
+            System.out.println("※ 베팅 금액은 0을 초과하는 숫자이어야 합니다.");
+            return true;
+        }
+        return false;
     }
 
     private static boolean isNoMoney(String input) {
