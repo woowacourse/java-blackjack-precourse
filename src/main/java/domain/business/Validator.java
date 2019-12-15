@@ -1,5 +1,5 @@
 /*
- * @(#)Validator.java       0.3 2019.12.15
+ * @(#)Validator.java       0.4 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * 입력의 유효성 검증을 담당하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.15
+ * @version 0.4 2019.12.15
  */
 public class Validator {
     /**
@@ -28,12 +28,7 @@ public class Validator {
     /**
      * Player BettingMoney의 가능한 최소 금액을 확인하기 위한 상수.
      */
-    private static final int MIN_BETTING_MONEY = 2;
-
-    /**
-     * Player BettingMoney에서 가능한 금액을 수익으로 얻기 위해 입력 값이 짝수인지를 판단하기 위한 상수.
-     */
-    private static final int EVEN_NUMBER = 2;
+    private static final double MIN_BETTING_MONEY = 0;
 
     /**
      * 예외 발생시 출력을 담당할 Output 객체.
@@ -122,15 +117,14 @@ public class Validator {
     }
 
     /**
-     * Player의 bettingMoney가 유효한지(2이상, 짝수) 확인하는 메소드.
+     * Player의 배팅 금액이 유효한지 확인하는 메소드.
      *
-     * @param bettingMoney Player의 bettingMoney.
+     * @param bettingMoney Player의 배팅 금액.
      * @throws InputMismatchException bettingMoney가 유효하지 않은 경우 발생하는 예외.
      */
-    public static void isValidPlayerBettingMoney(int bettingMoney) throws InputMismatchException {
+    public static void isValidPlayerBettingMoney(double bettingMoney) throws InputMismatchException {
         try {
             isValidBettingMoney(bettingMoney);
-            isEvenBettingMoney(bettingMoney);
         } catch (InputMismatchException e) {
             out.printInputRequestAgain();
             throw new InputMismatchException();
@@ -138,29 +132,15 @@ public class Validator {
     }
 
     /**
-     * bettingMoney가 최소 금액보다 높은지 확인하고 메시지를 출력하는 메소드.
+     * 배팅 금액이 최소 금액보다 높은지 확인하고 메시지를 출력하는 메소드.
      *
-     * @param bettingMoney Player의 bettingMoney.
+     * @param bettingMoney Player의 배팅 금액.
      * @throws InputMismatchException bettingMoney가 최소 금액보다 작다면 발생하는 예외.
      */
-    private static void isValidBettingMoney(int bettingMoney) throws InputMismatchException {
-        if (bettingMoney < MIN_BETTING_MONEY) {
+    private static void isValidBettingMoney(double bettingMoney) throws InputMismatchException {
+        if (!(bettingMoney > MIN_BETTING_MONEY)) {
             out.printBettingMoneyUnderMinNumberError();
             throw new InputMismatchException();
         }
     }
-
-    /**
-     * bettingMoney가 짝수인지 확인하고 메시지를 출력하는 메소드.
-     *
-     * @param bettingMoney Player의 bettingMoney.
-     * @throws InputMismatchException bettingMoney가 짝수가 아니라면 발생하는 예외.
-     */
-    private static void isEvenBettingMoney(int bettingMoney) throws InputMismatchException {
-        if ((bettingMoney % EVEN_NUMBER) != 0) {
-            out.printBettingMoneyNotEvenNumberError();
-            throw new InputMismatchException();
-        }
-    }
-
 }
