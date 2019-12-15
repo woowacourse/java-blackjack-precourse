@@ -11,6 +11,8 @@
 
 package domain.game;
 
+import domain.user.Player;
+
 import java.util.*;
 
 public class InputManager {
@@ -93,6 +95,52 @@ public class InputManager {
 
     public boolean listContainsString(ArrayList<String> list, String string) {
         if (list.contains(string)) {
+            return true;
+        }
+        return false;
+    }
+
+    public double getPlayerBattingMoney(Player player) {
+        String battingMoneyString;
+
+        do {
+            System.out.println(message.makeMessageAskPlayerBattingAmout(player));
+            battingMoneyString = scanner.nextLine().trim();
+        }while (checkBattingMoneyValid(battingMoneyString));
+
+        return Double.parseDouble(battingMoneyString);
+    }
+
+    public boolean checkBattingMoneyValid(String battingMoneyString) {
+        if (!checkBattingMoneyContainsChar(battingMoneyString)
+                && !checkBattingMoneyIsMinus(battingMoneyString)
+                && !checkBattingMoneyIsZero(battingMoneyString)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkBattingMoneyContainsChar(String battingMoneyString) {
+        try {
+            Integer.parseInt(battingMoneyString);
+        } catch (NumberFormatException e) {
+            //입력한 문자열에 문자 포함 에러 메시지 출력
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkBattingMoneyIsMinus(String battingMoneyString) {
+        if (Integer.parseInt(battingMoneyString) < 0) {
+            //입력한 베팅금액이 음수 에러 메시지 출력
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkBattingMoneyIsZero(String battingMoneyString) {
+        if (Integer.parseInt(battingMoneyString) == 0) {
+            //입력한 베팅금액이 0 에러 메시지 출력
             return true;
         }
         return false;
