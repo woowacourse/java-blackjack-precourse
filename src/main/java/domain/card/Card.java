@@ -31,10 +31,13 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        String answer = "";
+        answer += "<";
+        answer += symbol.getWord();
+        answer += " ";
+        answer += type;
+        answer += ">";
+        return answer;
     }
 
     public int getScore() {

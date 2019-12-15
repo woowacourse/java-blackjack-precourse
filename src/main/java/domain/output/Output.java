@@ -37,7 +37,7 @@ public class Output {
 
     public void printCards(Dealer dealer, boolean isLast) {
         if (!isLast) {
-            System.out.println("딜러 카드:" + (dealer.showCard(dealer.getCards().get(0))));
+            System.out.println("딜러 카드:" + (dealer.getCards().get(0).toString()));
             return;
         }
         System.out.println("\n딜러 카드:" + dealer.showCards() + " - 결과: " + dealer.getCardScore());

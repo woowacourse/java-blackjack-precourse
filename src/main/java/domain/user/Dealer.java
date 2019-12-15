@@ -35,18 +35,8 @@ public class Dealer {
         Iterator itr = cards.iterator();
         while (itr.hasNext()) {
             Card card = (Card) itr.next();
-            answer += showCard(card);
+            answer += card.toString();
         }
-        return answer;
-    }
-
-    public String showCard(Card card) {
-        String answer = "";
-        answer += "<";
-        answer += card.getWord();
-        answer += " ";
-        answer += card.getType();
-        answer += ">";
         return answer;
     }
 
