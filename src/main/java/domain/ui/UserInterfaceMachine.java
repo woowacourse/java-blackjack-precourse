@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class UserInterfaceMachine {
     private Scanner scanner = new Scanner(System.in);
 
-    public String scanName() {
-        return "";
+    public String[] scanNames() {
+        return null;
     }
 
     private boolean isCorrectName() {
