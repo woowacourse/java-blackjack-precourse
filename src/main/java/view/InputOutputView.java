@@ -1,5 +1,9 @@
 package view;
 
+import java.util.List;
+
+import org.assertj.core.util.Strings;
+
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -14,6 +18,10 @@ public class InputOutputView {
 	public static double inputBettingMoney(String name) {
 		System.out.println(name + "의 배팅 금액은?");
 		return ExceptionHandler.inputBettingMoneyHandler();
+	}
+
+	public static void outputGiveCards(String users) {
+		System.out.println("딜러와 " + users + "에게 2장의 카드를 나누었습니다.");
 	}
 
 	public static void outputShowCards(Dealer dealer) {

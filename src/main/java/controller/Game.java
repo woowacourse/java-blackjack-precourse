@@ -14,6 +14,7 @@ public class Game {
 	private static List<Player> players = new ArrayList<>();
 	private static List<Card> cards = CardFactory.create();
 	private static List<Card> usedCards = new ArrayList<>();
+	private static String users;
 
 	public void start() {
 		init();
@@ -23,7 +24,8 @@ public class Game {
 	}
 
 	private static void init() {
-		initPlayers(InputOutputView.inputPlayerName());
+		users = InputOutputView.inputPlayerName();
+		initPlayers(users);
 	}
 
 	private static void initPlayers(String inputPlayer) {
@@ -37,6 +39,7 @@ public class Game {
 		for (Player player : players) {
 			giveCard(2, player);
 		}
+		InputOutputView.outputGiveCards(users);
 	}
 
 	private void giveCard(int numberOfCards, Dealer dealer) {
