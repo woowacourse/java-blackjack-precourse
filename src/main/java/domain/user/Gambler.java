@@ -8,27 +8,33 @@ import domain.card.Card;
 
 public abstract class Gambler {
 	private List<Card> cards;
+	private List<Integer> cardScores;
 
 	public abstract void addCard(Card card);
 
+	public abstract List<Card> getCards();
+
 	public int sumCardsMin() {
-		List<Integer> cardScores = cards.stream()
-			.flatMapToInt(card -> card.getSymbol().getScore())
-			.sorted().collect(Collectors.toList());
-		int sum = cardScores.stream().reduce(0, Integer::sum);
+		cardScores = getCards().stream()
+			.map(card -> card.getSymbolScore())
+			.collect(Collectors.toList());
+
+		int sum = cardScores.stream()
+			.reduce(0, Integer::sum);
 
 		return sum;
 	}
 
 	public int sumCardsMax() {
 		int sum = sumCardsMin();
-		List<Integer> aces = cards.stream()
-			.flatMapToInt(card -> card.getSymbol().getScore())
+		List<Integer> aces = cardScores.stream()
 			.filter(score -> (score == 1))
 			.collect(Collectors.toList());
+
 		for (Iterator<Integer> iterator = aces.iterator(); sum < 21 && iterator.hasNext(); ) {
 			sum += 10;
 		}
+
 		return sum;
 	}
 }
