@@ -27,7 +27,7 @@ public class GameMc {
         playerNames = input.next();
         for (String name : playerNames.split(",")) {
             System.out.println(name + "의 베팅 금액은?");
-            players.add(new Player(name, bettingMoneyInput()));
+            players.add(new Player(name, inputMoney()));
         }
     }
 
@@ -50,11 +50,6 @@ public class GameMc {
             money = input.next();
         }
         return Integer.parseInt(money);
-    }
-
-    public int bettingMoneyInput() {
-        int money = inputMoney();
-        return money;
     }
 
     public Boolean isNotInt(String str) {
@@ -154,7 +149,7 @@ public class GameMc {
 
     public void everyoneWin() {
         for (Player player : players) {
-            System.out.println(playerNames + " : " + player.getBettingMoney());
+            System.out.println(player.getName() + " : " + player.getBettingMoney());
         }
         System.exit(0);
     }
