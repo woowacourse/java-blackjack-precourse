@@ -114,7 +114,7 @@ public class BlackJackGame {
             System.out.println("딜러는 16이하라 카드 한 장을 더 받았습니다.");
             handOutCards((Dealer) users.get(0));
         }
-        return !finishTFSet.contains(true);
+        return finishTFSet.contains(true);
     }
 
     private boolean askHandOutCards(Player player) {

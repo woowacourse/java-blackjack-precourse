@@ -54,7 +54,6 @@ public class Card {
             aceNumberString = scanner.nextLine().trim();
         } while (!selectAceNumberChecked(aceNumberString));
         aceNumber = Integer.parseInt(aceNumberString);
-        scanner.close();
         return aceNumber;
     }
 
