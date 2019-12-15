@@ -49,6 +49,9 @@ public class Player {
     }
 
     public int getCountedScoreWithAceBonus() {
+        if (getCountedScore() == AFTER_BURST_SCORE){
+            return AFTER_BURST_SCORE;
+        }
         return Optional.of(getCountedScore() + ACE_CARD_BONUS_SCORE)
                 .filter(x -> isPlayerHaveAce())
                 .filter(x -> isBurst(x))
@@ -72,11 +75,30 @@ public class Player {
         return this instanceof Dealer;
     }
 
-    public void initCardShare(CardsOnGame cards) {
+    public void initCardShare(CardsOnGame gameCards) {
         if (!isDealer()){
-            addCard(cards.pickUpCard());
+            addCard(gameCards.pickUpCard());
         }
-        addCard(cards.pickUpCard());
+        addCard(gameCards.pickUpCard());
+    }
+
+    public void isPlayerWillHit(CardsOnGame gameCards) {
+        if (!isBlackJack() && !isBurst(getCountedScoreWithAceBonus())) {
+            // 입력부 추가 구현
+            addCard(gameCards.pickUpCard());
+            // 출력부 추가 구현
+            isPlayerWillHit(gameCards);
+        }
+    }
+
+    public boolean isSameScoreWithAnotherPlayer(Player player) {
+        return getCountedScoreWithAceBonus()
+                == player.getCountedScoreWithAceBonus();
+    }
+
+    public boolean isHigherThanAnotherPlayer(Player player) {
+        return getCountedScoreWithAceBonus()
+                > player.getCountedScoreWithAceBonus();
     }
 
     @Override

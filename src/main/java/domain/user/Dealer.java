@@ -21,11 +21,11 @@ public class Dealer extends Player {
         return getCountedScoreWithAceBonus() < DEALER_SHOULD_STAY;
     }
 
-    public void hitUntilStay(CardsOnGame cards) {
+    public void hitUntilStay(CardsOnGame gameCards) {
         if (isDealerCanHit()) {
-            addCard(cards.pickUpCard());
+            addCard(gameCards.pickUpCard());
             // 뽑음을 알릴것 추가 구현
-            hitUntilStay(cards);
+            hitUntilStay(gameCards);
         }
     }
 }
