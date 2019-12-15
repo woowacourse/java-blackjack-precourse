@@ -105,4 +105,32 @@ public class OutputView {
 		System.out.println(sb.toString());
 	}
 
+	public static void printFinalEarning(Dealer dealer, List<Player> playerList) {
+		int dealerMoney = 0;
+		int dealerScore = dealer.sumCardScore();
+
+		System.out.println("## 최종 수익");
+		for (Player player : playerList) {
+			if (player.isBlackJack()) {
+				dealerMoney -= player.getBettingMoney() * 1.5;
+				System.out.println(player.getName() + ": " + player.getBettingMoney() * 1.5);
+			} else if (player.bust()) {
+				dealerMoney += player.getBettingMoney();
+				System.out.println(player.getName() + ": -" + player.getBettingMoney());
+			} else if (dealer.bust()) {
+				System.out.println(player.getName() + ": " + player.getBettingMoney());
+				dealerMoney -= player.getBettingMoney();
+			} else if (player.sumCardScore() <= 21 && player.sumCardScore() > dealerScore) {
+				System.out.println(player.getName() + ": " + player.getBettingMoney());
+				dealerMoney -= player.getBettingMoney();
+			} else if (player.sumCardScore() == dealerScore) {
+				System.out.println(player.getName() + ": " + 0);
+			} else {
+				dealerMoney += player.getBettingMoney();
+				System.out.println(player.getName() + ": -" + player.getBettingMoney());
+			}
+		}
+		System.out.println("딜러: " + dealerMoney);
+	}
+
 }

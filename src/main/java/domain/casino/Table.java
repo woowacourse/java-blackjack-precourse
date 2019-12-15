@@ -100,5 +100,6 @@ public class Table {
 	// 최종 결과 출력
 	private void printGameResult() {
 		OutputView.printFinalScore(dealer, playerList); // 최종 점수 출력
+		OutputView.printFinalEarning(dealer, playerList); // 최종 수익 출력
 	}
 }
