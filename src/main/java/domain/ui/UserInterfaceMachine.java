@@ -14,13 +14,11 @@ public class UserInterfaceMachine {
         ArrayList<String> names;
 
         System.out.println(StringGetNamesHeader);
-        String input=scanner.nextLine();
-        names = new ArrayList<String>(Arrays.asList(input.split(",")));
+        names = new ArrayList<String>(Arrays.asList(scanner.nextLine().split(",")));
 
         while (!isCorrectNames(names)) {
             System.out.println(names);
             printNameError();
-            System.out.println(StringGetNamesHeader);
             names = new ArrayList<String>(Arrays.asList(scanner.nextLine().split(",")));
         }
 
