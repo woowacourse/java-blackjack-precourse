@@ -1,5 +1,5 @@
 /*
- * @(#)Dealer.java      0.5 2019.12.15
+ * @(#)Dealer.java      0.6 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -18,7 +18,7 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.15
+ * @version 0.6 2019.12.15
  */
 public class Dealer {
     /**
@@ -32,9 +32,19 @@ public class Dealer {
     private static final int FIRST_CARD = 0;
 
     /**
+     * 블랙잭인지 확인하기 위한 카드의 범위를 정할 때 사용할 상수.
+     */
+    private static final int BLACK_JACK_CHECK_RANGE = 2;
+
+    /**
      * 점수가 계속 카드를 뽑아야 하는 점수인지 판단하기 위한 상수.
      */
     private static final int DRAW_CONTINUE_SCORE = 16;
+
+    /**
+     * 딜러의 첫 두장의 카드가 블랙잭인지 확인하기 위한 상수.
+     */
+    private static final int BLACK_JACK = 21;
 
     /**
      * 버스트(21을 초과)하는 상황인지 확인하기 위한 상수.
@@ -177,5 +187,47 @@ public class Dealer {
             return drawUntilOverSixteen(totalScore, deck);
         }
         return totalScore;
+    }
+
+    /**
+     * 블랙잭인지 확인하기 위한 덱을 생성하는 메소드.
+     *
+     * @return 처음 2장의 카드만 저장된 Card List.
+     */
+    private List<Card> makeBlackJackCheckDeck() {
+        List<Card> blackJackCheckDeck = new ArrayList<>();
+
+        for (int i = 0; i < BLACK_JACK_CHECK_RANGE; i++) {
+            blackJackCheckDeck.add(cards.get(i));
+        }
+        return blackJackCheckDeck;
+    }
+
+    /**
+     * 블랙잭인지 확인할 경우에 사용되며, ACE이면 무조건 11을, 아닌 경우는 원래의 값을 반환하는 메소드.
+     *
+     * @param card ACE인지 확인할 카드.
+     * @return ACE일 경우 11을, 아니면 원래 카드의 숫자를 반환.
+     */
+    private int convertAceToEleven(Card card) {
+        if (card.isAceCard()) {
+            return card.getSymbolScore() + ACE_USED_ELEVEN;
+        }
+        return card.getSymbolScore();
+    }
+
+    /**
+     * 딜러의 첫 두장의 카드가 블랙잭인지 확인하는 메소드.
+     *
+     * @return 블랙잭인 경우 true 반환.
+     */
+    public boolean isBlackJack() {
+        int totalScore = 0;
+        List<Card> blackJackCheckDeck = makeBlackJackCheckDeck();
+
+        for (Card card : blackJackCheckDeck) {
+            totalScore += convertAceToEleven(card);
+        }
+        return (totalScore == BLACK_JACK);
     }
 }

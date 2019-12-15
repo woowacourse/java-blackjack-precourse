@@ -1,5 +1,5 @@
 /*
- * @(#)Player.java      0.5 2019.12.15
+ * @(#)Player.java      0.6 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,7 +17,7 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.15
+ * @version 0.6 2019.12.15
  */
 public class Player {
     /**
@@ -34,6 +34,16 @@ public class Player {
      * ACE를 11로 사용할 경우 추가로 더해야 할 숫자로 사용되는 상수.
      */
     private static final int ACE_USED_ELEVEN = 10;
+
+    /**
+     * 블랙잭인지 확인하기 위한 카드의 범위를 정할 때 사용할 상수.
+     */
+    private static final int BLACK_JACK_CHECK_RANGE = 2;
+
+    /**
+     * 딜러의 첫 두장의 카드가 블랙잭인지 확인하기 위한 상수.
+     */
+    private static final int BLACK_JACK = 21;
 
     /**
      * Player의 이름을 저장할 변수.
@@ -141,6 +151,48 @@ public class Player {
             return ACE_USED_ONE;
         }
         return ACE_USED_ELEVEN;
+    }
+
+    /**
+     * 블랙잭인지 확인하기 위한 덱을 생성하는 메소드.
+     *
+     * @return 처음 2장의 카드만 저장된 Card List.
+     */
+    private List<Card> makeBlackJackCheckDeck() {
+        List<Card> blackJackCheckDeck = new ArrayList<>();
+
+        for (int i = 0; i < BLACK_JACK_CHECK_RANGE; i++) {
+            blackJackCheckDeck.add(cards.get(i));
+        }
+        return blackJackCheckDeck;
+    }
+
+    /**
+     * 블랙잭인지 확인할 경우에 사용되며, ACE이면 무조건 11을, 아닌 경우는 원래의 값을 반환하는 메소드.
+     *
+     * @param card ACE인지 확인할 카드.
+     * @return ACE일 경우 11을, 아니면 원래 카드의 숫자를 반환.
+     */
+    private int convertAceToEleven(Card card) {
+        if (card.isAceCard()) {
+            return card.getSymbolScore() + ACE_USED_ELEVEN;
+        }
+        return card.getSymbolScore();
+    }
+
+    /**
+     * 딜러의 첫 두장의 카드가 블랙잭인지 확인하는 메소드.
+     *
+     * @return 블랙잭인 경우 true 반환.
+     */
+    public boolean isBlackJack() {
+        int totalScore = 0;
+        List<Card> blackJackCheckDeck = makeBlackJackCheckDeck();
+
+        for (Card card : blackJackCheckDeck) {
+            totalScore += convertAceToEleven(card);
+        }
+        return (totalScore == BLACK_JACK);
     }
 
     /**
