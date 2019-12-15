@@ -15,8 +15,9 @@ public class GameMc {
     public static final int INITIAL_CARD_NUM = 2;
     public static final int MAX_SCORE = 21;
     public static final int STANDARD_DEALER_SCORE = 17;
+    public static final double BONUS = 1.5;
     private ArrayList<Player> players = new ArrayList<Player>();
-    private ArrayList<Player> looser = new ArrayList<Player>();
+    private ArrayList<Player> buster = new ArrayList<Player>();//21이 넘어 패한 플레이어 혹은 딜러보다 점수가 낮은 플레이어
     private Dealer dealer = new Dealer();
     private String playerNames;
     private List<Integer> isPickedCard = new ArrayList<Integer>();
@@ -108,26 +109,41 @@ public class GameMc {
      */
     public void isBlackJack() {
         if (makeScoreList().contains(MAX_SCORE)) {
-            blackjackEnding();
+            blackJackEnding();
         }
         scratch();
     }
 
-    public void blackjackEnding() {
-        players.removeIf(n -> (n.getScore() != MAX_SCORE));
+    public void blackJackEnding() {
+        splitBlackJackOrNot();
         finalScoring(); //최종 보유 카드와 점수 출력 + "##최종 수익" 출력
         if (dealer.getScore() == MAX_SCORE) {
             draw();
         }
         for (Player player : players) {
-            System.out.println(player.getName() + " : " + player.getBettingMoney() * 1.5);
+            System.out.println(player.getName() + " : " + player.getBettingMoney() * BONUS);
+        }
+        for (Player buster : buster) {
+            System.out.println(buster.getName() + " : -" + buster.getBettingMoney());
         }
         System.exit(0);
+    }
+
+    /**
+     * 처음 2장이 블랙잭일 경우 블랙잭인 플레이어와 아닌 플레이어를 나눔
+     */
+    public void splitBlackJackOrNot(){
+        buster = players;
+        players.removeIf(x -> (x.getScore() != MAX_SCORE));
+        buster.removeIf(x -> (players.contains(x)));
     }
 
     public void draw() {
         for (Player player : players) {
             System.out.println(playerNames + " : 0");
+        }
+        for (Player buster : buster) {
+            System.out.println(buster.getName() + " : -" + buster.getBettingMoney());
         }
         System.exit(0);
     }
@@ -138,10 +154,10 @@ public class GameMc {
             everyoneWin();
         }
         for (Player player : players) {
-            awardWinner(player);
+            awardSurvivor(player);
         }
-        for (Player looser : looser) {
-            System.out.println(looser.getName() + " : -" + looser.getBettingMoney());
+        for (Player buster : buster) {
+            System.out.println(buster.getName() + " : -" + buster.getBettingMoney());
         }
         System.out.println("게임을 종료합니다.");
         System.exit(0);
@@ -155,7 +171,7 @@ public class GameMc {
     }
 
     public void finalScoring() {
-        for (Player looser : looser) {
+        for (Player looser : buster) {
             players.remove(looser);
         }
         Iterator iterator = makeScoreList().iterator();
@@ -168,7 +184,7 @@ public class GameMc {
         System.out.println("\n\n## 최종수익\n딜러 : 0");
     }
 
-    public void awardWinner(Player player) {
+    public void awardSurvivor(Player player) {
         if (player.getScore() < dealer.getScore()) {
             System.out.println(player.getName() + " : -" + player.getBettingMoney());
         } else if (player.getScore() == dealer.getScore()) {
@@ -204,7 +220,7 @@ public class GameMc {
         }
         if (player.getScore() > MAX_SCORE) {
             System.out.println("스코어가 21을 넘어 패하였습니다.");
-            looser.add(player);
+            buster.add(player);
         }
     }
 
