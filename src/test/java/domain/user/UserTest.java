@@ -5,14 +5,21 @@ import domain.card.Symbol;
 import domain.card.Type;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
     @Test
     void checkAce() {
         User user = new User();
-        user.addRandomCard(new Card(Symbol.EIGHT, Type.다이아몬드));
-        user.addRandomCard(new Card(Symbol.ACE, Type.다이아몬드));
-        assertEquals(true, user.checkAce());
+        user.addRandomCard();
+        user.addRandomCard();
+    }
+
+    @Test
+    void isPlayer() {
+        Player player = new Player("pobi", 10000);
+        assertEquals(true, player.isPlayer());
     }
 }

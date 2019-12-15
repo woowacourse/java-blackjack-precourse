@@ -57,4 +57,8 @@ public class User {
                         card.getSymbol() == Symbol.KING &&
                         card.getSymbol() == Symbol.QUEEN);
     }
+
+    public boolean isPlayer() {
+        return this instanceof Player;
+    }
 }

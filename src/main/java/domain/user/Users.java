@@ -30,15 +30,18 @@ public class Users {
         return new Users(userList);
     }
 
-    public static void receiveBeginningCard(List<Card> cards) {
+    public static void receiveBeginningCard() {
         users.forEach(user -> {
             user.addRandomCard();
             user.addRandomCard();
         });
     }
 
-    public void printCards() {
-        users.stream().findAny();
+    public static void startAddCardQuestion() {
+        users.stream()
+                .filter(user -> user.isPlayer())
+                .forEach(player -> {
+                            ((Player) player).startAddCardLoop();
+                        });
     }
-
 }

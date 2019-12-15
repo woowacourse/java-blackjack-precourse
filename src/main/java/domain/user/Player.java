@@ -1,5 +1,8 @@
 package domain.user;
 
+import domain.view.InputUtil;
+import domain.view.OutputUtil;
+
 /**
  * 게임 참여자를 의미하는 객체
  */
@@ -13,4 +16,21 @@ public class Player extends User {
     }
 
     // TODO 추가 기능 구현
+    public void startAddCardLoop() {
+        boolean stopFlag = false;
+        while (checkExcess() == false && stopFlag == false) {
+            OutputUtil.printAddCardQuestion(name);
+            doQuestionFollowAction(stopFlag);
+        }
+    }
+
+    public void doQuestionFollowAction(boolean stopFlag) {
+        boolean addCardFlag = InputUtil.inputAddCardQuestion();
+        if (addCardFlag) {
+            addRandomCard();
+        }
+        if (addCardFlag == false) {
+            stopFlag = true;
+        }
+    }
 }
