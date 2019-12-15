@@ -1,5 +1,5 @@
 /*
- * @(#)Player.java      0.7 2019.12.15
+ * @(#)Player.java      0.8 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,7 +17,7 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.15
+ * @version 0.8 2019.12.15
  */
 public class Player {
     /**
@@ -104,7 +104,7 @@ public class Player {
      *
      * @return 가지고 있는 모든 카드의 숫자 총합을 반환.
      */
-     public int getTotalScore() {
+    public int getTotalScore() {
         int totalScore = 0;
 
         for (Card card : cards) {
@@ -130,7 +130,7 @@ public class Player {
      * 해당 카드가 ACE이면 어떻게 사용할 지 연산하는 메소드.
      *
      * @param totalScore 현재까지의 총합.
-     * @param card ACE인지 확인하기 위한 카드.
+     * @param card       ACE인지 확인하기 위한 카드.
      * @return ACE인 경우 추가 연산을 진행한 총합.
      */
     private int isAce(int totalScore, Card card) {

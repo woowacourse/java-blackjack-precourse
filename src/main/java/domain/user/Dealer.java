@@ -1,5 +1,5 @@
 /*
- * @(#)Dealer.java      0.7 2019.12.15
+ * @(#)Dealer.java      0.8 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -18,7 +18,7 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.15
+ * @version 0.8 2019.12.15
  */
 public class Dealer {
     /**
@@ -177,7 +177,7 @@ public class Dealer {
      * 총점이 16점을 초과할 때까지 카드를 뽑아 점수를 반환하는 메소드.
      *
      * @param totalScore 현재까지 총점.
-     * @param deck 카드를 뽑을 덱.
+     * @param deck       카드를 뽑을 덱.
      * @return 카드를 뽑아 16점을 초과한 총점.
      */
     private int drawUntilOverSixteen(int totalScore, Deck deck) {

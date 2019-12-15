@@ -1,5 +1,5 @@
 /*
- * @(#)Validator.java       0.5 2019.12.15
+ * @(#)Validator.java       0.6 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * 입력의 유효성 검증을 담당하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.15
+ * @version 0.6 2019.12.15
  */
 public class Validator {
     /**
@@ -176,7 +176,7 @@ public class Validator {
      * @throws InputMismatchException 입력이 y 또는 n이 아닐 경우 발생하는 예외.
      */
     public static void isValidGetMoreCardReply(String userInput) throws InputMismatchException {
-        if(!((userInput.equals(GET_MORE_CARD)) || (userInput.equals(STOP_GET_MORE_CARD)))) {
+        if (!((userInput.equals(GET_MORE_CARD)) || (userInput.equals(STOP_GET_MORE_CARD)))) {
             out.printPlayerGetMoreCardReplyError();
             throw new InputMismatchException();
         }

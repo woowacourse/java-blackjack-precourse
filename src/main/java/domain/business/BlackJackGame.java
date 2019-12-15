@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       0.7 2019.12.15
+ * @(#)BlackJackGame.java       0.8 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -20,7 +20,7 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.15
+ * @version 0.8 2019.12.15
  */
 public class BlackJackGame {
     /**
@@ -115,6 +115,19 @@ public class BlackJackGame {
     }
 
     /**
+     * 블랙잭 게임을 순차적으로 진행하기 위한 메소드.
+     */
+    public void playBlackJackGame() {
+        drawTwoCardsDealerAndPlayer();
+        drawMoreCardPlayer();
+        dealer.printFinalResult(deck);
+        printFinalResultPlayer();
+        initPlayerInformation();
+        calculateFinalProfit();
+        printFinalProfit();
+    }
+
+    /**
      * Dealer와 Player가 첫 턴에 2장의 카드를 뽑고 현재 카드 상태를 출력하는 메소드.
      */
     public void drawTwoCardsDealerAndPlayer() {
@@ -188,6 +201,15 @@ public class BlackJackGame {
     }
 
     /**
+     * Player의 최종 결과를 출력하는 메소드.
+     */
+    private void printFinalResultPlayer() {
+        for (Player player : players) {
+            player.printFinalResult();
+        }
+    }
+
+    /**
      * Player의 수익과 총점을 미리 초기화해두는 메소드.
      */
     private void initPlayerInformation() {
@@ -243,7 +265,7 @@ public class BlackJackGame {
      * @param playerIndex 수익을 계산할 Player의 index.
      */
     private void setPlayerProfitNotBust(int playerIndex) {
-        if (isBust(playerScores.get(playerIndex))){
+        if (isBust(playerScores.get(playerIndex))) {
             return;
         }
         setWinnerPlayerProfit(playerIndex);
