@@ -3,7 +3,6 @@ package domain.user;
 import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
-import domain.dispenser.RandomDispenser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -32,7 +31,7 @@ class GamersTest {
     @ParameterizedTest
     @MethodSource("sourceHasNotBlackJack")
     void hasNotBlackJack(List<Symbol> symbols, boolean result) {
-        Dealer dealer = new Dealer(new RandomDispenser());
+        Dealer dealer = new Dealer();
         for (Symbol symbol : symbols) {
             dealer.addCard(new Card(symbol, Type.DIAMOND));
         }

@@ -1,5 +1,6 @@
 package view;
 
+import domain.dispenser.CardDispenser;
 import domain.dispenser.RandomDispenser;
 import domain.user.Dealer;
 import domain.user.Gamer;
@@ -15,10 +16,12 @@ import static java.util.stream.Collectors.toList;
 public class BlackJackGame {
 
     private final Gamers gamers;
+    private final CardDispenser cardDispenser;
 
     private BlackJackGame() {
-        gamers = new Gamers(new Dealer(new RandomDispenser()), makePlayers());
-        gamers.initCard();
+        cardDispenser = new RandomDispenser();
+        gamers = new Gamers(new Dealer(), makePlayers());
+        gamers.initCard(cardDispenser);
 
         OutputView.showStartStatus(gamers);
     }
@@ -49,7 +52,7 @@ public class BlackJackGame {
 
     private void distributeCardToPlayers() {
         for (Gamer player : gamers.getPlayers()) {
-            pickCard(player, gamers.getDealer());
+            pickCard(player);
         }
     }
 
@@ -58,13 +61,13 @@ public class BlackJackGame {
         boolean canReceive = dealer.canReceive();
         OutputView.showDealerCanReceive(canReceive);
         if (canReceive) {
-            dealer.addCard(dealer.pickCard());
+            dealer.addCard(cardDispenser.pick());
         }
     }
 
-    private void pickCard(Gamer player, Dealer dealer) {
+    private void pickCard(Gamer player) {
         while (player.canReceive() && InputView.receiveCard(player.getName())) {
-            player.addCard(dealer.pickCard());
+            player.addCard(cardDispenser.pick());
             OutputView.showGamerStatus(player);
         }
     }

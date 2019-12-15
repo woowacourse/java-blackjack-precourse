@@ -1,5 +1,7 @@
 package domain.user;
 
+import domain.dispenser.CardDispenser;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,10 +17,9 @@ public class Gamers {
         gamers.addAll(players);
     }
 
-    public void initCard() {
-        Dealer dealer = getDealer();
+    public void initCard(CardDispenser cardDispenser) {
         for (int i = 0; i < 2; i++) {
-            gamers.forEach(gamer -> gamer.addCard(dealer.pickCard()));
+            gamers.forEach(gamer -> gamer.addCard(cardDispenser.pick()));
         }
     }
 
