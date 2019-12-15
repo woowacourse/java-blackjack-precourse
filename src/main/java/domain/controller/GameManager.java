@@ -9,7 +9,6 @@ public class GameManager {
 
 
     public void run() {
-
         userCreateManager.playerStandBy();
 
     }

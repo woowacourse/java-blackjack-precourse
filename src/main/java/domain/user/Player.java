@@ -17,4 +17,8 @@ public class Player extends User {
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

@@ -1,5 +1,6 @@
 package domain.controller;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import domain.exception.InputException;
 import domain.input.MoneyInput;
 import domain.input.PlayerInput;
@@ -21,6 +22,7 @@ public class UserCreateManager {
     Player[] players;
 
     final static int MAKE_TWO_CARD = 2;
+    final static int MAKE_ONE_CARD = 1;
 
     public UserCreateManager() {
         cardManager = new CardManager();
@@ -35,6 +37,8 @@ public class UserCreateManager {
     public void playerStandBy(){
         createPlayer(createPlayerName());
         createDealer();
+        announce.announceDoneUserCreate(
+                toolbox.makePlayerNameString(players));
     }
 
     private void createPlayer(List<String> nameList) {
@@ -44,7 +48,7 @@ public class UserCreateManager {
             announce.announceMoneyInput(name);
             players[i] = new Player(
                     name, moneyinput.inputBettingMoney());
-            cardManager.giveCard(players[i], MAKE_TWO_CARD);
+            cardManager.giveCard(players[i], MAKE_ONE_CARD);
             i++;
         }
     }
