@@ -6,18 +6,14 @@ import domain.user.BlackjackUserResult;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.PlayerInputData;
+import static domain.user.BlackjackUserResult.PERFECT_SCORE;
+import static domain.user.Dealer.MAX_SCORE_NEEDS_MORE_CARD;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackGame {
-    private static final int FIRST_DISTRIBUTED_CARD_AMOUNT = 2;
-    private static final int ADDABLE_CARD_AMOUNT = 1;
-    private static final int MAX_SCORE_NEEDS_MORE_CARD = 16;
-    private static List<Player> playerList;
-    private static List<String> playerNameList;
-    private static Dealer dealer;
-    private static CardDistributor cardDistributor;
 
     public static void main(String[] args) {
         Dealer dealer = new Dealer();
@@ -56,40 +52,65 @@ public class BlackJackGame {
         return playerNameList;
     }
 
-    private static void askCardAddition(String playerName, Player player) {
-        boolean needToAsk = true;
-        while (needToAsk) {
-            System.out.println(String.format("%s, 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)", playerName));
-            Scanner scanner = new Scanner(System.in);
-            String answer = scanner.nextLine();
-            needToAsk = needMoreCard(answer, playerName, player);
-            System.out.println();
+    private static void addCardToPlayer(List<Player> playerList, CardDistributor cardDistributor) {
+        for (Player player : playerList) {
+            askCardAddition(player, cardDistributor);
         }
     }
 
-    private static boolean needMoreCard(String answer, String playerName, Player player) {
+    private static void askCardAddition(Player player, CardDistributor cardDistributor) {
+        boolean needToAsk = true;
+        while (needToAsk) {
+            System.out.println(String.format("%s, 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)", player.getName()));
+            Scanner scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
+            needToAsk = needMoreCard(answer, player, cardDistributor) && isUnderPerfectScore(player);
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    private static boolean needMoreCard(String answer, Player player, CardDistributor cardDistributor) {
         if (answer.equals("y")) {
-            cardDistributor.giveCardToPlayer(ADDABLE_CARD_AMOUNT, player);
-            CardPrinter.printPlayerCards(player, playerName);
+            cardDistributor.giveCardToBlackjackUser(player);
+            player.printAllCards();
             return true;
         } else if (answer.equals("n")) {
-            CardPrinter.printPlayerCards(player, playerName);
+            player.printAllCards();
             return false;
         }
         System.out.println("※ y와 n만 입력할 수 있습니다.");
         return true;
     }
 
-    private static void addCardToDealer() {
-        if (dealer.calculateTotalCardScore() <= MAX_SCORE_NEEDS_MORE_CARD) {
-            cardDistributor.giveCardToDealer(ADDABLE_CARD_AMOUNT, dealer);
+    private static boolean isUnderPerfectScore(Player player) {
+        BlackjackUserResult playerResult = player.createBlackjackUserResult();
+        if (playerResult.isPerfectScore()) {
+            System.out.println(String.format("\n※ 카드 숫자의 합이 %d이므로 더 이상 카드를 추가하지 않습니다.", PERFECT_SCORE));
+            return false;
+        }
+        if (playerResult.isBust()) {
+            System.out.print(String.format("\n※ 카드 숫자의 합이 %d을 넘었으므로 %s는 패배하였습니다.", PERFECT_SCORE, player.getName()));
+            return false;
+        }
+        return true;
+    }
+
+    private static void addCardToDealer(Dealer dealer, CardDistributor cardDistributor) {
+        if (dealer.doesNeedMoreCard()) {
+            cardDistributor.giveCardToBlackjackUser(dealer);
             System.out.println(String.format("딜러는 %d 이하라 한 장의 카드를 더 받았습니다. \n", MAX_SCORE_NEEDS_MORE_CARD));
             return;
         }
         System.out.println(String.format("딜러는 %d 초과로 카드를 더 받지 않습니다. \n", MAX_SCORE_NEEDS_MORE_CARD));
     }
 
-    private static void printGameParticipantTotalScore() {
+    private static void addCardToParticipant(Dealer dealer, List<Player> playerList, CardDistributor cardDistributor) {
+        addCardToPlayer(playerList, cardDistributor);
+        addCardToDealer(dealer, cardDistributor);
+    }
+
+    private static void printGameParticipantTotalScore(Dealer dealer, List<Player> playerList) {
         dealer.printTotalScore();
         for (Player player : playerList) {
             player.printTotalScore();
