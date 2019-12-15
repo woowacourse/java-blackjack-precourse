@@ -32,7 +32,7 @@ public class GameController {
 	public static List<Player> initializePlayers() {
 		List<Player> players = new ArrayList<>();
 		List<String> playersName = getPlayersName();
-		List<Double> playersBettingMoney = new ArrayList<>(); // getPlayersBettingMoney();
+		List<Double> playersBettingMoney = getPlayersBettingMoney();
 
 		for (int i = 0; i < playersName.size(); i++) {
 			players.add(new Player(playersName.get(i), playersBettingMoney.get(i)));
@@ -52,5 +52,18 @@ public class GameController {
 			return getPlayersName();
 		}
 		return playersName;
+	}
+
+	public static List<Double> getPlayersBettingMoney() {
+		List<Double> playersBettingMoney = new ArrayList<>(); // 임시
+
+		// try {
+		// 	InputView.printPlayerBettingQuestion();
+		// 	playersBettingMoney = InputUtil.readPlayersBettingMoney();
+		// } catch (IOException e) {
+		// 	OutputView.printWrongBettingInput();
+		// 	return getPlayersBettingMoney();
+		// }
+		return playersBettingMoney;
 	}
 }
