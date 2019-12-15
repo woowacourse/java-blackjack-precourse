@@ -21,6 +21,7 @@ public class Table {
 		getPlayers();
 		distributeCards();
 		goHitOrStand();
+		printGameResult();
 	}
 
 	// 플레이어 객체 생성 : 배팅 금액, 이름 등록
@@ -96,6 +97,8 @@ public class Table {
 		System.out.println();
 	}
 
-
-
+	// 최종 결과 출력
+	private void printGameResult() {
+		OutputView.printFinalScore(dealer, playerList); // 최종 점수 출력
+	}
 }

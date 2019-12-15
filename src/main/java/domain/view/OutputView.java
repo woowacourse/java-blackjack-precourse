@@ -74,4 +74,35 @@ public class OutputView {
 		return false;
 	}
 
+	public static void printFinalScore(Dealer dealer, List<Player> playerList) {
+		printDealerScore(dealer);
+		for (Player player : playerList) {
+			printPlayerScore(player);
+		}
+		System.out.println();
+	}
+
+	private static void printDealerScore(Dealer dealer) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(getDealerCards(dealer));
+		printScore(sb, dealer.bust(), dealer.sumCardScore());
+	}
+
+	private static void printPlayerScore(Player player) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(getPlayerCards(player));
+		printScore(sb, player.bust(), player.sumCardScore());
+	}
+
+	private static void printScore(StringBuffer sb, boolean bust, int sumCardScore) {
+		sb.append(" - 결과: ");
+		if (bust) {
+			sb.append("BURST");
+			System.out.println(sb.toString());
+			return;
+		}
+		sb.append(sumCardScore);
+		System.out.println(sb.toString());
+	}
+
 }
