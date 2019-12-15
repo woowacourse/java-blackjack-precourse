@@ -1,5 +1,5 @@
 /*
- * @(#)Dealer.java      0.4 2019.12.15
+ * @(#)Dealer.java      0.5 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -18,7 +18,7 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.4 2019.12.15
+ * @version 0.5 2019.12.15
  */
 public class Dealer {
     /**
@@ -135,20 +135,32 @@ public class Dealer {
     }
 
     /**
-     * Dealer가 총점이 17이 안될경우 규칙에 따라 계속 카드를 뽑도록 하고, 모두 끝나면 결과를 출력하는 메소드.
+     * Dealer가 총점이 17이 안될경우 규칙에 따라 계속 카드를 뽑도록 하는 메소드.
      *
      * @param deck 카드를 뽑을 덱.
+     * @return 규칙에 따라 모든 카드를 뽑은 후 총점.
      */
-    public void drawAccordingRule(Deck deck) {
+    private int drawAccordingRule(Deck deck) {
         int totalScore = getTotalScore();
         Output out = new Output();
-        out.printNewLine();
 
         if (totalScore <= DRAW_CONTINUE_SCORE) {
+            out.printNewLine();
             out.printDealerCardUnderSeventeen();
             totalScore = drawUntilOverSixteen(totalScore, deck);
         }
-        out.printUserFinalResult(DEALER_NAME, StringUtil.joinCardName(cards), totalScore);
+        return totalScore;
+    }
+
+    /**
+     * Dealer가 규칙에 따라 카드를 뽑고, 최종 결과를 출력하는 메소드.
+     *
+     * @param deck 카드를 뽑을 덱.
+     */
+    public void printFinalResult(Deck deck) {
+        Output out = new Output();
+
+        out.printUserFinalResult(DEALER_NAME, StringUtil.joinCardName(cards), drawAccordingRule(deck));
     }
 
     /**
