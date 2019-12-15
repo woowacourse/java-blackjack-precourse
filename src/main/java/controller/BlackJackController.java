@@ -1,4 +1,4 @@
-package domain.game;
+package controller;
 
 import domain.card.Card;
 import domain.user.Dealer;
@@ -7,12 +7,12 @@ import sources.BlackJackPlayingSource;
 
 import java.util.List;
 
-public class BlackJack {
+public class BlackJackController {
 	private List<Card> cardDeck;
 	private List<Player> players;
 	private Dealer dealer;
 
-	public BlackJack(List<Card> cardDeck, List<Player> players) {
+	public BlackJackController(List<Card> cardDeck, List<Player> players) {
 		this.cardDeck = cardDeck;
 		this.players = players;
 		this.dealer = new Dealer();
