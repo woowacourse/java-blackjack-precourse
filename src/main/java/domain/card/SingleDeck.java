@@ -15,8 +15,17 @@ public class SingleDeck implements Deck {
     }
 
     @Override
-    public Card get() {
-        return null;
+    public Card pick() {
+        //todo: check if it is good
+        if (isBlank()) {
+            shuffle();
+        }
+
+        return cards.remove(0);
+    }
+
+    private boolean isBlank() {
+        return cards.size() == 0;
     }
 
     List<Card> getAll() {
