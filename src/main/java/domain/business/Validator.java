@@ -1,5 +1,5 @@
 /*
- * @(#)Validator.java       0.4 2019.12.15
+ * @(#)Validator.java       0.5 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * 입력의 유효성 검증을 담당하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.4 2019.12.15
+ * @version 0.5 2019.12.15
  */
 public class Validator {
     /**
@@ -30,6 +30,16 @@ public class Validator {
      * Player BettingMoney의 가능한 최소 금액을 확인하기 위한 상수.
      */
     private static final double MIN_BETTING_MONEY = 0;
+
+    /**
+     * Player가 카드를 더 받는 응답임을 확인하기 위한 상수.
+     */
+    private static final String GET_MORE_CARD = "y";
+
+    /**
+     * Player가 카드를 더 이상 안받는다는 응답임을 확인하기 위한 상수.
+     */
+    private static final String STOP_GET_MORE_CARD = "n";
 
     /**
      * 예외 발생시 출력을 담당할 Output 객체.
@@ -156,6 +166,19 @@ public class Validator {
         if (noDuplicateCardDeck.size() != cards.size()) {
             out.printCardDeckDuplicateError();
             throw new Exception();
+        }
+    }
+
+    /**
+     * 카드를 더 받겠다는 입력 형식이 유효한지 확인하는 메소드.
+     *
+     * @param userInput 카드를 더 받겠다는 입력.
+     * @throws InputMismatchException 입력이 y 또는 n이 아닐 경우 발생하는 예외.
+     */
+    public static void isValidGetMoreCardReply(String userInput) throws InputMismatchException {
+        if(!((userInput.equals(GET_MORE_CARD)) || (userInput.equals(STOP_GET_MORE_CARD)))) {
+            out.printPlayerGetMoreCardReplyError();
+            throw new InputMismatchException();
         }
     }
 }

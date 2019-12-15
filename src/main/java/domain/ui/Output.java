@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      0.5 2019.12.15
+ * @(#)Output.java      0.6 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,7 +10,7 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.15
+ * @version 0.6 2019.12.15
  */
 public class Output {
     /**
@@ -26,17 +26,17 @@ public class Output {
     /**
      * 게임 참여자 이름의 길이에 예외가 발생할 경우 출력할 메시지 상수.
      */
-    private static final String PLAYER_NAME_LENGTH_EXCEPTION = "게임에 참여할 사람의 이름은 1자 이상 입력하셔야 합니다.";
+    private static final String PLAYER_NAME_LENGTH_EXCEPTION_MESSAGE = "게임에 참여할 사람의 이름은 1자 이상 입력하셔야 합니다.";
 
     /**
      * 게임 참여자 이름의 형식에 예외가 발생할 경우 출력할 메시지 상수.
      */
-    private static final String PLAYER_NAME_FORMAT_EXCEPTION = "게임에 참여할 사람의 이름은 대소문자만 입력 가능합니다.";
+    private static final String PLAYER_NAME_FORMAT_EXCEPTION_MESSAGE = "게임에 참여할 사람의 이름은 대소문자만 입력 가능합니다.";
 
     /**
      * 게임 참여자 이름에 중복이 존재할 경우 출력할 메시지 상수.
      */
-    private static final String PLAYER_NAME_DUPLICATE_EXCEPTION = "게임에 참여할 사람의 이름에 중복이 존재합니다.";
+    private static final String PLAYER_NAME_DUPLICATE_EXCEPTION_MESSAGE = "게임에 참여할 사람의 이름에 중복이 존재합니다.";
 
     /**
      * 사용자에게 재입력을 요청할 때 출력할 메시지 상수.
@@ -56,7 +56,7 @@ public class Output {
     /**
      * 생성된 카드 덱에 중복된 카드가 존재하는 경우 출력할 메시지 상수.
      */
-    private static final String CARD_DECK_DUPLICATE_EXCEPTION = "생성된 카드 덱에 중복된 카드가 존재합니다.";
+    private static final String CARD_DECK_DUPLICATE_EXCEPTION_MESSAGE = "생성된 카드 덱에 중복된 카드가 존재합니다.";
 
     /**
      * Dealer와 Player에게 2장의 카드를 나누어 줄때 출력할 메시지 상수.
@@ -72,6 +72,12 @@ public class Output {
      * Player가 한장의 카드를 더 받을지 여부 요청때 출력할 메시지 상수.
      */
     private static final String PLAYER_GET_ONE_MORE_CARD_MESSAGE = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니요는 n)";
+
+    /**
+     * Player의 카드를 더 받을지 여부 입력의 형식이 틀릴 경우 출력할 메시지 상수.
+     */
+    private static final String PLAYER_GET_MORE_CARD_REPLY_EXCEPTION_MESSAGE =
+            "카드를 더 받을 경우 y, 더 이상 받지 않을 경우는 n, 이 두 가지 입력만 가능합니다.";
 
     /**
      * Dealer 카드가 16이하일 경우 출력할 메시지 상수.
@@ -104,21 +110,21 @@ public class Output {
      * 게임 참여자 이름의 길이가 유효하지 않음을 출력하는 메소드.
      */
     public void printPlayerNameLengthError() {
-        System.out.print(PLAYER_NAME_LENGTH_EXCEPTION);
+        System.out.print(PLAYER_NAME_LENGTH_EXCEPTION_MESSAGE);
     }
 
     /**
      * 게임 참여자 이름의 형식이 유효하지 않음을 출력하는 메소드.
      */
     public void printPlayerNameFormatError() {
-        System.out.print(PLAYER_NAME_FORMAT_EXCEPTION);
+        System.out.print(PLAYER_NAME_FORMAT_EXCEPTION_MESSAGE);
     }
 
     /**
      * 게임 참여자 이름에 중복이 존재함을 출력하는 메소드.
      */
     public void printPlayerNameDuplicateError() {
-        System.out.print(PLAYER_NAME_DUPLICATE_EXCEPTION);
+        System.out.print(PLAYER_NAME_DUPLICATE_EXCEPTION_MESSAGE);
     }
 
     /**
@@ -148,7 +154,7 @@ public class Output {
      * 생성된 카드 덱에 중복된 카드가 존재함을 출력하는 메소드.
      */
     public void printCardDeckDuplicateError() {
-        System.out.println(CARD_DECK_DUPLICATE_EXCEPTION);
+        System.out.println(CARD_DECK_DUPLICATE_EXCEPTION_MESSAGE);
     }
 
     /**
@@ -177,6 +183,13 @@ public class Output {
      */
     public void printPlayerGetOneMoreCard(String playerName) {
         System.out.println(playerName + PLAYER_GET_ONE_MORE_CARD_MESSAGE);
+    }
+
+    /**
+     * Player의 한장의 카드를 더 받을지 여부 입력이 유효하지 않을 경우 출력하는 메소드.
+     */
+    public void printPlayerGetMoreCardReplyError() {
+        System.out.print(PLAYER_GET_MORE_CARD_REPLY_EXCEPTION_MESSAGE);
     }
 
     /**

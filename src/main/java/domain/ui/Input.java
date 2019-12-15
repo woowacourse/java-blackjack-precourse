@@ -1,5 +1,5 @@
 /*
- * @(#)Input.java       0.3 2019.12.15
+ * @(#)Input.java       0.4 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import java.util.Scanner;
  * 입력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.15
+ * @version 0.4 2019.12.15
  */
 public class Input {
     /**
@@ -45,7 +45,7 @@ public class Input {
      *
      * @return 한장의 카드를 더 받을지 여부(y 또는 n).
      */
-    public String receivePlayerGetOneMoreCardInput() {
+    public String receivePlayerGetMoreCardInput() {
         scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
