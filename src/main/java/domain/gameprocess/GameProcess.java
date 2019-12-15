@@ -32,8 +32,8 @@ public class GameProcess {
     }
 
     private List<Player> createPlayers() {
-        ArrayList<Player> players = new ArrayList<Player>();
-        String[] playerNames = userInterfaceMachine.scanNames();
+        List<Player> players = new ArrayList<Player>();
+        List<String> playerNames = userInterfaceMachine.scanNames();
 
         for (String playerName : playerNames) {
             players.add(new Player(playerName,
