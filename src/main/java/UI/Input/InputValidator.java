@@ -1,4 +1,4 @@
-package View;
+package UI.Input;
 
 public class InputValidator {
     private static final String VALIDATE_IF_GET_CARD_REGEX = "[ny]";

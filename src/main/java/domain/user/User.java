@@ -1,21 +1,25 @@
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.List;
+import domain.card.Deck;
 
 public interface User {
     int BLACKJACK_NUMBER = 21;
 
-    void addCard(Card card);
+    void addCard(Deck deck, int number);
 
     String getName();
 
-    List<Card> getCards();
+    String getInitialCards();
+
+    String getHoldingCards();
 
     int getScoreOfCards();
 
     boolean isBust();
 
     boolean isBlackjack();
+
+    boolean isGettingAdditionalCard();
+
+    String getMessageForAdditionalCard();
 }

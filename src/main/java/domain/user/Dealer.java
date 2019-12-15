@@ -1,9 +1,9 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Deck;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -11,14 +11,22 @@ import java.util.List;
  */
 public class Dealer implements User {
     private static final String DEALER_NAME = "딜러";
+    private static final int DEALER_MINIMUM_SCORE_TO_STAY = 17;
+    private static final String DEALER_SCORE_IS_UNDER_MINIMUM_MESSAGE = "딜러의 점수가 17미만이므로 1장의 카드를 더 받습니다.";
 
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    private Dealer() {}
+
+    public static Dealer create() {
+        return new Dealer();
+    }
 
     @Override
-    public void addCard(Card card) {
-        cards.add(card);
+    public void addCard(Deck deck, int number) {
+        for (int i = 0; i < number; i++) {
+            cards.add(deck.draw());
+        }
     }
 
     @Override
@@ -27,8 +35,13 @@ public class Dealer implements User {
     }
 
     @Override
-    public List<Card> getCards() {
-        return Collections.unmodifiableList(this.cards);
+    public String getInitialCards() {
+        return this.cards.toString();
+    }
+
+    @Override
+    public String getHoldingCards() {
+        return this.cards.subList(1, this.cards.size()).toString();
     }
 
     @Override
@@ -48,7 +61,13 @@ public class Dealer implements User {
         return getScoreOfCards() == BLACKJACK_NUMBER;
     }
 
-    public List<Card> getCardsExceptOneCard() {
-        return Collections.unmodifiableList(this.cards.subList(1, this.cards.size()));
+    @Override
+    public boolean isGettingAdditionalCard() {
+        return getScoreOfCards() < DEALER_MINIMUM_SCORE_TO_STAY;
+    }
+
+    @Override
+    public String getMessageForAdditionalCard() {
+        return DEALER_SCORE_IS_UNDER_MINIMUM_MESSAGE;
     }
 }

@@ -1,6 +1,4 @@
-package View;
-
-import domain.user.User;
+package UI.Input;
 
 import java.util.Scanner;
 
@@ -23,8 +21,8 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public static String inputIfGetCard(User user) {
-        System.out.println(user.getName() + INPUT_IF_GET_CARD_MESSAGE);
+    public static String inputIfGetCard(String name) {
+        System.out.println(name + INPUT_IF_GET_CARD_MESSAGE);
         return scanner.nextLine();
     }
 
