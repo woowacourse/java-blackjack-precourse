@@ -1,5 +1,5 @@
 /*
- * @(#)Card.java        0.2 2019.12.15
+ * @(#)Card.java        0.3 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.15
  */
 public class Card {
     private final Symbol symbol;
@@ -50,5 +50,23 @@ public class Card {
     public String toString() {
         return symbol.getScore() +
                 " " + type;
+    }
+
+    /**
+     * 카드의 숫자(symbol의 score)를 반환하는 메소드.
+     *
+     * @return 카드의 숫자.
+     */
+    public int getSymbolScore() {
+        return symbol.getScore();
+    }
+
+    /**
+     * 카드가 Ace인지 확인하는 메소드.
+     *
+     * @return Ace이면 true 반환.
+     */
+    public boolean isAceCard() {
+        return (symbol == Symbol.ACE);
     }
 }
