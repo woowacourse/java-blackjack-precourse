@@ -2,6 +2,8 @@ package domain.view;
 
 import java.util.Scanner;
 
+import domain.user.Player;
+
 public class InputView {
 	private static final Scanner scanner = new Scanner(System.in);
 
@@ -55,4 +57,15 @@ public class InputView {
 			return getBettingMoney(player);
 		}
 	}
+
+	public static boolean getMoreCard(Player player) {
+		System.out.println(player.getName() + ", 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+		String answer = scanner.nextLine();
+		// y,n 이외의 입력값에 대해 예외처리하기
+		if (answer.equals("y")) {
+			return true;
+		}
+		return false;
+	}
+
 }

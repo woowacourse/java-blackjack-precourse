@@ -53,11 +53,25 @@ public class OutputView {
 		String result = getDealerCards(dealer).split(",")[0];
 		System.out.println(result);
 	}
-	
+
 	private static void divideDealerCardsWithComma(StringBuffer sb) {
 		if (sb.length() > 5 + 2) {
 			sb.append(",");
 		}
+	}
+
+	public static void printDealerCards(Dealer dealer) {
+		String result = getDealerCards(dealer);
+		System.out.println(result);
+	}
+
+	public static boolean isLessThanSeventeen(int dealerScore) {
+		if (dealerScore <= 16) {
+			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+			return true;
+		}
+		System.out.println("딜러는 17이상이라 카드를 받지 않습니다.");
+		return false;
 	}
 
 }

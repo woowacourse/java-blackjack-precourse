@@ -1,7 +1,10 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.CardSupplier;
 import domain.card.Symbol;
+import domain.view.InputView;
+import domain.view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,5 +84,22 @@ public class Player {
 
 	private boolean isAce(Card card) {
 		return card.getSymbol().equals(Symbol.ACE);
+	}
+
+	public void checkCardNumber(CardSupplier cardSupplier) {
+		if (isBlackJack()) {
+			System.out.println("WOW 블랙잭 입니다!!! 배당금의 1.5배를 가져갑니다.");
+			return;
+		}
+		if (bust()) {
+			System.out.println("BURST! 21 초과");
+		} else {
+			OutputView.printPlayerCards(this);
+			if (InputView.getMoreCard(this)) {
+				addCard(cardSupplier.getDeal());
+				checkCardNumber(cardSupplier);
+				return;
+			}
+		}
 	}
 }

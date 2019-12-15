@@ -73,4 +73,17 @@ public class Dealer {
 		return card.getSymbol().equals(Symbol.ACE);
 	}
 
+	public void checkCardNumber(CardSupplier cardSupplier) {
+		if (bust()) {
+			System.out.println("BURST! 21 초과");
+		} else {
+			OutputView.printDealerCards(this);
+			if (OutputView.isLessThanSeventeen(sumCardScore())) {
+				addCard(cardSupplier.getDeal());
+				checkCardNumber(cardSupplier);
+				return;
+			}
+		}
+	}
+
 }

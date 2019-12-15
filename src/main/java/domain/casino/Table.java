@@ -20,6 +20,7 @@ public class Table {
 	public void playBlackjack() {
 		getPlayers();
 		distributeCards();
+		goHitOrStand();
 	}
 
 	// 플레이어 객체 생성 : 배팅 금액, 이름 등록
@@ -39,7 +40,6 @@ public class Table {
 		for (int i = 0; i < 2; i++) {
 			distributeCardsToDealer();
 			distributeCardsToPlayers();
-			goHitOrStand();
 		}
 	}
 
@@ -55,12 +55,22 @@ public class Table {
 
 	// 딜러 블랙잭 여부 확인 -- 딜러가 블랙잭이면 바로 최종 결과로 이동
 	private void goHitOrStand() {
+		if (dealer.isBlackJack()) {
+			System.out.println("딜러가 블랙잭 입니다!!");
+			return;
+		}
 
 		// 딜러 카드 한 장 오픈
 		openDealerInitialCard();
 
 		// 플레이어 카드 오픈
 		openPlayersCards();
+
+		// 플레이어 카드 더 받을지 체크
+		checkPlayersWantMoreCard();
+
+		// 딜러 카드 더 받을지 체크
+		checkDealerWantMoreCard();
 
 	}
 
@@ -74,5 +84,18 @@ public class Table {
 		}
 		System.out.println();
 	}
+
+	private void checkPlayersWantMoreCard() {
+		for (Player player : playerList) {
+			player.checkCardNumber(cardSupplier);
+		}
+	}
+
+	private void checkDealerWantMoreCard() {
+		dealer.checkCardNumber(cardSupplier);
+		System.out.println();
+	}
+
+
 
 }
