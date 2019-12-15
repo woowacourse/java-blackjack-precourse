@@ -38,4 +38,25 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+    public int getScore() { // 점수를 반환하는 메소드
+        return symbol.getScore();
+    }
+
+    public String getType() { // 카드의 종류를 한글로 반환
+        String typeKor;
+        if (type == Type.SPADE) {
+            typeKor = "스페이드";
+        } else if (type == Type.DIAMOND) {
+            typeKor = "다이아몬드";
+        } else if (type == Type.HEART) {
+            typeKor = "하트";
+        } else if (type == Type.CLUB) {
+            typeKor = "클로버";
+        } else {
+            typeKor = "False";
+        }
+        return typeKor;
+    }
+
 }
