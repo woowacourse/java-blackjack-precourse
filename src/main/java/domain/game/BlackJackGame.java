@@ -85,7 +85,7 @@ public class BlackJackGame {
 	}
 
 	private boolean isChoiceHit(char choice, Player player) {
-		if (choice == HIT) {
+		if (choice == HIT | choice == Character.toUpperCase(HIT)) {
 			player.addCard(cardShoe.getOneCard());
 			System.out.println(player.getName() + " : " + player.showCardInfo());
 			System.out.println();

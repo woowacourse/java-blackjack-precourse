@@ -67,7 +67,7 @@ public class InputManager {
 	}
 
 	private void choiceValidation(char choice) throws Exception {
-		if (choice != HIT && choice != STAY) {
+		if (choice != HIT && choice != Character.toUpperCase(HIT) && choice != STAY && choice != Character.toUpperCase(STAY)) {
 			throw new Exception();
 		}
 	}
