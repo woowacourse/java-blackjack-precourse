@@ -68,7 +68,7 @@ public class InputUtil {
 		}
 	}
 
-	public static double readPlayerBettingMoney(String playerName) throws IOException, NumberFormatException {
+	public static double readPlayerBettingMoney() throws IOException, NumberFormatException {
 		double playerBettingMoney;
 
 		try {

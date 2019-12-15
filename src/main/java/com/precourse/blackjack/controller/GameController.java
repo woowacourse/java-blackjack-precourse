@@ -66,7 +66,7 @@ public class GameController {
 
 		try {
 			InputView.printPlayerBettingQuestion(playerName);
-			playerBettingMoney = InputUtil.readPlayerBettingMoney(playerName);
+			playerBettingMoney = InputUtil.readPlayerBettingMoney();
 		} catch (IOException | NumberFormatException e) {
 			OutputView.printWrongBettingMoneyInput();
 			return getPlayerBettingMoney(playerName);
