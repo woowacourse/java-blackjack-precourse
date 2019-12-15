@@ -10,7 +10,7 @@ import domain.card.CardDeck;
 public class User {
 	private static final int ACE_SCORE = 1;
 	private static final int ACE_UPDATE_SCORE = 10;
-	private static final int BLACKJACK_SCORE = 21;
+	private static final int UPDATE_THRESHOLD = 12;
 	
 	protected List<Card> cards = new ArrayList<Card>();
 	
@@ -26,18 +26,7 @@ public class User {
 
 	public int calculateScore() {
 		int score = calculateWithAceAsOne();
-		for (int i = 0; i < countNumOfAce(); i++) {
-			score = updateScoreWithAce(score);
-		}
-		return score;
-	}
-
-	private int updateScoreWithAce(int score) {
-		score += ACE_UPDATE_SCORE;
-		if (score > BLACKJACK_SCORE) {
-			score -= ACE_UPDATE_SCORE;
-		}
-		return score;
+		return updateAce(score);
 	}
 
 	private int calculateWithAceAsOne() {
@@ -46,11 +35,13 @@ public class User {
 				.mapToInt(Integer::intValue)
 				.sum();
 	}
-
-	private int countNumOfAce() {
-		return (int) this.cards.stream()
-				.filter(card -> card.getScore() == ACE_SCORE)
-				.count();
+	
+	private int updateAce(int score) {
+		if (this.cards.stream().anyMatch(card -> card.getScore() == ACE_SCORE)
+				&& score < UPDATE_THRESHOLD) {
+			return score + ACE_UPDATE_SCORE; 
+		}
+		return score;
 	}
 	
 	public String getAllCardsInString() {

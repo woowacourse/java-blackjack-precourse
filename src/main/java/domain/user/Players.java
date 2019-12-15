@@ -17,16 +17,12 @@ public class Players {
 
 	public static void checkValidNames(List<String> playerNames) {
 		PlayersConstraints.checkValidNumOfNames(playerNames);
+		PlayersConstraints.checkOverlappingNames(playerNames);
 		PlayersConstraints.checkValidEachName(playerNames);
 	}
 	
 	public static void checkValidBettingMoneys(List<Integer> bettingMoneys) {
 		PlayersConstraints.checkValidEachBettingMoney(bettingMoneys);
-	}
-	
-	public void drawCard(CardDeck deck) {
-		this.players.stream()
-				.forEach(player -> player.drawCard(deck));
 	}
 	
 	public List<Player> getPlayers() {
@@ -37,13 +33,18 @@ public class Players {
 		return this.players.get(index);
 	}
 	
+	public int getSize() {
+		return this.players.size();
+	}
+	
+	public void drawCard(CardDeck deck) {
+		this.players.stream()
+				.forEach(player -> player.drawCard(deck));
+	}
+	
 	public String toString() {
 		return this.players.stream()
 				.map(player -> player.getName())
 				.collect(Collectors.joining(", "));
-	}
-	
-	public int getSize() {
-		return this.players.size();
 	}
 }

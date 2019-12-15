@@ -49,39 +49,34 @@ public class BlackjackGame {
 	}
 	
 	private void checkBlackjack(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		List<Integer> indexOfBlackjack = findBlackjackIndex(players);
-		updateBlackjackInfo(dealer, indexOfBlackjack, info);
-		OutputView.showInitialResult(players, info, indexOfBlackjack);
+		IntStream.range(0, players.getSize())
+				.filter(i -> (players.getPlayerAt(i).calculateScore() == BLACKJACK ))
+				.forEach(
+					i -> {
+						updateBlackjackInfo(dealer, info, i);
+						OutputView.showInitialResult(players.getPlayerAt(i), info.get(i));
+					}
+				);
 	}
 	
-	private List<Integer> findBlackjackIndex(Players players) {
-		return players.getPlayers().stream()
-				.filter(player -> (player.calculateScore() == BLACKJACK))
-				.map(player -> players.getPlayers().indexOf(player))
-				.collect(Collectors.toList());
-	}
-	
-	private void updateBlackjackInfo(Dealer dealer, List<Integer> BlackjackIndex, List<WinLoseInfo> info) {
+	private void updateBlackjackInfo(Dealer dealer, List<WinLoseInfo> info, int index) {
 		if (dealer.calculateScore() == BLACKJACK) {
-			BlackjackIndex.stream().forEach(index -> info.set(index, WinLoseInfo.DRAW));
+			info.set(index, WinLoseInfo.DRAW);
 		}
-		BlackjackIndex.stream().forEach(index -> info.set(index, WinLoseInfo.BLACKJACK));
+		info.set(index, WinLoseInfo.BLACKJACK);
 	}
 	
 	private void playerAdditionalDrawPhase(Players players, CardDeck cardDeck, List<WinLoseInfo> info) {
-		List<Integer> indexOfNotBlackjack = findNotBlackjackIndex(players);
-		indexOfNotBlackjack.stream()
-				.forEach(index -> drawAdditionalCards(players.getPlayerAt(index), cardDeck));
-		updateLoser(players, info);
+		IntStream.range(0, players.getSize())
+				.filter(i -> (players.getPlayerAt(i).calculateScore() != BLACKJACK ))
+				.forEach(
+						i -> {
+							drawAdditionalCards(players.getPlayerAt(i), cardDeck);
+							updateLoser(players.getPlayerAt(i), info, i);
+						}
+					);
 	}
-	
-	private List<Integer> findNotBlackjackIndex(Players players) {
-		return players.getPlayers().stream()
-				.filter(player -> (player.calculateScore() != BLACKJACK))
-				.map(player -> players.getPlayers().indexOf(player))
-				.collect(Collectors.toList());
-	}
-	
+
 	private void drawAdditionalCards(Player player, CardDeck cardDeck) {
 		try {
 			drawUntilDontWant(player, cardDeck);
@@ -99,19 +94,18 @@ public class BlackjackGame {
 		}
 	}
 	
-	private void updateLoser(Players players, List<WinLoseInfo> info) {
-		players.getPlayers().stream()
-				.filter(player -> (player.calculateScore() > BLACKJACK))
-				.map(player -> players.getPlayers().indexOf(player))
-				.forEach(index -> info.set(index, WinLoseInfo.LOSE));
-	}
-	
 	private static void checkOverBlackJack(Player player) {
 		if (player.calculateScore() > BLACKJACK) {
 			throw new IllegalStateException("점수합이 21을 초과했습니다." + player.getName() + "는 패배했습니다.");
 		}
 	}
 	
+	private void updateLoser(Player player, List<WinLoseInfo> info, int index) {
+		if (player.calculateScore() > BLACKJACK) {
+			info.set(index, WinLoseInfo.LOSE);
+		}
+	}
+
 	private void dealerAdditionalDrawPhase(Dealer dealer, CardDeck cardDeck) {
 		try {
 			checkOverThreshold(dealer);

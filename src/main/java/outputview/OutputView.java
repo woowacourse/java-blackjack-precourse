@@ -17,21 +17,12 @@ public class OutputView {
 		System.out.println();
 	}
 	
-	public static void showInitialResult(Players players, List<WinLoseInfo> info, List<Integer> blackjackIndex) {
-		if (blackjackIndex.isEmpty()) {
-			System.out.println("처음에 아무도 블랙잭들 만들지 못했습니다");
-		}
-		for (int i = 0; i < blackjackIndex.size(); i++) {
-			showEachResult(players, info, blackjackIndex.get(i));
-		}
-		System.out.println();
-	}
-	
-	private static void showEachResult(Players players, List<WinLoseInfo> info, int index) {
-		System.out.println(players.getPlayerAt(index).getName() + "는 블랙잭입니다.");
-		if (info.get(index) == WinLoseInfo.DRAW) {
+	public static void showInitialResult(Player player, WinLoseInfo info) {
+		System.out.println(player.getName() + "는 블랙잭입니다.");
+		if (info == WinLoseInfo.DRAW) {
 			System.out.println("하지만 딜러도 블랙잭으로 무승부 입니다.");
 		}
+		System.out.println();
 	}
 	
 	public static void showPlayerCards(Player player) {
@@ -43,17 +34,23 @@ public class OutputView {
 	}
 	
 	public static void showAllFinalResults(Dealer dealer, Players players, List<WinLoseInfo> info) {
-		System.out.println("딜러 카드: " + dealer.getAllCardsInString()
-					+ " - 결과: "
-					+ dealer.calculateScore());
+		showDealerCardsWithScore(dealer);
 		for (int i = 0; i < players.getSize(); i++) {
 			showPlayerCardsWithScore(players.getPlayerAt(i), info.get(i));
 		}
 		System.out.println();
 	}
 	
+	private static void showDealerCardsWithScore(Dealer dealer) {
+		System.out.println("딜러 카드: " 
+				+ dealer.getAllCardsInString()
+				+ " - 결과: "
+				+ dealer.calculateScore());
+	}
+	
 	private static void showPlayerCardsWithScore(Player player, WinLoseInfo info) {
-		System.out.println(player.getName() + " 카드: " 
+		System.out.println(player.getName() 
+				+ " 카드: " 
 				+ player.getAllCardsInString()
 				+ " - 결과: "
 				+ player.calculateScore()

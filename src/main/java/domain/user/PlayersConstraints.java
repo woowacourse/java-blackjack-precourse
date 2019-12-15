@@ -16,6 +16,12 @@ public class PlayersConstraints {
 		}
 	}
 	
+	public static void checkOverlappingNames(List<String> playerNames) {
+		if (playerNames.stream().distinct().count() != playerNames.size()) {
+			throw new IllegalArgumentException("중복되지 않은 이름들을 입력해주세요");
+		}
+	}
+	
 	public static void checkValidEachBettingMoney(List<Integer> bettingMoney) {
 		bettingMoney.stream()
 			.forEach(eachMoney -> Player.checkValidBettingMoney(eachMoney));
