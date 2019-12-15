@@ -57,7 +57,35 @@ public class Player implements User {
 
     @Override
     public boolean isBust() {
+        if (isOverBlackjackNumber()) {
+            return hasChangedScore();
+        }
+        return false;
+    }
+
+    private boolean hasChangedScore() {
+        if (findAceAndChangeScore()) {
+            return isBust();
+        }
+        return true;
+    }
+
+    private boolean isOverBlackjackNumber() {
         return getScoreOfCards() > BLACKJACK_NUMBER;
+    }
+
+    private boolean findAceAndChangeScore() {
+        for (Card card : cards) {
+            return ifCardIsAceChangeScore(card);
+        }
+        return false;
+    }
+
+    private boolean ifCardIsAceChangeScore(Card card) {
+        if (card.isAce()) {
+            return card.changeScoreOfAce();
+        }
+        return false;
     }
 
     @Override

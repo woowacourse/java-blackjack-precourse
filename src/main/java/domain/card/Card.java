@@ -6,6 +6,8 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
+    private static final int CHANGED_SCORE_OF_ACE = 1;
+    private static final int PRESENT_SCORE_OF_ACE = 11;
     private static final String BLANK = " ";
 
     private final Symbol symbol;
@@ -18,6 +20,15 @@ public class Card {
 
     public int getScore() {
         return this.symbol.getScore();
+    }
+
+    public boolean changeScoreOfAce() {
+        symbol.changeScoreTo(CHANGED_SCORE_OF_ACE);
+        return true;
+    }
+
+    public boolean isAce() {
+        return this.symbol.isScore(PRESENT_SCORE_OF_ACE);
     }
 
     @Override
@@ -36,6 +47,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return type.getName() + BLANK +  symbol.getName();
+        return type.getName() + BLANK + symbol.getName();
     }
 }

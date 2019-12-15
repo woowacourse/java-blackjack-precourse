@@ -44,10 +44,14 @@ public class BlackjackGame {
     }
 
     private void playTurnForOneUser(User user) {
-        while(user.isGettingAdditionalCard()) {
+        while (user.isGettingAdditionalCard()) {
             OutputController.printMessage(user.getMessageForAdditionalCard());
             user.addCard(deck, ADDITIONAL_NUMBER_OF_CARDS);
             OutputController.printHoldingCards(user);
+            OutputController.printUser(user);
+            if (user.isBust()) {
+                break;
+            }
         }
         OutputController.printHoldingCards(user);
     }

@@ -1,7 +1,7 @@
 package domain.card;
 
 public enum Symbol {
-    ACE(1, "A"),
+    ACE(11, "A"),
     TWO(2),
     THREE(3),
     FOUR(4),
@@ -30,6 +30,14 @@ public enum Symbol {
 
     public int getScore() {
         return score;
+    }
+
+    public void changeScoreTo(int changedScore) {
+        this.score = changedScore;
+    }
+
+    public boolean isScore(int score) {
+        return this.score == score;
     }
 
     public String getName() {
