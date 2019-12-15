@@ -30,7 +30,7 @@ public class Message {
     public static String MESSAGE_ASK_PLAYER_NAMES = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
     public static String MESSAGE_ASK_PLAYER_BATTING_AMOUNT = "의 배팅 금액은?";
     public static String MESSAGE_DEALL_TWO_CARDS_TO_PLAYER = "에게 2장의 카드를 나누었습니다.";
-    public static String MESSAGE_ASK_PLAYER_WANT_MORE_CARD = "은/는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
+    public static String MESSAGE_ASK_PLAYER_WANT_MORE_CARD = "은/는 한장의 카드를 더 받겠습니까?(예는 " + InputManager.YES + ", 아니오는 " + InputManager.NO + ")";
     public static String MESSAGE_DEALER_GET_MORE_CARD = DEALER + "는 " + "16" + "이하라 한장의 카드를 더 받았습니다.";
     public static String MESSAGE_DEALER_GET_NO_MORE_CARD = DEALER + "는 " + "17" + "이상이라 한장의 카드를 더 받지 않았습니다.";
 

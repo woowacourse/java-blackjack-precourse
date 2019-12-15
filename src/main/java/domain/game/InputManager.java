@@ -18,6 +18,8 @@ import java.util.*;
 public class InputManager {
     private static int MINIMUM_NAME_COUNT = 1;
     private static int MINIMUM_NAME_LENGTH = 1;
+    public static String YES = "y";
+    public static String NO = "n";
 
     Message message = new Message();
     Scanner scanner = new Scanner(System.in);
@@ -106,7 +108,7 @@ public class InputManager {
         do {
             System.out.println(message.makeMessageAskPlayerBattingAmout(player));
             battingMoneyString = scanner.nextLine().trim();
-        }while (checkBattingMoneyValid(battingMoneyString));
+        } while (checkBattingMoneyValid(battingMoneyString));
 
         return Double.parseDouble(battingMoneyString);
     }
@@ -143,6 +145,28 @@ public class InputManager {
             //입력한 베팅금액이 0 에러 메시지 출력
             return true;
         }
+        return false;
+    }
+
+    public boolean getPlayerChoiceDrawOneMoreOrNot(Player player) {
+        String playerChoice;
+
+        do {
+            System.out.println(player.getName() + message.makeMessagePlayerWantMoreCard(player));
+            playerChoice = scanner.nextLine().trim();
+        } while (!checkPlayerInputIsYesOrNo(playerChoice));
+
+        if (playerChoice == YES) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkPlayerInputIsYesOrNo(String playerChoice) {
+        if ((playerChoice == YES) || (playerChoice == NO)) {
+            return true;
+        }
+        //y, n 중 하나가 입력되지 않았습니다. 에러 메시지 출력
         return false;
     }
 }
