@@ -24,24 +24,24 @@ public class Match {
 		deck.shuffle();
 	}
 
-	public void drawAll(int count) {
+	public void distribute(int count) {
 		try {
-			drawCards(Arrays.asList(dealer), count);
-			drawCards(playerList, count);
+			drawAll(Arrays.asList(dealer), count);
+			drawAll(playerList, count);
 		} catch (Exception e) {
 			System.out.println(Rule.getOutOfCardsMessage());
 		}
 	}
 
-	private void drawCards(List<Gambler> gamblers, int count) throws Exception {
+	private void drawAll(List<Gambler> gamblers, int count) throws Exception {
 		for (Gambler gambler : gamblers
 		) {
-			drawCard(gambler, count);
+			drawCards(gambler, count);
 		}
 		return;
 	}
 
-	private void drawCard(Gambler gambler, int count) throws Exception {
+	private void drawCards(Gambler gambler, int count) throws Exception {
 		for (int i = 0; i < count; i++) {
 			gambler.addCard(deck.draw());
 		}
@@ -53,7 +53,26 @@ public class Match {
 			.collect(Collectors.toList());
 	}
 
+	public void findPointWinner(){
+
+	}
+
 	public boolean hasWinners() {
 		return winnerList.size() > 0;
+	}
+
+	public void doPlayerPhase() {
+	}
+
+	public void doDealerPhase() {
+		if(dealer.sumCardsMax()>Rule.getDealerDrawPoint()||dealer.isBust(Rule.getBlackjackPoint())){
+			return;
+		}
+		try{
+			drawCards(dealer,1);
+			doDealerPhase();
+		}catch (Exception e){
+			System.out.println(Rule.getOutOfCardsMessage());
+		}
 	}
 }
