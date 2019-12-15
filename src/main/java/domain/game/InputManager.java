@@ -23,7 +23,7 @@ public class InputManager {
 		try {
 			System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉽표 기준으로 분리)");
 			playerNames = input.next().split(",");
-			playerNamesValidation(playerNames);
+			validatePlayerNames(playerNames);
 			return playerNames;
 		} catch (Exception e) {
 			System.out.println("잘못된 입력입니다.");
@@ -31,7 +31,7 @@ public class InputManager {
 		}
 	}
 
-	private void playerNamesValidation(String[] playerNames) throws Exception {
+	private void validatePlayerNames(String[] playerNames) throws Exception {
 		for (String name : playerNames) {
 			if (name.contains(" ")) {
 				throw new Exception();
@@ -50,7 +50,7 @@ public class InputManager {
 		try {
 			System.out.println(name + "의 배팅 금액은?");
 			bettingMoney = input.nextDouble();
-			bettingMoneyValidation(bettingMoney);
+			validateBettingMoney(bettingMoney);
 			return bettingMoney;
 		} catch (Exception e) {
 			System.out.println("잘못된 입력입니다.");
@@ -58,7 +58,7 @@ public class InputManager {
 		}
 	}
 
-	private void bettingMoneyValidation(double bettingMoney) throws Exception {
+	private void validateBettingMoney(double bettingMoney) throws Exception {
 		if (bettingMoney <= DEFAULT_BETTING_MONEY) {
 			throw new Exception();
 		}
@@ -74,7 +74,7 @@ public class InputManager {
 		try {
 			System.out.println("한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
 			choice = input.next().charAt(FIRST_INDEX);
-			choiceValidation(choice);
+			validateChoice(choice);
 			return choice;
 		} catch (Exception e) {
 			System.out.println("잘못된 입력입니다.");
@@ -82,7 +82,7 @@ public class InputManager {
 		}
 	}
 
-	private void choiceValidation(char choice) throws Exception {
+	private void validateChoice(char choice) throws Exception {
 		if (choice != HIT && choice != Character.toUpperCase(HIT) && choice != STAY && choice != Character.toUpperCase(STAY)) {
 			throw new Exception();
 		}
