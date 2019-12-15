@@ -14,4 +14,10 @@ public class OutputUtil {
                 String.join(",", names) +
                 "에게 2장을 나눴습니다.");
     }
+
+    public static void printAceScoreQuestion() {
+        System.out.println("ACE를 1로 사용할 것인가요?" +
+                "\n" +
+                "(Y, N 로 대답해주세요! 만약 N을 선택하신다면 11로 계산됩니다.)");
+    }
 }
