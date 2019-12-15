@@ -27,7 +27,7 @@ public class BlackjackController {
 		String[] names = InputView.getPlayerNames();
 		OutputView.printNewLine();
 		for (String name : names) {
-			int bettingMoney = InputView.getBettingMoney(name);
+			double bettingMoney = InputView.getBettingMoney(name);
 			players.add(new Player(name, bettingMoney));
 			OutputView.printNewLine();
 		}

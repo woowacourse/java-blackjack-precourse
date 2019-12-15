@@ -5,7 +5,7 @@ package domain.user;
  */
 public class Player extends User {
 	private static final String BLANK = " ";
-	private static final int MIN_BETTING_MONEY = 1;
+	private static final double MIN_BETTING_MONEY = 1;
 	private static final String NAME_EMPTY_ERROR = "이름이 비어있다.";
 	private static final String NAME_BLANK_ERROR = "이름에 공백이 존재한다.";
 	private static final String BETTING_MONEY_ERROR = "베팅 금액이 " + MIN_BETTING_MONEY + " 보다 작다.";

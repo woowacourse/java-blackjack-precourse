@@ -28,10 +28,10 @@ public class InputView {
 		}
 	}
 
-	public static int getBettingMoney(String name) {
+	public static double getBettingMoney(String name) {
 		try {
 			System.out.println(name + GET_BETTING_MONEY_MESSAGE);
-			int bettingMoney = Integer.parseInt(SCANNER.nextLine());
+			double bettingMoney = Double.parseDouble(SCANNER.nextLine());
 			Player.validateBettingMoney(bettingMoney);
 			return bettingMoney;
 		} catch (IllegalArgumentException e) {
