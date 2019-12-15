@@ -52,7 +52,7 @@ public class Input {
 
     public boolean askOneMoreCard(Player player) {
         String input;
-        if(!player.isUnderMaxScore()) {
+        if (!player.isUnderMaxScore()) {
             return false;
         }
         do {
@@ -62,7 +62,7 @@ public class Input {
         return convertTrueFalse(input);
     }
 
-    public boolean convertTrueFalse(String input){
+    public boolean convertTrueFalse(String input) {
         if (input.equals("y")) {
             return true;
         }
