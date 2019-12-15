@@ -15,7 +15,7 @@ public class UserInterfaceMachine {
         return true;
     }
 
-    public int scanBetAmount() {
+    public int scanBetAmountOfPlayer(String playerName) {
         return 0;
     }
 

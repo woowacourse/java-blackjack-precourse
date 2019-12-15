@@ -4,6 +4,8 @@ import domain.ui.UserInterfaceMachine;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameProcess {
@@ -18,6 +20,7 @@ public class GameProcess {
         for (Player player : players) {
             handOutCardsUntilPlayerWantStop(player);
         }
+
         handOutCardsUntilDealerCannotGet(dealer);
 
         userInterfaceMachine.printUsersCardsResults(dealer, players);
@@ -25,11 +28,18 @@ public class GameProcess {
     }
 
     private Dealer createDealer() {
-        return null;
+        return new Dealer();
     }
 
     private List<Player> createPlayers() {
-        return null;
+        ArrayList<Player> players = new ArrayList<Player>();
+        String[] playerNames = userInterfaceMachine.scanNames();
+
+        for (String playerName : playerNames) {
+            players.add(new Player(playerName, userInterfaceMachine.scanBetAmountOfPlayer(playerName)));
+        }
+
+        return players;
     }
 
     private void handOutTwoCardsToAllUsers(Dealer dealer, List<Player> users) {
