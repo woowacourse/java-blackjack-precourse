@@ -9,6 +9,8 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer extends User {
+    private static final int ADD_CARD_LIMIT = 16;
+
     public Dealer() {
     }
 
@@ -16,5 +18,13 @@ public class Dealer extends User {
     public void printFirstCard() {
         super.checkCardsEmpty();
         System.out.println("딜러: " + super.getCards().get(0).getCardInfo());
+    }
+
+    public boolean checkAddLimitExcess() {
+        int sum = super.getCards().stream()
+                .map(card -> card.getSymbol().getScore())
+                .reduce(Integer::sum)
+                .get();
+        return sum > ADD_CARD_LIMIT;
     }
 }
