@@ -1,12 +1,13 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import view.InputView;
 
 public class InputController {
-	private static String ERROR_MESSAGE = "유효하지 않은 입력입니다.";
+	private static final String ERROR_MESSAGE = "유효하지 않은 입력입니다.";
 	private static final int NAME_MIN_LEN = 1;
 	private static String YES_NO[] = {"y", "n"};
 	private InputView inputView;
@@ -27,14 +28,23 @@ public class InputController {
 		return playerNameList;
 	}
 
-	public double getPlayerBetting(String name) {
+	public List<Double> getBettings(List<String> names) {
+		List<Double> bettingList = new ArrayList<>();
+		for (String name : names
+		) {
+			bettingList.add(getBetting(name));
+		}
+		return bettingList;
+	}
+
+	private double getBetting(String name) {
 		double bettingMoney;
 		try {
 			bettingMoney = inputView.getBettingMoney(name);
 			checkValidBetting(bettingMoney);
 		} catch (Exception e) {
 			System.out.println(ERROR_MESSAGE);
-			return getPlayerBetting(name);
+			return getBetting(name);
 		}
 		return bettingMoney;
 	}
