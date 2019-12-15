@@ -4,7 +4,6 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -38,6 +37,9 @@ public class Player {
         return cards.stream().mapToInt(Card::getScore).sum();
     }
 
+    /**
+     * 카드중 A가 포함되어있을 경우 1과 11중 유리한 쪽으로 계산하는 메소드
+     */
     public int getScoreIncludeA() {
         if (cards.stream().mapToInt(Card::getScore).sum() < 12) {
             return cards.stream().mapToInt(Card::getScore).sum() + 10;

@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,16 @@ public class Dealer {
 
     // TODO 추가 기능 구현
 
+    /**
+     * 게임 시작시 카드 출력 형식
+     */
     public void showInitCard() {
         System.out.print("\n딜러 : " + cards.get(1));
     }
 
+    /**
+     * 게임 종료시 카드 출력 형식
+     */
     public void showFinalCard() {
         System.out.print("\n\n딜러카드 : ");
         for (Card card : cards) {

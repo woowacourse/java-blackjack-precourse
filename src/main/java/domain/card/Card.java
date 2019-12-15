@@ -33,10 +33,10 @@ public class Card {
 
     @Override
     public String toString() {
-        return ""+ symbol.getNum() + type;
+        return "" + symbol.getNum() + type;
     }
 
-    public int getScore(){
+    public int getScore() {
         return symbol.getScore();
     }
 }

@@ -1,6 +1,5 @@
 package domain;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
@@ -11,14 +10,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class GameMc {
+    public static final int INITIAL_CARD_NUM = 2;
+    public static final int MAX_SCORE = 21;
+    public static final int STANDARD_DEALER_SCORE = 17;
     private ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Player> looser = new ArrayList<Player>();
+    private Dealer dealer = new Dealer();
     private String playerNames;
     private List<Integer> isPickedCard = new ArrayList<Integer>();
-    private Dealer dealer = new Dealer();
 
     public void gameMc() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
@@ -36,7 +37,6 @@ public class GameMc {
 
     public int bettingMoneyInput() {
         String money = Input();
-        System.out.println("isInt : "+isNotInt(money));
         while (isNotInt(money) || Integer.valueOf(money) <= 0){
             System.out.println("숫자만 입력해주세요");
             System.out.println("0보다 큰 수를 입력하세요");
@@ -64,19 +64,19 @@ public class GameMc {
     }
 
     public void init(Dealer dealer) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < INITIAL_CARD_NUM; i++) {
             dealer.addCard(makeRandomCard());
         }
     }
 
     public void init(Player player) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < INITIAL_CARD_NUM; i++) {
             player.addCard(makeRandomCard());
         }
     }
 
-    public void gameStart() {
-        System.out.print("\n딜러와 " + playerNames + "에게 2장씩 나누었습니다.");
+    public void initGame() {
+        System.out.print("\n딜러와 " + playerNames + "에게 "+INITIAL_CARD_NUM+"장씩 나누었습니다.");
         init(dealer);
         for (Player player : players) {
             init(player);
@@ -96,27 +96,38 @@ public class GameMc {
         return scoreList;
     }
 
+    /**
+     * 처음 2장이 블랙잭인지 확인
+     */
     public void isBlackJack() {
-        if (makeScoreList().contains(21)) {
+        if (makeScoreList().contains(MAX_SCORE)) {
             blackjackEnding();
         }
+        scratch();
     }
 
     public void blackjackEnding(){
-        int participant = players.size();
-        players.removeIf(n->(n.getScore()!=21));
-        if(dealer.getScore()==21){
-            everyonePrincipal();
+        players.removeIf(n->(n.getScore()!=MAX_SCORE));
+        if(dealer.getScore()==MAX_SCORE){
+            draw();
         }
         for (Player player : players){
             System.out.println(player.getName()+" : "+player.getBettingMoney()*1.5);
         }
+        System.exit(0);
+    }
+
+    public void draw(){
+        for (Player player : players){
+            System.out.println(playerNames + " : 0");
+        }
+        System.exit(0);
     }
 
     public void endGame() {
         finalScoring();  //최종 보유 카드와 점수
         System.out.println("\n\n## 최종수익\n딜러 : 0");
-        if (dealer.getScore() > 21) {
+        if (dealer.getScore() > MAX_SCORE) {
             everyoneWin();
         }
         for (Player player : players) {
@@ -135,23 +146,16 @@ public class GameMc {
         System.exit(0);
     }
 
-    public void everyonePrincipal(){
-        for (Player player : players){
-            System.out.println(playerNames + " : 0");
-        }
-        System.exit(0);
-    }
-
     public void finalScoring() {
         for (Player looser : looser) {
             players.remove(looser);
         }
-        Iterator iter = makeScoreList().iterator();
+        Iterator iterator = makeScoreList().iterator();
         dealer.showFinalCard();
-        System.out.print("- 결과 : " + iter.next());
+        System.out.print("- 결과 : " + iterator.next());
         for (Player player : players) {
             player.showCard();
-            System.out.print("- 결과 : " + iter.next());
+            System.out.print("- 결과 : " + iterator.next());
         }
     }
 
@@ -165,7 +169,10 @@ public class GameMc {
         }
     }
 
-    public void askHit() {
+    /**
+     * hit(카드를 더 받는 행위)을 할지 입력
+     */
+    public void scratch() {
         for (Player player : players) {
             System.out.println("\n" + player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
             inputHitOrNo(player);
@@ -186,14 +193,14 @@ public class GameMc {
             System.out.println("\n" + player.getName() + "는 한장의 카드를 더 받으시겠습니까?");
             answer = Input();
         }
-        if (player.getScore() > 21) {
+        if (player.getScore() > MAX_SCORE) {
             System.out.println("스코어가 21을 넘어 패하였습니다.");
             looser.add(player);
         }
     }
 
     public void addDealerCard() {
-        while (dealer.getScore() < 17) {
+        while (dealer.getScore() < STANDARD_DEALER_SCORE) {
             dealer.addCard(makeRandomCard());
         }
     }
