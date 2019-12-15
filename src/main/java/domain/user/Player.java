@@ -18,6 +18,10 @@ public class Player extends User {
         this.bettingMoney = bettingMoney;
     }
 
+    public String getPlayerName() {
+        return name;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }
