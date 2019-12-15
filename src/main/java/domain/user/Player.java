@@ -7,6 +7,7 @@ import java.lang.management.BufferPoolMXBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -16,6 +17,7 @@ public class Player {
     private static final int BLACK_JACK = 21;
     private static final int BURST = 22;
     private static final int AFTER_BURST_SCORE = 0;
+    private static final int INIT_CARDS_QUANTITY = 2;
 
     private final String name;
     private final double bettingMoney;
@@ -62,6 +64,26 @@ public class Player {
     }
 
     public boolean isBlackJack() {
-        return cards.size() == 2 && getCountedScoreWithAceBonus() == BLACK_JACK;
+        return cards.size() == INIT_CARDS_QUANTITY
+                && getCountedScoreWithAceBonus() == BLACK_JACK;
+    }
+
+    public boolean isDealer() {
+        return this instanceof Dealer;
+    }
+
+    public void initCardShare(CardsOnGame cards) {
+        if (!isDealer()){
+            addCard(cards.pickUpCard());
+        }
+        addCard(cards.pickUpCard());
+    }
+
+    @Override
+    public String toString() {
+        return name + "카드: "
+                + cards.stream()
+                .map(Card::toString)
+                .collect(Collectors.joining(", "));
     }
 }
