@@ -30,7 +30,7 @@ public class BlackJackGame {
         boolean proceed = false;
         System.out.println("딜러와 " + getPlayerNamesALine() + "에게 2장의 카드를 나누었습니다.");
 
-        if(proceed == true) {
+        if (proceed == true) {
             secondProceedGame();
         }
     }
@@ -38,10 +38,10 @@ public class BlackJackGame {
     private void secondProceedGame() {
         boolean proceed = false;
         System.out.println("는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
-        if(true) {
+        if (true) {
             System.out.println("딜러는 16이하라 카드 한 장을 더 받았습니다.");
         }
-        if(proceed == true) {
+        if (proceed == true) {
             proceedGame();
         }
     }
@@ -49,7 +49,7 @@ public class BlackJackGame {
     private void proceedGame() {
         boolean proceed = false;
         System.out.println("" + "는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
-        if(proceed == true) {
+        if (proceed == true) {
             proceedGame();
         }
     }
