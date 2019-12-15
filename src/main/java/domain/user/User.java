@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class User {
     private final List<Card> cards = new ArrayList<>();
+    private static final int LIMIT = 21;
 
     public void addCard(Card card) {
         cards.add(card);
@@ -41,10 +42,18 @@ public class User {
     public boolean checkExcess() {
         int sum = cards.stream()
                 .map(card -> card.getSymbol().getScore())
-                .reduce((integer, integer2) -> {
-                    return Integer.sum(integer, integer2);
-                })
+                .reduce(Integer::sum)
                 .get();
-        return sum > 21;
+        return sum > LIMIT;
+    }
+
+    public boolean isBlackJack() {
+        if(!checkAce())     // A가 있고
+            return false;
+
+        return cards.stream().anyMatch(card ->      // K,J,Q 중 하나가 존재해야 블랙잭이다.
+                card.getSymbol() == Symbol.JACK &&
+                        card.getSymbol() == Symbol.KING &&
+                        card.getSymbol() == Symbol.QUEEN);
     }
 }
