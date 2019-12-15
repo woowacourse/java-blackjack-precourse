@@ -18,7 +18,7 @@ public class InputView {
 			Players.checkValidNames(playerNames);
 			System.out.println();
 			return playerNames;
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 			return enterPlayerNames();
 		}
@@ -38,7 +38,7 @@ public class InputView {
 			Player.checkValidBettingMoney(money);
 			System.out.println();
 			return money;
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 			return enterBettingMoney(name);
 		}

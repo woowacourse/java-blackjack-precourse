@@ -33,10 +33,6 @@ public class OutputView {
 		System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
 	}
 	
-	public static void showDealer () {
-		System.out.println();
-	}
-	
 	public static void showAllFinalResults(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		showDealerCardsWithScore(dealer);
 		for (int i = 0; i < players.getSize(); i++) {
@@ -62,13 +58,13 @@ public class OutputView {
 	}
 	
 	public static void showFinalProfit(Players players, List<Double> profits) {
-		StringBuilder output = new StringBuilder();
-		output.append("##최종 수익\n");
-		output.append("딜러: " + (-profits.stream().reduce(0.0, Double::sum)) + "\n");
+		StringBuilder message = new StringBuilder();
+		message.append("##최종 수익\n");
+		message.append("딜러: " + (-profits.stream().reduce(0.0, Double::sum)) + "\n");
 		for (int i = 0; i < profits.size(); i++) {
-			output.append(players.getPlayerAt(i).getName() + ": " + profits.get(i) + "\n");
+			message.append(players.getPlayerAt(i).getName() + ": " + profits.get(i) + "\n");
 		}
-		System.out.println(output);
+		System.out.println(message);
 	}
 	
 	public static void showBlankLine() {

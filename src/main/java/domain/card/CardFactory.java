@@ -3,10 +3,8 @@ package domain.card;
 import java.util.Set;
 import java.util.HashSet;
 
-/**
- * 트럼프 카드 전체 생성을 담당하는 객체
- */
 public class CardFactory {
+	/* 과제 시작시 주어진 메서드. List -> Set로 변경하여 사용중 */
 	public static Set<Card> create() {
 		Set<Card> cards = new HashSet<>();
 		Symbol[] symbols = Symbol.values();
@@ -16,6 +14,7 @@ public class CardFactory {
 		return cards;
 	}
 
+	/* 과제 시작시 주어진 메서드 . List -> Set로 변경하여 사용중 */
 	private static void createByType(Set<Card> cards, Symbol symbol) {
 		Type[] types = Type.values();
 		for (Type type : types) {

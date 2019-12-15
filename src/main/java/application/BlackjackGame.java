@@ -61,11 +61,11 @@ public class BlackjackGame {
 		IntStream.range(0, players.getSize())
 				.filter(i -> (players.getPlayerAt(i).calculateScore() != BLACKJACK_SCORE ))
 				.forEach(
-						i -> {
-							drawAdditionalCards(players.getPlayerAt(i), cardDeck);
-							WinLoseInfoManager.updateLoser(players.getPlayerAt(i), info, i);
-						}
-					);
+					i -> {
+						drawAdditionalCards(players.getPlayerAt(i), cardDeck);
+						WinLoseInfoManager.updateLoser(players.getPlayerAt(i), info, i);
+					}
+				);
 	}
 
 	private void drawAdditionalCards(Player player, CardDeck cardDeck) {
