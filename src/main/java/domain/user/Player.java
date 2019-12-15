@@ -3,12 +3,18 @@ package domain.user;
 import domain.card.Card;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
- * 게임 참여자를 의미하는 객체
+ * Player
+ *
+ * @author hyochan
+ * @version 0.0.1
+ * @since 2019-12-14
  */
-public class Player {
+
+public class Player extends Dealer {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -18,10 +24,11 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public String getName() {
+        return name;
     }
 
-    // TODO 추가 기능 구현
-
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
 }
