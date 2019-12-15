@@ -61,4 +61,21 @@ public class User {
     public boolean isPlayer() {
         return this instanceof Player;
     }
+
+    public int calcurateScore() {
+        int scoreExceptAce = cards.stream()
+                .map(card -> card.getSymbol().getScore())
+                .reduce(Integer::sum)
+                .get();
+
+        if (checkAce() && scoreExceptAce + Symbol.ACE.getBonusScore() <= LIMIT) {
+            return scoreExceptAce + Symbol.ACE.getBonusScore();
+        }
+
+        if (checkAce() && scoreExceptAce + Symbol.ACE.getScore() > LIMIT) {
+            return scoreExceptAce + Symbol.ACE.getScore();
+        }
+
+        return scoreExceptAce;
+    }
 }
