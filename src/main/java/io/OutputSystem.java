@@ -15,7 +15,7 @@ public class OutputSystem {
     }
 
     static public void printGetTwoCards(ArrayList<Player> players) {
-        ArrayList<String> names;
+        ArrayList<String> names = new ArrayList<>();
         for (Player player : players) {
             names.add(player.getName());
         }
