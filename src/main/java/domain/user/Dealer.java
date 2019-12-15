@@ -30,6 +30,38 @@ public class Dealer {
         return cards;
     }
 
+    public String showCards() {
+        String answer = "";
+        Iterator itr = cards.iterator();
+        while (itr.hasNext()) {
+            Card card = (Card) itr.next();
+            answer += showCard(card);
+        }
+        return answer;
+    }
+
+    public String showCard(Card card) {
+        String answer = "";
+        answer += "<";
+        answer += card.getWord();
+        answer += " ";
+        answer += card.getType();
+        answer += ">";
+        return answer;
+    }
+
+    public int getCardScore() {
+        int score = 0;
+        int aceCount = 0;
+        Iterator itr = cards.iterator();
+        while (itr.hasNext()) {
+            Card card = (Card) itr.next();
+            aceCount += aceCounter(card);
+            score += card.getScore();
+        }
+        return addAceWeight(score, aceCount);
+    }
+
     public boolean isBlackJack() {
         if (getCardScore() == MAX_Score && getCards().size() == 2) {
             return true;
