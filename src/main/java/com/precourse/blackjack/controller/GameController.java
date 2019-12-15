@@ -29,7 +29,7 @@ public class GameController {
 		//game.start();
 	}
 
-	public static List<Player> initializePlayers() {
+	private static List<Player> initializePlayers() {
 		List<Player> players = new ArrayList<>();
 		List<String> playersName = getPlayersName();
 		List<Double> playersBettingMoney = getPlayersBettingMoney(playersName);
@@ -41,7 +41,7 @@ public class GameController {
 		return players;
 	}
 
-	public static List<String> getPlayersName() {
+	private static List<String> getPlayersName() {
 		List<String> playersName;
 
 		try {
@@ -54,14 +54,14 @@ public class GameController {
 		return playersName;
 	}
 
-	public static List<Double> getPlayersBettingMoney(List<String> playersName) {
-		List<Double> playersBettingMoney = new ArrayList<>(); // 임시
+	private static List<Double> getPlayersBettingMoney(List<String> playersName) {
+		List<Double> playersBettingMoney = new ArrayList<>();
 
 		playersName.forEach(playerName -> playersBettingMoney.add(getPlayerBettingMoney(playerName)));
 		return playersBettingMoney;
 	}
 
-	public static double getPlayerBettingMoney(String playerName) {
+	private static double getPlayerBettingMoney(String playerName) {
 		double playerBettingMoney;
 
 		try {
