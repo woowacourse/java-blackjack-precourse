@@ -10,7 +10,7 @@ import domain.view.Announcer;
 
 import java.util.List;
 
-public class PlayerCreateManager {
+public class UserCreateManager {
     Dealer dealer;
     CardManager cardManager;
     PlayerInput input;
@@ -22,7 +22,7 @@ public class PlayerCreateManager {
 
     final static int MAKE_TWO_CARD = 2;
 
-    public PlayerCreateManager() {
+    public UserCreateManager() {
         cardManager = new CardManager();
         input = new PlayerInput();
         toolbox = new ToolBox();
@@ -34,10 +34,12 @@ public class PlayerCreateManager {
 
     public void playerStandBy(){
         createPlayer(createPlayerName());
+        createDealer();
     }
 
     private void createPlayer(List<String> nameList) {
         int i = 0;
+
         for (String name : nameList) {
             announce.announceMoneyInput(name);
             players[i] = new Player(
@@ -45,6 +47,9 @@ public class PlayerCreateManager {
             cardManager.giveCard(players[i], MAKE_TWO_CARD);
             i++;
         }
+    }
+
+    private void createDealer() {
         cardManager.giveCard(dealer, MAKE_TWO_CARD);
     }
 

@@ -12,7 +12,6 @@ public class User {
         cards.add(card);
     }
 
-
     public void printCards() {
         cards.stream()
              .forEach(x->System.out.println(x.toString()));

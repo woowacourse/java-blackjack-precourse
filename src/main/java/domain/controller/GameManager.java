@@ -1,16 +1,16 @@
 package domain.controller;
 
 public class GameManager {
-    PlayerCreateManager playerCreateManager;
+    UserCreateManager userCreateManager;
 
     public GameManager() {
-        playerCreateManager = new PlayerCreateManager();
+        userCreateManager = new UserCreateManager();
     }
 
 
     public void run() {
 
-        playerCreateManager.playerStandBy();
+        userCreateManager.playerStandBy();
 
     }
 }

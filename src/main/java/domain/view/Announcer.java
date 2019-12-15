@@ -11,6 +11,5 @@ public class Announcer {
 
     public void announceMoneyInput(String name) {
         System.out.println(name+MONEY_INPUT_MENT);
-
     }
 }
