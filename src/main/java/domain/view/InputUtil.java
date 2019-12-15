@@ -8,4 +8,8 @@ public class InputUtil {
     public static String[] inputName() {
         return SCANNER.nextLine().replace(" ", "").split(",");
     }
+
+    public static int inputBettingMoney() {
+        return SCANNER.nextInt();
+    }
 }
