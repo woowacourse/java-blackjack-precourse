@@ -18,6 +18,7 @@ public class Player extends Dealer {
 		this.bettingMoney = bettingMoney;
 	}
 
+	@Override
 	public void showHand() {
 		String showHand = this.name;
 		for (Card card : this.cards) {
