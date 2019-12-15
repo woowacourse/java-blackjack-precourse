@@ -34,7 +34,7 @@ public class Dealer {
 
 	public int getDealerScore() {
 		int score = cards.stream().mapToInt(card -> card.getScore()).sum();
-		return aceScoreChange(score);
+		return changeAceScore(score);
 
 	}
 
@@ -43,7 +43,7 @@ public class Dealer {
 	 * @param score
 	 * @return
 	 */
-	private int aceScoreChange(int score) {
+	private int changeAceScore(int score) {
 		boolean hasAce = false;
 		for (Card card : cards) {
 			if (card.getSymbol().equals(Symbol.ACE)) {
