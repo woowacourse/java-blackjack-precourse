@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      0.6 2019.12.15
+ * @(#)Output.java      0.7 2019.12.15
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,7 +10,7 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.6 2019.12.15
+ * @version 0.7 2019.12.15
  */
 public class Output {
     /**
@@ -215,7 +215,7 @@ public class Output {
      * 최종 수익 공지를 출력하는 메소드.
      */
     public void printFinalProfitNotice() {
-        System.out.println(FINAL_PROFIT_MESSAGE);
+        System.out.println(NEW_LINE_STRING + FINAL_PROFIT_MESSAGE);
     }
 
     /**
