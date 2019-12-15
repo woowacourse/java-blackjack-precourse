@@ -46,7 +46,7 @@ public class Validator {
         return input.size() > MAX_PLAYER_NUMBER;
     }
 
-    public boolean isValidBettingAmount(int input) {
+    public boolean isValidBettingAmount(double input) {
         return !(isNull(input) || !isPositiveNumber(input));
     }
 
@@ -62,7 +62,7 @@ public class Validator {
         return name.length() > PLAYER_NAME_MAX_SIZE;
     }
 
-    public boolean isPositiveNumber(int num) {
+    public boolean isPositiveNumber(double num) {
         return num > 0;
     }
 }

@@ -26,10 +26,10 @@ public class Input {
     }
 
     public Player inputPlayerBettingAmount(String playerName) {
-        int bettingAmount;
+        double bettingAmount;
         do {
             System.out.println(playerName + "의 배팅 금액은?");
-            bettingAmount = scan.nextInt();
+            bettingAmount = scan.nextDouble();
         } while (!validator.isValidBettingAmount(bettingAmount));
         return new Player(playerName, bettingAmount);
     }
