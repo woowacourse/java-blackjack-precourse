@@ -66,4 +66,16 @@ public class InputUtil {
 			throw new IOException("The number of players is wrong");
 		}
 	}
+
+	public static double readPlayerBettingMoney(String playerName) throws IOException, NumberFormatException {
+		double playerBettingMoney;
+
+		try {
+			playerBettingMoney = Double.parseDouble(reader.readLine());
+			// checkBettingMoney(playerBettingMoney); 자연수인지 확인
+		} catch (IOException | NumberFormatException e) {
+			throw e;
+		}
+		return playerBettingMoney;
+	}
 }

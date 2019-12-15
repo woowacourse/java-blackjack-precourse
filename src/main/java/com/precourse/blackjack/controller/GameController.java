@@ -62,15 +62,15 @@ public class GameController {
 	}
 
 	public static double getPlayerBettingMoney(String playerName) {
-		double playerBettingMoney = 0; // 임시
+		double playerBettingMoney;
 
-		// try {
-		// 	InputView.printPlayerBettingQuestion(playerName);
-		// 	//playerBettingMoney = InputUtil.readPlayersBettingMoney(playerName);
-		// } catch (IOException e) {
-		// 	//OutputView.printWrongBettingInput();
-		// 	return getPlayerBettingMoney(playerName);
-		// }
+		try {
+			InputView.printPlayerBettingQuestion(playerName);
+			playerBettingMoney = InputUtil.readPlayerBettingMoney(playerName);
+		} catch (IOException | NumberFormatException e) {
+			//OutputView.printWrongBettingInput();
+			return getPlayerBettingMoney(playerName);
+		}
 		return playerBettingMoney;
 	}
 }
