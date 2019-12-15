@@ -1,22 +1,13 @@
 package domain.user;
 
-import domain.card.Card;
-import domain.function.CardScoreCalculator;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer extends CardScoreCalculator {
-    private final List<Card> cards = new ArrayList<>();
+public class Dealer extends BlackjackUser {
+    public static final int MAX_SCORE_NEEDS_MORE_CARD = 16;
 
     public Dealer() {
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
+        super("딜러");
     }
 
     // TODO 추가 기능 구현
@@ -26,27 +17,8 @@ public class Dealer extends CardScoreCalculator {
         System.out.println(String.format("딜러 카드: %s", firstCardName));
     }
 
-    private String getAllCardNames() {
-        List<String> allCardNames = new ArrayList<>();
-        for (Card card : cards) {
-            allCardNames.add(card.getName());
-        }
-        return String.join(", ", allCardNames);
-    }
-
-    public void printAllCards() {
-        String cardNames = getAllCardNames();
-        System.out.print(String.format("딜러 카드: %s", cardNames));
-    }
-
-    public int getTotalScore() {
-        return calculateTotalScore(cards);
-    }
-
-    public void printTotalScore() {
-        printAllCards();
-        int totalScore = calculateTotalScore(cards);
-        System.out.println(String.format(" - 결과: %d", totalScore));
+    public boolean doesNeedMoreCard() {
+        return getTotalScore() <= MAX_SCORE_NEEDS_MORE_CARD;
     }
 
 }
