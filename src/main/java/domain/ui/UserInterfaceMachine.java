@@ -26,10 +26,32 @@ public class UserInterfaceMachine {
     }
 
     private boolean isCorrectNames(List<String> names) {
-        return false;
+        boolean ret = true;
+
+        for (int idx = 0; idx < names.size() && ret; idx++) {
+            /* 아직 잘못 입력된 이름이 발견되지 않았으면 실행됨 */
+            ret = isCorrectName(names.get(idx));
+        }
+
+        return ret;
     }
 
-    private boolean isCorrectName() {
+    private boolean isCorrectName(String name) {
+
+        if (areThereSpecialCharacters(name)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean areThereSpecialCharacters(String name) {
+
+        if (name.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
+            /* 이름에 특수문자가 없으면 실행됨 */
+            return false;
+        }
+
         return true;
     }
 
