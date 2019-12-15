@@ -68,4 +68,11 @@ public class PlayManager {
         }
         return blackjackIndexList;
     }
+
+    private void findBlackjack(List<Integer> scoreList, List<Integer> blackjackIndexList, int index) {
+        int blackjack = 21;
+        if (scoreList.get(index) == blackjack) {
+            blackjackIndexList.add(index);
+        }
+    }
 }
