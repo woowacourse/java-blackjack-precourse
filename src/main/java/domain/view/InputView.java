@@ -33,4 +33,26 @@ public class InputView {
 		}
 		return false;
 	}
+
+	private static boolean isValidNumber(int number) {
+		if (number > 0) {
+			return true;
+		}
+		System.out.println("1이상의 양수만 입력해주세요");
+		return false;
+	}
+
+	public static int getBettingMoney(String player) {
+		try {
+			System.out.println(player + "의 배팅 금액은?");
+			int bettingMoney = Integer.parseInt(scanner.nextLine());
+			if (!isValidNumber(bettingMoney)) {
+				return getBettingMoney(player);
+			}
+			return bettingMoney;
+		} catch (IllegalArgumentException e) {
+			System.out.println("입력값이 올바르지 않습니다.");
+			return getBettingMoney(player);
+		}
+	}
 }
