@@ -15,11 +15,6 @@ public class BlackJackGame {
     private void playGame() {
         boolean loop = false;
         startGame();
-        firstProceedGame();
-        secondProceedGame();
-        do {
-            loop = !proceedGame();
-        } while (loop);
         endGame();
     }
 
@@ -28,23 +23,41 @@ public class BlackJackGame {
         for (String playerName : playerInfo.keySet()) {
             playerInfo.put(playerName, playerSetBettingMoney(playerName));
         }
+        firstProceedGame();
     }
 
     private void firstProceedGame() {
+        boolean proceed = false;
         System.out.println("딜러와 " + getPlayerNamesALine() + "에게 2장의 카드를 나누었습니다.");
 
+        if(proceed == true) {
+            secondProceedGame();
+        }
     }
 
     private void secondProceedGame() {
-
+        boolean proceed = false;
+        System.out.println("는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+        if(true) {
+            System.out.println("딜러는 16이하라 카드 한 장을 더 받았습니다.");
+        }
+        if(proceed == true) {
+            proceedGame();
+        }
     }
 
-    private boolean proceedGame() {
-        return true;
+    private void proceedGame() {
+        boolean proceed = false;
+        System.out.println("" + "는/(은) 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+        if(proceed == true) {
+            proceedGame();
+        }
     }
 
     private void endGame() {
-
+        System.out.println("$이름" + "카드 : " + "$카드값");
+        System.out.println("## 최종수익");
+        System.out.println("$이름" + " : " + "$값");
     }
 
     private void playerNaming() {

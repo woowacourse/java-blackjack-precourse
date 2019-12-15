@@ -12,7 +12,6 @@ public class Card {
     private final String ACE_CHOICE_NUMBER_ONE = "1";
     private final String ACE_CHOICE_NUMBER_TWO = "11";
     private final int Dealer_ACE_NUMBER_BASE = 6;
-    private int number = 0;
 
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
