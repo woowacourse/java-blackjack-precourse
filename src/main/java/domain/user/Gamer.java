@@ -39,4 +39,14 @@ public class Gamer {
         }
         return presenceOfAce;
     }
+
+    private int adjustAce(int basicScore) {
+        final int victoryScore = 21;
+        final int adjustChange = 10;
+        if (basicScore + adjustChange <= victoryScore
+                && victoryScore - (basicScore + adjustChange) < victoryScore - basicScore) {
+            return basicScore + adjustChange;
+        }
+        return basicScore;
+    }
 }
