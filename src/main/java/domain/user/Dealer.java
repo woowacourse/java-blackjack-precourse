@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +11,13 @@ import java.util.Random;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
+public class Dealer  {
+    private static final int ANOTHER_ACE_NUMBER = 11;
+    private static final int BLACKJACK = 21;
+    private static final int ACE_NUMBER = 1;
+    private static final int TRUMP_CARD_SIZE = 52;
+    private static final int PICKED_CARD_STATE = 1;
+
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {}
@@ -21,13 +28,29 @@ public class Dealer {
 
     public void addCard(HashMap<Card, Integer> useState, List<Card> cardTrump) {
         Random suffleCard = new Random();
-        int chooseCardIndex = suffleCard.nextInt(52);
+        int chooseCardIndex = suffleCard.nextInt(TRUMP_CARD_SIZE);
         while(isUserCard(useState,chooseCardIndex,cardTrump)) {
-            chooseCardIndex = suffleCard.nextInt(52);
+            chooseCardIndex = suffleCard.nextInt(TRUMP_CARD_SIZE);
         }
         cards.add(cardTrump.get(chooseCardIndex));
-        useState.put(cardTrump.get(chooseCardIndex),1);
+        useState.put(cardTrump.get(chooseCardIndex),PICKED_CARD_STATE);
+    }
+    private int chooseAceOneOrEleven(List<Card> cards, Card card) {
+        int score = 0;
+        for(int i=0; i < cards.size(); i++) {
+            score = anotherCardsSum(cards, card, score, i);
+        }
+        if(score + ANOTHER_ACE_NUMBER > BLACKJACK) {
+            return ACE_NUMBER;
+        }
+        return ANOTHER_ACE_NUMBER;
+    }
 
+    private int anotherCardsSum(List<Card> cards, Card card, int score, int i) {
+        if(!cards.get(i).equals(card)) {
+            score += cards.get(i).getScore();
+        }
+        return score;
     }
     public boolean isSameCard(Card card) {
         for(Card playerCard : cards) {
@@ -47,6 +70,10 @@ public class Dealer {
     public int allScore() {
         int allScore = 0;
         for(Card card : cards) {
+            if(card.getSymbol() == Symbol.ACE){
+                allScore += chooseAceOneOrEleven(cards, card);
+                continue;
+            }
             allScore += card.getScore();
         }
         return allScore;

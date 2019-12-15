@@ -11,6 +11,17 @@ public class BlackJackGame {
     private static final int BIGGER_CASE_ALPHABET_Z = 90;
     private static final int LOWER_CASE_ALPHABET_A = 97;
     private static final int LOWER_CASE_ALPHABET_Z = 122;
+    private static final int BLACKJACK = 21;
+    private static final int DEALER_GET_MORE_CARD_SCORE = 17;
+    private static final int FIRST_TURN = 2;
+    private static final int FIRST_PLAYER_INDEX = 0;
+    private static final int LEAST_BETTING_MONEY = 10000;
+    private static final int LEAST_BETTING_MONEY_SIZE = 1;
+    private static final int LEAST_BETTING_MONEY_UNIT = 0;
+    private static final int NEXT_PLAYER_NAME_INDEX = 1;
+    private static final String GET_MORE_CARD = "y";
+    private static final String STOP_GET_MORE_CARD = "n";
+
 
     Scanner scanPlayerInfo = new Scanner(System.in);
 
@@ -48,10 +59,12 @@ public class BlackJackGame {
 
     private void displayBlackJackResult(List<Player> players, Dealer dealer) {
         int maxMoney = dealer.allScore();
-        if(maxMoney >21) {
+
+        if(maxMoney > BLACKJACK) {
             displayPlayerWin(players);
         }
-        if(maxMoney <= 21) {
+
+        if(maxMoney <= BLACKJACK) {
             displayResult(players, dealer, maxMoney);
         }
     }
@@ -59,16 +72,21 @@ public class BlackJackGame {
     private void displayResult(List<Player> players, Dealer dealer, int maxScore) {
         System.out.println("딜러 카드: " + dealer.getCard().toString() + "- 결과: " + dealer.allScore());
         for(Player player : players) {
-            if(maxScore < player.allScore() && player.allScore() < 22) {
-                maxScore = player.allScore();
-            }
+            maxScore = findMaxScore(maxScore, player);
             System.out.println(player.getName() + "카드 : " + player.getCard().toString() + "- 결과: " + player.allScore());
         }
         System.out.printf("\n\n");
-        displaydealerOrPlayerWinCase(players, dealer, maxScore);
+        displayDealerOrPlayerWinCase(players, dealer, maxScore);
     }
 
-    private void displaydealerOrPlayerWinCase(List<Player> players, Dealer dealer, int maxScore) {
+    private int findMaxScore(int maxScore, Player player) {
+        if(maxScore < player.allScore() && player.allScore() <= BLACKJACK) {
+            maxScore = player.allScore();
+        }
+        return maxScore;
+    }
+
+    private void displayDealerOrPlayerWinCase(List<Player> players, Dealer dealer, int maxScore) {
         for(Player player: players) {
             if(dealer.allScore() == maxScore && player.allScore() == maxScore) {
                 displayBlackJack(players, maxScore);
@@ -79,14 +97,36 @@ public class BlackJackGame {
                 break;
             }
             if(dealer.allScore() == maxScore && player.allScore() != maxScore) {
-                displayBlackJackDealer(players, dealer, maxScore);
+                displayBlackJackDealer(players);
                 break;
             }
         }
     }
 
-    private void displayBlackJackDealer(List<Player> players, Dealer dealer, int maxScore) {
+    private boolean checkBlackJack(List<Player> players, Dealer dealer) {
+        for(Player player : players) {
+            if(dealer.getCard().size() == FIRST_TURN && dealer.allScore() == BLACKJACK
+                    && player.getCard().size() == FIRST_TURN && player.allScore() == BLACKJACK) {
+                firstTurnBlackJackPlayerAndDealer(players);
+                return true;
+            }
+            if(dealer.getCard().size() == FIRST_TURN && dealer.allScore() != BLACKJACK
+                    && player.getCard().size() == FIRST_TURN && player.allScore() == BLACKJACK) {
+                firstTurnBlackJackOnlyPlayer(players);
+                return true;
+            }
+            if(dealer.getCard().size() == FIRST_TURN && dealer.allScore() == BLACKJACK
+                    && player.getCard().size() == FIRST_TURN && player.allScore() != BLACKJACK){
+                onlyDealerWin(players);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void displayBlackJackDealer(List<Player> players) {
         int dealerMoney = 0;
+        System.out.println("###최종수익");
         for(Player player : players) {
             System.out.println(player.getName() + " : " + (-player.getBettingMoney()));
             dealerMoney += player.getBettingMoney();
@@ -101,11 +141,11 @@ public class BlackJackGame {
         System.out.println("###최종수익");
         for(Player player : players) {
             if(player.allScore() == maxScore) {
-                System.out.println(player.getName() + " : " + player.getBettingMoney());
+                System.out.println(player.getName() + " : " + (int)player.getBettingMoney());
                 winnerMoney += player.getBettingMoney();
             }
             if(player.allScore() != maxScore) {
-                System.out.println(player.getName() + " : " + (-player.getBettingMoney()));
+                System.out.println(player.getName() + " : " + (int)(-player.getBettingMoney()));
                 loseMoney += player.getBettingMoney();
             }
 
@@ -118,14 +158,14 @@ public class BlackJackGame {
         System.out.println("###최종수익");
         int loseMoney = 0;
         for(Player player : players) {
-            System.out.println(player.getName() + " : " + player.getBettingMoney());
+            System.out.println(player.getName() + " : " + (int)player.getBettingMoney());
             loseMoney += player.getBettingMoney();
         }
         System.out.println("딜러 :" + (-loseMoney));
     }
 
     private void getdealerMoreCard(HashMap<Card, Integer> useCard, List<Card> cardTrump, Dealer dealer) {
-        if(dealer.allScore()<17) {
+        if(dealer.allScore() <= DEALER_GET_MORE_CARD_SCORE) {
             System.out.println("딜러는 16이하라 한장의 카드를 더 받습니다.");
             System.out.printf("\n\n");
             dealer.addCard(useCard,cardTrump);
@@ -137,34 +177,33 @@ public class BlackJackGame {
             System.out.println(player.getName()+ "는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
             String goOrStop = scanPlayerInfo.nextLine();
             addGetCard(useCard,cardTrump,player,goOrStop);
-            if(goOrStop.equals("n")) {
+            if(goOrStop.equals(STOP_GET_MORE_CARD)) {
                 System.out.println("카드를 그만 받습니다.");
                 break;
             }
-            if(player.allScore() > 21) {
+            if(player.allScore() > BLACKJACK) {
                 System.out.println("21을 초과 하였습니다. 다음 플레이어로 넘어갑니다");
                 break;
             }
-            if(player.allScore() == 21) {
+            if(player.allScore() == BLACKJACK) {
                 System.out.println("블랙잭!! 다음 플레이어로 넘어갑니다.");
                 break;
             }
         }
-
     }
 
     private void addGetCard(HashMap<Card, Integer> useCard, List<Card> cardTrump, Player player,String goOrStop) {
-        if(!goOrStop.equals("y") && !goOrStop.equals("n")){
+        if(!goOrStop.equals(GET_MORE_CARD) && !goOrStop.equals(STOP_GET_MORE_CARD)){
             System.out.println("y 또는 n을 입력해주시기 바랍니다.");
         }
-        if(goOrStop.equals("y")) {
+        if(goOrStop.equals(GET_MORE_CARD)) {
             player.addCard(useCard, cardTrump);
             System.out.println(player.getName()+"카드:" +player.getCard().toString());
         }
     }
 
 
-    private void firstTurnBlackJackOnlyPlayer(List<Player> players, Dealer dealer) {
+    private void firstTurnBlackJackOnlyPlayer(List<Player> players) {
         int winnerMoney = 0;
         int loseMoney = 0;
         System.out.println("###최종수익");
@@ -173,20 +212,6 @@ public class BlackJackGame {
             loseMoney = getLoseMoney(loseMoney, player);
         }
         displayFirstTurnBlackJackOnlyPlayer(players,winnerMoney, loseMoney);
-    }
-
-    private int getLoseMoney(int loseMoney, Player player) {
-        if(player.getCard().size() == 2 && player.allScore() != 21) {
-            loseMoney += player.getBettingMoney();
-        }
-        return loseMoney;
-    }
-
-    private int getWinnerMoney(int winnerMoney, Player player) {
-        if(player.getCard().size() == 2 && player.allScore() == 21) {
-            winnerMoney += player.firstBlackJackWinnerMoney((int) player.getBettingMoney());
-        }
-        return winnerMoney;
     }
 
     private void displayFirstTurnBlackJackOnlyPlayer(List<Player> players, int winnerMoney, int loseMoney) {
@@ -198,55 +223,57 @@ public class BlackJackGame {
         System.out.println("딜러 :" + (loseMoney - winnerMoney));
     }
 
-    private boolean checkBlackJack(List<Player> players, Dealer dealer) {
-        for(Player player : players) {
-            if(dealer.getCard().size() == 2 && dealer.allScore() == 21 && player.getCard().size() == 2 && player.allScore() == 21) {
-                firstTurnBlackJackPlayerAndDealer(players, dealer);
-                return true;
-            }
-            if(dealer.getCard().size() == 2 && dealer.allScore() != 21 && player.getCard().size() == 2 && player.allScore() == 21) {
-                firstTurnBlackJackOnlyPlayer(players, dealer);
-                return true;
-            }
-            if(dealer.getCard().size() == 2 && dealer.allScore() == 21 && player.getCard().size() == 2 && player.allScore() != 21){
-                onlyDealerWin(players);
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void winnerOrLose(Player player) {
-        if(player.allScore() == 21) {
-            System.out.println(player.getName() + " : " + player.getBettingMoney()*1.5);
+        if(player.allScore() == BLACKJACK) {
+            System.out.println(player.getName() + " : " + player.firstBlackJackWinnerMoney((int)player.getBettingMoney()));
         }
-        if(player.allScore() != 21) {
-            System.out.println(player.getName() + " : "  + -player.getBettingMoney());
+        if(player.allScore() != BLACKJACK) {
+            System.out.println(player.getName() + " : "  + (int)-player.getBettingMoney());
         }
     }
 
-    private void firstTurnBlackJackPlayerAndDealer(List<Player> players, Dealer dealer) {
+    private int getLoseMoney(int loseMoney, Player player) {
+        if(player.getCard().size() == FIRST_TURN && player.allScore() != BLACKJACK) {
+            loseMoney += player.getBettingMoney();
+        }
+        return loseMoney;
+    }
 
+    private int getWinnerMoney(int winnerMoney, Player player) {
+        if(player.getCard().size() == FIRST_TURN && player.allScore() == BLACKJACK) {
+            winnerMoney += player.firstBlackJackWinnerMoney((int) player.getBettingMoney());
+        }
+        return winnerMoney;
+    }
+
+    private void firstTurnBlackJackPlayerAndDealer(List<Player> players) {
         for(Player player : players) {
-            if(player.getCard().size() == 2 && player.allScore() == 21) {
+            if(player.getCard().size() == FIRST_TURN && player.allScore() == BLACKJACK) {
                 displayFirstTurnBlackJackPlayerAndDealer(players);
                 break;
             }
         }
-
     }
 
     private void onlyDealerWin(List<Player> players) {
         int losePlayerValue =0;
         for(Player player : players) {
-            if(player.getCard().size() == 2 && player.allScore() != 21) {
-                losePlayerValue++;
-            }
+            losePlayerValue = getLosePlayerValue(losePlayerValue, player);
         }
+        checkAllPlayerLoseToDealer(players, losePlayerValue);
+    }
 
+    private void checkAllPlayerLoseToDealer(List<Player> players, int losePlayerValue) {
         if(losePlayerValue == players.size()) {
             displayFirstTurnBlackJackOnlyDealer(players);
         }
+    }
+
+    private int getLosePlayerValue(int losePlayerValue, Player player) {
+        if(player.getCard().size() == FIRST_TURN && player.allScore() != BLACKJACK) {
+            losePlayerValue++;
+        }
+        return losePlayerValue;
     }
 
     private void displayFirstTurnBlackJackOnlyDealer(List<Player> players) {
@@ -289,11 +316,11 @@ public class BlackJackGame {
         }
         System.out.println("에게 2장의 카드를 나누었습니다.");
         System.out.println("딜러 : " + dealer.getCard().get(0));
-        displayCardState(players,dealer);
+        displayCardState(players);
         System.out.printf("\n\n");
     }
 
-    private void displayCardState(List<Player> players, Dealer dealer) {
+    private void displayCardState(List<Player> players) {
         for(Player player: players) {
             System.out.print(player.getName() + " : ");
             player.displayCardState();
@@ -346,7 +373,8 @@ public class BlackJackGame {
     }
 
     private void checkBettingMoney(int bettingMoney) {
-        if(bettingMoney % 10000 != 0) {
+        if(bettingMoney % LEAST_BETTING_MONEY != LEAST_BETTING_MONEY_UNIT
+                || bettingMoney / LEAST_BETTING_MONEY < LEAST_BETTING_MONEY_SIZE) {
             throw new NumberFormatException();
         }
     }
@@ -394,19 +422,20 @@ public class BlackJackGame {
     }
 
     private void checkSamePlayersName(List<String> playersName) throws Exception {
-        for(int playerNameIndex = 0; playerNameIndex < playersName.size(); playerNameIndex++)  {
+        for(int playerNameIndex = FIRST_PLAYER_INDEX; playerNameIndex < playersName.size(); playerNameIndex++)  {
             nextPlayerName(playersName, playerNameIndex);
         }
     }
 
     private void nextPlayerName(List<String> playersName, int playerNameIndex) throws Exception {
-        for(int playersNameIndexNext = playerNameIndex+1; playersNameIndexNext<playersName.size(); playersNameIndexNext++) {
+        for(int playersNameIndexNext = playerNameIndex+NEXT_PLAYER_NAME_INDEX;
+                playersNameIndexNext < playersName.size(); playersNameIndexNext++) {
             isSamePlayerName(playersName.get(playerNameIndex), playersName.get(playersNameIndexNext));
         }
     }
 
-    private void isSamePlayerName(String s, String s1) throws Exception {
-        if(s.toUpperCase().equals(s1.toUpperCase())) {
+    private void isSamePlayerName(String playerName, String anotherPlayerName) throws Exception {
+        if(playerName.toUpperCase().equals(anotherPlayerName.toUpperCase())) {
             throw new Exception();
         }
     }

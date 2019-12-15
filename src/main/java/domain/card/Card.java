@@ -6,8 +6,10 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
-    private final Symbol symbol;
 
+    private static final String ACE_STRING = "A";
+
+    private final Symbol symbol;
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
@@ -33,7 +35,14 @@ public class Card {
 
     @Override
     public String toString() {
+        if(symbol.getScore() == Symbol.ACE.getScore()) {
+            return ACE_STRING + type.getType();
+        }
         return symbol.getScore() + type.getType();
+    }
+
+    public Symbol getSymbol() {
+        return this.symbol;
     }
 
     public int getScore() {
