@@ -1,10 +1,9 @@
 package domain.card;
 
+import java.util.Collections;
 import java.util.Objects;
+import java.util.List;
 
-/**
- * 카드 한장을 의미하는 객체
- */
 public class Card {
     private final Symbol symbol;
 
@@ -15,7 +14,15 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public void cardShuffled() {
+    	Collections.shuffle(CardFactory.create());
+    }
+    
+    public Card pickOneCard(List<Card> cards) {
+    	Card target = cards.get(cards.size()-1);
+    	cards.remove(cards.size()-1);
+    	return target;
+    }
 
     @Override
     public boolean equals(Object o) {

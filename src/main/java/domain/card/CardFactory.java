@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * 트럼프 카드 전체 생성을 담당하는 객체
- */
 public class CardFactory {
     public static List<Card> create() {
         List<Card> cards = new ArrayList<>();
