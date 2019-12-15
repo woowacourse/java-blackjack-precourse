@@ -3,6 +3,7 @@ package domain.ui;
 import domain.user.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -80,10 +81,47 @@ public class UserInterfaceMachine {
     }
 
     public int scanBetAmountOfPlayer(String playerName) {
-        return 0;
+        final String BET_AMOUNT_INPUT_HEADER = playerName + "의 배팅 금액은?";
+        int betAmount = 0;
+
+        System.out.println(BET_AMOUNT_INPUT_HEADER);
+        betAmount = scanBetAmountOnlyOnce();
+
+        while (!isCorrectBetAmount(betAmount)) {
+            printBetAmountError();
+            System.out.println(BET_AMOUNT_INPUT_HEADER);
+            scanner.nextLine();                   /* 숫자를 입력받기 전에 버퍼 비우기 */
+            betAmount = scanBetAmountOnlyOnce();
+        }
+
+        return betAmount;
     }
 
-    private boolean isCorrectBetAmount() {
+    private void printBetAmountError() {
+        System.out.println("잘못된 배팅금액 입력입니다.");
+        System.out.println(" * 배팅 금액은 0보다 큰 숫자만 가능합니다.");
+    }
+
+    /**
+     * 배팅금액을 한번만 입력받는데, 잘못된 입력이면 음수를 return 하고
+     * 올바른 입력이면 입력받은 값을 return 한다.
+     */
+    private int scanBetAmountOnlyOnce() {
+        int ret = 0;
+        try {
+            ret = scanner.nextInt();
+            return ret;
+        } catch (InputMismatchException e) {
+            return -1;
+        }
+    }
+
+    private boolean isCorrectBetAmount(int betAmount) {
+
+        if (betAmount <= 0) {
+            return false;
+        }
+
         return true;
     }
 
