@@ -36,18 +36,20 @@ public class BlackJack {
 	}
 
 	private void firstRound() {
-		match.drawAll(Rule.getBasicDraw());
-		match.findBlackJackWinner(Rule.getBlackjackPoint());
+		match.distribute(Rule.getBasicDraw());
+		match.findBlackJackWinners(Rule.getBlackjackPoint());
 		if (match.hasWinners()) {
 			firstDone = true;
 		}
 	}
 
 	private void secondRound() {
-		
+		match.doPlayersPhase(inputController);
+		match.doDealerPhase();
+		match.findPointWinners();
 	}
 
 	private void finish() {
-		if()
+
 	}
 }

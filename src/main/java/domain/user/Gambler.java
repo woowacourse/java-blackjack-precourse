@@ -10,6 +10,8 @@ public abstract class Gambler {
 	private List<Card> cards;
 	private List<Integer> cardScores;
 
+	private int sum;
+
 	public abstract void addCard(Card card);
 
 	public abstract List<Card> getCards();
@@ -19,14 +21,14 @@ public abstract class Gambler {
 			.map(card -> card.getSymbolScore())
 			.collect(Collectors.toList());
 
-		int sum = cardScores.stream()
+		sum = cardScores.stream()
 			.reduce(0, Integer::sum);
 
 		return sum;
 	}
 
 	public int sumCardsMax() {
-		int sum = sumCardsMin();
+		sumCardsMin();
 		List<Integer> aces = cardScores.stream()
 			.filter(score -> (score == 1))
 			.collect(Collectors.toList());
@@ -36,5 +38,13 @@ public abstract class Gambler {
 		}
 
 		return sum;
+	}
+
+	public int getSum() {
+		return sum;
+	}
+
+	public boolean isBust(int blackJackPoint) {
+		return sum > blackJackPoint;
 	}
 }

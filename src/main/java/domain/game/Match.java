@@ -2,6 +2,7 @@ package domain.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,14 +50,24 @@ public class Match {
 		}
 	}
 
-	public void findBlackJackWinner(int blackjackPoint) {
+	public void findBlackJackWinners(int blackjackPoint) {
 		winnerList = playerList.stream()
 			.filter(player -> (player.sumCardsMax() == blackjackPoint))
 			.collect(Collectors.toList());
 	}
 
-	public void findPointWinner() {
+	public void findPointWinners() {
+		int playerMaxPoint = findPlayerMaxPoint();
+		winnerList = playerList.stream()
+			.filter(player -> player.getSum() == playerMaxPoint)
+			.collect(Collectors.toList());
+	}
 
+	private int findPlayerMaxPoint() {
+		return playerList.stream()
+			.max(Comparator.comparingInt(player -> (player.sumCardsMax())))
+			.get()
+			.getSum();
 	}
 
 	public boolean hasWinners() {
@@ -64,9 +75,9 @@ public class Match {
 	}
 
 	public void doPlayersPhase(InputController inputController) {
-		for (Gambler player:playerList
-			 ) {
-			doPlayerPhase((Player)player,inputController);
+		for (Gambler player : playerList
+		) {
+			doPlayerPhase((Player)player, inputController);
 		}
 	}
 
