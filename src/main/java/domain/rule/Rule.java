@@ -16,7 +16,7 @@ public class Rule {
 	}
 
 	public static boolean isWin(User winner, User loser) {
-		return !isBust(winner) && (isBust(loser) || winner.isScoreGreaterThan(loser.getSumOfCards()));
+		return !isBust(winner) && (isBust(loser) || winner.isScoreGreaterThan(loser.getScore()));
 	}
 
 	public static boolean canGetMoreCards(User user) {

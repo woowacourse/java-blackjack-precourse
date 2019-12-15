@@ -51,7 +51,7 @@ public class BlackjackController {
 	}
 
 	private void printScore(User user) {
-		OutputView.printScore(user.getName(), user.getCards(), user.getSumOfCards());
+		OutputView.printScore(user.getName(), user.getCards(), user.getScore());
 	}
 
 	private void printAllUsersScore() {
