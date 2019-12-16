@@ -12,11 +12,7 @@ public class Dealer extends Player {
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {
-        super("Dealer", 0);
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
+        super("딜러", 0);
     }
 
     // TODO 추가 기능 구현
