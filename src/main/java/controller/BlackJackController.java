@@ -11,13 +11,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackController {
+	final static int BUSTED_SCORE = 21;
+
 	public static List<String> getPlayersName() {
+		String names = "";
+
 		Scanner scanner = new Scanner(System.in);
-		String names = scanner.nextLine();
 		while (names.equals("")) {
+			names = scanner.nextLine();
 			names = catchEmptyInput(names);
 		}
-		scanner.close();
 		return UtilityMethods.sliceStringToList(names);
 	}
 
@@ -37,19 +40,20 @@ public class BlackJackController {
 	}
 
 	public static double getBetting() {
+		double betting = 0;
+
 		Scanner scanner = new Scanner(System.in);
-		double betting = scanner.nextDouble();
 		while (betting <= 0) {
+			betting = scanner.nextDouble();
 			catchUnderZeroInput(betting);
 		}
-		scanner.close();
 		return betting;
 	}
 
 	private static double catchUnderZeroInput(double betting) {
 		try {
 			validateBetting(betting);
-		} catch (EmptyInputException e) {
+		} catch (NumberUnderZeroException e) {
 			BlackJackUIService.printUnderZeroInputMessage();
 		}
 		return betting;
@@ -61,16 +65,13 @@ public class BlackJackController {
 		}
 	}
 
-	public static Card popRandomCard(List<Card> cards) {
-		int popIndex = UtilityMethods.generateRandomNumber(cards.size());
-		return cards.remove(popIndex);
-	}
-
 	public static Boolean getMoreCardInput() {
+		String moreCard = ""; // 한글자가 아닌 입력을 핸들하기 위한 String 선언
+
 		Scanner scanner = new Scanner(System.in);
-		String moreCard = scanner.nextLine(); // 한글자가 아닌 입력을 핸들하기 위한 String 선언
 		while (!moreCard.equals("Y") || !moreCard.equals("y")
 			|| !moreCard.equals("N") || !moreCard.equals("n")) {
+			moreCard = scanner.nextLine();
 			catchWrongInput(moreCard);
 		}
 		if (moreCard.equals("Y") || moreCard.equals("y")) {

@@ -1,7 +1,14 @@
 package services;
 
-public class BlackJackPlayService {
-	public void startBlackJack() {
-	}
+import domain.game.BlackJack;
 
+public class BlackJackPlayService {
+	public static void  startBlackJack() {
+		BlackJack blackJack = new BlackJack();
+
+		blackJack.drawCardDeckToAll();
+		blackJack.drawCardDeckToAll();
+		blackJack.showHandOfAllPlayer();
+		//blackJack.drawCardInMidGame();
+	}
 }

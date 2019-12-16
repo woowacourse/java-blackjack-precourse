@@ -1,5 +1,6 @@
 package domain.user;
 
+
 import domain.card.Card;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
+public class Dealer{
 	private final List<Card> cards = new ArrayList<>();
 
 	public Dealer() {
@@ -18,7 +19,7 @@ public class Dealer {
 		cards.add(card);
 	}
 
-	public int getSomOfScore() {
+	private int getSomOfScore() {
 		int sumOfScore = 0;
 		for (Card card : this.cards) {
 			sumOfScore += card.getSymbolScore();
@@ -28,11 +29,9 @@ public class Dealer {
 
 	public void showHand() {
 		String showHand = "딜러:";
-		for (Card card : cards) {
-			showHand += card.toString() + ",";
+		for (int i = 1; i < this.cards.size(); i++) {
+			showHand += this.cards.get(i).toString() + ",";
 		}
 		System.out.println(showHand);
 	}
-
-	// TODO 추가 기능 구현
 }
