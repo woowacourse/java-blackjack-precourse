@@ -23,11 +23,11 @@ public class Main {
             return enrollPlayers();
         }
     }
-
+    // TODO Card 관련 추가 기능 구현
     private static int getBettingMoney(String name) {
         try {
             System.out.println(name + "의 배팅 금액은?");
-            return UserInput.inputBettingMoney(name);
+            return UserInput.inputBettingMoney();
         } catch (IllegalArgumentException e) {
             printMessage("다시 입력해 주세요.");
             return getBettingMoney(name);

@@ -25,7 +25,7 @@ public class UserInput {
         return playersName;
     }
 
-    public static int inputBettingMoney(String name) {
+    public static int inputBettingMoney() {
         int bettingMoney = Integer.parseInt(SCANNER.nextLine());
         if(bettingMoney <= 0) {
             throw new IllegalArgumentException();

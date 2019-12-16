@@ -23,79 +23,34 @@ public class BlackJackGame {
     }
 
     private void startGame() {
-        List<Card> newCards = new ArrayList<>(CardFactory.create());
-        Collections.shuffle(newCards);
+        List<Card> newCards = shuffleCards();
         drawStartCards(newCards);
         if (!dealer.isBlackJack()) {
             startTurn(newCards);
         }
-        printGameResult();
-        findWinner();
+        announceDetailedResult();
+        announceWinner();
     }
 
+    private List<Card> shuffleCards() {
+        List<Card> newCards = new ArrayList<>(CardFactory.create());
+        Collections.shuffle(newCards);
+        return newCards;
+    }
+
+    private String getPlayerNames() {
+        List<String> playerNames = new ArrayList<>();
+        players.forEach(x -> playerNames.add(x.getName()));
+        return String.join(", ", playerNames);
+    }
 
     private void drawStartCards(List<Card> newCards) {
         for (int i = 0; i < START_DRAW; i++) {
             drawEachOneCard(newCards);
         }
         ConsoleOutput.printFirstDraw(getPlayerNames(), START_DRAW);
-        printDealerCard();
-        printPlayerCards();
-    }
-
-    private void printDealerCard() {
         ConsoleOutput.printCards(dealer.getCardString());
-    }
-
-    private void printGameResult() {
-        ConsoleOutput.printCards(dealer.getFinalCardString());
-        players.forEach(x -> ConsoleOutput.printCards(x.getFinalCardString()));
-    }
-
-    private void findWinner() {
-        // 딜러보다 낮으면 패배 높으면 승
-        List<MoneyDTO> playerMoney = new ArrayList<>();
-        MoneyDTO dealerMoney = new MoneyDTO("dealer", 0);
-        players.forEach(x -> playerMoney.add(compareScore(x, dealer, dealerMoney)));
-        printMessage("## 최종 수익");
-        printMessage("딜러: " + dealerMoney.getMoney());
-        playerMoney.forEach(x -> printMessage(x.getName() + ": " + x.getMoney()));
-    }
-
-    private MoneyDTO compareScore(Player player, Dealer dealer, MoneyDTO dealerMoney) {
-        int profit = getShare(player, dealer);
-        dealerMoney.setMoney(dealerMoney.getMoney() + (-1 * profit));
-        return new MoneyDTO(player.getName(), profit);
-    }
-
-    private int getShare(Player player, Dealer dealer) {
-        int x = getProfit(player, dealer);
-        if (x != 0) return x;
-        if (player.getScore() < dealer.getScore() || (player.isBusted() && !dealer.isBusted())) {
-            return (int) (-1 * player.getBettingMoney());
-        }
-        return 0;
-    }
-
-    private int getProfit(Player player, Dealer dealer) {
-        if (player.isBlackJack() && !dealer.isBlackJack()) {
-            return (int) (1.5 * player.getBettingMoney());
-        }
-        if (!player.isBusted() && (player.getScore() > dealer.getScore() || (dealer.isBusted() && !player.isBusted()))) {
-            return (int) player.getBettingMoney();
-        }
-        return 0;
-    }
-
-    private void printPlayerCards() {
         players.forEach(x -> ConsoleOutput.printCards(x.getCardString()));
-    }
-
-
-    private String getPlayerNames() {
-        List<String> playerNames = new ArrayList<>();
-        players.forEach(x -> playerNames.add(x.getName()));
-        return String.join(", ", playerNames);
     }
 
     private void drawEachOneCard(List<Card> newCards) {
@@ -158,5 +113,45 @@ public class BlackJackGame {
             return true;
         }
         return false;
+    }
+
+    private MoneyDTO putBettingMoney(Player player, Dealer dealer, MoneyDTO dealerMoney) {
+        int profit = getShare(player, dealer);
+        dealerMoney.setMoney(dealerMoney.getMoney() + (-1 * profit));
+        return new MoneyDTO(player.getName(), profit);
+    }
+
+    private void announceWinner() {
+        // 딜러보다 낮으면 패배 높으면 승
+        List<MoneyDTO> playerMoney = new ArrayList<>();
+        MoneyDTO dealerMoney = new MoneyDTO("dealer", 0);
+        players.forEach(x -> playerMoney.add(putBettingMoney(x, dealer, dealerMoney)));
+        printMessage("## 최종 수익");
+        printMessage("딜러: " + dealerMoney.getMoney());
+        playerMoney.forEach(x -> printMessage(x.getName() + ": " + x.getMoney()));
+    }
+
+    private int getShare(Player player, Dealer dealer) {
+        int x = getProfit(player, dealer);
+        if (x != 0) return x;
+        if (player.getScore() < dealer.getScore() || (player.isBusted() && !dealer.isBusted())) {
+            return (int) (-1 * player.getBettingMoney());
+        }
+        return 0;
+    }
+
+    private int getProfit(Player player, Dealer dealer) {
+        if (player.isBlackJack() && !dealer.isBlackJack()) {
+            return (int) (1.5 * player.getBettingMoney());
+        }
+        if (!player.isBusted() && (player.getScore() > dealer.getScore() || (dealer.isBusted() && !player.isBusted()))) {
+            return (int) player.getBettingMoney();
+        }
+        return 0;
+    }
+
+    private void announceDetailedResult() {
+        ConsoleOutput.printCards(dealer.getFinalCardString());
+        players.forEach(x -> ConsoleOutput.printCards(x.getFinalCardString()));
     }
 }
