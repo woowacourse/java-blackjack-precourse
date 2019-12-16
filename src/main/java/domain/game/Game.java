@@ -25,10 +25,11 @@ public class Game {
 	public void run() {
 		userRepository.makePlayerName(ViewInput.getPlayerNames());
 		userRepository.makeUserList();
-		cardDealOut();
+		firstDealOut();
+		secondDealOut();
 	}
 	
-	public void cardDealOut() {
+	public void firstDealOut() {
 		giveUserCard();
 		ViewOutput.showFirstResult(userRepository);
 	}
@@ -59,6 +60,10 @@ public class Game {
 	
 	public int selectCard(int cardSize) {
 		return (int)(Math.random() * cardSize);
+	}
+	
+	public void secondDealOut() {
+		userRepository.secondDealOutCheck();
 	}
 	
  }

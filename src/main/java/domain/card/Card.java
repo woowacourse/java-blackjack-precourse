@@ -35,4 +35,8 @@ public class Card {
     public String toString() {
         return symbol.getName() + type.getName();
     }
+    
+    public int getScore() {
+    	return symbol.getScore();
+    }
 }

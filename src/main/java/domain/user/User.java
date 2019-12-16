@@ -2,6 +2,7 @@ package domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.card.Card;
 
@@ -27,4 +28,17 @@ public class User {
     }
 
 	public void showFirstCard() {}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void showResult() {
+		String cardName = cards
+				.stream()
+				.map(card -> card.toString())
+				.collect(Collectors.joining(", "));
+		
+		System.out.println(cardName);
+	}
 }

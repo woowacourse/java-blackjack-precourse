@@ -13,8 +13,12 @@ public class ValidityCheck {
 		return name;
 	}
 	
-	public int moneyIsValid(int money) throws IllegalArgumentException {
-		return money;
+	public int moneyIsValid(String money) throws IllegalArgumentException {
+		if(money.equals("")) {
+			throw new IllegalArgumentException();
+		}
+		
+		return Integer.parseInt(money);
 	}
 	
 	public int cardIsUsed(int inx) throws Exception {
