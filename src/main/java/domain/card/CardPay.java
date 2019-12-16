@@ -34,4 +34,10 @@ public class CardPay {
 	private boolean hasCheck(int value) {
 		return cardList.get(value).getExist();
 	}
+
+	public void giveUserCard(String addCheck, Person person){
+		if(addCheck.equals("y")) {
+			person.addCard(randomNumberSelect());
+		}
+	}
 }

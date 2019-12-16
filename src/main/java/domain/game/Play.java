@@ -43,10 +43,13 @@ public class Play {
 		}
 	}
 
-	public void requestAddCard() {
+	public void dealerAddCard() {
+
+	}
+
+	public void playerAddCard() {
 		for (int i = 0; i < playerList.size(); i++) {
-			GameUI.printRequestAddCard(playerList.get(i).getName());
-			
+			gameRequest.requestAddCard(cardPay, playerList.get(i));
 		}
 	}
 }

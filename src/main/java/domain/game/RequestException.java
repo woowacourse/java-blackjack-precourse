@@ -18,4 +18,10 @@ public class RequestException {
 			throw new Exception();
 		}
 	}
+
+	public void exceptionAddCard(String req) throws Exception {
+		if(!req.equals("y") && !req.equals("n")){
+			throw new Exception();
+		}
+	}
 }

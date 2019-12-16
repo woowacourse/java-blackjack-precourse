@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import domain.card.CardPay;
+import domain.user.Person;
 import domain.user.Player;
 
 public class GameRequest {
@@ -59,6 +61,19 @@ public class GameRequest {
 			GameUI.requestUserBettingMoneyFixInterface();
 			scan = new Scanner(System.in);
 			requestBettingMoney(name);
+		}
+	}
+
+	public void requestAddCard(CardPay cardPay, Person player) {
+		String req;
+		try {
+			GameUI.printRequestAddCard(player.getName());
+			requestException.exceptionAddCard(req = scan.nextLine());
+			cardPay.giveUserCard(req, player);
+		} catch (Exception e) {
+			System.out.println("제대로 된 문자를 입력하세요");
+			scan = new Scanner(System.in);
+			requestAddCard(cardPay, player);
 		}
 	}
 }
