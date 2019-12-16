@@ -102,4 +102,17 @@ public class Player {
 			}
 		}
 	}
+
+	public String getPlayerCards() {
+		List<String> cardList = new ArrayList<>();
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.getName());
+		sb.append(": ");
+		for (Card card : cards) {
+			cardList.add(card.getCardSymbolAndType());
+		}
+		sb.append(String.join(",", cardList));
+		return sb.toString();
+	}
+
 }

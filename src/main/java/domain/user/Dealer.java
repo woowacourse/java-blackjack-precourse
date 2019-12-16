@@ -86,4 +86,16 @@ public class Dealer {
 		}
 	}
 
+	public String getDealerCards() {
+		List<String> cardList = new ArrayList<>();
+		StringBuffer sb = new StringBuffer();
+		sb.append("딜러 카드");
+		sb.append(": ");
+		for (Card card : cards) {
+			cardList.add(card.getCardSymbolAndType());
+		}
+		sb.append(String.join(",", cardList));
+		return sb.toString();
+	}
+
 }

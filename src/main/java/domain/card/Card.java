@@ -28,7 +28,7 @@ public class Card {
 	public Symbol getSymbol() {
 		return symbol;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
