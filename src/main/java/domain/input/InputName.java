@@ -3,10 +3,10 @@
  *
  * version: 1.0v
  *
- * date: 2019.12.16
+ * date: 2019.12.15
  *
  * 이 프로그램의 저작권은 정은석에게 있습니다.
- * Copyright 2019.12.16
+ * Copyright 2019.12.15
  */
 
 package domain.input;
