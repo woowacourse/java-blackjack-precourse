@@ -20,14 +20,14 @@ public class BlackjackGame {
   public void gameStart() {
     blackjackRule.dealInitialCards(participants);
     if (isThereBlackjack()) {
-      calculateResult();
+      judgeWinOrLose();
       return;
     }
     blackjackRule.hitOrStay(participants);
     if (isDealerBust()) {
-      calculateResult();
+      dealerLose();
       return;
     }
-    calculateResult();
+    judgeWinOrLose();
   }
 }
