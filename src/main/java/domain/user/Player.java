@@ -28,4 +28,16 @@ public class Player {
     public String toString() {
         return name + " : " + bettingMoney;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
+    public List<Card> getDeck() {
+        return cards;
+    }
 }
