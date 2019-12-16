@@ -183,11 +183,16 @@ public class Game {
     }
 
     public void finishGame() {
-        printInfo();
+        for(int i = 0; i < player.size(); i++) {
+            System.out.println(player.get(i).getinfo()+" 승부 확인");
+            //findWinner(i);
+        }
+        printDealerCard();
+        printPlayerCard();
         System.out.println("최종 수익");
         System.out.println("딜러: "+dealer.finalCost());
         for(int i = 0; i < player.size(); i++) {
-            System.out.println(player.get(i).getinfo()+": "+player.get(i).finalScore());
+            System.out.println(player.get(i).getinfo()+": "+player.get(i).getReward());
         }
     }
 
