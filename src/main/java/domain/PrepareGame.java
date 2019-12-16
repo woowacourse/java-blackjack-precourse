@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class PrepareGame {
 
+//    public static final double bettingSum = 0;
     private List<Player> players;
 
     public void prepare() {

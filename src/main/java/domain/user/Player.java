@@ -23,4 +23,13 @@ public class Player extends Dealer {
     public String print() {
         return name + "카드: " + printCardList();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
 }
