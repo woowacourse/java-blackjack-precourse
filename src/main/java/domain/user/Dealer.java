@@ -24,6 +24,10 @@ public class Dealer extends User {
 		user.addCard(cardDeck.draw());
 	}
 
+	public void giveCard(CardDeck cardDeck, List<Player> players) {
+		players.forEach(player -> giveCard(cardDeck, player));
+	}
+
 	public List<Card> getFaceUpCards() {
 		return getCards().subList(FACE_UP_INDEX, FACE_UP_COUNT);
 	}

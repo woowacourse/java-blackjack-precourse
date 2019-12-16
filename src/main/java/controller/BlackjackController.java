@@ -8,12 +8,13 @@ import domain.profit.ProfitCalculator;
 import domain.rule.Rule;
 import domain.user.Dealer;
 import domain.user.Player;
-import domain.user.User;
 import view.InputView;
 import view.OutputView;
 
 public class BlackjackController {
 	private static final String HIT = "y";
+	private static final int INIT_CARD_SIZE = 0;
+	private static final int FIRST_DRAW_CARD_SIZE = 2;
 
 	private final CardDeck cardDeck = new CardDeck();
 	private final Dealer dealer = new Dealer();
@@ -34,11 +35,9 @@ public class BlackjackController {
 	}
 
 	private void giveTwoCard() {
-		dealer.giveCard(cardDeck, dealer);
-		dealer.giveCard(cardDeck, dealer);
-		for (Player player : players) {
-			dealer.giveCard(cardDeck, player);
-			dealer.giveCard(cardDeck, player);
+		for (int i = INIT_CARD_SIZE; i < FIRST_DRAW_CARD_SIZE; i++) {
+			dealer.giveCard(cardDeck, dealer);
+			dealer.giveCard(cardDeck, players);
 		}
 	}
 
