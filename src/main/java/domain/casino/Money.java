@@ -19,30 +19,27 @@ public class Money {
 	}
 
 	public void calculatePlayersEarning(Dealer dealer, List<Player> playerList) {
-		for (Player player : playerList) {
-			if (!dealer.bust()) {
-				winAsBlackJack(player);
-				loseBurst(player);
-				winDealer(player, dealer);
-				drawWithDealerAsBlackJack(player, dealer);
-				drawWithDealer(player, dealer);
-				loseToDealer(player, dealer);
-			}
-			loseBurst(player);
-			OutputView.printPlayerEarning(player.getName(), earning.get(player.getName()));
+		if (!dealer.bust()) {
+			playerList.forEach(p -> winDealer(p, dealer));
+			playerList.forEach(p -> drawWithDealerAsBlackJack(p, dealer));
+			playerList.forEach(p -> drawWithDealer(p, dealer));
+			playerList.forEach(p -> loseToDealer(p, dealer));
 		}
+		playerList.forEach(this::winAsBlackJack);
+		playerList.forEach(this::loseBurst);
+		playerList.forEach(p -> OutputView.printEarning(p.getName(), earning.get(p.getName())));
 	}
 
 	public void calculateDealerEarning(List<Player> playerList) {
-		double dealerMoney = earning.get("딜러");
-		double sum = 0;
-		for (Player player : playerList) {
-			sum += earning.get(player.getName());
-		}
+		double dealerEarning = earning.get("딜러");
+		double sumOfPlayerEarnings = playerList.stream()
+			.map(player -> earning.get(player.getName()))
+			.reduce(Double::sum)
+			.get();
 
-		dealerMoney -= sum;
-		earning.put("딜러", dealerMoney);
-		OutputView.printPlayerEarning("딜러", dealerMoney);
+		dealerEarning -= sumOfPlayerEarnings;
+		earning.put("딜러", dealerEarning);
+		OutputView.printEarning("딜러", dealerEarning);
 	}
 
 	private void winAsBlackJack(Player player) {

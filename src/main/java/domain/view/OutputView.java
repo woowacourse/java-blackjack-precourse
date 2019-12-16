@@ -53,7 +53,7 @@ public class OutputView {
 		System.out.println(sb.toString());
 	}
 
-	public static void printPlayerEarning(String playerName, double earning) {
+	public static void printEarning(String playerName, double earning) {
 		System.out.println(playerName + ": " + earning);
 	}
 
