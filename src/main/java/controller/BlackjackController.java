@@ -50,12 +50,6 @@ public class BlackjackController {
 		OutputView.printNewLine();
 	}
 
-	private void printScores() {
-		OutputView.printScore(dealer);
-		players.forEach(OutputView::printScore);
-		OutputView.printNewLine();
-	}
-
 	private boolean wantMoreCard(Player player) {
 		return InputView.getMoreCard(player.getName()).equals(HIT);
 	}
@@ -74,6 +68,12 @@ public class BlackjackController {
 			OutputView.printNewLine();
 			OutputView.printDealerAddCard(dealer.getName());
 		}
+		OutputView.printNewLine();
+	}
+
+	private void printScores() {
+		OutputView.printScore(dealer);
+		players.forEach(OutputView::printScore);
 		OutputView.printNewLine();
 	}
 
