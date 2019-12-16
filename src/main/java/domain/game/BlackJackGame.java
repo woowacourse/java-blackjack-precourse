@@ -23,7 +23,7 @@ public class BlackJackGame {
 	private InputManager inputManager;
 	private CardShoe cardShoe;
 	private RewardCalculator rewardCalculator;
-	private Dealer dealer;
+	private GameParticipant dealer;
 	private List<Player> playerList = new ArrayList<>();
 	
 
@@ -70,7 +70,7 @@ public class BlackJackGame {
 		System.out
 				.println("\nµô·¯¿Í " + playerList.stream().map(player -> player.getName()).collect(Collectors.joining(","))
 						+ "¿¡°Ô " + INITIAL_CARDS + "ÀåÀÇ Ä«µå¸¦ ³ª´©¾ú½À´Ï´Ù.");
-		System.out.println("µô·¯ : " + dealer.getInitialDealerCardInfo());
+		System.out.println("µô·¯ : " + dealer.getCardInfo());
 		for (Player player : playerList) {
 			System.out.println(player.getName() + " : " + player.getCardInfo());
 		}
@@ -128,10 +128,9 @@ public class BlackJackGame {
 	}
 
 	private void showGameScore() {
-		System.out.print("\nµô·¯ : ");
-		System.out.println(dealer.getCardInfo() + "-" + dealer.getCardScore());
+		System.out.println("\nµô·¯ : " + dealer.getFinalCardInfo());
 		for (Player player : playerList) {
-			System.out.println(player.getName() + " : " + player.getCardInfo() + "-" + player.getCardScore());
+			System.out.println(player.getName() + " : " + player.getFinalCardInfo());
 		}
 	}
 

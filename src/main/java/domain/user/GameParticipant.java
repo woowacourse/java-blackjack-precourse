@@ -11,24 +11,11 @@ import domain.card.Symbol;
  * @author smr60
  *
  */
-public class GameParticipant {
-	private final List<Card> cards = new ArrayList<>();
+public abstract class GameParticipant {
+	protected final List<Card> cards = new ArrayList<>();
 
 	public void addCard(Card card) {
 		cards.add(card);
-	}
-	
-	public String getInitialDealerCardInfo() {
-		final int FIRST_INDEX = 0;
-		return cards.get(FIRST_INDEX).toString();
-	}
-	
-	public String getCardInfo() {
-		String cardInfo = "";
-		for (Card card : cards) {
-			cardInfo += card.toString() + " ";
-		}
-		return cardInfo;
 	}
 	
 	public int getCardScore() {
@@ -54,4 +41,9 @@ public class GameParticipant {
 		}
 		return score;
 	}
+	
+	abstract public String getCardInfo(); 
+
+	abstract public String getFinalCardInfo();
+	
 }
