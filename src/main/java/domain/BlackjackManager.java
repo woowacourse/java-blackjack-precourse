@@ -101,6 +101,12 @@ public class BlackjackManager {
             return true;
         return false;
     }
+
+    void produceResult() {
+        setWinnerAndProfit();
+        calculateProfit();
+    }
+
     /**
      * 우승자를 찾고 경우에 따라 우승자의 베팅 금액을 결정하는 함수
      **/
@@ -172,5 +178,33 @@ public class BlackjackManager {
     void setWinnersProfit(double multiple) {
         for (int i = 0; i < winners.size(); i++)
             winners.get(i).setProfitByMultiple(multiple);
+    }
+
+    void calculateProfit() {
+        double totalBettingMoney = getTotalBettingMoney();
+        double totalprofit = getTotalProfit();
+        participants.get(0).setProfit(totalBettingMoney - totalprofit * 2); // dealer의 profit을 계산한다.
+        setProfitLoser();
+    }
+
+    double getTotalBettingMoney() {
+        double totalBettingMoney = 0;
+        for (int i = 1; i < participants.size(); i++) {
+            totalBettingMoney += ((Player) participants.get(i)).getBettingMoney();
+        }
+        return totalBettingMoney;
+    }
+
+    double getTotalProfit() {
+        double totalProfit = 0;
+        for (int i = 0; i < winners.size(); i++)
+            totalProfit += winners.get(i).getProfit();
+        return totalProfit;
+    }
+
+    void setProfitLoser() {
+        for (int i = 1; i < participants.size(); i++)
+            if (participants.get(i).getProfit() == 0)
+                participants.get(i).setProfit(((Player) participants.get(i)).getBettingMoney() * -1);
     }
 }

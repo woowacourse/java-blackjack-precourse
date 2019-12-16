@@ -23,4 +23,8 @@ public class Player extends Participant {
     public void addCard(Card card) {
         cards.add(card);
     }
+
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
 }
