@@ -135,7 +135,7 @@ public class UserInterface {
         return true;
     }
 
-    public void printFistTwoCard(Dealer dealer, List<Player> players) {
+    public void printFirstTwoCard(Dealer dealer, List<Player> players) {
         System.out.println("딜러와 " + combineStrings(getPlayersNameList(players), ", ")
             + "에게 각각 두장의 카드가 분배되었습니다.");
 

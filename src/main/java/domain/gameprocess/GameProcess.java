@@ -18,7 +18,6 @@ public class GameProcess {
         List<Player> players = createPlayers();
 
         handOutTwoCardsToAllUsers(dealer, players);
-        userInterface.printFistTwoCard(dealer, players);
 
         for (Player player : players) {
             handOutCardsUntilOnePlayerGameIsEnded(player);
@@ -53,7 +52,7 @@ public class GameProcess {
             handOutTwoCardsToUser(player);
         }
 
-
+        userInterface.printFirstTwoCard(dealer, players);
     }
 
     private void handOutTwoCardsToUser(User user) {
