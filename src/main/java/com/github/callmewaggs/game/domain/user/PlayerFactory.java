@@ -2,7 +2,10 @@ package com.github.callmewaggs.game.domain.user;
 
 import com.github.callmewaggs.game.IOHelper;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PlayerFactory {
 
@@ -27,7 +30,11 @@ public class PlayerFactory {
     List<Player> players = new ArrayList<>();
     String inputPlayerNames = IOHelper.inputPlayerNames();
     String[] parsed = inputPlayerNames.split(",");
-    for (String inputPlayerName : parsed) {
+    Set<String> distinctNames = new LinkedHashSet<>(Arrays.asList(parsed));
+    if (parsed.length != distinctNames.size() || distinctNames.contains("딜러")) {
+      throw new IllegalArgumentException("플레이어의 이름이 잘못되었습니다. 다시 입력해주세요.");
+    }
+    for (String inputPlayerName : distinctNames) {
       createPlayer(players, inputPlayerName);
     }
     return players;
