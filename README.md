@@ -10,7 +10,7 @@
 7. 딜러는 처음 받은 두 장의 카드 숫자 합이 16이하이면 17이상이 될 때까지 카드를 계속 뽑아야 함.
 8. 딜러가 BUST 될시 남아있는 플레이어는 모두 승리함.
 
-### 기능목록 (역할 + 책임)
+## 기능목록 (역할 + 책임)
 1. **Symbol**
     - 카드 별로 숫자와, 점수 저장
 2. **Type**
@@ -62,4 +62,4 @@
     - BlackJackGame 게임 실행
 
 ## 클래스 다이어그램
-![blackjack](https://user-images.githubusercontent.com/42382027/70868473-88f48a00-1fc4-11ea-9084-1925161f1080.JPG)
+![blackjack2](https://user-images.githubusercontent.com/42382027/70907765-0f54ae80-204d-11ea-918d-931b6c8019cb.JPG)
