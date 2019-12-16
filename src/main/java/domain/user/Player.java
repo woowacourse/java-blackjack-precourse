@@ -26,6 +26,11 @@ public class Player extends BaseUser implements User {
     }
 
     @Override
+    public String getInitialCards() {
+        return getHoldingCards();
+    }
+
+    @Override
     public boolean isGettingAdditionalCard() {
         return !isBust() && InputController.askIfGetCard(this.name);
     }

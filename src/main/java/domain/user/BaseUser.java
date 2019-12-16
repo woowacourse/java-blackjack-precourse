@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseUser implements User {
-    private final List<Card> cards = new ArrayList<>();
+    protected final List<Card> cards = new ArrayList<>();
 
     @Override
     public void addCard(Deck deck, int number) {
@@ -20,9 +20,7 @@ public abstract class BaseUser implements User {
     abstract public String getName();
 
     @Override
-    public String getInitialCards() {
-        return getHoldingCards();
-    }
+    abstract public String getInitialCards();
 
     @Override
     public String getHoldingCards() {

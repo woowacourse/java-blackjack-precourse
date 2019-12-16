@@ -48,7 +48,6 @@ public class BlackjackGame {
             OutputController.printMessage(user.getMessageForAdditionalCard());
             user.addCard(deck, ADDITIONAL_NUMBER_OF_CARDS);
             OutputController.printHoldingCards(user);
-            OutputController.printUser(user);
         }
         OutputController.printHoldingCards(user);
     }
