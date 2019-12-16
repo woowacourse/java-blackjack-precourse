@@ -41,7 +41,7 @@ public class GameModel {
     }
 
     private void setResultOfDealer() {
-        OutputView.printDealer(dealer.getProfit(players,dealer));
+        OutputView.printDealer(dealer.getProfit(players));
     }
 
     private boolean setResult(Player player, Dealer dealer) {
