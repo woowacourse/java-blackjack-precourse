@@ -31,4 +31,8 @@ public class Player extends Gambler {
 	public String getName() {
 		return name;
 	}
+
+	public double getBettingMoney() {
+		return bettingMoney;
+	}
 }

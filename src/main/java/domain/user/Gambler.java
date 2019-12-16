@@ -11,13 +11,17 @@ public abstract class Gambler {
 
 	private int sum;
 
+	private boolean winner;
+
+	private double earnings = 0;
+
 	public abstract void addCard(Card card);
 
 	public abstract List<Card> getCards();
 
 	public int sumCardsMin() {
 		cardScores = getCards().stream()
-			.map(card -> card.getSymbolScore())
+			.map(Card::getSymbolScore)
 			.collect(Collectors.toList());
 
 		sum = cardScores.stream()
@@ -32,7 +36,7 @@ public abstract class Gambler {
 			.filter(score -> (score == 1))
 			.collect(Collectors.toList());
 
-		for (Iterator<Integer> iterator = aces.iterator(); sum+10 <= 21 && iterator.hasNext(); iterator.next()) {
+		for (Iterator<Integer> iterator = aces.iterator(); sum + 10 <= 21 && iterator.hasNext(); iterator.next()) {
 			sum += 10;
 		}
 
@@ -46,5 +50,21 @@ public abstract class Gambler {
 	public boolean isBust(int blackJackPoint) {
 		sumCardsMin();
 		return sum > blackJackPoint;
+	}
+
+	public boolean isWinner() {
+		return winner;
+	}
+
+	public void setWinner(boolean winner) {
+		this.winner = winner;
+	}
+
+	public double getEarnings() {
+		return earnings;
+	}
+
+	public void setEarnings(double earnings) {
+		this.earnings = earnings;
 	}
 }

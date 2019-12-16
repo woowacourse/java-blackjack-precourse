@@ -10,25 +10,30 @@ import domain.user.Player;
 public abstract class Round {
 	protected boolean playerWin;
 	protected boolean dealerWin;
-	protected List<Gambler> winnerList;
+	protected Table table;
 
-	public abstract void run(Table table);
+	public Round(Table table) {
+		this.table = table;
+	}
 
-	abstract void findWinner(Table table);
+	public abstract void run();
+
+	abstract void findWinner();
 
 	protected void checkDealerWin(Gambler dealer, int point) {
 		dealerWin = (dealer.sumCardsMax() == point);
 	}
 
 	protected void checkPlayerWin() {
-		playerWin = (winnerList.size() > 0);
+		playerWin = table.getPlayerList().stream()
+			.anyMatch(Gambler::isWinner);
 	}
 
 	public boolean hasWinners() {
 		return playerWin || dealerWin;
 	}
 
-	protected void showResultStatus(Table table) {
+	protected void showStatus() {
 		OutputController outputController = OutputController.getOutputController();
 		outputController.printDealerResultLine(table.getDealer(), table.getDealer().sumCardsMax());
 		for (Gambler player : table.getPlayerList()
@@ -37,4 +42,6 @@ public abstract class Round {
 		}
 		outputController.printNewLine();
 	}
+
+	protected abstract void doSettlement();
 }
