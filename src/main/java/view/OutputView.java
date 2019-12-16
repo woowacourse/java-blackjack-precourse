@@ -8,6 +8,7 @@ import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
+import utils.NumberHandler;
 
 public class OutputView {
     private static final String[] FIRST_DISTRIBUTION_MESSAGES = {"딜러와 ", "에게 2장의 카드를 나누었습니다."};
@@ -86,12 +87,12 @@ public class OutputView {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(RESULT_PROFIT_MESSAGE);
         stringBuilder.append(DEALER_STATE_MESSAGE);
-        stringBuilder.append(Rule.getDealerProfit(dealer, players));
+        stringBuilder.append(NumberHandler.deleteDecimalPointZero(Rule.getDealerProfit(dealer, players)));
         stringBuilder.append("\n");
         for(Player player : players) {
             stringBuilder.append(player.getName());
             stringBuilder.append(": ");
-            stringBuilder.append(Rule.getPlayerProfit(dealer, player));
+            stringBuilder.append(NumberHandler.deleteDecimalPointZero(Rule.getPlayerProfit(dealer, player)));
             stringBuilder.append("\n");
         }
         System.out.println(stringBuilder.toString());
