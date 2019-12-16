@@ -65,4 +65,7 @@ public class BlackJackGame {
         return getCard;
     }
 
+    private boolean doubleCheck(Card getCard) {
+        return this.getCardsList.contains(getCard);
+    }
 }
