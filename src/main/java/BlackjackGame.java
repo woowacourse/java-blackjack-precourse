@@ -3,7 +3,6 @@
  * */
 
 
-import domain.card.Card;
 import domain.construtor.CardDrawing;
 import domain.construtor.ConstructPlayerAndDealer;
 import domain.user.Dealer;
