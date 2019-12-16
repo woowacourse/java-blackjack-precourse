@@ -39,6 +39,14 @@ public class Card {
                 '}';
     }
 
+    public Symbol getSymbol() {
+        return this.symbol;
+    }
+
+    public Type getType() {
+        return this.type;
+    }
+
     public String toCardString(){
         switch(this.type){
             case SPADE:

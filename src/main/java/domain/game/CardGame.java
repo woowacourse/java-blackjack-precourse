@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CardGame {
 
@@ -107,6 +108,30 @@ public class CardGame {
             element.takeCards(FIRST_CARD_COUNT, originalCardList);
         });
     }
+
+    public static void isBlackJack(List<Card> cardList){
+
+        int total = 0;
+        for (Card card : cardList) {
+            total += card.getSymbol().getScore();
+        }
+    }
+
+    public static boolean existAce(List<Card> cardList){
+        return cardList.stream().anyMatch(element -> element.getSymbol().getScore() == 1);
+        return cardList.stream().anyMatch(element -> element.getSymbol().getScore() == 1);
+    }
+
+    public static void calcCardList(List<Card> cardList){
+        Stream<Card> aceIsElevenCardList = cardList.stream();
+        Stream<Card> aceIsOneCardList = cardList.stream();
+
+        aceIsElevenCardList.filter(element -> element.getSymbol().getScore() == 1)
+
+
+    }
+
+
     public static void run(){
         List<String> playerNameList = insertPlayerNameStr();
 
