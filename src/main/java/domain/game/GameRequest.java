@@ -12,25 +12,23 @@ public class GameRequest {
 	private double money;
 	private StringTokenizer usersToken;
 	private ArrayList<Player> userList;
-	private GameUI gameUI;
 	private RequestException requestException;
 
 	public GameRequest() {
 		scan = new Scanner(System.in);
 		userList = new ArrayList<Player>();
-		gameUI = new GameUI();
 		requestException = new RequestException();
 	}
 
 	public void requestName() {
 		try {
-			gameUI.requestUserNameInterface();
+			GameUI.requestUserNameInterface();
 			name = scan.nextLine();
 			usersToken = new StringTokenizer(name);
 			tokenName(usersToken);
 		} catch (Exception e) {
 			scan = new Scanner(System.in);
-			System.out.println("5글자 이하의 이름을 입력하세요");
+			GameUI.requestUserNameFixInterface();
 			requestName();
 		}
 	}
@@ -54,11 +52,11 @@ public class GameRequest {
 
 	private void requestBettingMoney(String name) {
 		try {
-			gameUI.requestUserBettingMoneyInterface(name);
+			GameUI.requestUserBettingMoneyInterface(name);
 			money = scan.nextDouble();
 			requestException.exceptionMoney(money);
 		} catch (Exception e) {
-			System.out.println("제대로 된 값을 입력하세요(양수)");
+			GameUI.requestUserBettingMoneyFixInterface();
 			scan = new Scanner(System.in);
 			requestBettingMoney(name);
 		}

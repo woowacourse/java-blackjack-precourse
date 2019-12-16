@@ -7,12 +7,13 @@ import java.util.Objects;
  */
 public class Card {
     private final Symbol symbol;
-
+    private boolean exist;
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
+        this.exist = true;
     }
 
     // TODO Card 관련 추가 기능 구현

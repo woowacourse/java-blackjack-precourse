@@ -9,9 +9,10 @@ import domain.user.Player;
  * 게임 전반적 진행 클래스
  */
 public class Play {
-	ArrayList playerList;
+	ArrayList<Player> playerList;
 	Dealer dealer;
 	GameRequest gameRequest;
+
 	public Play() {
 		dealer = new Dealer();
 		playerList = new ArrayList<Player>();
@@ -19,7 +20,11 @@ public class Play {
 		gameRequest.requestName();
 	}
 
-	public void requestUser(){
+	public void requestUser() {
 		playerList = gameRequest.getUserList();
+	}
+
+	public void giveCard() {
+		GameUI.parsingName(playerList);
 	}
 }
