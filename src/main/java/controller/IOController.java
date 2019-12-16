@@ -1,8 +1,10 @@
 package controller;
 
+import domain.blackjack.Rule;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -124,8 +126,7 @@ public class IOController {
     System.out.print(card.getSuit());
     System.out.print(" ");
     System.out.print(card.getSymbol());
-    System.out.print("]");
-
+    System.out.print("] ");
   }
 
   private static void printReverseCard(Card card) {
@@ -145,6 +146,7 @@ public class IOController {
     for (int i = 0; i < cards.size(); i++) {
       printCard(cards.get(i));
     }
+    printScore(cards);
     System.out.println();
 
 
@@ -156,6 +158,7 @@ public class IOController {
     for (int i = 0; i < cards.size(); i++) {
       printCard(cards.get(i));
     }
+    printScore(cards);
     System.out.println();
   }
 
@@ -194,7 +197,20 @@ public class IOController {
     if (!input.equals("Y") && !input.equals("y") && !input.equals("n") && !input.equals("N")) {
       throw new Exception("입력이 올바르지 않습니다.");
     }
+  }
 
+  private static void printScore(List<Card> cards){
+    int score = Rule.getScore(cards);
+    System.out.print("점수 : " + score);
+  }
+
+  public static void printGameResult(Dealer dealer, ArrayList<Player> players){
+    System.out.println("-------- 게임 결과 --------");
+    printHandsOfDealer(dealer,false);
+
+    for (Player player : players) {
+      printHandsOfPlayer(player);
+    }
   }
 
 

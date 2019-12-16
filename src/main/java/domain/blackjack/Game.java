@@ -80,6 +80,7 @@ public class Game {
   }
 
   private void endGame() {
+    IOController.printGameResult(this.table.getDealer(), this.table.getPlayers());
 
   }
 
