@@ -1,16 +1,30 @@
 package domain.outcome;
 
+import domain.card.Card;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Outcome {
     private final String name;
+    private List<Card> cards;
     private double benefit;
 
-    public Outcome(String name, double benefit) {
+    public Outcome(String name, double benefit, List<Card> cards) {
         this.name = name;
+        this.cards = cards;
         this.benefit = benefit;
     }
 
-    public void printOutcome() {
-        System.out.println(name + " : " + benefit);
+    public String printOutcome() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name)
+                .append(" 카드: ")
+                .append(printCards())
+                .append(" - 결과: ")
+                .append(benefit)
+                .append("\n");
+        return sb.toString();
     }
 
     public String getName() {
@@ -34,5 +48,11 @@ public class Outcome {
 
     public boolean isDealer() {
         return this.name.equals("Dealer");
+    }
+
+    private String printCards() {
+        return cards.stream()
+                .map(i -> i.getCardInfo())
+                .collect(Collectors.joining(", "));
     }
 }

@@ -1,6 +1,6 @@
 package domain.outcome;
 
-import domain.card.Symbol;
+import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +23,13 @@ public class Outcomes {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Outcome outcome : outcomes) {
-            sb.append(outcome.getName() + " : " + outcome.getBenefit()).append("\n");
+            sb.append(outcome.printOutcome());
         }
         return sb.toString();
     }
 
     private void addDealer() {
-        outcomes.add(new Outcome("Dealer", 0));
+        outcomes.add(new Outcome("Dealer", 0, new ArrayList<Card>()));
     }
 
     private Outcome searchDealerOutcome() {

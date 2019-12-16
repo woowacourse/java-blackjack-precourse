@@ -25,7 +25,7 @@ class UsersTest {
         System.out.println(usersList.get(1).calcurateScore());
         Users users = new Users(usersList);
         System.out.println();
-        Outcomes outcomes = new Outcomes(new ArrayList<Outcome>());
+        Outcomes outcomes = new Outcomes();
         users.decideOutcome(17, outcomes);
         System.out.println(outcomes.toString());
     }

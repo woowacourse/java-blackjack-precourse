@@ -56,7 +56,7 @@ public class Users {
     public void addOutcomes(Player player, Outcomes outcomes, Double benefit) {
         outcomes.addOutcomes(
                 new Outcome(player.getName(),
-                        benefit));
+                        benefit, player.getCards()));
     }
 
     private void decideWinner(int dealerScore, Outcomes outcomes) {
