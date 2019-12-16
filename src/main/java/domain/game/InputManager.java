@@ -100,11 +100,11 @@ public class InputManager {
         return false;
     }
 
-    public double getPlayerBattingMoney(Player player) {
+    public double getPlayerBattingMoney(String playerName) {
         String battingMoneyString;
 
         do {
-            print(Message.makeMessageAskPlayerBattingAmout(player));
+            print(Message.makeMessageAskPlayerBattingAmout(playerName));
             battingMoneyString = scanner.nextLine().trim();
         } while (checkBattingMoneyValid(battingMoneyString));
 
