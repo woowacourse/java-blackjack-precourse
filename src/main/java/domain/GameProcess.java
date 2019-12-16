@@ -14,11 +14,14 @@ public class GameProcess {
     private Scanner sc = new Scanner(System.in);
     private String[] playerName;
     private int[] betting;
+    private double[] win_or_lose;
     private List<Card> cards = new ArrayList<>();
-    private List<Dealer> player = new ArrayList<>();
+    private List<Dealer> player = new ArrayList<>();    // player[0]에 딜러, 나머지는 플레이어
+    private final int DEALER_INDEX = 0;
     private final int ZERO_BETTING = 0;
     private final int MAX_CARD_NUMBER = 52;
     private final int BLACKJACK = 21;
+    private final double WIN = 1.5, DRAW = 1, LOSE = -1;
 
     public void Game() {
         inputName();
@@ -29,7 +32,7 @@ public class GameProcess {
             deal_TwoCard(player.get(i));
             System.out.println(player.get(i));
         }
-
+        check_First();
     }
 
     private void inputName() {
@@ -79,6 +82,19 @@ public class GameProcess {
         System.out.println(dealer.getName()+ "에게 두 장의 카드를 주었습니다.");
         for(int i = 0; i < Two; i++){
             deal_OneCard(dealer);
+        }
+    }
+
+    private void check_First(){
+        win_or_lose = new double[player.size()];
+        for(int i = 1; i < 2; i++){
+            if(player.get(DEALER_INDEX).getCardSum() == BLACKJACK
+                    && player.get(i).getCardSum() == BLACKJACK){
+                win_or_lose[i] = DRAW;
+            }else if(player.get(i).getCardSum() == BLACKJACK
+                        && player.get(DEALER_INDEX).getCardSum() != BLACKJACK){
+                win_or_lose[i] = WIN;
+            }
         }
     }
 
