@@ -13,6 +13,10 @@ public class Gamer {
 	private static final int INITIAL_NUMBER_OF_CARDS = 2;
     private final List<Card> cards = new ArrayList<>();
     
+    public List<Card> getCards() {
+    	return this.cards;
+    }
+    
     public void addCard(Card card) {
         cards.add(card);
     }

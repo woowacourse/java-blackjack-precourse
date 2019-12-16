@@ -1,5 +1,7 @@
 package domain.user;
 
+import utils.BooleanInput;
+
 /**
  * 게임 참여자를 의미하는 객체
  */
@@ -10,5 +12,9 @@ public class Player extends Gamer {
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+    }
+    
+    public String getName() {
+    	return this.name;
     }
 }
