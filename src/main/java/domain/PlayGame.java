@@ -82,7 +82,7 @@ public class PlayGame {
     private void askPlayers(Player player) {
         Scanner s = new Scanner(System.in);
         boolean request = true;
-        while (request) {
+        while (request && player.cardSum() < Score.BLACK_JACK) {
             System.out.println('\n' + player.getName() + "은(는) 카드를 한 장 더 받겠습니까?(예는 y, 아니오는 n)");
             String requestStr = s.next();
             //requestExceptionCheck(yesOrNo(requestStr));
