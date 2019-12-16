@@ -69,10 +69,8 @@ public class Game {
             dealerIsBlackJack();
             return;
         }
-        for(index = 0; index < player.size(); index++) {
-            //블랙잭 여부 확인
-
-            askOneMoreCard();
+        for(index = 0; index < player.size(); index++){
+            askOneMoreOnlyForNotBJPlayer();
         }
         giveMoreCardToDealer();
         finishGame();
@@ -91,6 +89,12 @@ public class Game {
             player.get(index).getBettingMoney(0);
         }
         player.get(index).getBettingMoney(-1);
+    }
+
+    public void askOneMoreOnlyForNotBJPlayer() {
+        if(!checkPlayerBlackJack()){
+            askOneMoreCard();
+        }
     }
 
     public void initDistributeCard() {
