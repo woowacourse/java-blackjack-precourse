@@ -7,11 +7,13 @@ import domain.card.Symbol;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 abstract public class User {
     private final List<Card> cards = new ArrayList<>();
     private static final int LIMIT = 21;
+    private static final int ONE = 21;
 
     public void addRandomCard() {
         cards.add(RandomCardFactory.create());
@@ -37,10 +39,10 @@ abstract public class User {
         }
     }
 
-    public boolean checkAce() {
-        return cards.stream().anyMatch(card ->
+    public int getAceCount() {
+        return (int) cards.stream().filter(card ->
                 card.getSymbol() == Symbol.ACE
-        );
+        ).count();
     }
 
     public boolean checkExcess() {
@@ -52,7 +54,7 @@ abstract public class User {
     }
 
     public boolean isBlackJack() {
-        if (!checkAce())     // A가 있고
+        if (getAceCount() == ONE)     // A가 있고
             return false;
 
         return cards.stream().anyMatch(card ->      // K,J,Q 중 하나가 존재해야 블랙잭이다.
@@ -70,22 +72,34 @@ abstract public class User {
     }
 
     public int calcurateScore() {
+        int scoreExceptAce = calcurateScoreExceptAce();
+        return startCalcurateAceScoreLoop(scoreExceptAce);
+    }
 
-        int scoreExceptAce = cards.stream()
+    public int startCalcurateAceScoreLoop(int score) {
+        for (int i = getAceCount(); i > 0; i--) {
+            score += calcureateAceScore(score);
+        }
+        return score;
+    }
+
+    private int calcureateAceScore(int score) {
+        if (score + Symbol.ACE.getBonusScore() > LIMIT) {
+            return Symbol.ACE.getScore();
+        }
+
+        return Symbol.ACE.getBonusScore();
+    }
+
+    private int calcurateScoreExceptAce() {
+        Optional<Integer> scoreExceptAce = cards.stream()
                 .filter(card -> card.getSymbol() != Symbol.ACE)
                 .map(card -> card.getSymbol().getScore())
-                .reduce(Integer::sum)
-                .get();
-        
-        if (checkAce() && scoreExceptAce + Symbol.ACE.getBonusScore() <= LIMIT) {
-            return scoreExceptAce + Symbol.ACE.getBonusScore();
+                .reduce(Integer::sum);
+        if (scoreExceptAce.isPresent()) {
+            return scoreExceptAce.get();
         }
-
-        if (checkAce() && scoreExceptAce + Symbol.ACE.getScore() > LIMIT) {
-            return scoreExceptAce + Symbol.ACE.getScore();
-        }
-
-        return scoreExceptAce;
+        return 0;
     }
 
     abstract public void printUserInfo();
