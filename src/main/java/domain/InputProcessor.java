@@ -1,7 +1,5 @@
 package domain;
 
-import domain.user.Player;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -19,6 +17,8 @@ public class InputProcessor {
         return playerNamesArray;
     }
 
+    static final int MINIMUM_PLAYER_NUMBER = 1;
+
     static ArrayList<String> getPlayerNameInput() {
         Scanner playerNameInput = new Scanner(System.in);
         String playerNames = playerNameInput.next();
@@ -30,7 +30,7 @@ public class InputProcessor {
     }
 
     static boolean checkPlayerNameInput(ArrayList<String> playerNameInputArray) {
-        if (playerNameInputArray.size() < 1) {
+        if (playerNameInputArray.size() < MINIMUM_PLAYER_NUMBER) {
             return false;
         }
         return true;

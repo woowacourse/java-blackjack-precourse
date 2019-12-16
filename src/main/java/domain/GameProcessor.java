@@ -1,5 +1,6 @@
 package domain;
 
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
@@ -12,9 +13,13 @@ public class GameProcessor {
             Double playerMoney = InputProcessor.getPlayerMoney(playerName);
             playersArray.add(new Player(playerName, playerMoney));
         }
-
         for (int i = 0; i < playersArray.size(); i++) {
-            System.out.println(playersArray.get(i).getName() + ", " + playersArray.get(i).getBettingMoney());
+            System.out.println(playersArray.get(i).getName() + ", " + (int)playersArray.get(i).getBettingMoney());
         }
     }
+
+    static void createDealer() {
+        Dealer dealer = new Dealer();
+    }
+
 }
