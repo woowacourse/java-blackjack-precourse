@@ -39,4 +39,8 @@ public class Player extends BaseUser implements User {
     public String getMessageForAdditionalCard() {
         return PLAYER_IS_GETTING_ADDITIONAL_CARD_MESSAGE;
     }
+
+    public double multiplyBettingMoneyBy(double number) {
+        return this.bettingMoney * number;
+    }
 }

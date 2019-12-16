@@ -3,6 +3,7 @@ package Controller;
 import Exception.DeckHasNoCardException;
 import UI.Input.InputController;
 import UI.Output.OutputController;
+import domain.result.GameResult;
 import domain.card.Deck;
 import domain.user.*;
 
@@ -20,14 +21,30 @@ public class BlackjackGame {
         this.deck = new Deck();
     }
 
-    public void play() {
+    public void run() {
+        GameResult gameResult = playAndHandleErrors();
+        showGameResult(gameResult);
+    }
+
+    private GameResult playAndHandleErrors() {
         try {
-            distributeInitialCards();
-            playTurns();
-
+            return play();
         } catch (DeckHasNoCardException e) {
-
+            return null;
         }
+    }
+
+    private GameResult play() {
+        GameResult gameResult = GameResult.create(users);
+
+        distributeInitialCards();
+        if (gameResult.hasBlackjack()) {
+            return gameResult;
+        }
+
+        playTurns();
+        gameResult.decideGameResult();
+        return gameResult;
     }
 
     private void distributeInitialCards() {
@@ -50,5 +67,9 @@ public class BlackjackGame {
             OutputController.printHoldingCards(user);
         }
         OutputController.printHoldingCards(user);
+    }
+
+    private void showGameResult(GameResult gameResult) {
+        OutputController.printGameResult(gameResult);
     }
 }
