@@ -15,8 +15,12 @@ public class UserInput {
     }
 
     private static List<String> splitPlayersName(String playerString) {
-        return Arrays.asList(playerString.trim()
+        List<String> playersName = Arrays.asList(playerString.trim()
                 .replace(" ", "").split(","));
+        if(playersName.contains("")) {
+            throw new IllegalArgumentException("입력받은 이름 중 공백이 있습니다!\n");
+        }
+        return playersName;
     }
 
     public static int inputBettingMoney(String name) {
