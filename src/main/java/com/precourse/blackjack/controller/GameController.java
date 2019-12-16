@@ -26,7 +26,7 @@ import com.precourse.blackjack.view.OutputView;
 public class GameController {
 	public static void startGame() {
 		Game game = new Game(initializePlayers());
-		//game.start();
+		game.start();
 	}
 
 	private static List<Player> initializePlayers() {
@@ -37,7 +37,6 @@ public class GameController {
 		for (int i = 0; i < playersName.size(); i++) {
 			players.add(new Player(playersName.get(i), playersBettingMoney.get(i)));
 		}
-
 		return players;
 	}
 

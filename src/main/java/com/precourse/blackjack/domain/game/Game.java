@@ -8,6 +8,7 @@
 
 package com.precourse.blackjack.domain.game;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.precourse.blackjack.domain.card.Card;
@@ -24,10 +25,22 @@ public class Game {
 	private final List<Card> cardDeck;
 	private final List<Player> players;
 	private final Dealer dealer;
+	private int cardTop = -1;
 
 	public Game(List<Player> players) {
 		this.cardDeck = CardFactory.create();
 		this.players = players;
 		this.dealer = new Dealer();
+	}
+
+	public void start() {
+		Collections.shuffle(cardDeck);
+		dealTwoCards();
+		//GameController.finishInitialCardDealing
+	}
+
+	private void dealTwoCards() {
+		players.forEach(player -> player.addCard(cardDeck.get(++cardTop)));
+		dealer.addCard(cardDeck.get(++cardTop));
 	}
 }
