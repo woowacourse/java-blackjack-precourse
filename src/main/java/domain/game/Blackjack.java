@@ -1,13 +1,13 @@
 package domain.game;
 
 import domain.card.Card;
-import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
@@ -15,10 +15,10 @@ public class Blackjack {
     public Dealer dealer;
     public List<Player> players = new ArrayList<Player>();
     public Scanner sc = new Scanner(System.in);
-    private final List<Card> cards;
+    private Stack<Card> cards = new Stack<>();
 
-    public Blackjack() {
-        cards = CardFactory.create();
+    public Blackjack(List<Card> cards) {
+        this.cards.addAll(cards);
         dealer = new Dealer();
     }
 
