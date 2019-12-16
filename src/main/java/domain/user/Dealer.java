@@ -9,6 +9,8 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer {
+    private static final int BLACKJACK = 21;
+    private static final int ACEDIFFNUM = 10;
     private final List<Card> cards = new ArrayList<>();
     private double cost = 0;
 
@@ -21,14 +23,30 @@ public class Dealer {
     // TODO 추가 기능 구현
     public int sumScore() {
         int score = 0;
+        boolean hasAce = false;
         for (int i = 0; i < cards.size(); i++) {
             score += cards.get(i).getScore();
+            hasAce = cards.get(i).ifCardisAce();
+        }
+        if(hasAce) {
+            score = checkIfBurst(score);
+        }
+        return score;
+    }
+
+    public int checkIfBurst(int score) {
+        if (score + ACEDIFFNUM <= BLACKJACK){
+            score += ACEDIFFNUM;
         }
         return score;
     }
 
     public void addCost(double playerCost) {
         cost += playerCost;
+    }
+
+    public void minusCost(double playerCost) {
+        cost -= playerCost;
     }
 
     public double finalCost() {
