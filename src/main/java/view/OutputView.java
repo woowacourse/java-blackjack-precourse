@@ -3,6 +3,12 @@ package view;
 import domain.user.Dealer;
 import domain.user.Player;
 
+/**
+ * @author KIMSIYOUNG
+ * @apiNote 출력을 담당하는 클래스로, GameModel 에서 출력이 필요한 부분을 담당합니다.
+ * @apiNote 모델에 넣는 것 보다, 가독성이 좋은 것 같아 따로 클래스로 분리하였습니다.
+ * @since 2019-12-13
+ */
 public class OutputView {
     private static final String NEXT_LINE = "\n";
     private static final String CARD = "님의 카드 : ";
@@ -12,7 +18,6 @@ public class OutputView {
     private static final String DEALER = "딜러 : ";
     private static final String COLON = " : ";
     private static final String PROFIT = "##최종수익";
-
 
     public static void printCards(Player player) {
         System.out.println(player.getName() + CARD + player.getCards().toString());

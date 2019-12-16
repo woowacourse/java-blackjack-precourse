@@ -14,7 +14,7 @@ public class CardFactory {
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);
         }
-        Collections.shuffle(cards);
+        Collections.shuffle(cards); // 덱 생성을 위한 shuffle
         return Collections.unmodifiableList(cards);
     }
 

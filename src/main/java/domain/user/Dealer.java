@@ -11,12 +11,15 @@ public class Dealer extends Gamer {
     public Dealer() {
     }
 
-    // TODO 추가 기능 구현
-
     public boolean shouldHaveOneMoreCard() {
         return sumOfCard() <= SIXTEEN;
     }
 
+    /**
+     * 플레이어의 수익(승패)에 따라, 딜러의 수익을 결정하는 메서드입니다.
+     * @param player
+     * @return 해당 플레이어와의 게임에서 수익 리턴
+     */
     public double calculateProfit(Player player) {
         if (player.isWinGame(this) || player.isDrawGame(this)) {
             return player.getProfit() * MINUS_ZERO;

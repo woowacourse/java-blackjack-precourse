@@ -16,7 +16,7 @@ public enum Symbol {
     KING(10, "K");
 
     private int score;
-    private String name;
+    private String name; // Jack, Queen, King, Ace 등 쉽게 이해하도록 이름을 붙였습니다.
 
     Symbol(int score, String name) {
         this.score = score;

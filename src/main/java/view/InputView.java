@@ -8,6 +8,11 @@ import java.util.stream.Collectors;
 
 import domain.user.Player;
 
+/**
+ * @author KIMSIYOUNG
+ * @apiNote 사용자 입력을 담당하는 클래스로 이름이나 배팅금액, 추가 카드유무 등을 입력받습니다.
+ * @since 2019-12-13
+ */
 public class InputView {
     private static final String USER_NAME_INPUT = "게임에 참여할 사람의 이름을 입력하세요. 쉼표 기준으로 분리";
     private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));

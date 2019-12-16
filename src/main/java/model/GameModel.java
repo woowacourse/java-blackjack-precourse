@@ -11,6 +11,11 @@ import domain.user.Player;
 import view.InputView;
 import view.OutputView;
 
+/**
+ * @author KIMSIYOUNG
+ * @apiNote 게임 처리를 담당하는 모델로, 카드 분배 및 결과 값 계산 등의 기능이 있습니다.
+ * @since 2019-12-13
+ */
 public class GameModel {
     private static final double WIN_RATE = 1;
     private static final double DRAW_RATE = 0;
