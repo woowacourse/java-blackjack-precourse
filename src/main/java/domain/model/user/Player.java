@@ -23,8 +23,8 @@ public class Player extends BlackJackParticipant {
         return this.name;
     }
 
-    public void getBettingMoney() {
-        // TODO 이건 메시지를 보내는 방법으로 작성해보자.
+    public double getProfitByBettingMoney(double profitRate) {
+        return this.bettingMoney * profitRate;
     }
 
 

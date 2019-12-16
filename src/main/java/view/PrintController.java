@@ -33,6 +33,7 @@ public class PrintController {
     private static final String GET_N_NUMBER_CARDS = "장의 카드를 더 받았습니다.";
     private static final String RESULT_COLON = " - 결과: ";
     private static final String TOTAL_PROFIT = "## 최종 수익";
+    private static final String COLON = ": ";
 
     public static String integerToKoreanNumber(int number) {
         if (number == 1) { return "한"; }
@@ -101,5 +102,13 @@ public class PrintController {
 
     public static void printPlayerCardFinalInformation(Player player) {
         System.out.println(player.getName() + CARD_COLON + player.getCardsInformation() + RESULT_COLON + player.getCurrentScore());
+    }
+
+    public static void printDealerProfit(double dealerProfit) {
+        System.out.println(DEALER_COLON + (int)dealerProfit);
+    }
+
+    public static void printPlayerProfit(double playerProfit, Player player) {
+        System.out.println(player.getName() + COLON + (int)playerProfit);
     }
 }

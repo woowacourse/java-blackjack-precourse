@@ -37,6 +37,7 @@ public class BlackJackGameController {
         CardDrawController.makeEntireCardSet();
         initiateDrawing();
         moreDrawing();
+        finishBlackJackGame();
 
         // test
         System.out.println("fin");
@@ -89,18 +90,14 @@ public class BlackJackGameController {
         }
         tryDealerExtraDrawing();
 
-        // test 결과 임시 출력
-        ResultController resultController = new ResultController();
-        resultController.controlFinalResult(playerList, dealer);
-
     }
 
     public void askMoreDrawingLoop(Player player) {
         boolean userAnswer;
         CardDrawController cardDrawController = new CardDrawController();
 
-        if (CardDrawController.checkCanDrawMore(player)) { // true면 더 드로우 못한다.
-            System.out.println("checkCanDrawMore!!!!!??");
+        if (CardDrawController.checkCanNotDrawMore(player)) {
+            System.out.println("checkCanNotDrawMore!!!!!??");
             return ;
         }
         do {
@@ -121,7 +118,18 @@ public class BlackJackGameController {
         PrintController.printDealerExtraCards(dealer.getAllCards().size() - TWO);
         // test
         System.out.println("DEALER?" + dealer.getAllCardsScore());
+    }
 
+    public void finishBlackJackGame() {
+        ResultController resultController = new ResultController();
+        resultController.controlPrintingFinalResult(playerList, dealer);
+
+        if (dealer.isBurst()) {
+            resultController.startDealerBurstProcedure(playerList, dealer);
+            return;
+        }
+
+        resultController.startNormalFinishProcedure(playerList,dealer);
 
     }
 }

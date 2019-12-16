@@ -32,7 +32,7 @@ public class CardDrawController {
         entireCards = new ArrayList<>(CardFactory.create());
     }
 
-    public static boolean checkCanDrawMore(Player player) {
+    public static boolean checkCanNotDrawMore(Player player) {
         return player.isBlackJack() || player.isBurst();
     }
 
@@ -75,7 +75,7 @@ public class CardDrawController {
             PrintController.printPlayerCardInformation(player);
         }
 
-        if (CardDrawController.checkCanDrawMore(player)) {
+        if (CardDrawController.checkCanNotDrawMore(player)) {
             System.out.println("버스트 처리해주기");
             return false;
         }
