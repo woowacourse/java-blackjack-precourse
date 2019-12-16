@@ -35,4 +35,8 @@ public class BlackjackSystem {
     private void addPlayer(Player player) {
         playerList.add(player);
     }
+    
+    private int getRandomNumber(int range) {
+        return (int) (Math.random() * range);
+    }
 }
