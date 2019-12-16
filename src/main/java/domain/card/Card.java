@@ -39,9 +39,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return symbol.getCardChar() +
+                type.getSuit();
     }
 }
