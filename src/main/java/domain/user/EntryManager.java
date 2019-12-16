@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EntryManager {
-    private static final int FIND_WHO_BURST= 0;
+    private static final int FIND_WHO_BURST = 0;
 
     private List<Player> players;
 

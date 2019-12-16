@@ -49,7 +49,7 @@ public class Player {
     }
 
     public int getCountedScoreWithAceBonus() {
-        if (getCountedScore() == AFTER_BURST_SCORE){
+        if (getCountedScore() == AFTER_BURST_SCORE) {
             return AFTER_BURST_SCORE;
         }
         return Optional.of(getCountedScore() + ACE_CARD_BONUS_SCORE)
@@ -63,7 +63,7 @@ public class Player {
     }
 
     public boolean isBurst(int score) {
-        return  score < BURST;
+        return score < BURST;
     }
 
     public boolean isBlackJack() {
@@ -76,7 +76,7 @@ public class Player {
     }
 
     public void initCardShare(CardsOnGame gameCards) {
-        if (!isDealer()){
+        if (!isDealer()) {
             addCard(gameCards.pickUpCard());
         }
         addCard(gameCards.pickUpCard());
