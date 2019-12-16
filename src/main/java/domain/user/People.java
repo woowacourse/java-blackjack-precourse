@@ -77,7 +77,7 @@ public class People {
 
     private boolean blackJackCheck() {
         if (((cards.get(ZERO).getSymbol().getScore() + cards.get(ONE).getSymbol().getScore()) == ELEVEN)
-                && (cards.get(ZERO).getSymbol().getScore() == ONE || cards.get(ONE).getSymbol().getScore() == TEN))
+                && ((cards.get(ZERO).getSymbol().getScore() == ONE) || (cards.get(ZERO).getSymbol().getScore() == TEN)))
             return true;
         return false;
     }

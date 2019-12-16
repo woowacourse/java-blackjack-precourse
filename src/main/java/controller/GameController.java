@@ -22,6 +22,7 @@ public class GameController {
     private InputSystem inputSystem;
     private Result dealerResult;
     private ArrayList<Result> playerResult;
+    private boolean isExit = false;
 
     public GameController() {
         players = new ArrayList<>();
@@ -48,13 +49,13 @@ public class GameController {
             dealerBlackjackCalculate();
             return;
         }
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < players.size(); i++)
             drawPlayerCard(i);
-        }
         drawDealerCard();
     }
 
     public void gameResult() {
+
         calculateMoney();
         OutputSystem.printResultValue(dealer, players);
         OutputSystem.printResultMoney(dealerResult, playerResult);
@@ -99,8 +100,8 @@ public class GameController {
             playerResult.add(new Result(player.getName(), -player.getBettingMoney()));
             return player.getBettingMoney();
         }
-        playerResult.add(new Result(player.getName(), player.getBettingMoney() + player.blackJactBonus()));
-        return -player.getBettingMoney() + player.blackJactBonus();
+        playerResult.add(new Result(player.getName(), player.getBettingMoney() + player.blackJackBonus()));
+        return -(player.getBettingMoney() + player.blackJackBonus());
     }
 
     private void normalCalculate() {
@@ -113,15 +114,15 @@ public class GameController {
 
     public double dealerToPlayerCompare(Player player) {
         if (dealer.isDealerWinner(player)) {
-            playerResult.add(new Result(player.getName(),-player.getBettingMoney()));
+            playerResult.add(new Result(player.getName(), -player.getBettingMoney()));
             return player.getBettingMoney();
         }
         if (dealer.isTie(player)){
             playerResult.add(new Result(player.getName(),0));
             return 0;
         }
-        playerResult.add(new Result(player.getName(),player.getBettingMoney()+player.blackJactBonus()));
-        return player.getBettingMoney()+player.blackJactBonus();
+        playerResult.add(new Result(player.getName(),player.getBettingMoney()+player.blackJackBonus()));
+        return -(player.getBettingMoney()+player.blackJackBonus());
     }
 
     private String[] commaNameSlice(String names) {
