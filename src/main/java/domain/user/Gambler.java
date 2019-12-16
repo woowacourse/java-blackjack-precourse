@@ -32,7 +32,7 @@ public abstract class Gambler {
 			.filter(score -> (score == 1))
 			.collect(Collectors.toList());
 
-		for (Iterator<Integer> iterator = aces.iterator(); sum < 21 && iterator.hasNext(); ) {
+		for (Iterator<Integer> iterator = aces.iterator(); sum+10 <= 21 && iterator.hasNext(); iterator.next()) {
 			sum += 10;
 		}
 

@@ -27,20 +27,11 @@ public class Table {
 		deck.shuffle();
 	}
 
-	public void distribute(int count) {
-		try {
-			drawAll(Arrays.asList(dealer), count);
-			drawAll(playerList, count);
-		} catch (Exception e) {
-			System.out.println(Rule.getOutOfCardsMessage());
-		}
-	}
-
 	public List<Gambler> getPlayerList() {
 		return playerList;
 	}
 
-	public List<String> getPlayerNames(){
+	public List<String> getPlayerNames() {
 		return playerList.stream()
 			.map(player -> ((Player)player).getName())
 			.collect(Collectors.toList());

@@ -45,7 +45,8 @@ public class OutputView {
 		String printData = String.format(BLACKJACK_ROUND_DRAW_FORMAT, DEALER, joinedNames, basicDraw);
 		System.out.println(printData);
 	}
-	public void printNewLine(){
+
+	public void printNewLine() {
 		System.out.println();
 	}
 }

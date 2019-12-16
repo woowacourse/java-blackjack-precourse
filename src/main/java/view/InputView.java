@@ -40,7 +40,6 @@ public class InputView {
 		String yesOrNoText = String.format("(예는 %s, 아니오는 %s)", yesOrNo[0], yesOrNo[1]);
 		System.out.println(name + PROMPT_DRAW + yesOrNoText);
 		String inputValue = scanner.nextLine();
-		System.out.println();
 		return inputValue;
 	}
 
