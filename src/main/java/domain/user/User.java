@@ -61,6 +61,10 @@ abstract public class User {
         return this instanceof Player;
     }
 
+    public boolean isDealer() {
+        return this instanceof Dealer;
+    }
+
     public int calcurateScore() {
         int scoreExceptAce = cards.stream()
                 .map(card -> card.getSymbol().getScore())

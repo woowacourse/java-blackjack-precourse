@@ -47,11 +47,24 @@ public class Users {
     }
 
     public void startAddCardQuestion() {
+        startUserAddCardQuestion();
+        startDealerAddCardQuestion();
+    }
+
+    private void startUserAddCardQuestion() {
         users.stream()
                 .filter(user -> user.isPlayer())
                 .forEach(player -> {
                     ((Player) player).startAddCardLoop();
                 });
+    }
+
+    private void startDealerAddCardQuestion() {
+        users.stream()
+                .filter(user -> user.isDealer())
+                .map(user -> (Dealer) user)
+                .forEach(dealer ->
+                        dealer.doCheckAddLimitExcessAndFollowAction());
     }
 
     public void decideOutcome(int dealderScore, Outcomes outcomes) {

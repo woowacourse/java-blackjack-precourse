@@ -36,7 +36,7 @@ public class Dealer extends User {
         return sum > ADD_CARD_LIMIT;
     }
 
-    private void doCheckAddLimitExcessAndFollowAction() {
+    public void doCheckAddLimitExcessAndFollowAction() {
         if (checkAddLimitExcess() == false) {
             addRandomCard();
         }
