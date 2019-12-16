@@ -5,8 +5,9 @@
  * PlayerFactory는 파싱한 이름과 배팅액을 가지고 Player에게 생성을 요청한다.
  * 플레이어는 이름과 배팅액의 유효성을 검사하고 유효하면 생성한다.
  * 플레이어는 이름과 배팅액이 유효하지 않으면 예외를 던진다.
+ * BlackjackGame은 섞인 카드로 게임을 시작한다.
  * BlackjackRule은 딜러와 플레이어들에게 2장씩 카드를 나눈다.
- * BlackjackGame은 2장씩 나뉜 카드중 블랙잭이 있는지 검사하고 있다면 게임을 끝낸다.
+ * BlackjackGame은 딜러와 플레이어들에게 나뉜 카드중 블랙잭이 있는지 검사하고 있다면 게임을 끝낸다.
  * BlackjackRule은 플레이어들에게 카드를 한 장 더 받을지 물어본다. - hit or stay
  * BlackjackRule은 딜러의 카드를 확인하여 딜러의 카드 점수의 총 합이 16이하면 카드를 한장 더 받게 한다. - hit or stay
  * BlackjackGame은 딜러의 카드를 확인하여 카드 점수의 총 합이 21을 초과하는 경우 게임을 끝낸다. - dealer bust
