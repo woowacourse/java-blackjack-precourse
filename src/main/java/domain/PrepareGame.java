@@ -43,14 +43,24 @@ public class PrepareGame {
     }
 
     private List<Double> getBettingMoneys(List<String> names) {
-        List<Double> bettingMoneys = new ArrayList<Double>();
+        List<Double> bettingMoneys = new ArrayList<>();
         Scanner s = new Scanner(System.in);
         for (int i = 0 ; i < names.size() ; i++) {
             System.out.println(names.get(i) + "의 배팅 금액은?");
-            double money = s.nextDouble();
+            double money = makeBettingMoneyValid();
             bettingMoneys.add(money);
         }
         return bettingMoneys;
+    }
+
+    private double makeBettingMoneyValid() {
+        Scanner s = new Scanner(System.in);
+        double money = s.nextDouble();
+        while (money <= 0) {
+            System.out.println("1원 이상 배팅해주세요.");
+            money = s.nextDouble();
+        }
+        return money;
     }
 
     /**

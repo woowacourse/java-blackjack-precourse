@@ -190,18 +190,18 @@ public class PlayGame {
     }
 
     private void printFinalResult() {
-        System.out.println('\n' + dealer.print() + " - 결과 :" + (int)dealer.cardSum());
+        System.out.println('\n' + dealer.print() + " - 결과 :" + dealer.cardSum());
         for (Player player : players) {
-            System.out.println(player.print() + " - 결과 :" + (int)player.cardSum());
+            System.out.println(player.print() + " - 결과 :" + player.cardSum());
         }
         printFinalScore();
     }
 
     private void printFinalScore() {
         System.out.println("\n## 최종수익");
-        System.out.println("딜러: " + dealer.getProfit());
+        System.out.println("딜러: " + (int)dealer.getProfit());
         for (Player player : players)
-            System.out.println(player.getName() + ": " + player.getProfit());
+            System.out.println(player.getName() + ": " + (int)player.getProfit());
     }
 
 }
