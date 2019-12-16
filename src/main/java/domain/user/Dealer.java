@@ -21,7 +21,7 @@ public class Dealer {
     // TODO 추가 기능 구현
 
     /**
-     * 게임 시작시 카드 출력 형식
+     * 게임 시작시 카드 출력 형식(1장만 출력)
      */
     public void showInitCard() {
         System.out.print("\n딜러 : " + cards.get(1));
@@ -50,6 +50,4 @@ public class Dealer {
         }
         return cards.stream().mapToInt(Card::getScore).sum();
     }
-
-
 }

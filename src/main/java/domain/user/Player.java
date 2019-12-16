@@ -54,5 +54,4 @@ public class Player {
     public double getBettingMoney() {
         return bettingMoney;
     }
-
 }

@@ -12,10 +12,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameMc {
-    public static final int INITIAL_CARD_NUM = 2;
+    public static final int INITIAL_CARD_NUM = 2; //처음 받는 카드의 수
     public static final int MAX_SCORE = 21;
     public static final int STANDARD_DEALER_SCORE = 17;
     public static final double BONUS = 1.5;
+
     private ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Player> buster = new ArrayList<Player>();//21이 넘어 패한 플레이어 혹은 딜러보다 점수가 낮은 플레이어
     private Dealer dealer = new Dealer();
@@ -32,10 +33,10 @@ public class GameMc {
         }
     }
 
-    public String inputIsHit(){
+    public String inputIsHit() {
         Scanner input = new Scanner(System.in);
         String answer = input.next();
-        while (!("y".equals(answer) || "n".equals(answer))){
+        while (!("y".equals(answer) || "n".equals(answer))) {
             System.out.println("y 또는 n을 입력하세요.");
             answer = input.next();
         }
@@ -56,7 +57,6 @@ public class GameMc {
     public Boolean isNotInt(String str) {
         String pattern = "^[0-9]+$";
         return !str.matches(pattern);
-
     }
 
     public Card makeRandomCard() {
@@ -132,7 +132,7 @@ public class GameMc {
     /**
      * 처음 2장이 블랙잭일 경우 블랙잭인 플레이어와 아닌 플레이어를 나눔
      */
-    public void splitBlackJackOrNot(){
+    public void splitBlackJackOrNot() {
         buster = players;
         players.removeIf(x -> (x.getScore() != MAX_SCORE));
         buster.removeIf(x -> (players.contains(x)));
@@ -230,5 +230,4 @@ public class GameMc {
             dealer.addCard(makeRandomCard());
         }
     }
-
 }
