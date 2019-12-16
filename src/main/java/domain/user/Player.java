@@ -42,7 +42,7 @@ public class Player {
 
     public int getScoreFromCard(int score, int i) {
         int aceCount = 0;
-        if (cards.get(i).ifCardisAce()){
+        if (cards.get(i).ifCardIsAce()){
             aceCount = 1;
         }
         return aceCount;
@@ -55,7 +55,7 @@ public class Player {
         return score;
     }
 
-    public void multiInterestToBettinfMoney(double interest) {
+    public void multipleInterestAndBettingMoney(double interest) {
         reward = bettingMoney * interest;
     }
 
