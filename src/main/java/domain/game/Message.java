@@ -42,7 +42,7 @@ public class Message {
         return playerName + MESSAGE_ASK_PLAYER_BATTING_AMOUNT;
     }
 
-    public static String makeMessageDealTwoCardsToPlayer(ArrayList<Player> players) {
+    public static String makeMessageDrawTwoCardsToDealerAndPlayer(ArrayList<Player> players) {
         List<String> playerNameList = new ArrayList<>();
         for (Player player : players) {
             playerNameList.add(player.getName());
