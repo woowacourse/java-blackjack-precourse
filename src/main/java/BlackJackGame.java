@@ -63,9 +63,18 @@ public class BlackJackGame {
     }
 
     private MoneyDTO compareScore(Player player, Dealer dealer, MoneyDTO dealerMoney) {
-        int profit = getProfit(player, dealer);
+        int profit = getShare(player, dealer);
         dealerMoney.setMoney(dealerMoney.getMoney() + (-1 * profit));
         return new MoneyDTO(player.getName(), profit);
+    }
+
+    private int getShare(Player player, Dealer dealer) {
+        int x = getProfit(player, dealer);
+        if (x != 0) return x;
+        if (player.getScore() < dealer.getScore() || (player.isBusted() && !dealer.isBusted())) {
+            return (int) (-1 * player.getBettingMoney());
+        }
+        return 0;
     }
 
     private int getProfit(Player player, Dealer dealer) {
@@ -74,9 +83,6 @@ public class BlackJackGame {
         }
         if (!player.isBusted() && (player.getScore() > dealer.getScore() || (dealer.isBusted() && !player.isBusted()))) {
             return (int) player.getBettingMoney();
-        }
-        if (player.getScore() < dealer.getScore() || (player.isBusted() && !dealer.isBusted())) {
-            return (int) (-1 * player.getBettingMoney());
         }
         return 0;
     }
@@ -120,15 +126,19 @@ public class BlackJackGame {
     }
 
     private void askToDraw(Player player, List<Card> newCards) {
-        boolean continueDraw = true;
         printMessage("\n" + player.getCardString());
+        drawContinuously(player, newCards);
+        if (player.isBusted()) {
+            ConsoleOutput.printBusted();
+        }
+    }
+
+    private void drawContinuously(Player player, List<Card> newCards) {
+        boolean continueDraw = true;
         while (continueDraw && !player.isBusted()) {
             printMessage(player.isHit());
             continueDraw = drawOneMore(player, newCards);
             printMessage(player.getCardString());
-        }
-        if (player.isBusted()) {
-            ConsoleOutput.printBusted();
         }
     }
 
