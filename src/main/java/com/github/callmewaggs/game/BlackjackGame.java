@@ -6,11 +6,11 @@ import java.util.List;
 
 public class BlackjackGame {
   List<Participant> participants;
-  List<Card> cards;
+  CardShuffler cardShuffler;
 
   public BlackjackGame(List<Participant> participants, List<Card> cards) {
     this.participants = participants;
-    this.cards = cards;
+    this.cardShuffler = CardShuffler(cards);
   }
 
   public void gameStart() {
