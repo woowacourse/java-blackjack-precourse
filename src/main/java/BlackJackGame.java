@@ -27,7 +27,7 @@ public class BlackJackGame {
         List<Card> newCards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(newCards);
         drawStartCards(newCards);
-        if (!checkBlackJack()) {
+        if(!dealer.isBlackJack()) {
             startTurn(newCards);
         }
         printGameResult();
@@ -103,23 +103,27 @@ public class BlackJackGame {
         return newCards.remove(newCards.size() - 1);
     }
 
-    private boolean checkBlackJack() {
-        return dealer.isBlackJack() || players.stream().anyMatch(Person::isBlackJack);
-    }
-
     private void startTurn(List<Card> newCards) {
-        players.forEach(x -> askToDraw(x, newCards));
+        players.forEach(x -> checkAdditionalDraw(x, newCards));
         while (dealer.isBelowRedraw()) {
             ConsoleOutput.printDealerRedraw();
             dealer.addCard(drawTopCard(newCards));
         }
     }
 
+    private boolean checkAdditionalDraw(Player player, List<Card> newCards) {
+        if(player.isBlackJack()) {
+            printMessage("블랙잭! 150%의 배당을 받습니다.");
+            return true;
+        }
+        askToDraw(player, newCards);
+        return true;
+    }
+
     private void askToDraw(Player player, List<Card> newCards) {
-        String message = player.isHit();
         boolean continueDraw = true;
         while (continueDraw && !player.isBusted()) {
-            printMessage(message);
+            printMessage(player.isHit());
             continueDraw = drawOneMore(player, newCards);
             printMessage(player.getCardString());
         }
