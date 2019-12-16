@@ -23,7 +23,7 @@ public class Gamer {
         return sumOfCard() == BLACKJACK;
     }
 
-    protected Integer sumOfCard() {
+    public Integer sumOfCard() {
         int sum = 0;
         for(int i=0; i<getCards().size(); i++){
             sum += getCards().get(i).getSymbol().getScore();

@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import domain.user.Player;
+
 public class InputView {
     private static final String USER_NAME_INPUT = "게임에 참여할 사람의 이름을 입력하세요. 쉼표 기준으로 분리";
     private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
@@ -17,6 +19,9 @@ public class InputView {
     private static final String INPUT_BETTING_MONEY = "님의 배팅금액은?";
     private static final String ERROR_FORMAT = "잘못된 형식입니다. 다시 입력해주세요.";
     private static final String ERROR_ZERO = "0은 입력할 수 없습니다.";
+    private static final String INPUT_WANT_ONE_MORE = "님 한장의 카드를 더 받겠습니까?(Y / N)";
+    private static final String YES = "Y";
+    private static final String NO = "N";
 
     public List<String> inputUserNames() throws IOException {
         System.out.println(USER_NAME_INPUT);
@@ -66,5 +71,17 @@ public class InputView {
             return parseDouble;
         System.out.println(ERROR_ZERO);
         return checkBettingMoneyAndReturn();
+    }
+
+    public boolean wantOneMore(Player player) throws IOException {
+        System.out.println(player.getName() + INPUT_WANT_ONE_MORE);
+        String userInput = BR.readLine().trim().toUpperCase();
+        if(userInput.equals(YES))
+            return true;
+        if(!userInput.equals(NO)){
+            System.out.println(ERROR_FORMAT);
+            return wantOneMore(player);
+        }
+        return false;
     }
 }
