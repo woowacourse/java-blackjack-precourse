@@ -38,6 +38,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return " " + this.symbol + this.type;
+        return " " + this.symbol.getScore() + this.type;
     }
 }

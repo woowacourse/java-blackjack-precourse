@@ -9,7 +9,7 @@ public class UtilityMethods {
 		return splitTarget;
 	}
 
-	public static int generateRandomNumber(int limit) {
+	public static int generateRandomNumberUnder(int limit) {
 		int randomNumber = (int) (Math.random() * limit);
 		return randomNumber;
 	}
