@@ -29,12 +29,12 @@ public class Player {
   }
 
   private static long checkMoneyValidation(String bettingMoney) {
-    long money = stringToLong(bettingMoney);
+    long money = parseStringMoneyToLong(bettingMoney);
     checkValidationWithCondition(money < 0, "배팅 금액은 양수만 가능합니다. 다시 입력해주세요.");
     return money;
   }
 
-  private static long stringToLong(String bettingMoney) {
+  private static long parseStringMoneyToLong(String bettingMoney) {
     try {
       return Long.parseLong(bettingMoney);
     } catch (Exception e) {
