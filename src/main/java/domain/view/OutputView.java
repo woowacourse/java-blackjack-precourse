@@ -44,9 +44,7 @@ public class OutputView {
 	}
 
 	private static void printCardSymbolAndType(StringBuffer sb, Card card) {
-		sb.append(card.getSymbol());
-		sb.append(" ");
-		sb.append(card.getType());
+		sb.append(card.getCardSymbolAndType());
 	}
 
 	public static void printDealerInitialCards(Dealer dealer) {

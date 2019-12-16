@@ -21,15 +21,15 @@ public class Card {
 		return this.symbol.getScore();
 	}
 
-    public Symbol getSymbol() {
-        return symbol;
-    }
+	public String getCardSymbolAndType() {
+		return symbol.getName() + type.getTypeName();
+	}
 
-    public Type getType() {
-        return type;
-    }
-
-    @Override
+	public Symbol getSymbol() {
+		return symbol;
+	}
+	
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
