@@ -35,4 +35,11 @@ public class InputProcessor {
         }
         return true;
     }
+
+    static Double getPlayerMoney(String playerName) {
+        System.out.println(playerName + " 플레이어의 베팅 금액을 입력해주세요.");
+        Scanner playerMoneyInput = new Scanner(System.in);
+        Double playerMoney = playerMoneyInput.nextDouble();
+        return playerMoney;
+    }
 }

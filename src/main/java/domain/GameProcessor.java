@@ -5,15 +5,16 @@ import domain.user.Player;
 import java.util.ArrayList;
 
 public class GameProcessor {
-    private static ArrayList<Player> playerArray = new ArrayList<Player>();
+    private static ArrayList<Player> playersArray = new ArrayList<Player>();
 
-    static void initGame(ArrayList<String> playerNamesArray) {
+    static void addPlayers(ArrayList<String> playerNamesArray) {
         for (String playerName : playerNamesArray) {
-            playerArray.add(new Player(playerName, 1000));
+            Double playerMoney = InputProcessor.getPlayerMoney(playerName);
+            playersArray.add(new Player(playerName, playerMoney));
         }
 
-        for (int i = 0; i < playerArray.size(); i++) {
-            System.out.println(playerArray.get(i).getName() + ", " + playerArray.get(i).getBettingMoney());
+        for (int i = 0; i < playersArray.size(); i++) {
+            System.out.println(playersArray.get(i).getName() + ", " + playersArray.get(i).getBettingMoney());
         }
     }
 }
