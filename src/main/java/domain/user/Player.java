@@ -15,6 +15,7 @@ public class Player {
 	private final List<Card> cards = new ArrayList<>();
 
 	public Player(String name, double bettingMoney) {
+		super();
 		this.name = name;
 		this.bettingMoney = bettingMoney;
 	}
@@ -28,11 +29,28 @@ public class Player {
 	}
 
 	public void showHand() {
-		String showHand = this.name;
-		for (Card card : this.cards) {
-			showHand += card.toString() + ",";
+		final int INDEX_ONE = 1;
+		final int INDEX_ZERO = 0;
+		String hand = this.name;
+
+		if (isDealer()) {
+			hand = setHandString(INDEX_ONE);
+		} else if(!isDealer()) {
+			hand = setHandString(INDEX_ZERO);
 		}
-		System.out.println(showHand);
+		System.out.println(hand);
+	}
+
+	private boolean isDealer() {
+		return this instanceof Dealer;
+	}
+
+	private String setHandString(int index){
+		String hand = this.name;
+		for ( ; index < this.cards.size(); index++) {
+			hand += cards.get(index).toString();
+		}
+		return hand;
 	}
 
 	public Status checkStatus() {
