@@ -1,5 +1,6 @@
 package domain;
 
+import domain.outcome.Outcomes;
 import domain.user.Users;
 import domain.view.InputUtil;
 import domain.view.OutputUtil;
@@ -8,6 +9,7 @@ public class BlackJackGame {
     public static void start() {
         Users users = initGameSetting();
         startDecideCardAddLoop(users);
+        decideOutcome(users);
     }
 
     private static Users initGameSetting() {
@@ -32,5 +34,16 @@ public class BlackJackGame {
     private static void startDecideCardAddLoop(Users users) {
         users.startAddCardQuestion();
         users.printFinalOutput();
+    }
+
+    private static int getDealerScore(Users users) {
+        return users.getDealer().calcurateScore();
+    }
+
+    private static void decideOutcome(Users users) {
+        Outcomes outcomes = new Outcomes();
+        users.decideOutcome(getDealerScore(users), outcomes);
+        outcomes.calcurateDealerBenefit();
+        OutputUtil.printOutcomes(outcomes);
     }
 }
