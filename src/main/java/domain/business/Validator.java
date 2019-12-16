@@ -1,12 +1,11 @@
 /*
- * @(#)Validator.java       0.7 2019.12.16
+ * @(#)Validator.java       0.8 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
 
 package domain.business;
 
-import domain.card.Card;
 import domain.ui.Output;
 
 import java.util.HashSet;
@@ -15,10 +14,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * 입력의 유효성 검증을 담당하는 객체
+ * 입력의 유효성 검증을 담당하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.16
+ * @version 0.8 2019.12.16
  */
 public class Validator {
     /**
@@ -27,7 +26,7 @@ public class Validator {
     private static final String PLAYER_NAME_FORMAT = "^[a-zA-Z]*$";
 
     /**
-     * Player BettingMoney의 가능한 최소 금액을 확인하기 위한 상수.
+     * Player의 배팅 금액으로 가능한 최소 금액을 확인하기 위한 상수.
      */
     private static final double MIN_BETTING_MONEY = 0;
 
@@ -37,12 +36,12 @@ public class Validator {
     private static final int MIN_PLAYER_NAME_LENGTH = 0;
 
     /**
-     * Player가 카드를 더 받는 응답임을 확인하기 위한 상수.
+     * Player가 card를 더 받는 응답임을 확인하기 위한 상수.
      */
     private static final String GET_MORE_CARD = "y";
 
     /**
-     * Player가 카드를 더 이상 안받는다는 응답임을 확인하기 위한 상수.
+     * Player가 card를 더 이상 안받는다는 응답임을 확인하기 위한 상수.
      */
     private static final String STOP_GET_MORE_CARD = "n";
 
@@ -52,10 +51,10 @@ public class Validator {
     private static Output out = new Output();
 
     /**
-     * Player 이름이 유효한지(길이, 형식, 중복) 확인하는 메소드.
+     * Player들의 이름이 유효한지(길이, 형식, 중복) 확인하는 메소드.
      *
-     * @param playerNames Player 이름.
-     * @throws InputMismatchException Player 이름 중 유효하지 않은 이름이 존재할 시 발생하는 예외.
+     * @param playerNames Player들의 이름.
+     * @throws InputMismatchException Player들의 이름 중 유효하지 않은 이름이 존재할 시 발생하는 예외.
      */
     public static void isValidPlayerName(List<String> playerNames) throws InputMismatchException {
         try {
@@ -69,10 +68,10 @@ public class Validator {
     }
 
     /**
-     * Player 이름의 길이가 유효한지(길이가 1이상) 확인하는 메소드.
+     * Player들의 이름의 길이가 유효한지(길이가 1이상) 확인하는 메소드.
      *
-     * @param playerNames Player 이름.
-     * @throws InputMismatchException Player 이름 중 길이가 유효하지 않은 이름이 존재할 시 발생하는 예외.
+     * @param playerNames Player들의 이름.
+     * @throws InputMismatchException Player들의 이름 중 길이가 유효하지 않은 이름이 존재할 시 발생하는 예외.
      */
     private static void isValidPlayerNameLength(List<String> playerNames) throws InputMismatchException {
         for (String playerName : playerNames) {
@@ -81,10 +80,10 @@ public class Validator {
     }
 
     /**
-     * Player 한명의 이름의 길이가 유효한지 확인하고 메시지를 출력하는 메소드.
+     * Player의 이름의 길이가 유효한지 확인하고 메시지를 출력하는 메소드.
      *
-     * @param playerName Player 이름(한명).
-     * @throws InputMismatchException Player 이름의 길이가 유효하지 않을 경우 발생하는 예외.
+     * @param playerName Player의 이름.
+     * @throws InputMismatchException Player의 이름의 길이가 유효하지 않을 경우 발생하는 예외.
      */
     private static void isValidOnePlayerNameLength(String playerName) throws InputMismatchException {
         if (playerName.length() == MIN_PLAYER_NAME_LENGTH) {
@@ -94,10 +93,10 @@ public class Validator {
     }
 
     /**
-     * Player 이름의 형식이 유효한지(영문자로 구성) 확인하는 메소드.
+     * Player들의 이름의 형식이 유효한지(영문자로 구성) 확인하는 메소드.
      *
-     * @param playerNames Player 이름.
-     * @throws InputMismatchException Player 이름 중 형식이 유효하지 않은 이름이 존재할 시 발생하는 예외.
+     * @param playerNames Player들의 이름.
+     * @throws InputMismatchException Player들의 이름 중 형식이 유효하지 않은 이름이 존재할 시 발생하는 예외.
      */
     private static void isValidPlayerNameFormat(List<String> playerNames) throws InputMismatchException {
         for (String playerName : playerNames) {
@@ -106,10 +105,10 @@ public class Validator {
     }
 
     /**
-     * Player 한명의 이름의 형식이 유효한지 확인하고 메시지를 출력하는 메소드.
+     * Player의 이름의 형식이 유효한지 확인하고 메시지를 출력하는 메소드.
      *
-     * @param playerName Player 이름(한명).
-     * @throws InputMismatchException Player 이름의 형식이 유효하지 않을 경우 발생하는 예외.
+     * @param playerName Player의 이름.
+     * @throws InputMismatchException Player의 이름의 형식이 유효하지 않을 경우 발생하는 예외.
      */
     private static void isValidOnePlayerNameFormat(String playerName) throws InputMismatchException {
         if (!Pattern.matches(PLAYER_NAME_FORMAT, playerName)) {
@@ -119,10 +118,10 @@ public class Validator {
     }
 
     /**
-     * Player 이름 중에 중복이 존재하는지 확인하고 메시지를 출력하는 메소드.
+     * Player들의 이름 중에 중복이 존재하는지 확인하고 메시지를 출력하는 메소드.
      *
-     * @param playerNames Player 이름.
-     * @throws InputMismatchException Player 이름 중에 중복이 존재할 경우 발생하는 예외.
+     * @param playerNames Player들의 이름.
+     * @throws InputMismatchException Player들의 이름 중에 중복이 존재할 경우 발생하는 예외.
      */
     private static void isNoDuplicatePlayerName(List<String> playerNames) throws InputMismatchException {
         HashSet<String> noDuplicatePlayerNames = new HashSet<>(playerNames);
@@ -136,13 +135,12 @@ public class Validator {
      * Player의 배팅 금액이 유효한지 확인하는 메소드.
      *
      * @param bettingMoney Player의 배팅 금액.
-     * @throws InputMismatchException bettingMoney가 유효하지 않은 경우 발생하는 예외.
+     * @throws InputMismatchException 배팅 금액이 유효하지 않은 경우 발생하는 예외.
      */
     public static void isValidPlayerBettingMoney(double bettingMoney) throws InputMismatchException {
         try {
             isValidBettingMoney(bettingMoney);
         } catch (InputMismatchException e) {
-            out.printInputRequestAgain();
             throw new InputMismatchException();
         }
     }
@@ -151,33 +149,18 @@ public class Validator {
      * 배팅 금액이 최소 금액보다 높은지 확인하고 메시지를 출력하는 메소드.
      *
      * @param bettingMoney Player의 배팅 금액.
-     * @throws InputMismatchException bettingMoney가 최소 금액보다 작다면 발생하는 예외.
+     * @throws InputMismatchException 배팅 금액이 최소 금액보다 작다면 발생하는 예외.
      */
     private static void isValidBettingMoney(double bettingMoney) throws InputMismatchException {
         if (!(bettingMoney > MIN_BETTING_MONEY)) {
-            out.printBettingMoneyUnderMinNumberError();
             throw new InputMismatchException();
         }
     }
 
     /**
-     * 카드 덱이 중복된 카드가 존재하는지 확인하고 메시지를 출력하는 메소드.
+     * card를 더 받겠다는 입력 형식이 유효한지 확인하는 메소드.
      *
-     * @param cards 생성된 카드 덱.
-     * @throws Exception 중복된 카드가 존재할 경우 발생하는 예외.
-     */
-    public static void isValidCardDeck(List<Card> cards) throws Exception {
-        HashSet<Card> noDuplicateCardDeck = new HashSet<>(cards);
-        if (noDuplicateCardDeck.size() != cards.size()) {
-            out.printCardDeckDuplicateError();
-            throw new Exception();
-        }
-    }
-
-    /**
-     * 카드를 더 받겠다는 입력 형식이 유효한지 확인하는 메소드.
-     *
-     * @param userInput 카드를 더 받겠다는 입력.
+     * @param userInput card를 더 받겠다는 입력.
      * @throws InputMismatchException 입력이 y 또는 n이 아닐 경우 발생하는 예외.
      */
     public static void isValidGetMoreCardReply(String userInput) throws InputMismatchException {

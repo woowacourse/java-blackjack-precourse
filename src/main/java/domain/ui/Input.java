@@ -1,5 +1,5 @@
 /*
- * @(#)Input.java       0.4 2019.12.15
+ * @(#)Input.java       0.5 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -9,10 +9,10 @@ package domain.ui;
 import java.util.Scanner;
 
 /**
- * 입력과 관련된 기능을 담당할 객체
+ * 입력과 관련된 기능을 담당할 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.4 2019.12.15
+ * @version 0.5 2019.12.16
  */
 public class Input {
     /**
@@ -21,9 +21,9 @@ public class Input {
     private Scanner scanner;
 
     /**
-     * 사용자로부터 게임 참여자 이름을 입력받는 메소드.
+     * 사용자로부터 게임 참여자들의 이름을 입력받는 메소드.
      *
-     * @return 사용자가 입력한 게임 참여자 이름 문자열.
+     * @return 사용자가 입력한 게임 참여자들의 이름의 문자열.
      */
     public String receivePlayerNameInput() {
         scanner = new Scanner(System.in);
@@ -31,9 +31,9 @@ public class Input {
     }
 
     /**
-     * 사용자로부터 해당 Player의 배팅 금액을 입력받는 메소드.
+     * 사용자로부터 배팅 금액을 입력받는 메소드.
      *
-     * @return 해당 Player의 배팅 금액.
+     * @return 사용자가 입력한 배팅 금액.
      */
     public double receivePlayerBettingMoneyInput() {
         scanner = new Scanner(System.in);
@@ -41,9 +41,9 @@ public class Input {
     }
 
     /**
-     * 해당 Player가 한장의 카드를 더 받을지 여부를 입력받는 메소드.
+     * Player가 한장의 card를 더 받을지 여부를 입력받는 메소드.
      *
-     * @return 한장의 카드를 더 받을지 여부(y 또는 n).
+     * @return 한장의 card를 더 받을지 여부(y 또는 n).
      */
     public String receivePlayerGetMoreCardInput() {
         scanner = new Scanner(System.in);

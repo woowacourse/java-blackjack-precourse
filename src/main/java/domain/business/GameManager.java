@@ -1,5 +1,5 @@
 /*
- * @(#)GameManager.java     0.2 2019.12.15
+ * @(#)GameManager.java     0.3 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -13,10 +13,10 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 /**
- * 게임의 진행을 관리하는 객체
+ * 게임의 진행을 관리하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.15
+ * @version 0.3 2019.12.16
  */
 public class GameManager {
     /**
@@ -35,18 +35,9 @@ public class GameManager {
     private BlackJackGame blackJackGame;
 
     /**
-     * 카드 생성시 예외를 처리하기 위한 기본 생성자.
-     *
-     * @throws Exception 카드 생성에 예외가 발생할 경우 생기는 예외.
-     */
-    public GameManager() throws Exception {}
-
-    /**
      * 블랙잭 게임을 진행할 BlackJackGame 인스턴스를 생성하고 Player 객체를 게임 안에 생성하고 게임을 시작하는 메소드.
-     *
-     * @throws Exception 카드 생성에 예외가 발생할 경우 생기는 예외.
      */
-    public void run() throws Exception {
+    public void run() {
         blackJackGame = new BlackJackGame();
         putPlayerInBlackJackGame(receivePlayerName());
         blackJackGame.playBlackJackGame();
@@ -55,7 +46,7 @@ public class GameManager {
     /**
      * 게임 참여자 이름을 입력받아 유효성을 검사 후 반환하는 메소드.
      *
-     * @return Player 이름 List.
+     * @return Player들의 이름.
      */
     private List<String> receivePlayerName() {
         List<String> playerNames;
@@ -73,20 +64,20 @@ public class GameManager {
     /**
      * Player의 배팅 금액을 입력받아 유효성을 검사 후 반환하는 메소드.
      *
-     * @param playerName Player 이름 List.
-     * @return 해당 Player의 배팅 금액.
+     * @param playerName Player들의 이름.
+     * @return Player의 배팅 금액.
      */
     private double receivePlayerBettingMoney(String playerName) {
-        double playerBettingMoney;
-
         try {
             out.printPlayerBettingMoneyRequest(playerName);
-            playerBettingMoney = in.receivePlayerBettingMoneyInput();
+            double playerBettingMoney = in.receivePlayerBettingMoneyInput();
             Validator.isValidPlayerBettingMoney(playerBettingMoney);
+            return playerBettingMoney;
         } catch (InputMismatchException e) {
+            out.printBettingMoneyUnderMinNumberError();
+            out.printInputRequestAgain();
             return receivePlayerBettingMoney(playerName);
         }
-        return playerBettingMoney;
     }
 
     /**

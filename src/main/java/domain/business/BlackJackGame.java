@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       0.9 2019.12.16
+ * @(#)BlackJackGame.java       1.0 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,36 +17,36 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 /**
- * 블랙잭 게임을 진행하는 객체
+ * 블랙잭 게임을 진행하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.9 2019.12.16
+ * @version 1.0 2019.12.16
  */
 public class BlackJackGame {
     /**
-     * Dealer와 관련된 정보를 출력할 때 사용할 상수.
+     * Dealer와 관련된 정보를 출력할 때 이름으로 사용할 상수.
      */
-    private static final String DEALER_NAME = "딜러";
+    private static final String DEALER_NAME = "Dealer";
 
     /**
-     * 첫 턴에 덱에서 카드를 2개씩 뽑을 때 사용할 상수.
+     * 처음 변수들을 0으로 초기화 하기 위한 상수.
+     */
+    private static final int INIT_TO_ZERO = 0;
+
+    /**
+     * 처음에 deck에서 card를 2개씩 뽑을 때 사용할 상수.
      */
     private static final int DRAW_TWICE = 2;
 
     /**
-     * 버스트(21을 초과)하는 상황인지 확인하기 위한 상수.
+     * Player가 card를 더 받는 응답임을 확인하기 위한 상수.
      */
-    private static final int BUST_NUMBER = 22;
+    private static final String GET_MORE_CARD = "y";
 
     /**
-     * 블랙잭의 수익을 계산하기 위한 상수.
+     * Dealer가 계속 card를 뽑아야 하는 점수인지 판단하기 위한 상수.
      */
-    private static final double BLACK_JACK_EARNING_RATE = 2.5;
-
-    /**
-     * 승리시 수익을 계산하기 위한 상수.
-     */
-    private static final double WIN_EARNING_RATE = 2.;
+    private static final int DRAW_CONTINUE_SCORE = 16;
 
     /**
      * 무승부일때 수익을 계산하기 위한 상수.
@@ -54,24 +54,29 @@ public class BlackJackGame {
     private static final double DRAW_EARNING_RATE = 1.;
 
     /**
-     * 입력과 관련되 기능을 담당할 Input 인스턴스.
+     * 승리시 수익을 계산하기 위한 상수.
+     */
+    private static final double WIN_EARNING_RATE = 2.;
+
+    /**
+     * 블랙잭의 수익을 계산하기 위한 상수.
+     */
+    private static final double BLACK_JACK_EARNING_RATE = 2.5;
+
+    /**
+     * 입력과 관련된 기능을 담당할 Input 객체.
      */
     private Input in = new Input();
 
     /**
-     * 출력과 관련된 기능을 담당할 Output 인스턴스.
+     * 출력과 관련된 기능을 담당할 Output 객체.
      */
     private Output out = new Output();
 
     /**
-     * 생성된 Player 인스턴스들을 담을 Player 인스턴스 List.
+     * 생성된 Player들을 저장할 Player List.
      */
     private List<Player> players;
-
-    /**
-     * Player의 점수를 저장할 Integer List.
-     */
-    private List<Integer> playerScores;
 
     /**
      * Player의 수익을 저장할 Double List.
@@ -84,30 +89,31 @@ public class BlackJackGame {
     private double dealerProfit;
 
     /**
-     * 게임에서 필요한 Dealer 인스턴스.
+     * 게임에 참여하는 Dealer 객체.
      */
     private Dealer dealer;
 
     /**
-     * 카드를 생성하고 담당할 Deck 인스턴스.
+     * card를 생성하고 담당할 Deck 객체.
      */
     private Deck deck;
 
     /**
-     * 블랙잭 게임을 생성하면 Player List와 Dealer를 생성하는 생성자.
+     * 블랙잭 게임을 생성하는 생성자.
      */
-    public BlackJackGame() throws Exception {
+    public BlackJackGame() {
         players = new ArrayList<>();
+        playerProfits = new ArrayList<>();
         dealer = new Dealer();
         deck = new Deck();
-        dealerProfit = 0;
+        dealerProfit = INIT_TO_ZERO;
     }
 
     /**
-     * Player 이름과 배팅 머니로 Player를 생성하여 List에 추가하고, 전체 배팅 금액 합계와 딜러의 수익에도 추가하는 메소드.
+     * Player의 이름과 배팅 머니로 Player를 생성하여 Player List에 추가하고, 배팅 금액을 딜러의 수익으로 들어가게 하는 메소드.
      *
-     * @param userName     Player 이름.
-     * @param bettingMoney 해당 Player의 배팅 머니.
+     * @param userName     Player의 이름.
+     * @param bettingMoney Player의 배팅 머니.
      */
     public void generatePlayerInstance(String userName, double bettingMoney) {
         players.add(new Player(userName, bettingMoney));
@@ -118,20 +124,21 @@ public class BlackJackGame {
      * 블랙잭 게임을 순차적으로 진행하기 위한 메소드.
      */
     public void playBlackJackGame() {
-        drawTwoCardsDealerAndPlayer();
-        drawMoreCardPlayer();
-        out.printNewLine();
-        dealer.printFinalResult(deck);
+        drawTwoCardsDealerAndPlayers();
+        drawMoreCardPlayers();
+        drawDealerAccordingRule();
+        dealer.printFinalResult();
         printFinalResultPlayer();
-        initPlayerInformation();
+        initPlayerProfit();
         calculateFinalProfit();
         printFinalProfit();
     }
 
     /**
-     * Dealer와 Player가 첫 턴에 2장의 카드를 뽑고 현재 카드 상태를 출력하는 메소드.
+     * Dealer와 Player들이 처음 2장의 card를 뽑고 현재 card 상태를 출력하는 메소드.
+     * 이때, Dealer는 처음 뽑은 1장의 card만 출력.
      */
-    public void drawTwoCardsDealerAndPlayer() {
+    public void drawTwoCardsDealerAndPlayers() {
         out.printHandOutTwoCards(StringUtil.joinPlayerName(players));
         drawTwoCardsDealer();
         dealer.printDealerCurrentCardStatus();
@@ -139,10 +146,11 @@ public class BlackJackGame {
             drawTwoCardsPlayer(player);
             player.printPlayerCurrentCardStatus();
         }
+        out.printNewLine();
     }
 
     /**
-     * Dealer에게 2장의 카드를 뽑도록 하는 메소드.
+     * Dealer에게 2장의 card를 뽑도록 하는 메소드.
      */
     private void drawTwoCardsDealer() {
         for (int i = 0; i < DRAW_TWICE; i++) {
@@ -151,9 +159,9 @@ public class BlackJackGame {
     }
 
     /**
-     * Player에게 2장의 카드를 뽑도록 하는 메소드.
+     * Player에게 2장의 card를 뽑도록 하는 메소드.
      *
-     * @param player Player 한명.
+     * @param player 카드를 뽑을 Player.
      */
     private void drawTwoCardsPlayer(Player player) {
         for (int i = 0; i < DRAW_TWICE; i++) {
@@ -162,23 +170,23 @@ public class BlackJackGame {
     }
 
     /**
-     * 모든 Player에게 카드를 더 뽑을지 물어보는 메소드.
+     * Player들에게 card를 더 뽑을지 물어보는 메소드.
      */
-    public void drawMoreCardPlayer() {
+    public void drawMoreCardPlayers() {
         for (Player player : players) {
             drawMoreCardOnePlayer(player);
         }
     }
 
     /**
-     * Player에게 카드를 더 뽑을지 물어보고 y이면 카드를 추가하고 다시 물어보는 메소드.
+     * Player에게 card를 더 뽑을지 물어보고 y이면 card를 추가하고 다시 물어보는 메소드.
      *
-     * @param player 카드를 뽑을 Player
-     * @return 카드를 더 이상 뽑지 않을 경우(n일 경우) false 반환.
+     * @param player card를 뽑을 Player
+     * @return card를 더 이상 뽑지 않을 경우(n일 경우) false 반환.
      */
     private boolean drawMoreCardOnePlayer(Player player) {
         out.printPlayerGetOneMoreCard(player.getName());
-        if (receivePlayerGetMoreCardReply().equals("y")) {
+        if (receivePlayerGetMoreCardReply().equals(GET_MORE_CARD)) {
             player.addCard(deck.drawCard());
             player.printPlayerCurrentCardStatus();
             return drawMoreCardOnePlayer(player);
@@ -187,9 +195,9 @@ public class BlackJackGame {
     }
 
     /**
-     * Player에게 카드를 추가로 받을지 여부를 입력받는 메소드.
+     * Player에게 card를 추가로 받을지 여부를 입력받는 메소드.
      *
-     * @return 카드를 추가로 받을지에 대한 응답(y 또는 n).
+     * @return card를 추가로 받을지에 대한 응답(y 또는 n).
      */
     private String receivePlayerGetMoreCardReply() {
         String userReply;
@@ -205,7 +213,29 @@ public class BlackJackGame {
     }
 
     /**
-     * Player의 최종 결과를 출력하는 메소드.
+     * Dealer의 총점이 17이 안될경우 규칙에 따라 계속 card를 뽑도록 하는 메소드.
+     */
+    private void drawDealerAccordingRule() {
+        out.printNewLine();
+        if (dealer.getScore() <= DRAW_CONTINUE_SCORE) {
+            drawUntilOverSixteen();
+            out.printNewLine();
+        }
+    }
+
+    /**
+     * Dealer 총점이 16점을 초과할 때까지 card를 뽑아 점수를 반환하는 메소드.
+     */
+    private void drawUntilOverSixteen() {
+        if (dealer.getScore() <= DRAW_CONTINUE_SCORE) {
+            out.printDealerCardLessThanSeventeen();
+            dealer.addCard(deck.drawCard());
+            drawUntilOverSixteen();
+        }
+    }
+
+    /**
+     * Player들의 최종 결과를 출력하는 메소드.
      */
     private void printFinalResultPlayer() {
         for (Player player : players) {
@@ -214,176 +244,148 @@ public class BlackJackGame {
     }
 
     /**
-     * Player의 수익과 총점을 미리 초기화해두는 메소드.
-     */
-    private void initPlayerInformation() {
-        initPlayerProfit();
-        getPlayerTotalScores();
-    }
-
-    /**
-     * Player들의 수익을 -배팅금액으로 초기화하는 메소드.
+     * Player들의 수익을 -배팅 금액으로 초기화하는 메소드.
      */
     private void initPlayerProfit() {
-        playerProfits = new ArrayList<>();
         for (Player player : players) {
             playerProfits.add(-player.getBettingMoney());
         }
     }
 
     /**
-     * Player들의 점수를 List에 저장하는 메소드.
-     */
-    private void getPlayerTotalScores() {
-        playerScores = new ArrayList<>();
-
-        for (Player player : players) {
-            int playerTotalScore = player.getTotalScore();
-            playerScores.add(playerTotalScore);
-        }
-    }
-
-    /**
-     * 최종 수익을 계산하는 메소드.
+     * Dealer와 Player들의 최종 수익을 계산하는 메소드.
      */
     private void calculateFinalProfit() {
-        int dealerScore = dealer.getTotalScore();
-        if (isBust(dealerScore)) {
+        if (dealer.isBust()) {
             calculateDealerIsBust();
             return;
         }
-        calculateDealerIsNotBust(dealerScore);
+        calculateDealerIsNotBust();
     }
 
     /**
-     * Dealer가 버스트일 경우 각 Player별 수익을 계산하는 메소드.
+     * Dealer가 버스트(총합이 21을 초과)일 경우 각 Player들의 수익을 계산하는 메소드.
      */
     private void calculateDealerIsBust() {
-        for (int i = 0; i < players.size(); i++) {
-            setPlayerProfitNotBust(i);
+        for (Player player : players) {
+            setPlayerProfitNotBust(player);
         }
     }
 
     /**
-     * Dealer가 버스트일때, Player가 버스트만 아니면 승리하고 버스트이면 패배하므로 해당 수익을 계산하는 메소드.
+     * Dealer가 버스트(총합이 21을 초과)일 때, Player가 버스트인지, 블랙잭(처음 2장의 care의 총합이 21)인지, 승리인지에 따라 수익을 계산하는 메소드.
      *
-     * @param playerIndex 수익을 계산할 Player의 index.
+     * @param player 수익을 계산할 Player.
      */
-    private void setPlayerProfitNotBust(int playerIndex) {
-        if (isBust(playerScores.get(playerIndex))) {
+    private void setPlayerProfitNotBust(Player player) {
+        if (player.isBust()) {
             return;
         }
-        if (players.get(playerIndex).isBlackJack()) {
-            setBlackJackPlayerProfit(playerIndex);
+        if (player.isBlackJack()) {
+            setBlackJackPlayerProfit(player);
             return;
         }
-        setWinnerPlayerProfit(playerIndex);
+        setWinnerPlayerProfit(player);
     }
 
     /**
-     * Dealer가 버스트가 아닌 경우, Dealer가 블랙잭일때와, 블랙잭이 아닐 떄를 구분하여 수익을 계산하는 메소드.
-     *
-     * @param dealerScore Dealer의 점수.
+     * Dealer가 버스트(총합이 21을 초과)가 아닌 경우, Dealer가 블랙잭(처음 2장의 care의 총합이 21)일 때와 아닐 떄를 구분하여 수익을 계산하는 메소드.
      */
-    private void calculateDealerIsNotBust(int dealerScore) {
+    private void calculateDealerIsNotBust() {
         if (dealer.isBlackJack()) {
             calculateDealerIsBlackJack();
             return;
         }
-        calculateProfit(dealerScore);
+        calculateProfit();
     }
 
     /**
-     * Dealer가 블랙잭일 경우 수익을 계산하는 메소드.
+     * Dealer가 블랙잭(처음 2장의 care의 총합이 21)일 경우 수익을 계산하는 메소드.
      */
     private void calculateDealerIsBlackJack() {
-        for (int i = 0; i < players.size(); i++) {
-            setPlayerProfit(i);
+        for (Player player : players) {
+            setDealerBlackJackPlayerProfit(player);
         }
     }
 
     /**
-     * Dealer가 블랙잭일때, Player가 블랙잭이면 무승부이므로 수익을 계산하는 메소드.
+     * Dealer가 블랙잭(처음 2장의 care의 총합이 21)일때, Player가 블랙잭이면 무승부이므로 수익을 계산하는 메소드.
      *
-     * @param playerIndex 수익을 계산할 Player의 index.
+     * @param player 수익을 계산할 Player.
      */
-    private void setPlayerProfit(int playerIndex) {
-        if (players.get(playerIndex).isBlackJack()) {
-            setDrawPlayerProfit(playerIndex);
+    private void setDealerBlackJackPlayerProfit(Player player) {
+        if (player.isBlackJack()) {
+            setDrawPlayerProfit(player);
         }
     }
 
     /**
-     * Dealer가 블랙잭이 아니면, 서로 점수를 비교하여 수익을 계산하는 메소드.
-     *
-     * @param dealerScore Dealer의 점수.
+     * Dealer가 블랙잭(처음 2장의 care의 총합이 21)이 아니면, 서로 점수를 비교하여 수익을 계산하는 메소드.
      */
-    private void calculateProfit(int dealerScore) {
-        for (int i = 0; i < players.size(); i++) {
-            setPlayerProfit(i, dealerScore);
+    private void calculateProfit() {
+        for (Player player : players) {
+            setPlayerProfit(player);
         }
     }
 
     /**
-     * Player가 버스트이면 패배하고, 점수가 더 높으면 승리, 같으면 무승부로 수익을 계산하는 메소드.
-     *
-     * @param playerIndex 수익을 계산할 Player의 Index.
-     * @param dealerScore Dealer의 점수.
+     * Player가 버스트(총합이 21을 초과)인 경우, 블랙잭(처음 2장의 care의 총합이 21)인 경우와 아닌 경우를 나눠서 수익을 계산하는 메소드.
      */
-    private void setPlayerProfit(int playerIndex, int dealerScore) {
-        if (isBust(playerScores.get(playerIndex))) {
+    private void setPlayerProfit(Player player) {
+        if (player.isBust()) {
             return;
         }
-        if (players.get(playerIndex).isBlackJack()) {
-            setBlackJackPlayerProfit(playerIndex);
+        if (player.isBlackJack()) {
+            setBlackJackPlayerProfit(player);
             return;
         }
-        setPlayerWinOrDrawProfit(playerIndex, dealerScore);
+        setPlayerWinOrDrawProfit(player);
     }
 
-    private void setPlayerWinOrDrawProfit(int playerIndex, int dealerScore) {
-        if (playerScores.get(playerIndex) > dealerScore) {
-            setWinnerPlayerProfit(playerIndex);
+    /**
+     * Player가 승리인지 무승부인지 확인해서 수익을 계산하는 메소드.
+     *
+     * @param player 수익을 계산할 Player.
+     */
+    private void setPlayerWinOrDrawProfit(Player player) {
+        int playerScore = player.getScore();
+        if (playerScore > dealer.getScore()) {
+            setWinnerPlayerProfit(player);
             return;
         }
-        if (playerScores.get(playerIndex) == dealerScore) {
-            setDrawPlayerProfit(playerIndex);
+        if (playerScore == dealer.getScore()) {
+            setDrawPlayerProfit(player);
         }
     }
 
-    private void setBlackJackPlayerProfit(int playerIndex) {
-        playerProfits.set(playerIndex, players.get(playerIndex).getBettingMoney() * BLACK_JACK_EARNING_RATE);
-        dealerProfit -= (players.get(playerIndex).getBettingMoney() * BLACK_JACK_EARNING_RATE);
+    /**
+     * Player가 블랙잭(처음 2장의 care의 총합이 21)에 해당하는 수익을 얻을 경우를 계산하는 메소드.
+     *
+     * @param player 수익을 계산할 Player.
+     */
+    private void setBlackJackPlayerProfit(Player player) {
+        playerProfits.set(players.indexOf(player), player.getBettingMoney() * BLACK_JACK_EARNING_RATE);
+        dealerProfit -= (player.getBettingMoney() * BLACK_JACK_EARNING_RATE);
     }
 
     /**
-     * 승리일 경우 Player의 수익을 설정하는 메소드.
+     * Player가 승리에 해당하는 수익을 얻을 경우를 계산하는 메소드.
      *
-     * @param playerIndex 수익을 설정할 Player의 index.
+     * @param player 수익을 계산할 Player.
      */
-    private void setWinnerPlayerProfit(int playerIndex) {
-        playerProfits.set(playerIndex, players.get(playerIndex).getBettingMoney() * WIN_EARNING_RATE);
-        dealerProfit -= (players.get(playerIndex).getBettingMoney() * WIN_EARNING_RATE);
+    private void setWinnerPlayerProfit(Player player) {
+        playerProfits.set(players.indexOf(player), player.getBettingMoney() * WIN_EARNING_RATE);
+        dealerProfit -= (player.getBettingMoney() * WIN_EARNING_RATE);
     }
 
     /**
-     * 무승부일 경우 Player의 수익을 설정하는 메소드.
+     * Player가 무승부에 해당하는 수익을 얻을 경우를 계산하는 메소드.
      *
-     * @param playerIndex 수익을 설정할 Player의 index.
+     * @param player 수익을 계산할 Player.
      */
-    private void setDrawPlayerProfit(int playerIndex) {
-        playerProfits.set(playerIndex, players.get(playerIndex).getBettingMoney() * DRAW_EARNING_RATE);
-        dealerProfit -= (players.get(playerIndex).getBettingMoney() * DRAW_EARNING_RATE);
-    }
-
-    /**
-     * 해당 점수가 버스트인지 확인하는 메소드.
-     *
-     * @param userScore 버스트인지 확인할 점수.
-     * @return 버스트이면 true 반환.
-     */
-    private boolean isBust(int userScore) {
-        return (userScore >= BUST_NUMBER);
+    private void setDrawPlayerProfit(Player player) {
+        playerProfits.set(players.indexOf(player), player.getBettingMoney() * DRAW_EARNING_RATE);
+        dealerProfit -= (player.getBettingMoney() * DRAW_EARNING_RATE);
     }
 
     /**
@@ -396,4 +398,5 @@ public class BlackJackGame {
             out.printUserFinalProfit(players.get(i).getName(), playerProfits.get(i));
         }
     }
+
 }

@@ -1,12 +1,10 @@
 /*
- * @(#)Deck.java        0.3 2019.12.15
+ * @(#)Deck.java        0.4 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
 
 package domain.card;
-
-import domain.business.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +13,18 @@ import java.util.List;
  * 카드 덱을 생성하고 관리하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.15
+ * @version 0.4 2019.12.16
  */
 public class Deck {
     /**
-     * 처음 카드 덱이 생성되었을 때 시작하는 iterator 값.
+     * 처음 deck이 생성되었을 때 iterator가 첫 card를 가리키도록 설정할 상수.
      */
     private static final int FIRST_CARD = 0;
 
     /**
-     * 카드 덱의 마지막 카드에 도착했을 때의 iterator 값.
+     * deck의 모든 card가 사용되었는지 확인하기 위한 상수.
      */
-    private static final int LAST_CARD = 51;
+    private static final int USED_ALL_CARD_IN_DECK = 52;
 
     /**
      * 생성한 카드들을 저장할 Card 객체 List.
@@ -34,38 +32,42 @@ public class Deck {
     private List<Card> cards;
 
     /**
-     * 몇번째 카드를 뽑아야 하는지 알려주는 iterator.
+     * 몇 번째 card를 뽑아야 하는지 알려주는 iterator.
      */
     private int cardIterator;
 
     /**
-     * 처음 덱이 생성될 때 카드를 만들고, 뽑아야 할 카드를 알려주는 iterator를 초기화하는 생성자.
+     * 처음 deck이 생성될 때 card를 만드는 Deck 기본 생성자.
      */
-    public Deck() throws Exception {
+    public Deck() {
         generateCardDeck();
+    }
+
+    /**
+     * card를 생성하는 메소드.
+     */
+    private void generateCardDeck() {
+        cards = new ArrayList<>(CardFactory.create());
         cardIterator = FIRST_CARD;
     }
 
     /**
-     * 카드를 생성하고 유효성을 검사하는 메소드.
+     * deck에서 card 한 장을 뽑는 기능 구현.
      *
-     * @throws Exception 카드에 중복이 발생할 경우 발생하는 예외.
+     * @return 뽑은 card 반환.
      */
-    private void generateCardDeck() throws Exception {
-        try{
-            cards = new ArrayList<>(CardFactory.create());
-            Validator.isValidCardDeck(cards);
-        } catch (Exception e) {
-            throw new Exception();
-        }
+    public Card drawCard() {
+        isAllCardUsedInDeck();
+        return cards.get(cardIterator++);
     }
 
     /**
-     * 카드 덱에서 카드 한장을 뽑는 기능 구현.
-     *
-     * @return 뽑은 한장의 카드 반환.
+     * deck의 모든 card가 사용되었을 시 새로 deck을 생성하는 메소드.
      */
-    public Card drawCard() {
-        return cards.get(cardIterator++);
+    private void isAllCardUsedInDeck() {
+        if (cardIterator == USED_ALL_CARD_IN_DECK) {
+            generateCardDeck();
+            cardIterator = FIRST_CARD;
+        }
     }
 }
