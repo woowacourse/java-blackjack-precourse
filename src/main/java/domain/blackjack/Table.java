@@ -5,8 +5,9 @@ public class Table {
 
   public Deck deck;
 
-  public Table() {
+  public void setTable() {
     this.deck = new Deck();
+    this.deck.shuffle();
   }
 
 }
