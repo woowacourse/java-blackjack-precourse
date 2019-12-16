@@ -185,7 +185,7 @@ public class Game {
     public void finishGame() {
         for(int i = 0; i < player.size(); i++) {
             System.out.println(player.get(i).getinfo()+" 승부 확인");
-            //findWinner(i);
+            findWinner(i);
         }
         printDealerCard();
         printPlayerCard();
@@ -194,6 +194,15 @@ public class Game {
         for(int i = 0; i < player.size(); i++) {
             System.out.println(player.get(i).getinfo()+": "+player.get(i).getReward());
         }
+    }
+
+    public void findWinner(int i) {
+        if(player.get(i).ifBlackJack() || player.get(i).burstPlayer || dealer.ifBurst){
+            System.out.println("블랙잭으로 끝");
+            return;
+        }
+        System.out.println(player.get(i).getinfo()+" 비교시작");
+        //comparePlayerAndDealer(i);
     }
 
 }
