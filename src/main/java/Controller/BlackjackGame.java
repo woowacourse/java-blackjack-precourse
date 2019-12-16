@@ -23,7 +23,7 @@ public class BlackjackGame {
 
     public void run() {
         GameResult gameResult = playAndHandleErrors();
-        showGameResult(gameResult);
+        OutputController.printGameResult(gameResult);
     }
 
     private GameResult playAndHandleErrors() {
@@ -66,10 +66,5 @@ public class BlackjackGame {
             user.addCard(deck, ADDITIONAL_NUMBER_OF_CARDS);
             OutputController.printHoldingCards(user);
         }
-        OutputController.printHoldingCards(user);
-    }
-
-    private void showGameResult(GameResult gameResult) {
-        OutputController.printGameResult(gameResult);
     }
 }
