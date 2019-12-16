@@ -79,14 +79,19 @@ public class GameProcess {
     private void handOutCardsUntilDealerCannotGet (Dealer dealer) {
 
         while (shouldDealerGetCard(dealer)) {
-            /* 딜러의 카드 총 합이 16 이하이면 실행 */
             handOutCardToUser(dealer);
         }
 
     }
 
     private boolean shouldDealerGetCard(Dealer dealer) {
-        return true;
+
+        if (ScoreCalculator.getTotalScore(dealer.openAllCards())
+                < ScoreCalculator.DEALER_GETTING_CARD_BOUNDARY) {
+            return true;                    /* 딜러의 카드 총 합이 16 이하이면 true 를 return */
+        }
+
+        return false;
     }
 
     private boolean shouldDealerGetCard(User dealer) {
