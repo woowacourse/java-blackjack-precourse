@@ -125,10 +125,13 @@ public class Game {
         }
     }
 
-    public void askOneMoreCard() {
+    public void askOneMoreCard() { //10줄로 줄이기
         System.out.println(player.get(index).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
         String answer = sc.next();
         boolean flag = true;
+        if (!Objects.equals(answer, "y") && !Objects.equals(answer, "n")) {
+            System.out.println("y 혹은 n으로 답해주세요.");
+        }
         if (Objects.equals(answer, "y") && flag) {
             actAddOneMoreCard();
             flag = checkIfOver21();
