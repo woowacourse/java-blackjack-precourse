@@ -1,8 +1,9 @@
+package domain.gameElement;
 import java.util.Set;
 import java.util.HashSet;
 
-public class PlayerNamingChecker {
-    boolean playerNamingCheck(String playerNames) {
+public class PlayersNaming {
+    public boolean playerNamingCheck(String playerNames) {
         if (playerNamingCheckBlank(playerNames)) {
             return false;
         }

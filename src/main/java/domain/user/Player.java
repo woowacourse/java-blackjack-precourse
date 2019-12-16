@@ -17,20 +17,21 @@ public class Player extends User {
         this.bettingMoney = bettingMoney;
     }
 
-    public String getPlayerName() {
+    public String getName() {
         return name;
     }
 
     public List<Card> getCards() {
         return cards;
     }
-
-    public void addCard(Card card) {
-        cards.add(card);
-        sumNumbers += card.cardNumber("Player", sumNumbers);
-    }
-
+    
     public double getBettingMoney() {
     	return bettingMoney;
     }
+
+    public void addCard(Card card) {
+        cards.add(card);
+        sumNumbers += card.getCardNumber("Player", sumNumbers);
+    }
+
 }

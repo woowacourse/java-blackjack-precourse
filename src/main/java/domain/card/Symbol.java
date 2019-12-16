@@ -1,7 +1,5 @@
 package domain.card;
 
-import java.util.Random;
-
 public enum Symbol {
     ACE(1),
     TWO(2),
@@ -25,5 +23,9 @@ public enum Symbol {
 
     public int getScore() {
         return score;
+    }
+    
+    public void setScore(int score) {
+        this.score = score;
     }
 }

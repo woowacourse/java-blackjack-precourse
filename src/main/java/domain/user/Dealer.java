@@ -16,7 +16,7 @@ public class Dealer extends User {
 
     public void userCardsInfo(List<Card> cards) {
         System.out.print("딜러 : ");
-        System.out.println(cards.get(0).cardInfo());
+        System.out.println(cards.get(0).toString());
     }
 
     public List<Card> getCards() {
@@ -25,6 +25,6 @@ public class Dealer extends User {
 
     public void addCard(Card card) {
         cards.add(card);
-        sumNumbers += card.cardNumber("Dealer", sumNumbers);
+        sumNumbers += card.getCardNumber("Dealer", sumNumbers);
     }
 }

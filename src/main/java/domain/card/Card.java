@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class Card {
     private final Symbol symbol;
     private final Type type;
-    private final String ACE_CHOICE_NUMBER_ONE = "1";
-    private final String ACE_CHOICE_NUMBER_TWO = "11";
+    private final int ACE_CHOICE_NUMBER_ONE = 1;
+    private final int ACE_CHOICE_NUMBER_TWO = 11;
     private final int Dealer_ACE_NUMBER_BASE = 6;
 
     public Card(Symbol symbol, Type type) {
@@ -18,47 +18,35 @@ public class Card {
         this.type = type;
     }
 
-    public String cardInfo() {
-        StringBuilder cardInfo = new StringBuilder();
-        cardInfo.append(symbol);
-        cardInfo.append("-");
-        cardInfo.append(type);
-        return cardInfo.toString();
-    }
-
-    public int cardNumber(String user, int sumNumbers) {
-        int cardNumber = 0;
-        cardNumber = symbol.getScore();
+    public int getCardNumber(String user, int sumNumbers) {
+        int cardNumber = symbol.getScore();
         if (cardNumber == 1 && user.equals("Player")) {
-            cardNumber = selectAceNumberPlayer();
+            selectAceNumberPlayer();
         } else if (cardNumber == 1 && user.equals("Dealer")) {
-            cardNumber = selectAceNumberDealer(sumNumbers);
+            selectAceNumberDealer(Dealer_ACE_NUMBER_BASE);
         }
+        cardNumber = symbol.getScore();
         return cardNumber;
     }
 
-    private int selectAceNumberDealer(int sumNumbers) {
-        int aceNumber = 1;
+    private void selectAceNumberDealer(int sumNumbers) {
         if (sumNumbers > Dealer_ACE_NUMBER_BASE) {
-            aceNumber = 11;
+            symbol.setScore(ACE_CHOICE_NUMBER_TWO);
         }
-        return aceNumber;
     }
 
-    private int selectAceNumberPlayer() {
-        int aceNumber = 0;
+    private void selectAceNumberPlayer() {
         String aceNumberString = "";
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Ace 카드를 어떤 수로 사용하시겠습니까? (1 또는 11만 입력 가능)");
             aceNumberString = scanner.nextLine().trim();
         } while (!selectAceNumberChecked(aceNumberString));
-        aceNumber = Integer.parseInt(aceNumberString);
-        return aceNumber;
+        symbol.setScore(Integer.parseInt(aceNumberString));
     }
 
     private boolean selectAceNumberChecked(String aceNumberString) {
-        if (aceNumberString.equals(ACE_CHOICE_NUMBER_ONE) || aceNumberString.equals(ACE_CHOICE_NUMBER_TWO)) {
+        if (aceNumberString.equals("" + ACE_CHOICE_NUMBER_ONE) || aceNumberString.equals("" + ACE_CHOICE_NUMBER_TWO)) {
             return true;
         }
         System.out.println("1 또는 11만 입력 가능합니다");
@@ -67,11 +55,12 @@ public class Card {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Card card = (Card) o;
-        return symbol == card.symbol &&
-                type == card.type;
+        return symbol == card.symbol && type == card.type;
     }
 
     @Override
