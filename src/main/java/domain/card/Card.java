@@ -26,9 +26,14 @@ public class Card {
                 type == card.type;
     }
 
+    public String getSymbolByString() {
+        return this.symbol.toString();
+    }
+
     public int getSymbolByScore() {
         return this.symbol.getScore();
     }
+
 
     @Override
     public int hashCode() {

@@ -2,12 +2,11 @@ package domain.controller;
 
 import domain.user.Dealer;
 import domain.user.Player;
-import domain.user.User;
-import domain.view.GameStatusAnnouncer;
+import domain.view.PlayerStatusAnnouncer;
 
 public class GameManager {
     UserCreateManager userCreateManager;
-    GameStatusAnnouncer gameStatus;
+    PlayerStatusAnnouncer gameStatus;
     ScoreManager scoreManager;
     Player[] players;
     Dealer dealer;
@@ -17,20 +16,23 @@ public class GameManager {
     public GameManager() {
         dealer = new Dealer(DEALER_NAME);
         userCreateManager = new UserCreateManager(dealer);
-        gameStatus = new GameStatusAnnouncer();
+        gameStatus = new PlayerStatusAnnouncer();
         scoreManager = new ScoreManager();
     }
 
-    private void afterGiveCard() {
-        if (scoreManager.checkBlackJack(dealer, players)) {
+    private void afterFirstTurn() {
+        if (scoreManager.checkBlackJack(dealer)) {
+            System.exit(0);
+        }
+
+        if (scoreManager.checkBlackJack(players)) {
             System.exit(0);
         }
     }
 
-
     public void run() {
         players = userCreateManager.playerStandBy();
         gameStatus.afterStandByUser(dealer, players);
-        afterGiveCard();
+        afterFirstTurn();
     }
 }

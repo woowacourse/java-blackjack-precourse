@@ -17,5 +17,4 @@ public class PlayerInput {
         ToolBox tool = new ToolBox();
         return tool.splitPlayerName(scanner.nextLine());
     }
-
 }
