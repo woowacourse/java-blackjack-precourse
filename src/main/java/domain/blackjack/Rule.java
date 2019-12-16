@@ -37,8 +37,8 @@ public class Rule {
   private static boolean isOverTwentyOne(List<Card> cards) {
     int score = 0;
 
-    for (int i = 0; i < cards.size(); i++) {
-      score += cards.get(i).getScore();
+    for (Card card : cards) {
+      score += card.getScore();
     }
 
     if (score > 21) {
@@ -59,8 +59,8 @@ public class Rule {
   public static int getScore(List<Card> cards) {
     int score = 0;
 
-    for (int i = 0; i < cards.size(); i++) {
-      score += cards.get(i).getScore();
+    for (Card card : cards) {
+      score += card.getScore();
     }
 
     if (hasAce(cards) && isOverTwentyOne(cards)) {
@@ -73,8 +73,8 @@ public class Rule {
   private static boolean isOverSixTeen(List<Card> cards) {
     int score = 0;
 
-    for (int i = 0; i < cards.size(); i++) {
-      score += cards.get(i).getScore();
+    for (Card card : cards) {
+      score += card.getScore();
     }
 
     if (hasAce(cards) && isOverTwentyOne(cards)) {

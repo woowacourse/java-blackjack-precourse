@@ -45,8 +45,8 @@ public class Table {
   }
 
   private void dealToAll() {
-    for (int i = 0; i < this.players.size(); i++) {
-      dealCardToPlayer(this.players.get(i));
+    for (Player player : this.players) {
+      dealCardToPlayer(player);
     }
     dealCardToDealer(this.dealer);
   }
@@ -60,8 +60,8 @@ public class Table {
 
   public void displayCards() {
     IOController.printHandsOfDealer(this.dealer, true);
-    for (int i = 0; i < this.players.size(); i++) {
-      IOController.printHandsOfPlayer(this.players.get(i));
+    for (Player player : this.players) {
+      IOController.printHandsOfPlayer(player);
     }
     System.out.println();
   }
@@ -91,8 +91,8 @@ public class Table {
   public void reward() {
     int dealerScore = Rule.getScore(this.dealer.getHands());
 
-    for (int i = 0; i < this.players.size(); i++) {
-      reward(this.players.get(i), dealerScore);
+    for (Player player : this.players) {
+      reward(player, dealerScore);
     }
   }
 

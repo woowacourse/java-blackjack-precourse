@@ -54,8 +54,8 @@ public class Game {
   private void proceedPlayersTruns() {
     ArrayList<Player> players = this.table.getPlayers();
 
-    for (int i = 0; i < players.size(); i++) {
-      proceedPlayerTurn(players.get(i), true);
+    for (Player player : players) {
+      proceedPlayerTurn(player, true);
     }
 
     proceedDealerTurn(this.table.getDealer());
