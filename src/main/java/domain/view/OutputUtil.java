@@ -30,6 +30,7 @@ public class OutputUtil {
 
     public static void printOutcomes(Outcomes outcomes) {
         System.out.println("\n"
+                + "## 최종 수익\n"
                 + outcomes.toString());
     }
 
