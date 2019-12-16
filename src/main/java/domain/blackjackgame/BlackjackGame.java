@@ -19,6 +19,8 @@ public class BlackjackGame {
     public void execute() {
         users.distribute(stack);
         users.processEachUser(stack);
+        users.showResult();
+        users.showProfits();
 
     }
 

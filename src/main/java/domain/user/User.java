@@ -36,8 +36,8 @@ public class User {
         return score;
     }
 
-    boolean validateOver21() {
-        return getScore() < 21;
+    boolean validateOver(int number) {
+        return getScore() < number;
     }
 
 }

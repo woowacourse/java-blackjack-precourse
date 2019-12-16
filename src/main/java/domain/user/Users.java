@@ -67,6 +67,14 @@ public class Users {
     public void processEachUser(Stack stack) {
         for (User user : users) {
             processPlayer(user, stack);
+            processDealer(user, stack);
+        }
+    }
+
+    private void processDealer(User user, Stack stack) {
+        if (user instanceof Dealer) {
+            Dealer dealer = (Dealer) user;
+            dealer.proceed(stack);
         }
     }
 
@@ -76,4 +84,52 @@ public class Users {
             player.proceed(stack);
         }
     }
+
+    public void showResult() {
+        for (User user : users) {
+            showDealerResult(user);
+            showPlayerResult(user);
+        }
+    }
+
+    private void showDealerResult(User user) {
+        if (user instanceof Dealer) {
+            Dealer dealer = (Dealer) user;
+            dealer.showResult();
+        }
+    }
+
+    private void showPlayerResult(User user) {
+        if (user instanceof Player) {
+            Player player = (Player) user;
+            player.showResult();
+        }
+    }
+
+    public void showProfits() {    //TODO  중복되는 코드 제거하기. Dealer와 List<Player>를 리턴함으로써 가능할 듯
+        getDealer();
+    }
+
+    /* Dealer getDealer() {
+        Dealer dealer = new Dealer();
+        for (User user : users) {
+            dealer = checkDealer(user, dealer);
+            if (user instanceof Dealer) {
+                dealer = (Dealer) user;
+            }
+        }
+        return dealer;
+    }
+
+    private Dealer checkDealer(User user) {
+        try {
+            Dealer dealer = (Dealer) user;
+            return dealer;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }*/
+
+
 }

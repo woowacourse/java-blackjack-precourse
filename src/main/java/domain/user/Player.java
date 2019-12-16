@@ -33,7 +33,7 @@ public class Player extends User {
         String response;
         do {
             response = choice(stack);
-        } while (!validateOver21() || !response.equals("n"));
+        } while (!validateOver(21) || !response.equals("n"));
     }
 
     private String choice(Stack stack) {
@@ -60,4 +60,10 @@ public class Player extends User {
         }
     }
 
+    public void showResult() {
+        System.out.println(getName() + " 카드: " + printCardValue() + " - 결과: " + getScore());
+    }
+
+    public void showProfit() {
+    }
 }

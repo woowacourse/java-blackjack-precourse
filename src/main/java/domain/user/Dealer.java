@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Stack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,20 +10,33 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer extends User {
+    public static final String MESSAGE_DEALER_GET_MORE_CARD = "딜러는 16 이하라 카드를 한 장 더 받았습니다.";
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {
     }
 
     public void printCards() {
-        System.out.println("딜러: " + printCardValue());
+        System.out.println("딜러: " + printInitialCardValue());
     }
 
-    @Override
-    public String printCardValue() {
+    public String printInitialCardValue() {
         ArrayList<String> CardValue = getCardValue();
-        return String.join(", ", CardValue.get(0));
+        return CardValue.get(0);
     }
 
-    // TODO 추가 기능 구현
+    public void proceed(Stack stack) {
+        while (validateOver(16)) {
+            addCard(stack.popCard());
+            System.out.println(MESSAGE_DEALER_GET_MORE_CARD);
+        }
+
+    }
+
+    public void showResult() {
+        System.out.println("딜러 카드: " + printCardValue() + " - 결과: " + getScore());
+    }
+
+    public void showProfit() {
+    }
 }
