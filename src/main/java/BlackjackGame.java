@@ -3,6 +3,8 @@
  * */
 
 
+import domain.card.Card;
+import domain.construtor.CardDrawing;
 import domain.construtor.ConstructPlayerAndDealer;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -13,11 +15,12 @@ public class BlackjackGame {
     static List<Player> playerList;
     static Dealer dealer;
     static ConstructPlayerAndDealer construct  = new ConstructPlayerAndDealer();
+    static CardDrawing drawing = new CardDrawing();
 
     public static void main(String[] args) {
         playerList = construct.constructorPlayer();
         dealer = construct.constructorDealer();
-
+        drawing.startShuffle(playerList,dealer);
     }
 
 }
