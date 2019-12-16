@@ -94,7 +94,7 @@ public class GamePrinter {
             System.out.print(cards.get(i).getSymbol().getStr()+ cards.get(i).getType().getKoreaType());
             System.out.print(",");
         }
-        System.out.print(cards.get(cardSize - 1).getSymbol().getScore() + cards.get(cardSize - 1).getType().getKoreaType());
+        System.out.print(cards.get(cardSize - 1).getSymbol().getStr() + cards.get(cardSize - 1).getType().getKoreaType());
     }
 
     // 플레이어가 추가적으로 카드를 받을지 여부를 입력받는 함수
