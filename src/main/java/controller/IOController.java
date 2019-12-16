@@ -62,4 +62,45 @@ public class IOController {
 
     return users;
   }
+
+  public static int[] getBetting(String[] users) {
+    int[] betting = new int[users.length];
+
+    for (int i = 0; i < users.length; i++) {
+      betting[i] = getBetting(users[i]);
+    }
+
+    return betting;
+  }
+
+  private static void askBettingMoney(String name) {
+    System.out.println(name + "의 베팅 금액은?");
+  }
+
+  private static void validateMoney(int money) throws Exception {
+    if (money <= 0){
+     throw new Exception("금액이 올바르지 않습니다.");
+    }
+  }
+
+  private static int inputMoney() {
+    try {
+      Scanner scanner = new Scanner(System.in);
+      int money = scanner.nextInt();
+
+      validateMoney(money);
+
+      return money;
+    } catch (Exception e) {
+      System.out.println("금액이 올바르지 않습니다(베팅 가능 금액 > 0)");
+      return inputMoney();
+    }
+  }
+
+  private static int getBetting(String user) {
+    askBettingMoney(user);
+    int money = inputMoney();
+
+    return money;
+  }
 }
