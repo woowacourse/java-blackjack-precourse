@@ -3,6 +3,7 @@ package domain.ui;
 import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
+import domain.revenuecalculator.RevenueCalculator;
 import domain.scoring.Scoring;
 import domain.user.*;
 import java.util.ArrayList;
@@ -274,10 +275,17 @@ public class UserInterface {
 
     private void printCardsResult(Dealer dealer) {
         System.out.println("딜러 카드: " + explainAllCards(dealer)
-                    + " - 결과: " + Scoring.getTotalScore(dealer.openAllCards()));
+                    + " - 결과: " + Scoring.getTotalScore(dealer.openAllCards()) + "\n");
     }
 
     public void printUsersFinalRevenues(Dealer dealer, List<Player> players) {
+        System.out.println("## 최종 수익");
+        System.out.println("딜러: " + RevenueCalculator.getTotalRevenueOfDealer(dealer, players));
+
+        for (Player player : players) {
+            System.out.println(player.getName() + ": "
+                    + RevenueCalculator.getPlayerRevenue(dealer, player));
+        }
 
     }
 

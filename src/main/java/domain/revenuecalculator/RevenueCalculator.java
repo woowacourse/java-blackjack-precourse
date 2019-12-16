@@ -4,6 +4,7 @@ import domain.scoring.Scoring;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
+import java.util.List;
 
 public class RevenueCalculator {
     /* cases */
@@ -70,5 +71,15 @@ public class RevenueCalculator {
         }
 
         return PLAYER_BUST_OR_DEALER_LARGER_THAN_PLAYER;
+    }
+
+    public static double getTotalRevenueOfDealer(Dealer dealer, List<Player> players) {
+        double ret = 0;
+
+        for (Player player : players) {
+            ret += getDealerRevenue(dealer, player);
+        }
+
+        return ret;
     }
 }
