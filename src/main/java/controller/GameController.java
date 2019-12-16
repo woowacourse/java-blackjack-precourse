@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+
 import deck.CardDeck;
 import domain.card.Card;
 import domain.card.CardFactory;
@@ -46,8 +47,35 @@ public class GameController {
     }
 
     public void gameResult() {
+        calculateMoney();
         OutputSystem.printResultValue(dealer, players);
         OutputSystem.printResultMoney(dealer, players);
+    }
+
+    private void calculateMoney() {
+        if (dealer.isBlackJack()) {
+            dealerBlackjackCalculate();
+            return;
+            // 딜러가 블랙잭이면 블랙잭인 상대 제외하고 모두 돈을 걷는다.
+        }
+        if (dealer.getTotalNumber() > MAXIUM_VALUE) {
+            dealerBurstCalculate();
+            return;
+            // 딜러가 버스터라면 패가 21이하인 사람에게 모두 돈을 준다. + 블랙잭 1.5배
+        }
+        normalCalculate();
+    }
+
+    private void dealerBlackjackCalculate() {
+        players.stream().filter(x->x.isBlackJack());
+    }
+
+    private void dealerBurstCalculate() {
+
+    }
+
+    private void normalCalculate() {
+
     }
 
     private String[] commaNameSlice(String names) {

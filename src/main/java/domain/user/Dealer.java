@@ -10,8 +10,19 @@ import java.util.List;
  */
 public class Dealer extends People {
 
-    public Dealer() {}
+    final static int MAXIMUM_VALUE = 21;
+
+    public Dealer() {
+    }
 
 
     // TODO 추가 기능 구현
+
+    public boolean isDealerWinner(Player player) {
+        if (player.getTotalNumber() <= MAXIMUM_VALUE
+                && this.getTotalNumber() < player.getTotalNumber())
+            return true;
+        return false;
+    }
+
 }
