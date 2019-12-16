@@ -28,6 +28,11 @@ public class Player {
     	return bettingMoney;
     }
     
+    public int howManyCard() {
+    	return cards.size();
+    }
+    
+    
     public String showCard() {
     	List<String> cardList = new ArrayList<>();
     	for (Card card : cards) {
@@ -41,9 +46,9 @@ public class Player {
     	int check = 0;
     	for (Card card : cards) {
     		score += Symbol.valueOf(card.showSymbol()).getScore();
-    		check = aceCheck(card);
+    		check += aceCheck(card);
     	}
-    	if (score < 12 && check == 1) {
+    	if (score < 12 && check != 0) {
     		score += 10;
     	}
     	return score;

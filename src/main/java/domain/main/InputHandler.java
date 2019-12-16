@@ -103,10 +103,16 @@ public class InputHandler {
 		if (answer.charAt(0) == 'y' && answer.length() == 1) {
 			Main.giveOneCardToPlayer(player);
 			System.out.printf(player.name()+ " : " + player.showCard() + "\n\n");
-			oneMoreCardOrNotException(player);
+			oneMoreCardOrNotControl(player);
 		}
 		if (answer.length() != 1 || (answer.charAt(0) != 'y' && answer.charAt(0) != 'n') ) {
 			System.out.println("y 또는 n만 입력이 가능합니다.");
+			oneMoreCardOrNotControl(player);
+		}
+	}
+	
+	public static void oneMoreCardOrNotControl(Player player) {
+		if (player.showScore() <= 21) {
 			oneMoreCardOrNotException(player);
 		}
 	}

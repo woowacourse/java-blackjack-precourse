@@ -14,6 +14,10 @@ public class Dealer {
     public void addCard(Card card) {
         cards.add(card);
     }
+    
+    public int howManyCard() {
+    	return cards.size();
+    }
 
     public String showOneCard() {
     	Card oneCard = cards.get(0);
@@ -33,9 +37,9 @@ public class Dealer {
     	int check = 0;
     	for (Card card : cards) {
     		score += Symbol.valueOf(card.showSymbol()).getScore();
-    		check = aceCheck(card);
+    		check += aceCheck(card);
     	}
-    	if (score < 12 && check == 1) {
+    	if (score < 12 && check != 0) {
     		score += 10;
     	}
     	return score;

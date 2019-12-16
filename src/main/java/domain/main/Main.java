@@ -29,6 +29,7 @@ public class Main {
 		dealerMoreCard(dealer);
 		
 		Template.finalResult(playerList, dealer);
+		MoneyCalculator.calculate(playerList, dealer);
 		
 	}
 	
