@@ -8,20 +8,19 @@ import java.util.stream.Collectors;
 public class Outcome {
     private final String name;
     private List<Card> cards;
-    private double benefit;
+    private int benefit;
+    private static final int CHANGE_SIGN = -1;
 
     public Outcome(String name, double benefit, List<Card> cards) {
         this.name = name;
         this.cards = cards;
-        this.benefit = benefit;
+        this.benefit = (int) benefit;
     }
 
     public String printOutcome() {
         StringBuilder sb = new StringBuilder();
         sb.append(name)
-                .append(" 카드: ")
-                .append(printCards())
-                .append(" - 결과: ")
+                .append(" : ")
                 .append(benefit)
                 .append("\n");
         return sb.toString();
@@ -39,7 +38,7 @@ public class Outcome {
         if (isDealer() == false) {
             throw new IllegalStateException("Dealer가 아니면 benefit을 변경할 수 없습니다.");
         }
-        this.benefit = benefit;
+        this.benefit = (int) benefit * (CHANGE_SIGN);
     }
 
     public boolean isNameMatch(String name) {
