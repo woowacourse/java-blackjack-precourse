@@ -1,9 +1,14 @@
 package domain;
 
+import domain.card.Card;
+import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class GameProcessor {
     private static ArrayList<Player> playersArray = new ArrayList<Player>();
@@ -22,4 +27,9 @@ public class GameProcessor {
         Dealer dealer = new Dealer();
     }
 
+    static void createCard() {
+        List<Card> cardsArray;
+        CardFactory cardFactory = new CardFactory();
+        cardsArray = cardFactory.create();
+    }
 }
