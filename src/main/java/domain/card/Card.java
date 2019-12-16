@@ -18,6 +18,13 @@ public class Card {
     public int getSymbolScore() {
         return this.symbol.getScore();
     }
+
+    public Boolean isSymbolAce() {
+        if (this.symbol == Symbol.ACE) {
+            return true;
+        }
+        return false;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

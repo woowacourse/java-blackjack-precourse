@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackController {
-	final static int BUSTED_SCORE = 21;
-
 	public static List<String> getPlayersName() {
 		String names = "";
 

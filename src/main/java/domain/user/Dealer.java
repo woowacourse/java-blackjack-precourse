@@ -2,6 +2,8 @@ package domain.user;
 
 
 import domain.card.Card;
+import domain.game.BlackJack;
+import domain.user.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,6 @@ public class Dealer {
 		cards.add(card);
 	}
 
-	private int getSomOfScore() {
-		int sumOfScore = 0;
-		for (Card card : this.cards) {
-			sumOfScore += card.getSymbolScore();
-		}
-		return sumOfScore;
-	}
-
 	public void showHand() {
 		String showHand = "딜러:";
 		for (int i = 1; i < this.cards.size(); i++) {
@@ -35,16 +29,34 @@ public class Dealer {
 		System.out.println(showHand);
 	}
 
-	public Boolean isBusted() {
-		final int BUSTED = 21;
+	public Status checkStatus() {
+		final int BLACKJACK = 21;
+
+		int[] cardInfos = getScoreAndNumberOfAce();
+		if (cardInfos[0] > BLACKJACK) {
+			return Status.BUSTED;
+		} else if ( cardInfos[0] == BLACKJACK ) {
+			return Status.BLACKJACK;
+		}
+		return Status.KEEP_GO;
+	}
+
+	public int[] getScoreAndNumberOfAce() {
 		int score = 0;
+		int aceCount = 0;
 
 		for (Card card : this.cards) {
+			aceCount = setAceCount(card, aceCount);
 			score += card.getSymbolScore();
 		}
-		if (score > BUSTED) {
-			return true;
+		int[] cardInfos = {score, aceCount};
+		return cardInfos;
+	}
+
+	public int setAceCount(Card card, int aceCount) {
+		if (card.isSymbolAce()) {
+			aceCount++;
 		}
-		return false;
+		return aceCount;
 	}
 }
