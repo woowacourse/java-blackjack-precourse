@@ -9,7 +9,7 @@ public class MoneyCalculator {
 	private static double dealerIncome = 0;
 	
 	public static void calculate(List<Player> playerList, Dealer dealer) {
-		System.out.println("## 최종 수익 ##");
+		System.out.println("## Income ##");
 		for (Player player : playerList) {
 			double playerIncome = checkScore(player, dealer, player.bettingMoney());
 			System.out.println(player.name() + " : " + playerIncome);
