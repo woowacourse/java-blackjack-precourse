@@ -1,17 +1,12 @@
 package com.github.callmewaggs.game.domain.user;
 
-import com.github.callmewaggs.game.domain.card.Card;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player extends Gamer {
 
   private final String name;
   private final long bettingMoney;
-  private final List<Card> cards = new ArrayList<>();
 
   private Player(String name, long bettingMoney) {
     this.name = name;
@@ -54,10 +49,6 @@ public class Player {
     if (condition) {
       throw new IllegalArgumentException(message);
     }
-  }
-
-  public void addCard(Card card) {
-    cards.add(card);
   }
 
 }
