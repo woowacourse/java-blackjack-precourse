@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Gamer 테스트")
 class GamerTest {
@@ -19,5 +18,15 @@ class GamerTest {
         assertThat(dealer).isInstanceOf(Dealer.class);
         assertThat(dealer).isInstanceOf(Gamer.class);
 
+    }
+
+    @Test
+    @DisplayName("Dealer와 Player 네임 구별 확인")
+    void getGamerName() {
+        Gamer player = new Player("mj", 1000);
+        Gamer dealer = new Dealer();
+
+        assertThat(player.getName()).isEqualTo("mj");
+        assertThat(dealer.getName()).isEqualTo("dealer");
     }
 }

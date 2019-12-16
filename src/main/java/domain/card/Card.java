@@ -41,4 +41,12 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }

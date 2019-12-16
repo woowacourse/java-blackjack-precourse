@@ -1,6 +1,5 @@
 package gameRunner;
 
-import domain.user.ActiveGamers;
 import util.StringParsing;
 import view.InputView;
 
@@ -16,6 +15,9 @@ public class GameMachine {
     public void runBlackJackGame() {
         List<String> names = StringParsing.makeStringListFromString(inputView.getPlayerNames());
         List<Double> bettingMoneys = inputView.getBettingMoneys(names);
-        ActiveGamers activeGamers = new ActiveGamers(names, bettingMoneys);
+
+        BlackJackGame blackJackGame = new BlackJackGame(names, bettingMoneys);
+        blackJackGame.giveInitCard();
+
     }
 }

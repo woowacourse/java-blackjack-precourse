@@ -8,7 +8,11 @@ package domain.user;
  */
 public class Dealer extends Gamer {
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
-    // TODO 추가 기능 구현
+    public String getName() {
+        return "dealer";
+    }
+
 }
