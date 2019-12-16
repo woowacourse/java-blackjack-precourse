@@ -28,14 +28,13 @@ public class Card {
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
         return symbol == card.symbol &&
-                type == card.type;
+            type == card.type;
     }
-
+    
     @Override
     public int hashCode() {
         return Objects.hash(symbol, type);
     }
-
     @Override
     public String toString() {
         return symbol.getLetter() + type.toKorean();
