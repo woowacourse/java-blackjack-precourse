@@ -37,10 +37,10 @@ public class Controller {
 
     public void hitPhase() {
         players.hitCard(gameCards);
-        players.getDealer().addCard(gameCards.pickUpCard());
     }
 
     public void dealerPhase() {
+        players.getDealer().dealerFirstHiddenPick(gameCards);
         if (!players.getDealer().isBlackJack()) {
             players.getDealer().hitUntilStay(gameCards);
         }

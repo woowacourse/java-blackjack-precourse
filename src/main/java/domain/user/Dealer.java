@@ -29,4 +29,8 @@ public class Dealer extends Player {
             hitUntilStay(gameCards);
         }
     }
+
+    public void dealerFirstHiddenPick(CardsOnGame gameCards) {
+        addCard(gameCards.pickUpCard());
+    }
 }
