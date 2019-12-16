@@ -33,11 +33,14 @@ public class People {
         return calculateNumber(numberList);
     }
 
+    public int cardCount() {
+        return cards.size();
+    }
+
     public String getCardList() {
-        return cards.
-                stream()
-                .map((x) -> {return x.getCardString();})
-                .collect(Collectors.joining(","));
+        return cards.stream().map((x) -> {
+            return x.getCardString();
+        }).collect(Collectors.joining(","));
     }
 
     public boolean isBlackJack() {
