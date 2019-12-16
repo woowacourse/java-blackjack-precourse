@@ -27,6 +27,7 @@ public class Game {
 		userRepository.makeUserList();
 		firstDealOut();
 		secondDealOut();
+		userRepository.showAllResult();
 	}
 	
 	public void firstDealOut() {
@@ -66,5 +67,4 @@ public class Game {
 		userRepository.secondPlayerDealOut();
 		userRepository.secondDealerDealOut();
 	}
-	
  }

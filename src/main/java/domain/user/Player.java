@@ -1,7 +1,5 @@
 package domain.user;
 
-import java.util.stream.Collectors;
-
 import domain.card.Card;
 
 /**
@@ -21,12 +19,8 @@ public class Player extends User {
     // TODO 추가 기능 구현
     
     public void showFirstCard() {
-    	String cardName = getCards()
-    			.stream()
-    			.map(card -> card.toString())
-    			.collect(Collectors.joining(", "));
-    			
-    	System.out.println(cardName);
+    	showResult();
+    	System.out.println();
     }
     
     public boolean isBelowJack() {

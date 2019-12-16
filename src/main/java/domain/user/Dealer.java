@@ -6,7 +6,7 @@ import domain.card.Card;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer extends User {
-	private final int firstCard = 0;
+	private final int firstCard = 1;
 	private final int secondDealOutCriteria = 17;
 	
 	public Dealer() {

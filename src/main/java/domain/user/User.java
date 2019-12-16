@@ -39,6 +39,16 @@ public class User {
 				.map(card -> card.toString())
 				.collect(Collectors.joining(", "));
 		
-		System.out.println(cardName);
+		System.out.print(cardName);
+	}
+	
+	public int getScore() {
+		int score = 0;
+		
+		for (Card card : cards) {
+			score += card.getScore();
+		}
+		
+		return score;
 	}
 }

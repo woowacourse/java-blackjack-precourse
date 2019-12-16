@@ -14,7 +14,6 @@ public class UserRepository {
 	
 	private List<String> playerNameList = new ArrayList<String>();
 	private List<User> userList = new ArrayList<User>();
-	private Game blackJack = Game.getInstance();
 			
 	public void makePlayerName(String name) {
 		String[] names = name.split(",");
@@ -66,15 +65,23 @@ public class UserRepository {
 		while (answer.equals("y") && ((Player)user).isBelowJack()) {
 			answer = ViewInput.askGetCard((Player)user);
 			ViewOutput.showEachResult(user);
+			System.out.println();
 		}
 	}
 	
 	public void secondDealerDealOut() {
 		Dealer dealer = (Dealer)userList.get(dealerInx);
 		
-		while(dealer.isBelowCriteria()) {
-			dealer.addCard(blackJack.selectedCard());
+		while (dealer.isBelowCriteria()) {
+			dealer.addCard(Game.getInstance().selectedCard());
 			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+		}
+	}
+	
+	public void showAllResult() {
+		for (User user : userList) {
+			ViewOutput.showEachResult(user);
+			System.out.println(" - 결과 : " + user.getScore());
 		}
 	}
 }
