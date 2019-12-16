@@ -11,17 +11,17 @@ public class GameInputScanner {
     private static final String BATTING_INPUT_FORMATTED_STATEMENT = "%s의 배팅 금액은?";
     private static final String ADD_ONEMORE_CARD_STATEMENT = "%s는 한장의 카드를 더 받겠습니까?";
 
-    public String askNamesFromUser() {
+    public static String askNamesFromUser() {
         System.out.println(NAME_INPUT_STATEMENT);
         return scanner.nextLine();
     }
 
-    public String askBattingMoney(String name) {
+    public static String askBattingMoney(String name) {
         System.out.println(String.format(BATTING_INPUT_FORMATTED_STATEMENT, name));
         return scanner.nextLine();
     }
 
-    public String askAddOneMoreCard(Player player) {
+    public static String askAddOneMoreCard(Player player) {
         System.out.println(String.format(ADD_ONEMORE_CARD_STATEMENT, player.getName()));
         return scanner.nextLine();
     }
