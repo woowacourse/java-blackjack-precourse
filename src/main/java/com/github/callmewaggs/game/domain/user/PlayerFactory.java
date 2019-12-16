@@ -28,9 +28,13 @@ public class PlayerFactory {
     String inputPlayerNames = IOHelper.inputPlayerNames();
     String[] parsed = inputPlayerNames.split(",");
     for (String inputPlayerName : parsed) {
-      String inputBettingMoney = IOHelper.inputBettingMoney(inputPlayerName);
-      players.add(Player.createPlayerIfValidate(inputPlayerName, inputBettingMoney));
+      createPlayer(players, inputPlayerName);
     }
     return players;
+  }
+
+  private static void createPlayer(List<Player> players, String inputPlayerName) {
+    String inputBettingMoney = IOHelper.inputBettingMoney(inputPlayerName);
+    players.add(Player.createPlayerIfValidate(inputPlayerName, inputBettingMoney));
   }
 }

@@ -18,6 +18,14 @@ public class Player {
     this.bettingMoney = bettingMoney;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public long getBettingMoney() {
+    return bettingMoney;
+  }
+
   public static Player createPlayerIfValidate(String name, String bettingMoney) {
     checkNameValidation(name);
     long money = checkMoneyValidation(bettingMoney);
@@ -30,7 +38,7 @@ public class Player {
 
   private static long checkMoneyValidation(String bettingMoney) {
     long money = parseStringMoneyToLong(bettingMoney);
-    checkValidationWithCondition(money < 0, "배팅 금액은 양수만 가능합니다. 다시 입력해주세요.");
+    checkValidationWithCondition(money < 0, "배팅 금액이 잘못되었습니다. 다시 입력해주세요.");
     return money;
   }
 
@@ -51,7 +59,5 @@ public class Player {
   public void addCard(Card card) {
     cards.add(card);
   }
-
-  // TODO 추가 기능 구현
 
 }
