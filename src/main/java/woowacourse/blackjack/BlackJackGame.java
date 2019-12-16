@@ -20,6 +20,10 @@ public class BlackJackGame {
         List<Double> bettingMoney = this.getBettingMoney(playerNames);
         this.setPlayerInformation(playerNames, bettingMoney);
         this.receiveTwice();
+        System.out.println(this.dealer.getCards());
+        for (Player player : this.players) {
+            System.out.println(player.getCards());
+        }
     }
 
     private List<String> getPlayerNames() {
