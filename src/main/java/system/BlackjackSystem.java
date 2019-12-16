@@ -5,6 +5,7 @@ import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 import view.InputView;
+import view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,9 @@ public class BlackjackSystem {
     public void run() {
         setGame();
         distributeCard();
+        OutputView.printDistributeMessage(playerList);
+        OutputView.printCardStatus(dealer);
+        OutputView.printCardStatus(playerList);
     }
 
     private void setGame() {
@@ -45,7 +49,7 @@ public class BlackjackSystem {
     private void addPlayer(Player player) {
         playerList.add(player);
     }
-    
+
     private void distributeCard() {
         cardList.addAll(CardFactory.create());
         for (int i = 0; i < DISTRIBUTE_CARD_COUNT; i++) {

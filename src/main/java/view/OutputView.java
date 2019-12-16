@@ -1,5 +1,6 @@
 package view;
 
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.List;
@@ -15,6 +16,16 @@ public class OutputView {
         sb.append("딜러와 ");
         sb.append(String.join(", ", playerNameList));
         sb.append("에게 " + playerList.size() + "장의 카드를 나누었습니다.");
-        System.out.print(sb);
+        System.out.println(sb);
+    }
+
+    public static void printCardStatus(Dealer dealer) {
+        System.out.println("딜러 : " + dealer.toString());
+    }
+
+    public static void printCardStatus(List<Player> playerList) {
+        for (Player p : playerList) {
+            System.out.println(p.getName() + " : " + p.toString());
+        }
     }
 }
