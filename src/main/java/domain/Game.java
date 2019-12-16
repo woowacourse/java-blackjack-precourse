@@ -65,7 +65,10 @@ public class Game {
 
     public void Game() {
         initDistributeCard();
-
+        if(dealer.ifBlackJack()) {//딜러가 블랙잭이면 다른 코드 수행
+            dealerIsBlackJack();
+            return;
+        }
         for(index = 0; index < player.size(); index++) {
             //블랙잭 여부 확인
 
@@ -74,6 +77,20 @@ public class Game {
         giveMoreCardToDealer();
         finishGame();
 
+    }
+
+    public void dealerIsBlackJack() {
+        //딜러가 블랙잭이니까 플레이어가 블랙잭인지 확인.
+        for(int i=0;i<player.size();i++) {
+            checkifPlayerIsBJWhenDealerIsBJ(i);
+        }
+    }
+
+    public void checkifPlayerIsBJWhenDealerIsBJ(int i) {
+        if(player.get(i).ifBlackJack()){
+            player.get(index).getBettingMoney(0);
+        }
+        player.get(index).getBettingMoney(-1);
     }
 
     public void initDistributeCard() {
