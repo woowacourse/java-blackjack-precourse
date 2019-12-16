@@ -35,26 +35,26 @@ public class Player {
 
 		if (isDealer()) {
 			hand = setHandString(INDEX_ONE);
-		} else if(!isDealer()) {
+		} else if (!isDealer()) {
 			hand = setHandString(INDEX_ZERO);
 		}
-		System.out.println(hand);
+		System.out.println(hand + " result: " + getScore());
 	}
 
 	private boolean isDealer() {
 		return this instanceof Dealer;
 	}
 
-	private String setHandString(int index){
+	private String setHandString(int index) {
 		String hand = this.name;
-		for ( ; index < this.cards.size(); index++) {
+		for (; index < this.cards.size(); index++) {
 			hand += cards.get(index).toString();
 		}
 		return hand;
 	}
 
 	public Status checkStatus() {
-		int score = getScoreAndNumberOfAce();
+		int score = getScore();
 		if (score > BlackJackConfig.BLACKJACK) {
 			return Status.BUSTED;
 		} else if (score == BlackJackConfig.BLACKJACK) {
@@ -63,7 +63,7 @@ public class Player {
 		return Status.KEEP_GO;
 	}
 
-	private int getScoreAndNumberOfAce() {
+	private int getScore() {
 		int score = 0;
 		Boolean aceInHand = false;
 
@@ -82,7 +82,7 @@ public class Player {
 	}
 
 	private int addScoreIfAceIsTrue(int score, Boolean ace) {
-		if (ace == true) {
+		if (ace) {
 			score = addScore(score);
 		}
 		return score;
