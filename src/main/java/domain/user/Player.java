@@ -42,7 +42,7 @@ public class Player {
 
     public int getScoreFromCard(int score, int i) {
         int aceCount = 0;
-        if (cards.get(i).ifCardIsAce()){
+        if (cards.get(i).ifCardIsAce()) {
             aceCount = 1;
         }
         return aceCount;
@@ -66,19 +66,20 @@ public class Player {
     public String toString() {
         String str = "";
         String joinStr = String.join(",", cards.toString());
-        str += joinStr.substring(1, joinStr.length()-1);
+        str += joinStr.substring(1, joinStr.length() - 1);
         return str;
     }
 
     public String getName() {
         return name;
     }
-    public double getBetting(){
+
+    public double getBetting() {
         return bettingMoney;
     }
 
     public boolean ifBlackJack() {
-        if((cards.get(0).getScore() + cards.get(1).getScore()) == BLACKJACK) {
+        if ((cards.get(0).getScore() + cards.get(1).getScore()) == BLACKJACK) {
             return true;
         }
         return false;

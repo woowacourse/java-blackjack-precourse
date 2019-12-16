@@ -15,7 +15,8 @@ public class Dealer {
     private double cost = 0;
     public boolean ifBurst = false;
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
@@ -29,21 +30,21 @@ public class Dealer {
             score += cards.get(i).getScore();
             hasAce = cards.get(i).ifCardIsAce();
         }
-        if(hasAce) {
+        if (hasAce) {
             score = checkIfBurst(score);
         }
         return score;
     }
 
     public int checkIfBurst(int score) {
-        if (score + ACEDIFFNUM <= BLACKJACK){
+        if (score + ACEDIFFNUM <= BLACKJACK) {
             score += ACEDIFFNUM;
         }
         return score;
     }
 
     public boolean ifBlackJack() {
-        if((cards.get(0).getScore() + cards.get(1).getScore()) == BLACKJACK) {
+        if ((cards.get(0).getScore() + cards.get(1).getScore()) == BLACKJACK) {
             return true;
         }
         return false;
@@ -69,7 +70,7 @@ public class Dealer {
     public String toString() {
         String str = "";
         String joinStr = String.join(",", cards.toString());
-        str += joinStr.substring(1, joinStr.length()-1);
+        str += joinStr.substring(1, joinStr.length() - 1);
         return str;
     }
 }
