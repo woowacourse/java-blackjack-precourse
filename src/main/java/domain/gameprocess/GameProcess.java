@@ -21,7 +21,7 @@ public class GameProcess {
         userInterface.printFistTwoCard(dealer, players);
 
         for (Player player : players) {
-            handOutCardsUntilPlayerWantStop(player);
+            handOutCardsUntilOnePlayerGameIsEnded(player);
         }
 
         handOutCardsUntilDealerCannotGet(dealer);
@@ -65,12 +65,13 @@ public class GameProcess {
         user.addCard(cardDivider.getOneRandomCard());
     }
 
-    private void handOutCardsUntilPlayerWantStop(Player player) {
+    private void handOutCardsUntilOnePlayerGameIsEnded(Player player) {
 
-    }
+        while (userInterface.scanWhetherPlayerReceiveCard(player)) {
+            handOutCardToUser(player);
+            userInterface.printAllCards(player);
+        }
 
-    private boolean doPlayerGetCard(User player, String whetherPlayerReceiveCard) {
-        return true;
     }
 
     private void handOutCardsUntilDealerCannotGet (Dealer dealer) {

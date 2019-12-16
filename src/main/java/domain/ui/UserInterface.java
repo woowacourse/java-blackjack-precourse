@@ -241,7 +241,19 @@ public class UserInterface {
     }
 
     private boolean isCorrectWhetherPlayerReceiveCard(String input) {
+
+        if (!(input.equals("y") || input.equals("n"))) {
+            return false;
+        }
+
         return true;
+    }
+
+    /**
+     * 플레이어가 가지고있는 모든 카드 출력하기
+     */
+    public void printAllCards(Player player) {
+        System.out.println(player.getName() + "카드: " + explainAllCards(player));
     }
 
     public void printUsersCardsResults(Dealer dealer, List<Player> players) {

@@ -1,10 +1,11 @@
 package domain.card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
+/**
+ * 카드 세트를 들고 여기서 랜덤하게 한장 뽑아서 주는 객체
+ */
 public class CardDivider {
     private final int RANDOM_NUM_MULTIPLIER = 100;      /* (랜덤실수) x 100 */
     private final List<Card> cardList;
