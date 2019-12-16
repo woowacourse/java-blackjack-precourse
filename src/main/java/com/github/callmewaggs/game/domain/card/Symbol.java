@@ -18,7 +18,6 @@ public enum Symbol {
   public static final int ANOTHER_ACE_NUMBER = 11;
 
   private int score;
-  private static final int DECIMAL_NUMBER_RADIX = 10;
 
   Symbol(int score) {
     this.score = score;
@@ -28,10 +27,11 @@ public enum Symbol {
     return score;
   }
 
-  public char getFirstLetterOfScore() {
-    if (score == 1 || score == 10) {
-      return name().charAt(0);
+  public String getSymbolOfScore() {
+    if (this.equals(ACE) || this.equals(JACK)
+        || this.equals(QUEEN) || this.equals(KING)) {
+      return name().substring(0, 1);
     }
-    return Character.forDigit(score, DECIMAL_NUMBER_RADIX);
+    return String.valueOf(score);
   }
 }

@@ -1,5 +1,6 @@
 package com.github.callmewaggs.game.domain.user;
 
+import com.github.callmewaggs.game.BlackjackRule;
 import com.github.callmewaggs.game.IOHelper;
 
 /**
@@ -7,6 +8,8 @@ import com.github.callmewaggs.game.IOHelper;
  */
 public class Player extends Participant {
 
+  private static final String INPUT_YES = "y";
+  private static final String INPUT_NO = "n";
   private final String name;
   private final long bettingMoney;
 
@@ -15,21 +18,25 @@ public class Player extends Participant {
     this.bettingMoney = bettingMoney;
   }
 
+  // TODO : 2depth
   @Override
   public boolean hitOrStay() {
-    String playerInput;
-    while (true) {
-      playerInput = IOHelper.inputHitOrStay(this.getName());
-      if (playerInput.equals("y") || playerInput.equals("n")) {
-        break;
+    String playerInput = "";
+    boolean lessThanBlackjackNumber = checkCurrentScoreLessThanBlackjackNumber();
+    if (lessThanBlackjackNumber) {
+      while (true) {
+        playerInput = IOHelper.inputHitOrStay(this.getName());
+        if (playerInput.equals(INPUT_YES) || playerInput.equals(INPUT_NO)) {
+          break;
+        }
+        IOHelper.printExceptionMessage("y 또는 n만 입력 가능합니다. 다시 입력해주세요.");
       }
-      IOHelper.printExceptionMessage("y 또는 n만 입력 가능합니다. 다시 입력해주세요.");
     }
-    return playerInput.equals("y") && checkCurrentScoreLessThanBlackjackNumber();
+    return playerInput.equals(INPUT_YES);
   }
 
   private boolean checkCurrentScoreLessThanBlackjackNumber() {
-    if (super.getCurrentScore() > 21) {
+    if (super.getCurrentScore() > BlackjackRule.BLACKJACK_NUMBER) {
       IOHelper.printHitRejectedMessage(this.getName());
       return false;
     }

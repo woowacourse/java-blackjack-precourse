@@ -47,6 +47,7 @@ public class BlackjackRule {
     while (true) {
       if (player.hitOrStay()) {
         player.takeCard(cardShuffler.pickCard());
+        IOHelper.printCards(player);
         continue;
       }
       break;

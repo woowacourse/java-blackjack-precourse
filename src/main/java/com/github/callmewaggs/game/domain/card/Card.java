@@ -21,7 +21,7 @@ public class Card {
   }
 
   public String getScoreAndType() {
-    return symbol.getFirstLetterOfScore() + "/" + type;
+    return symbol.getSymbolOfScore() + "/" + type;
   }
 
   @Override
