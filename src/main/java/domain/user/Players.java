@@ -43,4 +43,8 @@ public class Players {
         }
         return cardInfos;
     }
+
+    public List<Player> getPlayers() {
+        return this.players;
+    }
 }
