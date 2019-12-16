@@ -30,6 +30,10 @@ public class Printer {
 		System.out.println("숫자를 입력해주세요.");
 	}
 	
+	public void printNonZeroBettingMoney() {
+		System.out.println("1 이상의 양의 정수를 입력해 주세요.");
+	}
+	
 	public void printInitialCard(String nameString) {
 		System.out.println("\r\n딜러와 " + nameString + "에게 2장의 카드를 나누었습니다.");
 	}

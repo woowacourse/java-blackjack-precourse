@@ -160,7 +160,13 @@ public class Game {
 	}
 
 	private double convertBettingMoney(String bettingMoney) {
-		return Double.parseDouble(bettingMoney);
+		double money = Double.parseDouble(bettingMoney);
+		
+		if (money == 0) {
+			myPrinter.printNonZeroBettingMoney();
+			throw new GameException();
+		}
+		return money;
 	}
 
 	private void addPlayer() {
