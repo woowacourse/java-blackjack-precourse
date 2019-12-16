@@ -82,7 +82,7 @@ class BlackJack {
     }
 
     private boolean getIsStop(String playerIntent, Player player) {
-        if (playerIntent.equals("y")) {
+        if (playerIntent.toLowerCase().equals("y")) {
             addCard(player, deck.pop());
             return false;
         }

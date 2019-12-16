@@ -3,6 +3,7 @@ package view;
 import java.util.Scanner;
 
 import domain.user.Player;
+import utils.InputValidator;
 
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
@@ -17,11 +18,19 @@ public class InputView {
 
     public static int bettingMoney(String playerName) {
         System.out.println(playerName + GET_BETTING_MONEY_MESSAGE);
-        return Integer.parseInt(scanner.nextLine());
+        int inputMoney = Integer.parseInt(scanner.nextLine());
+        if (!InputValidator.isValidNumber(inputMoney)) {
+            throw new IllegalArgumentException("잘못된 배팅 금액 입력입니다.");
+        }
+        return inputMoney;
     }
 
     public static String playerIntent(Player player) {
         System.out.println(player.getName() + GET_PLAYER_INTENT_MESSAGE);
-        return scanner.nextLine();
+        String inputIntent = scanner.nextLine();
+        if (!InputValidator.isValidIntent(inputIntent)) {
+            throw new IllegalArgumentException("y 또는 n 이외의 입력입니다.");
+        }
+        return inputIntent;
     }
 }
