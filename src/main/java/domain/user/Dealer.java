@@ -41,6 +41,13 @@ public class Dealer {
         return score;
     }
 
+    public boolean ifBlackJack() {
+        if((cards.get(0).getScore() + cards.get(1).getScore()) == BLACKJACK) {
+            return true;
+        }
+        return false;
+    }
+
     public void addCost(double playerCost) {
         cost += playerCost;
     }
