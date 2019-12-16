@@ -45,7 +45,7 @@ public class BlackJackController {
 		Scanner scanner = new Scanner(System.in);
 		while (betting <= 0) {
 			betting = scanner.nextDouble();
-			catchUnderZeroInput(betting);
+			betting = catchUnderZeroInput(betting);
 		}
 		return betting;
 	}
@@ -72,7 +72,7 @@ public class BlackJackController {
 		while (!moreCard.equals("Y") || !moreCard.equals("y")
 			|| !moreCard.equals("N") || !moreCard.equals("n")) {
 			moreCard = scanner.nextLine();
-			catchWrongInput(moreCard);
+			moreCard = catchWrongInput(moreCard);
 		}
 		if (moreCard.equals("Y") || moreCard.equals("y")) {
 			return true;

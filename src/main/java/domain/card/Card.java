@@ -38,6 +38,9 @@ public class Card {
 
     @Override
     public String toString() {
+        if (this.symbol == Symbol.ACE){
+            return " A" + this.type;
+        }
         return " " + this.symbol.getScore() + this.type;
     }
 }
