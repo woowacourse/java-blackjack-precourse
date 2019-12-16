@@ -10,4 +10,7 @@ public enum Will {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
 }

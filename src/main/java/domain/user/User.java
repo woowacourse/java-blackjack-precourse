@@ -19,7 +19,7 @@ public abstract class User {
         cards.add(card);
     }
 
-    public int calculateSumOfCards() {
+    public int calculateScore() {
 
         List<Card> aces = splitCards(cards).get(matchesA());
         List<Card> cardsWithoutAce = splitCards(cards).get(!matchesA());

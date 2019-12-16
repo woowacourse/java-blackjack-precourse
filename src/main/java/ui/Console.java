@@ -41,7 +41,7 @@ public class Console implements UserInterface {
     }
 
     @Override
-    public Will getWillForMoreCard() {
-        return null;
+    public String getWillForMoreCard() {
+        return scanner.nextLine();
     }
 }

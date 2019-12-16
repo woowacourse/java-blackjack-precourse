@@ -10,5 +10,15 @@ public interface BlackjackPrinter {
 
     void printUserState(User user);
 
+    void printUserResult(User user);
+
+    void printDealerHit(User user);
+
     void printResult(Dealer dealer, List<Player> players);
+
+    void printRequestForNames();
+
+    void printRequestForMoney(String name);
+
+    void printRequestForHit(User user);
 }
