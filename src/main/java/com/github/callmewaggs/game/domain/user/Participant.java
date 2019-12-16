@@ -6,7 +6,6 @@ import com.github.callmewaggs.game.domain.card.CardState;
 
 public abstract class Participant {
 
-  public static final long DEALER_INITIAL_INCOME = 0;
   static final int DEALER_MAX_HIT_NUMBER = 16;
 
   static final String PLAYER_INPUT_YES = "y";

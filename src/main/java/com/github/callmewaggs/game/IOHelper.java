@@ -88,7 +88,7 @@ public class IOHelper {
     printMessage("\n## 최종 수익");
   }
 
-  public static void printNameAndIncome(Map<String, Long> participantsIncomes) {
-    participantsIncomes.forEach((name, income) -> printMessage(name + " : " + income));
+  public static void printNameAndIncome(Map<String, Long> participantsIncome) {
+    participantsIncome.forEach((name, income) -> printMessage(name + " : " + income));
   }
 }

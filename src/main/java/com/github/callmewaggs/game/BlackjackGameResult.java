@@ -1,7 +1,6 @@
 package com.github.callmewaggs.game;
 
 import com.github.callmewaggs.game.domain.user.Dealer;
-import com.github.callmewaggs.game.domain.user.Participant;
 import com.github.callmewaggs.game.domain.user.Player;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,9 +12,23 @@ public class BlackjackGameResult {
 
   public BlackjackGameResult(Dealer dealer, List<Player> players) {
     participantsIncome = new LinkedHashMap<>();
+    long dealerInitialIncome = 0;
     for (Player player : players) {
-      participantsIncome.put(player.getName(), -player.getBettingMoney());
+      long playerBettingMoney = player.getBettingMoney();
+      participantsIncome.put(player.getName(), -playerBettingMoney);
+      dealerInitialIncome += playerBettingMoney;
     }
-    participantsIncome.put(dealer.getName(), Participant.DEALER_INITIAL_INCOME);
+    participantsIncome.put(dealer.getName(), dealerInitialIncome);
+  }
+
+  public void playerWin(Dealer dealer, Player player) {
+    participantsIncome.put(player.getName(),
+        participantsIncome.get(player.getName()) + player.getBettingMoney() * 2);
+    participantsIncome.put(dealer.getName(),
+        participantsIncome.get(dealer.getName()) - player.getBettingMoney() * 2);
+  }
+
+  public void printIncomes() {
+    IOHelper.printNameAndIncome(participantsIncome);
   }
 }

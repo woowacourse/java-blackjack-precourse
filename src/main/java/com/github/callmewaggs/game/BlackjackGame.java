@@ -3,9 +3,7 @@ package com.github.callmewaggs.game;
 import com.github.callmewaggs.game.domain.card.Card;
 import com.github.callmewaggs.game.domain.user.Dealer;
 import com.github.callmewaggs.game.domain.user.Player;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BlackjackGame {
 
@@ -35,14 +33,10 @@ public class BlackjackGame {
 
   private void dealerLose() {
     IOHelper.printFinalResultMessage();
-    long dealerIncome = 0;
-    Map<String, Long> participantsIncome = new LinkedHashMap<>();
     for (Player player : players) {
-      participantsIncome.put(player.getName(), player.getBettingMoney());
-      dealerIncome -= player.getBettingMoney();
+      gameResult.playerWin(dealer, player);
     }
-    participantsIncome.put(dealer.getName(), dealerIncome);
-    IOHelper.printNameAndIncome(participantsIncome);
+    gameResult.printIncomes();
   }
 
   private boolean isDealerBust() {
