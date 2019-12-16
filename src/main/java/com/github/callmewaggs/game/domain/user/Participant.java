@@ -4,7 +4,7 @@ import com.github.callmewaggs.game.domain.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gamer {
+public class Participant {
 
   private final List<Card> cards = new ArrayList<>();
 

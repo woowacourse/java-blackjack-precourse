@@ -3,7 +3,7 @@ package com.github.callmewaggs.game.domain.user;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player extends Gamer {
+public class Player extends Participant {
 
   private final String name;
   private final long bettingMoney;
