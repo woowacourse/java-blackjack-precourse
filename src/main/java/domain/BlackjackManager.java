@@ -79,7 +79,7 @@ public class BlackjackManager {
         }
         while (availableGiveCardToPlayer(participant)) {
             giveCardToParticipant(participant);
-            gamePrinter.callPrintParticipantCardInfo(participant, false);
+            gamePrinter.callPrintParticipantCardInfo(participant, false, false);
         }
     }
 

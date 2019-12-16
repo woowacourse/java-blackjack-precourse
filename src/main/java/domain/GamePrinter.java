@@ -64,20 +64,39 @@ public class GamePrinter {
             System.out.print(participantList.get(i).getName() + ", ");
         }
         System.out.println(participantList.get(participantList.size() - 1).getName() + "에게 2장의 카드를 나누어주었습니다.");
+
+        for (int i = 0; i < participantList.size(); i++){
+            callPrintParticipantCardInfo(participantList.get(i), false, false);
+        }
     }
 
-    void printParticipantCardInfo(Participant participant, boolean onlyOpenOneCard) {
+    // 참여자의 이름과 카드 정보, 경우에 따라 결과 스코어를 출력하는 함수
+    void callPrintParticipantCardInfo(Participant participant, boolean onlyOpenOneCard, boolean printWithPoint) {
         System.out.print(participant.getName() + "카드:");
         int cardSize = participant.getCards().size();
         if (onlyOpenOneCard) {
             cardSize = 1;
         }
+        printCardInfo(participant, cardSize);
+        printScoreInfo(participant, printWithPoint);
+        System.out.println();
+    }
+
+    void printScoreInfo(Participant participant, boolean print){
+        if(print)
+            System.out.print(" - 결과: "+participant.getSumScore());
+    }
+
+    // 참여자의 카드 정보를 출력하는 함수
+    void printCardInfo(Participant participant, int cardSize) {
+        List<Card> cards = participant.getCards();
         for (int i = 0; i < cardSize - 1; i++) {
-            printCardInfo(participant.getCard(i));
+            System.out.print(cards.get(i).getSymbol().getScore() + cards.get(i).getType().getKoreaType());
             System.out.print(",");
         }
-        printCardInfo(participant.getCard(cardSize - 1));
-        System.out.println();
+        System.out.print(cards.get(cardSize - 1).getSymbol().getScore() + cards.get(cardSize - 1).getType().getKoreaType());
+    }
+
     // 플레이어가 추가적으로 카드를 받을지 여부를 입력받는 함수
     String getAddInfoDecisionFromUser(Participant participant){
         System.out.println(participant.getName()+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
