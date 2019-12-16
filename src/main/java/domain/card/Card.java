@@ -43,7 +43,7 @@ public class Card {
 	}
 
 	public String getCardData() {
-		return type.name() + symbol.getScore();
+		return symbol.getScore()+type.getName();
 	}
 
 	public int getSymbolScore() {
