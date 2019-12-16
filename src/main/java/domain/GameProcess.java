@@ -33,6 +33,9 @@ public class GameProcess {
             System.out.println(player.get(i));
         }
         check_First();
+        for(int i = 1; i < player.size(); i++){
+            chooseDeal(player.get(i));
+        }
     }
 
     private void inputName() {
@@ -87,7 +90,7 @@ public class GameProcess {
 
     private void check_First(){
         win_or_lose = new double[player.size()];
-        for(int i = 1; i < 2; i++){
+        for(int i = 1; i < player.size(); i++){
             if(player.get(DEALER_INDEX).getCardSum() == BLACKJACK
                     && player.get(i).getCardSum() == BLACKJACK){
                 win_or_lose[i] = DRAW;
@@ -98,6 +101,18 @@ public class GameProcess {
         }
     }
 
-
-
+    private void chooseDeal(Dealer player){
+        char answer = 'y';
+        while(answer == 'y' && player.getCardSum() < 21){
+            System.out.println(player.getName() + "는 카드를 받으시겠습니까?"
+                                + "(예는 y, 아니요는 n)");
+            answer = sc.next().charAt(0);
+            if(answer == 'n'){
+                return;
+            }else{
+                deal_OneCard(player);
+                System.out.println(player);
+            }
+        }
+    }
 }
