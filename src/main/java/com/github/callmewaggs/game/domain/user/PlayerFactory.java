@@ -1,5 +1,6 @@
 package com.github.callmewaggs.game.domain.user;
 
+import com.github.callmewaggs.game.IOHelper;
 import java.util.ArrayList;
 import java.util.List;
 
