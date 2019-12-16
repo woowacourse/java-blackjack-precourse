@@ -1,6 +1,7 @@
 import java.util.*;
 
 import domain.gameElement.HandOutCard;
+import domain.gameElement.NextProceedGame;
 import domain.gameElement.PlayerBettingMoneyChecker;
 import domain.gameElement.PlayersNaming;
 import domain.gameElement.ProfitCalculation;
@@ -38,14 +39,17 @@ public class BlackJackGame {
     private void firstProceedGame() {
         System.out.println("딜러와 " + getPlayerNamesALine() + "에게 2장의 카드를 나누었습니다.");
         FirstHandOutCards();
-        nextProceed();
+        if (new NextProceedGame().nextProceed(users, step) == true) {
+            proceedGame();
+        }
+        
     }
 
     private void proceedGame() {
         step++;
         boolean NextTF = proceedHandOutCards();
-        if (NextTF == true) {
-            nextProceed();
+        if (new NextProceedGame().nextProceed(users, step) == true) {
+            proceedGame();
         }
     }
 
@@ -125,36 +129,6 @@ public class BlackJackGame {
             return true;
         }
         return false;
-    }
-
-    private void nextProceed() {
-        boolean NextTF = false;
-        if (step == 1) {
-            NextTF = ScoreCheckerWithBlackJack();
-        } else {
-            NextTF = ScoreChecker();
-        }
-        if (NextTF == true) {
-            proceedGame();
-        }
-    }
-
-    private boolean ScoreCheckerWithBlackJack() {
-        Set<Boolean> stopSet = new HashSet<Boolean>();
-        for (User user : users) {
-            stopSet.add(user.blackJackYN(user.getSumNumbers()));
-            stopSet.add(user.bustYN(user.getSumNumbers()));
-        }
-        return !stopSet.contains(true);
-    }
-
-    private boolean ScoreChecker() {
-        Set<Boolean> stopSet = new HashSet<Boolean>();
-        for (User user : users) {
-            stopSet.add(user.twentyoneYN(user.getSumNumbers()));
-            stopSet.add(user.bustYN(user.getSumNumbers()));
-        }
-        return !stopSet.contains(true);
     }
 
 }
