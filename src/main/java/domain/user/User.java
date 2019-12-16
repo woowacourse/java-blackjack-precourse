@@ -46,21 +46,26 @@ abstract public class User {
     }
 
     public boolean checkExcess() {
-        int sum = cards.stream()
+        Optional<Integer> sum = cards.stream()
                 .map(card -> card.getSymbol().getScore())
-                .reduce(Integer::sum)
-                .get();
-        return sum > LIMIT;
+                .reduce(Integer::sum);
+        if (sum.isPresent()) {
+            return sum.get() > LIMIT;
+        }
+        throw new IllegalStateException("카드가 없는 경우가 발생하였습니다.");
     }
 
     public boolean isBlackJack() {
-        if (getAceCount() == ONE)     // A가 있고
-            return false;
+        boolean isHaveTen = cards.stream().anyMatch(card ->
+                card.getSymbol() == Symbol.JACK ||
+                        card.getSymbol() == Symbol.KING ||
+                        card.getSymbol() == Symbol.QUEEN ||
+                        card.getSymbol() == Symbol.TEN);
 
-        return cards.stream().anyMatch(card ->      // K,J,Q 중 하나가 존재해야 블랙잭이다.
-                card.getSymbol() == Symbol.JACK &&
-                        card.getSymbol() == Symbol.KING &&
-                        card.getSymbol() == Symbol.QUEEN);
+        if (getAceCount() == ONE && isHaveTen)     // A가 있고 K,J,Q,TEN 중 하나가 존재해야 블랙잭이다.
+            return true;
+
+        return false;
     }
 
     public boolean isPlayer() {
