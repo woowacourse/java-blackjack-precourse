@@ -18,8 +18,9 @@ public class BlackJackGame {
     public static void main(String[] args) {
         Dealer dealer = new Dealer();
         List<Player> playerList = PlayerInputData.getPlayerList();
+        List<String> playerNameList = getPlayerNameList(playerList);
         CardDistributor cardDistributor = new CardDistributor();
-        distributeCardsToGameParticipant(dealer, playerList, cardDistributor);
+        cardDistributor.giveTwoCardsToGameParticipant(dealer, playerList, playerNameList);
         addCardToParticipant(dealer, playerList, cardDistributor);
         printGameParticipantTotalScore(dealer, playerList);
         printGameParticipantProfit(dealer, playerList);
