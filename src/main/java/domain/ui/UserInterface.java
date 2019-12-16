@@ -178,12 +178,12 @@ public class UserInterface {
 
     private String explainSymbol(Card card) {
         final int ACE_SCORE = 1;
-        final int TEN_JACK_QUENE_KING_SCORE = 10;
+        final int TEN_JACK_QUEEN_KING_SCORE = 10;
 
         int score = card.getSymbol().getScore();
 
         if ((!card.getSymbol().equals(Symbol.TEN)
-                && score == TEN_JACK_QUENE_KING_SCORE) || score == ACE_SCORE) {
+                && score == TEN_JACK_QUEEN_KING_SCORE) || score == ACE_SCORE) {
             return card.getSymbol().toString().substring(0, 1);         /* (ex) 'KING' -> 'K' */
         }
 
@@ -269,6 +269,7 @@ public class UserInterface {
             printCardsResult(player);
         }
 
+        System.out.println();
     }
 
     private void printCardsResult(Player player) {
@@ -278,7 +279,7 @@ public class UserInterface {
 
     private void printCardsResult(Dealer dealer) {
         System.out.println("딜러 카드: " + explainAllCards(dealer)
-                    + " - 결과: " + Scoring.getTotalScore(dealer.openAllCards()) + "\n");
+                    + " - 결과: " + Scoring.getTotalScore(dealer.openAllCards()));
     }
 
     public void printUsersFinalRevenues(Dealer dealer, List<Player> players) {

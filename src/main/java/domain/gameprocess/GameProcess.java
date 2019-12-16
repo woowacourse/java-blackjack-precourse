@@ -67,7 +67,7 @@ public class GameProcess {
 
     private void handOutCardsUntilOnePlayerGameIsEnded(Player player) {
 
-        while (Scoring.getTotalScore(player.openAllCards()) < Scoring.BLACKJACK_MAX_SCORE
+        while (Scoring.getTotalScore(player.openAllCards()) < Scoring.MAX_SCORE
                     && userInterface.scanWhetherPlayerReceiveCard(player)) {
             /* 플레이어의 카드 총 합이 아직 21 미만이고, 플레이어가 카드를 더 뽑기를 원할 때 실행 */
             handOutCardToUser(player);
