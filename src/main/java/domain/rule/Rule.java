@@ -11,7 +11,7 @@ public class Rule {
 		return user.isCardSize(BLACKJACK_CARD_SIZE) && user.isScore(BEST_SCORE);
 	}
 
-	private static boolean isBust(User user) {
+	public static boolean isBust(User user) {
 		return user.isScoreGreaterThan(BEST_SCORE);
 	}
 

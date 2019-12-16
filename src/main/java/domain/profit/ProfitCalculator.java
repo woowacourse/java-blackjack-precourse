@@ -23,11 +23,11 @@ public class ProfitCalculator {
 		if (!Rule.isBlackjack(dealer) && Rule.isBlackjack(player)) {
 			return player.getBettingMoney() * BLACKJACK_RATIO;
 		}
+		if (Rule.isBust(player) || Rule.isWin(dealer, player)) {
+			return -player.getBettingMoney();
+		}
 		if (Rule.isWin(player, dealer)) {
 			return player.getBettingMoney();
-		}
-		if (Rule.isWin(dealer, player)) {
-			return -player.getBettingMoney();
 		}
 		return DEFAULT_PROFIT;
 	}
