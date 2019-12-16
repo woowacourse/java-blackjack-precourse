@@ -1,5 +1,7 @@
 package domain.ui;
 
+import domain.card.Card;
+import domain.card.Type;
 import domain.user.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +12,9 @@ import java.util.Scanner;
 public class UserInterfaceMachine {
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * 이름 입력받기
+     */
     public List<String> scanNames() {
         final String NAME_INPUT_HEADER = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
         ArrayList<String> names;
@@ -80,6 +85,9 @@ public class UserInterfaceMachine {
         System.out.println(" * ex)YelimKim,JongSeongLee,Rebeca");
     }
 
+    /**
+     * 배팅 금액 입력받기
+     */
     public int scanBetAmountOfPlayer(String playerName) {
         final String BET_AMOUNT_INPUT_HEADER = playerName + "의 배팅 금액은?";
         int betAmount = 0;
@@ -123,6 +131,70 @@ public class UserInterfaceMachine {
         }
 
         return true;
+    }
+
+    /**
+     * 플레이어들이 가지고 있는 카드 전체 출력하기
+     */
+    public void printPlayersCards(List<Player> players) {
+        for (Player player : players) {
+            System.out.println(player.getName() + "카드: " + explainPlayerCards(player));
+        }
+    }
+
+    private String explainPlayerCards(User player) {
+        StringBuilder ret = new StringBuilder();
+        List<Card> playerCards = player.openAllCards();
+
+        for (Card card : playerCards) {
+            ret.append(explainCard(card) + ", ");
+        }
+
+        ret.delete(ret.length() - 2, ret.length());       /* 마지막 콤마+공백(, ) 제거 */
+
+        return ret.toString();
+    }
+
+    private String explainCard(Card card) {
+        return explainSymbol(card) + explainType(card);
+    }
+
+    private String explainSymbol(Card card) {
+        int score = card.getSymbol().getScore();
+
+        if (score == 10 || score == 1) {
+            return card.getSymbol().toString().substring(0, 1);
+        }
+
+        return score + "";
+    }
+
+    private String explainType(Card card) {
+        return translateTypeToKorean(card.getType());
+    }
+
+    private String translateTypeToKorean(Type cardType) {
+
+        if (cardType.equals(Type.SPADE)) {
+            return "스페이드";
+        }
+
+        if (cardType.equals(Type.DIAMOND)) {
+            return "다이아몬드";
+        }
+
+        if (cardType.equals(Type.HEART)) {
+            return "하트";
+        }
+
+        return "클로버";
+    }
+
+    /**
+     * 딜러가 받은 첫번째 카드 출력하기
+     */
+    public void printDealerFirstCard(Dealer dealer) {
+
     }
 
     public String scanWhetherPlayerReceiveCard() {
