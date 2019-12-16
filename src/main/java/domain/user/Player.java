@@ -13,10 +13,6 @@ public class Player extends BlackjackUser {
 
     // TODO 추가 기능 구현
 
-    public String getName() {
-        return name;
-    }
-
     public int getProfit(double profitRate) {
         return (int) (bettingMoney * profitRate);
     }

@@ -12,9 +12,8 @@ public class Dealer extends BlackjackUser {
 
     // TODO 추가 기능 구현
 
-    public void printFirstCardOnly() {
-        String firstCardName = cards.get(0).getName();
-        System.out.println(String.format("딜러 카드: %s", firstCardName));
+    public String getFirstCardName() {
+        return cards.get(0).getName();
     }
 
     public boolean doesNeedMoreCard() {
