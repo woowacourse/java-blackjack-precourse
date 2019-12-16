@@ -5,6 +5,7 @@ import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
     public final int MAX_NAME_LENGTH = 5;
     public Dealer dealer;
-    public List<Player> players;
+    public List<Player> players = new ArrayList<Player>();
     public Scanner sc = new Scanner(System.in);
     private final List<Card> cards;
 
@@ -23,6 +24,11 @@ public class Blackjack {
 
     public void ready() {
         String[] nameArr = getNames();
+        for (String name : nameArr) {
+            System.out.println(name + "의 배팅 금액을 입력해주세요.");
+            double bettingMoney = getBettingMoney();
+            players.add(new Player(name, bettingMoney));
+        }
     }
 
     public String[] getNames() {
@@ -49,5 +55,22 @@ public class Blackjack {
             }
         }
         return true;
+    }
+
+    public double getBettingMoney() {
+        String betting = sc.nextLine();
+        while (!validateBetting(betting)) {
+            System.out.printf("잘못된 배팅 금액입니다. (입력값: %s)%n", betting);
+            betting = sc.nextLine();
+        }
+        return Double.parseDouble(betting);
+    }
+
+    public boolean validateBetting(String betting) {
+        try {
+            return (Double.parseDouble(betting) > 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
