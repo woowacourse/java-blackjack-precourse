@@ -30,7 +30,7 @@ public class Card {
                 type == card.type;
     }
 
-    public boolean ifCardisAce() {
+    public boolean ifCardIsAce() {
         if (this.symbol == Symbol.ACE) {
             return true;
         }
@@ -44,11 +44,6 @@ public class Card {
 
     @Override
     public String toString() {
-       /* return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
-                */
         return symbol.getScore() + type.toString();
     }
 
