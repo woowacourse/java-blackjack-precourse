@@ -40,6 +40,12 @@ public class Table {
 		return playerList;
 	}
 
+	public List<String> getPlayerNames(){
+		return playerList.stream()
+			.map(player -> ((Player)player).getName())
+			.collect(Collectors.toList());
+	}
+
 	public Gambler getDealer() {
 		return dealer;
 	}

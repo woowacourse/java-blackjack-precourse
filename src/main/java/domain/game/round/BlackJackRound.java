@@ -1,18 +1,23 @@
 package domain.game.round;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
+import controller.OutputController;
 import domain.game.Rule;
 import domain.game.Table;
 import domain.user.Gambler;
+import domain.user.Player;
 
 public class BlackJackRound extends Round {
 	@Override
-	void run(Table table) {
+	public void run(Table table) {
 		distribute(table, Rule.getBasicDraw());
 		findWinner(table);
+		showStatus(table);
+		if(hasWinners()){
+			showResultStatus(table);
+		}
 	}
 
 	@Override
@@ -20,11 +25,11 @@ public class BlackJackRound extends Round {
 		winnerList = table.getPlayerList().stream()
 			.filter(player -> (player.sumCardsMax() == Rule.getBlackjackPoint()))
 			.collect(Collectors.toList());
-		if(winnerList.size()>0){
-			playerWin=true;
+		if (winnerList.size() > 0) {
+			playerWin = true;
 		}
-		if(table.getDealer().sumCardsMax()==Rule.getBlackjackPoint()){
-			dealerWin=true;
+		if (table.getDealer().sumCardsMax() == Rule.getBlackjackPoint()) {
+			dealerWin = true;
 		}
 	}
 
@@ -35,5 +40,17 @@ public class BlackJackRound extends Round {
 		} catch (Exception e) {
 			System.out.println(Rule.getOutOfCardsMessage());
 		}
+	}
+
+	private void showStatus(Table table) {
+		OutputController outputController = OutputController.getOutputController();
+		outputController.printBlackJackRoundTextLine(table.getPlayerNames(), Rule.getBasicDraw());
+		outputController.printDealerCards(table.getDealer(),Rule.getOpenCount(),false);
+		for (Gambler player: table.getPlayerList()
+			 ) {
+			outputController.printPlayerCards((Player)player);
+			outputController.printNewLine();
+		}
+		outputController.printNewLine();
 	}
 }

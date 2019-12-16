@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import domain.card.Card;
 
 public abstract class Gambler {
-	private List<Card> cards;
 	private List<Integer> cardScores;
 
 	private int sum;
@@ -45,6 +44,7 @@ public abstract class Gambler {
 	}
 
 	public boolean isBust(int blackJackPoint) {
+		sumCardsMin();
 		return sum > blackJackPoint;
 	}
 }

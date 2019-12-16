@@ -52,10 +52,11 @@ public class OutputController {
 		outputView.printDealerDrawLine(dealerDrawPoint);
 	}
 
-	public void printBlackJackRoundTextLine(List<Player> playerList, int basicDraw) {
-		List<String> playerNames = playerList.stream()
-			.map(Player::getName)
-			.collect(Collectors.toList());
+	public void printBlackJackRoundTextLine(List<String> playerNames, int basicDraw) {
 		outputView.printBlackJackRoundLine(playerNames, basicDraw);
+	}
+
+	public void printNewLine() {
+		outputView.printNewLine();
 	}
 }
