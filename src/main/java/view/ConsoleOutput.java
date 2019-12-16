@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 public class ConsoleOutput {
     public static void printCards(String cardString) {
         System.out.println(cardString);
@@ -23,5 +25,11 @@ public class ConsoleOutput {
 
     public static void printFirstDraw(String user, int cardNumber) {
         System.out.println("딜러와 " + user + "에게 " + cardNumber + "장의 카드를 나누었습니다.");
+    }
+
+    public static void printWinner(List<MoneyDTO> playerMoney, MoneyDTO dealerMoney) {
+        printMessage("## 최종 수익");
+        printMessage("딜러: " + dealerMoney.getMoney());
+        playerMoney.forEach(x -> printMessage(x.getName() + ": " + x.getMoney()));
     }
 }

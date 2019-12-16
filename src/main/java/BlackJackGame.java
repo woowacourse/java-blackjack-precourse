@@ -127,9 +127,7 @@ public class BlackJackGame {
         List<MoneyDTO> playerMoney = new ArrayList<>();
         MoneyDTO dealerMoney = new MoneyDTO("dealer", 0);
         players.forEach(x -> playerMoney.add(putBettingMoney(x, dealer, dealerMoney)));
-        printMessage("## 최종 수익");
-        printMessage("딜러: " + dealerMoney.getMoney());
-        playerMoney.forEach(x -> printMessage(x.getName() + ": " + x.getMoney()));
+        ConsoleOutput.printWinner(playerMoney, dealerMoney);
     }
 
     private int getShare(Player player, Dealer dealer) {
