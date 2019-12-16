@@ -92,7 +92,7 @@ public class UserInterface {
      * 배팅 금액 입력받기
      */
     public int scanBetAmountOfPlayer(String playerName) {
-        final String BET_AMOUNT_INPUT_HEADER = playerName + "의 배팅 금액은?";
+        final String BET_AMOUNT_INPUT_HEADER = "\n" + playerName + "의 배팅 금액은?";
         int betAmount = 0;
 
         System.out.println(BET_AMOUNT_INPUT_HEADER);
@@ -138,11 +138,12 @@ public class UserInterface {
     }
 
     public void printFirstTwoCard(Dealer dealer, List<Player> players) {
-        System.out.println("딜러와 " + combineStrings(getPlayersNameList(players), ", ")
+        System.out.println("\n딜러와 " + combineStrings(getPlayersNameList(players), ", ")
             + "에게 각각 두장의 카드가 분배되었습니다.");
 
         printDealerFirstCard(dealer);
         printPlayersCards(players);
+        System.out.println();
     }
 
     /**
@@ -214,14 +215,16 @@ public class UserInterface {
      * 플레이어가 카드를 더 받기를 원하는지 아닌지 입력받기
      */
     public boolean scanWhetherPlayerReceiveCard(Player player) {
+        final String WANNA_RECEIVE_CARD_INPUT_HEADER = player.getName()
+                        + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
         String input;
 
-        System.out.println(player.getName() + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        System.out.println(WANNA_RECEIVE_CARD_INPUT_HEADER);
         input = scanner.nextLine();
 
         while (!isCorrectWhetherPlayerReceiveCard(input)) {
             printErrorChiceWhetherReceiveCard();
-            System.out.println(player.getName() + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+            System.out.println(WANNA_RECEIVE_CARD_INPUT_HEADER);
             input = scanner.nextLine();
         }
 
@@ -256,7 +259,7 @@ public class UserInterface {
     }
 
     public void printDealerGetsCard() {
-        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+        System.out.println("\n딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
     }
 
     public void printUsersCardsResults(Dealer dealer, List<Player> players) {
