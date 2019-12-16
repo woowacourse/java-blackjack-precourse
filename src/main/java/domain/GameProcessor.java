@@ -6,12 +6,12 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class GameProcessor {
     private static ArrayList<Player> playersArray = new ArrayList<Player>();
+    static List<Card> shuffledCards = createCard();
 
     static void addPlayers(ArrayList<String> playerNamesArray) {
         for (String playerName : playerNamesArray) {
@@ -27,9 +27,10 @@ public class GameProcessor {
         Dealer dealer = new Dealer();
     }
 
-    static void createCard() {
-        List<Card> cardsArray;
+    static List<Card> createCard() {
         CardFactory cardFactory = new CardFactory();
-        cardsArray = cardFactory.create();
+        List<Card> cardsArray = new ArrayList(cardFactory.create());
+        Collections.shuffle(cardsArray);
+        return cardsArray;
     }
 }
