@@ -19,6 +19,10 @@ public class Card {
         return this.type.getSuit();
     }
 
+    public int getScore(){
+        return this.symbol.getScore();
+    }
+
     public String getSymbol(){
         return this.symbol.getSymbol();
     }

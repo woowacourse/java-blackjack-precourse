@@ -1,10 +1,11 @@
 package domain.blackjack;
 
 import controller.IOController;
+import domain.user.Dealer;
 
 public class Game {
 
-  public Table table;
+  private Table table;
 
   public void play() {
     this.table = new Table();
@@ -20,6 +21,20 @@ public class Game {
   private void start() {
     this.table.dealCards();
     this.table.displayCards();
+
+    if (dealerHasBlackJack(this.table.getDealer())) {
+      endGame();
+      return;
+    }
+
+    endGame();
+  }
+
+  private Boolean dealerHasBlackJack(Dealer dealer) {
+    return Rule.isBlackJack(dealer.getHands());
+  }
+
+  private void endGame() {
 
   }
 

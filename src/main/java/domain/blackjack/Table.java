@@ -67,4 +67,12 @@ public class Table {
     }
   }
 
+  public Dealer getDealer(){
+    return this.dealer;
+  }
+
+  public ArrayList<Player> getPlayers(){
+    return this.players;
+  }
+
 }
