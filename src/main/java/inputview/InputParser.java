@@ -16,12 +16,12 @@ public class InputParser {
 			.map(String::trim)
 			.collect(Collectors.toList());
 	}
-	
+
 	public static int parseStringToInt(String inputString) {
 		try {
 			return Integer.parseInt(inputString.trim());
 		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("숫자를 입력해주세요");
+			throw new IllegalArgumentException("정수인 숫자를 입력해주세요");
 		}
 	}
 }

@@ -13,8 +13,7 @@ public enum WinLoseInfo {
 		this.coefficient = input;
 	}
 	
-	public double toProfit(double bettingMoney) {
-		return this.coefficient * bettingMoney;
+	public int toProfit(double bettingMoney) {
+		return (int) (this.coefficient * bettingMoney);
 	}
-
 }

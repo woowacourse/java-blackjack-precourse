@@ -110,11 +110,11 @@ public class BlackjackGame {
 	private void checkFinalWinLose(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		WinLoseInfoManager.updateFinalWinLoseInfo(dealer, players, info);
 		OutputView.showAllFinalResults(dealer, players, info);
-		List<Double> finalProfit = calculateFinalProfit(players, info);
+		List<Integer> finalProfit = calculateFinalProfit(players, info);
 		OutputView.showFinalProfit(players, finalProfit);
 	}
 
-	private List<Double> calculateFinalProfit(Players players, List<WinLoseInfo> info) {
+	private List<Integer> calculateFinalProfit(Players players, List<WinLoseInfo> info) {
 		return IntStream.range(0, info.size())
 				.mapToObj(i -> info.get(i).toProfit(players.getPlayerAt(i).getBettingMoney()))
 				.collect(Collectors.toList());

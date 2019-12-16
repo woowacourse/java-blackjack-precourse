@@ -30,6 +30,7 @@ public class InputView {
 				.collect(Collectors.toList());
 	}
 	
+	/* double에 들어갈 값이지만 금액을 표현하므로 정수만을 입력 받음 */
 	private static int enterBettingMoney(String name) {
 		int money;
 		try {

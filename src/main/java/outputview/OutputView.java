@@ -61,10 +61,10 @@ public class OutputView {
 				+ ", " + info.toString());
 	}
 	
-	public static void showFinalProfit(Players players, List<Double> profits) {
+	public static void showFinalProfit(Players players, List<Integer> profits) {
 		StringBuilder message = new StringBuilder();
 		message.append("##최종 수익\n");
-		message.append("딜러: " + (-profits.stream().reduce(0.0, Double::sum)) + "\n");
+		message.append("딜러: " + (-profits.stream().reduce(0, Integer::sum)) + "\n");
 		for (int i = 0; i < profits.size(); i++) {
 			message.append(players.getPlayerAt(i).getName() + ": " + profits.get(i) + "\n");
 		}
