@@ -1,13 +1,23 @@
-package domain.user;
+/*
+ * Copyright (c) 2019 by SorinJin
+ * All rights reserved.
+ *
+ * Player.java
+ * 게임 참여자를 의미하는 객체
+ *
+ * @author      Sorin Jin
+ * @version     1.0
+ * @date        16 Dec 2019
+ *
+ */
 
-import domain.card.Card;
+package domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import domain.card.Card;
+import domain.card.Deck;
 
-/**
- * 게임 참여자를 의미하는 객체
- */
 public class Player {
     private final String name;
     private final double bettingMoney;
@@ -18,10 +28,7 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public void addCard(Deck deck){
+        cards.add(deck.getCard());
     }
-
-    // TODO 추가 기능 구현
-
 }

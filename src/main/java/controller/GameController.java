@@ -13,10 +13,11 @@
 
 package controller;
 
-import domain.user.Player;
-import view.InputView;
 import java.util.ArrayList;
 import java.util.List;
+import domain.card.Deck;
+import domain.user.Player;
+import view.InputView;
 
 public class GameController {
     private static final InputView inputView = new InputView();
@@ -31,7 +32,16 @@ public class GameController {
         return playerList;
     }
 
+    private void giveCardAtFirst(List<Player> playerList, Deck deck) {
+        for (Player player : playerList) {
+                player.addCard(deck);
+                player.addCard(deck);
+         }
+    }
+
     public void play() {
         List<Player> playerList = initPlayer();
+        Deck deck = new Deck();
+        giveCardAtFirst(playerList, deck);
     }
 }
