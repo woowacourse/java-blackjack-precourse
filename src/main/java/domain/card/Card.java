@@ -30,6 +30,13 @@ public class Card {
                 type == card.type;
     }
 
+    public boolean ifCardisAce() {
+        if (this.symbol == Symbol.ACE) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(symbol, type);
