@@ -2,9 +2,8 @@ package view;
 
 import java.util.List;
 
-import org.assertj.core.util.Strings;
-
 import domain.card.Card;
+import domain.result.Result;
 import domain.user.Dealer;
 import domain.user.Player;
 import util.ExceptionHandler;
@@ -25,13 +24,13 @@ public class InputOutputView {
 	}
 
 	public static void outputShowCards(Dealer dealer) {
-		System.out.print("딜러카드 ");
+		System.out.print("\n딜러카드 ");
 		for (Card card : dealer.getCards()) {
 			System.out.print(card.getSymbol() + "-" + card.getType() + " ");
 		}
 		System.out.println();
 	}
-	
+
 	public static void outputShowCards(Player player) {
 		System.out.print(player.getName() + "카드 ");
 		for (Card card : player.getCards()) {
@@ -40,14 +39,12 @@ public class InputOutputView {
 		System.out.println();
 	}
 
-
 	public static void outputNoMoreCards(Player player) {
-		System.out.println(player.getName()+"은 블랙잭이므로 추가카드를 지급받지 않습니다.");
+		System.out.println(player.getName() + "은 블랙잭이므로 추가카드를 지급받지 않습니다.");
 	}
 
-	
 	public static int inputaskMoreCards(Player player) {
-		System.out.println("\n"+player.getName() + "는 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+		System.out.println("\n" + player.getName() + "는 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 		return ExceptionHandler.inputaskMoreCardsHandler();
 	}
 
@@ -62,7 +59,7 @@ public class InputOutputView {
 	public static void outputShowCardsWithScore(Dealer dealer) {
 		System.out.print("\n딜러카드 ");
 		for (Card card : dealer.getCards()) {
-			System.out.print(card.getSymbol() + "-" + card.getType() +" ");
+			System.out.print(card.getSymbol() + "-" + card.getType() + " ");
 
 		}
 		System.out.println("- 결과:" + bestScore(dealer));
@@ -78,7 +75,7 @@ public class InputOutputView {
 	public static void outputShowCardsWithScore(Player player) {
 		System.out.print(player.getName() + "카드 ");
 		for (Card card : player.getCards()) {
-			System.out.print(card.getSymbol() + "-" + card.getType() +" ");
+			System.out.print(card.getSymbol() + "-" + card.getType() + " ");
 		}
 		System.out.println("- 결과:" + bestScore(player));
 	}
@@ -90,5 +87,11 @@ public class InputOutputView {
 		return player.getScoreAceAsOne();
 	}
 
-
+	public static void outputShowResults(double dealerBenefit, List<Result> results) {
+		System.out.println("\n##최종 수익");
+		System.out.println("딜러: " + (int) dealerBenefit);
+		for (Result result : results) {
+			System.out.println(result.getPlayer().getName() + ": " + (int) result.getBenefit());
+		}
+	}
 }

@@ -5,7 +5,10 @@ import java.util.List;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.result.GameResult;
+import domain.result.Result;
 import domain.user.Dealer;
+import domain.user.Gamer;
 import domain.user.Player;
 import view.InputOutputView;
 
@@ -14,7 +17,9 @@ public class Game {
 	private static List<Player> players = new ArrayList<>();
 	private static List<Card> cards = CardFactory.create();
 	private static List<Card> usedCards = new ArrayList<>();
+	private static List<Result> results = new ArrayList<>();
 	private static String users;
+	private static double dealerBenefit = 0;
 
 	public void start() {
 		init();
@@ -23,6 +28,7 @@ public class Game {
 		askMoreCards();
 		showCardsWithScore();
 		calculateWinner();
+		showResults();
 	}
 
 	private static void init() {
@@ -44,27 +50,15 @@ public class Game {
 		InputOutputView.outputGiveCards(users);
 	}
 
-	private void giveCard(int numberOfCards, Dealer dealer) {
+	private void giveCard(int numberOfCards, Gamer gamer) {
 		int randomNumber = (int) ((Math.random() * 1000) % (13 * 4));
 		if (numberOfCards != 0 && usedCards.contains(cards.get(randomNumber))) {
-			giveCard(numberOfCards, dealer);
+			giveCard(numberOfCards, gamer);
 		}
 		if (numberOfCards != 0 && !usedCards.contains(cards.get(randomNumber))) {
-			dealer.addCard(cards.get(randomNumber));
+			gamer.addCard(cards.get(randomNumber));
 			usedCards.add(cards.get(randomNumber));
-			giveCard(numberOfCards - 1, dealer);
-		}
-	}
-
-	private void giveCard(int numberOfCards, Player player) {
-		int randomNumber = (int) ((Math.random() * 1000) % (13 * 4));
-		if (numberOfCards != 0 && usedCards.contains(cards.get(randomNumber))) {
-			giveCard(numberOfCards, player);
-		}
-		if (numberOfCards != 0 && !usedCards.contains(cards.get(randomNumber))) {
-			player.addCard(cards.get(randomNumber));
-			usedCards.add(cards.get(randomNumber));
-			giveCard(numberOfCards - 1, player);
+			giveCard(numberOfCards - 1, gamer);
 		}
 	}
 
@@ -73,7 +67,6 @@ public class Game {
 		for (Player player : players) {
 			InputOutputView.outputShowCards(player);
 		}
-		System.out.println();
 	}
 
 	private void showCardsWithScore() {
@@ -81,7 +74,6 @@ public class Game {
 		for (Player player : players) {
 			InputOutputView.outputShowCardsWithScore(player);
 		}
-		System.out.println();
 	}
 
 	private void askMoreCards() {
@@ -124,8 +116,60 @@ public class Game {
 	}
 
 	private void calculateWinner() {
-		// TODO Auto-generated method stub
-
+		for (Player player : players) {
+			checkWinner(player);
+		}
+		for (Result result : results) {
+			dealerBenefit -= result.getBenefit();
+		}
 	}
 
+	private void checkWinner(Player player) {
+		if (checkUserWin(player) == true) {
+			return;
+		}
+		if (checkUserLose(player) == true) {
+			return;
+		}
+		if (checkTie(player) == true) {
+			return;
+		}
+	}
+
+	private boolean checkUserWin(Player player) {
+		if (player.isBlackJack() == true && dealer.isBlackJack() == false) {
+			return results.add(new Result(player, GameResult.USER_WIN_WITH_BLACKJACK));
+		}
+		if (dealer.isBust() == true) {
+			return results.add(new Result(player, GameResult.USER_WIN));
+		}
+		if (player.isBust() == false && player.getBestScore() > dealer.getBestScore()) {
+			return results.add(new Result(player, GameResult.USER_WIN));
+		}
+		return false;
+	}
+
+	private boolean checkUserLose(Player player) {
+		if (player.isBust() == true) {
+			return results.add(new Result(player, GameResult.USER_LOSE));
+		}
+		if (player.getBestScore() < dealer.getBestScore()) {
+			return results.add(new Result(player, GameResult.USER_LOSE));
+		}
+		return false;
+	}
+
+	private boolean checkTie(Player player) {
+		if (player.isBlackJack() == true && dealer.isBlackJack() == true) {
+			return results.add(new Result(player, GameResult.TIE_GAME));
+		}
+		if (player.getBestScore() == dealer.getBestScore()) {
+			return results.add(new Result(player, GameResult.TIE_GAME));
+		}
+		return false;
+	}
+
+	private void showResults() {
+		InputOutputView.outputShowResults(dealerBenefit, results);
+	}
 }
