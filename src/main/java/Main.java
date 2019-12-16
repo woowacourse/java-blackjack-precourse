@@ -1,11 +1,11 @@
 import domain.user.Dealer;
 import domain.user.Player;
-import utils.UserInput;
+import view.UserInput;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static utils.ConsoleOutput.printMessage;
+import static view.ConsoleOutput.printMessage;
 
 
 public class Main {

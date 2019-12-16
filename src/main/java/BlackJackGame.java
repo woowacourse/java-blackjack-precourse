@@ -2,14 +2,15 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
-import utils.ConsoleOutput;
-import utils.UserInput;
+import view.ConsoleOutput;
+import view.MoneyDTO;
+import view.UserInput;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static utils.ConsoleOutput.printMessage;
+import static view.ConsoleOutput.printMessage;
 
 public class BlackJackGame {
     private final int START_DRAW = 2;

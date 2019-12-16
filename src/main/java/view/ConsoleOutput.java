@@ -1,9 +1,4 @@
-package utils;
-
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
+package view;
 
 public class ConsoleOutput {
     public static void printCards(String cardString) {

@@ -1,3 +1,5 @@
+package view;
+
 public class MoneyDTO {
     private String name;
     private int money;
