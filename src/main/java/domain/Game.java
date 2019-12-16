@@ -125,6 +125,15 @@ public class Game {
         }
     }
 
+    public boolean checkPlayerBlackJack() {
+        if(player.get(index).ifBlackJack()) {
+            player.get(index).getBettingMoney(1.5);
+            dealer.minusCost(player.get(index).getReward());
+            return true;
+        }
+        return false;
+    }
+
     public void askOneMoreCard() { //10줄로 줄이기
         System.out.println(player.get(index).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
         String answer = sc.next();
