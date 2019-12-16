@@ -8,7 +8,6 @@
 
 package com.precourse.blackjack.domain.game;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
@@ -40,11 +39,15 @@ public class Game {
 	}
 
 	public void start() {
+		setGame();
+		//proceedGame();
+		//EndGame();
+	}
+
+	private void setGame() {
 		Collections.shuffle(cardDeck);
 		dealTwoCards();
-		GameController.showInitialCardDealingEnd(OutputUtil.getAllNames(players, dealer));
-		GameController.showCards(OutputUtil.getDealerFirstCards(dealer));
-		players.forEach(player -> GameController.showCards(OutputUtil.getPlayerNameAndCards(player)));
+		sendSettingEndMessage();
 	}
 
 	private void dealTwoCards() {
@@ -52,5 +55,11 @@ public class Game {
 			players.forEach(player -> player.addCard(cardDeck.pop()));
 			dealer.addCard(cardDeck.pop());
 		}
+	}
+
+	private void sendSettingEndMessage() {
+		GameController.showInitialCardDealingEnd(OutputUtil.getAllNames(players, dealer));
+		GameController.showCards(OutputUtil.getDealerFirstCards(dealer));
+		players.forEach(player -> GameController.showCards(OutputUtil.getPlayerNameAndCards(player)));
 	}
 }
