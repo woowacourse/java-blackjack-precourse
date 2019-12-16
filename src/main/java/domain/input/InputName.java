@@ -1,7 +1,7 @@
 /*
- * class: InputName
+ * class: InputMoney
  *
- * version: 1.1v
+ * version: 1.0v
  *
  * date: 2019.12.16
  *
@@ -53,6 +53,10 @@ public class InputName {
                 names.contains("") ||
                 names.isEmpty()) {
             System.out.println("이름 입력 오류 재입력!! 공백불가");
+            return true;
+        }
+        if (names.size() != names.stream().distinct().count()) {
+            System.out.println("중복 이름 입력불가 재입력!!");
             return true;
         }
         return false;
