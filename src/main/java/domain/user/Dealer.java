@@ -19,10 +19,12 @@ public class Dealer extends People {
     // TODO 추가 기능 구현
 
     public boolean isDealerWinner(Player player) {
-        if (player.getTotalNumber() <= MAXIMUM_VALUE
-                && this.getTotalNumber() < player.getTotalNumber())
-            return true;
-        return false;
+        return  (player.getTotalNumber() <= MAXIMUM_VALUE
+                && this.getTotalNumber() < player.getTotalNumber());
     }
 
+    public boolean isTie(Player player) {
+        return (player.getTotalNumber() == this.getTotalNumber())
+                && (player.cardCount() == this.cardCount());
+    }
 }

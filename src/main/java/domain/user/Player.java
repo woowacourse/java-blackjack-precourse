@@ -21,4 +21,14 @@ public class Player extends People{
     public String getName() {
         return this.name;
     }
+
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
+    public double blackJactBonus(){
+        if(this.isBlackJack())
+            return bettingMoney * 0.5;
+        return 0;
+    }
 }

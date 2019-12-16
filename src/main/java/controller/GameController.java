@@ -7,6 +7,7 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.Result;
 import io.InputSystem;
 import io.OutputSystem;
 
@@ -19,6 +20,8 @@ public class GameController {
     private Dealer dealer;
     private ArrayList<Player> players;
     private InputSystem inputSystem;
+    private Result dealerResult;
+    private ArrayList<Result> playerResult;
 
     public GameController() {
         players = new ArrayList<>();
@@ -40,6 +43,10 @@ public class GameController {
         OutputSystem.printGetTwoCards(players);
         drawTwoCard();
         OutputSystem.printPeopleCardList(dealer, players);
+        if (dealer.isBlackJack()) {
+            dealerBlackjackCalculate();
+            return;
+        }
         for (int i = 0; i < players.size(); i++) {
             drawPlayerCard(i);
         }
@@ -53,11 +60,6 @@ public class GameController {
     }
 
     private void calculateMoney() {
-        if (dealer.isBlackJack()) {
-            dealerBlackjackCalculate();
-            return;
-            // 딜러가 블랙잭이면 블랙잭인 상대 제외하고 모두 돈을 걷는다.
-        }
         if (dealer.getTotalNumber() > MAXIUM_VALUE) {
             dealerBurstCalculate();
             return;
@@ -67,15 +69,58 @@ public class GameController {
     }
 
     private void dealerBlackjackCalculate() {
-        players.stream().filter(x->x.isBlackJack());
+        double dealerSum = 0;
+        for (Player player : players) {
+            dealerSum += notBlackjackPlayerGetMoney(player);
+        }
+        dealerResult = new Result("dealer", dealerSum);
+    }
+
+    private double notBlackjackPlayerGetMoney(Player player) {
+        if (player.isBlackJack()) {
+            playerResult.add(new Result(player.getName(), 0));
+            return 0;
+        }
+        playerResult.add(new Result(player.getName(), -player.getBettingMoney()));
+        return player.getBettingMoney();
     }
 
     private void dealerBurstCalculate() {
+        double dealerSum = 0;
+        for (Player player : players) {
+            dealerSum += playerBurstGetMoney(player);
+        }
+        dealerResult = new Result("dealer", dealerSum);
+    }
 
+    private double playerBurstGetMoney(Player player) {
+        if (player.getTotalNumber() > MAXIUM_VALUE) {
+            playerResult.add(new Result(player.getName(), -player.getBettingMoney()));
+            return player.getBettingMoney();
+        }
+        playerResult.add(new Result(player.getName(), player.getBettingMoney() + player.blackJactBonus()));
+        return -player.getBettingMoney() + player.blackJactBonus();
     }
 
     private void normalCalculate() {
+        double dealerSum = 0;
+        for (Player player : players) {
+            dealerSum += dealerToPlayerCompare(player);
+        }
+        dealerResult = new Result("dealer", dealerSum);
+    }
 
+    public double dealerToPlayerCompare(Player player) {
+        if (dealer.isDealerWinner(player)) {
+            playerResult.add(new Result(player.getName(),-player.getBettingMoney()));
+            return player.getBettingMoney();
+        }
+        if (dealer.isTie(player)){
+            playerResult.add(new Result(player.getName(),0));
+            return 0;
+        }
+        playerResult.add(new Result(player.getName(),player.getBettingMoney()+player.blackJactBonus()));
+        return player.getBettingMoney()+player.blackJactBonus();
     }
 
     private String[] commaNameSlice(String names) {
