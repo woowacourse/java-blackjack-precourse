@@ -95,12 +95,13 @@ public class UserInterface {
 
         System.out.println(BET_AMOUNT_INPUT_HEADER);
         betAmount = scanBetAmountOnlyOnce();
+        scanner.nextLine();                       /* 숫자를 입력받기 전에 버퍼 비우기 */
 
         while (!isCorrectBetAmount(betAmount)) {
             printBetAmountError();
             System.out.println(BET_AMOUNT_INPUT_HEADER);
-            scanner.nextLine();                   /* 숫자를 입력받기 전에 버퍼 비우기 */
             betAmount = scanBetAmountOnlyOnce();
+            scanner.nextLine();                   /* 숫자를 입력받기 전에 버퍼 비우기 */
         }
 
         return betAmount;
@@ -207,11 +208,39 @@ public class UserInterface {
         return "클로버";
     }
 
-    public String scanWhetherPlayerReceiveCard() {
-        return "";
+    /**
+     * 플레이어가 카드를 더 받기를 원하는지 아닌지 입력받기
+     */
+    public boolean scanWhetherPlayerReceiveCard(Player player) {
+        String input;
+
+        System.out.println(player.getName() + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        input = scanner.nextLine();
+
+        while (!isCorrectWhetherPlayerReceiveCard(input)) {
+            printErrorChiceWhetherReceiveCard();
+            System.out.println(player.getName() + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+            input = scanner.nextLine();
+        }
+
+        return isWantAdditionalCard(input);
     }
 
-    private boolean isCorrectWhetherPlayerReceiveCard() {
+    private void printErrorChiceWhetherReceiveCard() {
+        System.out.println("잘못된 입력입니다.");
+        System.out.println(" * 'y' 또는 'n' 만 입력 가능합니다.");
+    }
+
+    private boolean isWantAdditionalCard(String input) {
+
+        if (input.equals("y")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isCorrectWhetherPlayerReceiveCard(String input) {
         return true;
     }
 
