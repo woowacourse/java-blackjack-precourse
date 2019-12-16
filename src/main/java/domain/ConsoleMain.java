@@ -30,9 +30,8 @@ public class ConsoleMain {
     private static void inputBetting(){
         betting = new int[playerNumber];
         for(int i = 0; i < playerName.length; i++){
-            System.out.println(playerName[i] + "의 배팅 금액은?");
-
             while(betting[i] <= ZERO_BETTING){
+                System.out.println(playerName[i] + "의 배팅 금액은? (금액은 0원 이상이어야 합니다.)");
                 betting[i] = sc.nextInt();
             }
         }
