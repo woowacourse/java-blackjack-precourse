@@ -1,6 +1,7 @@
 package domain.blackjack;
 
 
+import controller.IOController;
 import domain.user.Dealer;
 import domain.user.Player;
 import java.util.ArrayList;
@@ -23,19 +24,27 @@ public class Table {
     }
   }
 
-  private void dealCardToPlayer(Player player){
+  private void dealCardToPlayer(Player player) {
+    IOController.printDealCardToUser(player.getName());
     player.addCard(this.deck.draw());
   }
 
-  private void dealCardToDealer(Dealer dealer){
+  private void dealCardToDealer(Dealer dealer) {
+    IOController.printDealCardToDealer();
     dealer.addCard(this.deck.draw());
   }
 
-  public void dealCards() {
+  private void dealToAll() {
     for (int i = 0; i < this.players.size(); i++) {
       dealCardToPlayer(this.players.get(i));
     }
     dealCardToDealer(this.dealer);
+  }
+
+  public void dealCards() {
+    for (int i = 0; i < 2; i++) {
+      dealToAll();
+    }
   }
 
 }

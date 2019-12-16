@@ -103,4 +103,12 @@ public class IOController {
 
     return money;
   }
+
+  public static void printDealCardToUser(String name){
+    System.out.println(name + "이(가) 한장 받습니다.");
+  }
+
+  public static void printDealCardToDealer(){
+    System.out.println("딜러가 한장 받습니다.");
+  }
 }
