@@ -12,13 +12,13 @@ public class Deck {
     private Set<Integer> setNotForDuplicationOfIndex = new HashSet<>();
 
     public static Deck getInstance() {
-        if(deck ==null){
+        if (deck == null) {
             deck = new Deck();
         }
         return deck;
     }
 
-    public Card getRandomCard(){
+    public Card getRandomCard() {
         return cards.get(makeRandomIndex());
     }
 
@@ -27,7 +27,7 @@ public class Deck {
         int randomNumber = (int) (Math.random() * DECK_COUNT);
         setNotForDuplicationOfIndex.add(randomNumber);
         int after = setNotForDuplicationOfIndex.size();
-        if(before == after)
+        if (before == after)
             return makeRandomIndex();
         return randomNumber;
     }

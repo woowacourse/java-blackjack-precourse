@@ -12,12 +12,14 @@ import view.InputView;
 import view.OutputView;
 
 public class GameModel {
-    private static final int SECOND = 2;
-    private static final double FIRST_BLACKJACK_PROFIT = 0.5;
-    private static final Integer TWENTY = 20;
     private static final double WIN_RATE = 1;
     private static final double DRAW_RATE = 0;
     private static final double LOSE_RATE = -1;
+    private static final double FIRST_BLACKJACK_PROFIT = 0.5;
+    private static final double ZERO = 0;
+    private static final int SECOND = 2;
+    private static final Integer TWENTY = 20;
+
     private final List<Player> players = new ArrayList<>();
     private final Dealer dealer = new Dealer();
     private static final Deck deck = Deck.getInstance();
@@ -35,33 +37,59 @@ public class GameModel {
         checkOneMoreCardToDealer();
         showResultOfEveryCards();
         for (Player player : players) {
-            setResult(player,dealer);
+            setPlayerProfit(player, dealer);
         }
         setResultOfDealer();
     }
 
     private void setResultOfDealer() {
-        OutputView.printDealer(dealer.getProfit(players));
+        double dealerProfit = ZERO;
+        for (Player player : players) {
+            dealerProfit += dealer.calculateProfit(player);
+        }
+        OutputView.printDealer(dealerProfit);
     }
 
-    private boolean setResult(Player player, Dealer dealer) {
-        if(player.isBlackJack() && !dealer.isBlackJack())
-            OutputView.printPlayerProfit(player);
-        if (player.winGame(dealer) && !player.isBlackJack()) {
-            player.multiplyProfit(WIN_RATE);
-            OutputView.printPlayerProfit(player);
+    private boolean setPlayerProfit(Player player, Dealer dealer) {
+        playerIsAlreadyBlackJack(player, dealer);
+        if (playerWin(player, dealer)) {
             return true;
         }
-        if (player.drawGame(dealer) && !player.isBurst() && !dealer.isBurst()) {
+        if (playerDraw(player, dealer)) {
+            return true;
+        }
+        playerLose(player);
+        return false;
+    }
+
+    private void playerLose(Player player) {
+        if (!player.isBlackJack()) {
+            player.multiplyProfit(LOSE_RATE);
+            OutputView.printPlayerProfit(player);
+        }
+    }
+
+    private boolean playerDraw(Player player, Dealer dealer) {
+        if (player.isDrawGame(dealer) && !player.isBurst() && !dealer.isBurst()) {
             player.multiplyProfit(DRAW_RATE);
             OutputView.printPlayerProfit(player);
             return true;
         }
-        if(!player.isBlackJack()){
-            player.multiplyProfit(LOSE_RATE);
+        return false;
+    }
+
+    private boolean playerWin(Player player, Dealer dealer) {
+        if (player.isWinGame(dealer) && !player.isBlackJack()) {
+            player.multiplyProfit(WIN_RATE);
             OutputView.printPlayerProfit(player);
+            return true;
         }
         return false;
+    }
+
+    private void playerIsAlreadyBlackJack(Player player, Dealer dealer) {
+        if (player.isBlackJack() && !dealer.isBlackJack())
+            OutputView.printPlayerProfit(player);
     }
 
     private void showResultOfEveryCards() {

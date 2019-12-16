@@ -1,35 +1,27 @@
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer extends Gamer{
+public class Dealer extends Gamer {
 
     private static final Integer SIXTEEN = 16;
+    private static final double MINUS_ZERO = -1;
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     // TODO 추가 기능 구현
 
-    public boolean shouldHaveOneMoreCard(){
+    public boolean shouldHaveOneMoreCard() {
         return sumOfCard() <= SIXTEEN;
     }
 
-    public double getProfit(List<Player> players){
-        double dealerProfit = 0;
-        for(int i =0; i<players.size(); i++){
-            if(players.get(i).winGame(this) || players.get(i).drawGame(this)){
-                dealerProfit -= players.get(i).getProfit();
-            }else {
-                dealerProfit -= players.get(i).getProfit();
-            }
+    public double calculateProfit(Player player) {
+        if (player.isWinGame(this) || player.isDrawGame(this)) {
+            return player.getProfit() * MINUS_ZERO;
         }
-        return dealerProfit;
+        return player.getProfit() * MINUS_ZERO;
     }
 
 }

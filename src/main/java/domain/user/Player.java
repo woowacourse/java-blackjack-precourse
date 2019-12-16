@@ -5,16 +5,12 @@ import domain.card.Symbol;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player extends Gamer{
+public class Player extends Gamer {
     private final String name;
     private double bettingMoney;
 
     public String getName() {
         return name;
-    }
-
-    public double getBettingMoney() {
-        return bettingMoney;
     }
 
     public Player(String name, double bettingMoney) {
@@ -28,21 +24,21 @@ public class Player extends Gamer{
         bettingMoney *= multiple;
     }
 
-    public double getProfit(){
+    public double getProfit() {
         return bettingMoney;
     }
 
-    public boolean winGame(Dealer dealer) {
-        if(dealer.isBurst() && !isBurst())
+    public boolean isWinGame(Dealer dealer) {
+        if (dealer.isBurst() && !isBurst())
             return true;
-        if(dealer.sumOfCard() < sumOfCard() && !dealer.isBurst() && !isBurst())
+        if (dealer.sumOfCard() < sumOfCard() && !dealer.isBurst() && !isBurst())
             return true;
         return false;
     }
 
-    public boolean drawGame(Dealer dealer) {
-        if(dealer.sumOfCard() == sumOfCard()
-                && !dealer.isBurst() && !isBurst() )
+    public boolean isDrawGame(Dealer dealer) {
+        if (dealer.sumOfCard() == sumOfCard()
+                && !dealer.isBurst() && !isBurst())
             return true;
         return false;
     }

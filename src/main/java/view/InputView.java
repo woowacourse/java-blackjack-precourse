@@ -27,8 +27,9 @@ public class InputView {
     public List<String> inputUserNames() throws IOException {
         System.out.println(USER_NAME_INPUT);
         String[] userNames = BR.readLine().trim().split(COMMA);
-        if (checkBlankOk(userNames) && checkNotContainsSameUser(userNames) && checkUserCountOk(userNames))
+        if (checkBlankOk(userNames) && checkNotContainsSameUser(userNames) && checkUserCountOk(userNames)){
             return Arrays.asList(userNames);
+        }
         System.out.println(ERROR_NAME_INPUT);
         return inputUserNames();
     }
@@ -51,8 +52,8 @@ public class InputView {
 
     public List<Double> inputBettingMoneys(List<String> userNames) throws IOException {
         List<Double> bettingMoneys = new ArrayList<>();
-        for(int i=0; i<userNames.size(); i++){
-            System.out.println(userNames.get(i)+ INPUT_BETTING_MONEY);
+        for (int i = 0; i < userNames.size(); i++) {
+            System.out.println(userNames.get(i) + INPUT_BETTING_MONEY);
             bettingMoneys.add(checkBettingMoneyAndReturn());
         }
         return bettingMoneys;
@@ -61,14 +62,14 @@ public class InputView {
     private Double checkBettingMoneyAndReturn() throws IOException {
         try {
             return ifItIsNotZero(Double.parseDouble(BR.readLine().trim()));
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println(ERROR_FORMAT);
             return checkBettingMoneyAndReturn();
         }
     }
 
     private Double ifItIsNotZero(double parseDouble) throws IOException {
-        if(parseDouble != ZERO)
+        if (parseDouble != ZERO)
             return parseDouble;
         System.out.println(ERROR_ZERO);
         return checkBettingMoneyAndReturn();
@@ -77,9 +78,9 @@ public class InputView {
     public boolean wantOneMore(Player player) throws IOException {
         System.out.println(NEXT_LINE + player.getName() + INPUT_WANT_ONE_MORE);
         String userInput = BR.readLine().trim().toUpperCase();
-        if(userInput.equals(YES))
+        if (userInput.equals(YES))
             return true;
-        if(!userInput.equals(NO)){
+        if (!userInput.equals(NO)) {
             System.out.println(ERROR_FORMAT);
             return wantOneMore(player);
         }
