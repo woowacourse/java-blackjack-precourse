@@ -28,8 +28,8 @@ public class Dealer {
 
 	public void showHand() {
 		String showHand = "딜러:";
-		for (Card card : cards) {
-			showHand += card.toString() + ",";
+		for (int i = 1; i < this.cards.size(); i++) {
+			showHand += this.cards.get(i).toString() + ",";
 		}
 		System.out.println(showHand);
 	}
