@@ -9,11 +9,11 @@ import java.util.Scanner;
 
 public class PlayGame {
 
-    Dealer dealer;
-    List<Player> players;
-    List<Card> cards;
-    int usedCardIndex = -1;
-    Score score;
+    Dealer          dealer;
+    List<Player>    players;
+    List<Card>      cards;
+    int             usedCardIndex = -1;
+    Score           score;
 
     private static final int DEALER_THRESHOLD = 17;
 
@@ -62,7 +62,6 @@ public class PlayGame {
         for (Player player : players)
             isBlackJack(blackJackPlayers, player);
         if (!blackJackPlayers.isEmpty() || dealer.cardSum() == Score.BLACK_JACK) {
-            System.out.println("BlackJack Exists");
             score.blackJack(blackJackPlayers, dealer.cardSum());
             printFinalResult();
             System.exit(0);
@@ -119,7 +118,32 @@ public class PlayGame {
     }
 
     private void checkWinner() { //최고점 출력
-        
+        List<Player> winners = new ArrayList<>();
+        winners = checkDealerWin();
+        score.returnBettingMoney(winners);
+    }
+
+    private List<Player> checkDealerWin() {
+        if (isOver21(dealer.cardSum())) { //플레이어들 승
+            return players;
+        }
+        return getWinner();
+    }
+
+    private List<Player> getWinner() {
+        List<Player> winners = new ArrayList<>();
+        int maxSum = dealer.cardSum();
+        for (Player player : players) {
+            if (isOver21(player.cardSum())) continue;
+            if (player.cardSum() > maxSum) {
+                winners = new ArrayList<>();
+                winners.add(player);
+                maxSum = player.cardSum();
+            }
+            if (player.cardSum() == maxSum)
+                winners.add(player);
+        }
+        return winners;
     }
 
     private boolean isOver21(double value) {
@@ -128,9 +152,9 @@ public class PlayGame {
     }
 
     private void printFinalResult() {
-        System.out.println(dealer.print() + "- 결과 :" + dealer.cardSum());
+        System.out.println(dealer.print() + " - 결과 :" + dealer.cardSum());
         for (Player player : players) {
-            System.out.println(player.print() + "- 결과 :" + player.cardSum());
+            System.out.println(player.print() + " - 결과 :" + player.cardSum());
         }
         printFinalScore();
     }
@@ -139,7 +163,7 @@ public class PlayGame {
         System.out.println("## 최종수익");
         System.out.println("딜러: " + dealer.getProfit());
         for (Player player : players)
-            System.out.println(player.getName() + ": " + (int)player.getProfit());
+            System.out.println(player.getName() + ": " + player.getProfit());
     }
 
 }

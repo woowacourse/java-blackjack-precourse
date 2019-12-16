@@ -32,9 +32,8 @@ public class Dealer {
     }
 
     private int checkAceExists(Card card, int sum) {
-        if (card.isAce() && (sum + 10 < Score.BLACK_JACK)) {
-            System.out.println("ACE 있어서 10더함");
-            return 10;
+        if (card.isAce() && (sum > Score.BLACK_JACK)) {
+            return -10;
         }
         return 0;
     }
