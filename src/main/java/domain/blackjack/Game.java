@@ -10,7 +10,9 @@ public class Game {
     this.table = new Table();
 
     String[] users = IOController.getUsers();
-    int[] betting = IOController.getBetting(users);
+    double[] betting = IOController.getBetting(users);
+
+    this.table.joinPlayers(users, betting);
   }
 
 }

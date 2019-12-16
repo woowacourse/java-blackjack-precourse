@@ -63,8 +63,8 @@ public class IOController {
     return users;
   }
 
-  public static int[] getBetting(String[] users) {
-    int[] betting = new int[users.length];
+  public static double[] getBetting(String[] users) {
+    double[] betting = new double[users.length];
 
     for (int i = 0; i < users.length; i++) {
       betting[i] = getBetting(users[i]);
@@ -83,7 +83,7 @@ public class IOController {
     }
   }
 
-  private static int inputMoney() {
+  private static double inputMoney() {
     try {
       Scanner scanner = new Scanner(System.in);
       int money = scanner.nextInt();
@@ -97,9 +97,9 @@ public class IOController {
     }
   }
 
-  private static int getBetting(String user) {
+  private static double getBetting(String user) {
     askBettingMoney(user);
-    int money = inputMoney();
+    double money = inputMoney();
 
     return money;
   }
