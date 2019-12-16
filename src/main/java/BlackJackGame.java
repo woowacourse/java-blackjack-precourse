@@ -1,7 +1,6 @@
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
-import domain.user.Person;
 import domain.user.Player;
 import utils.ConsoleOutput;
 import utils.UserInput;
@@ -27,7 +26,7 @@ public class BlackJackGame {
         List<Card> newCards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(newCards);
         drawStartCards(newCards);
-        if(!dealer.isBlackJack()) {
+        if (!dealer.isBlackJack()) {
             startTurn(newCards);
         }
         printGameResult();
@@ -112,8 +111,8 @@ public class BlackJackGame {
     }
 
     private boolean checkAdditionalDraw(Player player, List<Card> newCards) {
-        if(player.isBlackJack()) {
-            printMessage("블랙잭! 150%의 배당을 받습니다.");
+        if (player.isBlackJack()) {
+            ConsoleOutput.printBlackJack();
             return true;
         }
         askToDraw(player, newCards);
@@ -122,7 +121,7 @@ public class BlackJackGame {
 
     private void askToDraw(Player player, List<Card> newCards) {
         boolean continueDraw = true;
-        printMessage(player.getCardString());
+        printMessage("\n" + player.getCardString());
         while (continueDraw && !player.isBusted()) {
             printMessage(player.isHit());
             continueDraw = drawOneMore(player, newCards);

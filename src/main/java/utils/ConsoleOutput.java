@@ -15,11 +15,15 @@ public class ConsoleOutput {
     }
 
     public static void printBusted() {
-        System.out.println("\n버스트! 배팅 금액을 모두 잃습니다.\n");
+        System.out.println("\n버스트! 배팅 금액을 모두 잃습니다.");
     }
 
     public static void printDealerRedraw() {
-        System.out.println("딜러는 16이하라 한 장의 카드를 더 받았습니다.\n");
+        System.out.println("\n딜러는 16이하라 한 장의 카드를 더 받았습니다.");
+    }
+
+    public static void printBlackJack() {
+        System.out.println("블랙잭! 150%의 배당을 받습니다.");
     }
 
     public static void printFirstDraw(String user, int cardNumber) {
