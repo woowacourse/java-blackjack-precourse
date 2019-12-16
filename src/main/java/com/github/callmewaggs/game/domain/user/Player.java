@@ -10,12 +10,42 @@ import java.util.List;
 public class Player {
 
   private final String name;
-  private final double bettingMoney;
+  private final long bettingMoney;
   private final List<Card> cards = new ArrayList<>();
 
-  public Player(String name, double bettingMoney) {
+  private Player(String name, long bettingMoney) {
     this.name = name;
     this.bettingMoney = bettingMoney;
+  }
+
+  public static Player createPlayerIfValidate(String name, String bettingMoney) {
+    checkNameValidation(name);
+    long money = checkMoneyValidation(bettingMoney);
+    return new Player(name, money);
+  }
+
+  private static void checkNameValidation(String name) {
+    checkValidationWithCondition(name.length() == 0, "잘못된 이름입니다. 다시 입력해주세요.");
+  }
+
+  private static long checkMoneyValidation(String bettingMoney) {
+    long money = stringToLong(bettingMoney);
+    checkValidationWithCondition(money < 0, "배팅 금액은 양수만 가능합니다. 다시 입력해주세요.");
+    return money;
+  }
+
+  private static long stringToLong(String bettingMoney) {
+    try {
+      return Long.parseLong(bettingMoney);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("배팅 금액이 잘못되었습니다. 다시 입력해주세요.");
+    }
+  }
+
+  private static void checkValidationWithCondition(boolean condition, String message) {
+    if (condition) {
+      throw new IllegalArgumentException(message);
+    }
   }
 
   public void addCard(Card card) {
