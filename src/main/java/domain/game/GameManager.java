@@ -37,6 +37,7 @@ public class GameManager {
         initializePlayers();
         drawTwoCardsToDealerAndPlayer();
         showCardLists();
+        getMoreCards();
     }
 
     private void initializePlayers() {
@@ -74,6 +75,35 @@ public class GameManager {
         print(Message.makeMessageDealerSmallestState(dealer));
         for (Player player : players) {
             print(Message.makeMessagePlayerState(player));
+        }
+    }
+
+    private void getMoreCards() {
+        for (Player player : players) {
+            askPlayerDrawOrNot(player);
+        }
+        checkDealerDrawOrNot(dealer);
+    }
+
+    private void askPlayerDrawOrNot(Player player) {
+        while (inputManager.getPlayerChoiceDrawOneMoreOrNot(player)) {
+            player.addCard(cardDeck.getRandomCard());
+            print(Message.makeMessagePlayerState(player));
+        }
+        print(Message.makeMessagePlayerState(player));
+    }
+
+    private void checkDealerDrawOrNot(Dealer dealer) {
+        if (dealer.getMoreDraw()) {
+            dealerDrawMore(dealer);
+        }
+        print(Message.makeMessageDealerGetNoMoreCard());
+    }
+
+    private void dealerDrawMore(Dealer dealer) {
+        while (dealer.getMoreDraw()) {
+            dealer.addCard(cardDeck.getRandomCard());
+            print(Message.makeMessageDealerGetMoreCard());
         }
     }
 }
