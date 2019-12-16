@@ -26,12 +26,11 @@ public class BlackJackGame {
     private static void devideCard(Users users) {
         OutputUtil.printDevideMessage(users.getUsersName());
         users.receiveBeginningCard();
-        users.printUsersCard();
+        users.printInitUserCard();
     }
 
     private static void startDecideCardAddLoop(Users users) {
         users.startAddCardQuestion();
         users.printUsersCard();
-
     }
 }

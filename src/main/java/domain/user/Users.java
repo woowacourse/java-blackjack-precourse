@@ -46,6 +46,28 @@ public class Users {
         });
     }
 
+    public void printInitUserCard() {
+        printDealerInitCard();
+        printUserInitCard();
+    }
+
+    public void printDealerInitCard() {
+        users.stream()
+                .filter(user -> user.isDealer())
+                .map(user -> ((Dealer) user))
+                .findFirst()
+                .get()
+                .printFirstCard();
+    }
+
+    public void printUserInitCard() {
+        users.stream()
+                .filter(user -> user.isPlayer())
+                .forEach(user -> {
+                    user.printUserInfo();
+                });
+    }
+
     public void startAddCardQuestion() {
         startUserAddCardQuestion();
         startDealerAddCardQuestion();

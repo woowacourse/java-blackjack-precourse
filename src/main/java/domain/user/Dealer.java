@@ -18,7 +18,7 @@ public class Dealer extends User {
     }
 
     // TODO 추가 기능 구현
-    public String printFirstCard() {
+    public String getFirstCard() {
         super.checkCardsEmpty();
         return getCards().get(0).getCardInfo();
     }
@@ -38,12 +38,17 @@ public class Dealer extends User {
 
     public void doCheckAddLimitExcessAndFollowAction() {
         if (checkAddLimitExcess() == false) {
+            OutputUtil.printDealerAddCard();
             addRandomCard();
         }
     }
 
+    public void printFirstCard() {
+        System.out.println("딜러:" + getFirstCard());
+    }
+
     @Override
     public void printUserInfo() {
-        System.out.println("딜러:" + printFirstCard());
+        System.out.println("딜러:" + printCards());
     }
 }
