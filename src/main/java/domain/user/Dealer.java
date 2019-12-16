@@ -10,19 +10,53 @@ import java.util.*;
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    public List<Card> drawCards(List<Card> cards) {
-        for(int i = 0; i < cards.size(); i++) {
-            Collections.shuffle(cards);
-            addCard(cards.get(0));
-            cards.remove(0);
-        }
-        return cards;
-    }
     // TODO 추가 기능 구현
+
+    public List<Card> drawCards(int cardNumber, List<Card> cardDeck) {
+        for (int i = 0; i < cardNumber; i++) {
+            addCard(cardDeck.get(0));
+            cardDeck.remove(0);
+        }
+        return cardDeck;
+    }
+
+    public void showCards() {
+        System.out.println("딜러 : " + cards.get(0).getCardName() + ", " + cards.get(1).getCardName());
+    }
+
+    public void showFinal() {
+        System.out.println(
+                "딜러 : " + cards.get(0).getCardName() + ", " + cards.get(1).getCardName() + " - 결과:" + cardScore());
+    }
+
+    public int cardScore() {
+        int score = 0;
+        int aceCount = 0;
+
+        for (Card card : cards) {
+            score += card.getCardScore();
+            aceCount += card.isAce();
+        }
+
+        if (score > 21) {
+            score = checkBurst(score, aceCount);
+        }
+        return score;
+    }
+
+    public int checkBurst(int score, int aceCount) {
+        while (score <= 21 || aceCount != 0) {
+            aceCount--;
+            score -= 9;
+        }
+        return score;
+    }
+
 }

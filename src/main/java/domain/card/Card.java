@@ -16,6 +16,26 @@ public class Card {
     }
 
     // TODO Card 관련 추가 기능 구현
+    public String getCardName() {
+        if(symbol.getWord() != "A" 
+            && symbol.getWord() != "J" 
+            && symbol.getWord() != "Q" 
+            && symbol.getWord() != "K") {
+            return symbol.getScore() + " " + type;
+        }
+        return symbol.getWord() + " " + type;
+    }
+
+    public int getCardScore() {
+        return this.symbol.getScore();
+    }
+
+    public int isAce() {
+        if(symbol.getWord() == "A") {
+            return 1;
+        }
+        return 0;
+    }
 
     @Override
     public boolean equals(Object o) {
