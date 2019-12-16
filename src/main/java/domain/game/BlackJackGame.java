@@ -99,7 +99,7 @@ public class BlackJackGame {
 		}
 		boolean hit = true;
 		while (playerScore < BLACKJACK_SCORE && hit) {
-			System.out.println("\n" + player.getName() + "�� ���� ������ " + playerScore + "�Դϴ�.");
+			System.out.println("\n" + player.getName() + "의 현재 점수는 " + playerScore + "입니다.");
 			hit = isChoiceHit(inputManager.chooseHitOrStay(), player);
 			playerScore = player.getCardScore();
 		}

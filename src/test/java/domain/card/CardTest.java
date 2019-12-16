@@ -15,9 +15,10 @@ public class CardTest {
     @Test
     void getScore() {
         Card card = new Card(Symbol.FIVE, Type.DIAMOND);
-        assertThat(card.getScore()).isEqualTo(5);
+        assertThat(card.getScore()).isEqualTo(3);
     }
 
+    @DisplayName("에이스 카드인지 확인하기")
     @ParameterizedTest
     @CsvSource(value = {"TEN, false", "ACE, true"})
     void isSymbolAce(Symbol symbol, boolean result){
