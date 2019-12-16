@@ -2,7 +2,7 @@ package domain.outcome;
 
 public class Outcome {
     private final String name;
-    private final double benefit;
+    private double benefit;
 
     public Outcome(String name, double benefit) {
         this.name = name;
@@ -21,7 +21,18 @@ public class Outcome {
         return benefit;
     }
 
+    public void setDealerBenefit(double benefit) {
+        if (isDealer() == false) {
+            throw new IllegalStateException("Dealer가 아니면 benefit을 변경할 수 없습니다.");
+        }
+        this.benefit = benefit;
+    }
+
     public boolean isNameMatch(String name) {
         return this.name.equals(name);
+    }
+
+    public boolean isDealer() {
+        return this.name.equals("Dealer");
     }
 }
