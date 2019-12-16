@@ -9,11 +9,13 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  */
 public class Player {
+    private static final int BLACKJACK = 21;
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
     private double reward = 0;
+    public boolean burstPlayer = false;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -33,11 +35,12 @@ public class Player {
         return score;
     }
 
+    //이기면 1 혹은 1.5/ 지면 -1의 interest를 입력받음
     public void getBettingMoney(double interest) {
         reward = this.bettingMoney * interest;
     }
 
-    public double finalScore() {
+    public double getReward() {
         return reward;
     }
 
@@ -59,5 +62,12 @@ public class Player {
 
         String cardStr = String.join(", ",cards.toString());
         return cardStr;
+    }
+
+    public boolean ifBlackJack() {
+        if((cards.get(0).getScore() + cards.get(1).getScore()) == BLACKJACK) {
+            return true;
+        }
+        return false;
     }
 }
