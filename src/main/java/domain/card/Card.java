@@ -14,8 +14,14 @@ public class Card {
         this.symbol = symbol;
         this.type = type;
     }
-
-    // TODO Card 관련 추가 기능 구현
+    
+    public int getSymbolScore() {
+    	return this.symbol.getScore();
+    }
+    
+    public boolean isTheSymbol(Symbol symbol) {
+    	return this.symbol == symbol;
+    }
 
     @Override
     public boolean equals(Object o) {
