@@ -1,5 +1,6 @@
 package domain.user;
 
+import domain.BenefitMultipleType;
 import domain.view.InputUtil;
 import domain.view.OutputUtil;
 
@@ -32,5 +33,17 @@ public class Player extends User {
         if (addCardFlag == false) {
             stopFlag = true;
         }
+    }
+
+    public boolean isWinBy(int dealerScore) {
+        return dealerScore < calcurateScore();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getBenefit(BenefitMultipleType benefitMultipleType) {
+        return bettingMoney * benefitMultipleType.getMultipleValue();
     }
 }
