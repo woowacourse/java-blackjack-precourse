@@ -4,6 +4,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ExceptionHandler {
+	private static final int ZERO = 0;
+	private static final int WANT_ONE_CARD = 1;
+	private static final int WANT_NO_CARD = 0;
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static String inputPlayerHandler() {
@@ -46,7 +49,7 @@ public class ExceptionHandler {
 	}
 
 	private static double checkInputBettingMoneyHandler(double input) {
-		if (input < 0) {
+		if (input < ZERO) {
 			throw new InputMismatchException();
 		}
 		return input;
@@ -64,10 +67,10 @@ public class ExceptionHandler {
 
 	private static int checkInputaskMoreCardsHandler(String next) {
 		if (next.equals("y")) {
-			return 1;
+			return WANT_ONE_CARD;
 		}
 		if (next.equals("n")) {
-			return 0;
+			return WANT_NO_CARD;
 		}
 		throw new InputMismatchException();
 	}

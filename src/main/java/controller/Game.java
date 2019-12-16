@@ -13,6 +13,14 @@ import domain.user.Player;
 import view.InputOutputView;
 
 public class Game {
+	private static final int ZERO_CARD = 0;
+	private static final int ONE_CARD = 1;
+	private static final int TWO_CARD = 2;
+	private static final int DIGIT_PRODUCT = 100;
+	private static final int NUMBER_OF_SYMBOL = 13;
+	private static final int NUMBER_OF_TYPE = 4;
+	private static final int DEALER_MINIMUM = 17;
+	private static final int BUST_POINT = 22;
 	private static Dealer dealer = new Dealer();
 	private static List<Player> players = new ArrayList<>();
 	private static List<Card> cards = CardFactory.create();
@@ -43,22 +51,22 @@ public class Game {
 	}
 
 	private void cardDistribute() {
-		giveCard(2, dealer);
+		giveCard(TWO_CARD, dealer);
 		for (Player player : players) {
-			giveCard(2, player);
+			giveCard(TWO_CARD, player);
 		}
 		InputOutputView.outputGiveCards(users);
 	}
 
 	private void giveCard(int numberOfCards, Gamer gamer) {
-		int randomNumber = (int) ((Math.random() * 1000) % (13 * 4));
-		if (numberOfCards != 0 && usedCards.contains(cards.get(randomNumber))) {
+		int randomNumber = (int) ((Math.random() * DIGIT_PRODUCT) % (NUMBER_OF_SYMBOL * NUMBER_OF_TYPE));
+		if (numberOfCards != ZERO_CARD && usedCards.contains(cards.get(randomNumber))) {
 			giveCard(numberOfCards, gamer);
 		}
-		if (numberOfCards != 0 && !usedCards.contains(cards.get(randomNumber))) {
+		if (numberOfCards != ZERO_CARD && !usedCards.contains(cards.get(randomNumber))) {
 			gamer.addCard(cards.get(randomNumber));
 			usedCards.add(cards.get(randomNumber));
-			giveCard(numberOfCards - 1, gamer);
+			giveCard(numberOfCards - ONE_CARD, gamer);
 		}
 	}
 
@@ -93,7 +101,7 @@ public class Game {
 			moreCardCount = InputOutputView.inputaskMoreCards(player);
 			giveCard(moreCardCount, player);
 			InputOutputView.outputShowCards(player);
-		} while (checkBust(player) == false && (moreCardCount == 1));
+		} while ((checkBust(player) == false) && (moreCardCount == ONE_CARD));
 	}
 
 	private boolean checkBust(Player player) {
@@ -105,11 +113,11 @@ public class Game {
 	}
 
 	private void checkMoreCards(Dealer dealer) {
-		while (dealer.getScoreAceAsEleven() <= 16) {
+		while (dealer.getScoreAceAsEleven() < DEALER_MINIMUM) {
 			giveCard(1, dealer);
 			InputOutputView.outputDealerGotCard();
 		}
-		while (dealer.getScoreAceAsEleven() > 21 && dealer.getScoreAceAsOne() <= 16) {
+		while (dealer.getScoreAceAsEleven() >= BUST_POINT && dealer.getScoreAceAsOne() < DEALER_MINIMUM) {
 			giveCard(1, dealer);
 			InputOutputView.outputDealerGotCard();
 		}

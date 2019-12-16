@@ -6,6 +6,10 @@ import java.util.List;
 import domain.card.Card;
 
 public class Gamer {
+	protected static final int JACKPOT = 21;
+	protected static final int INIT_SCORE = 0;
+	protected static final int ACE = 1;
+	protected static final int ELEVEN = 11;
 	private final List<Card> cards = new ArrayList<>();
 
 	public Gamer() {
@@ -20,11 +24,11 @@ public class Gamer {
 	}
 
 	public boolean isBust() {
-		int score = 0;
+		int score = INIT_SCORE;
 		for (Card card : cards) {
 			score += card.getSymbol().getScore();
 		}
-		if (score > 21) {
+		if (score > JACKPOT) {
 			return true;
 		}
 		return false;
@@ -33,16 +37,16 @@ public class Gamer {
 	public boolean isBlackJack() {
 		return false;
 	}
-	
+
 	public int getBestScore() {
-		if(getScoreAceAsEleven() > 21) {
+		if (getScoreAceAsEleven() > JACKPOT) {
 			return getScoreAceAsOne();
 		}
 		return getScoreAceAsEleven();
 	}
 
 	public int getScoreAceAsOne() {
-		int score = 0;
+		int score = INIT_SCORE;
 		for (Card card : cards) {
 			score += card.getSymbol().getScore();
 		}
@@ -50,7 +54,7 @@ public class Gamer {
 	}
 
 	public int getScoreAceAsEleven() {
-		int score = 0;
+		int score = INIT_SCORE;
 		for (Card card : cards) {
 			score += aceToEleven(card.getSymbol().getScore());
 		}
@@ -58,8 +62,8 @@ public class Gamer {
 	}
 
 	public int aceToEleven(int symbol) {
-		if (symbol == 1) {
-			return 11;
+		if (symbol == ACE) {
+			return ELEVEN;
 		}
 		return symbol;
 	}

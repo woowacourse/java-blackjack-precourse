@@ -1,6 +1,8 @@
 package domain.user;
 
 public class Player extends Gamer {
+	private static final int FIRST_CARD = 0;
+	private static final int SECOND_CARD = 1;
 	private final String name;
 	private final double bettingMoney;
 
@@ -18,10 +20,10 @@ public class Player extends Gamer {
 	}
 
 	public boolean isBlackJack() {
-		int score = 0;
-		score = aceToEleven(getCards().get(0).getSymbol().getScore())
-				+ aceToEleven(getCards().get(1).getSymbol().getScore());
-		if (score == 21) {
+		int score = INIT_SCORE;
+		score = aceToEleven(getCards().get(FIRST_CARD).getSymbol().getScore())
+				+ aceToEleven(getCards().get(SECOND_CARD).getSymbol().getScore());
+		if (score == JACKPOT) {
 			return true;
 		}
 		return false;

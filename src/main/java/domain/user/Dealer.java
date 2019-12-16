@@ -5,7 +5,7 @@ public class Dealer extends Gamer {
 	}
 
 	public boolean isBlackJack() {
-		if (getScoreAceAsOne() == 21 || getScoreAceAsEleven() == 21) {
+		if (getScoreAceAsOne() == JACKPOT || getScoreAceAsEleven() == JACKPOT) {
 			return true;
 		}
 		return false;
