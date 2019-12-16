@@ -36,7 +36,7 @@ abstract public class Participant {
         int sumScore = 0;
         int aceCount = 0;
         for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).getCardScore() == -1)
+            if (cards.get(i).getCardScore() == 1)
                 aceCount++;
             sumScore += cards.get(i).getCardScore();
         }
@@ -51,7 +51,6 @@ abstract public class Participant {
             if (sumScore + addScore + 11 < 21) {
                 addScore += 10;
             }
-            addScore += 1;
         }
         return addScore;
     }
