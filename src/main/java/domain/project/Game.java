@@ -179,6 +179,8 @@ public class Game {
 		myPrinter.printInitialCard(makePlayerNameString());
 		giveInitialCardToDealer();
 		giveInitialCardToPlayer();
+		printDealerCard();
+		printPlayerCard();
 	}
 
 	private String makePlayerNameString() {
@@ -228,6 +230,20 @@ public class Game {
 	private void giveTwoCardToPlayer(Player player) {
 		for (int i = 0; i < 2; i++) {
 			player.addCard(makeRandomCard());
+		}
+	}
+	
+	private void printDealerCard() {
+		dealer.setCardString();
+		myPrinter.printDealer();
+		myPrinter.printCard(dealer);
+	}
+	
+	private void printPlayerCard() {
+		for (Player p : playerSet) {
+			p.setCardString();
+			myPrinter.printPlayerName(p.getName());
+			myPrinter.printCard(p);
 		}
 	}
 

@@ -17,9 +17,15 @@ public class Person {
 	
 	public void setCardString() {
 		cardString = "";
+		ArrayList<String> cardStringSet = new ArrayList<String>();
 		
 		for (Card c : cards) {
-			cardString = cardString + c.makeCardString();
+			cardStringSet.add(c.makeCardString());
 		}
+		cardString = String.join(", ", cardStringSet);
+	}
+	
+	public String getCardString() {
+		return this.cardString;
 	}
 }

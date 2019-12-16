@@ -1,5 +1,9 @@
 package domain.project;
 
+import domain.user.Person;
+import domain.user.Player;
+import domain.user.Dealer;
+
 public class Printer {
 	
 	public void printInputPlayer() {
@@ -32,6 +36,18 @@ public class Printer {
 	
 	public void printNonZeroBettingMoney() {
 		System.out.println("1 이상의 양의 정수를 입력해 주세요.");
+	}
+	
+	public void printDealer() {
+		System.out.print("딜러: ");
+	}
+	
+	public void printPlayerName(String name) {
+		System.out.print(name + "카드: ");
+	}
+	
+	public void printCard(Person person) {
+		 System.out.println(person.getCardString());
 	}
 	
 	public void printInitialCard(String nameString) {
