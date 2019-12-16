@@ -89,7 +89,7 @@ public class RewardCalculator {
 			return;
 		}
 		for (Player player : playerList) {
-			int playerScore = player.getPlayerScore();
+			int playerScore = player.getCardScore();
 			if (dealerScore < playerScore) {
 				playerWinReward(player, playerScore);
 				continue;
