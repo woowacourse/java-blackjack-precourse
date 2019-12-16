@@ -7,10 +7,14 @@ import java.util.*;
 
 public class GameManager {
 
+    private static final int initialNumOfCards = 2;
     private static final String delimiter = ",";
     private static final Scanner SC = new Scanner(System.in);
 
     private List<Player> players;
+    private List<Card> cards;
+    private Dealer dealer = new Dealer();
+    private CardFactory cardFactory = new CardFactory();
 
     public static void main(String[] args) {
         GameManager game = new GameManager();
@@ -22,11 +26,12 @@ public class GameManager {
         List<String> playerNames = Arrays.asList(setPlayerNames());//player 이름 입력
         List<Double> bettingMoney = setBettingMoney(playerNames);//각 player의 배팅 금액 입력
         initializePlayers(playerNames, bettingMoney);
-        //딜러, 플레이어 각각 두장의 카드 발급
+        cards = cardFactory.create();
+        generateInitialCards();//딜러, 플레이어 각각 두장의 카드 발급
         //현재 상황 출력
     }
 
-    public String[] setPlayerNames(){
+    public String[] setPlayerNames() {
         Scanner sc = SC;
         System.out.println("게임에 참여할 사람들의 이름을 입력하세요. (쉼표 기준으로 분리함)");
         String input = sc.nextLine();
@@ -34,10 +39,10 @@ public class GameManager {
         return playerNamesArray;
     }
 
-    public List<Double> setBettingMoney(List<String> playerNames){
+    public List<Double> setBettingMoney(List<String> playerNames) {
         Scanner sc = SC;
         List<Double> bettingMoney = new List<Double>;
-        for(String tmp: playerNames){
+        for (String tmp : playerNames) {
             System.out.println(tmp + "의 배팅 금액은?");
             Double input = sc.nextDouble();
             bettingMoney.add(input);
@@ -45,11 +50,32 @@ public class GameManager {
         return bettingMoney;
     }
 
-    public void initializePlayers(List<String> playerNames, List<Double> bettingMoney){
-        for(int i = 0; i < playerNames.size(); i++){
+    public void initializePlayers(List<String> playerNames, List<Double> bettingMoney) {
+        for (int i = 0; i < playerNames.size(); i++) {
             Player p = new Player(playerNames.get(i), bettingMoney.get(i));
             players.add(p);
         }
+    }
+
+    public void generateInitialCards() {
+        for (Player each : players) {
+            cards = each.generateCards(initialNumOfCards, cards);
+        }
+        cards = dealer.generateCards(initialNumOfCards, cards);
+        printAnouncement();
+        printCurrentCards();
+    }
+
+    public void printAnouncement() {
+
+    }
+
+    public void printCurrentCards() {
+
+        for (Player each : players) {
+            System.out.println();
+        }
+
     }
 
 
