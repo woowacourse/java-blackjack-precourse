@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackController {
-	public static List<String> getInputOfPlayersName() {
+	public static List<String> getPlayersName() {
 		Scanner scanner = new Scanner(System.in);
 		String names = scanner.nextLine();
 		while (names.equals("")) {
@@ -50,7 +50,7 @@ public class BlackJackController {
 		try {
 			validateBetting(betting);
 		} catch (EmptyInputException e) {
-			BlackJackUIService.printEmptyInputMessage();
+			BlackJackUIService.printWrongInputMessage();
 		}
 		return betting;
 	}
@@ -65,7 +65,5 @@ public class BlackJackController {
 		int popIndex = UtilityMethods.generateRandomNumber(cards.size());
 		return cards.remove(popIndex);
 	}
-	/*
 
-	*/
 }
