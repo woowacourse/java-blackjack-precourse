@@ -63,6 +63,38 @@ public class Output {
         System.out.println();
     }
 
+    public void printSumScore(Dealer dealer, List<Player> players) {
+        this.printDealerSumScore(dealer);
+        this.printPlayersSumScore(players);
+        System.out.println();
+    }
+
+    private void printDealerSumScore(Dealer dealer) {
+        System.out.print("딜러 카드: ");
+        List<String> stringCards = new ArrayList<>();
+        for (Card card: dealer.getCards()) {
+            stringCards.add(card.getSymbolName() + card.getTypeName());
+        }
+        System.out.print(String.join(", ", stringCards));
+        System.out.println(" - 결과: " + dealer.getSumScore());
+    }
+
+    private void printPlayersSumScore(List<Player> players) {
+        for (Player player: players) {
+            this.printPlayerSumScore(player);
+        }
+    }
+
+    private void printPlayerSumScore(Player player) {
+        System.out.print(player.getName() + "카드: ");
+        List<String> stringCards = new ArrayList<>();
+        for (Card card: player.getCards()) {
+            stringCards.add(card.getSymbolName() + card.getTypeName());
+        }
+        System.out.print(String.join(", ", stringCards));
+        System.out.println(" - 결과: " + player.getSumScore());
+    }
+
     public void printFinalRevenue(Dealer dealer, List<Player> players) {
         System.out.println("## 최종 수익");
         this.calculatorCardScore(dealer, players);
