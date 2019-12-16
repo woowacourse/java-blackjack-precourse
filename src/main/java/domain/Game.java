@@ -84,9 +84,9 @@ public class Game {
 
     public void checkIfPlayerIsBJWhenDealerIsBJ(int i) {
         if(player.get(i).ifBlackJack()){
-            player.get(index).getBettingMoney(0);
+            player.get(index).multiInterestToBettinfMoney(0);
         }
-        player.get(index).getBettingMoney(-1);
+        player.get(index).multiInterestToBettinfMoney(-1);
     }
 
     public void askOneMoreOnlyForNotBJPlayer() {
@@ -128,7 +128,7 @@ public class Game {
     public void printInfo() {
         System.out.print("딜러와 ");
         for(int i = 0; i < player.size(); i++) {
-            System.out.print(player.get(i).getinfo());
+            System.out.print(player.get(i).getName());
         }
         System.out.println("에게 2장의 카드를 나누었습니다.\n");
     }
@@ -140,14 +140,14 @@ public class Game {
 
     public void printPlayerCard() {
         for(int i = 0; i < player.size(); i++) {
-            System.out.print(player.get(i).getinfo()+"카드: ");
+            System.out.print(player.get(i).getName()+"카드: ");
             System.out.println(player.get(i).toString());
         }
     }
 
     public boolean checkPlayerBlackJack() {
         if(player.get(index).ifBlackJack()) {
-            player.get(index).getBettingMoney(1.5);
+            player.get(index).multiInterestToBettinfMoney(1.5);
             dealer.minusCost(player.get(index).getReward());
             return true;
         }
@@ -156,7 +156,7 @@ public class Game {
 
     public String askQuestion() {
         String answer;
-        System.out.println(player.get(index).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
+        System.out.println(player.get(index).getName() + "는 한장의 카드를 더 받겠습니까? (y, n)");
         answer = sc.next();
         if (!Objects.equals(answer, "y") && !Objects.equals(answer, "n")) {
             System.out.println("y 혹은 n으로 답해주세요.");
@@ -181,7 +181,7 @@ public class Game {
 
     public void actAddOneMoreCard() {
         player.get(index).addCard(cards.remove(cards.size() - 1));
-        System.out.print(player.get(index).getinfo()+"카드: ");
+        System.out.print(player.get(index).getName()+"카드: ");
         System.out.println(player.get(index).toString());
     }
 
@@ -217,14 +217,14 @@ public class Game {
 
     public void calculateLooseDealerBurst(int i) {
         if (!player.get(i).burstPlayer && !player.get(i).ifBlackJack()) {
-            player.get(i).getBettingMoney(1);
+            player.get(i).multiInterestToBettinfMoney(1);
             dealer.minusCost(player.get(i).reward);
         }
     }
 
     public void LoosePlayerBurst() {
-        player.get(index).getBettingMoney(-1);
-        dealer.addCost(player.get(index).getbet());
+        player.get(index).multiInterestToBettinfMoney(-1);
+        dealer.addCost(player.get(index).getBetting());
     }
 
     public void finishGame() {
@@ -236,7 +236,7 @@ public class Game {
         System.out.println("\n최종 수익");
         System.out.println("딜러: "+dealer.finalCost());
         for(int i = 0; i < player.size(); i++) {
-            System.out.println(player.get(i).getinfo()+": "+player.get(i).getReward());
+            System.out.println(player.get(i).getName()+": "+player.get(i).getReward());
         }
     }
 
@@ -249,12 +249,12 @@ public class Game {
 
     public void comparePlayerAndDealer(int i) {
         if (player.get(i).sumScore() > dealer.sumScore()) {
-            player.get(i).getBettingMoney(1);
-            dealer.minusCost(player.get(i).getbet());
+            player.get(i).multiInterestToBettinfMoney(1);
+            dealer.minusCost(player.get(i).getBetting());
         }
         if (player.get(i).sumScore() < dealer.sumScore()) {
-            player.get(i).getBettingMoney(-1);
-            dealer.addCost(player.get(i).getbet());
+            player.get(i).multiInterestToBettinfMoney(-1);
+            dealer.addCost(player.get(i).getBetting());
         }
     }
 
@@ -265,7 +265,7 @@ public class Game {
 
     public void printFinalPlayerCard() {
         for(int i = 0; i < player.size(); i++) {
-            System.out.print(player.get(i).getinfo()+"카드: ");
+            System.out.print(player.get(i).getName()+"카드: ");
             System.out.println(player.get(i).toString()+" - 결과: "+player.get(i).sumScore());
         }
     }
