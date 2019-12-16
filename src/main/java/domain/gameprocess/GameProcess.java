@@ -18,6 +18,7 @@ public class GameProcess {
         List<Player> players = createPlayers();
 
         handOutTwoCardsToAllUsers(dealer, players);
+        userInterfaceMachine.printFistTwoCardGivenSituation(dealer, players);
 
         for (Player player : players) {
             handOutCardsUntilPlayerWantStop(player);
@@ -52,6 +53,7 @@ public class GameProcess {
             handOutTwoCardsToUser(player);
         }
 
+
     }
 
     private void handOutTwoCardsToUser(User user) {
@@ -60,7 +62,7 @@ public class GameProcess {
     }
 
     private void handOutCardToUser(User user) {
-        user.addCard(cardDivider.getOneCard());
+        user.addCard(cardDivider.getOneRandomCard());
     }
 
     private void handOutCardsUntilPlayerWantStop(Player player) {

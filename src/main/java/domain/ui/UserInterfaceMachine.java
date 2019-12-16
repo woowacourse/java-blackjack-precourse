@@ -1,6 +1,7 @@
 package domain.ui;
 
 import domain.card.Card;
+import domain.card.Symbol;
 import domain.card.Type;
 import domain.user.*;
 import java.util.ArrayList;
@@ -133,26 +134,38 @@ public class UserInterfaceMachine {
         return true;
     }
 
+    public void printFistTwoCardGivenSituation(Dealer dealer, List<Player> players) {
+        System.out.println("딜러와 " + combineStrings(getPlayersNameList(players), ", ")
+            + "에게 각각 두장의 카드가 분배되었습니다.");
+
+        printDealerFirstCard(dealer);
+        printPlayersCards(players);
+    }
+
     /**
      * 플레이어들이 가지고 있는 카드 전체 출력하기
      */
     public void printPlayersCards(List<Player> players) {
         for (Player player : players) {
-            System.out.println(player.getName() + "카드: " + explainPlayerCards(player));
+            System.out.println(player.getName() + "카드: " + explainAllCards(player));
         }
     }
 
-    private String explainPlayerCards(User player) {
-        StringBuilder ret = new StringBuilder();
+    private String explainAllCards(User player) {
+        List<String> ret = new ArrayList<String>();
         List<Card> playerCards = player.openAllCards();
 
         for (Card card : playerCards) {
-            ret.append(explainCard(card) + ", ");
+            ret.add(explainCard(card));
         }
+        return combineStrings(ret, ", ");
+    }
 
-        ret.delete(ret.length() - 2, ret.length());       /* 마지막 콤마+공백(, ) 제거 */
-
-        return ret.toString();
+    /**
+     * 딜러가 받은 첫번째 카드 출력하기
+     */
+    public void printDealerFirstCard(Dealer dealer) {
+        System.out.println("딜러: " + explainCard(dealer.openFirstCardDealerMustOpen()));
     }
 
     private String explainCard(Card card) {
@@ -160,10 +173,14 @@ public class UserInterfaceMachine {
     }
 
     private String explainSymbol(Card card) {
+        final int ACE_SCORE = 1;
+        final int TEN_JACK_QUENE_KING_SCORE = 10;
+
         int score = card.getSymbol().getScore();
 
-        if (score == 10 || score == 1) {
-            return card.getSymbol().toString().substring(0, 1);
+        if ((!card.getSymbol().equals(Symbol.TEN)
+                && score == TEN_JACK_QUENE_KING_SCORE) || score == ACE_SCORE) {
+            return card.getSymbol().toString().substring(0, 1);         /* (ex) 'KING' -> 'K' */
         }
 
         return score + "";
@@ -190,13 +207,6 @@ public class UserInterfaceMachine {
         return "클로버";
     }
 
-    /**
-     * 딜러가 받은 첫번째 카드 출력하기
-     */
-    public void printDealerFirstCard(Dealer dealer) {
-
-    }
-
     public String scanWhetherPlayerReceiveCard() {
         return "";
     }
@@ -219,5 +229,27 @@ public class UserInterfaceMachine {
 
     private void printUserFinalRevenue(User user) {
 
+    }
+
+    private List<String> getPlayersNameList(List<Player> players) {
+        List<String> playerNames = new ArrayList<String>();
+
+        for (Player player : players) {
+            playerNames.add(player.getName());
+        }
+
+        return playerNames;
+    }
+
+    private String combineStrings(List<String> strings, String seperator) {
+        StringBuilder ret = new StringBuilder();
+
+        for (int idx = 0; idx < strings.size() - 1 ; idx++) {
+            ret.append(strings.get(idx) + seperator);
+        }
+
+        ret.append(strings.get(strings.size() - 1));
+
+        return ret.toString();
     }
 }
