@@ -1,5 +1,5 @@
 /*
- * @(#)StringUtil.java      0.5 2019.12.15
+ * @(#)StringUtil.java      0.6 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,7 +17,7 @@ import java.util.List;
  * 문자열을 처리하는 기능을 담당하는 클래스
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.15
+ * @version 0.6 2019.12.16
  */
 public class StringUtil {
     /**
@@ -51,7 +51,7 @@ public class StringUtil {
      * @return 쉼표(,)를 기준으로 잘려진 Player 이름.
      */
     private static List<String> splitPlayerName(String userInput) {
-        return Arrays.asList(userInput.split(JOIN_COMMA_DELIMITER));
+        return Arrays.asList(userInput.split(COMMA_DELIMITER));
     }
 
     /**

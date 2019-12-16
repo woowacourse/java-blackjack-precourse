@@ -1,5 +1,5 @@
 /*
- * @(#)Validator.java       0.6 2019.12.15
+ * @(#)Validator.java       0.7 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * 입력의 유효성 검증을 담당하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.6 2019.12.15
+ * @version 0.7 2019.12.16
  */
 public class Validator {
     /**
@@ -30,6 +30,11 @@ public class Validator {
      * Player BettingMoney의 가능한 최소 금액을 확인하기 위한 상수.
      */
     private static final double MIN_BETTING_MONEY = 0;
+
+    /**
+     * Player 이름의 길이의 유효함을 확인하기 위한 상수.
+     */
+    private static final int MIN_PLAYER_NAME_LENGTH = 0;
 
     /**
      * Player가 카드를 더 받는 응답임을 확인하기 위한 상수.
@@ -82,7 +87,7 @@ public class Validator {
      * @throws InputMismatchException Player 이름의 길이가 유효하지 않을 경우 발생하는 예외.
      */
     private static void isValidOnePlayerNameLength(String playerName) throws InputMismatchException {
-        if (playerName.length() < 1) {
+        if (playerName.length() == MIN_PLAYER_NAME_LENGTH) {
             out.printPlayerNameLengthError();
             throw new InputMismatchException();
         }

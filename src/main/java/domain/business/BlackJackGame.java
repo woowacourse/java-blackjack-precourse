@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       0.8 2019.12.15
+ * @(#)BlackJackGame.java       0.9 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -20,7 +20,7 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.8 2019.12.15
+ * @version 0.9 2019.12.16
  */
 public class BlackJackGame {
     /**
@@ -120,6 +120,7 @@ public class BlackJackGame {
     public void playBlackJackGame() {
         drawTwoCardsDealerAndPlayer();
         drawMoreCardPlayer();
+        out.printNewLine();
         dealer.printFinalResult(deck);
         printFinalResultPlayer();
         initPlayerInformation();
@@ -176,8 +177,10 @@ public class BlackJackGame {
      * @return 카드를 더 이상 뽑지 않을 경우(n일 경우) false 반환.
      */
     private boolean drawMoreCardOnePlayer(Player player) {
+        out.printPlayerGetOneMoreCard(player.getName());
         if (receivePlayerGetMoreCardReply().equals("y")) {
             player.addCard(deck.drawCard());
+            player.printPlayerCurrentCardStatus();
             return drawMoreCardOnePlayer(player);
         }
         return false;
@@ -195,6 +198,7 @@ public class BlackJackGame {
             userReply = in.receivePlayerGetMoreCardInput();
             Validator.isValidGetMoreCardReply(userReply);
         } catch (InputMismatchException e) {
+            out.printInputRequestAgain();
             return receivePlayerGetMoreCardReply();
         }
         return userReply;
@@ -221,6 +225,7 @@ public class BlackJackGame {
      * Player들의 수익을 -배팅금액으로 초기화하는 메소드.
      */
     private void initPlayerProfit() {
+        playerProfits = new ArrayList<>();
         for (Player player : players) {
             playerProfits.add(-player.getBettingMoney());
         }
@@ -266,6 +271,10 @@ public class BlackJackGame {
      */
     private void setPlayerProfitNotBust(int playerIndex) {
         if (isBust(playerScores.get(playerIndex))) {
+            return;
+        }
+        if (players.get(playerIndex).isBlackJack()) {
+            setBlackJackPlayerProfit(playerIndex);
             return;
         }
         setWinnerPlayerProfit(playerIndex);
@@ -325,6 +334,14 @@ public class BlackJackGame {
         if (isBust(playerScores.get(playerIndex))) {
             return;
         }
+        if (players.get(playerIndex).isBlackJack()) {
+            setBlackJackPlayerProfit(playerIndex);
+            return;
+        }
+        setPlayerWinOrDrawProfit(playerIndex, dealerScore);
+    }
+
+    private void setPlayerWinOrDrawProfit(int playerIndex, int dealerScore) {
         if (playerScores.get(playerIndex) > dealerScore) {
             setWinnerPlayerProfit(playerIndex);
             return;
@@ -332,6 +349,11 @@ public class BlackJackGame {
         if (playerScores.get(playerIndex) == dealerScore) {
             setDrawPlayerProfit(playerIndex);
         }
+    }
+
+    private void setBlackJackPlayerProfit(int playerIndex) {
+        playerProfits.set(playerIndex, players.get(playerIndex).getBettingMoney() * BLACK_JACK_EARNING_RATE);
+        dealerProfit -= (players.get(playerIndex).getBettingMoney() * BLACK_JACK_EARNING_RATE);
     }
 
     /**

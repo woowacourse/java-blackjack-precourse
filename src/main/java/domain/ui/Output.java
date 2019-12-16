@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      0.8 2019.12.15
+ * @(#)Output.java      0.9 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,18 +10,18 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.8 2019.12.15
+ * @version 0.9 2019.12.16
  */
 public class Output {
     /**
      * print나 printf를 사용할 때 개행을 하기 위한 문자열 상수.
      */
-    private static final String NEW_LINE_STRING = "%n";
+    private static final String NEW_LINE_STRING = "\n";
 
     /**
      * 게임 참여자 이름 입력 요청때 출력할 메시지 상수.
      */
-    private static final String PLAYER_NAME_INPUT_REQUEST_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요.(쉼표(,) 기준으로 분리";
+    private static final String PLAYER_NAME_INPUT_REQUEST_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요.(쉼표(,) 기준으로 분리)";
 
     /**
      * 게임 참여자 이름의 길이에 예외가 발생할 경우 출력할 메시지 상수.
@@ -66,7 +66,7 @@ public class Output {
     /**
      * User의 카드를 출력할 때 연결해줄 메시지 상수.
      */
-    private static final String USER_CARD_STATUS_MESSAGE = "%s카드: %s";
+    private static final String USER_CARD_STATUS_MESSAGE = "%s 카드: %s";
 
     /**
      * Player가 한장의 카드를 더 받을지 여부 요청때 출력할 메시지 상수.
@@ -97,7 +97,7 @@ public class Output {
     /**
      * User의 최종 수익을 출력할 메시지 상수.
      */
-    private static final String USER_PROFIT_MESSAGE = "%s: %d";
+    private static final String USER_PROFIT_MESSAGE = "%s: %.1f";
 
     /**
      * 게임 참여자 이름 입력을 요청을 출력하는 메소드.
@@ -163,7 +163,7 @@ public class Output {
      * @param playerNames 카드를 받을 Player들의 이름.
      */
     public void printHandOutTwoCards(String playerNames) {
-        System.out.printf(HAND_OUT_TWO_CARDS_MESSAGE + NEW_LINE_STRING, playerNames);
+        System.out.printf(NEW_LINE_STRING + HAND_OUT_TWO_CARDS_MESSAGE + NEW_LINE_STRING, playerNames);
     }
 
     /**

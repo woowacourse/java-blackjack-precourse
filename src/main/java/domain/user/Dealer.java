@@ -1,5 +1,5 @@
 /*
- * @(#)Dealer.java      0.8 2019.12.15
+ * @(#)Dealer.java      0.9 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -18,7 +18,7 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.8 2019.12.15
+ * @version 0.9 2019.12.16
  */
 public class Dealer {
     /**
@@ -169,8 +169,8 @@ public class Dealer {
      */
     public void printFinalResult(Deck deck) {
         Output out = new Output();
-
-        out.printUserFinalResult(DEALER_NAME, StringUtil.joinCardName(cards), drawAccordingRule(deck));
+        int totalScore = drawAccordingRule(deck);
+        out.printUserFinalResult(DEALER_NAME, StringUtil.joinCardName(cards), totalScore);
     }
 
     /**
