@@ -22,9 +22,19 @@ public class PrepareGame {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)");
         Scanner s = new Scanner(System.in);
         String name = s.next();
-
+        while (!checkNameInputValid(name)) {
+            name = s.next();
+        }
         List<String> names = Arrays.asList(name.split(","));
         return names;
+    }
+
+    private boolean checkNameInputValid(String name) {
+        if (name.contains(",,")) {
+            System.out.println("쉼표를 하나만 작성해주세요.");
+            return false;
+        }
+        return true;
     }
 
     private List<Double> getBettingMoneys(List<String> names) {
