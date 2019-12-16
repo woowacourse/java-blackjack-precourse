@@ -7,22 +7,20 @@ import java.util.List;
 
 public class BlackjackGame {
   List<Participant> participants;
-  CardShuffler cardShuffler;
   BlackjackRule blackjackRule;
 
   public BlackjackGame(List<Participant> participants, List<Card> cards) {
     this.participants = participants;
-    this.cardShuffler = new CardShuffler(cards);
-    this.blackjackRule = new BlackjackRule();
+    this.blackjackRule = new BlackjackRule(cards);
   }
 
   public void gameStart() {
-    blackjackRule.dealInitialCards(participants, cardShuffler);
+    blackjackRule.dealInitialCards(participants);
     if(isThereBlackjack()) {
       calculateResult();
       return;
     }
-    blackjackRule.hitOrStay(participants, cardShuffler);
+    blackjackRule.hitOrStay(participants);
     if(isDealerBust()) {
       calculateResult();
       return;
