@@ -29,11 +29,12 @@ public class OutputUtil {
     }
 
     public static void printOutcomes(Outcomes outcomes) {
-        System.out.println(outcomes.toString());
+        System.out.println("\n"
+                + outcomes.toString());
     }
 
     public static void printDealerAddCard() {
-        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
     }
 
 

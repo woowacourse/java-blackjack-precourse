@@ -58,4 +58,13 @@ public class Player extends User {
     public void printUserInfo() {
         System.out.println(name + "카드:" + printCards());
     }
+
+    @Override
+    public void printFinalOutput() {
+        System.out.println(name +
+                "카드:"
+                + printCards() +
+                " - 결과: "
+                + calcurateScore());
+    }
 }

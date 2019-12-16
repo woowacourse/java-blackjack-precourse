@@ -39,7 +39,7 @@ public class Outcomes {
                 .get();
     }
 
-    private void calcurateDealerBenefit() {
+    public void calcurateDealerBenefit() {
         double playerSum = outcomes.stream()
                 .map(outcome -> outcome.getBenefit())
                 .reduce(Double::sum)

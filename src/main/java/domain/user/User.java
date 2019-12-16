@@ -82,4 +82,6 @@ abstract public class User {
         return scoreExceptAce;
     }
     abstract public void printUserInfo();
+
+    abstract public void printFinalOutput();
 }

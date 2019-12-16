@@ -40,32 +40,16 @@ public class Users {
         });
     }
 
-    public void printUsersCard() {
+    public void printFinalOutput() {
         users.forEach(user -> {
-            user.printUserInfo();
+            user.printFinalOutput();
         });
     }
 
     public void printInitUserCard() {
-        printDealerInitCard();
-        printUserInitCard();
-    }
-
-    public void printDealerInitCard() {
-        users.stream()
-                .filter(user -> user.isDealer())
-                .map(user -> ((Dealer) user))
-                .findFirst()
-                .get()
-                .printFirstCard();
-    }
-
-    public void printUserInitCard() {
-        users.stream()
-                .filter(user -> user.isPlayer())
-                .forEach(user -> {
-                    user.printUserInfo();
-                });
+        users.forEach(user -> {
+            user.printUserInfo();
+        });
     }
 
     public void startAddCardQuestion() {
@@ -144,5 +128,13 @@ public class Users {
                 .filter(user -> user instanceof Player)
                 .map(user -> ((Player) user).getName())
                 .collect(Collectors.joining(","));
+    }
+
+    public Dealer getDealer() {
+        return users.stream()
+                .filter(user -> user instanceof Dealer)
+                .map(user -> (Dealer) user)
+                .findFirst()
+                .get();
     }
 }

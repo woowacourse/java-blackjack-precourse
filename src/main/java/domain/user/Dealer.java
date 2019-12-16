@@ -43,12 +43,13 @@ public class Dealer extends User {
         }
     }
 
-    public void printFirstCard() {
+    @Override
+    public void printUserInfo() {
         System.out.println("딜러:" + getFirstCard());
     }
 
     @Override
-    public void printUserInfo() {
-        System.out.println("딜러:" + printCards());
+    public void printFinalOutput() {
+        System.out.println("딜러:" + printCards() + " - 결과: " + calcurateScore());
     }
 }

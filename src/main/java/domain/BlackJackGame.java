@@ -31,6 +31,6 @@ public class BlackJackGame {
 
     private static void startDecideCardAddLoop(Users users) {
         users.startAddCardQuestion();
-        users.printUsersCard();
+        users.printFinalOutput();
     }
 }
