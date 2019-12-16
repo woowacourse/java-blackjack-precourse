@@ -6,8 +6,8 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
+    private boolean isUsedCard = false;
     private final Symbol symbol;
-
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
@@ -15,7 +15,12 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public void use(){
+        isUsedCard = true;
+    }
+    public boolean isUsed(){
+        return isUsedCard;
+    }
 
     @Override
     public boolean equals(Object o) {
