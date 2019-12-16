@@ -8,8 +8,10 @@
 
 package com.precourse.blackjack.domain.game;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 import com.precourse.blackjack.controller.GameController;
 import com.precourse.blackjack.domain.card.Card;
@@ -25,13 +27,13 @@ import com.precourse.blackjack.domain.user.Player;
 public class Game {
 	private static final String AND = "와 ";
 	private static final String COMMA = ", ";
-	private final List<Card> cardDeck;
+	private final Stack<Card> cardDeck;
 	private final List<Player> players;
 	private final Dealer dealer;
-	private int cardTop = -1;
 
 	public Game(List<Player> players) {
-		this.cardDeck = CardFactory.create();
+		this.cardDeck = new Stack<>();
+		CardFactory.create().forEach(card -> cardDeck.push(card));
 		this.players = players;
 		this.dealer = new Dealer();
 	}
@@ -43,17 +45,17 @@ public class Game {
 	}
 
 	private void dealTwoCards() {
-		players.forEach(player -> player.addCard(cardDeck.get(++cardTop)));
-		dealer.addCard(cardDeck.get(++cardTop));
+		players.forEach(player -> player.addCard(cardDeck.pop()));
+		dealer.addCard(cardDeck.pop());
 	}
 
 	public String getAllNames() {
 		StringBuilder builder = new StringBuilder();
+		List<String> playersName = new ArrayList<>();
 
+		players.forEach(player -> playersName.add(player.getName()));
 		builder.append(dealer.getName()).append(AND);
-		for (Player nextPlayer : players) {
-			builder.append(nextPlayer.getName()).append(COMMA);
-		}
+		builder.append(String.join(COMMA, playersName));
 		return builder.toString();
 	}
 }
