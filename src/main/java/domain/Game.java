@@ -101,6 +101,7 @@ public class Game {
         printInfo();
         printDealerCard();
         printPlayerCard();
+        System.out.println();
     }
 
     public void shuffleCard() {
@@ -153,21 +154,29 @@ public class Game {
         return false;
     }
 
-    public void askOneMoreCard() { //10줄로 줄이기
+    public String askQuestion() {
+        String answer;
         System.out.println(player.get(index).getinfo() + "는 한장의 카드를 더 받겠습니까? (y, n)");
-        String answer = sc.next();
-        boolean flag = true;
+        answer = sc.next();
         if (!Objects.equals(answer, "y") && !Objects.equals(answer, "n")) {
             System.out.println("y 혹은 n으로 답해주세요.");
+            return askQuestion();
         }
-        if (Objects.equals(answer, "y") && flag) {
+        return answer;
+    }
+
+    public void askOneMoreCard() {
+        String answer;
+        answer = askQuestion();
+        boolean ifUnder21 = true;
+        if (Objects.equals(answer, "y") && ifUnder21) {
             actAddOneMoreCard();
-            flag = checkIfOver21();
+            ifUnder21 = checkIfOver21();
         }
-        if(Objects.equals(answer, "n") || !flag){
-            return;
+        if(!Objects.equals(answer, "n") && ifUnder21){
+            askOneMoreCard();
         }
-        askOneMoreCard();
+
     }
 
     public void actAddOneMoreCard() {
@@ -224,7 +233,7 @@ public class Game {
         }
         printFinalDealerCard();
         printFinalPlayerCard();
-        System.out.println("최종 수익");
+        System.out.println("\n최종 수익");
         System.out.println("딜러: "+dealer.finalCost());
         for(int i = 0; i < player.size(); i++) {
             System.out.println(player.get(i).getinfo()+": "+player.get(i).getReward());
