@@ -19,9 +19,9 @@ public class BlackJack {
 		List<Double> bettingList = new ArrayList<Double>();
 
 		this.cardDeck = BlackJackInitializingService.initializeCardDeck();
-		List<String> nameList = BlackJackUIService.getPlayersName();
+		List<String> nameList = BlackJackUIService.printMessageToGetName();
 		for (String name : nameList) {
-			bettingList.add(BlackJackUIService.getPlayersBetting(name));
+			bettingList.add(BlackJackUIService.printMessageToGetBetting(name));
 		}
 		this.players = BlackJackInitializingService
 			.initializePlayers(nameList, bettingList);
@@ -35,5 +35,17 @@ public class BlackJack {
 		dealer.addCard(BlackJackController.popRandomCard(this.cardDeck));
 	}
 
-	
+	public void drawCardInMidGame() {
+		for (Player player : this.players) {
+			askPlayerToDrawCard(player);
+		}
+	}
+
+	public void askPlayerToDrawCard(Player player) {
+		if (BlackJackUIService.printInputForMoreCard(player.getName())) {
+			player.addCard(BlackJackController.popRandomCard(this.cardDeck));
+		}
+	}
+
+
 }
