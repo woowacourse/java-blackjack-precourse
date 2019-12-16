@@ -186,7 +186,7 @@ public class IOController {
   }
 
   private static String decideAction(String input) {
-    if(input.equals("Y") || input.equals("y")){
+    if (input.equals("Y") || input.equals("y")) {
       return HIT;
     }
 
@@ -199,17 +199,44 @@ public class IOController {
     }
   }
 
-  private static void printScore(List<Card> cards){
+  private static void printScore(List<Card> cards) {
     int score = Rule.getScore(cards);
     System.out.print("점수 : " + score);
   }
 
-  public static void printGameResult(Dealer dealer, ArrayList<Player> players){
+  public static void printGameResult(Dealer dealer, ArrayList<Player> players) {
     System.out.println("-------- 게임 결과 --------");
-    printHandsOfDealer(dealer,false);
+    printHandsOfDealer(dealer, false);
 
     for (Player player : players) {
       printHandsOfPlayer(player);
+    }
+    System.out.println();
+  }
+
+  private static String parseReward(double score){
+    String stringScore = Double.toString(score);
+    return stringScore.substring(0, stringScore.length()-2);
+  }
+
+  private static void printDealerReward(ArrayList<Double> scoreBoard) {
+    int reward = 0;
+    for (int i = 0; i < scoreBoard.size(); i++) {
+      reward -= scoreBoard.get(i);
+    }
+    System.out.println("딜러 : " + parseReward(reward));
+  }
+
+  private static void printPlayerReward(Player player, double score) {
+    System.out.println(player.getName() + " : " + parseReward(score));
+  }
+
+  public static void printRewardResult(ArrayList<Player> players, ArrayList<Double> scoreBoard) {
+    System.out.println("-------- 최종 수익 --------");
+    printDealerReward(scoreBoard);
+
+    for (int i = 0; i < players.size(); i++) {
+      printPlayerReward(players.get(i), scoreBoard.get(i));
     }
   }
 

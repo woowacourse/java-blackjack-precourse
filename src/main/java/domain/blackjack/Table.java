@@ -14,6 +14,7 @@ public class Table {
   private Dealer dealer;
   private ArrayList<Player> players = new ArrayList<>();
   private ArrayList<Double> bettingBox = new ArrayList<>();
+  private ArrayList<Double> scoreBoard = new ArrayList<>();
 
   public Table() {
     this.dealer = new Dealer();
@@ -90,5 +91,43 @@ public class Table {
     if (action.equals(HIT)) {
       dealCardToDealer(dealer);
     }
+  }
+
+  public void reward() {
+    int dealerScore = Rule.getScore(this.dealer.getHands());
+
+    for (int i = 0; i < this.players.size(); i++) {
+      reward(this.players.get(i), dealerScore);
+    }
+  }
+
+  private void reward(Player player, int dealerScore) {
+    int score = Rule.getScore(player.getHands());
+
+    if ((dealerScore >= score && dealerScore <= 21) || score > 21) {
+      lose(player);
+      return;
+    }
+
+    win(player);
+  }
+
+  private void lose(Player player) {
+    double bettingMoney = player.getBettingMoney();
+    scoreBoard.add(-bettingMoney);
+  }
+
+  private void win(Player player) {
+    double bettingMoney = player.getBettingMoney();
+
+    if (Rule.isBlackJack(player.getHands())) {
+      scoreBoard.add(Math.floor(bettingMoney * 1.5));
+      return;
+    }
+    scoreBoard.add(bettingMoney);
+  }
+
+  public void displayScoreBoard() {
+    IOController.printRewardResult(this.players, this.scoreBoard);
   }
 }

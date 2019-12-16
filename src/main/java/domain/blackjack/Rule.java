@@ -77,6 +77,10 @@ public class Rule {
       score += cards.get(i).getScore();
     }
 
+    if (hasAce(cards) && isOverTwentyOne(cards)) {
+      score -= 10;
+    }
+
     if (score > 16) {
       return true;
     }
