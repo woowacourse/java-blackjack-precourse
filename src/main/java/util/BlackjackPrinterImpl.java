@@ -74,4 +74,14 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
     public void printRequestForHit(User user) {
         System.out.println(String.format("%s는 한 장의 카드를 더 받겠습니까?", user));
     }
+
+    @Override
+    public void printStart(Dealer dealer, List<Player> players) {
+        System.out.println("딜러 및 참여자들에게 카드를 나눠줍니다.");
+    }
+
+    @Override
+    public void printBreaktime() {
+        System.out.println();
+    }
 }

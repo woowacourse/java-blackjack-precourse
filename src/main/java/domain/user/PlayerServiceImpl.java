@@ -10,12 +10,12 @@ import java.util.List;
 
 public class PlayerServiceImpl extends UserService {
     private UserInterface userInterface;
-    private UserFactory userFactory;
+    private PlayerFactory playerFactory;
 
-    public PlayerServiceImpl(Deck deck, BlackjackPrinter blackjackPrinter, UserInterface userInterface, UserFactory userFactory) {
+    public PlayerServiceImpl(Deck deck, BlackjackPrinter blackjackPrinter, UserInterface userInterface, PlayerFactory playerFactory) {
         super(deck, blackjackPrinter);
         this.userInterface = userInterface;
-        this.userFactory = userFactory;
+        this.playerFactory = playerFactory;
     }
 
     public void confirmCards(List<Player> players) {
@@ -26,6 +26,7 @@ public class PlayerServiceImpl extends UserService {
 
     @Override
     public void confirmCards(User user) {
+        //todo: refac
         if (isBust(user)) {
             //todo: refac
             System.out.println(String.format("%s는 버스트하여, 더이상 카드를 받을 수 없습니다.", user));
@@ -64,7 +65,7 @@ public class PlayerServiceImpl extends UserService {
             int bettingMoney = userInterface.getBettingMoney();
             //todo: refac
             System.out.println();
-            players.add(userFactory.create(name, bettingMoney));
+            players.add(playerFactory.create(name, bettingMoney));
         }
         return players;
     }
@@ -78,6 +79,12 @@ public class PlayerServiceImpl extends UserService {
     public void printResult(List<Player> players) {
         for (Player player : players) {
             blackjackPrinter.printUserResult(player);
+        }
+    }
+
+    public void printProfit(List<Player> players) {
+        for (Player player : players) {
+            printProfit(player);
         }
     }
 }

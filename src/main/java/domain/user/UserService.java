@@ -27,10 +27,9 @@ public abstract class UserService {
 
     public abstract void confirmCards(User user);
 
-
     public void printResult(User user) {
         blackjackPrinter.printUserResult(user);
     }
 
-
+    public void printProfit(User user) {}
 }
