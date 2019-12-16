@@ -80,6 +80,8 @@ public class Game {
         shuffleCard();
         distributeCard();
         printInfo();
+        printDealerCard();
+        printPlayerCard();
     }
 
     public void shuffleCard() {
@@ -108,12 +110,10 @@ public class Game {
         for(int i = 0; i < player.size(); i++) {
             System.out.print(player.get(i).getinfo());
         }
-        printDealerCard();
-        printPlayerCard();
+        System.out.println("에게 2장의 카드를 나누었습니다.\n");
     }
 
     public void printDealerCard() {
-        System.out.println("에게 2장의 카드를 나누었습니다.");
         System.out.print("딜러: ");
         System.out.println(dealer.toString());
     }
