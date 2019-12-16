@@ -6,7 +6,8 @@ import domain.view.OutputUtil;
 
 public class BlackJackGame {
     public static void start() {
-        initGameSetting();
+        Users users = initGameSetting();
+        startDecideCardAddLoop(users);
     }
 
     private static Users initGameSetting() {
@@ -26,5 +27,9 @@ public class BlackJackGame {
         OutputUtil.printDevideMessage(users.getUsersName());
         users.receiveBeginningCard();
         users.printUsersCard();
+    }
+
+    private static void startDecideCardAddLoop(Users users) {
+        users.startAddCardQuestion();
     }
 }

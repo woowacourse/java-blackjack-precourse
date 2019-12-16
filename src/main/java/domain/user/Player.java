@@ -18,21 +18,23 @@ public class Player extends User {
 
     // TODO 추가 기능 구현
     public void startAddCardLoop() {
-        boolean stopFlag = false;
-        while (checkExcess() == false && stopFlag == false) {
-            OutputUtil.printAddCardQuestion(name);
-            doQuestionFollowAction(stopFlag);
+        while (checkExcess() == false) {
+            boolean addCardFlag = inputAddCardQuestion();
+            if (addCardFlag) {
+                addRandomCard();
+                printUserInfo();
+            }
+            if (addCardFlag == false) {
+                break;
+            }
         }
     }
 
-    public void doQuestionFollowAction(boolean stopFlag) {
+    private boolean inputAddCardQuestion() {
+        OutputUtil.printAddCardQuestion(name);
         boolean addCardFlag = InputUtil.inputAddCardQuestion();
-        if (addCardFlag) {
-            addRandomCard();
-        }
-        if (addCardFlag == false) {
-            stopFlag = true;
-        }
+
+        return addCardFlag;
     }
 
     public boolean isWinBy(int dealerScore) {

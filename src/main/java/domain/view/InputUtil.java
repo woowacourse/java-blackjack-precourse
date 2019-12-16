@@ -19,7 +19,7 @@ public class InputUtil {
     }
 
     public static int inputBettingMoney() {
-        return SCANNER.nextInt();
+        return Integer.parseInt(SCANNER.nextLine().trim());
     }
 
     public static Integer inputAceUse() {
@@ -35,10 +35,10 @@ public class InputUtil {
 
     public static boolean inputAddCardQuestion() {
         String inputAddCardQuestion = SCANNER.nextLine().trim();
-        if(inputAddCardQuestion.equals(YES)){
+        if (inputAddCardQuestion.equals(YES)) {
             return true;
         }
-        if(inputAddCardQuestion.equals(NO)){
+        if (inputAddCardQuestion.equals(NO)) {
             return false;
         }
         throw new InputMismatchException("y, n 중에 입력하셨어야죠! 판 엎습니다!");
