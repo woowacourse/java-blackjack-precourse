@@ -20,6 +20,10 @@ public class Dealer {
     }
 
     // TODO 추가 기능 구현
+
+    /**
+     * 필드에 있는 cards의 점수 총합 계산
+     */
     public int cardSum() {
         int sum = 0;
         for (Card card : cards) {
@@ -31,6 +35,9 @@ public class Dealer {
         return sum;
     }
 
+    /**
+     * ACE카드의 총합을 11에서 1로 바꾼다.
+     */
     private int checkAceExists(Card card, int sum) {
         if (card.isAce() && (sum > Score.BLACK_JACK)) {
             return -10;
@@ -50,14 +57,13 @@ public class Dealer {
         return "딜러: " + printCardList();
     }
 
+    /**
+     * 필드에 있는 cards 안에 있는 카드들을 출력한다.
+     */
     protected String printCardList() {
         List<String> cardList = new ArrayList<>();
         for (Card card : cards)
             cardList.add(card.printCard());
         return String.join(", ", cardList);
-    }
-
-    public List<Card> getCards() {
-        return cards;
     }
 }

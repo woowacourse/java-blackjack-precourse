@@ -15,7 +15,6 @@ public class Card {
     }
 
     // TODO Card 관련 추가 기능 구현
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,6 +37,10 @@ public class Card {
                 '}';
     }
 
+    /**
+     * 카드의 symbol과 type을 출력하는 함수
+     * 할당된 alphabet이 있을 경우, alphabet을 출력한다.
+     */
     public String printCard() {
         if (symbol.getAlphabet() != ' ') return symbol.getAlphabet() + type.toString();
         return symbol.getScore() + type.toString();

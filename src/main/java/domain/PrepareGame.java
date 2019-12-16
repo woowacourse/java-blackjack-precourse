@@ -7,11 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 게임을 준비하는 객체
+ */
 public class PrepareGame {
 
-//    public static final double bettingSum = 0;
     private List<Player> players;
 
+    /**
+     * 게임 준비를 담당하는 함수
+     */
     public void prepare() {
         List<String> names = getPlayerName();
         List<Double> bettingMoneys = getBettingMoneys(names);
@@ -48,8 +53,11 @@ public class PrepareGame {
         return bettingMoneys;
     }
 
+    /**
+     * 입력받은 이름과 배팅 금액으로 player 객체들을 생성한다.
+     */
     private void createPlayerInstance(List<String> names, List<Double> bettingMoneys) {
-        players = new ArrayList<Player>();
+        players = new ArrayList<>();
         for (int i = 0 ; i < names.size() ; i++) {
             players.add(new Player(names.get(i), bettingMoneys.get(i)));
         }

@@ -14,7 +14,7 @@ public class CardFactory {
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);
         }
-        Collections.shuffle(cards);
+        Collections.shuffle(cards);                     //카드를 무작위로 섞는다.
         return Collections.unmodifiableList(cards);
     }
 
