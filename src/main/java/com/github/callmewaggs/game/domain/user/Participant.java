@@ -14,7 +14,7 @@ public abstract class Participant {
   }
 
   public String getCardsInfo() {
-    return cards.stream().map(Card::toString).collect(Collectors.joining(", "));
+    return cards.stream().map(Card::getScoreAndType).collect(Collectors.joining(", "));
   }
 
   public abstract String getName();

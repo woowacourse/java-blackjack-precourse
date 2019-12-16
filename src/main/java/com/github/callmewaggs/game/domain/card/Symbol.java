@@ -16,6 +16,7 @@ public enum Symbol {
   KING(10);
 
   private int score;
+  private static final int DECIMAL_NUMBER_RADIX = 10;
 
   Symbol(int score) {
     this.score = score;
@@ -23,5 +24,12 @@ public enum Symbol {
 
   public int getScore() {
     return score;
+  }
+
+  public char getFirstLetterOfScore() {
+    if (score == 1 || score == 10) {
+      return name().charAt(0);
+    }
+    return Character.forDigit(score, DECIMAL_NUMBER_RADIX);
   }
 }

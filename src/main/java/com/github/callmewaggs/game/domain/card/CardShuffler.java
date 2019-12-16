@@ -1,6 +1,7 @@
 package com.github.callmewaggs.game.domain.card;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
@@ -9,7 +10,8 @@ public class CardShuffler {
   private Queue<Card> shuffledCards;
 
   public CardShuffler(List<Card> cards) {
-    this.shuffledCards = shuffleCards(cards);
+    List<Card> newCards = new ArrayList<>(cards);
+    this.shuffledCards = shuffleCards(newCards);
   }
 
   public Card pickACard() {

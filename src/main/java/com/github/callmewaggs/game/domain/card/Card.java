@@ -16,16 +16,18 @@ public class Card {
     this.type = type;
   }
 
-  // TODO Card 관련 추가 기능 구현
+  public String getScoreAndType() {
+    return symbol.getFirstLetterOfScore() + "/" + type;
+  }
 
   @Override
   public boolean equals(Object o) {
-      if (this == o) {
-          return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-          return false;
-      }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Card card = (Card) o;
     return symbol == card.symbol &&
         type == card.type;
