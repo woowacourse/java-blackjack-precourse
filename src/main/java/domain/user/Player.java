@@ -18,6 +18,14 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public double getBettingMoney() {
+        return this.bettingMoney;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }
