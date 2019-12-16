@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.Result;
 
 public class OutputSystem {
     static public void printGetName() {
@@ -59,11 +60,11 @@ public class OutputSystem {
         }
     }
 
-    static public void printResultMoney(Dealer dealer, ArrayList<Player> players) {
+    static public void printResultMoney(Result dealerResult, ArrayList<Result> playerResult) {
         System.out.println("## 최종수익");
-        System.out.println("딜러 : 10000");
-        for (Player player : players) {
-            System.out.println(player.getName() + ":" + "1234");
+        System.out.println("딜러 : "+ dealerResult.getMoney());
+        for (Result player : playerResult) {
+            System.out.println(player.getName() + ":" + player.getMoney());
         }
     }
 

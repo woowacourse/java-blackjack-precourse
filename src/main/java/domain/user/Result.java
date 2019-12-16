@@ -9,4 +9,11 @@ public class Result {
         this.money = money;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public double getMoney() {
+        return money;
+    }
 }

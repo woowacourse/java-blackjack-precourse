@@ -28,6 +28,7 @@ public class GameController {
         dealer = new Dealer();
         inputSystem = new InputSystem();
         cardDeck = new CardDeck(CardFactory.create());
+        playerResult = new ArrayList<>();
     }
 
     public void initGame() {
@@ -56,7 +57,7 @@ public class GameController {
     public void gameResult() {
         calculateMoney();
         OutputSystem.printResultValue(dealer, players);
-        OutputSystem.printResultMoney(dealer, players);
+        OutputSystem.printResultMoney(dealerResult, playerResult);
     }
 
     private void calculateMoney() {

@@ -63,7 +63,7 @@ public class People {
     }
 
     private int addCalculateBurst(int result, int ten) {
-        if (result + ten < BLACKJACK_NUMBER) {
+        if (result + ten <= BLACKJACK_NUMBER) {
             return result + ten;
         }
         return result;
