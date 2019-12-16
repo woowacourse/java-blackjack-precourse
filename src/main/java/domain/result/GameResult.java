@@ -3,9 +3,7 @@ package domain.result;
 import domain.user.Player;
 import domain.user.User;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameResult {
@@ -27,8 +25,15 @@ public class GameResult {
     }
 
     public static GameResult create(List<User> users) {
-        List<User> players = new LinkedList<>(users.subList(0, users.size()));
-        User dealer = users.get(users.size());
+        List<User> players = new LinkedList<>(users.subList(0, users.size() - 1));
+        System.out.println("players >> ");
+        for (User user : players) {
+            System.out.println("player : " + user.getName());
+        }
+        System.out.println("Dealer >> ");
+        User dealer = users.get(users.size() - 1);
+        System.out.println("dealer : " + dealer.getName());
+
 
         return new GameResult(players, dealer);
     }
@@ -57,7 +62,7 @@ public class GameResult {
 
     public void decideGameResult() {
         List<User> bustPlayers = players.stream()
-                .filter(User::isBlackjack)
+                .filter(User::isBust)
                 .collect(Collectors.toList());
 
         handleLosers(bustPlayers, LOSS_ONE);
@@ -67,27 +72,32 @@ public class GameResult {
             handleDealer(dealer, dealerProfit);
         }
 
-        // 숫자가 큰 사람이 승리하도록 처리
+//        System.out.println("아직 미구현");
+//        System.out.println("size : " + gameResult.size());
 
     }
 
-    private void handleWinners(List<User> users, Double profit) {
-        users.stream()
-                .forEach(player -> gameResult.put(player, ((Player) player).multiplyBettingMoneyBy(profit)));
+    private void handleWinners(List<User> winners, Double profit) {
+        winners.stream()
+                .forEach(winner -> gameResult.put(winner, ((Player) winner).multiplyBettingMoneyBy(profit)));
 
-        users.stream()
-                .forEach(player -> players.remove(player));
+        players.removeAll(winners);
     }
 
-    private void handleLosers(List<User> users, Double loss) {
-        users.stream()
-                .forEach(player -> gameResult.put(player, ((Player) player).multiplyBettingMoneyBy(loss)));
+    private void handleLosers(List<User> losers, Double loss) {
+        losers.stream()
+                .forEach(loser -> gameResult.put(loser, ((Player) loser).multiplyBettingMoneyBy(loss)));
 
-        users.stream()
-                .forEach(player -> players.remove(player));
+        players.removeAll(losers);
     }
 
     private void handleDealer(User dealer, Double dealerProfit) {
         gameResult.put(dealer, dealerProfit);
+
+        players.remove(dealer);
+    }
+
+    public Map<User, Double> getGameResult() {
+        return Collections.unmodifiableMap(gameResult);
     }
 }
