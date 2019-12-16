@@ -42,13 +42,13 @@ public class Card {
     public String toCardString(){
         switch(this.type){
             case SPADE:
-                return this.symbol + "스페이드";
+                return this.symbol.getScore() + "스페이드";
             case DIAMOND:
-                return this.symbol + "다이아몬드";
+                return this.symbol.getScore() + "다이아몬드";
             case HEART:
-                return this.symbol + "하트";
+                return this.symbol.getScore() + "하트";
             case CLUB:
-                return this.symbol + "클로버";
+                return this.symbol.getScore() + "클로버";
         }
         return null;
     }

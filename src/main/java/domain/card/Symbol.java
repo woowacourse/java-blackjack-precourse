@@ -22,6 +22,6 @@ public enum Symbol {
     }
 
     public int getScore() {
-        return score;
+        return this.score;
     }
 }

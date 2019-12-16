@@ -13,9 +13,12 @@ public class Dealer extends Person{
 
     public Dealer() {}
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public String getName(){
+        return "딜러";
     }
 
+    public String toString(){
+        return "name : 딜러" + ", bettingMoney : ?" ;
+    }
     // TODO 추가 기능 구현
 }

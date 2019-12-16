@@ -18,8 +18,13 @@ public class Player extends Person{
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public String getName(){
+        return this.name;
+    }
+
+
+    public String toString(){
+        return "name : " + this.name + ", bettingMoney : " + this.bettingMoney;
     }
 
     // TODO 추가 기능 구현

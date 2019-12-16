@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class CardGame {
 
-    // 후에 rafactoring
+    // TODO : 스캐너 리펙토링
     static Scanner sc = new Scanner(System.in);
     static final int FIRST_CARD_COUNT = 2;
 
@@ -55,7 +55,6 @@ public class CardGame {
 
         List<Player> playerList = new ArrayList<>();
 
-        // 여기 bettingMoney가 음수일 경우 처리해줘야 함. 함수로 빼면 되겠다. 그냥
         playerNameList.stream().
                 forEach(element -> {
                     System.out.println(element + "의 베팅 금액은?");
@@ -82,18 +81,46 @@ public class CardGame {
         return false;
     }
 
-    public static void printYourCards(List<Player> playerList, Dealer dealer){
-        dealer.printMyCards();
-        playerList.forEach(element -> element.printMyCards());
+    public static void printYourCards(Dealer dealer, List<Player> playerList){
+        dealer.printMyCards(dealer.getName());
+        playerList.forEach(element -> element.printMyCards(element.getName()));
     }
 
+    public static void printGiveCards(Dealer dealer, List<Player> playerList){
+        List<String> playerStrList = new ArrayList<>();
+        playerList.forEach(element -> playerStrList.add(element.getName()));
+        String result = dealer.getName()
+                + "와 "
+                + String.join(", ", playerStrList)
+                + "에게 "
+                + FIRST_CARD_COUNT +
+                "장의 카드를 나누었습니다.";
+        System.out.println(result);
+    }
+
+    public static void giveCards(Dealer dealer, List<Player> playerList, List<Card> originalCardList){
+
+        printGiveCards(dealer, playerList);
+
+        dealer.takeCards(FIRST_CARD_COUNT, originalCardList);
+        playerList.forEach(element -> {
+            element.takeCards(FIRST_CARD_COUNT, originalCardList);
+        });
+    }
     public static void run(){
         List<String> playerNameList = insertPlayerNameStr();
+
         System.out.println(playerNameList.toString());
+
         List<Player> playerList = insertPlayerMoneyStr(playerNameList);
-        List<Card> cardList = CardFactory.create();
+        List<Card> originalCardList = CardFactory.create();
+
         System.out.println(playerList.toString());
-        printYourCards(playerList, dealer);
+
+        // TODO : 딜러 리펙토링
+        Dealer dealer = new Dealer();
+        giveCards(dealer, playerList, originalCardList);
+        printYourCards(dealer, playerList);
 
     }
 
