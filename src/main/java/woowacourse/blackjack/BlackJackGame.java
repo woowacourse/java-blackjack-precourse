@@ -15,20 +15,22 @@ public class BlackJackGame {
     private List<Card> getCardsList = new ArrayList<>();
 
     public void runGame() {
-        List<String> playerNames = this.getPlayerNames();
-        List<Double> bettingMoney = this.getBettingMoney(playerNames);
-        this.setPlayerInformation(playerNames, bettingMoney);
-        this.receiveTwice();
+        this.inputData();
+        this.getFirstCardsAllPeople();
         this.printPlayersAndDealerCards();
         for (Player player: this.players) {
             this.checkPointPlayers(player);
         }
         this.checkPointDealer();
-
         printDealerCardsResult();
         for (Player player: this.players) {
             printPlayersCardsResult(player);
         }
+    }
+    private void inputData() {
+        List<String> playerNames = this.getPlayerNames();
+        List<Double> bettingMoney = this.getBettingMoney(playerNames);
+        this.setPlayerInformation(playerNames, bettingMoney);
     }
 
     private List<String> getPlayerNames() {
@@ -55,41 +57,25 @@ public class BlackJackGame {
         }
     }
 
-    private void receiveTwice() {
-        for (int i = 0; i < 2; i++) {
-            receiveOnceToPlayers();
-            receiveOnceToDealer();
+    private void getFirstCardsAllPeople() {
+        for (Player player: this.players) {
+            player.getFirstCards(this.cards, this.getCardsList);
         }
+        this.dealer.getFirstCards(this.cards, this.getCardsList);
     }
 
-    private void receiveOnceToDealer() {
-        this.dealer.addCard(getRandomCard());
+    private void getOneCardToDealer() {
+        this.dealer.addCard(this.dealer.getRandomCard(this.cards, this.getCardsList));
     }
 
     private void receiveOnceToPlayers() {
         for (Player player: this.players) {
-            this.handCardsToPlayer(player);
+            this.getOneCardsToPlayer(player);
         }
     }
 
-    private void handCardsToPlayer(Player player) {
-        player.addCard(this.getRandomCard());
-    }
-
-    private Card getRandomCard() {
-        Random random = new Random();
-        Card getCard = null;
-        boolean checkCard = true;
-        while (checkCard) {
-            getCard = this.cards.get(random.nextInt(this.cards.size()));
-            checkCard = doubleCheck(getCard);
-        }
-        this.getCardsList.add(getCard);
-        return getCard;
-    }
-
-    private boolean doubleCheck(Card getCard) {
-        return this.getCardsList.contains(getCard);
+    private void getOneCardsToPlayer(Player player) {
+        player.addCard(player.getRandomCard(this.cards, this.getCardsList));
     }
 
     private void printPlayersAndDealerCards() {
@@ -134,7 +120,7 @@ public class BlackJackGame {
         for (Card card: player.getCards()) {
             stringCards.add(card.getSymbolName() + card.getTypeName());
         }
-        System.out.println(""+String.join(", ", stringCards)+" - 결과: "+player.getSumScore()+"");
+        System.out.println(""+String.join(", ", stringCards)+" - 결과: "+player.getSumScoreResult()+"");
     }
 
     private void checkPointPlayers(Player player) {
@@ -148,14 +134,6 @@ public class BlackJackGame {
         System.out.println();
     }
 
-    private void checkPointDealer() {
-        if (this.dealer.getSumScore() < 17) {
-            receiveOnceToDealer();
-            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
-            System.out.println();
-        }
-    }
-
     private boolean choiceCardYesOrNo(Player player) {
         System.out.println(""+player.getName()+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
         String choice = sc.nextLine();
@@ -166,9 +144,17 @@ public class BlackJackGame {
         return false;
     }
 
+    private void checkPointDealer() {
+        if (this.dealer.getElevenEqualsAScore() < 17) {
+            getOneCardToDealer();
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+            System.out.println();
+        }
+    }
+
     private void oneMoreCard(Player player) {
         if (player.getSumScore() < 21) {
-            this.handCardsToPlayer(player);
+            this.getOneCardsToPlayer(player);
         }
     }
 }
