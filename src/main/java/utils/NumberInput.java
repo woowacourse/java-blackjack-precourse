@@ -4,7 +4,8 @@ public class NumberInput {
 	private static final double MIN_NUMBER = 0;
 	private double number = 0;
 	
-	public NumberInput() {
+	public NumberInput(String string) {
+		System.out.println(string + "의 배팅 금액은?");
 		input();
 	}
 	
