@@ -2,7 +2,6 @@ package woowacourse.blackjack;
 
 import java.util.*;
 
-import domain.card.Symbol;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.card.CardFactory;
@@ -20,10 +19,7 @@ public class BlackJackGame {
         List<Double> bettingMoney = this.getBettingMoney(playerNames);
         this.setPlayerInformation(playerNames, bettingMoney);
         this.receiveTwice();
-        System.out.println(this.dealer.getCards());
-        for (Player player : this.players) {
-            System.out.println(player.getCards());
-        }
+        this.printPlayersAndDealerCards();
     }
 
     private List<String> getPlayerNames() {
@@ -84,5 +80,31 @@ public class BlackJackGame {
 
     private boolean doubleCheck(Card getCard) {
         return this.getCardsList.contains(getCard);
+    }
+
+    private void printPlayersAndDealerCards() {
+        System.out.print("딜러와");
+        for (Player player: this.players) {
+            System.out.print(" "+player.getName()+"");
+        }
+        System.out.println("에게 2장의 카드를 나누었습니다.");
+        printDealerCards();
+        for (Player player: this.players) {
+            printPlayersCards(player);
+        }
+    }
+
+    private void printDealerCards() {
+        System.out.print("딜러: ");
+        System.out.println(""+this.dealer.getCards().get(0).getSymbolName()+"" + ""+this.dealer.getCards().get(0).getTypeName()+"");
+    }
+
+    private void printPlayersCards(Player player) {
+        System.out.print(""+player.getName()+"카드: ");
+        List<String> stringCards = new ArrayList<>();
+        for (Card card: player.getCards()) {
+            stringCards.add(card.getSymbolName() + card.getTypeName());
+        }
+        System.out.println(String.join(", ", stringCards));
     }
 }

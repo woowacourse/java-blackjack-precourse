@@ -15,12 +15,16 @@ public class Card {
         this.type = type;
     }
 
-    public int getSymbol() {
+    public int getSymbolScore() {
         return this.symbol.getScore();
     }
 
-    public Type getType() {
-        return this.type;
+    public String getSymbolName() {
+        return this.symbol.getName();
+    }
+
+    public String getTypeName() {
+        return this.type.getName();
     }
 
     @Override

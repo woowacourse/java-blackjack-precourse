@@ -17,4 +17,12 @@ public class Player extends Dealer {
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public double getBettingMoney() {
+        return this.bettingMoney;
+    }
 }
