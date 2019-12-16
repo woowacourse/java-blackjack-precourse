@@ -13,6 +13,7 @@ public class Player extends Participant {
     this.bettingMoney = bettingMoney;
   }
 
+  @Override
   public String getName() {
     return name;
   }

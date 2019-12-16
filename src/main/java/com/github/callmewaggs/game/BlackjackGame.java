@@ -18,12 +18,12 @@ public class BlackjackGame {
   }
 
   public void gameStart() {
-    blackjackRule.dealInitialCards(participants);
+    blackjackRule.dealInitialCards(dealer, players);
     if (isThereBlackjack()) {
       judgeWinOrLose();
       return;
     }
-    blackjackRule.hitOrStay(participants);
+    blackjackRule.hitOrStay(dealer, players);
     if (isDealerBust()) {
       dealerLose();
       return;

@@ -8,5 +8,10 @@ public class Dealer extends Participant {
   public Dealer() {
   }
 
+  @Override
+  public String getName() {
+    return "딜러";
+  }
+
   // TODO 추가 기능 구현
 }
