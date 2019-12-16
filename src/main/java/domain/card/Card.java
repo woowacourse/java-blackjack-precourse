@@ -1,5 +1,7 @@
 package domain.card;
 
+import domain.Game;
+
 import java.util.Objects;
 
 /**
@@ -37,5 +39,23 @@ public class Card {
                 "symbol=" + symbol +
                 ", type=" + type +
                 '}';
+    }
+    public int getSymbolValue(){
+        return symbol.getScore();
+    }
+    public int isAce(){
+        if(symbol == Symbol.ACE){
+            return 1;
+        }
+        return 0;
+    }
+    public static Symbol makeRandomSymbol() {
+        int symbol = (int) (Math.random() * Game.NUM_OF_SYMBOL + 1);
+        return Symbol.values()[symbol];
+    }
+
+    public static Type makeRandomType() {
+        int type = (int) (Math.random() * Game.NUM_OF_TYPE);
+        return Type.values()[type];
     }
 }
