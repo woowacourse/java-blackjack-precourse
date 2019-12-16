@@ -2,6 +2,7 @@ package controller;
 
 import domain.card.Card;
 import domain.user.Dealer;
+import domain.user.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -109,14 +110,14 @@ public class IOController {
   }
 
   public static void printDealCardToUser(String name) {
-    System.out.println(name + "이(가) 한장 받습니다.");
+    System.out.println(name + "이(가) 한장 받습니다...");
   }
 
   public static void printDealCardToDealer() {
-    System.out.println("딜러가 한장 받습니다.");
+    System.out.println("딜러가 한장 받습니다...");
   }
 
-  public static void printCard(Card card) {
+  private static void printCard(Card card) {
     System.out.print("[");
     System.out.print(card.getSuit());
     System.out.print(" ");
@@ -125,15 +126,26 @@ public class IOController {
 
   }
 
-  public static void printReverseCard(Card card) {
+  private static void printReverseCard(Card card) {
     System.out.print("[   ]");
   }
 
   public static void printHandsOfDealer(Dealer dealer) {
     List<Card> cards = dealer.getHands();
 
+    System.out.print("딜러 : ");
     printCard(cards.get(0));
     printReverseCard(cards.get(1));
+    System.out.println();
+  }
+
+  public static void printHandsOfPlayer(Player player){
+    List<Card> cards = player.getHands();
+    System.out.print(player.getName() + " : ");
+    for(int i = 0; i < cards.size(); i++){
+      printCard(cards.get(i));
+    }
+    System.out.println();
   }
 
 }

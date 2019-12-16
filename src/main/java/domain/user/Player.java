@@ -21,10 +21,13 @@ public class Player {
     public void addCard(Card card) {
         cards.add(card);
     }
-    // TODO 추가 기능 구현
 
     public String getName(){
         return this.name;
+    }
+
+    public List<Card> getHands(){
+        return this.cards;
     }
 
 }

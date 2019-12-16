@@ -49,6 +49,9 @@ public class Table {
 
   public void displayCards() {
     IOController.printHandsOfDealer(this.dealer);
+    for (int i = 0; i < this.players.size(); i++) {
+      IOController.printHandsOfPlayer(this.players.get(i));
+    }
   }
 
 }
