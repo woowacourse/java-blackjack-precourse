@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player extends Person{
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -22,12 +22,6 @@ public class Player {
         cards.add(card);
     }
 
-    public void printMyCards(){
-        cards.forEach(element -> );
-        System.out.println()
-    }
-
-    public void
     // TODO 추가 기능 구현
 
 }

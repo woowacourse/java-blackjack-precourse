@@ -2,6 +2,7 @@ package domain.game;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
@@ -81,12 +82,19 @@ public class CardGame {
         return false;
     }
 
+    public static void printYourCards(List<Player> playerList, Dealer dealer){
+        dealer.printMyCards();
+        playerList.forEach(element -> element.printMyCards());
+    }
+
     public static void run(){
         List<String> playerNameList = insertPlayerNameStr();
         System.out.println(playerNameList.toString());
         List<Player> playerList = insertPlayerMoneyStr(playerNameList);
         List<Card> cardList = CardFactory.create();
         System.out.println(playerList.toString());
+        printYourCards(playerList, dealer);
+
     }
 
 }
