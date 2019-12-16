@@ -58,8 +58,8 @@ public class Dealer {
         cost -= playerCost;
     }
 
-    public double finalCost() {
-        return cost;
+    public int finalCost() {
+        return (int) cost;
     }
 
     public String toStringFirstTurn() {

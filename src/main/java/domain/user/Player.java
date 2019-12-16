@@ -59,8 +59,8 @@ public class Player {
         reward = bettingMoney * interest;
     }
 
-    public double getReward() {
-        return reward;
+    public int getReward() {
+        return (int) reward;
     }
 
     public String toString() {
