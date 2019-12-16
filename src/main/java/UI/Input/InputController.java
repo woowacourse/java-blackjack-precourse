@@ -1,24 +1,25 @@
 package UI.Input;
 
-import domain.user.User;
-
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class InputController {
     private static final String DELIMITER_FOR_SPLIT = ",";
     private static final String NOT_A_NUMBER_EXCEPTION_MESSAGE = "숫자만 입력해주세요.";
 
-    public static HashMap<String, Double> askPlayerProperties() {
-        HashMap<String, Double> playerProperties = new HashMap<>();
-
-        String[] playerNamesSplit = askPlayerNames().split(DELIMITER_FOR_SPLIT);
-
-        for (String playerName : playerNamesSplit) {
-            Double bettingMoney = askBettingMoney(playerName);
-            playerProperties.put(playerName, bettingMoney);
+    public static HashMap<String, Double> askPlayerPropertiesAndHandleError() {
+        try {
+            return askPlayerProperties();
+        } catch (IllegalArgumentException e) {
+            return askPlayerPropertiesAndHandleError();
         }
+    }
 
-        return playerProperties;
+    private static HashMap<String, Double> askPlayerProperties() throws IllegalArgumentException {
+        String playerNames = askPlayerNames();
+        String[] playerNamesHandled = handlePlayerNames(playerNames);
+
+        return askBettingMoneyByPlayerName(playerNamesHandled);
     }
 
     private static String askPlayerNames() {
@@ -30,9 +31,35 @@ public class InputController {
         }
     }
 
+    private static String[] handlePlayerNames(String playerNames) throws IllegalArgumentException {
+        String[] playerNamesSplit = playerNames.split(DELIMITER_FOR_SPLIT);
+        String[] playerNamesHandled = trimPlayerNames(playerNamesSplit);
+        InputValidator.validatePlayerNamesSplit(playerNamesHandled);
+        return playerNamesHandled;
+    }
+
+    private static String[] trimPlayerNames(String[] playerNames) {
+        return Arrays.stream(playerNames)
+                .map(playerName -> playerName.trim())
+                .toArray(String[]::new);
+    }
+
+    private static HashMap<String, Double> askBettingMoneyByPlayerName(String[] playerNamesHandled) {
+        HashMap<String, Double> playerProperties = new HashMap<>();
+
+        for (String playerName : playerNamesHandled) {
+            Double bettingMoney = askBettingMoney(playerName);
+            playerProperties.put(playerName.trim(), bettingMoney);
+        }
+
+        return playerProperties;
+    }
+
     private static double askBettingMoney(String playerName) {
         try {
-            return Double.parseDouble(InputView.inputBettingMoney(playerName));
+            Double bettingMoney = Double.parseDouble(InputView.inputBettingMoney(playerName));
+            InputValidator.validateBettingMoney(bettingMoney);
+            return bettingMoney;
         } catch (NumberFormatException e) {
             System.out.println(NOT_A_NUMBER_EXCEPTION_MESSAGE);
             return askBettingMoney(playerName);

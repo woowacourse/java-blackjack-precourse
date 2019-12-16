@@ -17,7 +17,7 @@ public class BlackjackGame {
     private Deck deck;
 
     public BlackjackGame() {
-        this.users = UsersFactory.create(InputController.askPlayerProperties());
+        this.users = UsersFactory.create(InputController.askPlayerPropertiesAndHandleError());
         this.deck = new Deck();
     }
 
