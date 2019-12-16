@@ -27,7 +27,7 @@ public class Dealer {
         boolean hasAce = false;
         for (int i = 0; i < cards.size(); i++) {
             score += cards.get(i).getScore();
-            hasAce = cards.get(i).ifCardisAce();
+            hasAce = cards.get(i).ifCardIsAce();
         }
         if(hasAce) {
             score = checkIfBurst(score);
@@ -59,6 +59,11 @@ public class Dealer {
 
     public double finalCost() {
         return cost;
+    }
+
+    public String toStringFirstTurn() {
+        String str = cards.get(0).toString();
+        return str;
     }
 
     public String toString() {

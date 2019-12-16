@@ -126,7 +126,7 @@ public class Game {
     }
 
     public void printInfo() {
-        System.out.print("딜러와 ");
+        System.out.print("\n딜러와 ");
         for(int i = 0; i < player.size(); i++) {
             System.out.print(player.get(i).getName());
         }
@@ -135,7 +135,7 @@ public class Game {
 
     public void printDealerCard() {
         System.out.print("딜러: ");
-        System.out.println(dealer.toString());
+        System.out.println(dealer.toStringFirstTurn());
     }
 
     public void printPlayerCard() {
