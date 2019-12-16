@@ -39,6 +39,7 @@ public class Card {
     }
 
     public String printCard() {
+        if (symbol.getAlphabet() != ' ') return symbol.getAlphabet() + type.toString();
         return symbol.getScore() + type.toString();
     }
 

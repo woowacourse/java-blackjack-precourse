@@ -157,9 +157,9 @@ public class PlayGame {
     }
 
     private void printFinalResult() {
-        System.out.println('\n' + dealer.print() + " - 결과 :" + dealer.cardSum());
+        System.out.println('\n' + dealer.print() + " - 결과 :" + (int)dealer.cardSum());
         for (Player player : players) {
-            System.out.println(player.print() + " - 결과 :" + player.cardSum());
+            System.out.println(player.print() + " - 결과 :" + (int)player.cardSum());
         }
         printFinalScore();
     }
