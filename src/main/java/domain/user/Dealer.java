@@ -33,14 +33,18 @@ public class Dealer {
         boolean checkCard = true;
         while (checkCard) {
             getCard = allCards.get(random.nextInt(allCards.size()));
-            checkCard = doubleCheck(getCardsList, getCard);
+            checkCard = isDoubleCheck(getCardsList, getCard);
         }
         getCardsList.add(getCard);
         return getCard;
     }
 
-    private boolean doubleCheck(List<Card> getCardsList, Card getCard) {
+    private boolean isDoubleCheck(List<Card> getCardsList, Card getCard) {
         return getCardsList.contains(getCard);
+    }
+
+    public boolean isBlackJack() {
+        return this.getElevenEqualsAScore() == 21;
     }
 
     public int getSumScore() {
