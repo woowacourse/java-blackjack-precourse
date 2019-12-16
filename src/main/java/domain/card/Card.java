@@ -38,11 +38,16 @@ public class Card {
                 '}';
     }
 
-    public String getCard() {
+    public String printCard() {
         return symbol.getScore() + type.toString();
     }
 
     public Symbol getSymbol() {
         return symbol;
+    }
+
+    public boolean isAce() {
+        if (symbol.equals(Symbol.ACE)) return true;
+        return false;
     }
 }

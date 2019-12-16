@@ -51,7 +51,7 @@ public class PlayGame {
     }
 
     private void printMidResult() {
-        System.out.println(dealer.print());
+        System.out.println('\n'+dealer.print());
         for (Player player : players) {
             System.out.println(player.print());
         }
@@ -84,7 +84,7 @@ public class PlayGame {
         Scanner s = new Scanner(System.in);
         boolean request = true;
         while (request) {
-            System.out.println(player.getName() + "은(는) 카드를 한 장 더 받겠습니까?(예는 y, 아니오는 n)");
+            System.out.println('\n' + player.getName() + "은(는) 카드를 한 장 더 받겠습니까?(예는 y, 아니오는 n)");
             String requestStr = s.next();
             //requestExceptionCheck(yesOrNo(requestStr));
             request = yesOrNo(requestStr);
@@ -118,8 +118,13 @@ public class PlayGame {
         }
     }
 
-    private void checkWinner() {
+    private void checkWinner() { //최고점 출력
+        
+    }
 
+    private boolean isOver21(double value) {
+        if (value > Score.BLACK_JACK) return true;
+        return false;
     }
 
     private void printFinalResult() {
@@ -134,7 +139,7 @@ public class PlayGame {
         System.out.println("## 최종수익");
         System.out.println("딜러: " + dealer.getProfit());
         for (Player player : players)
-            System.out.println(player.getName() + ": " + player.getProfit());
+            System.out.println(player.getName() + ": " + (int)player.getProfit());
     }
 
 }

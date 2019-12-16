@@ -1,5 +1,6 @@
 package domain.user;
 
+import domain.Score;
 import domain.card.Card;
 
 import java.util.ArrayList;
@@ -21,10 +22,21 @@ public class Dealer {
     // TODO 추가 기능 구현
     public int cardSum() {
         int sum = 0;
-        for (int i = 0 ; i < cards.size() ; i++) {
-            sum += cards.get(i).getSymbol().getScore();
+        for (Card card : cards) {
+            sum += card.getSymbol().getScore();
+        }
+        for (Card card : cards) {
+            sum += checkAceExists(card, sum);
         }
         return sum;
+    }
+
+    private int checkAceExists(Card card, int sum) {
+        if (card.isAce() && (sum + 10 < Score.BLACK_JACK)) {
+            System.out.println("ACE 있어서 10더함");
+            return 10;
+        }
+        return 0;
     }
 
     public void setProfit(double profit) {
@@ -42,7 +54,11 @@ public class Dealer {
     protected String printCardList() {
         List<String> cardList = new ArrayList<>();
         for (Card card : cards)
-            cardList.add(card.getCard());
+            cardList.add(card.printCard());
         return String.join(", ", cardList);
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }
