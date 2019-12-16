@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer{
+public class Dealer {
 	private final List<Card> cards = new ArrayList<>();
 
 	public Dealer() {
@@ -33,5 +33,18 @@ public class Dealer{
 			showHand += this.cards.get(i).toString() + ",";
 		}
 		System.out.println(showHand);
+	}
+
+	public Boolean isBusted() {
+		final int BUSTED = 21;
+		int score = 0;
+
+		for (Card card : this.cards) {
+			score += card.getSymbolScore();
+		}
+		if (score > BUSTED) {
+			return true;
+		}
+		return false;
 	}
 }

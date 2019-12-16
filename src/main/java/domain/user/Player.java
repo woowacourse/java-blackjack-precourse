@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 게임 참여자를h 의미하는 객체
  */
-public class Player{
+public class Player {
 	private final String name;
 	private final double bettingMoney;
 	private final List<Card> cards = new ArrayList<>();
@@ -34,4 +34,16 @@ public class Player{
 		System.out.println(showHand);
 	}
 
+	public Boolean isBusted() {
+		final int BUSTED = 21;
+		int score = 0;
+
+		for (Card card : this.cards) {
+			score += card.getSymbolScore();
+		}
+		if (score > BUSTED) {
+			return true;
+		}
+		return false;
+	}
 }
