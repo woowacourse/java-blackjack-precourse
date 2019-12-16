@@ -1,5 +1,12 @@
 package domain.card;
 
+/**
+ * Symbol.java
+ * 카드의 문자 가짓수 정보를 지정하는 클래스
+ * 우아한테크코스 프리코스 3주차
+ * Original code https://github.com/hotheadfactory/java-blackjack-precourse
+ * Version: v0.0.1, 2019.12.16 (c) 정회형
+ */
 public enum Symbol {
     ACE(1,"A"),
     TWO(2,"2"),

@@ -7,7 +7,13 @@ import java.util.List;
 
 import static view.ConsoleOutput.printMessage;
 
-
+/**
+ * Main.java
+ * 메인 클래스
+ * 우아한테크코스 프리코스 3주차
+ * Original code https://github.com/hotheadfactory/java-blackjack-precourse
+ * Version: v0.0.1, 2019.12.16 (c) 정회형
+ */
 public class Main {
     public static void main(String[] args) {
         new BlackJackGame(enrollPlayers(), new Dealer());
@@ -23,7 +29,6 @@ public class Main {
             return enrollPlayers();
         }
     }
-    // TODO Card 관련 추가 기능 구현
     private static int getBettingMoney(String name) {
         try {
             System.out.println(name + "의 배팅 금액은?");

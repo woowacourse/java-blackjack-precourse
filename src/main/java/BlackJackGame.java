@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * BlackJackGame.java
+ * 본 게임이 실행되는 Controller 클래스
+ * 우아한테크코스 프리코스 3주차
+ * Original code https://github.com/hotheadfactory/java-blackjack-precourse
+ * Version: v0.0.1, 2019.12.16 (c) 정회형
+ */
 import static view.ConsoleOutput.printMessage;
 
 public class BlackJackGame {

@@ -3,7 +3,11 @@ package domain.user;
 import java.util.stream.Collectors;
 
 /**
- * 게임 딜러를 의미하는 객체
+ * Dealer.java
+ * 게임 딜러를 의미하는 객체.
+ * 우아한테크코스 프리코스 3주차
+ * Original code https://github.com/hotheadfactory/java-blackjack-precourse
+ * Version: v0.0.1, 2019.12.16 (c) 정회형
  */
 public class Dealer extends Person {
     private static final int REDRAW_LIMIT = 16;

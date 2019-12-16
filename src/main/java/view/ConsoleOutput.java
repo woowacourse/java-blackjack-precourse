@@ -2,6 +2,13 @@ package view;
 
 import java.util.List;
 
+/**
+ * ConsoleOutput.java
+ * 콘솔로 출력되는 모든 것들
+ * 우아한테크코스 프리코스 3주차
+ * Original code https://github.com/hotheadfactory/java-blackjack-precourse
+ * Version: v0.0.1, 2019.12.16 (c) 정회형
+ */
 public class ConsoleOutput {
     public static void printCards(String cardString) {
         System.out.println(cardString);
