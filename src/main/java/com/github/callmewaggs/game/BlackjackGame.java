@@ -37,7 +37,7 @@ public class BlackjackGame {
         return true;
       }
     }
-    return false | dealer.isBlackjack();
+    return dealer.isBlackjack();
   }
 
   private void judgeWinOrLose() {

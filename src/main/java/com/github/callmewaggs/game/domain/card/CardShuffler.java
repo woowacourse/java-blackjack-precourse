@@ -14,7 +14,7 @@ public class CardShuffler {
     this.shuffledCards = shuffleCards(newCards);
   }
 
-  public Card pickACard() {
+  public Card pickCard() {
     return shuffledCards.poll();
   }
 

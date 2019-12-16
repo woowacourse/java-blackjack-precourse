@@ -16,6 +16,10 @@ public class Card {
     this.type = type;
   }
 
+  public int getScore() {
+    return symbol.getScore();
+  }
+
   public String getScoreAndType() {
     return symbol.getFirstLetterOfScore() + "/" + type;
   }

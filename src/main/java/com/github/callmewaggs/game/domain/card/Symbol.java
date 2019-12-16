@@ -15,6 +15,8 @@ public enum Symbol {
   QUEEN(10),
   KING(10);
 
+  public static final int ANOTHER_ACE_NUMBER = 11;
+
   private int score;
   private static final int DECIMAL_NUMBER_RADIX = 10;
 

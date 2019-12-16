@@ -53,7 +53,7 @@ public class IOHelper {
   }
 
   private static String nameAndCardsMessage(Participant participant, String name) {
-    return name + " : " + participant.getCardsInfo();
+    return name + " : " + participant.getCurrentCardsInfo();
   }
 
 }

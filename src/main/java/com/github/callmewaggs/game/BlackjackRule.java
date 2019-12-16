@@ -11,6 +11,7 @@ import java.util.List;
 public class BlackjackRule {
 
   private static final int INITIAL_CARDS_COUNT = 2;
+  public static final int BLACKJACK_NUMBER = 21;
 
   private CardShuffler cardShuffler;
 
@@ -26,9 +27,9 @@ public class BlackjackRule {
   }
 
   private void dealCardToDealerAndPlayers(Dealer dealer, List<Player> players) {
-    dealer.takeACard(cardShuffler.pickACard());
+    dealer.takeCard(cardShuffler.pickCard());
     for (Player player : players) {
-      player.takeACard(cardShuffler.pickACard());
+      player.takeCard(cardShuffler.pickCard());
     }
   }
 

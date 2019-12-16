@@ -1,20 +1,23 @@
 package com.github.callmewaggs.game.domain.user;
 
+import com.github.callmewaggs.game.BlackjackRule;
 import com.github.callmewaggs.game.domain.card.Card;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.github.callmewaggs.game.domain.card.CardState;
 
 public abstract class Participant {
 
-  private final List<Card> cards = new ArrayList<>();
+  private final CardState cardState = new CardState();
 
-  public void takeACard(Card card) {
-    cards.add(card);
+  public void takeCard(Card card) {
+    cardState.addCard(card);
   }
 
-  public String getCardsInfo() {
-    return cards.stream().map(Card::getScoreAndType).collect(Collectors.joining(", "));
+  public String getCurrentCardsInfo() {
+    return cardState.getCardsInfo();
+  }
+
+  public boolean isBlackjack() {
+    return cardState.getCardsTotalScore() == BlackjackRule.BLACKJACK_NUMBER;
   }
 
   public abstract String getName();
