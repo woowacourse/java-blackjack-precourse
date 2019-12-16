@@ -13,6 +13,7 @@ public class Dealer {
     private static final int ACEDIFFNUM = 10;
     private final List<Card> cards = new ArrayList<>();
     private double cost = 0;
+    public boolean ifBurst = false;
 
     public Dealer() {}
 
