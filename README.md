@@ -2,7 +2,7 @@
 
 | 작성자 | version |git ID| 작성일시 | 변경사유 |
 |---|---|---|---|---|
-| 정은석 | 1.0v |joseph415 |2019.12.16 | 플레이어와 딜러를 생성하는 ConstructPlayerAndDealer 추가 |
+| 정은석 | 1.0v |joseph415 |2019.12.16 | ConstructPlayerAndDealer 에서 딜러를 생성하는 메소드 추가|
 
 ___
 

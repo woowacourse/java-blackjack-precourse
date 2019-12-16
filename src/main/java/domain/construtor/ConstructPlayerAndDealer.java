@@ -13,6 +13,7 @@ package domain.construtor;
 
 import domain.input.InputMoney;
 import domain.input.InputName;
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
@@ -36,13 +37,22 @@ public class ConstructPlayerAndDealer {
      *
      * @return 플레이어객체를 담은 list
      */
-    public List<Player> constructor() {
+    public List<Player> constructorPlayer() {
         names = input.inputName();
         Map<String, Double> maps = money.inputMoney(names);
         maps.forEach((x, y) -> {
             playerList.add(new Player(x, y));
         });
         return playerList;
+    }
+
+    /**
+     * 딜러를 생성하는 기능을 하는 메소드
+     *
+     * @return 딜러 객체
+     */
+    public Dealer constructorDealer() {
+        return new Dealer();
     }
 
 }
