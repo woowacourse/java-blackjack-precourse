@@ -27,7 +27,7 @@ import java.util.Random;
  * @version 1.0 2019.12.16
  */
 public class CardDrawing {
-    static List<Card> cards = CardFactory.create();
+    static final List<Card> cards = CardFactory.create();
     Random randomIndex = new Random();
 
     /**
@@ -44,6 +44,8 @@ public class CardDrawing {
 
         playerList.forEach(player -> player.addCard(cards.get(randomIndex.nextInt(52))));
         playerList.forEach(player -> player.addCard(cards.get(randomIndex.nextInt(52))));
+
+        toStringCardInfo(playerList,dealer);
     }
 
     public void drawCard(List<Player> playerList, Dealer dealer) {
@@ -66,5 +68,18 @@ public class CardDrawing {
         return "딜러와 " +
                 String.join(",", nameList) +
                 "에게 2장의 카드르 나누었습니다.";
+    }
+
+    /**
+     * 뽑은 카드가 뭔지 나타내는 상태메시지
+     *
+     * @param playerList 플레이어정보를 갖고있는 List
+     */
+    public void toStringCardInfo(List<Player> playerList,Dealer dealer) {
+        System.out.println(dealer.toStringCard());
+
+        for (Player player : playerList) {
+            System.out.println(player.toStringCard());
+        }
     }
 }

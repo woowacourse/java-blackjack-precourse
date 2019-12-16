@@ -11,7 +11,8 @@ import java.util.List;
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
@@ -19,4 +20,20 @@ public class Dealer {
 
     // TODO 추가 기능 구현
 
+    /**
+     * 딜러가 갖은 카드List를 리턴하는 getter
+     * 딜러의 카드는 첫카드를 제외하고 오픈된다.
+     *
+     * @return 플레이어가 갖은 카드List
+     */
+    public String toStringCard() {
+        List<String> cardInfo = new ArrayList<>();
+
+        for(int i=1;i<cards.size();i++){
+            cardInfo.add(cards.get(i).toString());
+        }
+
+        return "딜러: " +
+                String.join(",", cardInfo);
+    }
 }

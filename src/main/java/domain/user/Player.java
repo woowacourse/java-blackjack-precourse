@@ -29,8 +29,24 @@ public class Player {
      *
      * @return 플레이어의 이름을 리턴
      */
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
+    /**
+     * 플레이어가 갖은 카드List를 리턴하는 getter
+     *
+     * @return 플레이어가 갖은 카드List
+     */
+    public String toStringCard(){
+        List<String> cardInfo = new ArrayList<>();
+
+        for(int i=0;i<cards.size();i++){
+            cardInfo.add(cards.get(i).toString());
+        }
+
+        return this.name+
+                "카드: "+
+                String.join(",", cardInfo);
+    }
 }
