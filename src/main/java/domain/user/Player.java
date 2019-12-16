@@ -14,7 +14,7 @@ public class Player {
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
-    private double reward = 0;
+    public double reward = 0;
     public boolean burstPlayer = false;
 
     public Player(String name, double bettingMoney) {
@@ -55,9 +55,8 @@ public class Player {
         return score;
     }
 
-    //이기면 1 혹은 1.5/ 지면 -1의 interest를 입력받음
     public void getBettingMoney(double interest) {
-        reward = this.bettingMoney * interest;
+        reward = bettingMoney * interest;
     }
 
     public double getReward() {
