@@ -1,5 +1,6 @@
 package domain;
 
+import com.sun.deploy.util.StringUtils;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
@@ -84,9 +85,9 @@ public class Game {
 
     public void checkIfPlayerIsBJWhenDealerIsBJ(int i) {
         if(player.get(i).ifBlackJack()){
-            player.get(index).multiInterestToBettinfMoney(0);
+            player.get(index).multipleInterestAndBettingMoney(0);
         }
-        player.get(index).multiInterestToBettinfMoney(-1);
+        player.get(index).multipleInterestAndBettingMoney(-1);
     }
 
     public void askOneMoreOnlyForNotBJPlayer() {
@@ -127,9 +128,10 @@ public class Game {
 
     public void printInfo() {
         System.out.print("\n딜러와 ");
-        for(int i = 0; i < player.size(); i++) {
-            System.out.print(player.get(i).getName());
+        for(int i = 0; i < player.size()-1; i++) {
+            System.out.print(player.get(i).getName()+", ");
         }
+        System.out.print(player.get(player.size()-1).getName());
         System.out.println("에게 2장의 카드를 나누었습니다.\n");
     }
 
@@ -147,7 +149,7 @@ public class Game {
 
     public boolean checkPlayerBlackJack() {
         if(player.get(index).ifBlackJack()) {
-            player.get(index).multiInterestToBettinfMoney(1.5);
+            player.get(index).multipleInterestAndBettingMoney(1.5);
             dealer.minusCost(player.get(index).getReward());
             return true;
         }
@@ -217,13 +219,13 @@ public class Game {
 
     public void calculateLooseDealerBurst(int i) {
         if (!player.get(i).burstPlayer && !player.get(i).ifBlackJack()) {
-            player.get(i).multiInterestToBettinfMoney(1);
+            player.get(i).multipleInterestAndBettingMoney(1);
             dealer.minusCost(player.get(i).reward);
         }
     }
 
     public void LoosePlayerBurst() {
-        player.get(index).multiInterestToBettinfMoney(-1);
+        player.get(index).multipleInterestAndBettingMoney(-1);
         dealer.addCost(player.get(index).getBetting());
     }
 
@@ -249,11 +251,11 @@ public class Game {
 
     public void comparePlayerAndDealer(int i) {
         if (player.get(i).sumScore() > dealer.sumScore()) {
-            player.get(i).multiInterestToBettinfMoney(1);
+            player.get(i).multipleInterestAndBettingMoney(1);
             dealer.minusCost(player.get(i).getBetting());
         }
         if (player.get(i).sumScore() < dealer.sumScore()) {
-            player.get(i).multiInterestToBettinfMoney(-1);
+            player.get(i).multipleInterestAndBettingMoney(-1);
             dealer.addCost(player.get(i).getBetting());
         }
     }
