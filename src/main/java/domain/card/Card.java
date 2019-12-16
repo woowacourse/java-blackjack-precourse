@@ -38,4 +38,6 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+
 }
