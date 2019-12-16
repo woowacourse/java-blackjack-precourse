@@ -2,6 +2,7 @@ package domain.game;
 
 import java.util.ArrayList;
 
+import domain.user.Person;
 import domain.user.Player;
 
 public class GameUI {

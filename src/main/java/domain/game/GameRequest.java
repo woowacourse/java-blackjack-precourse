@@ -57,6 +57,7 @@ public class GameRequest {
 			GameUI.requestUserBettingMoneyInterface(name);
 			money = scan.nextDouble();
 			requestException.exceptionMoney(money);
+			scan = new Scanner(System.in);
 		} catch (Exception e) {
 			GameUI.requestUserBettingMoneyFixInterface();
 			scan = new Scanner(System.in);

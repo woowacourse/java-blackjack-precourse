@@ -38,6 +38,7 @@ public class CardPay {
 	public void giveUserCard(String addCheck, Person person){
 		if(addCheck.equals("y")) {
 			person.addCard(randomNumberSelect());
+			person.printCard();
 		}
 	}
 }
