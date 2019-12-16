@@ -1,13 +1,20 @@
 package domain.game;
 
 public class RequestException {
-	private static final int NAME_LENGTH = 5;
+	private final static int NAME_LENGTH = 5;
+	private final static int MONEY_VALUE = 0;
 
 	public RequestException() {
 	}
 
-	public void exceptionName(String name) throws Exception{
+	public void exceptionName(String name) throws Exception {
 		if (name.length() > NAME_LENGTH) {
+			throw new Exception();
+		}
+	}
+
+	public void exceptionMoney(Double money) throws Exception {
+		if (money <= MONEY_VALUE) {
 			throw new Exception();
 		}
 	}

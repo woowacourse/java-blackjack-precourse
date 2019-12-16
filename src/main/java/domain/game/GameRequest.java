@@ -3,7 +3,6 @@ package domain.game;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.concurrent.ExecutionException;
 
 import domain.user.Player;
 
@@ -57,8 +56,9 @@ public class GameRequest {
 		try {
 			gameUI.requestUserBettingMoneyInterface(name);
 			money = scan.nextDouble();
+			requestException.exceptionMoney(money);
 		} catch (Exception e) {
-			System.out.println("숫자를 입력하세요");
+			System.out.println("제대로 된 값을 입력하세요(양수)");
 			scan = new Scanner(System.in);
 			requestBettingMoney(name);
 		}
