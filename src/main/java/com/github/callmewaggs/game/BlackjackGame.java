@@ -12,18 +12,18 @@ public class BlackjackGame {
   private Dealer dealer;
   private List<Player> players;
   private BlackjackRule blackjackRule;
+  private BlackjackGameResult gameResult;
 
   public BlackjackGame(Dealer dealer, List<Player> players, List<Card> cards) {
     this.dealer = dealer;
     this.players = players;
     this.blackjackRule = new BlackjackRule(cards);
+    this.gameResult = new BlackjackGameResult(dealer, players);
   }
 
   public void gameStart() {
     blackjackRule.dealInitialCards(dealer, players);
     if (isThereBlackjack()) {
-      judgeWinOrLose();
-      return;
     }
     blackjackRule.askHitOrStay(dealer, players);
     if (isDealerBust()) {
