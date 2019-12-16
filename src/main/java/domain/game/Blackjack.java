@@ -32,9 +32,11 @@ public class Blackjack {
         Collections.shuffle(cards);
         System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
         deal(dealer);
+        dealer.showCard();
         for (Player player : players) {
             deal(player);
             deal(player);
+            player.showCards();
         }
 
         for (Player player : players) {
@@ -98,6 +100,7 @@ public class Blackjack {
     public void giveExtraCard(Player player) {
         while (isReceivingCard(player)) {
             deal(player);
+            player.showCards();
         }
     }
 

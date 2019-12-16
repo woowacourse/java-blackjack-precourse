@@ -27,4 +27,13 @@ public class Player {
         System.out.println(name + ": 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
         return sc.nextLine();
     }
+
+    public void showCards() {
+        StringBuilder msg = new StringBuilder();
+        msg.append(name + "카드: ");
+        for (Card card : cards) {
+            msg.append(card + ", ");
+        }
+        System.out.println(msg.substring(0, msg.length() - 2));
+    }
 }
