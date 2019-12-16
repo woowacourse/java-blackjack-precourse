@@ -23,5 +23,7 @@ public class Player {
     }
 
     // TODO 추가 기능 구현
-
+    public void printPlayer(){
+        System.out.println(name+"의 배팅금액" +bettingMoney);
+    }
 }
