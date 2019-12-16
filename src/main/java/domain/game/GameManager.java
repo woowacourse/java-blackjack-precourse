@@ -36,6 +36,7 @@ public class GameManager {
     public void start() {
         initializePlayers();
         drawTwoCardsToDealerAndPlayer();
+        showCardLists();
     }
 
     private void initializePlayers() {
@@ -69,4 +70,10 @@ public class GameManager {
         System.out.println(message);
     }
 
+    private void showCardLists() {
+        print(Message.makeMessageDealerSmallestState(dealer));
+        for (Player player : players) {
+            print(Message.makeMessagePlayerState(player));
+        }
+    }
 }
