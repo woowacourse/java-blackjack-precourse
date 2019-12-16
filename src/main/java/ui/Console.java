@@ -4,6 +4,7 @@ import common.BlackjackConfig;
 import domain.BlackjackPrinter;
 import domain.UserInterface;
 import domain.errors.InvalidInputException;
+import domain.user.Will;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -88,6 +89,24 @@ public class Console implements UserInterface {
 
     @Override
     public String getWillForMoreCard() {
-        return scanner.nextLine();
+
+        try {
+            String input = scanner.nextLine();
+            return parseWill(input);
+        } catch (RuntimeException e) {
+            blackjackPrinter.printError(e);
+            return getWillForMoreCard();
+        }
+    }
+
+    private String parseWill(String input) {
+        if (willContainsInput(input)) {
+            return input;
+        }
+        throw new InvalidInputException(String.format("%s 이외의 값을 입력했습니다.", String.join(",", BlackjackConfig.ALLOWED_WILL)));
+    }
+
+    private boolean willContainsInput(String input) {
+        return Arrays.stream(Will.values()).anyMatch(will -> will.getValue().equals(input));
     }
 }
