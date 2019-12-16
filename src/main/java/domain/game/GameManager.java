@@ -38,6 +38,7 @@ public class GameManager {
         drawTwoCardsToDealerAndPlayer();
         showCardLists();
         getMoreCards();
+        showFinalCardLists();
     }
 
     private void initializePlayers() {
@@ -104,6 +105,14 @@ public class GameManager {
         while (dealer.getMoreDraw()) {
             dealer.addCard(cardDeck.getRandomCard());
             print(Message.makeMessageDealerGetMoreCard());
+        }
+    }
+
+    private void showFinalCardLists() {
+        print(Message.makeMessageDealerResult(dealer));
+
+        for (Player player : players) {
+            print(Message.makeMessagePlayerResult(player));
         }
     }
 }
