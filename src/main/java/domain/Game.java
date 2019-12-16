@@ -202,7 +202,22 @@ public class Game {
             return;
         }
         System.out.println(player.get(i).getinfo()+" 비교시작");
-        //comparePlayerAndDealer(i);
+        comparePlayerAndDealer(i);
     }
 
+    public void comparePlayerAndDealer(int i) {
+        if (player.get(i).sumScore() > dealer.sumScore()) {
+            System.out.println(player.get(i).getinfo()+" 승리");
+            player.get(i).getBettingMoney(1);
+            dealer.minusCost(player.get(i).getbet());
+            System.out.println("*딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(i).getReward());
+        }
+        if (player.get(i).sumScore() < dealer.sumScore()) {
+            System.out.println(player.get(i).getinfo()+" 패배");
+            player.get(i).getBettingMoney(-1);
+            dealer.addCost(player.get(i).getbet());
+
+            System.out.println("**딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(i).getReward());
+        }
+    }
 }
