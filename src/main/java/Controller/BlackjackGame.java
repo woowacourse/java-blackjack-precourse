@@ -30,7 +30,9 @@ public class BlackjackGame {
         try {
             return play();
         } catch (DeckHasNoCardException e) {
-            return null;
+            GameResult gameResult = GameResult.create(users);
+            gameResult.isInvalid();
+            return gameResult;
         }
     }
 

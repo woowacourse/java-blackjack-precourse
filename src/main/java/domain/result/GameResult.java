@@ -39,6 +39,8 @@ public class GameResult {
         return new GameResult(players, dealer);
     }
 
+
+
     public boolean hasBlackjack() {
         List<User> blackjackPlayers = players.stream()
                 .filter(User::isBlackjack)
@@ -80,6 +82,11 @@ public class GameResult {
 //        System.out.println("아직 미구현");
 //        System.out.println("size : " + gameResult.size());
 
+    }
+
+    public void isInvalid() {
+        handleWinners(players, PROFIT_ZERO);
+        handleDealer(dealer, dealerProfit);
     }
 
     private void handleWinners(List<User> winners, Double profit) {
