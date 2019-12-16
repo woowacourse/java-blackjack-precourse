@@ -64,18 +64,8 @@ public class Game {
     }
 
     public void Game() {
-        //boolean flag = false;
         initDistributeCard();
-        //처음 두 장의 카드 합이 21이면 블랙잭
-        /*
-        flag = checkBlackJack(flag);
-        //flag가 false인 경우만 뒤에 코드 동작
-        if(flag == false){
-            while(dealer.sumScore() < DEALER_STANDARD){
-                dealer.addCard(cards.remove(cards.size() - 1));
-            }
-        }
-*/
+
         for(index = 0; index < player.size(); index++) {
             //블랙잭 여부 확인
 
@@ -169,17 +159,26 @@ public class Game {
             System.out.println("딜러가 16 이하라 한장 더 받았습니다.");
             dealer.addCard(cards.remove(cards.size() - 1));
             giveMoreCardToDealer();
+            return;
         }
         if(dealer.sumScore() > BLACKJACK) {
-            LooseDealer();
+            LooseDealerBurst();
         }
     }
 
-    public void LooseDealer() {
-        System.out.println("딜러가 21을 초과하여 패하였습니다.");
+    public void LooseDealerBurst() {
+        System.out.println("딜러가 21을 초과하여 패하였습니다.\n");
+        dealer.ifBurst = true;
         for(int i = 0; i < player.size(); i++) {
+            calculateLooseDealerBurst(i);
+        }
+    }
+
+    public void calculateLooseDealerBurst(int i) {
+        if (!player.get(i).burstPlayer && !player.get(i).ifBlackJack()) {
             player.get(i).getBettingMoney(1);
-            dealer.addCost(-player.get(i).finalScore());
+            dealer.minusCost(player.get(i).reward);
+            System.out.println("*****딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(i).getReward());
         }
     }
 
@@ -192,42 +191,4 @@ public class Game {
         }
     }
 
-   /* public boolean checkBlackJack(boolean flag) {
-        //블랙잭이면 flag true
-        boolean dealerBJ = false;
-        List<Integer> bjPlayer = new ArrayList<>();
-
-        if(dealer.sumScore() == BLACKJACK) {
-            flag = true;
-            dealerBJ = true;
-        }
-        for(int i = 0; i < player.size(); i++){
-            if(player.get(i).sumScore() == BLACKJACK){
-                flag = true;
-                bjPlayer.add(i);
-            }
-        }
-        if(bjPlayer.size() > 0) {
-            if(dealerBJ == true) {
-                //배팅한 금액만 돌려받음
-                for(int i = 0; i< bjPlayer.size(); i++) {
-                    player.get(bjPlayer.get(i)).getBettingMoney(1);
-                }
-            }
-            if(dealerBJ == false) {
-                //배팅 금액의 1.5배를 받음
-                for(int i = 0; i< bjPlayer.size(); i++) {
-                    player.get(bjPlayer.get(i)).getBettingMoney(1.5);
-                }
-            }
-            //블랙잭이 아닌 나머지 플레이어들 수익 0으로
-            for(int i = 0; i < player.size(); i++){
-                if(!bjPlayer.contains(i)){
-                    player.get(bjPlayer.get(i)).getBettingMoney(0);
-                }
-            }
-        }
-
-        return flag;
-    }*/
 }
