@@ -20,16 +20,24 @@ import controller.InputExceptionController;
 
 public class InputView {
     private final String SEPARATOR = ",";
-    InputExceptionController inputExceptionController = new InputExceptionController();
+    OutputView outputView = new OutputView();
     Scanner scanner = new Scanner(System.in);
 
     public List<String> getPlayerName() {
-        List<String> playerName;
+        List<String> playerNameList;
         do {
-            System.out.println(Message.INPUT_PLAYER_NAME.getMessage());
-            playerName = Arrays.asList(scanner.next().split(SEPARATOR));
-        } while (!inputExceptionController.isValidName(playerName));
-        return playerName;
+            outputView.whatIsPlayerName();
+            playerNameList = Arrays.asList(scanner.nextLine().split(SEPARATOR));
+        } while (!InputExceptionController.getInstance().isValidName(playerNameList));
+        return playerNameList;
     }
 
+    public int getBettingMoney(String playerName) {
+        String money;
+        do {
+            outputView.howMuchBettingMoney(playerName);
+            money = scanner.nextLine();
+        } while (!InputExceptionController.getInstance().isValidBettingMoney(money));
+        return Integer.parseInt(money);
+    }
 }

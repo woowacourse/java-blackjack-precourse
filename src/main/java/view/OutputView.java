@@ -14,7 +14,11 @@
 package view;
 
 public class OutputView {
-    public void print(String message){
-        System.out.println(message);
+    public void whatIsPlayerName() {
+        System.out.println(Message.INPUT_PLAYER_NAME.getMessage());
+    }
+
+    public void howMuchBettingMoney(String name) {
+        System.out.println(name + Message.INPUT_BETTING_MONEY.getMessage());
     }
 }

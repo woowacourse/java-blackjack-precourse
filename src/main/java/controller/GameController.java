@@ -14,11 +14,18 @@
 package controller;
 
 import view.InputView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameController {
     private static final InputView inputView = new InputView();
 
     public void play() {
-        inputView.getPlayerName();
+        List<String> playerName = inputView.getPlayerName();
+        List<Integer> bettingMoney = new ArrayList<>();
+        for (String name : playerName) {
+            int money = inputView.getBettingMoney(name);
+            bettingMoney.add(money);
+        }
     }
 }

@@ -14,7 +14,6 @@
 package controller;
 
 import view.Message;
-import view.OutputView;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +22,16 @@ public class InputExceptionController {
     private final String DEALER_NAME = "딜러";
     private final String BLANK = " ";
     private final String NONE = "";
-    private static final OutputView outputView = new OutputView();
+
+    private InputExceptionController() {}
+
+    private static class InnerInstanceClass {
+        private static final InputExceptionController instance = new InputExceptionController();
+    }
+
+    public static InputExceptionController getInstance() {
+        return InnerInstanceClass.instance;
+    }
 
     public boolean isValidName(List<String> playerNames) {
         List<String> playerNameRemoveBlank = new ArrayList<>();
@@ -31,19 +39,19 @@ public class InputExceptionController {
             playerNameRemoveBlank.add(name.replace(BLANK,NONE));
         }
         if (hasBlankName(playerNameRemoveBlank)) {
-            outputView.print(Message.ERROR_BLANK_NAME.getMessage());
+            System.out.println(Message.ERROR_BLANK_NAME.getMessage());
             return false;
         }
         if (notExistPlayer(playerNameRemoveBlank)) {
-            outputView.print(Message.ERROR_PLAYER_NOT_EXIST.getMessage());
+            System.out.println(Message.ERROR_PLAYER_NOT_EXIST.getMessage());
             return false;
         }
         if (hasDuplicateNames(playerNameRemoveBlank)) {
-            outputView.print(Message.ERROR_DUPLICATE_NAME.getMessage());
+            System.out.println(Message.ERROR_DUPLICATE_NAME.getMessage());
             return false;
         }
         if (hasDealerName(playerNameRemoveBlank)) {
-            outputView.print(Message.ERROR_NAME_IS_DEALER.getMessage());
+            System.out.println(Message.ERROR_NAME_IS_DEALER.getMessage());
             return false;
         }
         return true;
@@ -63,5 +71,31 @@ public class InputExceptionController {
 
     private boolean hasDealerName(List<String> playerName) {
         return playerName.contains(DEALER_NAME);
+    }
+
+    public boolean isValidBettingMoney(String money) {
+        if(!isNumber(money)) {
+            System.out.println(Message.ERROR_NOT_A_NUMBER.getMessage());
+            return false;
+        }
+        int bettingMoney = Integer.parseInt(money);
+        if(!isRangeOfBettingMoney(bettingMoney)) {
+            System.out.println(Message.ERROR_BETTING_MONEY_RANGE.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+        } catch(NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isRangeOfBettingMoney(int money) {
+        return money > 0;
     }
 }
