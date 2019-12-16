@@ -58,6 +58,8 @@ public class ResultController {
             controlFinalResult(playerList, dealer);
             // 돈계산으로 넘어가야함.
             System.out.println("둘다!");
+            // 돈계산 안하고 우선은 종료
+            System.exit(0);
             return ;
         }
         if (checkDealerBlackJackOrNot(dealer)) {
@@ -65,15 +67,11 @@ public class ResultController {
             controlFinalResult(playerList, dealer);
             // 돈계산으로 넘어가야함.
             System.out.println("딜러만!");
+            // 돈계산 안하고 우선은 종료
+            System.exit(0);
             return ;
         }
-        if (checkPlayerBlackJackOrNot(playerList)) {
-            // 플레이어만 블랙잭인 경우
-            // 누군지 체크해서 다음더 뽑기 진행 안시키기
-            // 돈 계산 시키기.
-            System.out.println("플레이어만!");
-            return ;
-        }
+
     }
 
     public boolean checkDealerBlackJackOrNot(Dealer dealer) {

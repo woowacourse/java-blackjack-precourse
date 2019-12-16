@@ -32,6 +32,10 @@ public class CardDrawController {
         entireCards = new ArrayList<>(CardFactory.create());
     }
 
+    public static boolean checkCanDrawMore(Player player) {
+        return player.isBlackJack() || player.isBurst();
+    }
+
     public void drawInitialCards(ArrayList<Player> playerList, Dealer dealer) {
         drawInitialPlayersCards(playerList);
         drawInitialDealerCards(dealer);
@@ -66,14 +70,12 @@ public class CardDrawController {
         UserInput userInput = new UserInput();
         boolean userAnswer = userInput.getPlayerAnswer(player);
 
-        ResultController resultController = new ResultController();
         if (userAnswer) {
             player.addCard(drawCard());
             PrintController.printPlayerCardInformation(player);
         }
 
-        if (resultController.checkBurstOrNot(player.getCurrentScore())) {
-            // 버스트라도 그 판은 종료해야함. 다음 플레이어도 갈 수 있도록!! (휴먼카지노에 넣어줘도 좋을듯)
+        if (CardDrawController.checkCanDrawMore(player)) {
             System.out.println("버스트 처리해주기");
             return false;
         }

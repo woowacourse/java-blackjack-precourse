@@ -69,11 +69,9 @@ public class BlackJackGameController {
             printPlayerCardInformation(player);
         }
         ResultController resultController = new ResultController();
-        if (resultController.checkInitialResult(playerList, dealer)) {
-            // TODO 처음에 블랙잭이 발생하면 If문으로 들어옴. 이 안에는 결과를 내야함.
-            // 블랙잭이 딜러인지 플레이어인지 판단하고 그에 따라서 총 결과와 돈 내보이고 출력하기.
-            // resultcontroller에 만들어서 처리하기
-
+        if (dealer.isBlackJack()) {
+            // TODO 처음에 딜러에게 블랙잭이 발생하면 If문으로 들어옴. 바로 결과가 나와야함.
+            // 블랙잭이 딜러만인지 플레이어와인지 판단하고 그에 따라서 총 결과와 돈 내보이고 출력하기.
             resultController.startBlackJackProcedure(playerList, dealer);
 
             System.out.println("누가 블랙잭인지 보고 돈계산하고 끝내야함~");
@@ -91,11 +89,20 @@ public class BlackJackGameController {
         }
         tryDealerExtraDrawing();
 
+        // test 결과 임시 출력
+        ResultController resultController = new ResultController();
+        resultController.controlFinalResult(playerList, dealer);
+
     }
 
     public void askMoreDrawingLoop(Player player) {
         boolean userAnswer;
         CardDrawController cardDrawController = new CardDrawController();
+
+        if (CardDrawController.checkCanDrawMore(player)) { // true면 더 드로우 못한다.
+            System.out.println("checkCanDrawMore!!!!!??");
+            return ;
+        }
         do {
             userAnswer = cardDrawController.controlPlayerExtraDrawing(player);
         } while (userAnswer);
@@ -114,6 +121,7 @@ public class BlackJackGameController {
         PrintController.printDealerExtraCards(dealer.getAllCards().size() - TWO);
         // test
         System.out.println("DEALER?" + dealer.getAllCardsScore());
+
 
     }
 }

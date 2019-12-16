@@ -69,14 +69,13 @@ public class UserInput {
 
     public boolean getPlayerAnswer(Player player) {
         String inputString;
+        if (player.isBlackJack()) return false;
         do {
             PrintController.askDrawMoreCard(player);
             inputString = getInputString();
         } while (!InputValidator.inputAnswerValidator(inputString));
 
-        if (inputString.equals(YES)) {
-            return true;
-        }
+        if (inputString.equals(YES)) return true;
         return false;
     }
 
