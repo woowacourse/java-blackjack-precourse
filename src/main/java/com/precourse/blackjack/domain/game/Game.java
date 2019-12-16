@@ -27,8 +27,8 @@ import com.precourse.blackjack.domain.user.Player;
 public class Game {
 	private static final String AND = "와 ";
 	private static final String COMMA = ", ";
-	private static final int ONE = 1;
 	private static final int TWO = 2;
+
 	private final Stack<Card> cardDeck;
 	private final List<Player> players;
 	private final Dealer dealer;

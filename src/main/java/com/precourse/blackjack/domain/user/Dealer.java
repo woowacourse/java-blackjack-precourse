@@ -22,4 +22,8 @@ public class Dealer {
 	public String getName() {
 		return "딜러";
 	}
+
+	public List<Card> getCards() {
+		return cards;
+	}
 }
