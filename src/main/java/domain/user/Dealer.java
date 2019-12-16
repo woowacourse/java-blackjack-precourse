@@ -21,6 +21,7 @@ public class Dealer {
     public List<Card> getCards() {
         return this.cards;
     }
+
     public void getFirstCards(List<Card> allCards, List<Card> getCardsList) {
         for (int i = 0; i < 2; i++) {
             this.cards.add(this.getRandomCard(allCards, getCardsList));
@@ -43,14 +44,6 @@ public class Dealer {
         return getCardsList.contains(getCard);
     }
 
-    public int getSumScore() {
-        int count = 0;
-        for (Card card: this.cards) {
-            count += card.getSymbolScore();
-        }
-        return count;
-    }
-
     public boolean getBooleanSumScore() {
         int count = 0;
         for (Card card: this.cards) {
@@ -59,12 +52,31 @@ public class Dealer {
         return count < 21;
     }
 
+    public boolean isBlackJack() {
+        return this.getSumScore() == 21;
+    }
+
     public boolean isHitDealerCard() {
-        int count = 0;
-        for (Card card: this.cards) {
-            count += checkOneOrEleven(card.getSymbolScore());
+        return this.sumWhenAisEleven() < 17;
+    }
+
+    public int getSumScore() {
+        if (this.isWhenAisElevenBust()) {
+            return this.sumWhenAisOne();
         }
-        return count < 17;
+        return this.sumWhenAisEleven();
+    }
+
+    public boolean isSumScoreBust() {
+        return this.getSumScore() > 21;
+    }
+
+    private int sumWhenAisEleven() {
+        int score = 0;
+        for (Card card: this.cards) {
+            score += checkOneOrEleven(card.getSymbolScore());
+        }
+        return score;
     }
 
     private int checkOneOrEleven(int score) {
@@ -72,5 +84,21 @@ public class Dealer {
             return 11;
         }
         return score;
+    }
+
+    private int sumWhenAisOne() {
+        int score = 0;
+        for (Card card: this.cards) {
+            score += card.getSymbolScore();
+        }
+        return score;
+    }
+
+    public boolean isWhenAisElevenBust() {
+        return this.sumWhenAisEleven() > 21;
+    }
+
+    public boolean isWhenAisOneBust() {
+        return this.sumWhenAisOne() > 21;
     }
 }

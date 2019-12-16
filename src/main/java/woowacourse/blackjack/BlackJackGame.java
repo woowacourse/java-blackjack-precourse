@@ -21,8 +21,7 @@ public class BlackJackGame {
         this.getFirstCardsAllPeople();
         this.output.printPlayersAndDealerCards(this.dealer, this.players);
         this.checkHit();
-//        this.printCardsResult();
-//        this.gameResult();
+        this.output.printFinalRevenue(this.dealer, this.players);
     }
 
     private void inputNameAndBettingMoney() {

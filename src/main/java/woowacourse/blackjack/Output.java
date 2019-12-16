@@ -62,4 +62,18 @@ public class Output {
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
         System.out.println();
     }
+
+    public void printFinalRevenue(Dealer dealer, List<Player> players) {
+        System.out.println("## 최종 수익");
+        this.calculatorCardScore(dealer, players);
+    }
+
+    private void calculatorCardScore(Dealer dealer, List<Player> players) {
+        Calculator calculator = new Calculator();
+        calculator.setRevenue(dealer, players);
+        System.out.println("딜러: " + calculator.getDealerRevenue());
+        for (Player player: players) {
+            System.out.println(player.getName() + ": " + calculator.getPlayerRevenue(player));
+        }
+    }
 }
