@@ -39,7 +39,7 @@ public class Card {
 		return symbol.getScore();
 	}
 
-	public Symbol getSymbol() {
-		return symbol;
+	public boolean isSymbolAce() {
+		return symbol.equals(symbol.ACE);
 	}
 }

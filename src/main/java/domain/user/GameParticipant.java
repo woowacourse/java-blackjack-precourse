@@ -42,9 +42,7 @@ public class GameParticipant {
 	private int changeAceScore(int score) {
 		boolean hasAce = false;
 		for (Card card : cards) {
-			if (card.getSymbol().equals(Symbol.ACE)) {
-				hasAce = true;
-			}
+			hasAce = card.isSymbolAce();
 		}
 		if (hasAce && score <= Symbol.ACE.getScore() + Symbol.TEN.getScore()) {
 			return score + Symbol.TEN.getScore();
