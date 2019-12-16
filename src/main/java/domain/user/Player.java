@@ -40,4 +40,8 @@ public class Player {
     public List<Card> getDeck() {
         return cards;
     }
+
+    public void showDeck() {
+        System.out.println(name + "카드 : " + cards);
+    }
 }
