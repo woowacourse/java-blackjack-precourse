@@ -15,7 +15,14 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public String getSuit(){
+        return this.type.getSuit();
+    }
+
+    public String getSymbol(){
+        return this.symbol.getSymbol();
+    }
+
 
     @Override
     public boolean equals(Object o) {
