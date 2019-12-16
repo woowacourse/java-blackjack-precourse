@@ -8,7 +8,11 @@ public enum Type {
 
     private String typeName;
 
-    Type(String typeName) { this.typeName = typeName; }
+    Type(String typeName) {
+        this.typeName = typeName;
+    }
 
-    public String getTypeName() { return typeName; }
+    public String getTypeName() {
+        return typeName;
+    }
 }

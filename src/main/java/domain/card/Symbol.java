@@ -27,5 +27,7 @@ public enum Symbol {
         return score;
     }
 
-    public String getScoreName() { return scoreName; }
+    public String getScoreName() {
+        return scoreName;
+    }
 }

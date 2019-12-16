@@ -20,7 +20,7 @@ public class Card {
     public String getName() {
         String scoreName = symbol.getScoreName();
         String typeName = type.getTypeName();
-        return scoreName+typeName;
+        return scoreName + typeName;
     }
 
     public int calculateScore() {

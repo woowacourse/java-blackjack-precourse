@@ -49,11 +49,9 @@ public class OutcomeRateCalculator {
     private Outcome getPlayerOutcomeWithCompare() {
         if (playerResult.isBiggerThan(dealerResult)) {
             return Outcome.WIN;
-        }
-        else if (playerResult.isSameTo(dealerResult)) {
+        } else if (playerResult.isSameTo(dealerResult)) {
             return Outcome.DRAW;
-        }
-        else {
+        } else {
             return Outcome.LOSE;
         }
     }
