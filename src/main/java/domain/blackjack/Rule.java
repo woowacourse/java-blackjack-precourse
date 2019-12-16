@@ -7,6 +7,9 @@ import java.util.List;
 
 public class Rule {
 
+  private static final String HIT = "HIT";
+  private static final String STAY = "STAY";
+
   private static final List<Card> Aces = new ArrayList<>(CardFactory.createAces());
 
   public static Boolean isBlackJack(List<Card> cards) {
@@ -31,7 +34,7 @@ public class Rule {
     return false;
   }
 
-  public static Boolean isOverTwentyOne(List<Card> cards) {
+  private static Boolean isOverTwentyOne(List<Card> cards) {
     int score = 0;
 
     for (int i = 0; i < cards.size(); i++) {
@@ -65,5 +68,25 @@ public class Rule {
     }
 
     return score;
+  }
+
+  private static Boolean isOverSixTeen(List<Card> cards) {
+    int score = 0;
+
+    for (int i = 0; i < cards.size(); i++) {
+      score += cards.get(i).getScore();
+    }
+
+    if (score > 16) {
+      return true;
+    }
+    return false;
+  }
+
+  public static String decideDealerAction(List<Card> cards) {
+    if (isOverSixTeen(cards)) {
+      return STAY;
+    }
+    return HIT;
   }
 }

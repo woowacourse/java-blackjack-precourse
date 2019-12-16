@@ -35,10 +35,11 @@ public class Game {
   }
 
   private void proceedPlayerTurn(Player player, Boolean keepProceeding) {
-    System.out.println();
     IOController.printHandsOfPlayer(player);
+    System.out.println();
 
-    if(!keepProceeding || Rule.isBlackJack(player.getHands()) || Rule.isOverTwenty(player.getHands())){
+    if (!keepProceeding || Rule.isBlackJack(player.getHands()) || Rule
+        .isOverTwenty(player.getHands())) {
       return;
     }
 
@@ -57,6 +58,21 @@ public class Game {
       proceedPlayerTurn(players.get(i), true);
     }
 
+    proceedDealerTurn(this.table.getDealer());
+
+  }
+
+  private void proceedDealerTurn(Dealer dealer) {
+    IOController.printHandsOfDealer(dealer, false);
+    System.out.println();
+
+    String action = Rule.decideDealerAction(dealer.getHands());
+
+    this.table.dealerAct(dealer, action);
+
+    if (action.equals("HIT")) {
+      proceedDealerTurn(dealer);
+    }
   }
 
   private Boolean dealerHasBlackJack(Dealer dealer) {

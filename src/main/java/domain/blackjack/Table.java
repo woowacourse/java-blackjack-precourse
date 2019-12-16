@@ -1,6 +1,7 @@
 package domain.blackjack;
 
 
+import com.sun.javafx.scene.text.TextLayout.Hit;
 import controller.IOController;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -67,6 +68,7 @@ public class Table {
     for (int i = 0; i < this.players.size(); i++) {
       IOController.printHandsOfPlayer(this.players.get(i));
     }
+    System.out.println();
   }
 
   public Dealer getDealer() {
@@ -78,12 +80,16 @@ public class Table {
   }
 
   public Boolean playerAct(Player player, String action) {
-    if (action == HIT) {
+    if (action.equals(HIT)) {
       dealCardToPlayer(player);
       return true;
     }
-
     return false;
   }
 
+  public void dealerAct(Dealer dealer, String action) {
+    if (action.equals(HIT)) {
+      dealCardToDealer(dealer);
+    }
+  }
 }
