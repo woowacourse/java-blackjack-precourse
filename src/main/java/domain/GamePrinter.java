@@ -37,11 +37,11 @@ public class GamePrinter {
         return true;
     }
 
-    int getBettingMoneyFromUser(String name) {
+    double getBettingMoneyFromUser(String name) {
         System.out.println(name + "의 배팅 금액은?");
-        int bettingMoney;
+        double bettingMoney;
         try {
-            bettingMoney = Integer.parseInt(scanner.nextLine());
+            bettingMoney = Double.parseDouble(scanner.nextLine());
         } catch (Exception e) {
             bettingMoney = -1; // 문자이거나 정수가 아니라면 -1을 반환한다.
         }
@@ -51,7 +51,7 @@ public class GamePrinter {
         return getBettingMoneyFromUser(name);
     }
 
-    boolean checkBettingMoney(int bettingMoney) {
+    boolean checkBettingMoney(double bettingMoney) {
         if (bettingMoney <= 0) {
             System.out.println("배팅 금액이 잘못되었습니다.");
             return false;
