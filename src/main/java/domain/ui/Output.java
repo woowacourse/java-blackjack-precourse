@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      1.0 2019.12.16
+ * @(#)Output.java      1.1 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,7 +10,7 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.0 2019.12.16
+ * @version 1.1 2019.12.16
  */
 public class Output {
     /**
@@ -145,7 +145,7 @@ public class Output {
      *
      * @param playerNames 카드를 받을 Player들의 이름.
      */
-    public void printHandOutTwoCards(String playerNames) {
+    public void printDrawFirstTwoCards(String playerNames) {
         printNewLine();
         System.out.printf(HAND_OUT_TWO_CARDS_MESSAGE, playerNames);
         printNewLine();

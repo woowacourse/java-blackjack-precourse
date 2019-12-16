@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       1.0 2019.12.16
+ * @(#)BlackJackGame.java       1.1 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -11,6 +11,7 @@ import domain.ui.Input;
 import domain.ui.Output;
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.User;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -20,7 +21,7 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.0 2019.12.16
+ * @version 1.1 2019.12.16
  */
 public class BlackJackGame {
     /**
@@ -31,7 +32,7 @@ public class BlackJackGame {
     /**
      * 처음 변수들을 0으로 초기화 하기 위한 상수.
      */
-    private static final int INIT_TO_ZERO = 0;
+    private static final double INIT_TO_ZERO = 0;
 
     /**
      * 처음에 deck에서 card를 2개씩 뽑을 때 사용할 상수.
@@ -74,19 +75,24 @@ public class BlackJackGame {
     private Output out = new Output();
 
     /**
+     * Dealer와 Player를 User로 함께 접근하기 위한 User List.
+     */
+    private List<User> users;
+
+    /**
      * 생성된 Player들을 저장할 Player List.
      */
     private List<Player> players;
 
     /**
-     * Player의 수익을 저장할 Double List.
-     */
-    private List<Double> playerProfits;
-
-    /**
      * Dealer의 수익을 저장할 변수.
      */
     private double dealerProfit;
+
+    /**
+     * Player의 수익을 저장할 Double List.
+     */
+    private List<Double> playerProfits;
 
     /**
      * 게임에 참여하는 Dealer 객체.
@@ -124,48 +130,66 @@ public class BlackJackGame {
      * 블랙잭 게임을 순차적으로 진행하기 위한 메소드.
      */
     public void playBlackJackGame() {
-        drawTwoCardsDealerAndPlayers();
+        setUpBlackJackGame();
+        proceedWholeDrawProcessInBlackJackGame();
+        printBlackJackGameFinalResult();
+    }
+
+    /**
+     * 블랙잭 게임을 진행하는데 필요한 기본 셋업(User List 생성, playerProfit 초기화)을 진행하는 메소드.
+     */
+    private void setUpBlackJackGame() {
+        combineDealerAndPlayerToUser();
+        initPlayerProfits();
+    }
+
+    /**
+     * Dealer와 Player를 한번에 관리하기 위한 User List를 생성하는 메소드.
+     */
+    private void combineDealerAndPlayerToUser() {
+        users = new ArrayList<>();
+
+        users.add(dealer);
+        users.addAll(players);
+    }
+
+    /**
+     * Player들의 수익을 -배팅 금액으로 초기화하는 메소드.
+     */
+    private void initPlayerProfits() {
+        for (Player player : players) {
+            playerProfits.add(-player.getBettingMoney());
+        }
+    }
+
+    /**
+     * 블랙잭 게임에서 카드를 뽑는 모든 과정을 진행하는 메소드.
+     */
+    private void proceedWholeDrawProcessInBlackJackGame() {
+        drawTwoCardsUser();
         drawMoreCardPlayers();
         drawDealerAccordingRule();
-        dealer.printFinalResult();
-        printFinalResultPlayer();
-        initPlayerProfit();
-        calculateFinalProfit();
-        printFinalProfit();
     }
 
     /**
      * Dealer와 Player들이 처음 2장의 card를 뽑고 현재 card 상태를 출력하는 메소드.
      * 이때, Dealer는 처음 뽑은 1장의 card만 출력.
      */
-    public void drawTwoCardsDealerAndPlayers() {
-        out.printHandOutTwoCards(StringUtil.joinPlayerName(players));
-        drawTwoCardsDealer();
-        dealer.printDealerCurrentCardStatus();
-        for (Player player : players) {
-            drawTwoCardsPlayer(player);
-            player.printPlayerCurrentCardStatus();
+    public void drawTwoCardsUser() {
+        out.printDrawFirstTwoCards(StringUtil.joinPlayerName(players));
+        for (User user : users) {
+            drawTwoCardsUser(user);
+            user.printCurrentCardStatus();
         }
         out.printNewLine();
     }
 
     /**
-     * Dealer에게 2장의 card를 뽑도록 하는 메소드.
+     * User(Dealer와 Player)에게 2장의 card를 뽑도록 하는 메소드.
      */
-    private void drawTwoCardsDealer() {
+    private void drawTwoCardsUser(User user) {
         for (int i = 0; i < DRAW_TWICE; i++) {
-            dealer.addCard(deck.drawCard());
-        }
-    }
-
-    /**
-     * Player에게 2장의 card를 뽑도록 하는 메소드.
-     *
-     * @param player 카드를 뽑을 Player.
-     */
-    private void drawTwoCardsPlayer(Player player) {
-        for (int i = 0; i < DRAW_TWICE; i++) {
-            player.addCard(deck.drawCard());
+            user.addCard(deck.drawCard());
         }
     }
 
@@ -188,7 +212,7 @@ public class BlackJackGame {
         out.printPlayerGetOneMoreCard(player.getName());
         if (receivePlayerGetMoreCardReply().equals(GET_MORE_CARD)) {
             player.addCard(deck.drawCard());
-            player.printPlayerCurrentCardStatus();
+            player.printCurrentCardStatus();
             return drawMoreCardOnePlayer(player);
         }
         return false;
@@ -235,27 +259,27 @@ public class BlackJackGame {
     }
 
     /**
-     * Player들의 최종 결과를 출력하는 메소드.
+     * User의 최종 card 결과와 수익을 계산하여 출력하는 메소드.
      */
-    private void printFinalResultPlayer() {
-        for (Player player : players) {
-            player.printFinalResult();
-        }
+    private void printBlackJackGameFinalResult() {
+        printFinalUserCardStatus();
+        calculateFinalUserProfit();
+        printFinalBlackJackGameResult();
     }
 
     /**
-     * Player들의 수익을 -배팅 금액으로 초기화하는 메소드.
+     * User(Dealer와 Player)들의 최종 결과를 출력하는 메소드.
      */
-    private void initPlayerProfit() {
-        for (Player player : players) {
-            playerProfits.add(-player.getBettingMoney());
+    private void printFinalUserCardStatus() {
+        for (User user : users) {
+            user.printFinalCardStatus();
         }
     }
 
     /**
      * Dealer와 Player들의 최종 수익을 계산하는 메소드.
      */
-    private void calculateFinalProfit() {
+    private void calculateFinalUserProfit() {
         if (dealer.isBust()) {
             calculateDealerIsBust();
             return;
@@ -364,7 +388,8 @@ public class BlackJackGame {
      * @param player 수익을 계산할 Player.
      */
     private void setBlackJackPlayerProfit(Player player) {
-        playerProfits.set(players.indexOf(player), player.getBettingMoney() * BLACK_JACK_EARNING_RATE);
+        playerProfits.set(players.indexOf(player),
+                playerProfits.get(players.indexOf(player)) + player.getBettingMoney() * BLACK_JACK_EARNING_RATE);
         dealerProfit -= (player.getBettingMoney() * BLACK_JACK_EARNING_RATE);
     }
 
@@ -374,7 +399,8 @@ public class BlackJackGame {
      * @param player 수익을 계산할 Player.
      */
     private void setWinnerPlayerProfit(Player player) {
-        playerProfits.set(players.indexOf(player), player.getBettingMoney() * WIN_EARNING_RATE);
+        playerProfits.set(players.indexOf(player),
+                playerProfits.get(players.indexOf(player)) + player.getBettingMoney() * WIN_EARNING_RATE);
         dealerProfit -= (player.getBettingMoney() * WIN_EARNING_RATE);
     }
 
@@ -384,19 +410,19 @@ public class BlackJackGame {
      * @param player 수익을 계산할 Player.
      */
     private void setDrawPlayerProfit(Player player) {
-        playerProfits.set(players.indexOf(player), player.getBettingMoney() * DRAW_EARNING_RATE);
+        playerProfits.set(players.indexOf(player),
+                playerProfits.get(players.indexOf(player)) + player.getBettingMoney() * DRAW_EARNING_RATE);
         dealerProfit -= (player.getBettingMoney() * DRAW_EARNING_RATE);
     }
 
     /**
      * 블랙잭 게임 전체의 수익 결과를 출력하는 메소드.
      */
-    public void printFinalProfit() {
+    public void printFinalBlackJackGameResult() {
         out.printFinalProfitNotice();
         out.printUserFinalProfit(DEALER_NAME, dealerProfit);
         for (int i = 0; i < players.size(); i++) {
             out.printUserFinalProfit(players.get(i).getName(), playerProfits.get(i));
         }
     }
-
 }

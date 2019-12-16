@@ -1,5 +1,5 @@
 /*
- * @(#)Card.java        0.4 2019.12.16
+ * @(#)Card.java        0.5 2019.12.16
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import java.util.Objects;
  * card 한장을 의미하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.4 2019.12.16
+ * @version 0.5 2019.12.16
  */
 public class Card {
     /**
@@ -69,7 +69,7 @@ public class Card {
      */
     @Override
     public String toString() {
-        return symbol.getScore() +
+        return symbol.getInitial() +
                 " " + type;
     }
 
