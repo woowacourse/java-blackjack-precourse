@@ -74,15 +74,31 @@ public class Users {
     }
 
     public void decideOutcome(int dealderScore, Outcomes outcomes) {
+        decideExcessLoswer(outcomes);
+        if (dealderScore > 21) {
+            decideAllAlivePlayerWinner(outcomes);
+            return;
+        }
         decideWinner(dealderScore, outcomes);
         decideLoswer(dealderScore, outcomes);
-        decideExcessLoswer(outcomes);
     }
 
     public void addOutcomes(Player player, Outcomes outcomes, Double benefit) {
         outcomes.addOutcomes(
                 new Outcome(player.getName(),
                         benefit, player.getCards()));
+    }
+
+    private void decideAllAlivePlayerWinner(Outcomes outcomes) {
+        users.stream()
+                .filter(User::isPlayer)
+                .map(player -> (Player) player)
+                .filter(player -> !player.checkExcess())
+                .filter(player -> !outcomes.isHavePlayer(player.getName()))
+                .forEach(player -> {
+                    addOutcomes(player, outcomes,
+                            player.getBenefit(BenefitMultipleType.USER_WIN));
+                });
     }
 
     private void decideWinner(int dealerScore, Outcomes outcomes) {
