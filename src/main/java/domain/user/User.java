@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class User {
+abstract public class User {
     private final List<Card> cards = new ArrayList<>();
     private static final int LIMIT = 21;
 
@@ -21,11 +21,10 @@ public class User {
         return Collections.unmodifiableList(cards);
     }
 
-    public void printCards() {
-        String commaSeparatedNumbers = cards.stream()
+    public String printCards() {
+        return cards.stream()
                 .map(i -> i.getCardInfo())
                 .collect(Collectors.joining(", "));
-        System.out.println(commaSeparatedNumbers);
     }
 
     public void checkCardsEmpty() {
@@ -78,4 +77,5 @@ public class User {
 
         return scoreExceptAce;
     }
+    abstract public void printUserInfo();
 }

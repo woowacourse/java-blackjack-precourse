@@ -4,7 +4,6 @@ import domain.card.Card;
 import domain.card.Symbol;
 import domain.view.InputUtil;
 import domain.view.OutputUtil;
-import jdk.internal.util.xml.impl.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +18,9 @@ public class Dealer extends User {
     }
 
     // TODO 추가 기능 구현
-    public void printFirstCard() {
+    public String printFirstCard() {
         super.checkCardsEmpty();
-        System.out.println("딜러: " + super.getCards().get(0).getCardInfo());
+        return getCards().get(0).getCardInfo();
     }
 
     private boolean checkAddLimitExcess() {
@@ -41,5 +40,10 @@ public class Dealer extends User {
         if (checkAddLimitExcess() == false) {
             addRandomCard();
         }
+    }
+
+    @Override
+    public void printUserInfo() {
+        System.out.println("딜러:" + printFirstCard());
     }
 }

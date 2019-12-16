@@ -9,6 +9,7 @@ import domain.view.OutputUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Users {
     private static List<User> users;
@@ -21,7 +22,7 @@ public class Users {
         return Collections.unmodifiableList(users);
     }
 
-    public Users initUsers(String[] names) {
+    public static Users initUsers(String[] names) {
         List<User> userList = new ArrayList<>();
         userList.add(new Dealer());
         for (String name : names) {
@@ -36,6 +37,12 @@ public class Users {
         users.forEach(user -> {
             user.addRandomCard();
             user.addRandomCard();
+        });
+    }
+
+    public void printUsersCard() {
+        users.forEach(user -> {
+            user.printUserInfo();
         });
     }
 
@@ -95,5 +102,12 @@ public class Users {
                     addOutcomes(player, outcomes,
                             player.getBenefit(BenefitMultipleType.USER_LOSE));
                 });
+    }
+
+    public String getUsersName() {
+        return users.stream()
+                .filter(user -> user instanceof Player)
+                .map(user -> ((Player) user).getName())
+                .collect(Collectors.joining(","));
     }
 }

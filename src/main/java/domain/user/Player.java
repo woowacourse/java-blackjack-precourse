@@ -46,4 +46,14 @@ public class Player extends User {
     public double getBenefit(BenefitMultipleType benefitMultipleType) {
         return bettingMoney * benefitMultipleType.getMultipleValue();
     }
+
+    @Override
+    public String toString() {
+        return name + " : " + bettingMoney;
+    }
+
+    @Override
+    public void printUserInfo() {
+        System.out.println(name + "카드:" + printCards());
+    }
 }

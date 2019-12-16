@@ -1,19 +1,20 @@
 package domain.view;
 
 import domain.outcome.Outcomes;
+import domain.user.Users;
 
 public class OutputUtil {
     public static void printUsersNameDemand() {
         System.out.println("게임에 참가할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
     }
 
-    public static void printBettingMoneyDemand(String user){
+    public static void printBettingMoneyDemand(String user) {
         System.out.println(user + " 의 배팅 금액은?");
     }
 
-    public static void printDevideMessage(String[] names) {
+    public static void printDevideMessage(String usersName) {
         System.out.println("딜러와 " +
-                String.join(",", names) +
+                usersName +
                 "에게 2장을 나눴습니다.");
     }
 
