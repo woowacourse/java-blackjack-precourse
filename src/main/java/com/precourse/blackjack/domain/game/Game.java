@@ -11,6 +11,7 @@ package com.precourse.blackjack.domain.game;
 import java.util.Collections;
 import java.util.List;
 
+import com.precourse.blackjack.controller.GameController;
 import com.precourse.blackjack.domain.card.Card;
 import com.precourse.blackjack.domain.card.CardFactory;
 import com.precourse.blackjack.domain.user.Dealer;
@@ -36,7 +37,7 @@ public class Game {
 	public void start() {
 		Collections.shuffle(cardDeck);
 		dealTwoCards();
-		//GameController.finishInitialCardDealing
+		GameController.showInitialCardDealingEnd(players);
 	}
 
 	private void dealTwoCards() {
