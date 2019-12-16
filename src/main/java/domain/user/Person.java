@@ -7,11 +7,19 @@ import java.util.List;
 
 public class Person {
 	private final List<Card> cards = new ArrayList<>();
-	private final ArrayList<String> stringList = new ArrayList();
+	private String cardString;
 	
-	public Person() {};
+	public Person() {}
 	
-	public List<Card> getCardList() {
-		return this.cards;
+	public void addCard(Card card) {
+        cards.add(card);
+    }
+	
+	public void setCardString() {
+		cardString = "";
+		
+		for (Card c : cards) {
+			cardString = cardString + c.makeCardString();
+		}
 	}
 }

@@ -38,4 +38,8 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+    
+    public String makeCardString() {
+    	return this.symbol.getName() + this.type.getName();
+    }
 }
