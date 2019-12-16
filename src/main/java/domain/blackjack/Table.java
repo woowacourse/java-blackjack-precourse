@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Table {
 
+  private final String HIT = "HIT";
+  private final String STAY = "STAY";
   private Deck deck;
   private Dealer dealer;
   private ArrayList<Player> players = new ArrayList<>();
@@ -67,12 +69,21 @@ public class Table {
     }
   }
 
-  public Dealer getDealer(){
+  public Dealer getDealer() {
     return this.dealer;
   }
 
-  public ArrayList<Player> getPlayers(){
+  public ArrayList<Player> getPlayers() {
     return this.players;
+  }
+
+  public Boolean playerAct(Player player, String action) {
+    if (action == HIT) {
+      dealCardToPlayer(player);
+      return true;
+    }
+
+    return false;
   }
 
 }

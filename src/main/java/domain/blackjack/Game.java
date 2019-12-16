@@ -2,6 +2,8 @@ package domain.blackjack;
 
 import controller.IOController;
 import domain.user.Dealer;
+import domain.user.Player;
+import java.util.ArrayList;
 
 public class Game {
 
@@ -27,7 +29,34 @@ public class Game {
       return;
     }
 
+    proceedPlayersTruns();
+
     endGame();
+  }
+
+  private void proceedPlayerTurn(Player player, Boolean keepProceeding) {
+    System.out.println();
+    IOController.printHandsOfPlayer(player);
+
+    if(!keepProceeding || Rule.isBlackJack(player.getHands()) || Rule.isOverTwenty(player.getHands())){
+      return;
+    }
+
+    IOController.askAction(player.getName());
+    String action = IOController.getAction();
+    Boolean proceedAgain = this.table.playerAct(player, action);
+
+    proceedPlayerTurn(player, proceedAgain);
+  }
+
+
+  private void proceedPlayersTruns() {
+    ArrayList<Player> players = this.table.getPlayers();
+
+    for (int i = 0; i < players.size(); i++) {
+      proceedPlayerTurn(players.get(i), true);
+    }
+
   }
 
   private Boolean dealerHasBlackJack(Dealer dealer) {

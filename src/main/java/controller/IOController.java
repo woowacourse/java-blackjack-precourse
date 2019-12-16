@@ -3,11 +3,13 @@ package controller;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class IOController {
+
+  private static final String HIT = "HIT";
+  private static final String STAY = "STAY";
 
   private static void askNames() {
     System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표기준으로 분리)");
@@ -156,5 +158,44 @@ public class IOController {
     }
     System.out.println();
   }
+
+  public static void askAction(String name) {
+    System.out.println(name + "은(는) 한장을 더 받으시겠습니까?(Y or N)");
+  }
+
+  private static String inputAction() {
+    Scanner scanner = new Scanner(System.in);
+    return scanner.nextLine();
+  }
+
+  public static String getAction() {
+    String input = inputAction();
+
+    try {
+      validateAction(input);
+
+      return decideAction(input);
+    } catch (Exception e) {
+
+      System.out.println(e.getMessage());
+      return getAction();
+    }
+  }
+
+  private static String decideAction(String input) {
+    if(input.equals("Y") || input.equals("y")){
+      return HIT;
+    }
+
+    return STAY;
+  }
+
+  private static void validateAction(String input) throws Exception {
+    if (!input.equals("Y") && !input.equals("y") && !input.equals("n") && !input.equals("N")) {
+      throw new Exception("입력이 올바르지 않습니다.");
+    }
+
+  }
+
 
 }
