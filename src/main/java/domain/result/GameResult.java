@@ -10,7 +10,8 @@ public class GameResult {
     private static final Double PROFIT_ZERO = 0.0;
     private static final Double PROFIT_ONE_POINT_FIVE = 1.5;
     private static final Double PROFIT_ONE = 1.0;
-    private static final Double LOSS_ONE = -1.0;
+    private static final Double LOSS_ONE = 1.0;
+    private static final Double MINUS = -1.0;
 
     private HashMap<User, Double> gameResult;
     private List<User> players;
@@ -67,6 +68,10 @@ public class GameResult {
 
         handleLosers(bustPlayers, LOSS_ONE);
 
+        if (players.isEmpty()) {
+            handleDealer(dealer, dealerProfit);
+        }
+
         if (dealer.isBust()) {
             handleWinners(players, PROFIT_ONE);
             handleDealer(dealer, dealerProfit);
@@ -81,12 +86,20 @@ public class GameResult {
         winners.stream()
                 .forEach(winner -> gameResult.put(winner, ((Player) winner).multiplyBettingMoneyBy(profit)));
 
+        winners.stream()
+                .mapToDouble(winner -> ((Player) winner).multiplyBettingMoneyBy(profit))
+                .forEach(winnersProfit -> dealerProfit -= winnersProfit);
+
         players.removeAll(winners);
     }
 
     private void handleLosers(List<User> losers, Double loss) {
         losers.stream()
-                .forEach(loser -> gameResult.put(loser, ((Player) loser).multiplyBettingMoneyBy(loss)));
+                .forEach(loser -> gameResult.put(loser, MINUS * ((Player) loser).multiplyBettingMoneyBy(loss)));
+
+        losers.stream()
+                .mapToDouble(loser -> ((Player) loser).multiplyBettingMoneyBy(loss))
+                .forEach(losersLoss -> dealerProfit += losersLoss);
 
         players.removeAll(losers);
     }
