@@ -22,6 +22,12 @@ public class Player {
         cards.add(card);
     }
 
+    public void printMyCards(){
+        cards.forEach(element -> );
+        System.out.println()
+    }
+
+    public void
     // TODO 추가 기능 구현
 
 }
