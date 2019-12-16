@@ -8,10 +8,12 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
+public class Dealer extends Player {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+        super("Dealer", 0);
+    }
 
     public void addCard(Card card) {
         cards.add(card);
