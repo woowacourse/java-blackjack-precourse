@@ -29,7 +29,14 @@ public class Dealer {
 		}
 		return false;
 	}
-	
+
+	public boolean isBlackJack() {
+		if (getScoreAceAsOne() == 21 || getScoreAceAsEleven() == 21) {
+			return true;
+		}
+		return false;
+	}
+
 	public int getScoreAceAsOne() {
 		int score = 0;
 		for (Card card : cards) {

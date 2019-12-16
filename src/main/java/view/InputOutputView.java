@@ -31,7 +31,7 @@ public class InputOutputView {
 		}
 		System.out.println();
 	}
-
+	
 	public static void outputShowCards(Player player) {
 		System.out.print(player.getName() + "카드 ");
 		for (Card card : player.getCards()) {
@@ -40,8 +40,14 @@ public class InputOutputView {
 		System.out.println();
 	}
 
+
+	public static void outputNoMoreCards(Player player) {
+		System.out.println(player.getName()+"은 블랙잭이므로 추가카드를 지급받지 않습니다.");
+	}
+
+	
 	public static int inputaskMoreCards(Player player) {
-		System.out.println(player.getName() + "는 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+		System.out.println("\n"+player.getName() + "는 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 		return ExceptionHandler.inputaskMoreCardsHandler();
 	}
 
@@ -83,5 +89,6 @@ public class InputOutputView {
 		}
 		return player.getScoreAceAsOne();
 	}
+
 
 }

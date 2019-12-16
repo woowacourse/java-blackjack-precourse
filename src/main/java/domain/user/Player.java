@@ -41,6 +41,15 @@ public class Player {
 		}
 		return false;
 	}
+	
+	public boolean isBlackJack() {
+		int score = 0;
+		score = aceToEleven(cards.get(0).getSymbol().getScore()) + aceToEleven(cards.get(1).getSymbol().getScore());
+		if (score == 21) {
+			return true;
+		}
+		return false;
+	}
 
 	public int getScoreAceAsOne() {
 		int score = 0;

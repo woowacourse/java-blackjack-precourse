@@ -22,6 +22,7 @@ public class Game {
 		showCards();
 		askMoreCards();
 		showCardsWithScore();
+		calculateWinner();
 	}
 
 	private static void init() {
@@ -92,6 +93,10 @@ public class Game {
 
 	private void checkMoreCards(Player player) {
 		int moreCardCount;
+		if (player.isBlackJack() == true) {
+			InputOutputView.outputNoMoreCards(player);
+			return;
+		}
 		do {
 			moreCardCount = InputOutputView.inputaskMoreCards(player);
 			giveCard(moreCardCount, player);
@@ -116,6 +121,11 @@ public class Game {
 			giveCard(1, dealer);
 			InputOutputView.outputDealerGotCard();
 		}
+	}
+
+	private void calculateWinner() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
