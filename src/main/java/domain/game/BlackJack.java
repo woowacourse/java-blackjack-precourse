@@ -1,10 +1,9 @@
 package domain.game;
 
-import controller.BlackJackController;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
-import services.BlackJackInitializingService;
+import controller.BlackJackInitializingController;
 import services.BlackJackUIService;
 import utils.UtilityMethods;
 
@@ -21,16 +20,14 @@ public class BlackJack {
 	public BlackJack() {
 		List<Double> bettingList = new ArrayList<Double>();
 
-		this.cardDeck = BlackJackInitializingService.initializeCardDeck();
+		this.cardDeck = BlackJackInitializingController.initializeCardDeck();
 		List<String> nameList = BlackJackUIService.printMessageToGetName();
 		for (String name : nameList) {
 			bettingList.add(BlackJackUIService.printMessageToGetBetting(name));
 		}
-		this.players = BlackJackInitializingService.initializePlayers(nameList, bettingList);
+		this.players = BlackJackInitializingController.initializePlayers(nameList, bettingList);
 		this.dealer = new Dealer();
-		for (int i = 0; i < MAX_CARD_INDEX; i++) {
-			cardIndex.add(i);
-		}
+		cardIndex = BlackJackInitializingController.initializecardIndexList(MAX_CARD_INDEX);
 	}
 
 	public void showHandOfAllPlayer() {
@@ -64,6 +61,4 @@ public class BlackJack {
 			player.addCard(popRandomCard());
 		}
 	}
-
-
 }
