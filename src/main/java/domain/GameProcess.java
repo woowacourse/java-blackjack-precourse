@@ -15,20 +15,21 @@ public class GameProcess {
     private String[] playerName;
     private int[] betting;
     private List<Card> cards = new ArrayList<>();
-    private Dealer dealer = new Dealer();
-    private List<Player> player = new ArrayList<>();
+    private List<Dealer> player = new ArrayList<>();
     private final int ZERO_BETTING = 0;
     private final int MAX_CARD_NUMBER = 52;
+    private final int BLACKJACK = 21;
 
     public void Game() {
         inputName();
         inputBetting();
         cards = CardFactory.create();
         createPlayer();
-        deal_TwoCard(dealer);
         for(int i = 0; i < player.size(); i++){
             deal_TwoCard(player.get(i));
+            System.out.println(player.get(i));
         }
+
     }
 
     private void inputName() {
@@ -55,6 +56,7 @@ public class GameProcess {
     }
 
     private void createPlayer(){
+        player.add(new Dealer());
         for(int i = 0; i < playerName.length; i++){
             player.add(new Player(playerName[i],betting[i]));
         }
@@ -74,6 +76,7 @@ public class GameProcess {
     private void deal_TwoCard(Dealer dealer){
         int Two = 2;
 
+        System.out.println(dealer.getName()+ "에게 두 장의 카드를 주었습니다.");
         for(int i = 0; i < Two; i++){
             deal_OneCard(dealer);
         }

@@ -15,6 +15,10 @@ public class Card {
         this.type = type;
     }
 
+    public int getCardScore(){
+        return symbol.getScore();
+    }
+
     public void use(){
         isUsedCard = true;
     }
@@ -22,25 +26,14 @@ public class Card {
         return isUsedCard;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return symbol == card.symbol &&
-                type == card.type;
+    public boolean isACE(){
+        if(symbol == Symbol.ACE){
+            return true;
+        }
+        return false;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(symbol, type);
-    }
-
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return  symbol.getScore() + " " + type;
     }
 }

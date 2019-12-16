@@ -17,5 +17,39 @@ public class Dealer {
         cards.add(card);
     }
 
+    public int getCardSum(){
+        int sum = 0;
+        int ACE_count = 0;
+        int ACE_MAX = 11;
+        int ACE_MIN = 1;
+        for(int i = 0; i < cards.size(); i++){
+            if(cards.get(i).isACE()){
+                ACE_count++;
+                sum += ACE_MAX;
+                continue;
+            }
+            sum += cards.get(i).getCardScore();
+        }
+
+        while(sum > 21 && ACE_count != 0){
+            sum -= (ACE_MAX - ACE_MIN);
+        }
+
+        return sum;
+    }
+
+    public String getName(){
+        return "딜러";
+    }
+
+    @Override
+    public String toString(){
+        String player = "";
+        for(int i = 0; i < cards.size(); i++){
+            player += cards.get(i).toString() + ", ";
+        }
+        return getName() + " : " + player;
+    }
+
 
 }
