@@ -33,8 +33,9 @@ public class CardState {
 
   private int compareCaseWhenAceIsOneToEleven(int whenAceIsOne) {
     int whenAceIsEleven = whenAceIsOne - Symbol.ACE.getScore() + Symbol.ANOTHER_ACE_NUMBER;
-    if (Math.abs(BlackjackRule.BLACKJACK_NUMBER - whenAceIsEleven)
-        < Math.abs(BlackjackRule.BLACKJACK_NUMBER - whenAceIsOne)) {
+    if ((Math.abs(BlackjackRule.BLACKJACK_NUMBER - whenAceIsEleven)
+        < Math.abs(BlackjackRule.BLACKJACK_NUMBER - whenAceIsOne))
+        && whenAceIsEleven <= BlackjackRule.BLACKJACK_NUMBER) {
       return whenAceIsEleven;
     }
     return whenAceIsOne;

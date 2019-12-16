@@ -34,7 +34,7 @@ public class IOHelper {
 
   public static void printAfterDealInitialCards(List<Participant> participants) {
     printNames(participants);
-    printCards(participants);
+    printCardsWithoutScore(participants);
   }
 
   private static void printNames(List<Participant> participants) {
@@ -43,13 +43,19 @@ public class IOHelper {
     printMessage("\n" + names + "에게 2장의 카드를 나누었습니다.");
   }
 
-  public static void printCards(List<Participant> participants) {
+  public static void printCardsWithoutScore(List<Participant> participants) {
     for (Participant participant : participants) {
-      printCards(participant);
+      printCardsWithoutScore(participant);
     }
   }
 
-  public static void printCards(Participant participant) {
+  public static void printCardsWithScore(List<Participant> participants) {
+    for (Participant participant : participants) {
+      printCardsWithScore(participant, String.valueOf(participant.getCurrentScore()));
+    }
+  }
+
+  public static void printCardsWithoutScore(Participant participant) {
     printCardsWithScore(participant, null);
   }
 

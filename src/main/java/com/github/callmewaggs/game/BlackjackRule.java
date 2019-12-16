@@ -40,14 +40,14 @@ public class BlackjackRule {
     if (dealer.hitOrStay()) {
       dealer.takeCard(cardShuffler.pickCard());
     }
-    IOHelper.printCards(getAllParticipants(dealer, players));
+    IOHelper.printCardsWithScore(getAllParticipants(dealer, players));
   }
 
   private void takeCardIfPlayerHit(Player player) {
     while (true) {
       if (player.hitOrStay()) {
         player.takeCard(cardShuffler.pickCard());
-        IOHelper.printCards(player);
+        IOHelper.printCardsWithoutScore(player);
         continue;
       }
       break;
