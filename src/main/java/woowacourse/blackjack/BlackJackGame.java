@@ -24,6 +24,11 @@ public class BlackJackGame {
             this.checkPointPlayers(player);
         }
         this.checkPointDealer();
+
+        printDealerCardsResult();
+        for (Player player: this.players) {
+            printPlayersCardsResult(player);
+        }
     }
 
     private List<String> getPlayerNames() {
@@ -112,6 +117,24 @@ public class BlackJackGame {
             stringCards.add(card.getSymbolName() + card.getTypeName());
         }
         System.out.println(String.join(", ", stringCards));
+    }
+
+    private void printDealerCardsResult() {
+        System.out.print("딜러: ");
+        List<String> stringCards = new ArrayList<>();
+        for (Card card: dealer.getCards()) {
+            stringCards.add(card.getSymbolName() + card.getTypeName());
+        }
+        System.out.println(""+String.join(", ", stringCards)+" - 결과: "+this.dealer.getSumScore()+"");
+    }
+
+    private void printPlayersCardsResult(Player player) {
+        System.out.print(""+player.getName()+"카드: ");
+        List<String> stringCards = new ArrayList<>();
+        for (Card card: player.getCards()) {
+            stringCards.add(card.getSymbolName() + card.getTypeName());
+        }
+        System.out.println(""+String.join(", ", stringCards)+" - 결과: "+player.getSumScore()+"");
     }
 
     private void checkPointPlayers(Player player) {
