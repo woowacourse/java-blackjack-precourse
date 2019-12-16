@@ -15,8 +15,8 @@ public class Card {
         this.type = type;
     }
 
-    public Symbol getSymbol() {
-        return this.symbol;
+    public int getSymbol() {
+        return this.symbol.getScore();
     }
 
     public Type getType() {

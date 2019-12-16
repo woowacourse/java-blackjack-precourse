@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Random;
 
+import domain.card.Symbol;
 import domain.user.Player;
 import domain.card.CardFactory;
 import domain.card.Card;
@@ -12,12 +14,16 @@ import domain.card.Card;
 public class BlackJackGame {
     private Scanner sc = new Scanner(System.in);
     private List<Player> players = new ArrayList<>();
+    private List<Card> cards =  CardFactory.create();
+    private List<Card> getCardsList = new ArrayList<>();
 
     public void runGame() {
         List<String> playerNames = this.getPlayerNames();
         List<Double> bettingMoney = this.getBettingMoney(playerNames);
         this.setPlayerInformation(playerNames, bettingMoney);
-        List<Card> cards =  CardFactory.create();
+        for (Player player : this.players) {
+            this.handCardsToPlayer(player);
+        }
     }
 
     private List<String> getPlayerNames() {
@@ -42,4 +48,21 @@ public class BlackJackGame {
             this.players.add(new Player(playerNames.get(i), bettingMoney.get(i)));
         }
     }
+
+    private void handCardsToPlayer(Player player) {
+        player.addCard(this.getRandomCard());
+    }
+
+    private Card getRandomCard() {
+        Random random = new Random();
+        Card getCard = null;
+        boolean checkCard = true;
+        while (checkCard) {
+            getCard = this.cards.get(random.nextInt(this.cards.size()));
+            checkCard = doubleCheck(getCard);
+        }
+        this.getCardsList.add(getCard);
+        return getCard;
+    }
+
 }
