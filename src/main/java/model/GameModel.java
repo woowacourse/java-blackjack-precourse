@@ -31,6 +31,14 @@ public class GameModel {
         giveTwoCardsToEveryOne();
         checkPlayerFirstBlackJack();
         giveOneMoreCardToPlayers();
+        checkOneMoreCardToDealer();
+    }
+
+    private void checkOneMoreCardToDealer() {
+        if(dealer.shouldHaveOneMoreCard()){
+            dealer.addCard(deck.getRandomCard());
+            OutputView.printDealerGetOneMore();
+        }
     }
 
     private void giveOneMoreCardToPlayers() throws IOException {

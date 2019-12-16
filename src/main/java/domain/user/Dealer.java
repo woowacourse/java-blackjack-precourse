@@ -12,6 +12,9 @@ public class Dealer extends Gamer{
 
     public Dealer() {}
 
-
     // TODO 추가 기능 구현
+
+    public boolean shouldHaveOneMoreCard(){
+        return sumOfCard() <= 16;
+    }
 }
