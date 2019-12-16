@@ -22,8 +22,7 @@ public class Rule {
     private static final int BURST_SCORE = -1;
     
     public static void setScore(User user, Card card) {
-        if (user.getIsBurst()) {
-            user.setScore(BURST_SCORE);
+        if (user.isScoreEquals(BURST_SCORE)) {
             return;
         }
         user.addScore(card.getScore());
@@ -70,6 +69,9 @@ public class Rule {
     }
 
     public static double getPlayerProfit(Dealer dealer, Player player) {
+        if (dealer.isScoreEquals(BURST_SCORE)) {
+            return getProfitInDealerBurst(player);
+        }
         if (getIsBlackJack(dealer)) {
             return getProfitInBlackJack(player);
         }
@@ -89,6 +91,13 @@ public class Rule {
         if (getIsBlackJack(player)) {
             return 0.0;
         }
-        return player.getResultProfit(BLACKJACK_MONEY_RATIO);
+        return player.getResultProfit(LOSING_MONEY_RATIO);
+    }
+
+    private static double getProfitInDealerBurst(Player player) {
+        if (player.isScoreEquals(BURST_SCORE)) {
+            return player.getResultProfit(LOSING_MONEY_RATIO);
+        }
+        return player.getResultProfit(WINNING_MONEY_RATIO);
     }
 }
