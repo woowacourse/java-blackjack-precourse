@@ -65,11 +65,10 @@ public class Game {
 
     public void Game() {
         initDistributeCard();
-        if(dealer.ifBlackJack()) {//딜러가 블랙잭이면 다른 코드 수행
+        if(dealer.ifBlackJack()) {
             dealerIsBlackJack();
             return;
         }
-        //딜러가 블랙잭이 아니면 밑의 코드 수행
         for(index = 0; index < player.size(); index++){
             askOneMoreOnlyForNotBJPlayer();
         }
@@ -78,13 +77,12 @@ public class Game {
     }
 
     public void dealerIsBlackJack() {
-        //딜러가 블랙잭이니까 플레이어가 블랙잭인지 확인.
         for(int i=0;i<player.size();i++) {
-            checkifPlayerIsBJWhenDealerIsBJ(i);
+            checkIfPlayerIsBJWhenDealerIsBJ(i);
         }
     }
 
-    public void checkifPlayerIsBJWhenDealerIsBJ(int i) {
+    public void checkIfPlayerIsBJWhenDealerIsBJ(int i) {
         if(player.get(i).ifBlackJack()){
             player.get(index).getBettingMoney(0);
         }
@@ -180,7 +178,6 @@ public class Game {
 
     public boolean checkIfOver21() {
         if(player.get(index).sumScore() > BLACKJACK) {
-            //player.remove(index--);
             player.get(index).burstPlayer = true;
             System.out.println("21을 초과하여 게임에서 지셨습니다.\n");
             LoosePlayerBurst();
@@ -191,7 +188,7 @@ public class Game {
 
     public void giveMoreCardToDealer() {
         if(dealer.sumScore() <= DEALER_STANDARD) {
-            System.out.println("딜러가 16 이하라 한장 더 받았습니다.");
+            System.out.println("딜러가 16 이하라 한장 더 받았습니다.\n");
             dealer.addCard(cards.remove(cards.size() - 1));
             giveMoreCardToDealer();
             return;
@@ -213,25 +210,20 @@ public class Game {
         if (!player.get(i).burstPlayer && !player.get(i).ifBlackJack()) {
             player.get(i).getBettingMoney(1);
             dealer.minusCost(player.get(i).reward);
-            System.out.println("*****딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(i).getReward());
         }
     }
 
     public void LoosePlayerBurst() {
         player.get(index).getBettingMoney(-1);
         dealer.addCost(player.get(index).getbet());
-        System.out.println(player.get(index).getinfo()+" burst "+player.get(index).getReward());
-
-        System.out.println("***딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(index).getReward());
     }
 
     public void finishGame() {
         for(int i = 0; i < player.size(); i++) {
-            System.out.println(player.get(i).getinfo()+" 승부 확인");
             findWinner(i);
         }
-        printDealerCard();
-        printPlayerCard();
+        printFinalDealerCard();
+        printFinalPlayerCard();
         System.out.println("최종 수익");
         System.out.println("딜러: "+dealer.finalCost());
         for(int i = 0; i < player.size(); i++) {
@@ -240,28 +232,32 @@ public class Game {
     }
 
     public void findWinner(int i) {
-        //플레이어와 딜러 중 누가 이겼는지 정산
         if(player.get(i).ifBlackJack() || player.get(i).burstPlayer || dealer.ifBurst){
-            System.out.println("블랙잭으로 끝");
             return;
         }
-        System.out.println(player.get(i).getinfo()+" 비교시작");
         comparePlayerAndDealer(i);
     }
 
     public void comparePlayerAndDealer(int i) {
         if (player.get(i).sumScore() > dealer.sumScore()) {
-            System.out.println(player.get(i).getinfo()+" 승리");
             player.get(i).getBettingMoney(1);
             dealer.minusCost(player.get(i).getbet());
-            System.out.println("*딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(i).getReward());
         }
         if (player.get(i).sumScore() < dealer.sumScore()) {
-            System.out.println(player.get(i).getinfo()+" 패배");
             player.get(i).getBettingMoney(-1);
             dealer.addCost(player.get(i).getbet());
+        }
+    }
 
-            System.out.println("**딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(i).getReward());
+    public void printFinalDealerCard() {
+        System.out.print("딜러: ");
+        System.out.println(dealer.toString()+" - 결과: "+dealer.sumScore());
+    }
+
+    public void printFinalPlayerCard() {
+        for(int i = 0; i < player.size(); i++) {
+            System.out.print(player.get(i).getinfo()+"카드: ");
+            System.out.println(player.get(i).toString()+" - 결과: "+player.get(i).sumScore());
         }
     }
 }
