@@ -1,4 +1,4 @@
-package domain.card;
+package com.github.callmewaggs.game.domain.card;
 
 public enum Type {
   SPADE,

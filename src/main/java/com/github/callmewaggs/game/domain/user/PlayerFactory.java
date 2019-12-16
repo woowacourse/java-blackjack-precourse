@@ -1,4 +1,4 @@
-package domain.user;
+package com.github.callmewaggs.game.domain.user;
 
 import java.util.ArrayList;
 import java.util.List;

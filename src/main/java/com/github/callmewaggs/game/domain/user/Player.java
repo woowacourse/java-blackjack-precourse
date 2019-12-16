@@ -1,6 +1,6 @@
-package domain.user;
+package com.github.callmewaggs.game.domain.user;
 
-import domain.card.Card;
+import com.github.callmewaggs.game.domain.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package domain.card;
+package com.github.callmewaggs.game.domain.card;
 
 import java.util.ArrayList;
 import java.util.Collections;
