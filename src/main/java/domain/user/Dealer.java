@@ -1,21 +1,14 @@
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 딜러를 의미하는 객체
+ * 기본성상자이외 다른 생성자를 추가할 수 없다.
+ * 필드인 card의 접근 제어자 private을 변경할 수 없다.
+ * Dealer에 필드를 추가할 수 없다.
  */
-public class Dealer {
-    private final List<Card> cards = new ArrayList<>();
+public class Dealer extends Gamer {
 
     public Dealer() {}
-
-    public void addCard(Card card) {
-        cards.add(card);
-    }
 
     // TODO 추가 기능 구현
 }
