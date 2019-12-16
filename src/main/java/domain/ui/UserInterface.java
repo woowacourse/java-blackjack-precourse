@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class UserInterfaceMachine {
+public class UserInterface {
     private Scanner scanner = new Scanner(System.in);
 
     /**
@@ -134,7 +134,7 @@ public class UserInterfaceMachine {
         return true;
     }
 
-    public void printFistTwoCardGivenSituation(Dealer dealer, List<Player> players) {
+    public void printFistTwoCard(Dealer dealer, List<Player> players) {
         System.out.println("딜러와 " + combineStrings(getPlayersNameList(players), ", ")
             + "에게 각각 두장의 카드가 분배되었습니다.");
 

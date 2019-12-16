@@ -2,7 +2,7 @@ package domain.gameprocess;
 
 import domain.card.CardDivider;
 import domain.card.CardFactory;
-import domain.ui.UserInterfaceMachine;
+import domain.ui.UserInterface;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameProcess {
-    private final UserInterfaceMachine userInterfaceMachine = new UserInterfaceMachine();
+    private final UserInterface userInterface = new UserInterface();
     private final CardDivider cardDivider = new CardDivider(new CardFactory().create());
 
     public void play() {
@@ -18,7 +18,7 @@ public class GameProcess {
         List<Player> players = createPlayers();
 
         handOutTwoCardsToAllUsers(dealer, players);
-        userInterfaceMachine.printFistTwoCardGivenSituation(dealer, players);
+        userInterface.printFistTwoCard(dealer, players);
 
         for (Player player : players) {
             handOutCardsUntilPlayerWantStop(player);
@@ -26,8 +26,8 @@ public class GameProcess {
 
         handOutCardsUntilDealerCannotGet(dealer);
 
-        userInterfaceMachine.printUsersCardsResults(dealer, players);
-        userInterfaceMachine.printUsersFinalRevenues(dealer, players);
+        userInterface.printUsersCardsResults(dealer, players);
+        userInterface.printUsersFinalRevenues(dealer, players);
     }
 
     private Dealer createDealer() {
@@ -36,11 +36,11 @@ public class GameProcess {
 
     private List<Player> createPlayers() {
         List<Player> players = new ArrayList<Player>();
-        List<String> playerNames = userInterfaceMachine.scanNames();
+        List<String> playerNames = userInterface.scanNames();
 
         for (String playerName : playerNames) {
             players.add(new Player(playerName,
-                userInterfaceMachine.scanBetAmountOfPlayer(playerName)));
+                userInterface.scanBetAmountOfPlayer(playerName)));
         }
 
         return players;
