@@ -57,12 +57,12 @@ public class RevenueCalculator {
 
     private static int findWhichCase(int dealerScore, int playerScore) {
 
-        if (playerScore == Scoring.BLACKJACK_MAX_SCORE
-                && dealerScore != Scoring.BLACKJACK_MAX_SCORE) {
+        if (playerScore == Scoring.MAX_SCORE && dealerScore != Scoring.MAX_SCORE) {
             return PLAYER_BLACKJACK_AND_DEALER_NOT_BLACKJACK;
         }
 
-        if (playerScore > dealerScore || dealerScore > Scoring.BLACKJACK_MAX_SCORE) {
+        if ((playerScore < Scoring.MAX_SCORE && playerScore > dealerScore)
+                || dealerScore > Scoring.MAX_SCORE) {
             return DEALER_BUST_OR_PLAYER_LARGER_THAN_DEALER;
         }
 
