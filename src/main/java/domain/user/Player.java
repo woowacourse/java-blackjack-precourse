@@ -36,7 +36,7 @@ public class Player extends User {
     		score += card.getScore();
     	}
     	
-    	if(score < Jack) {
+    	if (score < Jack) {
     		return true;
     	}
     	return false;

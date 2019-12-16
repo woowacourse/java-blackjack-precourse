@@ -63,7 +63,8 @@ public class Game {
 	}
 	
 	public void secondDealOut() {
-		userRepository.secondDealOutCheck();
+		userRepository.secondPlayerDealOut();
+		userRepository.secondDealerDealOut();
 	}
 	
  }

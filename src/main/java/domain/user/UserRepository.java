@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import domain.game.Game;
 import domain.view.ViewInput;
 import domain.view.ViewOutput;
 
 public class UserRepository {
 	private final int playerFirstInx = 1;
+	private final int dealerInx = 0;
 	
 	private List<String> playerNameList = new ArrayList<String>();
 	private List<User> userList = new ArrayList<User>();
+	private Game blackJack = Game.getInstance();
 			
 	public void makePlayerName(String name) {
 		String[] names = name.split(",");
@@ -50,7 +53,7 @@ public class UserRepository {
 		}
 	}
 	
-	public void secondDealOutCheck() {
+	public void secondPlayerDealOut() {
 		for (int i = playerFirstInx; i < userList.size(); i++) {
 			User user = userList.get(i);
 			checkAnswer(user);
@@ -60,9 +63,18 @@ public class UserRepository {
 	public void checkAnswer(User user) {
 		String answer = "y";
 		
-		while(answer.equals("y") && ((Player)user).isBelowJack()) {
+		while (answer.equals("y") && ((Player)user).isBelowJack()) {
 			answer = ViewInput.askGetCard((Player)user);
 			ViewOutput.showEachResult(user);
+		}
+	}
+	
+	public void secondDealerDealOut() {
+		Dealer dealer = (Dealer)userList.get(dealerInx);
+		
+		while(dealer.isBelowCriteria()) {
+			dealer.addCard(blackJack.selectedCard());
+			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
 		}
 	}
 }
