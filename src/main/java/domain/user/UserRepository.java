@@ -14,6 +14,7 @@ public class UserRepository {
 	
 	private List<String> playerNameList = new ArrayList<String>();
 	private List<User> userList = new ArrayList<User>();
+	private List<Integer> profit = new ArrayList<Integer>();
 			
 	public void makePlayerName(String name) {
 		String[] names = name.split(",");
@@ -21,6 +22,8 @@ public class UserRepository {
 		for (String player : names) {
 			playerNameList.add(player.trim());
 		}
+		
+		System.out.println();
 	}
 	
 	public void makeUserList() {
@@ -32,6 +35,8 @@ public class UserRepository {
 			
 			userList.add(player);
 		}
+		
+		System.out.println();
 	}
 	
 	public List<User> getUserList() {
@@ -74,7 +79,7 @@ public class UserRepository {
 		
 		while (dealer.isBelowCriteria()) {
 			dealer.addCard(Game.getInstance().selectedCard());
-			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
 		}
 	}
 	
@@ -83,5 +88,58 @@ public class UserRepository {
 			ViewOutput.showEachResult(user);
 			System.out.println(" - 결과 : " + user.getScore());
 		}
+		System.out.println();
+	}
+	
+	public void makeProfitResult() {
+		int criteria = userList.get(dealerInx).getScore();
+		
+		for (int i = 0; i < userList.size(); i++) {
+			profit.add(0);
+		}
+		
+		for (int i = playerFirstInx; i < userList.size(); i++) {
+			compareResult(i, criteria);
+		}
+	}
+	
+	public void compareResult(int playerInx, int criteria) {
+		if(!isDraw(playerInx, criteria)) {
+			modifyProfit(getWinnerInx(playerInx, criteria), 
+					getLoserInx(getWinnerInx(playerInx, criteria), playerInx), 
+					((Player)userList.get(playerInx)).getBettingMoney());
+		}
+	}
+	
+	public boolean isDraw(int playerInx, int criteria) {
+		if(userList.get(playerInx).getScore() == criteria) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void modifyProfit(int winnerInx, int loserInx, int money) {
+		int winnerProfit = profit.get(winnerInx) + money;
+		int loserProfit = profit.get(loserInx) - money;
+		profit.set(winnerInx, winnerProfit);
+		profit.set(loserInx, loserProfit);
+	}
+	
+	public int getWinnerInx(int playerInx, int criteria) {
+		if(userList.get(playerInx).getScore() > criteria) {
+			return playerInx;
+		}
+		return dealerInx;
+	}
+	
+	public int getLoserInx(int winnerInx, int playerInx) {
+		if(winnerInx == playerInx) {
+			return dealerInx;
+		}
+		return playerInx;
+	}
+	
+	public List<Integer> getProfit() {
+		return profit;
 	}
 }

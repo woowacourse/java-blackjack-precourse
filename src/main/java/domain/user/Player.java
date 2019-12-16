@@ -7,16 +7,19 @@ import domain.card.Card;
  */
 public class Player extends User {
     private final String name;
-    private final double bettingMoney;
+    private final int bettingMoney;
     private final int Jack = 21;
 
-    public Player(String name, double bettingMoney) {
+    public Player(String name, int bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
-        setName(name);
     }
     
     // TODO 추가 기능 구현
+    
+    public String getName() {
+    	return name;
+    }
     
     public void showFirstCard() {
     	showResult();
@@ -34,5 +37,9 @@ public class Player extends User {
     		return true;
     	}
     	return false;
+    }
+    
+    public int getBettingMoney() {
+    	return bettingMoney;
     }
 }

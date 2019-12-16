@@ -28,6 +28,8 @@ public class Game {
 		firstDealOut();
 		secondDealOut();
 		userRepository.showAllResult();
+		userRepository.makeProfitResult();
+		ViewOutput.showEachProfit(userRepository.getUserList(), userRepository.getProfit());
 	}
 	
 	public void firstDealOut() {
@@ -65,6 +67,7 @@ public class Game {
 	
 	public void secondDealOut() {
 		userRepository.secondPlayerDealOut();
+		System.out.println();
 		userRepository.secondDealerDealOut();
 	}
  }

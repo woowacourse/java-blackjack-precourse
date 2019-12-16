@@ -6,16 +6,11 @@ import java.util.stream.Collectors;
 
 import domain.card.Card;
 
-public class User {
+public abstract class User {
 	private final List<Card> cards = new ArrayList<>();
-	private String name;
 	
     public void addCard(Card card) {
         cards.add(card);
-    }
-    
-    protected void setName(String name) {
-    	this.name = name;
     }
     
     protected List<Card> getCards() {
@@ -23,15 +18,13 @@ public class User {
     }
     
     public void showFirstResult() {
-    	System.out.print(name + " 카드 : ");
+    	System.out.print(getName() + " 카드 : ");
     	showFirstCard();
     }
 
-	public void showFirstCard() {}
+	public abstract void showFirstCard();
 	
-	public String getName() {
-		return name;
-	}
+	public abstract String getName();
 	
 	public void showResult() {
 		String cardName = cards
