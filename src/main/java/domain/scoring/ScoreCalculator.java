@@ -4,9 +4,9 @@ import java.util.List;
 import domain.card.Card;
 
 public class ScoreCalculator {
-    final static int BLACKJACK_MAX_SCORE = 21;
-    final static int ACE_LARGE_SCORE = 11;
-    final static int ACE_SMALL_SCORE = 1;
+    public final static int BLACKJACK_MAX_SCORE = 21;
+    public final static int ACE_LARGE_SCORE = 11;
+    public final static int ACE_SMALL_SCORE = 1;
 
     public static int getTotalScore(List<Card> cards) {
         return getOptimizedScoreWithAces(getTotalScoreWithoutAce(cards), countAce(cards));
