@@ -26,7 +26,7 @@ public class Player extends People{
         return bettingMoney;
     }
 
-    public double blackJactBonus(){
+    public double blackJackBonus(){
         if(this.isBlackJack())
             return bettingMoney * 0.5;
         return 0;

@@ -12,6 +12,7 @@ public class OutputSystem {
     }
 
     static public void printBettingPrice(String player) {
+        System.out.println();
         System.out.println(player + "의 배팅금액은?");
     }
 
@@ -44,6 +45,7 @@ public class OutputSystem {
     }
 
     static public void printUserGetCard(Player player) {
+        System.out.println();
         System.out.println(player.getName() + "는 한장의 카드를 더 받으시겠습니까?(예는 y, 아니오는 n)");
     }
 
@@ -52,12 +54,14 @@ public class OutputSystem {
     }
 
     static public void printResultValue(Dealer dealer, ArrayList<Player> players) {
+        System.out.println();
         printDealerCardList(dealer);
-        System.out.println("- 결과 : " + dealer.getTotalNumber());
+        System.out.println(" - 결과 : " + dealer.getTotalNumber());
         for (Player player : players) {
             printUserCardList(player);
-            System.out.println("- 결과 : " + player.getTotalNumber());
+            System.out.println(" - 결과 : " + player.getTotalNumber());
         }
+        System.out.println();
     }
 
     static public void printResultMoney(Result dealerResult, ArrayList<Result> playerResult) {

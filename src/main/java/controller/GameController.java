@@ -22,7 +22,6 @@ public class GameController {
     private InputSystem inputSystem;
     private Result dealerResult;
     private ArrayList<Result> playerResult;
-    private boolean isExit = false;
 
     public GameController() {
         players = new ArrayList<>();
@@ -39,6 +38,7 @@ public class GameController {
             OutputSystem.printBettingPrice(names[i]);
             players.add(new Player(names[i], inputSystem.inputBettingPirce()));
         }
+        System.out.println();
     }
 
     public void gameStart() {
@@ -65,7 +65,6 @@ public class GameController {
         if (dealer.getTotalNumber() > MAXIUM_VALUE) {
             dealerBurstCalculate();
             return;
-            // 딜러가 버스터라면 패가 21이하인 사람에게 모두 돈을 준다. + 블랙잭 1.5배
         }
         normalCalculate();
     }
