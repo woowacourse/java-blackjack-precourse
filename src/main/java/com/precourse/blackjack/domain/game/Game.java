@@ -42,12 +42,12 @@ public class Game {
 
 	public void start() {
 		Collections.shuffle(cardDeck);
-		dealCardsByNumber(TWO);
+		dealTwoCards();
 		GameController.showInitialCardDealingEnd(getAllNames());
 	}
 
-	private void dealCardsByNumber(int number) {
-		for (int i = 0; i < number; i++) {
+	private void dealTwoCards() {
+		for (int i = 0; i < TWO; i++) {
 			players.forEach(player -> player.addCard(cardDeck.pop()));
 			dealer.addCard(cardDeck.pop());
 		}
