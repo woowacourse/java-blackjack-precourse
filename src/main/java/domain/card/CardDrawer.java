@@ -13,11 +13,11 @@ public class CardDrawer {
 	public static Card draw() {
 		int idx = random.nextInt(TOTAL_CARD_NUMBER);
 		
-		if (drawnCard.contains(idx)) {
-			draw();
-		}
-		drawnCard.add(idx);
-		
-		return cardDeck.get(idx);
+		if (!drawnCard.contains(idx)) {
+			drawnCard.add(idx);
+			return cardDeck.get(idx);
+		} 
+
+		return draw();
 	}
 }
