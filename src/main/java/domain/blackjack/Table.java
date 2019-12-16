@@ -5,7 +5,7 @@ public class Table {
 
   public Deck deck;
 
-  public void setTable() {
+  public Table (){
     this.deck = new Deck();
     this.deck.shuffle();
   }

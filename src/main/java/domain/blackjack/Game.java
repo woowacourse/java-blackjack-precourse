@@ -8,7 +8,6 @@ public class Game {
 
   public void play() {
     this.table = new Table();
-    this.table.setTable();
 
     String[] users = IOController.getUsers();
 
