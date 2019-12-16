@@ -18,10 +18,6 @@ public class Player extends Dealer {
 		this.bettingMoney = bettingMoney;
 	}
 
-	public void addCard(Card card) {
-		cards.add(card);
-	}
-
 	// TODO 추가 기능 구현
 	@Override
 	public String getName() {
