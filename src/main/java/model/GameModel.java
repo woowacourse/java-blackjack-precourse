@@ -84,11 +84,13 @@ public class GameModel {
         }
     }
 
-    private void checkCanHaveMoreAndGive(Player player) throws IOException {
-        if (wantOneMore(player) && canHaveMore(player)) {
+    private boolean checkCanHaveMoreAndGive(Player player) throws IOException {
+        if (canHaveMore(player) && wantOneMore(player)) {
             player.addCard(deck.getRandomCard());
+            OutputView.printCards(player);
+            return checkCanHaveMoreAndGive(player);
         }
-        OutputView.printCards(player);
+        return false;
     }
 
     private boolean canHaveMore(Player player) {
