@@ -23,6 +23,8 @@ import com.precourse.blackjack.domain.user.Player;
  * @author HyungjuAn
  */
 public class Game {
+	private static final String AND = "와 ";
+	private static final String COMMA = ", ";
 	private final List<Card> cardDeck;
 	private final List<Player> players;
 	private final Dealer dealer;
@@ -37,11 +39,21 @@ public class Game {
 	public void start() {
 		Collections.shuffle(cardDeck);
 		dealTwoCards();
-		GameController.showInitialCardDealingEnd(players);
+		GameController.showInitialCardDealingEnd(getAllNames());
 	}
 
 	private void dealTwoCards() {
 		players.forEach(player -> player.addCard(cardDeck.get(++cardTop)));
 		dealer.addCard(cardDeck.get(++cardTop));
+	}
+
+	public String getAllNames() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(dealer.getName()).append(AND);
+		for (Player nextPlayer : players) {
+			builder.append(nextPlayer.getName()).append(COMMA);
+		}
+		return builder.toString();
 	}
 }

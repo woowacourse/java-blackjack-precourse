@@ -73,7 +73,7 @@ public class GameController {
 		return playerBettingMoney;
 	}
 
-	public static void showInitialCardDealingEnd(List<Player> players) {
-		OutputView.printInitialCardDealingEnd(players.toString()); //players.toString 대신 이름만 추출하는 기능 추가필요
+	public static void showInitialCardDealingEnd(String names) {
+		OutputView.printInitialCardDealingEnd(names);
 	}
 }
