@@ -79,6 +79,7 @@ public class Game {
 		for (Player player : players) {
 			checkMoreCards(player);
 		}
+		checkMoreCards(dealer);
 	}
 
 	private void checkMoreCards(Player player) {
@@ -96,6 +97,17 @@ public class Game {
 			return true;
 		}
 		return false;
+	}
+
+	private void checkMoreCards(Dealer dealer) {
+		while(dealer.getScoreAceAsEleven() <= 16) {
+			giveCard(1, dealer);
+			InputOutputView.outputDealerGotCard();
+		}
+		while(dealer.getScoreAceAsEleven() >21 && dealer.getScoreAceAsOne() <= 16) {
+			giveCard(1, dealer);
+			InputOutputView.outputDealerGotCard();
+		}
 	}
 
 }
