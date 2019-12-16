@@ -6,6 +6,7 @@ public class Card {
 	private final Symbol symbol;
 	private final Type type;
 
+	/* 과제 시작시 주어진 메서드 */
 	public Card(Symbol symbol, Type type) {
 		this.symbol = symbol;
 		this.type = type;

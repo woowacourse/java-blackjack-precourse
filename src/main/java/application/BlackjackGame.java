@@ -47,7 +47,7 @@ public class BlackjackGame {
 	
 	private void checkBlackjack(Dealer dealer, Players players, List<WinLoseInfo> info) {
 		IntStream.range(0, players.getSize())
-				.filter(i -> (players.getPlayerAt(i).calculateScore() == BLACKJACK_SCORE ))
+				.filter(i -> (players.getPlayerAt(i).calculateScore() == BLACKJACK_SCORE))
 				.forEach(
 					i -> {
 						WinLoseInfoManager.updateBlackjackInfo(dealer, info, i);
@@ -58,16 +58,16 @@ public class BlackjackGame {
 	
 	private void playerAdditionalDrawPhase(Players players, CardDeck cardDeck, List<WinLoseInfo> info) {
 		IntStream.range(0, players.getSize())
-				.filter(i -> (players.getPlayerAt(i).calculateScore() != BLACKJACK_SCORE ))
+				.filter(i -> (players.getPlayerAt(i).calculateScore() != BLACKJACK_SCORE))
 				.forEach(
 					i -> {
-						drawAdditionalCards(players.getPlayerAt(i), cardDeck);
+						makePlayerDrawAdditionalCards(players.getPlayerAt(i), cardDeck);
 						WinLoseInfoManager.updateLoser(players.getPlayerAt(i), info, i);
 					}
 				);
 	}
 
-	private void drawAdditionalCards(Player player, CardDeck cardDeck) {
+	private void makePlayerDrawAdditionalCards(Player player, CardDeck cardDeck) {
 		try {
 			drawUntilDontWant(player, cardDeck);
 		} catch (IllegalStateException e) {
@@ -77,11 +77,12 @@ public class BlackjackGame {
 	}
 	
 	private void drawUntilDontWant(Player player, CardDeck cardDeck) {
-		while(InputView.enterIfDrawAdditionalCard(player)) {
+		while (InputView.enterIfDrawAdditionalCard(player)) {
 			player.drawCard(cardDeck);
 			OutputView.showPlayerCards(player);
 			checkOverBlackJack(player);
 		}
+		OutputView.showPlayerCards(player);
 	}
 	
 	private static void checkOverBlackJack(Player player) {

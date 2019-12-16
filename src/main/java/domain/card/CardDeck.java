@@ -31,10 +31,4 @@ public class CardDeck {
 				.findFirst()
 				.orElse(null);
 	}
-	
-	public String toString() {
-		return this.cards.stream()
-				.map(Card::toString)
-				.collect(Collectors.joining("\n"));
-	}
 }

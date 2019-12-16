@@ -14,7 +14,7 @@ public class OutputView {
 		for (int i = 0; i < players.getSize(); i++) {
 			showPlayerCards(players.getPlayerAt(i));
 		}
-		System.out.println();
+		showBlankLine();
 	}
 	
 	public static void showInitialResult(Player player, WinLoseInfo info) {
@@ -22,7 +22,7 @@ public class OutputView {
 		if (info == WinLoseInfo.DRAW) {
 			System.out.println("하지만 딜러도 블랙잭으로 무승부 입니다.");
 		}
-		System.out.println();
+		showBlankLine();
 	}
 	
 	public static void showPlayerCards(Player player) {
@@ -42,7 +42,7 @@ public class OutputView {
 		for (int i = 0; i < players.getSize(); i++) {
 			showPlayerCardsWithScore(players.getPlayerAt(i), info.get(i));
 		}
-		System.out.println();
+		showBlankLine();
 	}
 	
 	private static void showDealerCardsWithScore(Dealer dealer) {
