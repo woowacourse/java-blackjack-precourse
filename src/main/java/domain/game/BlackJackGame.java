@@ -51,10 +51,8 @@ public class BlackJackGame {
 	 * 플레이어 정보 입력 (이름, 배팅 금액)
 	 */
 	private void inputPlayerInfos() {
-		String[] playerNames = inputManager.inputPlayerNames();
-		for (String name : playerNames) {
-			double bettingMoney = inputManager.inputBettingMoney(name);
-			playerList.add(new Player(name, bettingMoney));
+		for (String name : inputManager.inputPlayerNames()) {
+			playerList.add(new Player(name, inputManager.inputBettingMoney(name)));
 		}
 	}
 
@@ -102,8 +100,7 @@ public class BlackJackGame {
 		boolean hit = true;
 		while (playerScore < BLACKJACK_SCORE && hit) {
 			System.out.println("\n" + player.getName() + "의 현재 점수는 " + playerScore + "입니다.");
-			char choice = inputManager.chooseHitOrStay();
-			hit = isChoiceHit(choice, player);
+			hit = isChoiceHit(inputManager.chooseHitOrStay(), player);
 			playerScore = player.getCardScore();
 		}
 		if (playerScore > BLACKJACK_SCORE) {
