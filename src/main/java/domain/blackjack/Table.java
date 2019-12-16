@@ -1,7 +1,6 @@
 package domain.blackjack;
 
 
-import com.sun.javafx.scene.text.TextLayout.Hit;
 import controller.IOController;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -79,7 +78,7 @@ public class Table {
     return this.players;
   }
 
-  public Boolean playerAct(Player player, String action) {
+  public boolean playerAct(Player player, String action) {
     if (action.equals(HIT)) {
       dealCardToPlayer(player);
       return true;

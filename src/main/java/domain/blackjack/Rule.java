@@ -12,7 +12,7 @@ public class Rule {
 
   private static final List<Card> Aces = new ArrayList<>(CardFactory.createAces());
 
-  public static Boolean isBlackJack(List<Card> cards) {
+  public static boolean isBlackJack(List<Card> cards) {
     int firstCardScore = cards.get(0).getScore();
     int secondCardScore = cards.get(1).getScore();
 
@@ -24,7 +24,7 @@ public class Rule {
     return false;
   }
 
-  public static Boolean isOverTwenty(List<Card> cards) {
+  public static boolean isOverTwenty(List<Card> cards) {
     int score = getScore(cards);
 
     if (score >= 21) {
@@ -34,7 +34,7 @@ public class Rule {
     return false;
   }
 
-  private static Boolean isOverTwentyOne(List<Card> cards) {
+  private static boolean isOverTwentyOne(List<Card> cards) {
     int score = 0;
 
     for (int i = 0; i < cards.size(); i++) {
@@ -70,7 +70,7 @@ public class Rule {
     return score;
   }
 
-  private static Boolean isOverSixTeen(List<Card> cards) {
+  private static boolean isOverSixTeen(List<Card> cards) {
     int score = 0;
 
     for (int i = 0; i < cards.size(); i++) {

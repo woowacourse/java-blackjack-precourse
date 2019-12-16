@@ -34,7 +34,7 @@ public class Game {
     endGame();
   }
 
-  private void proceedPlayerTurn(Player player, Boolean keepProceeding) {
+  private void proceedPlayerTurn(Player player, boolean keepProceeding) {
     IOController.printHandsOfPlayer(player);
     System.out.println();
 
@@ -45,7 +45,7 @@ public class Game {
 
     IOController.askAction(player.getName());
     String action = IOController.getAction();
-    Boolean proceedAgain = this.table.playerAct(player, action);
+    boolean proceedAgain = this.table.playerAct(player, action);
 
     proceedPlayerTurn(player, proceedAgain);
   }
@@ -75,7 +75,7 @@ public class Game {
     }
   }
 
-  private Boolean dealerHasBlackJack(Dealer dealer) {
+  private boolean dealerHasBlackJack(Dealer dealer) {
     return Rule.isBlackJack(dealer.getHands());
   }
 

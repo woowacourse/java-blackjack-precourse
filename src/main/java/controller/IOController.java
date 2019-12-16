@@ -133,7 +133,7 @@ public class IOController {
     System.out.print("[   ]");
   }
 
-  public static void printHandsOfDealer(Dealer dealer, Boolean coverCard) {
+  public static void printHandsOfDealer(Dealer dealer, boolean coverCard) {
     List<Card> cards = dealer.getHands();
 
     System.out.print("딜러 : ");
