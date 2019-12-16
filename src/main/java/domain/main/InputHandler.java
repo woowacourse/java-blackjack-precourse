@@ -102,7 +102,7 @@ public class InputHandler {
 		String answer = Template.oneMoreCardRequest(player);
 		if (answer.charAt(0) == 'y' && answer.length() == 1) {
 			Main.giveOneCardToPlayer(player);
-			System.out.printf(player.name()+ " : " + player.showCard() + "\n\n");
+			System.out.printf(player.name()+ " : " + player.showCard() + " - " + player.showScore() + "\n\n");
 			oneMoreCardOrNotControl(player);
 		}
 		if (answer.length() != 1 || (answer.charAt(0) != 'y' && answer.charAt(0) != 'n') ) {

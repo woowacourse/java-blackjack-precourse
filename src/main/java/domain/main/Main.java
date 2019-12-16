@@ -13,27 +13,26 @@ public class Main {
 	private static List<Card> cardSet = new ArrayList<>();
 
 	public static void main(String[] args) {
-		
 		InputHandler.nameHandler();
 		InputHandler.bettingMoneyHandler(InputHandler.nameStringList);
+		
 		List<Player> playerList = InputHandler.makePlayer();
 		Dealer dealer = new Dealer();
-
 		cardSet = CardFactory.cardShuffled();
-		basicRation(dealer, playerList);
 		
-		Template.interimResult(playerList, dealer);
-		
-		InputHandler.oneMoreCardOrNot(playerList);
-		
-		dealerMoreCard(dealer);
-		
-		Template.finalResult(playerList, dealer);
-		MoneyCalculator.calculate(playerList, dealer);
-		
+		mainHelper(playerList, dealer);
 	}
 	
-	public static void basicRation(Dealer dealer, List<Player> playerList) {
+	public static void mainHelper(List<Player> playerList, Dealer dealer) {
+		basicRation(playerList, dealer);
+		Template.interimResult(playerList, dealer);
+		InputHandler.oneMoreCardOrNot(playerList);
+		dealerMoreCard(dealer);
+		Template.finalResult(playerList, dealer);
+		MoneyCalculator.calculate(playerList, dealer);
+	}
+	
+	public static void basicRation(List<Player> playerList, Dealer dealer) {
 		giveOneCardToDealer(dealer);
 		giveOneCardToDealer(dealer);
 		for (Player player : playerList) {

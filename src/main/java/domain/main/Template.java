@@ -30,19 +30,23 @@ public class Template {
 	}
 	
 	public static void interimResult(List<Player> players, Dealer dealer) {
+		System.out.println();
 		for (Player player : players) {
-			System.out.println(player.name()+ " : " + player.showCard());
+			System.out.println(player.name()+ " : " + player.showCard() + " - " + player.showScore());
 		}
+		System.out.println();
 		System.out.println("µô·¯ : " + dealer.showOneCard());
 		System.out.println();
 	}
 	
 	public static void finalResult(List<Player> players, Dealer dealer) {
+		System.out.println();
 		for (Player player : players) {
 			System.out.println(player.name()+ " : " + player.showCard() + " - °á°ú : " + Integer.toString(player.showScore()));
 		}
-		System.out.println("µô·¯ : " + dealer.showCard() + " - °á°ú : " + Integer.toString(dealer.showScore()));
 		System.out.println();
+		System.out.println("µô·¯ : " + dealer.showCard() + " - °á°ú : " + Integer.toString(dealer.showScore()));
+		System.out.println("\n");
 	}
 	
 	public static void dealerOneMoreCard() {

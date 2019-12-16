@@ -9,6 +9,7 @@ public class MoneyCalculator {
 	private static double dealerIncome = 0;
 	
 	public static void calculate(List<Player> playerList, Dealer dealer) {
+		System.out.println("## 최종 수익 ##");
 		for (Player player : playerList) {
 			double playerIncome = checkScore(player, dealer, player.bettingMoney());
 			System.out.println(player.name() + " : " + playerIncome);
@@ -33,7 +34,6 @@ public class MoneyCalculator {
 	
 	public static double blackjackCheck(Player player, Dealer dealer, double playerBettingMoney) {
 		double money = 0;
-		System.out.println(player.showCard().length());
 		if (player.showScore() == 21 && player.howManyCard() == 2 && (dealer.showScore() != 21 || dealer.howManyCard() != 2)) {
 			money = playerBettingMoney*1.5;
 		}
