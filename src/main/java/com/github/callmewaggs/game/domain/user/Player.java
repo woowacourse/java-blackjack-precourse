@@ -1,5 +1,7 @@
 package com.github.callmewaggs.game.domain.user;
 
+import com.github.callmewaggs.game.IOHelper;
+
 /**
  * 게임 참여자를 의미하는 객체
  */
@@ -11,6 +13,27 @@ public class Player extends Participant {
   private Player(String name, long bettingMoney) {
     this.name = name;
     this.bettingMoney = bettingMoney;
+  }
+
+  @Override
+  public boolean hitOrStay() {
+    String playerInput;
+    while (true) {
+      playerInput = IOHelper.inputHitOrStay(this.getName());
+      if (playerInput.equals("y") || playerInput.equals("n")) {
+        break;
+      }
+      IOHelper.printExceptionMessage("y 또는 n만 입력 가능합니다. 다시 입력해주세요.");
+    }
+    return playerInput.equals("y") && checkCurrentScoreLessThanBlackjackNumber();
+  }
+
+  private boolean checkCurrentScoreLessThanBlackjackNumber() {
+    if (super.getCurrentScore() > 21) {
+      IOHelper.printHitRejectedMessage(this.getName());
+      return false;
+    }
+    return true;
   }
 
   @Override

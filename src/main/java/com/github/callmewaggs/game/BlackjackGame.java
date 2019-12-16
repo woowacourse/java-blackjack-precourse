@@ -7,9 +7,9 @@ import java.util.List;
 
 public class BlackjackGame {
 
-  Dealer dealer;
-  List<Player> players;
-  BlackjackRule blackjackRule;
+  private Dealer dealer;
+  private List<Player> players;
+  private BlackjackRule blackjackRule;
 
   public BlackjackGame(Dealer dealer, List<Player> players, List<Card> cards) {
     this.dealer = dealer;
@@ -23,7 +23,7 @@ public class BlackjackGame {
       judgeWinOrLose();
       return;
     }
-    blackjackRule.hitOrStay(dealer, players);
+    blackjackRule.askHitOrStay(dealer, players);
     if (isDealerBust()) {
       dealerLose();
       return;

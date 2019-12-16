@@ -1,17 +1,26 @@
 package com.github.callmewaggs.game.domain.user;
 
+import com.github.callmewaggs.game.IOHelper;
+
 /**
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer extends Participant {
 
+  private static final int DEALER_MAX_HIT_NUMBER = 16;
+
   public Dealer() {
+  }
+
+  @Override
+  public boolean hitOrStay() {
+    boolean result = super.getCurrentScore() <= Dealer.DEALER_MAX_HIT_NUMBER;
+    IOHelper.printDealerHitOrStayMessage(result);
+    return result;
   }
 
   @Override
   public String getName() {
     return "딜러";
   }
-
-  // TODO 추가 기능 구현
 }

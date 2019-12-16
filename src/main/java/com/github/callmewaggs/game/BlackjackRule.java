@@ -20,23 +20,43 @@ public class BlackjackRule {
   }
 
   public void dealInitialCards(Dealer dealer, List<Player> players) {
+    List<Participant> participants = getAllParticipants(dealer, players);
     for (int i = 0; i < INITIAL_CARDS_COUNT; ++i) {
-      dealCardToDealerAndPlayers(dealer, players);
+      dealCardToDealerAndPlayers(participants);
     }
     IOHelper.printAfterDealInitialCards(getAllParticipants(dealer, players));
   }
 
-  private void dealCardToDealerAndPlayers(Dealer dealer, List<Player> players) {
-    dealer.takeCard(cardShuffler.pickCard());
-    for (Player player : players) {
-      player.takeCard(cardShuffler.pickCard());
+  private void dealCardToDealerAndPlayers(List<Participant> participants) {
+    for (Participant participant : participants) {
+      participant.takeCard(cardShuffler.pickCard());
     }
   }
 
+  public void askHitOrStay(Dealer dealer, List<Player> players) {
+    for (Player player : players) {
+      takeCardIfPlayerHit(player);
+    }
+    if (dealer.hitOrStay()) {
+      dealer.takeCard(cardShuffler.pickCard());
+    }
+    IOHelper.printCards(getAllParticipants(dealer, players));
+  }
+
+  private void takeCardIfPlayerHit(Player player) {
+    while (true) {
+      if (player.hitOrStay()) {
+        player.takeCard(cardShuffler.pickCard());
+        continue;
+      }
+      break;
+    }
+  }
+
+
   private List<Participant> getAllParticipants(Dealer dealer, List<Player> players) {
-    List<Participant> participants = new ArrayList<>();
+    List<Participant> participants = new ArrayList<>(players);
     participants.add(dealer);
-    participants.addAll(players);
     return participants;
   }
 }

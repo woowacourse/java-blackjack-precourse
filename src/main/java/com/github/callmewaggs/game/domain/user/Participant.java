@@ -16,9 +16,15 @@ public abstract class Participant {
     return cardState.getCardsInfo();
   }
 
+  public int getCurrentScore() {
+    return cardState.getCardsTotalScore();
+  }
+
   public boolean isBlackjack() {
     return cardState.getCardsTotalScore() == BlackjackRule.BLACKJACK_NUMBER;
   }
+
+  public abstract boolean hitOrStay();
 
   public abstract String getName();
 }

@@ -23,6 +23,11 @@ public class IOHelper {
     return scanner.nextLine();
   }
 
+  public static String inputHitOrStay(String name) {
+    printMessage("\n" + name + "은/는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+    return scanner.nextLine();
+  }
+
   private static void printMessage(String message) {
     System.out.println(message);
   }
@@ -38,7 +43,7 @@ public class IOHelper {
     printMessage("\n" + names + "에게 2장의 카드를 나누었습니다.");
   }
 
-  private static void printCards(List<Participant> participants) {
+  public static void printCards(List<Participant> participants) {
     for (Participant participant : participants) {
       printCardsWithScore(participant, null);
     }
@@ -54,6 +59,18 @@ public class IOHelper {
 
   private static String nameAndCardsMessage(Participant participant, String name) {
     return name + " : " + participant.getCurrentCardsInfo();
+  }
+
+  public static void printDealerHitOrStayMessage(boolean result) {
+    if (result) {
+      printMessage("\n딜러는 16이하라 한장의 카드를 더 받았습니다.");
+      return;
+    }
+    printMessage("\n딜러는 17이상이라 카드를 추가로 받지 않았습니다.");
+  }
+
+  public static void printHitRejectedMessage(String name) {
+    printMessage("\n" + name + "은/는 점수의 총합이 21을 초과하므로 카드를 더 받을 수 없습니다.");
   }
 
 }
