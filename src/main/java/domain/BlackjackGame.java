@@ -28,8 +28,16 @@ public class BlackjackGame {
         GameProcessor.showFirstRoundResult(dealer, playersArray);
     }
 
+    static void evaluateRound() {
+        int dealerScore = GameProcessor.calculateDealerHandValue(dealer);
+        ArrayList<Integer> playerScoreArray = GameProcessor.calculateAllPlayersHandValue(playersArray);
+        System.out.println(dealerScore);
+        System.out.println(playerScoreArray);
+    }
+
     public static void main(String[] args) {
         initGame();
         dealFirstRound();
+        evaluateRound();
     }
 }

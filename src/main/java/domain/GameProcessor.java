@@ -6,7 +6,6 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,5 +51,31 @@ public class GameProcessor {
         for (Player player : playersArray) {
             System.out.println(player.getName() + " : " + player.getCards());
         }
+    }
+
+    static int calculateDealerHandValue(Dealer dealer) {
+        List<Card> dealerCards = dealer.getCards();
+        int score = 0;
+        for (int i = 0; i < dealerCards.size(); i++) {
+            score += dealerCards.get(i).getScore();
+        }
+        return score;
+    }
+
+    static int calculatePlayerHandValue(Player player) {
+        List<Card> playerCards = player.getCards();
+        int score = 0;
+        for (int i = 0; i < playerCards.size(); i++) {
+            score += playerCards.get(i).getScore();
+        }
+        return score;
+    }
+
+    static ArrayList<Integer> calculateAllPlayersHandValue(ArrayList<Player> playersArray) {
+        ArrayList<Integer> playerScoreArray = new ArrayList<Integer>();
+        for (Player player : playersArray) {
+            playerScoreArray.add(calculatePlayerHandValue(player));
+        }
+        return playerScoreArray;
     }
 }
