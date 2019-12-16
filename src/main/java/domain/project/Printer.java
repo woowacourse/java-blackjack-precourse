@@ -21,4 +21,12 @@ public class Printer {
 	public void printPlayerSizeOverEight() {
 		System.out.println("게임 참여자는 8명 이하여야 합니다. 다시 입력해 주세요.");
 	}
+	
+	public void printInputBettingMoney(String name) {
+		System.out.println("\r\n" + name + "의 배팅 금액은?");
+	}
+	
+	public void printInputNumber() {
+		System.out.println("숫자를 입력해주세요.");
+	}
 }
