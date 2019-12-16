@@ -38,6 +38,7 @@ public class BlackJackGame {
     }
 
     private void proceedGame() {
+    	step++;
         boolean NextTF = proceedHandOutCards();
         if (NextTF == true) {
             nextProceed();
@@ -45,9 +46,11 @@ public class BlackJackGame {
     }
 
     private void endGame() {
-        System.out.println("$이름" + "카드 : " + "$카드값");
-        System.out.println("## 최종수익");
-        System.out.println("$이름" + " : " + "$값");
+    	ProfitCalculation.countProfit(users, step);
+    	usersTotalCards();
+    	System.out.println();
+    	System.out.println("## 최종수익");
+    	ProfitCalculation.usersTotalProfit(users);
     }
 
     private List<String> playerNaming() {
@@ -159,4 +162,22 @@ public class BlackJackGame {
         }
         return !stopSet.contains(true);
     }
+    
+    private void usersTotalCards() {
+    	userTotalCards((Dealer) users.get(0));
+    	for (int i = 1; i < users.size(); i++) {
+    		userTotalCards((Player) users.get(i));
+    	}
+    }
+    
+    private void userTotalCards(Dealer dealer) {
+        dealer.userCardsInfo(dealer.getCards(), "딜러");
+        dealer.userSumNumbers();
+    }
+    
+    private void userTotalCards(Player player) {
+        player.userCardsInfo(player.getCards(), player.getPlayerName());
+        player.userSumNumbers();
+    }
+    
 }

@@ -5,8 +5,8 @@ import domain.card.Card;
 
 
 public abstract class User {
-    int profit = 0;
     int sumNumbers = 0;
+    double profit = 0.0;
     private boolean blackJackTF = false;
     private boolean bustTF = false;
     private boolean twentyoneTF = false;
@@ -49,11 +49,15 @@ public abstract class User {
         return sumNumbers;
     }
 
-    void userSumNumbers() {
-        System.out.println(" - 결과 : " + sumNumbers);
+    public void userSumNumbers() {
+        System.out.println("    - 결과 : " + sumNumbers);
+    }
+    
+    public void setProfit(double profit) {
+    	this.profit += profit;
     }
 
-    void userProfit(String name) {
+    public void userProfit(String name) {
         System.out.println(name + " : " + profit);
     }
 

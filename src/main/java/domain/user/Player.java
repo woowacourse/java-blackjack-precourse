@@ -30,4 +30,7 @@ public class Player extends User {
         sumNumbers += card.cardNumber("Player", sumNumbers);
     }
 
+    public double getBettingMoney() {
+    	return bettingMoney;
+    }
 }
