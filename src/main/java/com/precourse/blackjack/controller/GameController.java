@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.precourse.blackjack.domain.card.Card;
 import com.precourse.blackjack.domain.game.Game;
 import com.precourse.blackjack.domain.user.Player;
 import com.precourse.blackjack.domain.util.InputUtil;
@@ -75,5 +76,14 @@ public class GameController {
 
 	public static void showInitialCardDealingEnd(String names) {
 		OutputView.printInitialCardDealingEnd(names);
+	}
+
+	public static void showCards(String name, List<Card> cards) {
+		String nameAndCards = name + ": ";
+
+		for (Card c : cards) {
+			nameAndCards += c.toString();
+		}
+		OutputView.printCards(nameAndCards);
 	}
 }

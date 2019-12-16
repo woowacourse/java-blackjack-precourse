@@ -29,4 +29,8 @@ public class OutputView {
 	public static void printInitialCardDealingEnd(String names) {
 		System.out.println(names + INITIAL_CARD_DEALING_END);
 	}
+
+	public static void printCards(String nameAndCards) {
+		System.out.println(nameAndCards);
+	}
 }

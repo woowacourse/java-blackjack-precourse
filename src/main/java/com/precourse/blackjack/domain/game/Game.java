@@ -44,6 +44,8 @@ public class Game {
 		Collections.shuffle(cardDeck);
 		dealTwoCards();
 		GameController.showInitialCardDealingEnd(getAllNames());
+		GameController.showCards(dealer.getName(), dealer.getCards());
+		players.forEach(player -> GameController.showCards(player.getName(), player.getCards()));
 	}
 
 	private void dealTwoCards() {
