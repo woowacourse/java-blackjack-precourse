@@ -14,7 +14,7 @@ public class Player extends Participant {
     private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
-        super("딜러");
+        super(name);
         super.cards = cards;
         this.name = name;
         this.bettingMoney = bettingMoney;
