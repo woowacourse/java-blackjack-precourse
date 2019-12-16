@@ -1,6 +1,7 @@
 package domain.manager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,31 +13,48 @@ public class Input {
 
     public static List<Player> setPlayerList() {
         List<Player> user = new ArrayList<>();
+        List<String> playerNameList = inputPlayerName();
+        List<Double> playerBettingMoneyList = inputPlayerBettingMoney(playerNameList);
 
-        String[] playerNameList = inputPlayerName();
-        double[] playerBettingMoneyList = inputPlayerBettingMoney(playerNameList);
-
-        for (int i = 0; i < playerNameList.length; i++) {
-            user.add(new Player(playerNameList[i], playerBettingMoneyList[i]));
+        for (int i = 0; i < playerNameList.size(); i++) {
+            user.add(new Player(playerNameList.get(i), playerBettingMoneyList.get(i)));
         }
 
         return user;
     }
 
-    private static String[] inputPlayerName() {
+    private static List<String> inputPlayerName() {
         System.out.println("게임의 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
+        List<String> playerNameList = Arrays.asList(s.nextLine().split(","));
 
-        return s.nextLine().split(",");
+        if(execptionPlayerNameOverlap(playerNameList)) {
+            System.out.println("중복되는 이름이 있습니다. 처음부터 다시 입력해주세요.");
+            return inputPlayerName();
+        }
+
+        return playerNameList;
     }
 
-    private static double[] inputPlayerBettingMoney(String[] playerNameList) {
-        double[] playerBettingMoneyList = new double[playerNameList.length];
+    private static boolean execptionPlayerNameOverlap(List<String> playerNameList) {
+        return playerNameList.size() != playerNameList.stream().distinct().count();
+    }
 
-        for (int i = 0; i < playerNameList.length; i++) {
-            System.out.println(playerNameList[i] + "의 베팅 금액은?");
-            playerBettingMoneyList[i] = s.nextDouble();
+    private static List<Double> inputPlayerBettingMoney(List<String> playerNameList) {
+        List<Double> playerBettingMoneyList = new ArrayList<Double>();
+
+        for (int i = 0; i < playerNameList.size(); i++) {
+            System.out.println(playerNameList.get(i) + "의 베팅 금액은?");
+            playerBettingMoneyList.add(execptionBettingMoneyNegative(s.nextDouble()));
         }
 
         return playerBettingMoneyList;
+    }
+
+    private static double execptionBettingMoneyNegative(double bettingMoney) {
+        if (bettingMoney < 0) {
+            System.out.println("베팅 금액은 음수가 될 수 없습니다. 다시 입력하세요.");
+            bettingMoney = s.nextDouble();
+        }
+        return bettingMoney;
     }
 }
