@@ -23,29 +23,11 @@ public class UserRepository {
 		for (String player : names) {
 			playerNameList.add(ViewInput.getPlayerName(player.trim()));
 		}
-		
 		System.out.println();
 	}
 	
-	public boolean checkPlayerNameList() {
-		boolean flag = true;
-		
-		for (String player : playerNameList) {
-			flag = wrongInput(flag, player);
-		}
-		
-		if (!flag) {
-			playerNameList.removeAll(playerNameList);
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean wrongInput(boolean flag, String player) {
-		if(player.length() != 0 && flag) {
-			return true;
-		}
-		return false;
+	public List<String> getPlayerNameList() {
+		return playerNameList;
 	}
 	
 	public void makeUserList() {
@@ -57,7 +39,6 @@ public class UserRepository {
 			
 			userList.add(player);
 		}
-		
 		System.out.println();
 	}
 	
@@ -83,6 +64,7 @@ public class UserRepository {
 	public void secondPlayerDealOut() {
 		for (int i = playerFirstInx; i < userList.size(); i++) {
 			User user = userList.get(i);
+			
 			checkAnswer(user);
 		}
 	}
@@ -90,7 +72,7 @@ public class UserRepository {
 	public void checkAnswer(User user) {
 		String answer = "y";
 		
-		while (answer.equals("y") && ((Player)user).isBelowJack()) {
+		while (answer.equals("y") && ((Player) user).isBelowJack()) {
 			answer = ViewInput.askGetCard((Player)user);
 			ViewOutput.showEachResult(user);
 			System.out.println();
@@ -126,16 +108,24 @@ public class UserRepository {
 		}
 	}
 	
-	public void compareResult(int playerInx, int criteria) {
-		if (!isDraw(playerInx, criteria)) {
+	public void compareResult(int playerInx, int criteria) {		
+		if (!isDraw(playerInx, criteria) || playerAlwaysWin(playerInx)) {
 			modifyProfit(getWinnerInx(playerInx, criteria), 
 					getLoserInx(getWinnerInx(playerInx, criteria), playerInx), 
 					((Player)userList.get(playerInx)).getBettingMoney());
 		}
 	}
 	
+	public boolean playerAlwaysWin(int playerInx) {
+		if(userList.get(playerInx).checkBlackJack() 
+				&& !userList.get(dealerInx).checkBlackJack()) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean isDraw(int playerInx, int criteria) {
-		if (userList.get(playerInx).getScore() == criteria) {
+		if (userList.get(playerInx).getScore() == criteria ) {
 			return true;
 		}
 		return false;
@@ -147,12 +137,19 @@ public class UserRepository {
 	}
 	
 	public int getWinnerInx(int playerInx, int criteria) {
-		int playerScore = userList.get(playerInx).getScore();
-		
-		if (playerScore <= Jack && (playerScore > criteria || (criteria > Jack))) {
+		if (playerWin(playerInx, criteria) || playerAlwaysWin(playerInx)) {
 			return playerInx;
 		}
 		return dealerInx;
+	}
+	
+	public boolean playerWin(int playerInx, int criteria) {
+		int playerScore = userList.get(playerInx).getScore();
+		
+		if(playerScore <= Jack && (playerScore > criteria || (criteria > Jack))) {
+			return true;
+		}
+		return false;
 	}
 	
 	public int getLoserInx(int winnerInx, int playerInx) {

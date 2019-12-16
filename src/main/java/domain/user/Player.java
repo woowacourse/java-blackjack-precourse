@@ -24,23 +24,23 @@ public class Player extends User {
     	return getCardResult();
     }
     
-    public boolean isBelowJack() {
-    	int score = 0;
-  
-    	for (Card card : getCards()) {
-    		score += card.getScore();
-    	}
-    	
-    	if (score < Jack) {
-    		return true;
-    	}
-    	return false;
-    }
-    
     public double getBettingMoney() {
-    	if (getScore() == Jack) {
+    	if (checkBlackJack()) {
     		return bettingMoney * 1.5;
     	}
     	return bettingMoney;
     }
+    
+	public boolean isBelowJack() {
+		int score = 0;
+		
+		for (Card card : getCards()) {
+			score += card.getScore();
+		}
+		
+		if (score < Jack) {
+			return true;
+		}
+		return false;
+	}
 }

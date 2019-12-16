@@ -8,13 +8,14 @@ import domain.card.Card;
 
 public abstract class User {
 	private final List<Card> cards = new ArrayList<>();
+	private final int blackJackCard = 2;
 	protected final int Jack = 21;
 	
     public void addCard(Card card) {
         cards.add(card);
     }
     
-    protected List<Card> getCards() {
+    public List<Card> getCards() {
     	return cards;
     }
     
@@ -43,5 +44,12 @@ public abstract class User {
 		}
 		
 		return score;
+	}
+	
+	public boolean checkBlackJack() {
+		if(cards.size() == blackJackCard && getScore() == Jack) {
+			return true;
+		}
+		return false;
 	}
 }
