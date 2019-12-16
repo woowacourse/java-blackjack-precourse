@@ -4,10 +4,7 @@ import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
@@ -28,6 +25,14 @@ public class Blackjack {
             System.out.println(name + "의 배팅 금액을 입력해주세요.");
             double bettingMoney = getBettingMoney();
             players.add(new Player(name, bettingMoney));
+        }
+
+        Collections.shuffle(cards);
+        System.out.printf("딜러와 %s에게 2장의 카드를 나누었습니다.", String.join(",", nameArr));
+        deal(dealer);
+        for (Player player : players) {
+            deal(player);
+            deal(player);
         }
     }
 
@@ -72,5 +77,15 @@ public class Blackjack {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void deal(Player player) {
+        Card card = cards.pop();
+        player.addCard(card);
+    }
+
+    public void deal(Dealer dealer) {
+        Card card = cards.pop();
+        dealer.addCard(card);
     }
 }
