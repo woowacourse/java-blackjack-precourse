@@ -2,6 +2,7 @@ package domain.game;
 
 import java.util.ArrayList;
 
+import domain.card.CardPay;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -12,12 +13,14 @@ public class Play {
 	ArrayList<Player> playerList;
 	Dealer dealer;
 	GameRequest gameRequest;
+	CardPay cardPay;
 
 	public Play() {
 		dealer = new Dealer();
 		playerList = new ArrayList<Player>();
 		gameRequest = new GameRequest();
 		gameRequest.requestName();
+		cardPay = new CardPay();
 	}
 
 	public void requestUser() {
@@ -26,5 +29,6 @@ public class Play {
 
 	public void giveCard() {
 		GameUI.parsingName(playerList);
+		cardPay.giveUserCard(dealer);
 	}
 }

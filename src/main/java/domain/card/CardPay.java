@@ -3,6 +3,8 @@ package domain.card;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.user.Person;
+
 public class CardPay {
 	private List<Card> cardList;
 
@@ -11,7 +13,7 @@ public class CardPay {
 		cardList = CardFactory.create();
 	}
 
-	public void giveUserCard(){
-
+	public void giveUserCard(Person person){
+		
 	}
 }
