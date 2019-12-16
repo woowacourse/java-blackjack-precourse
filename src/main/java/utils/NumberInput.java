@@ -19,12 +19,11 @@ public class NumberInput {
 		try {
 			num = Double.valueOf(UserInput.input());
 			validate(num);
+			this.number = num;
 		} catch (RuntimeException e) {
 			System.out.println("올바른 숫자를 입력하세요.");
 			input();
 		}
-		
-		this.number = num;
 	}
 	
 	private void validate(double num) {

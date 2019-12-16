@@ -20,11 +20,10 @@ public class NameInput {
 		try {
 			validateNamesLength(output);
 			validateLength(output);
+			this.names = output;
 		} catch (IllegalArgumentException e) {
 			input();
 		}
-		
-		this.names = output;
 	}
 	
 	private void validateNamesLength(String[] strings) {
