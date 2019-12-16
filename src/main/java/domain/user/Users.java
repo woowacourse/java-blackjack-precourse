@@ -63,4 +63,17 @@ public class Users {
     public void addDealer() {
         users.add(new Dealer());
     }
+
+    public void processEachUser(Stack stack) {
+        for (User user : users) {
+            processPlayer(user, stack);
+        }
+    }
+
+    private void processPlayer(User user, Stack stack) {
+        if (user instanceof Player) {
+            Player player = (Player) user;
+            player.proceed(stack);
+        }
+    }
 }

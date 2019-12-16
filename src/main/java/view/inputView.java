@@ -20,4 +20,12 @@ public class inputView {
 
         return playersName;
     }
+
+    public static String inputHitOrStand(String playerName) {
+        scanner = new Scanner(System.in);
+        System.out.println(playerName + "은(는) 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        String response = scanner.nextLine();
+
+        return response.toLowerCase();
+    }
 }

@@ -28,5 +28,16 @@ public class User {
         return String.join(", ", getCardValue());
     }
 
+    public int getScore() {
+        int score = 0;
+        for (Card card : cards) {
+            score += card.getScore();
+        }
+        return score;
+    }
+
+    boolean validateOver21() {
+        return getScore() < 21;
+    }
 
 }
