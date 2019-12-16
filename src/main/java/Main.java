@@ -46,17 +46,14 @@ public class Main {
     }
 
     public static double inputBettingAmount(Scanner scanner, String name) {
-        System.out.println(name + "의 배팅 금액은?");
-
-        return inputBettingAmount(scanner);
-    }
-
-    public static double inputBettingAmount(Scanner scanner) {
         double bettingAmount;
-        try {
+        System.out.println(name + "의 배팅 금액은?");
+        bettingAmount = scanner.nextDouble();
+
+        while (bettingAmount <= 0) {
+            System.out.println("배팅 금액은 0보다 커야합니다.");
+            System.out.println(name + "의 배팅 금액은?");
             bettingAmount = scanner.nextDouble();
-        } catch (java.util.InputMismatchException e) {
-            bettingAmount = inputBettingAmount(scanner);
         }
 
         return bettingAmount;
