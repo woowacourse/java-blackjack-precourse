@@ -13,7 +13,6 @@ public class Table {
   private Deck deck;
   private Dealer dealer;
   private ArrayList<Player> players = new ArrayList<>();
-  private ArrayList<Double> bettingBox = new ArrayList<>();
   private ArrayList<Double> scoreBoard = new ArrayList<>();
 
   public Table() {
@@ -26,16 +25,12 @@ public class Table {
     this.players.add(player);
   }
 
-  private void betMoney(double betting) {
-    this.bettingBox.add(betting);
-  }
 
   public void joinPlayers(String[] users, double[] betting) {
     for (int i = 0; i < users.length; i++) {
       Player player = new Player(users[i], betting[i]);
 
       addPlayer(player);
-      betMoney(betting[i]);
     }
   }
 
