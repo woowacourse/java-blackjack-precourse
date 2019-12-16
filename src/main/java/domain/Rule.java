@@ -21,39 +21,29 @@ public class Rule {
     private static final double BLACKJACK_MONEY_RATIO = 1.5;
     private static final int BURST_SCORE = -1;
     
-    public static void setScore(User user, Card card) {
-        if (user.isScoreEquals(BURST_SCORE)) {
-            return;
+    public static int getScore(ArrayList<Card> cards) {
+        int score = cards.stream().mapToInt(Card::getScore).sum();
+        if (score > BLACKJACK_SCORE) {
+            return BURST_SCORE;
         }
-        user.addScore(card.getScore());
-        if (card.isSymbolEquals(ace)) {
-            user.setIsAce(true);
+        if (isAces(cards) && score <= BLACKJACK_SCORE - DIFFERENCE_BETWEEN_SMALL_AND_BIG_ACE) {
+            return score + DIFFERENCE_BETWEEN_SMALL_AND_BIG_ACE;
         }
-        if (user.isScoreGreaterThan(BLACKJACK_SCORE) && user.getIsBigAce()) {
-            user.subtractScore(DIFFERENCE_BETWEEN_SMALL_AND_BIG_ACE);
-            user.setIsBigAce(false);
-            return;
-        }
-        if (!user.isScoreGreaterThan(BLACKJACK_SCORE - DIFFERENCE_BETWEEN_SMALL_AND_BIG_ACE) && user.getIsAce()) {
-            user.addScore(DIFFERENCE_BETWEEN_SMALL_AND_BIG_ACE);
-            user.setIsBigAce(true);
-            return;
-        }
-        if (user.isScoreGreaterThan(BLACKJACK_SCORE) && !user.getIsBigAce()) {
-            user.setIsBurst(true);
-            user.setScore(BURST_SCORE);
-        }
+        return score;
+    }
+
+    private static boolean isAces(ArrayList<Card> cards) {
+        return cards.stream().anyMatch(card -> card.isSymbolEquals(ace));
     }
 
     public static boolean canDrawMore(Player player) {
-        if (player.getIsBurst()) {
-            return false;
-        }
-        return !player.isScoreGreaterThan(BLACKJACK_SCORE) && !player.isScoreEquals(BLACKJACK_SCORE);
+        int playerScore = getScore(player.showCards());
+        return playerScore < BLACKJACK_SCORE && playerScore != BURST_SCORE;
     }
 
     public static boolean isDealerDraw(Dealer dealer) {
-        return !dealer.isScoreGreaterThan(MIN_DEALER_SCORE) && !dealer.getIsBurst();
+        int dealerScore = getScore(dealer.showCards());
+        return dealerScore < MIN_DEALER_SCORE && dealerScore != BURST_SCORE;
     }
 
     public static double getDealerProfit(Dealer dealer, ArrayList<Player> players) {
@@ -65,11 +55,14 @@ public class Rule {
     }
 
     private static boolean getIsBlackJack(User user) {
-        return user.isScoreEquals(BLACKJACK_SCORE) && user.showCards().size() == FIRST_PLAYER_CARD_COUNTS;
+        int userScore = getScore(user.showCards());
+        return userScore == BLACKJACK_SCORE && user.showCards().size() == FIRST_PLAYER_CARD_COUNTS;
     }
 
     public static double getPlayerProfit(Dealer dealer, Player player) {
-        if (dealer.isScoreEquals(BURST_SCORE)) {
+        int dealerScore = getScore(dealer.showCards());
+        int playerScore = getScore(player.showCards());
+        if (dealerScore == BURST_SCORE) {
             return getProfitInDealerBurst(player);
         }
         if (getIsBlackJack(dealer)) {
@@ -78,10 +71,10 @@ public class Rule {
         if (getIsBlackJack(player)) {
             return player.getResultProfit(BLACKJACK_MONEY_RATIO);
         }
-        if (player.isScoreGreaterThan(dealer.getScore())) {
+        if (playerScore > dealerScore) {
             return player.getResultProfit(WINNING_MONEY_RATIO);
         }
-        if (player.isScoreEquals(dealer.getScore())) {
+        if (playerScore == dealerScore) {
             return 0.0;
         }
         return player.getResultProfit(LOSING_MONEY_RATIO);
@@ -95,7 +88,10 @@ public class Rule {
     }
 
     private static double getProfitInDealerBurst(Player player) {
-        if (player.isScoreEquals(BURST_SCORE)) {
+        if (getIsBlackJack(player)) {
+            return player.getResultProfit(BLACKJACK_MONEY_RATIO);
+        }
+        if (getScore(player.showCards()) == BURST_SCORE) {
             return player.getResultProfit(LOSING_MONEY_RATIO);
         }
         return player.getResultProfit(WINNING_MONEY_RATIO);

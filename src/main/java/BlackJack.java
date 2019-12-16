@@ -64,7 +64,7 @@ class BlackJack {
 
     private void addCard(User user, Card card) {
         user.addCard(card);
-        Rule.setScore(user, card);
+        Rule.getScore(user.showCards());
     }
 
     private void distributeCardsToPlayers() {

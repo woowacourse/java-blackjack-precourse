@@ -79,7 +79,7 @@ public class OutputView {
 
     private static void appendTotalScoreLine(StringBuilder stringBuilder, User user) {
         stringBuilder.append(RESULT_SCORE_MESSAGE);
-        stringBuilder.append(user.getScore());
+        stringBuilder.append(Rule.getScore(user.showCards()));
         stringBuilder.append("\n");
     }
 
