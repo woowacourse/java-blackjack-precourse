@@ -46,11 +46,20 @@ public class Output {
     }
 
     public void printPlayerCards(Player player) {
-        System.out.print(""+player.getName()+"카드: ");
+        System.out.print(player.getName() + "카드: ");
         List<String> stringCards = new ArrayList<>();
         for (Card card: player.getCards()) {
             stringCards.add(card.getSymbolName() + card.getTypeName());
         }
         System.out.println(String.join(", ", stringCards));
+    }
+
+    public void printYesOrNo(Player player) {
+        System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+    }
+
+    public void printAddDealerCard() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+        System.out.println();
     }
 }

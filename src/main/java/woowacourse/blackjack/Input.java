@@ -17,6 +17,13 @@ public class Input {
 
     public double getPlayerBettingMoney(String playerName) {
         this.output.printBettingMoneyInput(playerName);
-        return sc.nextDouble();
+        double bettingMoney = sc.nextDouble();
+        sc.nextLine();
+        return bettingMoney;
+    }
+
+    public String getYesOrNo(Player player) {
+        this.output.printYesOrNo(player);
+        return sc.nextLine();
     }
 }

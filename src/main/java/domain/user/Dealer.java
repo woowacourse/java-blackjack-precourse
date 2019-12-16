@@ -43,10 +43,6 @@ public class Dealer {
         return getCardsList.contains(getCard);
     }
 
-    public boolean isBlackJack() {
-        return this.getElevenEqualsAScore() == 21;
-    }
-
     public int getSumScore() {
         int count = 0;
         for (Card card: this.cards) {
@@ -63,21 +59,12 @@ public class Dealer {
         return count < 21;
     }
 
-    public int getSumScoreResult() {
-        int oneEqualsA = this.getSumScore();
-        int elevenEqualsA = this.getElevenEqualsAScore();
-        if (Math.abs(21 - this.getSumScore()) < Math.abs(21 - this.getElevenEqualsAScore())) {
-            return oneEqualsA;
-        }
-        return elevenEqualsA;
-    }
-
-    public int getElevenEqualsAScore() {
+    public boolean isHitDealerCard() {
         int count = 0;
         for (Card card: this.cards) {
             count += checkOneOrEleven(card.getSymbolScore());
         }
-        return count;
+        return count < 17;
     }
 
     private int checkOneOrEleven(int score) {
