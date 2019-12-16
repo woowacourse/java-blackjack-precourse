@@ -68,7 +68,7 @@ public class OutputSystem {
         System.out.println("## 최종수익");
         System.out.println("딜러 : "+ dealerResult.getMoney());
         for (Result player : playerResult) {
-            System.out.println(player.getName() + ":" + player.getMoney());
+            System.out.println(player.getName() + " : " + player.getMoney());
         }
     }
 

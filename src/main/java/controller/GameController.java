@@ -55,13 +55,14 @@ public class GameController {
     }
 
     public void gameResult() {
-
         calculateMoney();
         OutputSystem.printResultValue(dealer, players);
         OutputSystem.printResultMoney(dealerResult, playerResult);
     }
 
     private void calculateMoney() {
+        if (dealer.isBlackJack())
+            return;
         if (dealer.getTotalNumber() > MAXIUM_VALUE) {
             dealerBurstCalculate();
             return;
@@ -116,12 +117,12 @@ public class GameController {
             playerResult.add(new Result(player.getName(), -player.getBettingMoney()));
             return player.getBettingMoney();
         }
-        if (dealer.isTie(player)){
-            playerResult.add(new Result(player.getName(),0));
+        if (dealer.isTie(player)) {
+            playerResult.add(new Result(player.getName(), 0));
             return 0;
         }
-        playerResult.add(new Result(player.getName(),player.getBettingMoney()+player.blackJackBonus()));
-        return -(player.getBettingMoney()+player.blackJackBonus());
+        playerResult.add(new Result(player.getName(), player.getBettingMoney() + player.blackJackBonus()));
+        return -(player.getBettingMoney() + player.blackJackBonus());
     }
 
     private String[] commaNameSlice(String names) {
