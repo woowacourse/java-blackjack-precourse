@@ -4,6 +4,7 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -22,6 +23,8 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
-
+    public String needMoreCard(Scanner sc) {
+        System.out.println(name + ": 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
+        return sc.nextLine();
+    }
 }

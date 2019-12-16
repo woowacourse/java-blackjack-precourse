@@ -9,6 +9,8 @@ import java.util.*;
 public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
     public final int MAX_NAME_LENGTH = 5;
+    public final String YES = "y";
+    public final String NO = "n";
     public Dealer dealer;
     public List<Player> players = new ArrayList<Player>();
     public Scanner sc = new Scanner(System.in);
@@ -28,11 +30,15 @@ public class Blackjack {
         }
 
         Collections.shuffle(cards);
-        System.out.printf("딜러와 %s에게 2장의 카드를 나누었습니다.", String.join(",", nameArr));
+        System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
         deal(dealer);
         for (Player player : players) {
             deal(player);
             deal(player);
+        }
+
+        for (Player player : players) {
+            giveExtraCard(player);
         }
     }
 
@@ -87,5 +93,24 @@ public class Blackjack {
     public void deal(Dealer dealer) {
         Card card = cards.pop();
         dealer.addCard(card);
+    }
+
+    public void giveExtraCard(Player player) {
+        while (isReceivingCard(player)) {
+            deal(player);
+        }
+    }
+
+    public boolean isReceivingCard(Player player) {
+        String decision = player.needMoreCard(sc);
+        while (!isValidAnswer(decision)) {
+            System.out.println("입력이 잘못되었습니다. 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
+            decision = sc.nextLine();
+        }
+        return YES.equals(decision);
+    }
+
+    public boolean isValidAnswer(String decision) {
+        return (decision.equals(YES) || decision.equals(NO));
     }
 }
