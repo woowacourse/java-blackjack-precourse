@@ -9,4 +9,8 @@ public class AllCard {
     public static List<Card> getCards() {
         return Collections.unmodifiableList(cards);
     }
+
+    public static void remove(Card card) {
+        cards.remove(card);
+    }
 }
