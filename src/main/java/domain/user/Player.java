@@ -1,5 +1,6 @@
 package domain.user;
 
+import common.BlackjackConfig;
 import domain.card.Card;
 import domain.card.Deck;
 
@@ -12,7 +13,6 @@ import java.util.List;
 public class Player extends User {
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -22,5 +22,20 @@ public class Player extends User {
     @Override
     public String toString() {
         return name;
+    }
+
+    public double win() {
+        profit += bettingMoney;
+        return profit;
+    }
+
+    public double winWithBlackjack() {
+        profit += bettingMoney * BlackjackConfig.BLACKJACK_RATE;
+        return profit;
+    }
+
+    public double lose() {
+        profit -= bettingMoney;
+        return profit;
     }
 }

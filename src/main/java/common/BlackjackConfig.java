@@ -12,5 +12,6 @@ public class BlackjackConfig {
     public static final String[] NOT_ALLOWED_IN_NAME = {" ", "!", "@", "#", "$", "%", "^", "&", "*"};
     public static final double MIN_MONEY = 0;
     public static final String[] ALLOWED_WILL = {"y", "n"};
+    public static final double BLACKJACK_RATE = 1.5;
 }
 

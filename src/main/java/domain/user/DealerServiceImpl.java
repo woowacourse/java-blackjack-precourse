@@ -1,7 +1,7 @@
 package domain.user;
 
+import common.BlackjackConfig;
 import domain.BlackjackPrinter;
-import domain.card.CardConfig;
 import domain.card.Deck;
 
 public class DealerServiceImpl extends UserService {
@@ -23,7 +23,7 @@ public class DealerServiceImpl extends UserService {
     }
 
     private boolean pointInRange(int point) {
-        return point <= CardConfig.STANDARD_TO_HIT_FOR_DEALER;
+        return point <= BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER;
     }
 
     public Deck shuffle() {

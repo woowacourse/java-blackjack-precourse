@@ -1,7 +1,7 @@
 package domain.user;
 
+import common.BlackjackConfig;
 import domain.card.Card;
-import domain.card.CardConfig;
 import domain.card.Symbol;
 
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public abstract class User {
     protected final List<Card> cards = new ArrayList<>();
+    protected double profit;
 
     public List<Card> getCards() {
         return cards;
@@ -49,10 +50,10 @@ public abstract class User {
         return sum;
     }
     private int calculateSurplus(int sum, Card ace) {
-        if ( CardConfig.BLACKJACK < sum + CardConfig.SURPLUS_OF_ACE )  {
+        if ( BlackjackConfig.BLACKJACK < sum + BlackjackConfig.SURPLUS_OF_ACE )  {
             return 0;
         }
-        return CardConfig.SURPLUS_OF_ACE;
+        return BlackjackConfig.SURPLUS_OF_ACE;
     }
 
     ;
@@ -63,5 +64,19 @@ public abstract class User {
     }
     private boolean matchesA() {
         return true;
+    }
+
+    public boolean isBust() {
+        int score = calculateScore();
+        return BlackjackConfig.BLACKJACK < score;
+    };
+
+    public boolean isBlackjack() {
+        int score = calculateScore();
+        return cards.size() == BlackjackConfig.DEFAULT_NUMBER && score == BlackjackConfig.BLACKJACK;
+    }
+
+    public double getProfit() {
+        return profit;
     }
 }

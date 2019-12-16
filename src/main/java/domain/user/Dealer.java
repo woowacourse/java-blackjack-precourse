@@ -16,4 +16,10 @@ public class Dealer extends User {
         return "딜러";
     }
 
+    public void win(double money) {
+        profit += money;
+    }
+    public void lose(double money) {
+        profit -= money;
+    }
 }

@@ -27,7 +27,7 @@ public class PlayerServiceImpl extends UserService {
     @Override
     public void confirmCards(User user) {
         //todo: refac
-        if (isBust(user)) {
+        if (user.isBust()) {
             //todo: refac
             System.out.println(String.format("%s는 버스트하여, 더이상 카드를 받을 수 없습니다.", user));
             return;
@@ -47,11 +47,6 @@ public class PlayerServiceImpl extends UserService {
         user.addCard(deck.pick());
         blackjackPrinter.printUserState(user);
         confirmCards(user);
-    }
-
-    private boolean isBust(User user) {
-        int score = user.calculateScore();
-        return BlackjackConfig.BLACKJACK < score;
     }
 
     public List<Player> join() {
