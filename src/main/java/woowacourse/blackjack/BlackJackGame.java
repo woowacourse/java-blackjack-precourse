@@ -9,6 +9,8 @@ import domain.card.Card;
 
 public class BlackJackGame {
     private Scanner sc = new Scanner(System.in);
+    private Input input = new Input();
+    private Output output = new Output();
     private List<Player> players = new ArrayList<>();
     private Dealer dealer = new Dealer();
     private HashMap<String, Double> revenue = new HashMap<String, Double>();
@@ -17,48 +19,32 @@ public class BlackJackGame {
     private List<String> blackJackMembers = new ArrayList<>();
 
     public void runGame() {
-        this.inputData();
+        this.inputNameAndBettingMoney();
         this.getFirstCardsAllPeople();
-        this.printPlayersAndDealerCards();
-        System.out.println(this.revenue);
-        if (this.isBlackJackResult()) {
-            return ;
-        }
-        this.checkHit();
-        this.printCardsResult();
-
+        this.output.printPlayersAndDealerCards(this.dealer, this.players);
+//        if (this.isBlackJackResult()) {
+//            return ;
+//        }
+//        this.checkHit();
+//        this.printCardsResult();
+//        this.gameResult();
     }
 
-    private void inputData() {
-        this.revenue.put("딜러", 0.0);
-        List<String> playerNames = this.getPlayerNames();
-        List<Double> bettingMoney = this.getBettingMoney(playerNames);
-        this.setPlayerInformation(playerNames, bettingMoney);
+    private void inputNameAndBettingMoney() {
+        List<String> playerNames = this.input.getPlayerNames();
+        this.getBettingMoney(playerNames);
     }
 
-    private List<String> getPlayerNames() {
-        System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
-        return Arrays.asList(sc.nextLine().split(","));
-    }
-
-    private List<Double> getBettingMoney(List<String> playerNames) {
+    private void getBettingMoney(List<String> playerNames) {
         System.out.println();
-        List<Double> bettingMoney = new ArrayList<>();
         for (String playerName : playerNames) {
-            System.out.println("" + playerName + "의 배팅 금액은?");
-            bettingMoney.add(sc.nextDouble());
-            sc.nextLine();
+            this.players.add(this.setPlayer(playerName, this.input.getPlayerBettingMoney(playerName)));
             System.out.println();
         }
-        return bettingMoney;
     }
 
-    private void setPlayerInformation(List<String> playerNames, List<Double> bettingMoney) {
-        int amount = playerNames.size();
-        for (int i = 0; i < amount; i++) {
-            this.players.add(new Player(playerNames.get(i), bettingMoney.get(i)));
-            this.revenue.put(playerNames.get(i), 0.0);
-        }
+    private Player setPlayer(String playerName, double bettingMoney) {
+        return new Player(playerName, bettingMoney);
     }
 
     private void getFirstCardsAllPeople() {
@@ -66,33 +52,6 @@ public class BlackJackGame {
             player.getFirstCards(this.cards, this.getCardsList);
         }
         this.dealer.getFirstCards(this.cards, this.getCardsList);
-    }
-
-    private void printPlayersAndDealerCards() {
-        System.out.print("딜러와");
-        for (Player player: this.players) {
-            System.out.print(" "+player.getName()+"");
-        }
-        System.out.println("에게 2장의 카드를 나누었습니다.");
-        printDealerCards();
-        for (Player player: this.players) {
-            printPlayersCards(player);
-        }
-        System.out.println();
-    }
-
-    private void printDealerCards() {
-        System.out.print("딜러: ");
-        System.out.println(""+this.dealer.getCards().get(0).getSymbolName()+"" + ""+this.dealer.getCards().get(0).getTypeName()+"");
-    }
-
-    private void printPlayersCards(Player player) {
-        System.out.print(""+player.getName()+"카드: ");
-        List<String> stringCards = new ArrayList<>();
-        for (Card card: player.getCards()) {
-            stringCards.add(card.getSymbolName() + card.getTypeName());
-        }
-        System.out.println(String.join(", ", stringCards));
     }
 
     private boolean isBlackJackDealer() {
@@ -168,7 +127,7 @@ public class BlackJackGame {
         while (getBooleanScore && getBooleanChoice){
             getBooleanChoice = choiceCardYesOrNo(player);
             getBooleanScore = player.getBooleanSumScore();
-            printPlayersCards(player);
+            this.output.printPlayerCards(player);
         }
         System.out.println();
     }
@@ -214,5 +173,24 @@ public class BlackJackGame {
             stringCards.add(card.getSymbolName() + card.getTypeName());
         }
         System.out.println(""+String.join(", ", stringCards)+" - 결과: "+player.getSumScoreResult()+"");
+    }
+
+    private void gameResult() {
+        if (this.isBustDealer()) {
+            this.printGameRevenueResult();
+            return ;
+        }
+    }
+
+    private boolean isBustDealer() {
+        return this.dealer.getSumScoreResult() > 21;
+    }
+
+    private void printGameRevenueResult() {
+        System.out.println("## 최종수익");
+        System.out.println("딜러: "+this.revenue.get("딜러")+"");
+        for (Player player: this.players) {
+            System.out.println(""+player.getName()+": "+this.revenue.get(player.getName())+"");
+        }
     }
 }
