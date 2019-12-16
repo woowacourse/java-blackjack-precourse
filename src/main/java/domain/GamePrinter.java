@@ -60,14 +60,14 @@ public class GamePrinter {
     }
 
     void printInitialParticipantCardInfo(List<Participant> participantList) {
-        for (int i = 0; i < participantList.size() - 1; i++) {
+        for (int i = 0; i < participantList.size() - 1; i++)
             System.out.print(participantList.get(i).getName() + ", ");
-        }
         System.out.println(participantList.get(participantList.size() - 1).getName() + "에게 2장의 카드를 나누어주었습니다.");
 
-        for (int i = 0; i < participantList.size(); i++){
+        // 딜러는 1장의 카드만 공개한다.
+        callPrintParticipantCardInfo(participantList.get(0), true, false);
+        for (int i = 1; i < participantList.size(); i++)
             callPrintParticipantCardInfo(participantList.get(i), false, false);
-        }
     }
 
     // 참여자의 이름과 카드 정보, 경우에 따라 결과 스코어를 출력하는 함수
@@ -91,7 +91,7 @@ public class GamePrinter {
     void printCardInfo(Participant participant, int cardSize) {
         List<Card> cards = participant.getCards();
         for (int i = 0; i < cardSize - 1; i++) {
-            System.out.print(cards.get(i).getSymbol().getScore() + cards.get(i).getType().getKoreaType());
+            System.out.print(cards.get(i).getSymbol().getStr()+ cards.get(i).getType().getKoreaType());
             System.out.print(",");
         }
         System.out.print(cards.get(cardSize - 1).getSymbol().getScore() + cards.get(cardSize - 1).getType().getKoreaType());
