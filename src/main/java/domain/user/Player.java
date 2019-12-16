@@ -30,10 +30,10 @@ public class Player extends User {
     }
 
     public void proceed(Stack stack) {
-        String response;
-        do {
+        String response = "";
+        while (isBlackjack() || (validateUnder(21) && !response.equals("n"))) {
             response = choice(stack);
-        } while (!validateOver(21) || !response.equals("n"));
+        }
     }
 
     private String choice(Stack stack) {

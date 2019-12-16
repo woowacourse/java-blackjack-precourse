@@ -44,4 +44,9 @@ public class Card {
     public int getScore() {
         return symbol.getScore();
     }
+
+    public String getSymbol() {
+        return this.symbol.toString();
+    }
+
 }

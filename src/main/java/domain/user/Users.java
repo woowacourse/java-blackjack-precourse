@@ -107,7 +107,7 @@ public class Users {
     }
 
     public void showProfits() {    //TODO  중복되는 코드 제거하기. Dealer와 List<Player>를 리턴함으로써 가능할 듯
-        getDealer();
+        //getDealer();
     }
 
     /* Dealer getDealer() {
