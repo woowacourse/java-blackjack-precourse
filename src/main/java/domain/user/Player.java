@@ -55,7 +55,7 @@ public class Player {
         return score;
     }
 
-    public void getBettingMoney(double interest) {
+    public void multiInterestToBettinfMoney(double interest) {
         reward = bettingMoney * interest;
     }
 
@@ -70,17 +70,11 @@ public class Player {
         return str;
     }
 
-    //삭제 할 기능
-    public String getinfo() {
+    public String getName() {
         return name;
     }
-    public double getbet(){
+    public double getBetting(){
         return bettingMoney;
-    }
-    public String getCard() {
-
-        String cardStr = String.join(", ",cards.toString());
-        return cardStr;
     }
 
     public boolean ifBlackJack() {
