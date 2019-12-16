@@ -7,7 +7,6 @@ import domain.card.CardFactory;
 import domain.user.User;
 import domain.user.UserRepository;
 import domain.validity.ValidityCheck;
-import domain.view.ViewInput;
 import domain.view.ViewOutput;
 
 public class Game {
@@ -21,9 +20,12 @@ public class Game {
 	public static Game getInstance() {
 		return blackJack;
 	}
+	
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
 
 	public void run() {
-		userRepository.makePlayerName(ViewInput.getPlayerNames());
 		userRepository.makeUserList();
 		firstDealOut();
 		secondDealOut();

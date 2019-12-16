@@ -14,7 +14,7 @@ public class ValidityCheck {
 	}
 	
 	public int moneyIsValid(String money) throws IllegalArgumentException {
-		if (money.equals("")) {
+		if (money.equals("") || Integer.parseInt(money) == 0) {
 			throw new IllegalArgumentException();
 		}
 		

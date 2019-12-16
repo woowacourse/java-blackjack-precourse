@@ -7,8 +7,7 @@ import domain.card.Card;
  */
 public class Player extends User {
     private final String name;
-    private final int bettingMoney;
-    private final int Jack = 21;
+    private final double bettingMoney;
 
     public Player(String name, int bettingMoney) {
         this.name = name;
@@ -38,7 +37,10 @@ public class Player extends User {
     	return false;
     }
     
-    public int getBettingMoney() {
+    public double getBettingMoney() {
+    	if (getScore() == Jack) {
+    		return bettingMoney * 1.5;
+    	}
     	return bettingMoney;
     }
 }

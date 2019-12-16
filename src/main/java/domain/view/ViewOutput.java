@@ -32,7 +32,7 @@ public class ViewOutput {
 		System.out.println(" - 결과 : " + user.getScore());
 	}
 	
-	public static void showEachProfit(List<User> userList, List<Integer> profit) {
+	public static void showEachProfit(List<User> userList, List<Double> profit) {
 		System.out.println("### 최종 수익");
 		for (int i = 0; i < userList.size(); i++) {
 			User user = userList.get(i);

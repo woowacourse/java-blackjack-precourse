@@ -8,6 +8,7 @@ import domain.card.Card;
 
 public abstract class User {
 	private final List<Card> cards = new ArrayList<>();
+	protected final int Jack = 21;
 	
     public void addCard(Card card) {
         cards.add(card);
