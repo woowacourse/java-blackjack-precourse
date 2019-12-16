@@ -29,9 +29,9 @@ public class Play {
 
 	public void giveCard() {
 		GameUI.parsingName(playerList);
-		cardPay.giveUserCard(dealer);
+		cardPay.firstGiveUserCard(dealer);
 		for (int i = 0; i < playerList.size(); i++) {
-			cardPay.giveUserCard(playerList.get(i));
+			cardPay.firstGiveUserCard(playerList.get(i));
 		}
 		printUserCard();
 	}

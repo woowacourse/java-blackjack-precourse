@@ -8,6 +8,7 @@ import domain.user.Person;
 
 public class CardPay {
 	private final static int MAX_RANDOM = 52;
+	private final static int FIRST_CARD_NUM = 2;
 	private List<Card> cardList;
 	private Random random;
 
@@ -17,8 +18,10 @@ public class CardPay {
 		random = new Random();
 	}
 
-	public void giveUserCard(Person person) {
-		person.addCard(randomNumberSelect());
+	public void firstGiveUserCard(Person person) {
+		for (int i = 0; i < FIRST_CARD_NUM; i++) {
+			person.addCard(randomNumberSelect());
+		}
 	}
 
 	private Card randomNumberSelect() {

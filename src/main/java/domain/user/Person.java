@@ -26,7 +26,7 @@ public class Person {
 	}
 
 	public void printCard() {
-		cardList.append(name + "의 카드");
+		cardList.append(name + "의 카드 : ");
 		for (int i = 0; i < cards.size(); i++) {
 			cardList.append(cards.get(i).getCard() + ", ");
 		}
