@@ -1,12 +1,13 @@
 package domain.user;
 
+import config.BlackJackConfig;
 import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 게임 참여자를h 의미하는 객체
+ * 게임 참여자를 의미하는 객체
  */
 public class Player {
 	private final String name;
@@ -35,33 +36,45 @@ public class Player {
 	}
 
 	public Status checkStatus() {
-		final int BLACKJACK = 21;
-
-		int[] cardInfos = getScoreAndNumberOfAce();
-		if (cardInfos[0] > BLACKJACK) {
+		int score = getScoreAndNumberOfAce();
+		if (score > BlackJackConfig.BLACKJACK) {
 			return Status.BUSTED;
-		} else if ( cardInfos[0] == BLACKJACK ) {
+		} else if (score == BlackJackConfig.BLACKJACK) {
 			return Status.BLACKJACK;
 		}
 		return Status.KEEP_GO;
 	}
 
-	public int[] getScoreAndNumberOfAce() {
+	private int getScoreAndNumberOfAce() {
 		int score = 0;
-		int aceCount = 0;
+		Boolean aceInHand = false;
 
 		for (Card card : this.cards) {
-			aceCount = setAceCount(card, aceCount);
 			score += card.getSymbolScore();
+			aceInHand = setAceCount(card);
 		}
-		int[] cardInfos = {score, aceCount};
-		return cardInfos;
+		return addScoreIfAceIsTrue(score, aceInHand);
 	}
 
-	public int setAceCount(Card card, int aceCount) {
+	private Boolean setAceCount(Card card) {
 		if (card.isSymbolAce()) {
-			aceCount++;
+			return true;
 		}
-		return aceCount;
+		return false;
+	}
+
+	private int addScoreIfAceIsTrue(int score, Boolean ace) {
+		if (ace == true) {
+			score = addScore(score);
+		}
+		return score;
+	}
+
+	// Score값이 0~21일때 ACE가 존재하면 score에 10을 더해주는 메소드
+	private int addScore(int score) {
+		if (score < BlackJackConfig.ADD_LIMIT) {
+			score += BlackJackConfig.ACE_DIFFERENTIAL;
+		}
+		return score;
 	}
 }
