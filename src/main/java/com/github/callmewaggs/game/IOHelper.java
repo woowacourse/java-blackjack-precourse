@@ -45,11 +45,15 @@ public class IOHelper {
 
   public static void printCards(List<Participant> participants) {
     for (Participant participant : participants) {
-      printCardsWithScore(participant, null);
+      printCards(participant);
     }
   }
 
-  public static void printCardsWithScore(Participant participant, String score) {
+  public static void printCards(Participant participant) {
+    printCardsWithScore(participant, null);
+  }
+
+  private static void printCardsWithScore(Participant participant, String score) {
     if (score == null) {
       printMessage(nameAndCardsMessage(participant, participant.getName()));
       return;
@@ -70,7 +74,6 @@ public class IOHelper {
   }
 
   public static void printHitRejectedMessage(String name) {
-    printMessage("\n" + name + "은/는 점수의 총합이 21을 초과하므로 카드를 더 받을 수 없습니다.");
+    printMessage(name + "은/는 점수의 총합이 21을 초과하므로 카드를 더 받을 수 없습니다.");
   }
-
 }

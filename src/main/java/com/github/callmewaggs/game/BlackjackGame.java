@@ -31,6 +31,10 @@ public class BlackjackGame {
     judgeWinOrLose();
   }
 
+  private boolean isDealerBust() {
+    return dealer.isBust();
+  }
+
   private boolean isThereBlackjack() {
     for (Player player : players) {
       if (player.isBlackjack()) {

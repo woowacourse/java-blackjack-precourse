@@ -1,5 +1,6 @@
 package com.github.callmewaggs.game.domain.user;
 
+import com.github.callmewaggs.game.BlackjackRule;
 import com.github.callmewaggs.game.IOHelper;
 
 /**
@@ -10,6 +11,10 @@ public class Dealer extends Participant {
   private static final int DEALER_MAX_HIT_NUMBER = 16;
 
   public Dealer() {
+  }
+
+  public boolean isBust() {
+    return super.getCurrentScore() > BlackjackRule.BLACKJACK_NUMBER;
   }
 
   @Override
