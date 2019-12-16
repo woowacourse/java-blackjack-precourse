@@ -130,19 +130,28 @@ public class IOController {
     System.out.print("[   ]");
   }
 
-  public static void printHandsOfDealer(Dealer dealer) {
+  public static void printHandsOfDealer(Dealer dealer, Boolean coverCard) {
     List<Card> cards = dealer.getHands();
 
     System.out.print("딜러 : ");
-    printCard(cards.get(0));
-    printReverseCard(cards.get(1));
+    if (coverCard) {
+      printCard(cards.get(0));
+      printReverseCard(cards.get(1));
+      System.out.println();
+      return;
+    }
+    for (int i = 0; i < cards.size(); i++) {
+      printCard(cards.get(i));
+    }
     System.out.println();
+
+
   }
 
-  public static void printHandsOfPlayer(Player player){
+  public static void printHandsOfPlayer(Player player) {
     List<Card> cards = player.getHands();
     System.out.print(player.getName() + " : ");
-    for(int i = 0; i < cards.size(); i++){
+    for (int i = 0; i < cards.size(); i++) {
       printCard(cards.get(i));
     }
     System.out.println();

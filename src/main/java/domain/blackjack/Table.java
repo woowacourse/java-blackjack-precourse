@@ -49,7 +49,7 @@ public class Table {
   }
 
   public void displayCards() {
-    IOController.printHandsOfDealer(this.dealer);
+    IOController.printHandsOfDealer(this.dealer, true);
     for (int i = 0; i < this.players.size(); i++) {
       IOController.printHandsOfPlayer(this.players.get(i));
     }
