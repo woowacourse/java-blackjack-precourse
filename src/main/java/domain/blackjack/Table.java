@@ -44,6 +44,7 @@ public class Table {
   public void dealCards() {
     for (int i = 0; i < 2; i++) {
       dealToAll();
+      System.out.println();
     }
   }
 
