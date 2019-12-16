@@ -8,8 +8,6 @@ import com.github.callmewaggs.game.IOHelper;
  */
 public class Player extends Participant {
 
-  private static final String INPUT_YES = "y";
-  private static final String INPUT_NO = "n";
   private final String name;
   private final long bettingMoney;
 
@@ -26,13 +24,13 @@ public class Player extends Participant {
     if (lessThanBlackjackNumber) {
       while (true) {
         playerInput = IOHelper.inputHitOrStay(this.getName());
-        if (playerInput.equals(INPUT_YES) || playerInput.equals(INPUT_NO)) {
+        if (playerInput.equals(PLAYER_INPUT_YES) || playerInput.equals(PLAYER_INPUT_NO)) {
           break;
         }
         IOHelper.printExceptionMessage("y 또는 n만 입력 가능합니다. 다시 입력해주세요.");
       }
     }
-    return playerInput.equals(INPUT_YES);
+    return playerInput.equals(PLAYER_INPUT_YES);
   }
 
   private boolean checkCurrentScoreLessThanBlackjackNumber() {

@@ -8,9 +8,6 @@ import com.github.callmewaggs.game.IOHelper;
  */
 public class Dealer extends Participant {
 
-  public static final long INITIAL_INCOME = 0;
-  private static final int MAX_HIT_NUMBER = 16;
-
   public Dealer() {
   }
 
@@ -20,7 +17,7 @@ public class Dealer extends Participant {
 
   @Override
   public boolean hitOrStay() {
-    boolean result = super.getCurrentScore() <= Dealer.MAX_HIT_NUMBER;
+    boolean result = super.getCurrentScore() <= DEALER_MAX_HIT_NUMBER;
     IOHelper.printDealerHitOrStayMessage(result);
     return result;
   }
