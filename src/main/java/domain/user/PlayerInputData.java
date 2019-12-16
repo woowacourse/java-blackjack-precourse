@@ -1,6 +1,11 @@
 package domain.user;
 
+import domain.function.CardDistributor;
+import domain.function.Viewer;
+
 import java.util.*;
+
+import static domain.user.BlackjackUserResult.PERFECT_SCORE;
 
 public class PlayerInputData {
     private static final String SEPARATOR = ",";
@@ -106,5 +111,43 @@ public class PlayerInputData {
 
     private static boolean isNotNumberCharacter(char inputCharacter) {
         return inputCharacter < '0' || '9' < inputCharacter;
+    }
+
+    public static void askCardAddition(Player player, CardDistributor cardDistributor) {
+        boolean needToAsk = true;
+        while (needToAsk) {
+            System.out.println(String.format("%s, 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)", player.getName()));
+            Scanner scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
+            needToAsk = needMoreCard(answer, player, cardDistributor) && isUnderPerfectScore(player);
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    private static boolean needMoreCard(String answer, Player player, CardDistributor cardDistributor) {
+        if (answer.equals("y")) {
+            cardDistributor.giveCardToBlackjackUser(player);
+            Viewer.printAllCards(player);
+            return true;
+        } else if (answer.equals("n")) {
+            Viewer.printAllCards(player);
+            return false;
+        }
+        System.out.println("※ y와 n만 입력할 수 있습니다.");
+        return true;
+    }
+
+    private static boolean isUnderPerfectScore(Player player) {
+        BlackjackUserResult playerResult = player.createBlackjackUserResult();
+        if (playerResult.isPerfectScore()) {
+            System.out.print(String.format("\n※ 카드 숫자의 합이 %d이므로 더 이상 카드를 추가하지 않습니다.", PERFECT_SCORE));
+            return false;
+        }
+        if (playerResult.isBust()) {
+            System.out.print(String.format("\n※ 카드 숫자의 합이 %d을 넘었으므로 %s는 패배하였습니다.", PERFECT_SCORE, player.getName()));
+            return false;
+        }
+        return true;
     }
 }
