@@ -20,6 +20,7 @@ public class Game {
 		init();
 		cardDistribute();
 		showCards();
+		askMoreCards();
 //		InputOutputView.outputShowCardsWithScore();
 	}
 
@@ -71,5 +72,30 @@ public class Game {
 		for (Player player : players) {
 			InputOutputView.outputShowCards(player);
 		}
+		System.out.println();
 	}
+
+	private void askMoreCards() {
+		for (Player player : players) {
+			checkMoreCards(player);
+		}
+	}
+
+	private void checkMoreCards(Player player) {
+		int moreCardCount;
+		do {
+			moreCardCount = InputOutputView.inputaskMoreCards(player);
+			giveCard(moreCardCount, player);
+			InputOutputView.outputShowCards(player);
+		} while (checkBust(player) == false && (moreCardCount == 1));
+	}
+
+	private boolean checkBust(Player player) {
+		if (player.isBust() == true) {
+			InputOutputView.outputBust();
+			return true;
+		}
+		return false;
+	}
+
 }

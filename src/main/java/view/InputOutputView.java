@@ -40,4 +40,17 @@ public class InputOutputView {
 		System.out.println();
 	}
 
+	public static int inputaskMoreCards(Player player) {
+		System.out.println(player.getName() +"는 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+		return ExceptionHandler.inputaskMoreCardsHandler();
+	}
+
+	public static void outputBust() {
+		System.out.println("버스트! 카드 지급을 중단합니다.");
+	}
+
+	public static void outputDealerGotCard() {
+		System.out.println("딜러는 16이하라 카드를 더 받았습니다.");
+	}
+
 }

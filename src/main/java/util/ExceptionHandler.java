@@ -51,4 +51,24 @@ public class ExceptionHandler {
 		}
 		return input;
 	}
+
+	public static int inputaskMoreCardsHandler() {
+		try {
+			return checkInputaskMoreCardsHandler(scanner.next().trim());
+		} catch (InputMismatchException e) {
+			System.out.println("입력값을 확인해주세요.");
+			scanner = new Scanner(System.in);
+			return inputaskMoreCardsHandler();
+		}
+	}
+
+	private static int checkInputaskMoreCardsHandler(String next) {
+		if (next.equals("y")) {
+			return 1;
+		}
+		if (next.equals("n")) {
+			return 0;
+		}
+		throw new InputMismatchException();
+	}
 }
