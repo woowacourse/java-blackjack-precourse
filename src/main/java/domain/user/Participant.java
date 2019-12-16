@@ -10,6 +10,7 @@ import java.util.List;
 abstract public class Participant {
     String name;
     List<Card> cards;
+    private double profit = 0;
 
     protected Participant(String name) {
         this.name = name;
@@ -55,7 +56,7 @@ abstract public class Participant {
         return addScore;
     }
 
-    public boolean isDealer(){
+    public boolean isDealer() {
         if (this.name == "딜러") {
             return true;
         }
@@ -64,5 +65,19 @@ abstract public class Participant {
             return true;
         }
         return false;
+    }
+
+    public void setProfit(double profit) {
+        this.profit = profit;
+    }
+
+    public void setProfitByMultiple(double multi) {
+        if (this.isDealer())
+            return;
+        this.profit = (((Player) this).getBettingMoney()) * multi;
+    }
+
+    public double getProfit() {
+        return this.profit;
     }
 }

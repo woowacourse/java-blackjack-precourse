@@ -101,4 +101,76 @@ public class BlackjackManager {
             return true;
         return false;
     }
+    /**
+     * 우승자를 찾고 경우에 따라 우승자의 베팅 금액을 결정하는 함수
+     **/
+    void setWinnerAndProfit() {
+        double winnerMultiple = 1;
+        // 이미 처음 카드에서 blackjack이 나왔으며, 딜러가 우승하지 않아 1.5배를 가져가는 경우
+        if (winners.size() > 0 && !existsDealerInWinners())
+            winnerMultiple = 1.5;
+        // 초기에 blackjack이 나오지 않아 우승자를 찾아야 하는 경우
+        if (winners.size() == 0)
+            findWinners();
+        setWinnersProfit(winnerMultiple);
+    }
+
+    boolean existsDealerInWinners() {
+        for (int i = 0; i < winners.size(); i++) {
+            if (winners.get(i).isDealer())
+                return true;
+        }
+        return false;
+    }
+
+    boolean overBlackjack(Participant participant) {
+        if (participant.getSumScore() > 21)
+            return true;
+        return false;
+    }
+
+    /**
+     * 처음에 우승자가 없어서 우승자를 찾아야하는 경우
+     */
+    void findWinners() {
+        // dealer의 score가 21을 넘어서, score가 21 미만인 모든 player가 상금을 받을 수 있는 경우
+        if (overBlackjack(participants.get(0))) {
+            addAllPlayerToWinnerExceptOverBlackjack();
+            return;
+        }
+        // 최대 score를 가진 플레이어가 우승하는 경우
+        int maxSumScore = getMaxSumScore();
+        addPlayerToWinnerWhoGotMaxSumScore(maxSumScore);
+    }
+
+    void addAllPlayerToWinnerExceptOverBlackjack() {
+        for (int i = 0; i < participants.size(); i++) {
+            if (overBlackjack(participants.get(i)))
+                continue;
+            winners.add(participants.get(i));
+        }
+    }
+
+    int getMaxSumScore() {
+        int maxSumScore = 0;
+        for (int i = 0; i < participants.size(); i++) {
+            if (overBlackjack(participants.get(i)))
+                continue;
+            if (participants.get(i).getSumScore() > maxSumScore)
+                maxSumScore = participants.get(i).getSumScore();
+        }
+        return maxSumScore;
+    }
+
+    void addPlayerToWinnerWhoGotMaxSumScore(int maxSumScore) {
+        for (int i = 0; i < participants.size(); i++) {
+            if (participants.get(i).getSumScore() == maxSumScore)
+                winners.add(participants.get(i));
+        }
+    }
+
+    void setWinnersProfit(double multiple) {
+        for (int i = 0; i < winners.size(); i++)
+            winners.get(i).setProfitByMultiple(multiple);
+    }
 }
