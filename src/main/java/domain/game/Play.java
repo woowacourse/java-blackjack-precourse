@@ -10,10 +10,10 @@ import domain.user.Player;
  * 게임 전반적 진행 클래스
  */
 public class Play {
-	ArrayList<Player> playerList;
-	Dealer dealer;
-	GameRequest gameRequest;
-	CardPay cardPay;
+	private ArrayList<Player> playerList;
+	private Dealer dealer;
+	private	GameRequest gameRequest;
+	private CardPay cardPay;
 
 	public Play() {
 		dealer = new Dealer();
@@ -30,5 +30,16 @@ public class Play {
 	public void giveCard() {
 		GameUI.parsingName(playerList);
 		cardPay.giveUserCard(dealer);
+		for (int i = 0; i < playerList.size(); i++) {
+			cardPay.giveUserCard(playerList.get(i));
+		}
+		printUserCard();
+	}
+
+	private void printUserCard() {
+		dealer.printCard();
+		for (int i = 0; i < playerList.size(); i++) {
+			playerList.get(i).printCard();
+		}
 	}
 }

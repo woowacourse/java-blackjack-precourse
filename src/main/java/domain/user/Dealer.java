@@ -11,7 +11,7 @@ import java.util.List;
 public class Dealer extends Person {
 
 	public Dealer() {
-        super();
+	    super("딜러");
     }
 
 	// TODO 추가 기능 구현-

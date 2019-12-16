@@ -7,5 +7,6 @@ public class Main {
 		Play playGame;
 		playGame = new Play();
 		playGame.requestUser();
+		playGame.giveCard();
 	}
 }

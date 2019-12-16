@@ -13,7 +13,7 @@ public class Card {
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
-        this.exist = true;
+        this.exist = false;
     }
 
     // TODO Card 관련 추가 기능 구현
@@ -38,5 +38,11 @@ public class Card {
                 "symbol=" + symbol +
                 ", type=" + type +
                 '}';
+    }
+    public String getCard() {
+        return symbol.toString()+type.toString();
+    }
+    public boolean getExist(){
+        return this.exist;
     }
 }

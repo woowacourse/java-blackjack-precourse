@@ -37,4 +37,7 @@ public class GameUI {
 		System.out.println(parseName);
 	}
 
+	public static void printPersonCard(StringBuilder cardList){
+		System.out.println(cardList);
+	}
 }
