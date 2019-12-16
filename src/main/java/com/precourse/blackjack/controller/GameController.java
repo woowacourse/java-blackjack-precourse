@@ -78,12 +78,7 @@ public class GameController {
 		OutputView.printInitialCardDealingEnd(names);
 	}
 
-	public static void showCards(String name, List<Card> cards) {
-		String nameAndCards = name + ": ";
-
-		for (Card c : cards) {
-			nameAndCards += c.toString();
-		}
+	public static void showCards(String nameAndCards) {
 		OutputView.printCards(nameAndCards);
 	}
 }

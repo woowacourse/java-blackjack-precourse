@@ -18,6 +18,7 @@ import com.precourse.blackjack.domain.card.Card;
 import com.precourse.blackjack.domain.card.CardFactory;
 import com.precourse.blackjack.domain.user.Dealer;
 import com.precourse.blackjack.domain.user.Player;
+import com.precourse.blackjack.domain.util.OutputUtil;
 
 /**
  * 블랙잭 게임을 의미하는 객체입니다.
@@ -25,8 +26,6 @@ import com.precourse.blackjack.domain.user.Player;
  * @author HyungjuAn
  */
 public class Game {
-	private static final String AND = "와 ";
-	private static final String COMMA = ", ";
 	private static final int TWO = 2;
 
 	private final Stack<Card> cardDeck;
@@ -43,9 +42,9 @@ public class Game {
 	public void start() {
 		Collections.shuffle(cardDeck);
 		dealTwoCards();
-		GameController.showInitialCardDealingEnd(getAllNames());
-		GameController.showCards(dealer.getName(), dealer.getCards());
-		players.forEach(player -> GameController.showCards(player.getName(), player.getCards()));
+		GameController.showInitialCardDealingEnd(OutputUtil.getAllNames(players, dealer));
+		GameController.showCards(OutputUtil.getDealerFirstCards(dealer));
+		players.forEach(player -> GameController.showCards(OutputUtil.getPlayerNameAndCards(player)));
 	}
 
 	private void dealTwoCards() {
@@ -53,15 +52,5 @@ public class Game {
 			players.forEach(player -> player.addCard(cardDeck.pop()));
 			dealer.addCard(cardDeck.pop());
 		}
-	}
-
-	public String getAllNames() {
-		StringBuilder builder = new StringBuilder();
-		List<String> playersName = new ArrayList<>();
-
-		players.forEach(player -> playersName.add(player.getName()));
-		builder.append(dealer.getName()).append(AND);
-		builder.append(String.join(COMMA, playersName));
-		return builder.toString();
 	}
 }
