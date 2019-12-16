@@ -23,7 +23,7 @@ public class GamePlay {
         return usedCardsIndex.contains(drawCardsIndex);
     }
 
-    public static void addNewCardIndex(List<Integer> usedCardsIndex,) {
+    public static void addNewCardIndex(List<Integer> usedCardsIndex) {
 
     }
 

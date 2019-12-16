@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
+        GameUser.inputTotalUsers();
+        GameUser.makeUserList();
+        GameUser.printUserList();
     }
 }
