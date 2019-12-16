@@ -122,6 +122,7 @@ public class BlackJackGame {
 
     private void askToDraw(Player player, List<Card> newCards) {
         boolean continueDraw = true;
+        printMessage(player.getCardString());
         while (continueDraw && !player.isBusted()) {
             printMessage(player.isHit());
             continueDraw = drawOneMore(player, newCards);
