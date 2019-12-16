@@ -42,7 +42,7 @@ public class Card {
 			'}';
 	}
 
-	public String getCardText() {
+	public String getCardData() {
 		return type.name() + symbol.getScore();
 	}
 

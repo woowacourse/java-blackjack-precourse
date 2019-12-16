@@ -18,6 +18,7 @@ public class InputView {
 		System.out.println(PROMPT_NAMES);
 		String inputValue = scanner.nextLine();
 		List<String> crudeList = Arrays.asList(inputValue.split(SEPARATOR[0]));
+		System.out.println();
 		return crudeList.stream()
 			.map(String::trim)
 			.collect(Collectors.toList());
@@ -31,6 +32,7 @@ public class InputView {
 		}
 		double inputValue = scanner.nextDouble();
 		flush();
+		System.out.println();
 		return inputValue;
 	}
 
@@ -38,6 +40,7 @@ public class InputView {
 		String yesOrNoText = String.format("(예는 %s, 아니오는 %s)", yesOrNo[0], yesOrNo[1]);
 		System.out.println(name + PROMPT_DRAW + yesOrNoText);
 		String inputValue = scanner.nextLine();
+		System.out.println();
 		return inputValue;
 	}
 
