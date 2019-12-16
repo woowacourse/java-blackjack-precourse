@@ -78,9 +78,18 @@ public class GamePrinter {
         }
         printCardInfo(participant.getCard(cardSize - 1));
         System.out.println();
+    // 플레이어가 추가적으로 카드를 받을지 여부를 입력받는 함수
+    String getAddInfoDecisionFromUser(Participant participant){
+        System.out.println(participant.getName()+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        String decision = scanner.nextLine();
+        if (decision.equals("y") || decision.equals("n")){
+            return decision;
+        }
+        System.out.println("잘못 입력하셨습니다.");
+        return getAddInfoDecisionFromUser(participant);
     }
 
-    void printCardInfo(Card card) {
-        System.out.print(card.getSymbol().getScore() + card.getType().getKoreaType());
+    void printDealerGetMoreCard(){
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 }

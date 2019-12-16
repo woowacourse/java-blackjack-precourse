@@ -61,14 +61,44 @@ public class BlackjackManager {
         }
     }
 
-    boolean checkBlackjackParticipants(){
-        for(int i = 0; i < participants.size(); i++){
-            if(participants.get(i).getSumScore() == 21) {
+    boolean checkBlackjackParticipants() {
+        for (int i = 0; i < participants.size(); i++) {
+            if (participants.get(i).getSumScore() == 21) {
                 winners.add(participants.get(i));
             }
         }
-        if(winners.size() == 0)
+        if (winners.size() == 0)
             return false;
         return true;
+    }
+
+    void checkGiveCardToParticipant(Participant participant) {
+        if (availableGiveCardToDealer(participant)) {
+            giveCardToParticipant(participant);
+            gamePrinter.printDealerGetMoreCard();
+        }
+        while (availableGiveCardToPlayer(participant)) {
+            giveCardToParticipant(participant);
+            gamePrinter.callPrintParticipantCardInfo(participant, false);
+        }
+    }
+
+    boolean availableGiveCardToDealer(Participant participant) {
+        if (participant.isDealer()
+                && participant.getCards().size() < 3
+                && participant.getSumScore() < 16) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean availableGiveCardToPlayer(Participant participant) {
+        String result = "n";
+        if (!participant.isDealer() && participant.getSumScore() < 21) {
+            result = gamePrinter.getAddInfoDecisionFromUser(participant);
+        }
+        if (result.equals("y"))
+            return true;
+        return false;
     }
 }
