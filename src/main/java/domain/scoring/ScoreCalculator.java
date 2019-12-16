@@ -7,6 +7,7 @@ public class ScoreCalculator {
     public final static int BLACKJACK_MAX_SCORE = 21;
     public final static int ACE_LARGE_SCORE = 11;
     public final static int ACE_SMALL_SCORE = 1;
+    public final static int DEALER_GETTING_CARD_BOUNDARY = 16;
 
     public static int getTotalScore(List<Card> cards) {
         return getOptimizedScoreWithAces(getTotalScoreWithoutAce(cards), countAce(cards));

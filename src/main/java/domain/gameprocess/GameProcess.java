@@ -78,6 +78,15 @@ public class GameProcess {
 
     private void handOutCardsUntilDealerCannotGet (Dealer dealer) {
 
+        while (shouldDealerGetCard(dealer)) {
+            /* 딜러의 카드 총 합이 16 이하이면 실행 */
+            handOutCardToUser(dealer);
+        }
+
+    }
+
+    private boolean shouldDealerGetCard(Dealer dealer) {
+        return true;
     }
 
     private boolean shouldDealerGetCard(User dealer) {
