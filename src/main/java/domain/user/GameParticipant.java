@@ -6,6 +6,11 @@ import java.util.List;
 import domain.card.Card;
 import domain.card.Symbol;
 
+/**
+ * 딜러와 플레이어의 퍼블릭 인터페이스 역할을 하는 상위 객체
+ * @author smr60
+ *
+ */
 public class GameParticipant {
 	private final List<Card> cards = new ArrayList<>();
 

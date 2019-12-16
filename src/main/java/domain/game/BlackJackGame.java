@@ -83,7 +83,7 @@ public class BlackJackGame {
 	 */
 	private void playersTurn() {
 		for (Player player : playerList) {
-			eachPlayerTurn(player);
+			eachPlayerTurn(player, player.getCardScore());
 		}
 	}
 
@@ -95,8 +95,7 @@ public class BlackJackGame {
 	 * 
 	 * @param player
 	 */
-	private void eachPlayerTurn(Player player) {
-		int playerScore = player.getCardScore();
+	private void eachPlayerTurn(Player player, int playerScore) {
 		if (playerScore == BLACKJACK_SCORE && playerScore != dealer.getCardScore()) {
 			rewardCalculator.blackJackReward(player);
 		}
