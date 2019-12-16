@@ -81,28 +81,32 @@ public class PlayGame {
 
     private void askPlayers(Player player) {
         Scanner s = new Scanner(System.in);
-        boolean request = true;
-        while (request && player.cardSum() < Score.BLACK_JACK) {
+        boolean requested = true;
+        while (requested && player.cardSum() < Score.BLACK_JACK) {
             System.out.println('\n' + player.getName() + "은(는) 카드를 한 장 더 받겠습니까?(예는 y, 아니오는 n)");
             String requestStr = s.next();
-            //requestExceptionCheck(yesOrNo(requestStr));
-            request = yesOrNo(requestStr);
-            answerPlayers(request, player);
+            requested = makeValidRequest(yesOrNo(requestStr));
+            answerPlayers(requested, player);
             System.out.println(player.print());
         }
     }
 
-    private void requestExceptionCheck(int requestCode) {
-        if (requestCode == 2)
+    private boolean makeValidRequest(int requestCode) {
+        while (requestCode == 2) {
             System.out.println("y 또는 n을 입력해주세요.");
+            String requestStr = new Scanner(System.in).next();
+            requestCode = yesOrNo(requestStr);
+        }
+        if (requestCode == 1) return true;
+        return false;
     }
 
-    private boolean yesOrNo(String str) {
+    private int yesOrNo(String str) {
         if (str.equals("Y") || str.equals("y"))
-            return true;
+            return 1;
         if (str.equals("N") || str.equals("n"))
-            return false;
-        return true;
+            return 0;
+        return 2;
     }
 
     private void answerPlayers(boolean request, Player player) {

@@ -52,6 +52,7 @@ public class Score {
     }
 
     private void divideBettingMoney(List<Player> winners) { //배팅금 우승자+딜러가 나눔
+        if (bettingMoneySum < 0) return;
         double dividedMoney = bettingMoneySum / (winners.size() + 1);
         for (Player player : winners) {
             player.setProfit(player.getProfit() + dividedMoney);
