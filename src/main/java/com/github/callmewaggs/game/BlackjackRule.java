@@ -43,6 +43,7 @@ public class BlackjackRule {
     IOHelper.printCardsWithScore(getAllParticipants(dealer, players));
   }
 
+  // TODO : 2depth
   private void takeCardIfPlayerHit(Player player) {
     while (true) {
       if (player.hitOrStay()) {
@@ -53,7 +54,6 @@ public class BlackjackRule {
       break;
     }
   }
-
 
   private List<Participant> getAllParticipants(Dealer dealer, List<Player> players) {
     List<Participant> participants = new ArrayList<>(players);

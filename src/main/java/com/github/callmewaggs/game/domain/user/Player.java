@@ -36,11 +36,16 @@ public class Player extends Participant {
   }
 
   private boolean checkCurrentScoreLessThanBlackjackNumber() {
-    if (super.getCurrentScore() > BlackjackRule.BLACKJACK_NUMBER) {
+    if (this.isBust()) {
       IOHelper.printHitRejectedMessage(this.getName());
       return false;
     }
     return true;
+  }
+
+  @Override
+  public boolean isBust() {
+    return super.getCurrentScore() > BlackjackRule.BLACKJACK_NUMBER;
   }
 
   @Override

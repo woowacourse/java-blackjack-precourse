@@ -2,6 +2,7 @@ package com.github.callmewaggs.game;
 
 import com.github.callmewaggs.game.domain.user.Participant;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -81,5 +82,13 @@ public class IOHelper {
 
   public static void printHitRejectedMessage(String name) {
     printMessage(name + "은/는 점수의 총합이 21을 초과하므로 카드를 더 받을 수 없습니다.");
+  }
+
+  public static void printFinalResultMessage() {
+    printMessage("\n## 최종 수익");
+  }
+
+  public static void printNameAndIncome(Map<String, Long> participantsIncomes) {
+    participantsIncomes.forEach((name, income) -> printMessage(name + " : " + income));
   }
 }

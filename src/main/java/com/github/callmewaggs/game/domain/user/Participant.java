@@ -26,5 +26,7 @@ public abstract class Participant {
 
   public abstract boolean hitOrStay();
 
+  public abstract boolean isBust();
+
   public abstract String getName();
 }
