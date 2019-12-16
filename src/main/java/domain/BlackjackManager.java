@@ -20,11 +20,31 @@ public class BlackjackManager {
     List<Card> addedCards = new ArrayList<>();
     List<Participant> winners = new ArrayList<>();
 
+    void initState() {
+        makeParticipants();
+        makeCard();
+        giveInitialCards();
+        gamePrinter.printInitialParticipantCardInfo(participants);
+    }
+
+    /**
+     * 참여자에게 추가적인 카드를 부여하며 게임을 진행하는 함수
+     */
+    void playGame() {
+        for (int i = 2; i < participants.size(); i++) {
+            checkGiveCardToParticipant(participants.get(i));
+        }
+        checkGiveCardToParticipant(participants.get(0)); // 딜러 카드
+        for (int i = 0; i < participants.size(); i++) {
+            gamePrinter.callPrintParticipantCardInfo(participants.get(i), false, true);
+        }
+    }
+
     void makeParticipants() {
         participants.add(new Dealer());
         String[] playerName = gamePrinter.getPlayerNameFromUser();
         for (int i = 0; i < playerName.length; i++) {
-            int bettingMoney = gamePrinter.getBettingMoneyFromUser(playerName[i]);
+            double bettingMoney = gamePrinter.getBettingMoneyFromUser(playerName[i]);
             participants.add(new Player(playerName[i], bettingMoney));
         }
     }
@@ -61,7 +81,7 @@ public class BlackjackManager {
         }
     }
 
-    boolean checkBlackjackParticipants() {
+    boolean existsBlackjack() {
         for (int i = 0; i < participants.size(); i++) {
             if (participants.get(i).getSumScore() == 21) {
                 winners.add(participants.get(i));
