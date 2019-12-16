@@ -27,6 +27,8 @@ import com.precourse.blackjack.domain.user.Player;
 public class Game {
 	private static final String AND = "와 ";
 	private static final String COMMA = ", ";
+	private static final int ONE = 1;
+	private static final int TWO = 2;
 	private final Stack<Card> cardDeck;
 	private final List<Player> players;
 	private final Dealer dealer;
@@ -40,13 +42,15 @@ public class Game {
 
 	public void start() {
 		Collections.shuffle(cardDeck);
-		dealTwoCards();
+		dealCardsByNumber(TWO);
 		GameController.showInitialCardDealingEnd(getAllNames());
 	}
 
-	private void dealTwoCards() {
-		players.forEach(player -> player.addCard(cardDeck.pop()));
-		dealer.addCard(cardDeck.pop());
+	private void dealCardsByNumber(int number) {
+		for (int i = 0; i < number; i++) {
+			players.forEach(player -> player.addCard(cardDeck.pop()));
+			dealer.addCard(cardDeck.pop());
+		}
 	}
 
 	public String getAllNames() {
