@@ -2,6 +2,7 @@ package domain.view;
 
 import java.util.List;
 
+import domain.casino.Money;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -22,21 +23,11 @@ public class OutputView {
 		System.out.println(result);
 	}
 
-	public static boolean isLessThanSeventeen(int dealerScore) {
-		if (dealerScore <= 16) {
-			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
-			return true;
-		}
-		System.out.println("딜러는 17이상이라 카드를 받지 않습니다.");
-		return false;
-	}
-
 	public static void printFinalScore(Dealer dealer, List<Player> playerList) {
 		printDealerScore(dealer);
 		for (Player player : playerList) {
 			printPlayerScore(player);
 		}
-		System.out.println();
 	}
 
 	private static void printDealerScore(Dealer dealer) {
@@ -62,32 +53,15 @@ public class OutputView {
 		System.out.println(sb.toString());
 	}
 
-	public static void printFinalEarning(Dealer dealer, List<Player> playerList) {
-		int dealerMoney = 0;
-		int dealerScore = dealer.sumCardScore();
+	public static void printPlayerEarning(String playerName, double earning) {
+		System.out.println(playerName + ": " + earning);
+	}
 
-		System.out.println("## 최종 수익");
-		for (Player player : playerList) {
-			if (player.isBlackJack()) {
-				dealerMoney -= player.getBettingMoney() * 1.5;
-				System.out.println(player.getName() + ": " + player.getBettingMoney() * 1.5);
-			} else if (player.bust()) {
-				dealerMoney += player.getBettingMoney();
-				System.out.println(player.getName() + ": -" + player.getBettingMoney());
-			} else if (dealer.bust()) {
-				System.out.println(player.getName() + ": " + player.getBettingMoney());
-				dealerMoney -= player.getBettingMoney();
-			} else if (player.sumCardScore() <= 21 && player.sumCardScore() > dealerScore) {
-				System.out.println(player.getName() + ": " + player.getBettingMoney());
-				dealerMoney -= player.getBettingMoney();
-			} else if (player.sumCardScore() == dealerScore) {
-				System.out.println(player.getName() + ": " + 0);
-			} else {
-				dealerMoney += player.getBettingMoney();
-				System.out.println(player.getName() + ": -" + player.getBettingMoney());
-			}
-		}
-		System.out.println("딜러: " + dealerMoney);
+	public static void printFinalEarning(Dealer dealer, List<Player> playerList) {
+		System.out.println("\n## 최종 점수");
+		Money money = new Money(playerList);
+		money.calculatePlayersEarning(dealer, playerList);
+		money.calculateDealerEarning(playerList);
 	}
 
 }

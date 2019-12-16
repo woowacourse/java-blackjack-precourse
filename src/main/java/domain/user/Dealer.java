@@ -23,10 +23,6 @@ public class Dealer {
 
 	// TODO 추가 기능 구현
 
-	public List<Card> getCards() {
-		return cards;
-	}
-
 	public boolean bust() {
 		if (sumCardScore() > 21) {
 			return true;
@@ -78,12 +74,18 @@ public class Dealer {
 			System.out.println("BURST! 21 초과");
 		} else {
 			OutputView.printDealerCards(this);
-			if (OutputView.isLessThanSeventeen(sumCardScore())) {
+			if (isLessThanSeventeen()) {
+				System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
 				addCard(cardSupplier.getDeal());
 				checkCardNumber(cardSupplier);
 				return;
 			}
+			System.out.println("딜러는 17이상이라 카드를 받지 않습니다.");
 		}
+	}
+
+	public boolean isLessThanSeventeen() {
+		return sumCardScore() <= 16;
 	}
 
 	public String getDealerCards() {

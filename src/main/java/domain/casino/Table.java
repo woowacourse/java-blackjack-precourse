@@ -28,10 +28,9 @@ public class Table {
 	private void getPlayers() {
 		String[] playerNames = InputView.inputPlayerNames();
 		playerList = new ArrayList<>(playerNames.length);
-		for (int i = 0; i < playerNames.length; i++) {
-			int bettigMoney;
-			bettigMoney = InputView.getBettingMoney(playerNames[i]);
-			Player player = new Player(playerNames[i], bettigMoney);
+		for (String playerName : playerNames) {
+			int bettingMoney = InputView.getBettingMoney(playerName);
+			Player player = new Player(playerName, bettingMoney);
 			playerList.add(player);
 		}
 	}
@@ -54,25 +53,16 @@ public class Table {
 		}
 	}
 
-	// 딜러 블랙잭 여부 확인 -- 딜러가 블랙잭이면 바로 최종 결과로 이동
+	// 딜러 블랙잭 여부 확인 : 딜러가 블랙잭이면 바로 최종 결과로 이동
 	private void goHitOrStand() {
 		if (dealer.isBlackJack()) {
 			System.out.println("딜러가 블랙잭 입니다!!");
 			return;
 		}
-
-		// 딜러 카드 한 장 오픈
-		openDealerInitialCard();
-
-		// 플레이어 카드 오픈
-		openPlayersCards();
-
-		// 플레이어 카드 더 받을지 체크
-		checkPlayersWantMoreCard();
-
-		// 딜러 카드 더 받을지 체크
-		checkDealerWantMoreCard();
-
+		openDealerInitialCard(); 		// 딜러 카드 한 장 오픈
+		openPlayersCards(); 			// 플레이어 카드 오픈
+		checkPlayersWantMoreCard(); 	// 플레이어 카드 더 받을지 체크
+		checkDealerNeedMoreCard(); 		// 딜러 카드 더 받을지 체크
 	}
 
 	private void openDealerInitialCard() {
@@ -92,7 +82,7 @@ public class Table {
 		}
 	}
 
-	private void checkDealerWantMoreCard() {
+	private void checkDealerNeedMoreCard() {
 		dealer.checkCardNumber(cardSupplier);
 		System.out.println();
 	}

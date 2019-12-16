@@ -36,10 +36,6 @@ public class Player {
 		return bettingMoney;
 	}
 
-	public List<Card> getCards() {
-		return cards;
-	}
-
 	public boolean bust() {
 		if (sumCardScore() > 21) {
 			return true;
