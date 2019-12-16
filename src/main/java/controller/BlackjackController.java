@@ -50,13 +50,9 @@ public class BlackjackController {
 		OutputView.printNewLine();
 	}
 
-	private void printScore(User user) {
-		OutputView.printScore(user.getName(), user.getCards(), user.getScore());
-	}
-
-	private void printAllUsersScore() {
-		printScore(dealer);
-		players.forEach(this::printScore);
+	private void printScores() {
+		OutputView.printScore(dealer);
+		players.forEach(OutputView::printScore);
 		OutputView.printNewLine();
 	}
 
@@ -99,7 +95,7 @@ public class BlackjackController {
 	}
 
 	private void runLastPhase() {
-		printAllUsersScore();
+		printScores();
 		printProfits();
 	}
 

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import domain.card.Card;
 import domain.profit.Profit;
+import domain.user.User;
 
 public class OutputView {
 	private static final String CARD_NAMES_DELIMITER = ", ";
@@ -29,8 +30,8 @@ public class OutputView {
 		System.out.println(concatNameAndCards(name, cards));
 	}
 
-	public static void printScore(String name, List<Card> cards, int score) {
-		System.out.println(concatNameAndCards(name, cards) + SCORE_DELIMITER + score);
+	public static void printScore(User user) {
+		System.out.println(concatNameAndCards(user.getName(), user.getCards()) + SCORE_DELIMITER + user.getScore());
 	}
 
 	public static void printDealerAddCard(String name) {
