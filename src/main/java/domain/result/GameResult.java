@@ -18,7 +18,7 @@ public class GameResult {
     private User dealer;
     private Double dealerProfit;
 
-    public GameResult(List<User> players, User dealer) {
+    private GameResult(List<User> players, User dealer) {
         this.gameResult = new HashMap<>();
         this.players = players;
         this.dealer = dealer;
@@ -27,19 +27,10 @@ public class GameResult {
 
     public static GameResult create(List<User> users) {
         List<User> players = new LinkedList<>(users.subList(0, users.size() - 1));
-        System.out.println("players >> ");
-        for (User user : players) {
-            System.out.println("player : " + user.getName());
-        }
-        System.out.println("Dealer >> ");
         User dealer = users.get(users.size() - 1);
-        System.out.println("dealer : " + dealer.getName());
-
 
         return new GameResult(players, dealer);
     }
-
-
 
     public boolean hasBlackjack() {
         List<User> blackjackPlayers = players.stream()
