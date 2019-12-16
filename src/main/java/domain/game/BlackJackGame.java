@@ -9,8 +9,8 @@ import domain.user.GameParticipant;
 import domain.user.Player;
 
 /**
- * ºí·¢Àè °ÔÀÓÀ» ÁøÇàÇÏ´Â °´Ã¼
- * 
+ * ë¸”ë™ì­ ê²Œì„ì„ ì§„í–‰í•˜ëŠ” ê°ì²´
+ *
  * @author smr60
  *
  */
@@ -34,7 +34,7 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * ºí·¢Àè °ÔÀÓ ÀüÃ¼ ·ÎÁ÷ ´ã´çÇÏ´Â ÅÛÇÃ¸´ ¸Ş¼­µå
+	 * ë¸”ë™ì­ ê²Œì„ ì „ì²´ ë¡œì§ ë‹´ë‹¹í•˜ëŠ” í…œí”Œë¦¿ ë©”ì„œë“œ
 	 */
 	public void play() {
 		inputPlayerInfos();
@@ -48,7 +48,7 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * ÇÃ·¹ÀÌ¾î Á¤º¸ ÀÔ·Â (ÀÌ¸§, ¹èÆÃ ±İ¾×)
+	 * í”Œë ˆì´ì–´ ì •ë³´ ì…ë ¥ (ì´ë¦„, ë°°íŒ… ê¸ˆì•¡)
 	 */
 	private void inputPlayerInfos() {
 		for (String name : inputManager.inputPlayerNames()) {
@@ -57,7 +57,7 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * µô·¯¿Í ÇÃ·¹ÀÌ¾î ¸ğµÎ 2Àå¾¿ ÆĞ¸¦ µ¹·Á¹Ş´Â ¸Ş¼­µå
+	 * ë”œëŸ¬ì™€ í”Œë ˆì´ì–´ ëª¨ë‘ 2ì¥ì”© íŒ¨ë¥¼ ëŒë ¤ë°›ëŠ” ë©”ì„œë“œ
 	 */
 	private void initialDeal() {
 		for (int i = 0; i < INITIAL_CARDS; i++) {
@@ -68,16 +68,16 @@ public class BlackJackGame {
 
 	private void showInitialDeal() {
 		System.out
-				.println("\nµô·¯¿Í " + playerList.stream().map(player -> player.getName()).collect(Collectors.joining(","))
-						+ "¿¡°Ô " + INITIAL_CARDS + "ÀåÀÇ Ä«µå¸¦ ³ª´©¾ú½À´Ï´Ù.");
-		System.out.println("µô·¯ : " + dealer.getCardInfo());
+				.println("\në”œëŸ¬ì™€ " + playerList.stream().map(player -> player.getName()).collect(Collectors.joining(","))
+						+ "ì—ê²Œ " + INITIAL_CARDS + "ì¥ì˜ ì¹´ë“œë¥¼ ë‚˜ëˆ„ì—ˆìŠµë‹ˆë‹¤.");
+		System.out.println("ë”œëŸ¬ : " + dealer.getCardInfo());
 		for (Player player : playerList) {
 			System.out.println(player.getName() + " : " + player.getCardInfo());
 		}
 	}
 
 	/**
-	 * ÇÃ·¹ÀÌ¾î ÇÑ¸í¾¿ ¼ø¼­´ë·Î °ÔÀÓÁøÇà
+	 * í”Œë ˆì´ì–´ í•œëª…ì”© ìˆœì„œëŒ€ë¡œ ê²Œì„ì§„í–‰
 	 */
 	private void playersTurn() {
 		for (Player player : playerList) {
@@ -86,11 +86,11 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * ÀÓÀÇÀÇ ÇÃ·¹ÀÌ¾îÀÇ ÅÏ 
-	 * 1) ºí·¢Àè ÄÉÀÌ½º È®ÀÎ 
-	 * 2) ÃÑ Á¡¼ö°¡ 21¿¡ °¡±î¿ö Áú¶§±îÁö Hit ¶Ç´Â Stay °¡´É
-	 * 3) Bust ÄÉÀÌ½º È®ÀÎ
-	 * 
+	 * ì„ì˜ì˜ í”Œë ˆì´ì–´ì˜ í„´
+	 * 1) ë¸”ë™ì­ ì¼€ì´ìŠ¤ í™•ì¸
+	 * 2) ì´ ì ìˆ˜ê°€ 21ì— ê°€ê¹Œì›Œ ì§ˆë•Œê¹Œì§€ Hit ë˜ëŠ” Stay ê°€ëŠ¥
+	 * 3) Bust ì¼€ì´ìŠ¤ í™•ì¸
+	 *
 	 * @param player
 	 */
 	private void eachPlayerTurn(Player player, int playerScore) {
@@ -99,7 +99,7 @@ public class BlackJackGame {
 		}
 		boolean hit = true;
 		while (playerScore < BLACKJACK_SCORE && hit) {
-			System.out.println("\n" + player.getName() + "ÀÇ ÇöÀç Á¡¼ö´Â " + playerScore + "ÀÔ´Ï´Ù.");
+			System.out.println("\n" + player.getName() + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + playerScore + "ï¿½Ô´Ï´ï¿½.");
 			hit = isChoiceHit(inputManager.chooseHitOrStay(), player);
 			playerScore = player.getCardScore();
 		}
@@ -118,24 +118,24 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * µô·¯ÀÇ ÅÏ ÃÑ Á¡¼ö°¡ 16ÀÌÇÏÀÏ °æ¿ì 17ÀÌ»óÀÌ µÉ ¶§±îÁö Ä«µå Ãß°¡
+	 * ë”œëŸ¬ì˜ í„´ ì´ ì ìˆ˜ê°€ 16ì´í•˜ì¼ ê²½ìš° 17ì´ìƒì´ ë  ë•Œê¹Œì§€ ì¹´ë“œ ì¶”ê°€
 	 */
 	private void dealerTurn() {
 		while (dealer.getCardScore() <= DEALER_BORDER_SCORE) {
-			System.out.println("\nµô·¯´Â " + DEALER_BORDER_SCORE + "ÀÌÇÏ¶ó ÇÑÀåÀÇ Ä«µå¸¦ ´õ ¹Ş¾Ò½À´Ï´Ù.");
+			System.out.println("\në”œëŸ¬ëŠ” " + DEALER_BORDER_SCORE + "ì´í•˜ë¼ í•œì¥ì˜ ì¹´ë“œë¥¼ ë” ë°›ì•˜ìŠµë‹ˆë‹¤.");
 			dealer.addCard(cardShoe.getOneCard());
 		}
 	}
 
 	private void showGameScore() {
-		System.out.println("\nµô·¯ : " + dealer.getFinalCardInfo());
+		System.out.println("\në”œëŸ¬ : " + dealer.getFinalCardInfo());
 		for (Player player : playerList) {
 			System.out.println(player.getName() + " : " + player.getFinalCardInfo());
 		}
 	}
 
 	private void showGameReward() {
-		System.out.println("\n## ÃÖÁ¾ ¼öÀÍ");
+		System.out.println("\n## ìµœì¢… ìˆ˜ìµ");
 		rewardCalculator.calculateRewards(playerList, dealer.getCardScore());
 		System.out.println(rewardCalculator.showRewardInfo());
 	}

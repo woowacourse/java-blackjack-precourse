@@ -3,7 +3,7 @@ package domain.card;
 import java.util.Objects;
 
 /**
- * Ä«µå ÇÑÀåÀ» ÀÇ¹ÌÇÏ´Â °´Ã¼
+ * ì¹´ë“œ í•œì¥ì„ ì˜ë¯¸í•˜ëŠ” ê°ì²´
  */
 public class Card {
 	private final Symbol symbol;

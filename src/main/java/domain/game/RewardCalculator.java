@@ -6,7 +6,7 @@ import java.util.List;
 import domain.user.Player;
 
 /**
- * µô·¯¿Í ÇÃ·¹ÀÌ¾îÀÇ ¼öÀÍ °è»êÀ» ´ã´çÇÏ´Â °´Ã¼
+ * ë”œëŸ¬ì™€ í”Œë ˆì´ì–´ì˜ ìˆ˜ìµ ê³„ì‚°ì„ ë‹´ë‹¹í•˜ëŠ” ê°ì²´
  */
 public class RewardCalculator {
 	private static final double DEFAULT_REWARD = 0.0;
@@ -14,12 +14,12 @@ public class RewardCalculator {
 	private static final double BLACKJACK_RATIO = 1.5;
 	private static final int BLACKJACK_SCORE = 21;
 
-	/** ÇÃ·¹ÀÌ¾îÀÇ ¼öÀÍÀ» ÀúÀå */
+	/** í”Œë ˆì´ì–´ì˜ ìˆ˜ìµì„ ì €ì¥ */
 	private HashMap<String, Double> playerRewardMap = new HashMap<>();
 	private double dealerReward;
 
 	/**
-	 * ¼öÀÍ °è»ê±â »ı¼º½Ã playerRewardMap ÃÊ±âÈ­
+	 * ìˆ˜ìµ ê³„ì‚°ê¸° ìƒì„±ì‹œ playerRewardMap ì´ˆê¸°í™”
 	 */
 	public RewardCalculator(List<Player> playerList) {
 		for (Player player : playerList) {
@@ -28,7 +28,7 @@ public class RewardCalculator {
 	}
 
 	/**
-	 * ºí·¢ÀèÀÇ °æ¿ì ¼öÀÍ·ü °è»ê
+	 * ë¸”ë™ì­ì˜ ê²½ìš° ìˆ˜ìµë¥  ê³„ì‚°
 	 * @param player
 	 */
 	public void blackJackReward(Player player) {
@@ -37,7 +37,7 @@ public class RewardCalculator {
 	}
 
 	/**
-	 * ÇÃ·¹ÀÌ¾î ¹ö½ºÆ® µÉ °æ¿ì ¼öÀÍ·ü °è»ê
+	 * í”Œë ˆì´ì–´ ë²„ìŠ¤íŠ¸ ë  ê²½ìš° ìˆ˜ìµë¥  ê³„ì‚°
 	 * @param player
 	 */
 	public void playerBustReward(Player player) {
@@ -46,7 +46,7 @@ public class RewardCalculator {
 	}
 
 	/**
-	 * µô·¯°¡ ¹ö½ºÆ®ÀÎ °æ¿ì ³²¾ÆÀÖ´Â ÇÃ·¹ÀÌ¾î ¼öÀÍ·ü °è»ê
+	 * ë”œëŸ¬ê°€ ë²„ìŠ¤íŠ¸ì¸ ê²½ìš° ë‚¨ì•„ìˆëŠ” í”Œë ˆì´ì–´ ìˆ˜ìµë¥  ê³„ì‚°
 	 * @param playerList
 	 */
 	private void dealerBustReward(List<Player> playerList) {
@@ -59,7 +59,7 @@ public class RewardCalculator {
 	}
 
 	/**
-	 * ÇÃ·¹ÀÌ¾î ÀÌ°åÀ» °æ¿ì ¼öÀÍ·ü °è»ê
+	 * í”Œë ˆì´ì–´ ì´ê²¼ì„ ê²½ìš° ìˆ˜ìµë¥  ê³„ì‚°
 	 * @param player
 	 * @param playerScore
 	 */
@@ -71,7 +71,7 @@ public class RewardCalculator {
 	}
 
 	/**
-	 * ÇÃ·¹ÀÌ¾î Á³À» °æ¿ì ¼öÀÍ·ü °è»ê
+	 * í”Œë ˆì´ì–´ ì¡Œì„ ê²½ìš° ìˆ˜ìµë¥  ê³„ì‚°
 	 * @param player
 	 * @param playerScore
 	 * @param dealerScore
@@ -99,7 +99,7 @@ public class RewardCalculator {
 	}
 
 	public String showRewardInfo() {
-		String rewardInfo = "µô·¯ : " + dealerReward + "\n";
+		String rewardInfo = "ë”œëŸ¬ : " + dealerReward + "\n";
 		for (String key : playerRewardMap.keySet()) {
 			rewardInfo += key + " : " + playerRewardMap.get(key) + "\n";
 		}

@@ -7,7 +7,7 @@ import domain.card.Card;
 import domain.card.Symbol;
 
 /**
- * µô·¯¿Í ÇÃ·¹ÀÌ¾îÀÇ ÆÛºí¸¯ ÀÎÅÍÆäÀÌ½º ¿ªÇÒÀ» ÇÏ´Â »óÀ§ °´Ã¼
+ * ë”œëŸ¬ì™€ í”Œë ˆì´ì–´ì˜ í¼ë¸”ë¦­ ì¸í„°í˜ì´ìŠ¤ ì—­í• ì„ í•˜ëŠ” ìƒìœ„ ê°ì²´
  * @author smr60
  *
  */
@@ -26,10 +26,10 @@ public abstract class GameParticipant {
 	}
 
 	/**
-	 * ¿¡ÀÌ½º Ä«µåÀÇ Á¡¼ö¸¦ 1 ¶Ç´Â 11·Î À¯¿¬ÇÏ°Ô »ç¿ë
-	 * 
+	 * ì—ì´ìŠ¤ ì¹´ë“œì˜ ì ìˆ˜ë¥¼ 1 ë˜ëŠ” 11ë¡œ ìœ ì—°í•˜ê²Œ ì‚¬ìš©
+	 *
 	 * @param score
-	 * @return
+	 * @return ë³€ê²½ í›„ ì ìˆ˜
 	 */
 	private int changeAceScore(int score) {
 		boolean hasAce = false;

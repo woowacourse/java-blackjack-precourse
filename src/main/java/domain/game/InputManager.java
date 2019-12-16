@@ -3,7 +3,7 @@ package domain.game;
 import java.util.Scanner;
 
 /**
- * ÇÃ·¹ÀÌ¾îÀÇ ÀÔ·Â°ú À¯È¿¼º °Ë»ç¸¦ ´ã´çÇÏ´Â °´Ã¼
+ * í”Œë ˆì´ì–´ì˜ ì…ë ¥ê³¼ ìœ íš¨ì„± ê²€ì‚¬ë¥¼ ë‹´ë‹¹í•˜ëŠ” ê°ì²´
  */
 public class InputManager {
 	private static final double DEFAULT_BETTING_MONEY = 0.0;
@@ -14,19 +14,19 @@ public class InputManager {
 	Scanner input = new Scanner(System.in);
 
 	/**
-	 * ÇÃ·¹ÀÌ¾îÀÇ ÀÌ¸§ ÀÔ·Â ¸Ş¼­µå
+	 * í”Œë ˆì´ì–´ì˜ ì´ë¦„ ì…ë ¥ ë©”ì„œë“œ
 	 * @return
 	 */
 	public String[] inputPlayerNames() {
 		input = new Scanner(System.in);
 		String[] playerNames;
 		try {
-			System.out.println("°ÔÀÓ¿¡ Âü¿©ÇÒ »ç¶÷ÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.(½±Ç¥ ±âÁØÀ¸·Î ºĞ¸®)");
+			System.out.println("ê²Œì„ì— ì°¸ì—¬í•  ì‚¬ëŒì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.(ì‰½í‘œ ê¸°ì¤€ìœ¼ë¡œ ë¶„ë¦¬)");
 			playerNames = input.next().split(",");
 			validatePlayerNames(playerNames);
 			return playerNames;
 		} catch (Exception e) {
-			System.out.println("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.");
+			System.out.println("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.");
 			return inputPlayerNames();
 		}
 	}
@@ -40,20 +40,20 @@ public class InputManager {
 	}
 
 	/**
-	 * ÇÃ·¹ÀÌ¾îÀÇ ¹èÆÃ ±İ¾× ÀÔ·Â ¸Ş¼­µå
+	 * í”Œë ˆì´ì–´ì˜ ë°°íŒ… ê¸ˆì•¡ ì…ë ¥ ë©”ì„œë“œ
 	 * @param name
-	 * @return
+	 * @return ë°°íŒ… ê¸ˆì•¡
 	 */
 	public double inputBettingMoney(String name) {
 		input = new Scanner(System.in);
 		double bettingMoney = DEFAULT_BETTING_MONEY;
 		try {
-			System.out.println(name + "ÀÇ ¹èÆÃ ±İ¾×Àº?");
+			System.out.println(name + "ì˜ ë°°íŒ… ê¸ˆì•¡ì€?");
 			bettingMoney = input.nextDouble();
 			validateBettingMoney(bettingMoney);
 			return bettingMoney;
 		} catch (Exception e) {
-			System.out.println("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.");
+			System.out.println("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.");
 			return inputBettingMoney(name);
 		}
 	}
@@ -65,19 +65,19 @@ public class InputManager {
 	}
 
 	/**
-	 * ÇÃ·¹ÀÌ¾îÀÇ Hit ¶Ç´Â Stay ÀÔ·Â ¸Ş¼­µå
-	 * @return
+	 * í”Œë ˆì´ì–´ì˜ Hit ë˜ëŠ” Stay ì…ë ¥ ë©”ì„œë“œ
+	 * @return HIT ë˜ëŠ” STAY
 	 */
 	public char chooseHitOrStay() {
 		input = new Scanner(System.in);
 		char choice = ' ';
 		try {
-			System.out.println("ÇÑ ÀåÀÇ Ä«µå¸¦ ´õ ¹Ş°Ú½À´Ï±î? (¿¹´Â y, ¾Æ´Ï¿À´Â n)");
+			System.out.println("í•œ ì¥ì˜ ì¹´ë“œë¥¼ ë” ë°›ê² ìŠµë‹ˆê¹Œ? (ì˜ˆëŠ” y, ì•„ë‹ˆì˜¤ëŠ” n)");
 			choice = input.next().charAt(FIRST_INDEX);
 			validateChoice(choice);
 			return choice;
 		} catch (Exception e) {
-			System.out.println("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.");
+			System.out.println("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.");
 			return chooseHitOrStay();
 		}
 	}

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Æ®·³ÇÁ Ä«µå ÀüÃ¼ »ı¼ºÀ» ´ã´çÇÏ´Â °´Ã¼
+ * íŠ¸ëŸ¼í”„ ì¹´ë“œ ì „ì²´ ìƒì„±ì„ ë‹´ë‹¹í•˜ëŠ” ê°ì²´
  */
 public class CardFactory {
 	public static List<Card> create() {

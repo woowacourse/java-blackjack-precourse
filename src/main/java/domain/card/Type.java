@@ -1,10 +1,10 @@
 package domain.card;
 
 public enum Type {
-	SPADE("½ºÆäÀÌµå"), 
-	DIAMOND("´ÙÀÌ¾Æ¸óµå"), 
-	HEART("ÇÏÆ®"), 
-	CLUB("Å¬·Î¹ö");
+	SPADE("ìŠ¤í˜ì´ë“œ"),
+	DIAMOND("ë‹¤ì´ì•„ëª¬ë“œ"),
+	HEART("í•˜íŠ¸"),
+	CLUB("í´ë¡œë²„");
 
 	private String koreanType;
 

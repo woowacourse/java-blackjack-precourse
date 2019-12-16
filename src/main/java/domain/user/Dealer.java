@@ -3,7 +3,7 @@ package domain.user;
 import domain.card.Card;
 
 /**
- * °ÔÀÓ µô·¯¸¦ ÀÇ¹ÌÇÏ´Â °´Ã¼
+ * ê²Œì„ ë”œëŸ¬ë¥¼ ì˜ë¯¸í•˜ëŠ” ê°ì²´
  */
 public class Dealer extends GameParticipant {
 

@@ -8,7 +8,7 @@ import domain.card.Card;
 import domain.card.CardFactory;
 
 /**
- * д╚╣Е ╨п╧Х ©╙грю╩ го╢б ╟╢ц╪
+ * Л╧╢К⌠° К╤└К╟╟ Л≈╜М∙═Л²└ М∙≤К┼■ Й╟²Л╡╢
  * @author smr60
  *
  */
