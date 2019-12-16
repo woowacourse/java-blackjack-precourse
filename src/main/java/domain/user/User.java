@@ -17,6 +17,10 @@ abstract public class User {
         cards.add(RandomCardFactory.create());
     }
 
+    public void addFixCard(Card card) {
+        cards.add(card);
+    }
+
     public List<Card> getCards() {
         return Collections.unmodifiableList(cards);
     }
@@ -66,11 +70,13 @@ abstract public class User {
     }
 
     public int calcurateScore() {
+
         int scoreExceptAce = cards.stream()
+                .filter(card -> card.getSymbol() != Symbol.ACE)
                 .map(card -> card.getSymbol().getScore())
                 .reduce(Integer::sum)
                 .get();
-
+        
         if (checkAce() && scoreExceptAce + Symbol.ACE.getBonusScore() <= LIMIT) {
             return scoreExceptAce + Symbol.ACE.getBonusScore();
         }
@@ -81,6 +87,7 @@ abstract public class User {
 
         return scoreExceptAce;
     }
+
     abstract public void printUserInfo();
 
     abstract public void printFinalOutput();
