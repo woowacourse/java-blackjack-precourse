@@ -25,4 +25,6 @@ public interface BlackjackPrinter {
     void printStart(Dealer dealer, List<Player> players);
 
     void printBreaktime();
+
+    void printError(RuntimeException e);
 }

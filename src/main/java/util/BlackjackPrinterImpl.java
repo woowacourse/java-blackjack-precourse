@@ -1,8 +1,8 @@
 package util;
 
+import common.BlackjackConfig;
 import domain.BlackjackPrinter;
 import domain.card.Card;
-import domain.card.CardConfig;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
@@ -51,7 +51,7 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
 
     @Override
     public void printDealerHit(User user) {
-        System.out.println(String.format("%s는 %d이하라 한 장의 카드를 더 받았습니다.", user, CardConfig.STANDARD_TO_HIT_FOR_DEALER));
+        System.out.println(String.format("%s는 %d이하라 한 장의 카드를 더 받았습니다.", user, BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER));
     }
 
     @Override
@@ -83,5 +83,10 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
     @Override
     public void printBreaktime() {
         System.out.println();
+    }
+
+    @Override
+    public void printError(RuntimeException e) {
+        System.out.println(String.format("다음과 같은 오류가 있습니다: %s", e.getMessage()));
     }
 }
