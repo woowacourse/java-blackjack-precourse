@@ -3,10 +3,7 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InputView {
@@ -17,6 +14,9 @@ public class InputView {
     private static final int MAX_USER_COUNT = 8;
     private static final int MIN_USER_COUNT = 2;
     private static final String ERROR_NAME_INPUT = "유저의 수는 2~8명이며 동일인물, 공백은 입력할 수 없습니다.";
+    private static final String INPUT_BETTING_MONEY = "님의 배팅금액은?";
+    private static final String ERROR_FORMAT = "잘못된 형식입니다. 다시 입력해주세요.";
+    private static final String ERROR_ZERO = "0은 입력할 수 없습니다.";
 
     public List<String> inputUserNames() throws IOException {
         System.out.println(USER_NAME_INPUT);
@@ -37,9 +37,34 @@ public class InputView {
     }
 
     public boolean checkBlankOk(String[] userNames) {
-        return Arrays.stream(userNames)
-                .map(s -> s.length() == ZERO)
+        return !Arrays.stream(userNames)
+                .map(s -> s.length())
                 .collect(Collectors.toList())
-                .contains(true);
+                .contains(ZERO);
+    }
+
+    public List<Double> inputBettingMoneys(List<String> userNames) throws IOException {
+        List<Double> bettingMoneys = new ArrayList<>();
+        for(int i=0; i<userNames.size(); i++){
+            System.out.println(userNames.get(i)+ INPUT_BETTING_MONEY);
+            bettingMoneys.add(checkBettingMoneyAndReturn());
+        }
+        return bettingMoneys;
+    }
+
+    private Double checkBettingMoneyAndReturn() throws IOException {
+        try {
+            return ifItIsNotZero(Double.parseDouble(BR.readLine().trim()));
+        } catch (NumberFormatException e){
+            System.out.println(ERROR_FORMAT);
+            return checkBettingMoneyAndReturn();
+        }
+    }
+
+    private Double ifItIsNotZero(double parseDouble) throws IOException {
+        if(parseDouble != ZERO)
+            return parseDouble;
+        System.out.println(ERROR_ZERO);
+        return checkBettingMoneyAndReturn();
     }
 }
