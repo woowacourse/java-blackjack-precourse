@@ -111,4 +111,10 @@ public class GamePrinter {
     void printDealerGetMoreCard(){
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
+
+    void printTotalProfit(List<Participant> participants) {
+        System.out.println("### 최종수익");
+        for(int i = 0; i < participants.size(); i++)
+            System.out.println(participants.get(i).getName() + ": "+ participants.get(i).getProfit()) ;
+    }
 }

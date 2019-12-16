@@ -105,6 +105,7 @@ public class BlackjackManager {
     void produceResult() {
         setWinnerAndProfit();
         calculateProfit();
+        gamePrinter.printTotalProfit(participants);
     }
 
     /**
