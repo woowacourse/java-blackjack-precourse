@@ -61,11 +61,6 @@ public class Dealer {
         return cost;
     }
 
-    public String getCard() {
-        String cardStr = String.join(", ",cards.toString());
-        return cardStr;
-    }
-
     public String toString() {
         String str = "";
         String joinStr = String.join(",", cards.toString());
