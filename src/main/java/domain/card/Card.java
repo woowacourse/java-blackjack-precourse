@@ -14,7 +14,6 @@ public class Card {
 		this.type = type;
 	}
 
-	// TODO Card 관련 추가 기능 구현
 	public int getSymbolScore() {
 		return this.symbol.getScore();
 	}

@@ -25,7 +25,7 @@ public class BlackJackInitializingController {
 		return cardDeck;
 	}
 
-	public static List<Integer> initializecardIndexList(int index) {
+	public static List<Integer> initializeCardIndexList(int index) {
 		List<Integer> indexList = new ArrayList<Integer>();
 		for (int i = 0; i < index; i++) {
 			indexList.add(i);

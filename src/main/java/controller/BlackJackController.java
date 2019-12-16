@@ -1,6 +1,5 @@
 package controller;
 
-import domain.card.Card;
 import exceptions.EmptyInputException;
 import exceptions.NumberUnderZeroException;
 import exceptions.WrongInputException;
