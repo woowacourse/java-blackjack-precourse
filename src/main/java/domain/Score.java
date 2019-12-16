@@ -6,7 +6,7 @@ import domain.user.Player;
 import java.util.List;
 
 /**
- * 배팅금을 관리하고, 수익을 나누는 객체
+ * 배팅금을 관리하고 수익을 나누는 객체
  */
 public class Score {
 
@@ -30,16 +30,17 @@ public class Score {
     }
 
     public void blackJack(List<Player> winners, int dealerScore) {
-        if (!winners.isEmpty()) returnBettingMoney(winners);
         if (dealerScore != BLACK_JACK) blackJackWinners(winners);
+        if (!winners.isEmpty()) returnBettingMoney(winners);
     }
 
-    public void returnBettingMoney(List<Player> winners) { //플레이어와 딜러 모두 21: 배팅금액 돌려줌
+    public void returnBettingMoney(List<Player> winners) { //플레이어와 딜러 모두 21(블랙잭)이거나 플레이어 win
         for (Player player : winners) {
-            player.setProfit(0);
+            player.setProfit(player.getProfit() + player.getBettingMoney());
             bettingMoneySum -= player.getBettingMoney();
         }
         dealer.setProfit(bettingMoneySum);
+        divideBettingMoney(winners);
     }
 
     private void blackJackWinners(List<Player> winners) { //블랙잭 플레이어에게 1.5배로 돌려줌
@@ -50,11 +51,11 @@ public class Score {
         dealer.setProfit(bettingMoneySum);
     }
 
-    private void dealerOver21() {
-        for (Player player : players)
-            player.setProfit(player.getBettingMoney());
-        dealer.setProfit(0);
+    private void divideBettingMoney(List<Player> winners) { //배팅금 우승자+딜러가 나눔
+        double dividedMoney = bettingMoneySum / (winners.size() + 1);
+        for (Player player : winners) {
+            player.setProfit(player.getProfit() + dividedMoney);
+            dealer.setProfit(dealer.getProfit() - dividedMoney);
+        }
     }
-
-//    private void divideBettingMoney() //배팅금 우승자+딜러가 나눔
 }

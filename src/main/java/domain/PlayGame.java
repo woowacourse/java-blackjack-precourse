@@ -113,7 +113,7 @@ public class PlayGame {
     private void dealerAdd() {
         if (dealer.cardSum() < DEALER_THRESHOLD) {
             dealer.addCard(pickCard());
-            System.out.println("딜러는 16 이하라 한 장 더 받았습니다.");
+            System.out.println("\n딜러는 16 이하라 한 장 더 받았습니다.");
         }
     }
 
@@ -135,13 +135,14 @@ public class PlayGame {
         int maxSum = dealer.cardSum();
         for (Player player : players) {
             if (isOver21(player.cardSum())) continue;
+            if (player.cardSum() == maxSum)
+                winners.add(player);
             if (player.cardSum() > maxSum) {
                 winners = new ArrayList<>();
                 winners.add(player);
                 maxSum = player.cardSum();
+                continue;
             }
-            if (player.cardSum() == maxSum)
-                winners.add(player);
         }
         return winners;
     }
@@ -152,7 +153,7 @@ public class PlayGame {
     }
 
     private void printFinalResult() {
-        System.out.println(dealer.print() + " - 결과 :" + dealer.cardSum());
+        System.out.println('\n' + dealer.print() + " - 결과 :" + dealer.cardSum());
         for (Player player : players) {
             System.out.println(player.print() + " - 결과 :" + player.cardSum());
         }
@@ -160,7 +161,7 @@ public class PlayGame {
     }
 
     private void printFinalScore() {
-        System.out.println("## 최종수익");
+        System.out.println("\n## 최종수익");
         System.out.println("딜러: " + dealer.getProfit());
         for (Player player : players)
             System.out.println(player.getName() + ": " + player.getProfit());
