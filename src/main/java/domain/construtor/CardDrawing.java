@@ -45,7 +45,7 @@ public class CardDrawing {
         playerList.forEach(player -> player.addCard(cards.get(randomIndex.nextInt(52))));
         playerList.forEach(player -> player.addCard(cards.get(randomIndex.nextInt(52))));
 
-        toStringCardInfo(playerList,dealer);
+        toStringCardInfo(playerList, dealer);
     }
 
     public void drawCard(List<Player> playerList, Dealer dealer) {
@@ -75,7 +75,7 @@ public class CardDrawing {
      *
      * @param playerList 플레이어정보를 갖고있는 List
      */
-    public void toStringCardInfo(List<Player> playerList,Dealer dealer) {
+    public void toStringCardInfo(List<Player> playerList, Dealer dealer) {
         System.out.println(dealer.toStringCard());
 
         for (Player player : playerList) {

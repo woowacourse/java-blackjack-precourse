@@ -29,7 +29,7 @@ public class Dealer {
     public String toStringCard() {
         List<String> cardInfo = new ArrayList<>();
 
-        for(int i=1;i<cards.size();i++){
+        for (int i = 1; i < cards.size(); i++) {
             cardInfo.add(cards.get(i).toString());
         }
 

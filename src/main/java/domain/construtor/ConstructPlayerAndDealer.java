@@ -39,6 +39,7 @@ public class ConstructPlayerAndDealer {
      */
     public List<Player> constructorPlayer() {
         names = input.inputName();
+        System.out.println();
         Map<String, Double> maps = money.inputMoney(names);
         maps.forEach((x, y) -> {
             playerList.add(new Player(x, y));

@@ -30,13 +30,15 @@ public class InputMoney {
 
     /**
      * 배팅금액을 입력을 실행하는 메소드
-     * @param   names 사용자의 이름List를 메개변수로 받는다.
-     * @return  배팅금액과 사용자 이름을 묶은 hashmap을 리턴
+     *
+     * @param names 사용자의 이름List를 메개변수로 받는다.
+     * @return 배팅금액과 사용자 이름을 묶은 hashmap을 리턴
      */
     public HashMap<String, Double> inputMoney(List<String> names) {
         while (index < names.size()) {
             System.out.println(names.get(index) + "의 배팅금액은?");
             exceptIOManagement(names);
+            System.out.println();
         }
         return relations;
     }
@@ -44,6 +46,7 @@ public class InputMoney {
     /**
      * 배팅금액으로 숫자 이외의 값을 input 했을 때 예외처리
      * 예외가 안나면 realations 에 입력후 exceptMoney메소드로 금액이 정상입력인지 다시 판단.
+     *
      * @param names 플레이어의 이름리스트
      */
     public void exceptIOManagement(List<String> names) {
