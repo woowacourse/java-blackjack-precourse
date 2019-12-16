@@ -41,7 +41,7 @@ public class InputOutputView {
 	}
 
 	public static int inputaskMoreCards(Player player) {
-		System.out.println(player.getName() +"는 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+		System.out.println(player.getName() + "는 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 		return ExceptionHandler.inputaskMoreCardsHandler();
 	}
 
@@ -51,6 +51,37 @@ public class InputOutputView {
 
 	public static void outputDealerGotCard() {
 		System.out.println("딜러는 16이하라 카드를 더 받았습니다.");
+	}
+
+	public static void outputShowCardsWithScore(Dealer dealer) {
+		System.out.print("\n딜러카드 ");
+		for (Card card : dealer.getCards()) {
+			System.out.print(card.getSymbol() + "-" + card.getType() +" ");
+
+		}
+		System.out.println("- 결과:" + bestScore(dealer));
+	}
+
+	private static int bestScore(Dealer dealer) {
+		if (dealer.getScoreAceAsEleven() <= 21) {
+			return dealer.getScoreAceAsEleven();
+		}
+		return dealer.getScoreAceAsOne();
+	}
+
+	public static void outputShowCardsWithScore(Player player) {
+		System.out.print(player.getName() + "카드 ");
+		for (Card card : player.getCards()) {
+			System.out.print(card.getSymbol() + "-" + card.getType() +" ");
+		}
+		System.out.println("- 결과:" + bestScore(player));
+	}
+
+	private static int bestScore(Player player) {
+		if (player.getScoreAceAsEleven() <= 21) {
+			return player.getScoreAceAsEleven();
+		}
+		return player.getScoreAceAsOne();
 	}
 
 }

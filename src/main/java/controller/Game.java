@@ -21,7 +21,7 @@ public class Game {
 		cardDistribute();
 		showCards();
 		askMoreCards();
-//		InputOutputView.outputShowCardsWithScore();
+		showCardsWithScore();
 	}
 
 	private static void init() {
@@ -75,6 +75,14 @@ public class Game {
 		System.out.println();
 	}
 
+	private void showCardsWithScore() {
+		InputOutputView.outputShowCardsWithScore(dealer);
+		for (Player player : players) {
+			InputOutputView.outputShowCardsWithScore(player);
+		}
+		System.out.println();
+	}
+
 	private void askMoreCards() {
 		for (Player player : players) {
 			checkMoreCards(player);
@@ -100,11 +108,11 @@ public class Game {
 	}
 
 	private void checkMoreCards(Dealer dealer) {
-		while(dealer.getScoreAceAsEleven() <= 16) {
+		while (dealer.getScoreAceAsEleven() <= 16) {
 			giveCard(1, dealer);
 			InputOutputView.outputDealerGotCard();
 		}
-		while(dealer.getScoreAceAsEleven() >21 && dealer.getScoreAceAsOne() <= 16) {
+		while (dealer.getScoreAceAsEleven() > 21 && dealer.getScoreAceAsOne() <= 16) {
 			giveCard(1, dealer);
 			InputOutputView.outputDealerGotCard();
 		}
