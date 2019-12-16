@@ -70,7 +70,7 @@ public class Users {
                 .filter(user -> user.isDealer())
                 .map(user -> (Dealer) user)
                 .forEach(dealer ->
-                        dealer.doCheckAddLimitExcessAndFollowAction());
+                        dealer.hit());
     }
 
     public void decideOutcome(int dealderScore, Outcomes outcomes) {

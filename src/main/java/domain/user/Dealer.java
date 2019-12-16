@@ -1,12 +1,8 @@
 package domain.user;
 
-import domain.card.Card;
 import domain.card.Symbol;
 import domain.view.InputUtil;
 import domain.view.OutputUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 게임 딜러를 의미하는 객체
@@ -23,21 +19,13 @@ public class Dealer extends User {
         return getCards().get(0).getCardInfo();
     }
 
-    private boolean checkAddLimitExcess() {
-        int sum = super.getCards().stream()
-                .filter(card -> card.getSymbol() != Symbol.ACE)
-                .map(card -> card.getSymbol().getScore())
-                .reduce(Integer::sum)
-                .get();
-        if (checkAce()) {
-            OutputUtil.printAceScoreQuestion();
-            sum += InputUtil.inputAceUse();
-        }
+    public boolean checkAddLimitExcess() {
+        int sum = calcurateScore();
         return sum > ADD_CARD_LIMIT;
     }
 
-    public void doCheckAddLimitExcessAndFollowAction() {
-        if (checkAddLimitExcess() == false) {
+    public void hit() {
+        while (checkAddLimitExcess() == false) {
             OutputUtil.printDealerAddCard();
             addRandomCard();
         }
