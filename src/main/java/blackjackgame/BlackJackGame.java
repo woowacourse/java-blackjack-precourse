@@ -18,11 +18,13 @@ import domain.user.Player;
 import view.Input;
 
 public class BlackJackGame {
-	private List<Player> players = new ArrayList<>();
+	private static final String COMMA = ",";
+	
 	private Input input = new Input();
 	private String[] playerNames;
 
 	public void startGame() {
-		playerNames = input.getPlayerNames().split(",");
+		playerNames = input.getPlayerNames().split(COMMA);
 	}
+
 }

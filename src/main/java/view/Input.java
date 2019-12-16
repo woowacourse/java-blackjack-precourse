@@ -17,8 +17,8 @@ import exceptionhandler.ExceptionHandler;
 
 public class Input {
 	private static final String INPUT_NAMES = "게임에 참여할 사람들의 이름을 입력해주세요.(쉼표를 기준으로 분리)";
-	private String playerNames;
 	private static final ExceptionHandler exception = new ExceptionHandler();
+	private String playerNames;
 	static final Scanner sc = new Scanner(System.in);
 
 	public String getPlayerNames() throws IllegalArgumentException {
@@ -33,4 +33,5 @@ public class Input {
 		}
 		return playerNames;
 	}
+	
 }

@@ -15,34 +15,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExceptionHandler {
-	private List<String> usedNames = new ArrayList<>();
+	private static final String COMMA = ",";
+	private static final int MIN_PLAYER = 1;
+	private static final int MAX_PLAYER = 8;
 
 	public boolean isDuplicated(String playerNames) {
-		boolean status = false;
-		for (String name : playerNames.split(",")) {
-			status = isUsed(name);
+		List<String> names = new ArrayList<>();
+		for (String name : playerNames.split(COMMA)) {
+			names.add(name);
 		}
-		return status;
-	}
-
-	private boolean isUsed(String name) {
-		if (!(usedNames.contains(name))) {
-			usedNames.add(name);
-		}
-		return usedNames.contains(name);
+		return names.size() != names.stream().distinct().count();
 	}
 
 	public boolean lessThanOne(String playerNames) {
-		if (playerNames.split(",").length < 1) {
+		if (playerNames.split(COMMA).length < MIN_PLAYER) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean moreThanEight(String playerNames) {
-		if (playerNames.split(",").length > 8) {
+		if (playerNames.split(COMMA).length > MAX_PLAYER) {
 			return true;
 		}
 		return false;
 	}
+	
 }
