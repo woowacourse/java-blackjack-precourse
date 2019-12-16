@@ -66,11 +66,6 @@ public class BlackJackController {
 		return cards.remove(popIndex);
 	}
 	/*
-	private void drawFromCardDeck() {
-		for (Player player : this.players) {
-			player.addCard(popRandomCard(this.cardDeck));
-		}
-		dealer.addCard(popRandomCard(this.cardDeck));
-	}
+
 	*/
 }
