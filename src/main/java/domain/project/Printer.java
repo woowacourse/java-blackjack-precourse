@@ -29,4 +29,8 @@ public class Printer {
 	public void printInputNumber() {
 		System.out.println("숫자를 입력해주세요.");
 	}
+	
+	public void printInitialCard(String nameString) {
+		System.out.println("\r\n딜러와 " + nameString + "에게 2장의 카드를 나누었습니다.");
+	}
 }

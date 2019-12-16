@@ -2,6 +2,8 @@ package domain.project;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.card.Symbol;
+import domain.card.Type;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Game {
 	private static List<Card> cardSet;
@@ -20,7 +23,8 @@ public class Game {
 
 	public Game() {
 		CardFactory cardFactory = new CardFactory();
-		cardSet = cardFactory.create();
+		cardSet = new ArrayList<Card>();
+		cardSet.addAll(cardFactory.create());
 		dealer = new Dealer();
 		playerSet = new ArrayList<Player>();
 		in = new Scanner(System.in);
@@ -29,6 +33,7 @@ public class Game {
 
 	private void run() {
 		initialSet();
+		giveInitialCard();
 	}
 
 	private void initialSet() {
@@ -72,7 +77,7 @@ public class Game {
 	private void parseName(String name) {
 		nameMoneyMap = new HashMap<String, Double>();
 		String[] playerName = name.split(Constant.COMMA);
-		
+
 		for (String s : playerName) {
 			isEmptyPlayerName(s);
 		}
@@ -107,22 +112,22 @@ public class Game {
 			throw new GameException();
 		}
 	}
-	
+
 	private void addName(String[] playerName) {
 		for (String s : playerName) {
 			nameMoneyMap.put(s, 0d);
 		}
 	}
-	
+
 	private void inputBettingMoney() {
 		for (String s : nameMoneyMap.keySet()) {
 			setBettingMoneyPerPlayer(s);
 		}
 	}
-	
+
 	private void setBettingMoneyPerPlayer(String name) {
 		String bettingMoney;
-		
+
 		try {
 			myPrinter.printInputBettingMoney(name);
 			bettingMoney = in.next();
@@ -131,39 +136,95 @@ public class Game {
 			setBettingMoneyPerPlayer(name);
 		}
 	}
-	
+
 	private void checkBettingMoneyValidation(String name, String bettingMoney) {
 		isNum(bettingMoney);
 		addBettingMoney(name, bettingMoney);
 	}
-	
+
 	private void isNum(String bettingMoney) {
 		for (char c : bettingMoney.toCharArray()) {
 			checkAscii(c);
 		}
 	}
-	
+
 	private void checkAscii(char c) {
 		if (!(c >= Constant.ASCII_ZERO && c <= Constant.ASCII_NINE)) {
 			myPrinter.printInputNumber();
 			throw new GameException();
 		}
 	}
-	
+
 	private void addBettingMoney(String name, String bettingMoney) {
 		nameMoneyMap.put(name, convertBettingMoney(bettingMoney));
 	}
-	
+
 	private double convertBettingMoney(String bettingMoney) {
 		return Double.parseDouble(bettingMoney);
 	}
-	
+
 	private void addPlayer() {
 		for (String name : nameMoneyMap.keySet()) {
 			playerSet.add(new Player(name, nameMoneyMap.get(name)));
 		}
 	}
-	
+
+	private void giveInitialCard() {
+		myPrinter.printInitialCard(makePlayerNameString());
+		giveInitialCardToDealer();
+		giveInitialCardToPlayer();
+	}
+
+	private String makePlayerNameString() {
+		ArrayList<String> nameSet = new ArrayList<String>();
+		for (Player p : playerSet) {
+			nameSet.add(p.getName());
+		}
+		return String.join(", ", nameSet);
+	}
+
+	private Card makeRandomCard() {
+		Random ran = new Random();
+		Symbol[] symbols = Symbol.values();
+		Type[] types = Type.values();
+		Card card;
+
+		do {
+			card = new Card(symbols[ran.nextInt(12)], types[ran.nextInt(3)]);
+		} while (!checkCardInCardSet(card));
+		removeCardInCardSet(card);
+		return card;
+	}
+
+	private boolean checkCardInCardSet(Card card) {
+		if (cardSet.contains(card)) {
+			return true;
+		}
+		return false;
+	}
+
+	private void removeCardInCardSet(Card card) {
+		cardSet.remove(card);
+	}
+
+	private void giveInitialCardToDealer() {
+		for (int i = 0; i < 2; i++) {
+			dealer.addCard(makeRandomCard());
+		}
+	}
+
+	private void giveInitialCardToPlayer() {
+		for (Player p : playerSet) {
+			giveTwoCardToPlayer(p);
+		}
+	}
+
+	private void giveTwoCardToPlayer(Player player) {
+		for (int i = 0; i < 2; i++) {
+			player.addCard(makeRandomCard());
+		}
+	}
+
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.run();
