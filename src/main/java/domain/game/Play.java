@@ -12,7 +12,7 @@ import domain.user.Player;
 public class Play {
 	private ArrayList<Player> playerList;
 	private Dealer dealer;
-	private	GameRequest gameRequest;
+	private GameRequest gameRequest;
 	private CardPay cardPay;
 
 	public Play() {
@@ -40,6 +40,13 @@ public class Play {
 		dealer.printCard();
 		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).printCard();
+		}
+	}
+
+	public void requestAddCard() {
+		for (int i = 0; i < playerList.size(); i++) {
+			GameUI.printRequestAddCard(playerList.get(i).getName());
+			
 		}
 	}
 }

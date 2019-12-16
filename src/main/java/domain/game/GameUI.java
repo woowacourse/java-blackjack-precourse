@@ -37,7 +37,11 @@ public class GameUI {
 		System.out.println(parseName);
 	}
 
-	public static void printPersonCard(StringBuilder cardList){
+	public static void printPersonCard(StringBuilder cardList) {
 		System.out.println(cardList);
+	}
+
+	public static void printRequestAddCard(String name){
+		System.out.println(name + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 	}
 }

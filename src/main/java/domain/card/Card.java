@@ -16,8 +16,6 @@ public class Card {
 		this.exist = false;
 	}
 
-	// TODO Card 관련 추가 기능 구현
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -43,7 +41,11 @@ public class Card {
 	}
 
 	public String getCard() {
-		return symbol.toString() + " " + type.toString();
+		return symbol.getScore() + " " + type.toString();
+	}
+
+	public int getSymbol() {
+		return symbol.getScore();
 	}
 
 	public boolean getExist() {
