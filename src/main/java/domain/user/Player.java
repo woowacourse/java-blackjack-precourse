@@ -18,6 +18,10 @@ public class Player extends Dealer {
 		this.bettingMoney = bettingMoney;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public void showHand() {
 		String showHand = this.name;
@@ -25,10 +29,6 @@ public class Player extends Dealer {
 			showHand += card.toString() + ",";
 		}
 		System.out.println(showHand);
-	}
-	//입출력 실험 메소드
-	public void inputTest() {
-		System.out.println(this.name + " " + this.bettingMoney);
 	}
 
 }
