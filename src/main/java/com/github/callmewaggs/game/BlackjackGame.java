@@ -1,27 +1,30 @@
 package com.github.callmewaggs.game;
 
 import com.github.callmewaggs.game.domain.card.Card;
-import com.github.callmewaggs.game.domain.card.CardShuffler;
-import com.github.callmewaggs.game.domain.user.Participant;
+import com.github.callmewaggs.game.domain.user.Dealer;
+import com.github.callmewaggs.game.domain.user.Player;
 import java.util.List;
 
 public class BlackjackGame {
-  List<Participant> participants;
+
+  Dealer dealer;
+  List<Player> players;
   BlackjackRule blackjackRule;
 
-  public BlackjackGame(List<Participant> participants, List<Card> cards) {
-    this.participants = participants;
+  public BlackjackGame(Dealer dealer, List<Player> players, List<Card> cards) {
+    this.dealer = dealer;
+    this.players = players;
     this.blackjackRule = new BlackjackRule(cards);
   }
 
   public void gameStart() {
     blackjackRule.dealInitialCards(participants);
-    if(isThereBlackjack()) {
+    if (isThereBlackjack()) {
       calculateResult();
       return;
     }
     blackjackRule.hitOrStay(participants);
-    if(isDealerBust()) {
+    if (isDealerBust()) {
       calculateResult();
       return;
     }
