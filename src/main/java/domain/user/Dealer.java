@@ -17,4 +17,17 @@ public class Dealer extends Gamer{
     public boolean shouldHaveOneMoreCard(){
         return sumOfCard() <= 16;
     }
+
+    public double getProfit(List<Player> players, Dealer dealer){
+        double dealerProfit = 0;
+        for(int i =0; i<players.size(); i++){
+            if(players.get(i).winGame(dealer) || players.get(i).drawGame(dealer)){
+                dealerProfit -= players.get(i).getProfit();
+            }else {
+                dealerProfit -= players.get(i).getProfit();
+            }
+        }
+        return dealerProfit;
+    }
+
 }

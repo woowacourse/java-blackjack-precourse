@@ -2,6 +2,7 @@ package domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.card.Card;
 import domain.card.Symbol;
@@ -19,22 +20,34 @@ public class Gamer {
         cards.add(card);
     }
 
+    public boolean isBurst(){
+        return sumOfCard() > BLACKJACK;
+    }
+
     public boolean isBlackJack(){
-        return sumOfCard() == BLACKJACK;
+        return sumOfCard() == BLACKJACK && cards.size() == 2;
     }
 
     public Integer sumOfCard() {
-        int sum = 0;
-        for(int i=0; i<getCards().size(); i++){
-            sum += getCards().get(i).getSymbol().getScore();
-        }
-        if(hasAce() && sumOfCard() <= 11)
+        int sum = sumWithoutAce();
+        if(hasAce() && sumWithoutAce()<= 11)
             sum += 10;
         return sum;
     }
 
+    private int sumWithoutAce() {
+        int sum = 0;
+        for(int i=0; i<getCards().size(); i++){
+            sum += getCards().get(i).getSymbol().getScore();
+        }
+        return sum;
+    }
+
     protected boolean hasAce() {
-        return getCards().contains(Symbol.ACE);
+        return getCards().stream()
+                .map(s->s.getSymbol().getScore() == Symbol.ACE.getScore())
+                .collect(Collectors.toList())
+                .contains(true);
     }
 
 }

@@ -22,6 +22,7 @@ public class InputView {
     private static final String INPUT_WANT_ONE_MORE = "님 한장의 카드를 더 받겠습니까?(Y / N)";
     private static final String YES = "Y";
     private static final String NO = "N";
+    private static final String NEXT_LINE = "\n";
 
     public List<String> inputUserNames() throws IOException {
         System.out.println(USER_NAME_INPUT);
@@ -74,7 +75,7 @@ public class InputView {
     }
 
     public boolean wantOneMore(Player player) throws IOException {
-        System.out.println(player.getName() + INPUT_WANT_ONE_MORE);
+        System.out.println(NEXT_LINE + player.getName() + INPUT_WANT_ONE_MORE);
         String userInput = BR.readLine().trim().toUpperCase();
         if(userInput.equals(YES))
             return true;

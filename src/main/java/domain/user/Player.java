@@ -22,10 +22,28 @@ public class Player extends Gamer{
         this.bettingMoney = bettingMoney;
     }
 
+    // TODO 추가 기능 구현
+
     public void multiplyProfit(double multiple) {
         bettingMoney *= multiple;
     }
 
-    // TODO 추가 기능 구현
+    public double getProfit(){
+        return bettingMoney;
+    }
 
+    public boolean winGame(Dealer dealer) {
+        if(dealer.isBurst() && !isBurst())
+            return true;
+        if(dealer.sumOfCard() < sumOfCard() && !dealer.isBurst() && !isBurst())
+            return true;
+        return false;
+    }
+
+    public boolean drawGame(Dealer dealer) {
+        if(dealer.sumOfCard() == sumOfCard()
+                && !dealer.isBurst() && !isBurst() )
+            return true;
+        return false;
+    }
 }

@@ -70,24 +70,24 @@
     
 8. 이후 딜러와 플레이어의 모든 카드를 출력하며 카드의 결과값(합계) 또한 함께 출력한다.
     
-    - 플레이어 출력
-    - 딜러 출력
-    - 각각의 결과 출력
+    -[x] 플레이어 출력
+    -[x] 딜러 출력
+    -[x] 각각의 결과 출력
     
 9. 결과를 비교해 수익을 출력한다.
     
-    - 수익은 게임 이후 가지고 가는 돈을 의미하며(배팅액과 수익금이 합해진 값이다) -인 경우 잃은 것을 의미한다.
-    - 딜러는 총 배팅금액에서 수익을 가져간 사람을 뺀 값을 가져간다.
-    - 규칙 (플레이어 기준 승리 비김 패배) - 계산을 쉽게하기 위해 버스트 인경우 합계는 0으로 간주한다.
-        - 승리하는 경우
-            - dealer.isBurst() && !player.isBurst()
-            - dealer.sumOfCard() < player.sumOfCard()
+    - 수익은 게임 이후 수익금을(본인의 배팅액 제외) 의미하며 -인 경우 잃은 것을 의미한다.
+    - 각 사용자와 비교를 통해 이긴경우는 그 사용자의 배팅액을, 가져가고 진 경우 배팅액만큼 - 한다.
+    - [x] 규칙 (플레이어 기준 승리 비김 패배) - 계산을 쉽게하기 위해 버스트 인경우 합계는 0으로 간주한다.
+        - [x] 승리하는 경우
+            - [x] dealer.isBurst() && !player.isBurst()
+            - [x] dealer.sumOfCard() < player.sumOfCard()
         - 비기는 경우
-            - dealer.sumOfCard() == player.sumOfCard() && !both.isBurst()
+            - [x] dealer.sumOfCard() == player.sumOfCard() && !both.isBurst()
         - 패배하는 경우
-            - !dealer.isBurst() && player.isBurst()
-            - dealer.isBurst() && player.isBurst()
-            - dealer.sumOfCard() > player.sumOfCard()    
+            - [x] !dealer.isBurst() && player.isBurst()
+            - [x] dealer.isBurst() && player.isBurst()
+            - [x] dealer.sumOfCard() > player.sumOfCard()    
     - 출력한다.
     
 ## 사용 툴

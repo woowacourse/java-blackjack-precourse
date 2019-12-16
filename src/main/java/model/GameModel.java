@@ -13,17 +13,18 @@ import view.OutputView;
 
 public class GameModel {
     private static final int SECOND = 2;
-    private static final double FIRST_BLACKJACK_PROFIT = 1.5;
+    private static final double FIRST_BLACKJACK_PROFIT = 0.5;
     private static final Integer TWENTY = 20;
+    private static final double WIN_RATE = 1;
+    private static final double DRAW_RATE = 0;
+    private static final double LOSE_RATE = -1;
     private final List<Player> players = new ArrayList<>();
     private final Dealer dealer = new Dealer();
     private static final Deck deck = Deck.getInstance();
-    private int totalBettingMoney = 0;
 
     public GameModel(List<String> userNames, List<Double> userBettingMoneys) {
         for (int i = 0; i < userNames.size(); i++) {
             players.add(new Player(userNames.get(i), userBettingMoneys.get(i)));
-            totalBettingMoney += userBettingMoneys.get(i);
         }
     }
 
@@ -32,23 +33,59 @@ public class GameModel {
         checkPlayerFirstBlackJack();
         giveOneMoreCardToPlayers();
         checkOneMoreCardToDealer();
+        showResultOfEveryCards();
+        for (Player player : players) {
+            setResult(player,dealer);
+        }
+        setResultOfDealer();
+    }
+
+    private void setResultOfDealer() {
+        OutputView.printDealer(dealer.getProfit(players,dealer));
+    }
+
+    private boolean setResult(Player player, Dealer dealer) {
+        if(player.isBlackJack() && !dealer.isBlackJack())
+            OutputView.printPlayerProfit(player);
+        if (player.winGame(dealer) && !player.isBlackJack()) {
+            player.multiplyProfit(WIN_RATE);
+            OutputView.printPlayerProfit(player);
+            return true;
+        }
+        if (player.drawGame(dealer) && !player.isBurst() && !dealer.isBurst()) {
+            player.multiplyProfit(DRAW_RATE);
+            OutputView.printPlayerProfit(player);
+            return true;
+        }
+        if(!player.isBlackJack()){
+            player.multiplyProfit(LOSE_RATE);
+            OutputView.printPlayerProfit(player);
+        }
+        return false;
+    }
+
+    private void showResultOfEveryCards() {
+        for (Player player : players) {
+            OutputView.printPlayerCardsAndResult(player);
+        }
+        OutputView.printDealerCardsAndResult(dealer);
     }
 
     private void checkOneMoreCardToDealer() {
-        if(dealer.shouldHaveOneMoreCard()){
+        if (dealer.shouldHaveOneMoreCard()) {
             dealer.addCard(deck.getRandomCard());
             OutputView.printDealerGetOneMore();
         }
     }
 
     private void giveOneMoreCardToPlayers() throws IOException {
-        for(Player player : players){
+        for (Player player : players) {
             checkCanHaveMoreAndGive(player);
         }
     }
 
     private void checkCanHaveMoreAndGive(Player player) throws IOException {
-        if(wantOneMore(player) && canHaveMore(player)){
+        if (wantOneMore(player) && canHaveMore(player)) {
             player.addCard(deck.getRandomCard());
         }
         OutputView.printCards(player);
@@ -64,13 +101,13 @@ public class GameModel {
     }
 
     private void checkPlayerFirstBlackJack() {
-        for(Player player : players){
+        for (Player player : players) {
             checkFirstBlackjack(player);
         }
     }
 
     private void checkFirstBlackjack(Player player) {
-        if(player.isBlackJack() && !dealer.isBlackJack())
+        if (player.isBlackJack() && !dealer.isBlackJack())
             player.multiplyProfit(FIRST_BLACKJACK_PROFIT);
     }
 
