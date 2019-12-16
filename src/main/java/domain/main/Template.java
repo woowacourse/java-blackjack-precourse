@@ -37,13 +37,13 @@ public class Template {
 	}
 	
 	public static void finalResult(List<Player> players, Dealer dealer) {
-		System.out.println("딜러 : " + dealer.showCard() + " - " + Integer.toString(dealer.showScore()));
+		System.out.println("딜러 : " + dealer.showCard() + " - 결과 : " + Integer.toString(dealer.showScore()));
 		for (Player player : players) {
-			System.out.println(player.name()+ " : " + player.showCard() + " - " + Integer.toString(player.showScore()));
+			System.out.println(player.name()+ " : " + player.showCard() + " - 결과 : " + Integer.toString(player.showScore()));
 		}
 	}
 	
 	public static void dealerOneMoreCard() {
-		System.out.println("딜러는 16 이하라 한장의 카드를 더 받았습니다.");
+		System.out.println("딜러는 16 이하라 한장의 카드를 더 받았습니다.\n");
 	}
 }

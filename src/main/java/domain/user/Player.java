@@ -38,10 +38,23 @@ public class Player {
     
     public int showScore() {
     	int score = 0;
+    	int check = 0;
     	for (Card card : cards) {
     		score += Symbol.valueOf(card.showSymbol()).getScore();
+    		check = aceCheck(card);
+    	}
+    	if (score < 12 && check == 1) {
+    		score += 10;
     	}
     	return score;
+    }
+    
+    public int aceCheck(Card card) {
+    	int check = 0;
+    	if (card.showSymbol() == "ACE") {
+    		check = 1; 
+    	}
+    	return check;
     }
 
 }

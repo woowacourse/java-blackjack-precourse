@@ -26,6 +26,10 @@ public class Main {
 		
 		InputHandler.oneMoreCardOrNot(playerList);
 		
+		dealerMoreCard(dealer);
+		
+		Template.finalResult(playerList, dealer);
+		
 	}
 	
 	public static void basicRation(Dealer dealer, List<Player> playerList) {
@@ -34,6 +38,14 @@ public class Main {
 		for (Player player : playerList) {
 			giveOneCardToPlayer(player);
 			giveOneCardToPlayer(player);
+		}
+	}
+	
+	public static void dealerMoreCard(Dealer dealer) {
+		if (dealer.showScore() <= 16) {
+			Template.dealerOneMoreCard();
+			giveOneCardToDealer(dealer);
+			dealerMoreCard(dealer);
 		}
 	}
 	

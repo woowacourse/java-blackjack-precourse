@@ -95,8 +95,6 @@ public class InputHandler {
 	public static void oneMoreCardOrNot(List<Player> playerList) {
 		for (Player player : playerList) {
 			oneMoreCardOrNotException(player);
-			System.out.println(player.name()+ " : " + player.showCard());
-			System.out.println();
 		}
 	}
 	
@@ -104,6 +102,8 @@ public class InputHandler {
 		String answer = Template.oneMoreCardRequest(player);
 		if (answer.charAt(0) == 'y' && answer.length() == 1) {
 			Main.giveOneCardToPlayer(player);
+			System.out.printf(player.name()+ " : " + player.showCard() + "\n\n");
+			oneMoreCardOrNotException(player);
 		}
 		if (answer.length() != 1 || (answer.charAt(0) != 'y' && answer.charAt(0) != 'n') ) {
 			System.out.println("y 또는 n만 입력이 가능합니다.");
