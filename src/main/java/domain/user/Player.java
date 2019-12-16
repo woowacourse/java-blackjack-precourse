@@ -29,8 +29,28 @@ public class Player {
     // TODO 추가 기능 구현
     public int sumScore() {
         int score = 0;
+        int aceCount = 0;
         for (int i = 0; i < cards.size(); i++) {
             score += cards.get(i).getScore();
+            aceCount += getScoreFromCard(score, i);
+        }
+        if (aceCount > 0) {
+            checkAceScore(score);
+        }
+        return score;
+    }
+
+    public int getScoreFromCard(int score, int i) {
+        int aceCount = 0;
+        if (cards.get(i).ifCardisAce()){
+            aceCount = 1;
+        }
+        return aceCount;
+    }
+
+    public int checkAceScore(int score) {
+        if (score + 10 <= BLACKJACK) {
+            score += 10;
         }
         return score;
     }
