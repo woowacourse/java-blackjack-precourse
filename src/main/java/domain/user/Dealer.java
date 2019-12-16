@@ -41,9 +41,8 @@ public class Dealer {
 
     protected String printCardList() {
         List<String> cardList = new ArrayList<>();
-        for (Card card : cards) {
+        for (Card card : cards)
             cardList.add(card.getCard());
-        }
         return String.join(", ", cardList);
     }
 }
