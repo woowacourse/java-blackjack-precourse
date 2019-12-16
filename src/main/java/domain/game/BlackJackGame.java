@@ -78,33 +78,30 @@ public class BlackJackGame {
 
 	/**
 	 * 플레이어 한명씩 순서대로 게임진행
-	 */
-	private void playersTurn() {
-		for (Player player : playerList) {
-			eachPlayerTurn(player, player.getCardScore());
-		}
-	}
-
-	/**
-	 * 임의의 플레이어의 턴
 	 * 1) 블랙잭 케이스 확인
 	 * 2) 총 점수가 21에 가까워 질때까지 Hit 또는 Stay 가능
 	 * 3) Bust 케이스 확인
-	 *
-	 * @param player
 	 */
-	private void eachPlayerTurn(Player player, int playerScore) {
+	private void playersTurn() {
+		for (Player player : playerList) {
+			checkPlayerBlackJack(player, player.getCardScore());
+			chooseHitOrStay(player, player.getCardScore());
+			checkPlayerBust(player, player.getCardScore());
+		}
+	}
+
+	private void checkPlayerBlackJack(Player player, int playerScore) {
 		if (playerScore == BLACKJACK_SCORE && playerScore != dealer.getCardScore()) {
 			rewardCalculator.blackJackReward(player);
 		}
+	}
+
+	private void chooseHitOrStay(Player player, int playerScore) {
 		boolean hit = true;
 		while (playerScore < BLACKJACK_SCORE && hit) {
 			System.out.println("\n" + player.getName() + "의 현재 점수는 " + playerScore + "입니다.");
 			hit = isChoiceHit(inputManager.chooseHitOrStay(), player);
 			playerScore = player.getCardScore();
-		}
-		if (playerScore > BLACKJACK_SCORE) {
-			rewardCalculator.playerBustReward(player);
 		}
 	}
 
@@ -115,6 +112,12 @@ public class BlackJackGame {
 			return true;
 		}
 		return false;
+	}
+
+	private void checkPlayerBust(Player player, int playerScore){
+		if (playerScore > BLACKJACK_SCORE) {
+			rewardCalculator.playerBustReward(player);
+		}
 	}
 
 	/**
