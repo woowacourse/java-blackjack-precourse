@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Users {
     private static List<User> users;
@@ -52,17 +53,15 @@ public class Users {
         });
     }
 
-    public void startAddCardQuestion() {
-        startUserAddCardQuestion();
+    public void startAddCardQuestion(Outcomes outcomes) {
+        startUserAddCardQuestion(outcomes);
         startDealerAddCardQuestion();
     }
 
-    private void startUserAddCardQuestion() {
-        users.stream()
-                .filter(user -> user.isPlayer())
-                .forEach(player -> {
-                    ((Player) player).startAddCardLoop();
-                });
+    private void startUserAddCardQuestion(Outcomes outcomes) {
+        getPlayers()
+                .filter(player -> !outcomes.isHavePlayer(player.getName()))
+                .forEach(player -> player.startAddCardLoop());
     }
 
     private void startDealerAddCardQuestion() {
@@ -85,14 +84,12 @@ public class Users {
 
     public void addOutcomes(Player player, Outcomes outcomes, Double benefit) {
         outcomes.addOutcomes(
-                new Outcome(player.getName(),
-                        benefit, player.getCards()));
+                player.getName(),
+                benefit, player.getCards());
     }
 
     private void decideAllAlivePlayerWinner(Outcomes outcomes) {
-        users.stream()
-                .filter(User::isPlayer)
-                .map(player -> (Player) player)
+        getPlayers()
                 .filter(player -> !player.checkExcess())
                 .filter(player -> !outcomes.isHavePlayer(player.getName()))
                 .forEach(player -> {
@@ -102,9 +99,7 @@ public class Users {
     }
 
     private void decideWinner(int dealerScore, Outcomes outcomes) {
-        users.stream()
-                .filter(User::isPlayer)
-                .map(player -> (Player) player)
+        getPlayers()
                 .filter(player -> player.isWinBy(dealerScore))
                 .filter(player -> !player.checkExcess())
                 .filter(player -> !outcomes.isHavePlayer(player.getName()))
@@ -115,9 +110,7 @@ public class Users {
     }
 
     private void decideExcessLoswer(Outcomes outcomes) {
-        users.stream()
-                .filter(User::isPlayer)
-                .map(player -> (Player) player)
+        getPlayers()
                 .filter(player -> player.checkExcess())
                 .filter(player -> !outcomes.isHavePlayer(player.getName()))
                 .forEach(player -> {
@@ -127,9 +120,7 @@ public class Users {
     }
 
     private void decideLoswer(int dealerScore, Outcomes outcomes) {
-        users.stream()
-                .filter(User::isPlayer)
-                .map(player -> (Player) player)
+        getPlayers()
                 .filter(player -> !player.isWinBy(dealerScore))
                 .filter(player -> !player.checkExcess())
                 .filter(player -> !outcomes.isHavePlayer(player.getName()))
@@ -137,6 +128,12 @@ public class Users {
                     addOutcomes(player, outcomes,
                             player.getBenefit(BenefitMultipleType.USER_LOSE));
                 });
+    }
+
+    public Stream<Player> getPlayers() {
+        return users.stream()
+                .filter(User::isPlayer)
+                .map(player -> (Player) player);
     }
 
     public String getUsersName() {
@@ -152,5 +149,9 @@ public class Users {
                 .map(user -> (Dealer) user)
                 .findFirst()
                 .get();
+    }
+
+    public int getInitBlackJackPlayer() {
+        return (int) getPlayers().count();
     }
 }

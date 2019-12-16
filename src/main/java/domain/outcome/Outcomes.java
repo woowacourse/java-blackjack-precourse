@@ -12,8 +12,8 @@ public class Outcomes {
         addDealer();
     }
 
-    public void addOutcomes(Outcome userOutcome) {
-        outcomes.add(userOutcome);
+    public void addOutcomes(String name, double benefit, List<Card> cards) {
+        outcomes.add(new Outcome(name, benefit, cards));
     }
 
     public boolean isHavePlayer(String name) {

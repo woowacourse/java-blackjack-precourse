@@ -1,15 +1,54 @@
 package domain;
 
+import domain.card.Card;
+import domain.card.Symbol;
+import domain.card.Type;
 import domain.outcome.Outcomes;
+import domain.user.Dealer;
+import domain.user.Player;
+import domain.user.User;
 import domain.user.Users;
 import domain.view.InputUtil;
 import domain.view.OutputUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlackJackGame {
+    static boolean gameEndFlag = false;
+    static final Outcomes outcomes = new Outcomes();
+
     public static void start() {
         Users users = initGameSetting();
-        startDecideCardAddLoop(users);
+        checkInitBlackJack(users);
+        if (gameEndFlag == false) {
+            startDecideCardAddLoop(users);
+        }
         decideOutcome(users);
+    }
+
+    public static void checkInitBlackJack(Users users) {
+        // 딜러가 블랙잭일 경우
+        if (users.getDealer().isBlackJack()) {
+            calculateInitBlackJackPlayer(users, true, BenefitMultipleType.INIT_BOTH_BLACKJACK);
+            calculateInitBlackJackPlayer(users, false, BenefitMultipleType.USER_LOSE);
+            gameEndFlag = true;
+            return;
+        }
+
+        if (users.getInitBlackJackPlayer() > 0) {
+            calculateInitBlackJackPlayer(users, true, BenefitMultipleType.INIT_USER_BLACKJACK);
+        }
+    }
+
+    private static void calculateInitBlackJackPlayer(Users users, boolean playerBlackJackFlag, BenefitMultipleType multipleType) {
+        users.getPlayers().filter(player -> player.isBlackJack() == playerBlackJackFlag)
+                .forEach(player ->
+                        outcomes.addOutcomes(
+                                player.getName(),
+                                player.getBenefit(multipleType),
+                                player.getCards()
+                        ));
     }
 
     private static Users initGameSetting() {
@@ -31,8 +70,8 @@ public class BlackJackGame {
         users.printInitUserCard();
     }
 
-    private static void startDecideCardAddLoop(Users users) {
-        users.startAddCardQuestion();
+    static void startDecideCardAddLoop(Users users) {
+        users.startAddCardQuestion(outcomes);
         users.printFinalOutput();
     }
 
@@ -40,8 +79,7 @@ public class BlackJackGame {
         return users.getDealer().calcurateScore();
     }
 
-    private static void decideOutcome(Users users) {
-        Outcomes outcomes = new Outcomes();
+    static void decideOutcome(Users users) {
         users.decideOutcome(getDealerScore(users), outcomes);
         outcomes.calcurateDealerBenefit();
         OutputUtil.printOutcomes(outcomes);
