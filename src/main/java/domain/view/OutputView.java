@@ -62,6 +62,11 @@ public class OutputView {
 		Money money = new Money(playerList);
 		money.calculatePlayersEarning(dealer, playerList);
 		money.calculateDealerEarning(playerList);
+
+		money.printPlayersEarning(playerList);
+		money.printDealerEarning();
 	}
+
+
 
 }

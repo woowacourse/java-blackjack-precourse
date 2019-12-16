@@ -27,7 +27,6 @@ public class Money {
 		}
 		playerList.forEach(this::winAsBlackJack);
 		playerList.forEach(this::loseBurst);
-		playerList.forEach(p -> OutputView.printEarning(p.getName(), earning.get(p.getName())));
 	}
 
 	public void calculateDealerEarning(List<Player> playerList) {
@@ -39,7 +38,15 @@ public class Money {
 
 		dealerEarning -= sumOfPlayerEarnings;
 		earning.put("딜러", dealerEarning);
-		OutputView.printEarning("딜러", dealerEarning);
+
+	}
+
+	public void printPlayersEarning(List<Player> playerList) {
+		playerList.forEach(p -> OutputView.printEarning(p.getName(), earning.get(p.getName())));
+	}
+
+	public void printDealerEarning() {
+		OutputView.printEarning("딜러", earning.get("딜러"));
 	}
 
 	private void winAsBlackJack(Player player) {
