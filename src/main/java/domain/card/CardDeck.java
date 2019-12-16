@@ -3,15 +3,16 @@ package domain.card;
 import java.util.*;
 
 public class CardDeck {
-    private static List<Card> cardDeck = new ArrayList<Card>();
+    private Random random = new Random();
+    private List<Card> cardDeck = new ArrayList<Card>(CardFactory.create());
 
-    private CardDeck() {
-        cardDeck = CardFactory.create();
-    }
-
-    public static Card drawACard() {
-        Card card = new Card(Symbol.getRandom(), Type.getRandom());
-        cardDeck.remove(card);
-        return card;
+    public Card drawACard() throws Exception {
+        try {
+            Card card = cardDeck.get(random.nextInt(cardDeck.size()));
+            cardDeck.remove(card);
+            return card;
+        } catch (Exception e) {
+            throw new Exception();
+        }
     }
 }

@@ -1,15 +1,16 @@
 import java.util.*;
 
 import domain.card.Card;
+import domain.card.CardDeck;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
-import static domain.card.CardDeck.drawACard;
 
 public class BlackJackGame {
     private List<User> users = new ArrayList<User>();
     private Scanner scanner = new Scanner(System.in);
     private int step = 1;
+    private CardDeck cardDeck = new CardDeck();
 
     public static void main(String[] args) {
         BlackJackGame blackJackGame = new BlackJackGame();
@@ -87,13 +88,24 @@ public class BlackJackGame {
     }
 
     private void handOutCards(Dealer dealer) {
-        Card card = drawACard();
+        Card card = handOutCards();
         dealer.addCard(card);
     }
 
     private void handOutCards(Player player) {
-        Card card = drawACard();
+        Card card = handOutCards();
         player.addCard(card);
+    }
+    
+    private Card handOutCards() {
+        Card card = null;
+        try {
+            card = cardDeck.drawACard();
+        } catch (Exception e) {
+            System.out.println("카드패가 전부 소진되어 게임을 종료합니다. 사용자 수를 조정을 추천합니다.");
+            System.exit(0);
+        }
+        return card;
     }
 
     private void FirstHandOutCards() {
