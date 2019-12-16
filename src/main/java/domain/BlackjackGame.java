@@ -1,10 +1,34 @@
 package domain;
 
+import domain.card.Card;
+import domain.user.Dealer;
+import domain.user.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlackjackGame {
+    static ArrayList<Player> playersArray;
+    static Dealer dealer;
+    static List<Card> shuffledCards;
+
+    static void initGame() {
+        playersArray = GameProcessor.addPlayers(InputProcessor.getPlayerName());
+        dealer = GameProcessor.createDealer();
+        shuffledCards = GameProcessor.createCard();
+    }
+
+    static void dealFirstRound() {
+        dealer.addCard(GameProcessor.dealCard(shuffledCards));
+        dealer.addCard(GameProcessor.dealCard(shuffledCards));
+        for (Player name : playersArray) {
+            name.addCard(GameProcessor.dealCard(shuffledCards));
+            name.addCard(GameProcessor.dealCard(shuffledCards));
+        }
+    }
 
     public static void main(String[] args) {
-        GameProcessor.addPlayers(InputProcessor.getPlayerName());
-        GameProcessor.createDealer();
-        GameProcessor.createCard();
+        initGame();
+        dealFirstRound();
     }
 }
