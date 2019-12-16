@@ -1,12 +1,9 @@
 package woowacourse.blackjack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Random;
+import java.util.*;
 
 import domain.card.Symbol;
+import domain.user.Dealer;
 import domain.user.Player;
 import domain.card.CardFactory;
 import domain.card.Card;
@@ -14,6 +11,7 @@ import domain.card.Card;
 public class BlackJackGame {
     private Scanner sc = new Scanner(System.in);
     private List<Player> players = new ArrayList<>();
+    private Dealer dealer = new Dealer();
     private List<Card> cards =  CardFactory.create();
     private List<Card> getCardsList = new ArrayList<>();
 
@@ -21,9 +19,7 @@ public class BlackJackGame {
         List<String> playerNames = this.getPlayerNames();
         List<Double> bettingMoney = this.getBettingMoney(playerNames);
         this.setPlayerInformation(playerNames, bettingMoney);
-        for (Player player : this.players) {
-            this.handCardsToPlayer(player);
-        }
+        this.receiveTwice();
     }
 
     private List<String> getPlayerNames() {
@@ -46,6 +42,23 @@ public class BlackJackGame {
         int amount = playerNames.size();
         for (int i = 0; i < amount; i++) {
             this.players.add(new Player(playerNames.get(i), bettingMoney.get(i)));
+        }
+    }
+
+    private void receiveTwice() {
+        for (int i = 0; i < 2; i++) {
+            receiveOnceToPlayers();
+            receiveOnceToDealer();
+        }
+    }
+
+    private void receiveOnceToDealer() {
+        this.dealer.addCard(getRandomCard());
+    }
+
+    private void receiveOnceToPlayers() {
+        for (Player player: this.players) {
+            this.handCardsToPlayer(player);
         }
     }
 
