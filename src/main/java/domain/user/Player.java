@@ -21,9 +21,8 @@ public class Player extends User {
     	return name;
     }
     
-    public void showFirstCard() {
-    	showResult();
-    	System.out.println();
+    public String getFirstCard() {
+    	return getCardResult();
     }
     
     public boolean isBelowJack() {

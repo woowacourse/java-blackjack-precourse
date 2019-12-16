@@ -18,21 +18,20 @@ public abstract class User {
     }
     
     public void showFirstResult() {
-    	System.out.print(getName() + " 카드 : ");
-    	showFirstCard();
+
     }
 
-	public abstract void showFirstCard();
+	public abstract String getFirstCard();
 	
 	public abstract String getName();
 	
-	public void showResult() {
+	public String getCardResult() {
 		String cardName = cards
 				.stream()
 				.map(card -> card.toString())
 				.collect(Collectors.joining(", "));
 		
-		System.out.print(cardName);
+		return cardName;
 	}
 	
 	public int getScore() {

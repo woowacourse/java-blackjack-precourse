@@ -14,9 +14,22 @@ public class ViewOutput {
 		System.out.println();
 	}
 	
+	public static void showFristCardResult(User user) {
+    	System.out.print(user.getName() + " 카드 : ");
+    	System.out.println(user.getFirstCard());
+	}
+	
+	public static void showDealerCheck() {
+		System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+	}
+	
 	public static void showEachResult(User user) {
 		System.out.print(user.getName() + " 카드 : ");
-		user.showResult();
+		System.out.print(user.getCardResult());
+	}
+	
+	public static void showScoreResult(User user) {
+		System.out.println(" - 결과 : " + user.getScore());
 	}
 	
 	public static void showEachProfit(List<User> userList, List<Integer> profit) {

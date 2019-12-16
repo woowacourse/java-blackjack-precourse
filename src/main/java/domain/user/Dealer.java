@@ -15,8 +15,8 @@ public class Dealer extends User {
 		return "딜러";
 	}
 	
-	public void showFirstCard() {
-		System.out.println(getCards().get(firstCard));
+	public String getFirstCard() {
+		return getCards().get(firstCard).toString();
 	}
 	
 	public boolean isBelowCriteria() {

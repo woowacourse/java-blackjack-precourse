@@ -53,6 +53,7 @@ public class UserRepository {
 	
 	public void showFirstUserCard() {
 		for (User user : userList) {
+			ViewOutput.showFristCardResult(user);
 			user.showFirstResult();
 		}
 	}
@@ -79,14 +80,14 @@ public class UserRepository {
 		
 		while (dealer.isBelowCriteria()) {
 			dealer.addCard(Game.getInstance().selectedCard());
-			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+			ViewOutput.showDealerCheck();
 		}
 	}
 	
 	public void showAllResult() {
 		for (User user : userList) {
 			ViewOutput.showEachResult(user);
-			System.out.println(" - 결과 : " + user.getScore());
+			ViewOutput.showScoreResult(user);
 		}
 		System.out.println();
 	}
