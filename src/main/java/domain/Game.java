@@ -69,12 +69,12 @@ public class Game {
             dealerIsBlackJack();
             return;
         }
+        //딜러가 블랙잭이 아니면 밑의 코드 수행
         for(index = 0; index < player.size(); index++){
             askOneMoreOnlyForNotBJPlayer();
         }
         giveMoreCardToDealer();
         finishGame();
-
     }
 
     public void dealerIsBlackJack() {
@@ -180,8 +180,10 @@ public class Game {
 
     public boolean checkIfOver21() {
         if(player.get(index).sumScore() > BLACKJACK) {
-            player.remove(index--);
-            System.out.println("21을 초과하여 게임에서 지셨습니다.");
+            //player.remove(index--);
+            player.get(index).burstPlayer = true;
+            System.out.println("21을 초과하여 게임에서 지셨습니다.\n");
+            LoosePlayerBurst();
             return false;
         }
         return true;
@@ -215,6 +217,14 @@ public class Game {
         }
     }
 
+    public void LoosePlayerBurst() {
+        player.get(index).getBettingMoney(-1);
+        dealer.addCost(player.get(index).getbet());
+        System.out.println(player.get(index).getinfo()+" burst "+player.get(index).getReward());
+
+        System.out.println("***딜러: "+dealer.finalCost()+"  플레이어 : "+player.get(index).getReward());
+    }
+
     public void finishGame() {
         for(int i = 0; i < player.size(); i++) {
             System.out.println(player.get(i).getinfo()+" 승부 확인");
@@ -230,6 +240,7 @@ public class Game {
     }
 
     public void findWinner(int i) {
+        //플레이어와 딜러 중 누가 이겼는지 정산
         if(player.get(i).ifBlackJack() || player.get(i).burstPlayer || dealer.ifBurst){
             System.out.println("블랙잭으로 끝");
             return;
@@ -254,3 +265,4 @@ public class Game {
         }
     }
 }
+
