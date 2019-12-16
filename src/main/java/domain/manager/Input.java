@@ -40,7 +40,7 @@ public class Input {
     }
 
     private static List<Double> inputPlayerBettingMoney(List<String> playerNameList) {
-        List<Double> playerBettingMoneyList = new ArrayList<Double>();
+        List<Double> playerBettingMoneyList = new ArrayList<>();
 
         for (int i = 0; i < playerNameList.size(); i++) {
             System.out.println(playerNameList.get(i) + "의 베팅 금액은?");
