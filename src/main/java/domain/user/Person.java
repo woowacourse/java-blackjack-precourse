@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.project.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 public class Person {
 	private final List<Card> cards = new ArrayList<>();
 	private String cardString;
+	private int cardSum;
 	
 	public Person() {}
 	
@@ -27,5 +29,13 @@ public class Person {
 	
 	public String getCardString() {
 		return this.cardString;
+	}
+	
+	public void calculateCardSum() {
+		cardSum = 0;
+		
+		for (Card c : cards) {
+			cardSum = cardSum + c.getSymbolScore();
+		}
 	}
 }

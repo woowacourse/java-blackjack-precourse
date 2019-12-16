@@ -42,4 +42,12 @@ public class Card {
     public String makeCardString() {
     	return this.symbol.getName() + this.type.getName();
     }
+    
+    public int getSymbolScore() {
+    	return this.symbol.getScore();
+    }
+    
+    public String getSymbolName() {
+    	return this.symbol.getName();
+    }
 }

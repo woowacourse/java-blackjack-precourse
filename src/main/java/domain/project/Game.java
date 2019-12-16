@@ -34,6 +34,8 @@ public class Game {
 	private void run() {
 		initialSet();
 		giveInitialCard();
+		getCardPerPlayer();
+//		getCardDealer();
 	}
 
 	private void initialSet() {
@@ -161,7 +163,7 @@ public class Game {
 
 	private double convertBettingMoney(String bettingMoney) {
 		double money = Double.parseDouble(bettingMoney);
-		
+
 		if (money == 0) {
 			myPrinter.printNonZeroBettingMoney();
 			throw new GameException();
@@ -180,7 +182,7 @@ public class Game {
 		giveInitialCardToDealer();
 		giveInitialCardToPlayer();
 		printDealerCard();
-		printPlayerCard();
+		printPlayerSetCard();
 	}
 
 	private String makePlayerNameString() {
@@ -198,7 +200,7 @@ public class Game {
 		Card card;
 
 		do {
-			card = new Card(symbols[ran.nextInt(12)], types[ran.nextInt(3)]);
+			card = new Card(symbols[ran.nextInt(Constant.SYMBOL_COUNT)], types[ran.nextInt(Constant.TYPE_COUNT)]);
 		} while (!checkCardInCardSet(card));
 		removeCardInCardSet(card);
 		return card;
@@ -232,19 +234,65 @@ public class Game {
 			player.addCard(makeRandomCard());
 		}
 	}
-	
+
 	private void printDealerCard() {
 		dealer.setCardString();
 		myPrinter.printDealer();
 		myPrinter.printCard(dealer);
 	}
-	
-	private void printPlayerCard() {
+
+	private void printPlayerSetCard() {
 		for (Player p : playerSet) {
-			p.setCardString();
-			myPrinter.printPlayerName(p.getName());
-			myPrinter.printCard(p);
+			printPlayerCard(p);
 		}
+	}
+	
+	private void printPlayerCard(Player player) {
+		player.setCardString();
+		myPrinter.printPlayerName(player.getName());
+		myPrinter.printCard(player);
+	}
+
+	private void getCardPerPlayer() {
+		myPrinter.printNewLine();
+		for (Player p : playerSet) {
+			chooseGetCard(p);
+		}
+	}
+
+	private void chooseGetCard(Player player) {
+		String answer;
+
+		do {
+			myPrinter.printChooseCard(player.getName());
+			answer = in.next();
+		} while (!isGetAnotherCard(player, answer));
+		myPrinter.printNewLine();
+	}
+
+	private boolean isGetAnotherCard(Player player, String answer) {
+		try {
+			checkAnswerValidation(answer);
+			return returnByAnswer(player, answer);
+		} catch (GameException e) {
+			return false;
+		}
+	}
+
+	private void checkAnswerValidation(String answer) {
+		if (!(answer.equals(Constant.YES) || answer.equals(Constant.NO))) {
+			myPrinter.printNotAllowedAnswer();
+			throw new GameException();
+		}
+	}
+	
+	private boolean returnByAnswer(Player player, String answer) {
+		if (answer.equals(Constant.YES)) {
+			player.addCard(makeRandomCard());
+			printPlayerCard(player);
+			return false;
+		}
+		return true;
 	}
 
 	public static void main(String[] args) {
