@@ -10,11 +10,17 @@ public class BlackJackUIService {
 		return BlackJackController.getInputOfPlayersName();
 	}
 
-	public static void getPlayersBetting(String player) {
+	public static double getPlayersBetting(String player) {
 		System.out.println(player + "의 배팅 금액은?");
+		return BlackJackController.getBetting();
 	}
 
 	public static void printEmptyInputMessage() {
 		System.out.println("플레이어를 입력하여야 합니다");
 	}
+
+	public static void printWrongInputMessage() {
+		System.out.println("양수를 입력해야 합니다");
+	}
 }
+
