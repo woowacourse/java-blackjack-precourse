@@ -20,6 +20,10 @@ public class BlackJackGame {
         this.setPlayerInformation(playerNames, bettingMoney);
         this.receiveTwice();
         this.printPlayersAndDealerCards();
+        for (Player player: this.players) {
+            this.checkPointPlayers(player);
+        }
+        this.checkPointDealer();
     }
 
     private List<String> getPlayerNames() {
@@ -33,6 +37,7 @@ public class BlackJackGame {
         for (String playerName : playerNames) {
             System.out.println("" + playerName + "의 배팅 금액은?");
             bettingMoney.add(sc.nextDouble());
+            sc.nextLine();
             System.out.println();
         }
         return bettingMoney;
@@ -92,6 +97,7 @@ public class BlackJackGame {
         for (Player player: this.players) {
             printPlayersCards(player);
         }
+        System.out.println();
     }
 
     private void printDealerCards() {
@@ -106,5 +112,40 @@ public class BlackJackGame {
             stringCards.add(card.getSymbolName() + card.getTypeName());
         }
         System.out.println(String.join(", ", stringCards));
+    }
+
+    private void checkPointPlayers(Player player) {
+        boolean getBooleanChoice = true;
+        boolean getBooleanScore = player.getBooleanSumScore();
+        while (getBooleanScore && getBooleanChoice){
+            getBooleanChoice = choiceCardYesOrNo(player);
+            getBooleanScore = player.getBooleanSumScore();
+            printPlayersCards(player);
+        }
+        System.out.println();
+    }
+
+    private void checkPointDealer() {
+        if (this.dealer.getSumScore() < 17) {
+            receiveOnceToDealer();
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+            System.out.println();
+        }
+    }
+
+    private boolean choiceCardYesOrNo(Player player) {
+        System.out.println(""+player.getName()+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        String choice = sc.nextLine();
+        if (choice.equals("y")) {
+            this.oneMoreCard(player);
+            return true;
+        }
+        return false;
+    }
+
+    private void oneMoreCard(Player player) {
+        if (player.getSumScore() < 21) {
+            this.handCardsToPlayer(player);
+        }
     }
 }

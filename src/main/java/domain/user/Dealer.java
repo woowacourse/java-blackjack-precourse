@@ -20,4 +20,20 @@ public class Dealer {
     public List<Card> getCards() {
         return this.cards;
     }
+
+    public int getSumScore() {
+        int count = 0;
+        for (Card card: this.cards) {
+            count += card.getSymbolScore();
+        }
+        return count;
+    }
+
+    public boolean getBooleanSumScore() {
+        int count = 0;
+        for (Card card: this.cards) {
+            count += card.getSymbolScore();
+        }
+        return count < 21;
+    }
 }
