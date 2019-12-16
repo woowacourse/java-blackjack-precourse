@@ -2,7 +2,6 @@ package domain.game;
 
 import controller.BlackJackController;
 import domain.card.Card;
-import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 import services.BlackJackInitializingService;
@@ -29,7 +28,7 @@ public class BlackJack {
 		this.dealer = new Dealer();
 	}
 
-	private void drawFromCardDeck() {
+	public void drawCardDeckToAll() {
 		for (Player player : this.players) {
 			player.addCard(BlackJackController.popRandomCard(this.cardDeck));
 		}

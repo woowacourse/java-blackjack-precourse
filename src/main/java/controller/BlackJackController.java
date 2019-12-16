@@ -1,9 +1,9 @@
 package controller;
 
 import domain.card.Card;
-import domain.user.Player;
 import exceptions.EmptyInputException;
-import exceptions.WrongNumberException;
+import exceptions.NumberUnderZeroException;
+import exceptions.WrongInputException;
 import services.BlackJackUIService;
 import utils.UtilityMethods;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackController {
-	public static List<String> getInputOfPlayersName() {
+	public static List<String> getPlayersName() {
 		Scanner scanner = new Scanner(System.in);
 		String names = scanner.nextLine();
 		while (names.equals("")) {
@@ -39,25 +39,25 @@ public class BlackJackController {
 	public static double getBetting() {
 		Scanner scanner = new Scanner(System.in);
 		double betting = scanner.nextDouble();
-		while (betting <= 0){
-			catchWrongInput(betting);
+		while (betting <= 0) {
+			catchUnderZeroInput(betting);
 		}
 		scanner.close();
 		return betting;
 	}
 
-	private static double catchWrongInput(double betting) {
+	private static double catchUnderZeroInput(double betting) {
 		try {
 			validateBetting(betting);
 		} catch (EmptyInputException e) {
-			BlackJackUIService.printEmptyInputMessage();
+			BlackJackUIService.printUnderZeroInputMessage();
 		}
 		return betting;
 	}
 
-	private static void validateBetting(double betting) throws WrongNumberException {
+	private static void validateBetting(double betting) throws NumberUnderZeroException {
 		if (betting <= 0) {
-			throw new WrongNumberException();
+			throw new NumberUnderZeroException();
 		}
 	}
 
@@ -65,7 +65,34 @@ public class BlackJackController {
 		int popIndex = UtilityMethods.generateRandomNumber(cards.size());
 		return cards.remove(popIndex);
 	}
-	/*
 
-	*/
+	public static Boolean getMoreCardInput() {
+		Scanner scanner = new Scanner(System.in);
+		String moreCard = scanner.nextLine(); // 한글자가 아닌 입력을 핸들하기 위한 String 선언
+		while (!moreCard.equals("Y") || !moreCard.equals("y")
+			|| !moreCard.equals("N") || !moreCard.equals("n")) {
+			catchWrongInput(moreCard);
+		}
+		if (moreCard.equals("Y") || moreCard.equals("y")) {
+			return true;
+		}
+		return false ;
+	}
+
+	private static String catchWrongInput(String moreCard) {
+		try {
+			validateMoreCard(moreCard);
+		} catch (WrongInputException e) {
+			BlackJackUIService.printWrongInputMessage();
+		}
+		return moreCard;
+	}
+
+	private static void validateMoreCard(String moreCard) throws WrongInputException {
+		if (!moreCard.equals("Y") || !moreCard.equals("y")
+			|| !moreCard.equals("N") || !moreCard.equals("n")) {
+			throw new WrongInputException();
+		}
+	}
+
 }
