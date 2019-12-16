@@ -23,6 +23,10 @@ public class EntryManager {
                 .forEach(x -> x.isPlayerWillHit(gameCard));
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     public Dealer getDealer() {
         return (Dealer) players.stream().filter(Player::isDealer)
                 .findFirst()
@@ -53,6 +57,12 @@ public class EntryManager {
     public String getEntryResultScore() {
         return players.stream()
                 .map(x -> x.toString() + " - 결과: " + x.getCountedScoreWithAceBonus())
+                .collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public String toString() {
+        return players.stream().map(Player::toString)
                 .collect(Collectors.joining("\n"));
     }
 }

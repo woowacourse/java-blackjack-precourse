@@ -22,6 +22,7 @@ public class Input {
         Output.displayForGetPlayerNames();
         return Optional.of(userResponse())
                 .filter(this::isNotEmptyName)
+                .filter(this::isNotEndWithDivider)
                 .map(this::nameSpliter)
                 .orElseGet(this::getPlayerEntry);
     }
@@ -42,12 +43,15 @@ public class Input {
     }
 
     public boolean isNotEmptyName(String playerNames) {
-        return !playerNames.contains(NAME_DIVIDER + NAME_DIVIDER)
-                || !playerNames.endsWith(NAME_DIVIDER);
+        return !playerNames.contains(NAME_DIVIDER + NAME_DIVIDER);
+    }
+
+    public boolean isNotEndWithDivider(String playerNames) {
+        return !playerNames.endsWith(NAME_DIVIDER);
     }
 
     public List<String> nameSpliter(String playerNames) {
-        return Arrays.asList(userResponse().split(NAME_DIVIDER));
+        return Arrays.asList(playerNames.split(NAME_DIVIDER));
     }
 
     public Optional<Double> stringToDoubleForMoney(String bettingMoney) {

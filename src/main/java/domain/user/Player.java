@@ -2,6 +2,8 @@ package domain.user;
 
 import domain.card.Card;
 import domain.card.CardsOnGame;
+import ui.Input;
+import ui.Output;
 
 import java.lang.management.BufferPoolMXBean;
 import java.util.ArrayList;
@@ -83,10 +85,10 @@ public class Player {
     }
 
     public void isPlayerWillHit(CardsOnGame gameCards) {
-        if (!isBlackJack() && !isBurst(getCountedScoreWithAceBonus())) {
-            // 입력부 추가 구현
+        if (!isBlackJack() && !isBurst(getCountedScoreWithAceBonus())
+                && new Input().pickExtraCard(this.name)) {
             addCard(gameCards.pickUpCard());
-            // 출력부 추가 구현
+            Output.displayPlayerInfo(this);
             isPlayerWillHit(gameCards);
         }
     }
