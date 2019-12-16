@@ -15,6 +15,14 @@ public class Card {
         this.type = type;
     }
 
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
     // TODO Card 관련 추가 기능 구현
 
     @Override

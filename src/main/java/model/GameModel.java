@@ -11,6 +11,7 @@ import view.OutputView;
 
 public class GameModel {
     private static final int SECOND = 2;
+    private static final double FIRST_BLACKJACK_PROFIT = 1.5;
     private final List<Player> players = new ArrayList<>();
     private final Dealer dealer = new Dealer();
     private static final Deck deck = Deck.getInstance();
@@ -25,6 +26,18 @@ public class GameModel {
 
     public void play() {
         giveTwoCardsToEveryOne();
+        checkPlayerFirstBlackJack();
+    }
+
+    private void checkPlayerFirstBlackJack() {
+        for(Player player : players){
+            checkFirstBlackjack(player);
+        }
+    }
+
+    private void checkFirstBlackjack(Player player) {
+        if(player.isBlackJack() && !dealer.isBlackJack())
+            player.multiplyProfit(FIRST_BLACKJACK_PROFIT);
     }
 
     private void giveTwoCardsToEveryOne() {
