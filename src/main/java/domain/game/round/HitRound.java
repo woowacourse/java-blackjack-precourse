@@ -17,6 +17,7 @@ public class HitRound extends Round {
 		doDealerPhase(table);
 		findWinner(table);
 		showResultStatus(table);
+		// 정산
 	}
 
 	@Override
@@ -25,13 +26,15 @@ public class HitRound extends Round {
 		winnerList = table.getPlayerList().stream()
 			.filter(player -> player.getSum() == playerMaxPoint)
 			.collect(Collectors.toList());
+		checkDealerWin(table.getDealer(),playerMaxPoint);
+		checkPlayerWin();
 	}
 
 	private int findPlayerMaxPoint(Table table) {
 		return table.getPlayerList().stream()
 			.filter(player -> (player.isBust(Rule.getBlackjackPoint()) == false))
 			.max(Comparator.comparingInt(player -> (player.sumCardsMax())))
-			.get()
+			.orElseGet(()->new Player("",0))
 			.getSum();
 	}
 
@@ -48,6 +51,7 @@ public class HitRound extends Round {
 		}
 		try {
 			table.drawCards(player, 1);
+			showPlayerDrawText(player);
 			doPlayerPhase(table, player);
 		} catch (Exception e) {
 			System.out.println(Rule.getOutOfCardsMessage());
@@ -55,9 +59,15 @@ public class HitRound extends Round {
 	}
 
 	private boolean checkPlayerCondition(Player player) {
-		InputController inputController=InputController.getInputController();
-		return (player.isBust(Rule.getBlackjackPoint())
-			||!inputController.getYesOrNo(player.getName()));
+		if(player.isBust(Rule.getBlackjackPoint())){
+			return true;
+		}
+		InputController inputController = InputController.getInputController();
+		boolean yesOrNo=inputController.getYesOrNo(player.getName());
+		if(!yesOrNo){
+			showPlayerDrawText(player);
+		}
+		return (!yesOrNo);
 	}
 
 	private void doDealerPhase(Table table) {
@@ -81,6 +91,12 @@ public class HitRound extends Round {
 	private void showDealerDrawText() {
 		OutputController outputController = OutputController.getOutputController();
 		outputController.printDealerDrawLine(Rule.getDealerDrawPoint());
+		outputController.printNewLine();
+	}
+
+	private void showPlayerDrawText(Player player){
+		OutputController outputController = OutputController.getOutputController();
+		outputController.printPlayerCards(player);
 		outputController.printNewLine();
 	}
 }

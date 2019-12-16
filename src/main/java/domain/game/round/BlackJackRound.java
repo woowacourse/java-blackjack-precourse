@@ -15,8 +15,9 @@ public class BlackJackRound extends Round {
 		distribute(table, Rule.getBasicDraw());
 		findWinner(table);
 		showStatus(table);
-		if(hasWinners()){
+		if (hasWinners()) {
 			showResultStatus(table);
+			//정산
 		}
 	}
 
@@ -25,12 +26,8 @@ public class BlackJackRound extends Round {
 		winnerList = table.getPlayerList().stream()
 			.filter(player -> (player.sumCardsMax() == Rule.getBlackjackPoint()))
 			.collect(Collectors.toList());
-		if (winnerList.size() > 0) {
-			playerWin = true;
-		}
-		if (table.getDealer().sumCardsMax() == Rule.getBlackjackPoint()) {
-			dealerWin = true;
-		}
+		checkDealerWin(table.getDealer(),Rule.getBlackjackPoint());
+		checkPlayerWin();
 	}
 
 	private void distribute(Table table, int count) {
@@ -45,9 +42,10 @@ public class BlackJackRound extends Round {
 	private void showStatus(Table table) {
 		OutputController outputController = OutputController.getOutputController();
 		outputController.printBlackJackRoundTextLine(table.getPlayerNames(), Rule.getBasicDraw());
-		outputController.printDealerCards(table.getDealer(),Rule.getOpenCount(),false);
-		for (Gambler player: table.getPlayerList()
-			 ) {
+		outputController.printDealerCards(table.getDealer(), Rule.getOpenCount(), false);
+		outputController.printNewLine();
+		for (Gambler player : table.getPlayerList()
+		) {
 			outputController.printPlayerCards((Player)player);
 			outputController.printNewLine();
 		}
