@@ -11,5 +11,13 @@ import java.util.List;
 public class Dealer extends User {
     public Dealer() {}
 
-    // TODO 추가 기능 구현
+    public Card openFirstCardDealerMustOpen() {
+        List<Card> allCards = openAllCards();
+
+        if (allCards.size() < 1) {
+            return null;
+        }
+
+        return allCards.get(0);
+    }
 }
