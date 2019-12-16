@@ -38,8 +38,8 @@ public class Message {
         return MESSAGE_ASK_PLAYER_NAMES;
     }
 
-    public static String makeMessageAskPlayerBattingAmout(Player player) {
-        return player.getName() + MESSAGE_ASK_PLAYER_BATTING_AMOUNT;
+    public static String makeMessageAskPlayerBattingAmout(String playerName) {
+        return playerName + MESSAGE_ASK_PLAYER_BATTING_AMOUNT;
     }
 
     public static String makeMessageDealTwoCardsToPlayer(ArrayList<Player> players) {
