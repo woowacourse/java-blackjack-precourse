@@ -19,7 +19,7 @@ public class Blackjack {
         dealer = new Dealer();
     }
 
-    public void ready() {
+    public void start() {
         String[] nameArr = getNames();
         for (String name : nameArr) {
             System.out.println(name + "의 배팅 금액을 입력해주세요.");

@@ -9,6 +9,6 @@ public class Game {
     public static void main(String[] args) {
         List<Card> cards = CardFactory.create();
         Blackjack blackjack = new Blackjack(cards);
-        blackjack.ready();
+        blackjack.start();
     }
 }
