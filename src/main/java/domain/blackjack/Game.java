@@ -2,7 +2,10 @@ package domain.blackjack;
 
 public class Game {
 
-  public void play() {
+  public Table table;
 
+  public void play() {
+    this.table = new Table();
   }
+
 }
