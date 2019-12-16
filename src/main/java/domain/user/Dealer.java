@@ -2,8 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 게임 딜러를 의미하는 객체
@@ -17,5 +16,13 @@ public class Dealer {
         cards.add(card);
     }
 
+    public List<Card> drawCards(List<Card> cards) {
+        for(int i = 0; i < cards.size(); i++) {
+            Collections.shuffle(cards);
+            addCard(cards.get(0));
+            cards.remove(0);
+        }
+        return cards;
+    }
     // TODO 추가 기능 구현
 }
