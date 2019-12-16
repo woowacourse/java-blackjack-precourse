@@ -26,6 +26,10 @@ public class Player {
         return this.bettingMoney;
     }
 
+    public List<Card> getCards() {
+        return this.cards;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }

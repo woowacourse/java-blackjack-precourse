@@ -6,20 +6,25 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class GameProcessor {
     private static ArrayList<Player> playersArray = new ArrayList<Player>();
+    static List<String> playersNamesList = new ArrayList<String>();
+    static String playersNames;
 
     static ArrayList<Player> addPlayers(ArrayList<String> playerNamesArray) {
         for (String playerName : playerNamesArray) {
             Double playerMoney = InputProcessor.getPlayerMoney(playerName);
             playersArray.add(new Player(playerName, playerMoney));
+            playersNamesList.add(playerName);
         }
         //for (int i = 0; i < playersArray.size(); i++) {
         //    System.out.println(playersArray.get(i).getName() + ", " + (int)playersArray.get(i).getBettingMoney());
         //}
+        playersNames = String.join(", ", playersNamesList);
         return playersArray;
     }
 
@@ -39,5 +44,13 @@ public class GameProcessor {
         Card dealtCard = cardsArray.get(0);
         cardsArray.remove(0);
         return dealtCard;
+    }
+
+    static void showFirstRoundResult(Dealer dealer, ArrayList<Player> playersArray) {
+        System.out.println("딜러와 " + playersNames + "에게 2장의 카드를 딜하였습니다.");
+        System.out.println("딜러 : " + dealer.getCards().get(0));
+        for (Player player : playersArray) {
+            System.out.println(player.getName() + " : " + player.getCards());
+        }
     }
 }

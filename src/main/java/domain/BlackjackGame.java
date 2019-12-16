@@ -21,10 +21,11 @@ public class BlackjackGame {
     static void dealFirstRound() {
         dealer.addCard(GameProcessor.dealCard(shuffledCards));
         dealer.addCard(GameProcessor.dealCard(shuffledCards));
-        for (Player name : playersArray) {
-            name.addCard(GameProcessor.dealCard(shuffledCards));
-            name.addCard(GameProcessor.dealCard(shuffledCards));
+        for (Player player : playersArray) {
+            player.addCard(GameProcessor.dealCard(shuffledCards));
+            player.addCard(GameProcessor.dealCard(shuffledCards));
         }
+        GameProcessor.showFirstRoundResult(dealer, playersArray);
     }
 
     public static void main(String[] args) {
