@@ -36,4 +36,20 @@ public class Player {
         }
         System.out.println(msg.substring(0, msg.length() - 2));
     }
+
+    public boolean isBust() {
+        if (calScore() > 21) {
+            System.out.println(name + " 버스트");
+            return true;
+        }
+        return false;
+    }
+
+    public int calScore() {
+        int score = 0;
+        for (Card card : cards) {
+            score += card.getScore();
+        }
+        return score;
+    }
 }

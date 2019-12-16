@@ -98,7 +98,7 @@ public class Blackjack {
     }
 
     public void giveExtraCard(Player player) {
-        while (isReceivingCard(player)) {
+        while (!player.isBust() && isReceivingCard(player)) {
             deal(player);
             player.showCards();
         }
