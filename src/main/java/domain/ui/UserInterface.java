@@ -249,11 +249,12 @@ public class UserInterface {
         return true;
     }
 
-    /**
-     * 플레이어가 가지고있는 모든 카드 출력하기
-     */
     public void printAllCards(Player player) {
         System.out.println(player.getName() + "카드: " + explainAllCards(player));
+    }
+
+    public void printDealerGetsCard() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 
     public void printUsersCardsResults(Dealer dealer, List<Player> players) {

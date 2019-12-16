@@ -80,6 +80,7 @@ public class GameProcess {
 
         while (shouldDealerGetCard(dealer)) {
             handOutCardToUser(dealer);
+            userInterface.printDealerGetsCard();
         }
 
     }
