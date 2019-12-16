@@ -28,14 +28,10 @@ public class GameProcess {
         inputBetting();
         cards = CardFactory.create();
         createPlayer();
-        for(int i = 0; i < player.size(); i++){
-            deal_TwoCard(player.get(i));
-            System.out.println(player.get(i));
-        }
+        GameStart();
         check_First();
-        for(int i = 1; i < player.size(); i++){
-            chooseDeal(player.get(i));
-        }
+        actPlayer();
+        checkDealerCard(player.get(DEALER_INDEX));
     }
 
     private void inputName() {
@@ -88,6 +84,13 @@ public class GameProcess {
         }
     }
 
+    private void GameStart(){
+        for(int i = 0; i < player.size(); i++){
+            deal_TwoCard(player.get(i));
+            System.out.println(player.get(i));
+        }
+    }
+
     private void check_First(){
         win_or_lose = new double[player.size()];
         for(int i = 1; i < player.size(); i++){
@@ -113,6 +116,22 @@ public class GameProcess {
                 deal_OneCard(player);
                 System.out.println(player);
             }
+        }
+    }
+
+    private void actPlayer(){
+        for(int i = 1; i < player.size(); i++){
+            chooseDeal(player.get(i));
+            if(player.get(i).getCardSum() > 21){
+                win_or_lose[i] = LOSE;
+            }
+        }
+    }
+
+    private void checkDealerCard(Dealer dealer){
+        while(dealer.getCardSum() <= 16){
+            System.out.println("딜러는 카드를 한 장 받았습니다.");
+            deal_OneCard(dealer);
         }
     }
 }
