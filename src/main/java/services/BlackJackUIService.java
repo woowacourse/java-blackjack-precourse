@@ -1,6 +1,7 @@
 package services;
 
 import controller.BlackJackController;
+import domain.game.BlackJack;
 
 import java.util.List;
 
@@ -15,17 +16,21 @@ public class BlackJackUIService {
 		return BlackJackController.getBetting();
 	}
 
+	public static boolean printInputForMoreCard(String player) {
+		System.out.println(player + "는 한장의 카드를 더 받으시겠습니까? y or n");
+		return BlackJackController.getMoreCardInput();
+	}
+
 	public static void printEmptyInputMessage() {
 		System.out.println("플레이어를 입력하여야 합니다");
 	}
 
-	public static void printWrongInputMessage() {
+	public static void printUnderZeroInputMessage() {
 		System.out.println("양수를 입력해야 합니다");
 	}
 
-	public static void printInputForMoreCard(String player) {
-		System.out.println(player + "는 한장의 카드를 더 받으시겠습니까? y or n");
-
+	public static void printWrongInputMessage() {
+		System.out.println("잘못된 입력입니다");
 	}
 }
 
