@@ -12,7 +12,7 @@ public class Money {
 	private HashMap<String, Double> earning = new HashMap<>();
 
 	public Money(List<Player> playerList) {
-		earning.put("딜러", 0.0);
+		earning.put(Dealer.getNAME(), 0.0);
 		for (Player player : playerList) {
 			earning.put(player.getName(), player.getBettingMoney());
 		}
@@ -21,24 +21,23 @@ public class Money {
 	public void calculatePlayersEarning(Dealer dealer, List<Player> playerList) {
 		if (!dealer.bust()) {
 			playerList.forEach(p -> winDealer(p, dealer));
-			playerList.forEach(p -> drawWithDealerAsBlackJack(p, dealer));
 			playerList.forEach(p -> drawWithDealer(p, dealer));
 			playerList.forEach(p -> loseToDealer(p, dealer));
 		}
 		playerList.forEach(this::winAsBlackJack);
+		playerList.forEach(p -> drawWithDealerAsBlackJack(p, dealer));
 		playerList.forEach(this::loseBurst);
 	}
 
 	public void calculateDealerEarning(List<Player> playerList) {
-		double dealerEarning = earning.get("딜러");
+		double dealerEarning = earning.get(Dealer.getNAME());
 		double sumOfPlayerEarnings = playerList.stream()
 			.map(player -> earning.get(player.getName()))
 			.reduce(Double::sum)
 			.get();
 
 		dealerEarning -= sumOfPlayerEarnings;
-		earning.put("딜러", dealerEarning);
-
+		earning.put(Dealer.getNAME(), dealerEarning);
 	}
 
 	public void printPlayersEarning(List<Player> playerList) {
@@ -46,7 +45,7 @@ public class Money {
 	}
 
 	public void printDealerEarning() {
-		OutputView.printEarning("딜러", earning.get("딜러"));
+		OutputView.printEarning(Dealer.getNAME(), earning.get(Dealer.getNAME()));
 	}
 
 	private void winAsBlackJack(Player player) {

@@ -12,6 +12,7 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer {
+	private static final String NAME = "딜러";
 	private final List<Card> cards = new ArrayList<>();
 
 	public Dealer() {
@@ -22,6 +23,10 @@ public class Dealer {
 	}
 
 	// TODO 추가 기능 구현
+
+	public static String getNAME() {
+		return NAME;
+	}
 
 	public boolean bust() {
 		if (sumCardScore() > 21) {

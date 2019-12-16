@@ -59,10 +59,10 @@ public class Table {
 			System.out.println("딜러가 블랙잭 입니다!!");
 			return;
 		}
-		openDealerInitialCard(); 		// 딜러 카드 한 장 오픈
-		openPlayersCards(); 			// 플레이어 카드 오픈
-		checkPlayersWantMoreCard(); 	// 플레이어 카드 더 받을지 체크
-		checkDealerNeedMoreCard(); 		// 딜러 카드 더 받을지 체크
+		openDealerInitialCard();       // 딜러 카드 한 장 오픈
+		openPlayersCards();            // 플레이어 카드 오픈
+		checkPlayersWantMoreCard();    // 플레이어 카드 더 받을지 체크
+		checkDealerNeedMoreCard();     // 딜러 카드 더 받을지 체크
 	}
 
 	private void openDealerInitialCard() {
