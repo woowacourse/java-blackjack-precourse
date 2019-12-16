@@ -12,7 +12,6 @@ import view.InputView;
 import view.OutputView;
 
 public class BlackjackController {
-	private static final String HIT = "y";
 	private static final int INIT_CARD_SIZE = 0;
 	private static final int FIRST_DRAW_CARD_SIZE = 2;
 
@@ -50,7 +49,7 @@ public class BlackjackController {
 	}
 
 	private boolean wantMoreCard(Player player) {
-		return InputView.getMoreCard(player.getName()).equals(HIT);
+		return InputView.getMoreCard(player.getName());
 	}
 
 	private void getMoreCard(Player player) {
