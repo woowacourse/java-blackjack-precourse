@@ -1,8 +1,8 @@
 package domain.user;
 
+import common.BlackjackConfig;
 import domain.BlackjackPrinter;
 import domain.UserInterface;
-import domain.card.CardConfig;
 import domain.card.Deck;
 
 import java.util.ArrayList;
@@ -51,18 +51,17 @@ public class PlayerServiceImpl extends UserService {
 
     private boolean isBust(User user) {
         int score = user.calculateScore();
-        return CardConfig.BLACKJACK < score;
+        return BlackjackConfig.BLACKJACK < score;
     }
 
     public List<Player> join() {
         List<Player> players = new ArrayList<>();
-        blackjackPrinter.printRequestForNames();
         String[] names = userInterface.extractNames();
         //todo: refac
         System.out.println();
         for (String name : names) {
-            blackjackPrinter.printRequestForMoney(name);
-            int bettingMoney = userInterface.getBettingMoney();
+
+            double bettingMoney = userInterface.getBettingMoney(name);
             //todo: refac
             System.out.println();
             players.add(playerFactory.create(name, bettingMoney));

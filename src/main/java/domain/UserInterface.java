@@ -4,6 +4,6 @@ import domain.user.Will;
 
 public interface UserInterface {
     String[] extractNames();
-    int getBettingMoney();
+    double getBettingMoney(String name);
     String getWillForMoreCard();
 }

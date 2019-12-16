@@ -69,10 +69,22 @@ public class Console implements UserInterface {
 
     @Override
     public double getBettingMoney(String name) {
-        return Double.parseDouble(scanner.nextLine());
+        blackjackPrinter.printRequestForMoney(name);
+        try {
+            double bettingMoney = Double.parseDouble(scanner.nextLine());
+            validateMoney(bettingMoney);
+            return bettingMoney;
+        } catch (RuntimeException e) {
+            blackjackPrinter.printError(e);
+            return getBettingMoney(name);
+        }
     }
 
-
+    private void validateMoney(double bettingMoney) {
+        if (bettingMoney <= BlackjackConfig.MIN_MONEY) {
+            throw new InvalidInputException(String.format("베팅 금액은 %f보다 커야 합니다.", BlackjackConfig.MIN_MONEY));
+        }
+    }
 
     @Override
     public String getWillForMoreCard() {
