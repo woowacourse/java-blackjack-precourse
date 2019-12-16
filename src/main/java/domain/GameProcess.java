@@ -18,12 +18,17 @@ public class GameProcess {
     private Dealer dealer = new Dealer();
     private List<Player> player = new ArrayList<>();
     private final int ZERO_BETTING = 0;
+    private final int MAX_CARD_NUMBER = 52;
 
     public void Game() {
         inputName();
         inputBetting();
         cards = CardFactory.create();
         createPlayer();
+        deal_TwoCard(dealer);
+        for(int i = 0; i < player.size(); i++){
+            deal_TwoCard(player.get(i));
+        }
     }
 
     private void inputName() {
@@ -55,15 +60,25 @@ public class GameProcess {
         }
     }
 
-    private Card deal(){
+    private void deal_OneCard(Dealer dealer){
         Random random = new Random();
 
-        int cardChoose = random.nextInt(52);
+        int cardChoose = random.nextInt(MAX_CARD_NUMBER);
         while(cards.get(cardChoose).isUsed()){
-            cardChoose = random.nextInt(52);
+            cardChoose = random.nextInt(MAX_CARD_NUMBER);
         }
         cards.get(cardChoose).use();
-        return cards.get(cardChoose);
+        dealer.addCard(cards.get(cardChoose));
     }
+
+    private void deal_TwoCard(Dealer dealer){
+        int Two = 2;
+
+        for(int i = 0; i < Two; i++){
+            deal_OneCard(dealer);
+        }
+    }
+
+
 
 }
