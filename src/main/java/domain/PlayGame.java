@@ -15,7 +15,7 @@ public class PlayGame {
     int usedCardIndex = -1;
     Score score;
 
-    private static final int dealerThreshold = 17;
+    private static final int DEALER_THRESHOLD = 17;
 
     public PlayGame(List<Player> players) {
         dealer = new Dealer();
@@ -28,8 +28,8 @@ public class PlayGame {
         firstShuffle();
         checkBlackJack();
         addShuffle();
-//        checkWinner();
-//        printFianlResult();
+        checkWinner();
+        printFinalResult();
     }
 
     public void firstShuffle() {
@@ -74,7 +74,6 @@ public class PlayGame {
     }
 
     private void addShuffle() {
-        System.out.println("ADD SHUFFLE");
         for (Player player : players)
             askPlayers(player);
 
@@ -87,10 +86,16 @@ public class PlayGame {
         while (request) {
             System.out.println(player.getName() + "은(는) 카드를 한 장 더 받겠습니까?(예는 y, 아니오는 n)");
             String requestStr = s.next();
+            //requestExceptionCheck(yesOrNo(requestStr));
             request = yesOrNo(requestStr);
             answerPlayers(request, player);
             System.out.println(player.print());
         }
+    }
+
+    private void requestExceptionCheck(int requestCode) {
+        if (requestCode == 2)
+            System.out.println("y 또는 n을 입력해주세요.");
     }
 
     private boolean yesOrNo(String str) {
@@ -98,7 +103,6 @@ public class PlayGame {
             return true;
         if (str.equals("N") || str.equals("n"))
             return false;
-        System.out.println("예외처리");
         return true;
     }
 
@@ -108,7 +112,14 @@ public class PlayGame {
     }
 
     private void dealerAdd() {
-        if (dealer.cardSum() < dealerThreshold) dealer.addCard(pickCard());
+        if (dealer.cardSum() < DEALER_THRESHOLD) {
+            dealer.addCard(pickCard());
+            System.out.println("딜러는 16 이하라 한 장 더 받았습니다.");
+        }
+    }
+
+    private void checkWinner() {
+
     }
 
     private void printFinalResult() {
