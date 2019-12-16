@@ -47,4 +47,8 @@ public class Table {
     }
   }
 
+  public void displayCards() {
+    IOController.printHandsOfDealer(this.dealer);
+  }
+
 }

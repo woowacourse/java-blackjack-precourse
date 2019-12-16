@@ -19,7 +19,8 @@ public class Game {
 
   private void start() {
     this.table.dealCards();
-//    IOController.printHands(this.table);
+    this.table.displayCards();
+
   }
 
 }

@@ -1,5 +1,9 @@
 package controller;
 
+import domain.card.Card;
+import domain.user.Dealer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class IOController {
@@ -78,8 +82,8 @@ public class IOController {
   }
 
   private static void validateMoney(int money) throws Exception {
-    if (money <= 0){
-     throw new Exception("금액이 올바르지 않습니다.");
+    if (money <= 0) {
+      throw new Exception("금액이 올바르지 않습니다.");
     }
   }
 
@@ -104,11 +108,32 @@ public class IOController {
     return money;
   }
 
-  public static void printDealCardToUser(String name){
+  public static void printDealCardToUser(String name) {
     System.out.println(name + "이(가) 한장 받습니다.");
   }
 
-  public static void printDealCardToDealer(){
+  public static void printDealCardToDealer() {
     System.out.println("딜러가 한장 받습니다.");
   }
+
+  public static void printCard(Card card) {
+    System.out.print("[");
+    System.out.print(card.getSuit());
+    System.out.print(" ");
+    System.out.print(card.getSymbol());
+    System.out.print("]");
+
+  }
+
+  public static void printReverseCard(Card card) {
+    System.out.print("[   ]");
+  }
+
+  public static void printHandsOfDealer(Dealer dealer) {
+    List<Card> cards = dealer.getHands();
+
+    printCard(cards.get(0));
+    printReverseCard(cards.get(1));
+  }
+
 }

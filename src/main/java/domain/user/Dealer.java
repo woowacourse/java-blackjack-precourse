@@ -17,5 +17,7 @@ public class Dealer {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public List<Card> getHands(){
+        return this.cards;
+    }
 }
