@@ -14,9 +14,18 @@ import java.util.stream.Stream;
 
 public class Users {
     private static List<User> users;
+    private static final int EMPTY = 0;
 
     public Users(List<User> users) {
+        valid(users);
         this.users = users;
+    }
+
+    private void valid(List<User> users) {
+        if(users.size() == EMPTY){
+            return;
+        }
+        throw new IllegalArgumentException("이름을 채워주세요!");
     }
 
     public List<User> getUsers() {
