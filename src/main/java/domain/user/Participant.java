@@ -56,10 +56,6 @@ abstract public class Participant {
     }
 
     public boolean isDealer() {
-        if (this.name == "딜러") {
-            return true;
-        }
-
         if (this.name.equals("딜러")) {
             return true;
         }
