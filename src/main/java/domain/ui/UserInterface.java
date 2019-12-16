@@ -3,7 +3,7 @@ package domain.ui;
 import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
-import domain.scoring.ScoreCalculator;
+import domain.scoring.Scoring;
 import domain.user.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -269,12 +269,12 @@ public class UserInterface {
 
     private void printCardsResult(Player player) {
         System.out.println(player.getName() + "카드: " + explainAllCards(player)
-            + " - 결과: " + ScoreCalculator.getTotalScore(player.openAllCards()));
+            + " - 결과: " + Scoring.getTotalScore(player.openAllCards()));
     }
 
     private void printCardsResult(Dealer dealer) {
         System.out.println("딜러 카드: " + explainAllCards(dealer)
-                    + " - 결과: " + ScoreCalculator.getTotalScore(dealer.openAllCards()));
+                    + " - 결과: " + Scoring.getTotalScore(dealer.openAllCards()));
     }
 
     public void printUsersFinalRevenues(Dealer dealer, List<Player> players) {

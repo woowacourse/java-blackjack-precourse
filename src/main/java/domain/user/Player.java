@@ -20,4 +20,8 @@ public class Player extends User {
     public String getName() {
         return this.name;
     }
+
+    public double getBettingMoney() {
+        return this.bettingMoney;
+    }
 }

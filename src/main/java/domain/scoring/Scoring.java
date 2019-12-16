@@ -3,7 +3,7 @@ package domain.scoring;
 import java.util.List;
 import domain.card.Card;
 
-public class ScoreCalculator {
+public class Scoring {
     public final static int BLACKJACK_MAX_SCORE = 21;
     public final static int ACE_LARGE_SCORE = 11;
     public final static int ACE_SMALL_SCORE = 1;

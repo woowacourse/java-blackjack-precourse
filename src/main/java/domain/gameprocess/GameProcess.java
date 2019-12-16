@@ -2,7 +2,7 @@ package domain.gameprocess;
 
 import domain.card.CardDivider;
 import domain.card.CardFactory;
-import domain.scoring.ScoreCalculator;
+import domain.scoring.Scoring;
 import domain.ui.UserInterface;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -67,7 +67,7 @@ public class GameProcess {
 
     private void handOutCardsUntilOnePlayerGameIsEnded(Player player) {
 
-        while (ScoreCalculator.getTotalScore(player.openAllCards()) < ScoreCalculator.BLACKJACK_MAX_SCORE
+        while (Scoring.getTotalScore(player.openAllCards()) < Scoring.BLACKJACK_MAX_SCORE
                     && userInterface.scanWhetherPlayerReceiveCard(player)) {
             /* 플레이어의 카드 총 합이 아직 21 미만이고, 플레이어가 카드를 더 뽑기를 원할 때 실행 */
             handOutCardToUser(player);
@@ -87,8 +87,8 @@ public class GameProcess {
 
     private boolean shouldDealerGetCard(Dealer dealer) {
 
-        if (ScoreCalculator.getTotalScore(dealer.openAllCards())
-                < ScoreCalculator.DEALER_GETTING_CARD_BOUNDARY) {
+        if (Scoring.getTotalScore(dealer.openAllCards())
+                < Scoring.DEALER_GETTING_CARD_BOUNDARY) {
             return true;                    /* 딜러의 카드 총 합이 16 이하이면 true 를 return */
         }
 
