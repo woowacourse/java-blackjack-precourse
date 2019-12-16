@@ -50,8 +50,7 @@ public class InputName {
      */
     public boolean exceptName() {
         if (names.stream().filter(name1 -> name1.contains(" ")).anyMatch(name1 -> name1.contains(" ")) ||
-                names.contains("") ||
-                names.isEmpty()) {
+                names.contains("") || names.isEmpty()) {
             System.out.println("이름 입력 오류 재입력!! 공백불가");
             return true;
         }
