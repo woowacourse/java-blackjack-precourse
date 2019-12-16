@@ -53,7 +53,7 @@ public class Rule {
     }
 
     public static boolean isDealerDraw(Dealer dealer) {
-        return !dealer.isScoreGreaterThan(MIN_DEALER_SCORE);
+        return !dealer.isScoreGreaterThan(MIN_DEALER_SCORE) && !dealer.getIsBurst();
     }
 
     public static double getDealerProfit(Dealer dealer, ArrayList<Player> players) {
