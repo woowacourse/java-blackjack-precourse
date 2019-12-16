@@ -23,4 +23,19 @@ public class Table {
     }
   }
 
+  private void dealCardToPlayer(Player player){
+    player.addCard(this.deck.draw());
+  }
+
+  private void dealCardToDealer(Dealer dealer){
+    dealer.addCard(this.deck.draw());
+  }
+
+  public void dealCards() {
+    for (int i = 0; i < this.players.size(); i++) {
+      dealCardToPlayer(this.players.get(i));
+    }
+    dealCardToDealer(this.dealer);
+  }
+
 }

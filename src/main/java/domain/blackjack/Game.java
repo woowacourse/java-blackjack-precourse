@@ -13,6 +13,12 @@ public class Game {
     double[] betting = IOController.getBetting(users);
 
     this.table.joinPlayers(users, betting);
+
+    start();
+  }
+
+  private void start() {
+    this.table.dealCards();
   }
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Deck {
 
-  public List<Card> cards;
+  private List<Card> cards;
 
   public Deck() {
     this.cards = new ArrayList<>(CardFactory.create());
@@ -16,5 +16,12 @@ public class Deck {
 
   public void shuffle() {
     Collections.shuffle(this.cards);
+  }
+
+  public Card draw(){
+    Card card = this.cards.get(0);
+    cards.remove(0);
+
+    return card;
   }
 }
