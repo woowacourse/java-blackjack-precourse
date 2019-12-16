@@ -19,8 +19,8 @@ public class UserInput {
         if(playersName.contains("")) {
             throw new IllegalArgumentException("입력받은 이름 중 공백이 있습니다!\n");
         }
-        if(playersName.size() > 8) {
-            throw new IllegalArgumentException("최대 8명의 플레이어만 받습니다.\n");
+        if(playersName.size() < 2 || playersName.size() > 8) {
+            throw new IllegalArgumentException("최소 2명 최대 8명의 플레이어여야 합니다.\n");
         }
         return playersName;
     }

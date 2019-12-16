@@ -85,7 +85,7 @@
 | 이름에 아무것도 입력하지 않을 경우 | playersName.equals("") -> IllegalArgumentException()         |
 | 이름에 공백이 있을 경우            | playerName.contains("") -> IllegalArgumentException()        |
 | 베팅 금액이 숫자가 아닌 경우       | UserInput.inputBettingMoney(name) -> IllegalArgumentException() |
-| 카드를 다 뽑았을 경우              | 카드가 소진되지 않도록, 8명의 플레이어만 받는다.             |
+| 카드를 다 뽑았을 경우              | 카드가 떨어지지 않도록 일반적인 카지노 룰에 따라 2명~8명의 플레이어만 받는다. |
 | 8명 이상의 플레이어가 들어올 경우  | playerName.size() > 8 -> IllegalArgumentException()          |
 
 ## 알게 된 점
