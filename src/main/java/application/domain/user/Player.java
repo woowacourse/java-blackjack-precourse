@@ -25,4 +25,13 @@ public class Player extends User {
 
     // TODO 추가 기능 구현
 
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", bettingMoney=" + bettingMoney +
+                ", cards=" + cards +
+                '}';
+    }
 }
