@@ -37,7 +37,7 @@ public class BlackjackRule {
 
   void askHitOrStay(Dealer dealer, List<Player> players) {
     for (Player player : players) {
-      takeCardIfPlayerHit(player);
+      takeCardUntilPlayerHit(player);
     }
     if (dealer.hitOrStay()) {
       dealer.takeCard(cardShuffler.pickCard());
@@ -46,39 +46,46 @@ public class BlackjackRule {
   }
 
   void dealerLose(Dealer dealer, List<Player> players) {
-    IOHelper.printFinalResultMessage();
+    IOHelper.printDealerBustMessage();
     for (Player player : players) {
       gameResult.playerWin(dealer, player);
     }
     gameResult.printIncomes();
   }
 
-  // TODO : 2depth
   void judgeWinOrLose(Dealer dealer, List<Player> players) {
     for (Player player : players) {
-      if (player.isBust()) {
-        continue;
-      }
-      if (dealer.getCurrentScore() < player.getCurrentScore()) {
-        gameResult.playerWin(dealer, player);
-      }
-      if (dealer.getCurrentScore() == player.getCurrentScore()) {
-        gameResult.push(dealer, player);
-      }
+      judgeWinOrLoseByPlayer(dealer, player);
     }
     gameResult.printIncomes();
   }
 
-  // TODO : 2depth
-  private void takeCardIfPlayerHit(Player player) {
-    while (true) {
-      if (player.hitOrStay()) {
-        player.takeCard(cardShuffler.pickCard());
-        IOHelper.printCardsWithoutScore(player);
-        continue;
-      }
-      break;
+  private void judgeWinOrLoseByPlayer(Dealer dealer, Player player) {
+    if (player.isBust()) {
+      return;
     }
+    if (dealer.getCurrentScore() < player.getCurrentScore()) {
+      gameResult.playerWin(dealer, player);
+    }
+    if (dealer.getCurrentScore() == player.getCurrentScore()) {
+      gameResult.push(dealer, player);
+    }
+  }
+
+  private void takeCardUntilPlayerHit(Player player) {
+    boolean hit = true;
+    while (hit) {
+      hit = takeCardIfPlayerHit(player);
+    }
+  }
+
+  private boolean takeCardIfPlayerHit(Player player) {
+    if (player.hitOrStay()) {
+      player.takeCard(cardShuffler.pickCard());
+      IOHelper.printCardsWithoutScore(player);
+      return true;
+    }
+    return false;
   }
 
   private List<Participant> getAllParticipants(Dealer dealer, List<Player> players) {

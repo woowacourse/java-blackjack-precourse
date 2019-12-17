@@ -95,4 +95,8 @@ public class IOHelper {
   static void printBlackjackMessage(String name) {
     printMessage(name + "은/는 블랙잭입니다!!!");
   }
+
+  static void printDealerBustMessage() {
+    printMessage("Dealer Bust!!!");
+  }
 }

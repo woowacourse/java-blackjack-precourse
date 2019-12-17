@@ -16,21 +16,30 @@ public class Player extends Participant {
     this.bettingMoney = bettingMoney;
   }
 
-  // TODO : 2depth
   @Override
   public boolean hitOrStay() {
     String playerInput = "";
     boolean lessThanBlackjackNumber = checkCurrentScoreLessThanBlackjackNumber();
     if (lessThanBlackjackNumber) {
-      while (true) {
-        playerInput = IOHelper.inputHitOrStay(this.getName());
-        if (playerInput.equals(PLAYER_INPUT_YES) || playerInput.equals(PLAYER_INPUT_NO)) {
-          break;
-        }
-        IOHelper.printExceptionMessage("y 또는 n만 입력 가능합니다. 다시 입력해주세요.");
-      }
+      playerInput = getUserInput();
     }
     return playerInput.equals(PLAYER_INPUT_YES);
+  }
+
+  private String getUserInput() {
+    String playerInput;
+    while (true) {
+      playerInput = IOHelper.inputHitOrStay(this.getName());
+      if (isValidateInput(playerInput)) {
+        break;
+      }
+      IOHelper.printExceptionMessage("y 또는 n만 입력 가능합니다. 다시 입력해주세요.");
+    }
+    return playerInput;
+  }
+
+  private boolean isValidateInput(String playerInput) {
+    return playerInput.equals(PLAYER_INPUT_YES) || playerInput.equals(PLAYER_INPUT_NO);
   }
 
   private boolean checkCurrentScoreLessThanBlackjackNumber() {
