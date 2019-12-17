@@ -83,18 +83,13 @@ public class Message {
         return makeMessagePlayerState(player) + RESULT + player.getScore();
     }
 
-//    GameManager 클래스 구현 전이라 주석 처리
-//    public static String makeMessageFinalProfit(GameManager gameManager) {
-//        Dealer dealer = gameManager.getDealer();
-//        ArrayList<Player> players = gameManager.getPlayers();
-//        int maxValue = gameManager.getMaxValue();
-//        double battingRatio = gameManager.getBattingRatio();
-//
-//        String finalProfitMessage = FINAL_PROFIT;
-//        finalProfitMessage += DEALER + COLON + dealer.getEarnMoney(players, maxValue, battingRatio) + NEW_LINE;
-//        for (Player player : players) {
-//            finalProfitMessage += player.getName() + COLON + player.getEarnMoney(maxValue, battingRatio) + NEW_LINE;
-//        }
-//        return finalProfitMessage;
-//    }
+    public static String makeMessageFinalProfit(Dealer dealer, ArrayList<Player> players, int maxValue) {
+        String finalProfitMessage = FINAL_PROFIT;
+
+        finalProfitMessage += DEALER + COLON + dealer.getEarnMoney(players, maxValue) + NEW_LINE;
+        for (Player player : players) {
+            finalProfitMessage += player.getName() + COLON + player.getEarnMoney(maxValue) + NEW_LINE;
+        }
+        return finalProfitMessage;
+    }
 }

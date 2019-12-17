@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.game.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,11 @@ public class Player {
     public int getScore() {
         int score = getCardsPoint();
 
-        if (cardsContainsAce() && (score+10) <= 21) {
+        if (score > GameManager.BLACK_JACK) {
+            return GameManager.OVERFLOW;
+        }
+
+        if (cardsContainsAce() && ((score+10) <= GameManager.BLACK_JACK)) {
             score += 10;
         }
         return score;
@@ -77,7 +82,12 @@ public class Player {
         return false;
     }
 
-    public double getEarnMoney(int maxValue, double battingRatio) {
+    public double getEarnMoney(int maxValue) {
+        double battingRatio = 1.0;
+
+        if ((cards.size() == 2) && (getCardsPoint() == 21)) {
+            battingRatio = 1.5;
+        }
         if (isWinner(maxValue)) {
             return bettingMoney * battingRatio;
         }

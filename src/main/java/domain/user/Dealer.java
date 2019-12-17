@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 import domain.card.Symbol;
+import domain.game.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,10 @@ public class Dealer {
     public int getScore() {
         int score = getCardsPoint();
 
-        if (cardsContainsAce() && (score+10) <= 21) {
+        if (score > GameManager.BLACK_JACK) {
+            return GameManager.OVERFLOW;
+        }
+        if (cardsContainsAce() && ((score+10) <= GameManager.BLACK_JACK)) {
             score += 10;
         }
         return score;
@@ -85,11 +89,11 @@ public class Dealer {
         return smallestCard;
     }
 
-    public double getEarnMoney(ArrayList<Player> players, int maxValue, double battingRatio) {
+    public double getEarnMoney(ArrayList<Player> players, int maxValue) {
         double dealerMoney = 0;
 
         for (Player player : players) {
-            dealerMoney -= player.getEarnMoney(maxValue, battingRatio);
+            dealerMoney -= player.getEarnMoney(maxValue);
         }
         return dealerMoney;
     }

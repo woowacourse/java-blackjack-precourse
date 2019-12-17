@@ -21,6 +21,8 @@ import java.util.ArrayList;
 public class GameManager {
 
     private static final int START_CARD_COUNT = 2;
+    public static final int BLACK_JACK = 21;
+    public static final int OVERFLOW = -1;
 
     private CardDeck cardDeck;
     private Dealer dealer;
@@ -39,6 +41,7 @@ public class GameManager {
         showCardLists();
         getMoreCards();
         showFinalCardLists();
+        showProfit();
     }
 
     private void initializePlayers() {
@@ -115,4 +118,41 @@ public class GameManager {
             print(Message.makeMessagePlayerResult(player));
         }
     }
+
+    private void showProfit() {
+        int winnerScore;
+
+        winnerScore = getWinnerScore();
+        print(Message.makeMessageFinalProfit(dealer, players, winnerScore));
+    }
+
+    private int getWinnerScore() {
+        int winnerScore;
+
+        winnerScore = getBiggerValue(dealer.getScore(), getPlayersMaxScore());
+        return winnerScore;
+    }
+
+    private int getPlayersMaxScore() {
+        int playerMaxScore = -1;
+
+        for (Player player : players) {
+            playerMaxScore = getBiggerValue(playerMaxScore, player.getScore());
+        }
+        return playerMaxScore;
+    }
+
+    private int getBiggerValue(int input1, int input2) {
+        if (input1 > input2) {
+            return input1;
+        }
+        return input2;
+    }
+//    private boolean isDealerOverflow() {
+//        if (dealer.getScore() == OVERFLOW) {
+//            return true;
+//        }
+//        return false;
+//    }
+
 }
