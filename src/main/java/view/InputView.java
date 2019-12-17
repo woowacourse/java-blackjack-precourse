@@ -48,7 +48,7 @@ public class InputView {
         return userNames.length >= MIN_USER_COUNT && userNames.length <= MAX_USER_COUNT;  //  유저의 수는 2명에서 8명으로 제한
     }
 
-    public boolean checkBlankOk(String[] userNames) {
+    private boolean checkBlankOk(String[] userNames) {
         return !Arrays.stream(userNames)  // 유저이름은 공백을 입력할 수 없다.
                 .map(s -> s.length())
                 .collect(Collectors.toList())
