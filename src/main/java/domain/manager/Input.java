@@ -42,6 +42,8 @@ public class Input {
     private static List<Double> inputPlayerBettingMoney(List<String> playerNameList) {
         List<Double> playerBettingMoneyList = new ArrayList<>();
 
+        System.out.println();
+
         for (String strings : playerNameList) {
             System.out.println(strings + "의 베팅 금액은?");
             playerBettingMoneyList.add(execptionBettingMoneyNegative(s.nextDouble()));
@@ -59,7 +61,7 @@ public class Input {
     }
 
     public static String askDraw(Player user) {
-        System.out.println(user.getName() + "은 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+        System.out.println("\n" + user.getName() + "은 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
         String answer = s.next();
         
         while (!answer.equals("y") && !answer.equals("n")) {
