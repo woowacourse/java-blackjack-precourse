@@ -3,12 +3,12 @@ package domain.game;
 import domain.card.Card;
 import domain.card.CardFactory;
 
-import java.util.*;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
         List<Card> cards = CardFactory.create();
-        Blackjack blackjack = new Blackjack(cards);
-        blackjack.start();
+        Blackjack game = new Blackjack(cards);
+        game.start();
     }
 }

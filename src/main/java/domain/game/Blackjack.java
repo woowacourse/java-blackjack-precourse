@@ -25,13 +25,7 @@ public class Blackjack {
     }
 
     public void start() {
-        String[] nameArr = getNames();
-        for (String name : nameArr) {
-            System.out.println(name + "의 배팅 금액을 입력해주세요.");
-            double bettingMoney = getBettingMoney();
-            players.add(new Player(name, bettingMoney));
-        }
-
+        createPlayers();
         Collections.shuffle(cards);
         System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
         deal(dealer);
@@ -68,7 +62,16 @@ public class Blackjack {
         showResult();
     }
 
-    public String[] getNames() {
+    public void createPlayers() {
+        String[] nameArr = inputNames();
+        for (String name : nameArr) {
+            System.out.println(name + "의 배팅 금액을 입력해주세요.");
+            double bettingMoney = getBettingMoney();
+            players.add(new Player(name, bettingMoney));
+        }
+    }
+
+    public String[] inputNames() {
         String names;
         String[] nameArr;
         do {
