@@ -8,13 +8,6 @@ import domain.card.*;
 import domain.user.*;
 
 public class BlackJack {
-    private static final int WINNER_PIVOT = 21;
-    private static final int DEALER_PIVOT = 16;
-    private static final int WIN = 1;
-    private static final double WIN_BLACKJACK = 1.5;
-    private static final int NOTTING = 0;
-    private static final int LOSE = -1;
-
     private Dealer dealer;
     private List<Player> user;
     private Deck deck;
@@ -35,7 +28,7 @@ public class BlackJack {
             player.addCard(deck.draw());
             player.showCards();
         }
-        checkBlackJack();
+        checkDealerBlackJack();
         askDraw();
     }
 
@@ -50,82 +43,84 @@ public class BlackJack {
         return String.join(",", playerNameList);
     }
 
+    public void checkDealerBlackJack() {
+        isBlackJack();
+        if (winner.contains(dealer))
+            showFinalMoney();
+    }
+
     public void isBlackJack() {
         winner = user.stream()
-                .filter(p -> p.getScore() == WINNER_PIVOT)
+                .filter(p -> p.getScore() == Constant.BUST_POINT)
+                .collect(Collectors.toList());
+    }
+
+    public void askDraw() {
+        for (Player player : user.subList(1, user.size())) {
+            playerDraw(player);
+        }
+        dealerDraw();
+        getWinnerList();
+        showResult();
+        showFinalMoney();
+    }
+
+    public void playerDraw(Player player) {
+        while (player.getScore() < Constant.BUST_POINT && Input.askDraw(player).equals("y"))  {
+            player.addCard(deck.draw());
+            player.showCards();
+        }
+        if(player.getScore() < Constant.BUST_POINT)
+            player.showCards();
+    }
+
+    public void dealerDraw() {
+        if (dealer.getScore() <= Constant.DEALER_POINT) {
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+            dealer.addCard(deck.draw());
+        }
+    }
+    
+    public void getWinnerList() {
+        if (dealer.getScore() > Constant.BUST_POINT) {
+            winner = user;
+            return;
+        }
+
+        winner = user.stream()
+                .filter(p -> p.getScore() > dealer.getScore() && p.getScore() <= Constant.BUST_POINT)
                 .collect(Collectors.toList());
     }
 
     public List<Player> getLoserList() {
-        return 
-        user.stream()
-            .filter(p -> winner.contains(p))
-            .collect(Collectors.toList());
+        return user.stream()
+                .filter(p -> p.getScore() < dealer.getScore() || p.getScore() > Constant.BUST_POINT)
+                .collect(Collectors.toList());
     }
 
-    public void checkBlackJack() {
-        isBlackJack();
-        if (winner.contains(dealer) && winner.size() == 1)
-            showOnlyDealerBlackJack();
-        if (winner.contains(dealer))
-            showBothBlackJack(winner);
-        if (winner.size() != 0)
-            showOnlyPlayrBlackJack(winner);
-    }
-
-    public void showOnlyDealerBlackJack() {
-        System.out.println("\n##최종수익");
-
-        dealer.showMoney(user);
+    public void showResult() {
+        System.out.println();
         for (Player player : user) {
-            player.showMoney(LOSE);
+            player.showResult();
         }
-
-        System.exit(0);
     }
 
-    public void showBothBlackJack(List<Player> winner) {
+    public void showFinalMoney() {
         System.out.println("\n##최종수익");
 
-        dealer.showMoney(getLoserList());
-        user.remove(0);
-        for (Player player : user) {
+        List<Player> loser = getLoserList();
+        dealer.showMoney(loser);
+
+        for (Player player : user.subList(1, user.size())) {
             if (winner.contains(player))
-                player.showMoney(WIN);
-            if (!winner.contains(player))
-                player.showMoney(LOSE);
+                player.showMoney(Constant.WIN);
+            if (loser.contains(player))
+                player.showMoney(Constant.LOSE);
+            if (!winner.contains(player) && !loser.contains(player))
+                player.showMoney(Constant.DRAW);
         }
 
         System.exit(0);
-    }
-
-    public void showOnlyPlayrBlackJack(List<Player> winner) {
-        System.out.println("\n##최종수익");
-
-        dealer.showMoney(getLoserList());
-        user.remove(0);
-        for (Player player : user) {
-            if (winner.contains(player))
-                player.showMoney(WIN_BLACKJACK);
-            if (!winner.contains(player))
-                player.showMoney(NOTTING);
-        }
-
-        System.exit(0);
-    }
-
-    public void askDraw() {
-        for (Player player : user) {
-            playerDraw(player);
-        }
-    }
-
-    public void playerDraw(Player player) {
-        while (Input.askDraw(player).equals("y") && player.getScore() < WINNER_PIVOT) {
-            player.addCard(deck.draw());
-            player.showCards();
-        }
-        player.showCards();
     }
 
     public static void main(String[] args) {

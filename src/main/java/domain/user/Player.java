@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.manager.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,6 @@ import java.util.stream.Collectors;
  * 게임 참여자를 의미하는 객체
  */
 public class Player {
-    private static final int BUST = 21;
-
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -46,7 +45,7 @@ public class Player {
             score += card.getSymbol().getScore();
         }
 
-        if (score > BUST)
+        if (score > Constant.BUST_POINT)
             return hasACE(score, 0);
         return score;
     }
@@ -58,7 +57,7 @@ public class Player {
         }
 
         if (ace.size() == 1) return score - 10;
-        if (ace.size() > 0 && score > BUST) return hasACE(score, cnt - 1);
+        if (ace.size() > 0 && score > Constant.BUST_POINT) return hasACE(score, cnt - 1);
         return score;
     }
 
@@ -67,6 +66,8 @@ public class Player {
     }
 
     public void showMoney(double result) {
+        if (result == Constant.WIN && cards.size() == 2)
+            result = Constant.WIN_BLACKJACK;
         System.out.println(name + " : " + (int)(bettingMoney * result));
     }
 
