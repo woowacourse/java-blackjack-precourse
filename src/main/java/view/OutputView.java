@@ -53,7 +53,7 @@ public class OutputView {
         System.out.println("딜러 : " + money);
     }
 
-    public static void printResultMoney(Player player, int money) {
-        System.out.println(player.getName() + " : " + money);
+    public static void printResultMoney(String playerName, int money) {
+        System.out.println(playerName + " : " + money);
     }
 }

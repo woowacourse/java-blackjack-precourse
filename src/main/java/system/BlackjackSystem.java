@@ -140,6 +140,11 @@ public class BlackjackSystem {
             rewardAllPlayer();
             return;
         }
+        for (Player player : playerList) {
+            rewardDealerIfWin(player);
+            rewardPlayerIfWin(player);
+            rewardNothingIfDraw(player);
+        }
     }
 
     private boolean isDealerBust() {
@@ -149,6 +154,26 @@ public class BlackjackSystem {
     private void rewardAllPlayer() {
         for (Player player : playerList) {
             resultMoney.put(player.getName(), (int) player.getBettingMoney());
+        }
+    }
+
+    private void rewardDealerIfWin(Player player) {
+        if (player.getSumScore() < dealer.getSumScore()) {
+            resultMoney.put(player.getName(), (int) -player.getBettingMoney());
+            dealerMoney += player.getBettingMoney();
+        }
+    }
+
+    private void rewardPlayerIfWin(Player player) {
+        if (player.getSumScore() > dealer.getSumScore()) {
+            resultMoney.put(player.getName(), (int) player.getBettingMoney());
+            dealerMoney -= player.getBettingMoney();
+        }
+    }
+
+    private void rewardNothingIfDraw(Player player) {
+        if (player.getSumScore() == dealer.getSumScore()) {
+            resultMoney.put(player.getName(), 0);
         }
     }
 
