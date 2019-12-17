@@ -1,16 +1,13 @@
 package domain.card;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 트럼프 카드 전체 생성을 담당하는 객체
  */
 public class CardFactory {
-    public static ArrayList<Card> provideShuffledCards() {
-        ArrayList<Card> cards = new ArrayList<>();
+    public static Stack<Card> provideShuffledCards() {
+        Stack<Card> cards = new Stack<>();
         long seed = System.nanoTime();
 
         cards.addAll(CardFactory.create());

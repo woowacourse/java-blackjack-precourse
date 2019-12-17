@@ -1,21 +1,23 @@
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Dealer;
+import domain.user.GameManager;
 import domain.user.Player;
 import domain.user.PlayerManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        GameManager gameManager;
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Card> cards = CardFactory.provideShuffledCards();
+        Stack<Card> cards = CardFactory.provideShuffledCards();
         ArrayList<Player> players = initPlayersWithInput(scanner);
         PlayerManager playerManager = new PlayerManager();
+        Dealer dealer = new Dealer();
 
         playerManager.addAll(players);
+        gameManager = new GameManager(playerManager, dealer, cards);
 
         /* Debug */
         for (Card card: cards) {
