@@ -14,8 +14,7 @@ import static util.Numbers.getRandomNumber;
 import static util.Strings.splitPlayerName;
 import static view.InputView.inputPlayerMoney;
 import static view.InputView.inputPlayerName;
-import static view.OutputView.printCardStatus;
-import static view.OutputView.printInitDistributionMessage;
+import static view.OutputView.*;
 
 public class SettingSystem {
     private static int CARD_COUNT = 52;
@@ -71,7 +70,7 @@ public class SettingSystem {
 
     private void printInitStatus() {
         printInitDistributionMessage(playerList);
-        printCardStatus(dealer);
+        printCardStatusExceptFirst(dealer);
         for (Player p : playerList) {
             printCardStatus(p);
         }
