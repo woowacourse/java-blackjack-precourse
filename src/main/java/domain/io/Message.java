@@ -1,6 +1,7 @@
 package domain.io;
 
 import domain.card.Card;
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
@@ -24,13 +25,28 @@ public class Message {
 	System.out.println("금액 입력이 잘못되었습니다. 1 이상의 숫자만 입력해주세요.");
     }   
     
-    public void showInitCardDistributedMessage(Player[] player) {
+    public void showInitCardDistributedMessage(Dealer dealer,Player[] player) {
 	String[] name = new String[player.length];
+	for(int i=0;i<name.length;i++) {
+	    name[i]=player[i].getName();
+	}
 	System.out.print("딜러와 "+" "+String.join(",", name)+"에게 2장의 카드를 나눠줬습니다.");
+	showAllCardStatus(dealer,player);
     }
     
-    public void showCardStatus(String name,List<Card> card) {
-	System.out.println(name+" 카드 : "+String.join(",",card.toString()));
+    public void showAllCardStatus(Dealer dealer, Player[] player) {
+	showCardStatus(dealer);
+	for(int i=0;i<player.length;i++) {
+	    showCardStatus(player[i]);
+	}
+    }
+    
+    public void showCardStatus(Player player) {
+	System.out.println(player.getName()+" 카드 : "+String.join(",",player.getCards().toString()));
+    }
+    
+    public void showCardStatus(Dealer dealer) {
+	System.out.println("딜러 카드 : "+String.join(",",dealer.getCards().toString()));
     }
     
     public void showGettingCardQuestion(String name) {
@@ -39,5 +55,21 @@ public class Message {
     
     public void showGettingCardErrorMessage() {
 	System.out.println("입력이 잘못되었습니다. y(Y)혹은 n(N)만 입력해주세요");
+    }
+    
+    public void showDealerMoreCard() {
+	System.out.println("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
+    }
+    
+    public void showDealerNotMoreCard() {
+	System.out.println("딜러는 16초과라 카드를 더 받지 않았습니다.");
+    }
+    
+    public void showFinalScore(double d, double[] p,Player[] player) {
+	System.out.println("## 최종 수익");
+	System.out.println("딜러 : "+d);
+	for(int i=0;i<player.length;i++) {
+	    System.out.println(player[i].getName()+ " : "+p[i]);
+	}
     }
 }
