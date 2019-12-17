@@ -60,7 +60,7 @@ public class Input {
     }
 
     private boolean possiblePlayerNumbers(String playerNames) {
-        return playerNames.chars().mapToObj(x -> (char)x)
+        return playerNames.chars().mapToObj(x -> (char) x)
                 .map(String::valueOf)
                 .filter(x -> x.equals(NAME_DIVIDER))
                 .count() < MAX_PLAYER;

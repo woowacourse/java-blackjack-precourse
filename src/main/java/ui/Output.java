@@ -1,6 +1,5 @@
 package ui;
 
-import domain.card.CardsOnGame;
 import domain.user.EntryManager;
 import domain.user.Player;
 
