@@ -47,4 +47,13 @@ public class OutputView {
     private static void printSumScore(User user) {
         System.out.println("결과 : " + user.getSumScore());
     }
+
+    public static void printResultMoney(int money) {
+        System.out.println("\n[최종 수익]");
+        System.out.println("딜러 : " + money);
+    }
+
+    public static void printResultMoney(Player player, int money) {
+        System.out.println(player.getName() + " : " + money);
+    }
 }
