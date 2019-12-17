@@ -58,6 +58,7 @@ public class User {
     }
 
     public boolean isBlackjack() {
-        return getSumScore() == BUST_CONDITION;
+        return (cards.get(0).getScore() == 1 && cards.get(1).getScore() == 10)
+                || (cards.get(0).getScore() == 10 && cards.get(1).getScore() == 1);
     }
 }

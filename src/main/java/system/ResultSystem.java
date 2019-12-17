@@ -47,15 +47,13 @@ public class ResultSystem {
 
     private void winDealerCase(Player player) {
         if (player.isBust()) {
-            playersMoney.put(player.getName(), -player.getBettingMoney());
-            dealerMoney += player.getBettingMoney();
+            winDealer(player);
         }
     }
 
     private void winPlayerCase(Player player) {
         if (dealer.isBust() && !player.isBust()) {
-            playersMoney.put(player.getName(), player.getBettingMoney());
-            dealerMoney -= player.getBettingMoney();
+            winPlayer(player);
         }
     }
 
@@ -69,22 +67,34 @@ public class ResultSystem {
 
     private void winDealerIfBigger(Player player) {
         if (player.getSumScore() < dealer.getSumScore()) {
-            playersMoney.put(player.getName(), -player.getBettingMoney());
-            dealerMoney += player.getBettingMoney();
+            winDealer(player);
         }
+    }
+
+    private void winDealer(Player player) {
+        playersMoney.put(player.getName(), -player.getBettingMoney());
+        dealerMoney += player.getBettingMoney();
     }
 
     private void winPlayerIfBigger(Player player) {
         if (player.getSumScore() > dealer.getSumScore()) {
-            playersMoney.put(player.getName(), player.getBettingMoney());
-            dealerMoney -= player.getBettingMoney();
+            winPlayer(player);
         }
+    }
+
+    private void winPlayer(Player player) {
+        playersMoney.put(player.getName(), player.getBettingMoney());
+        dealerMoney -= player.getBettingMoney();
     }
 
     private void noWinnerIfSame(Player player) {
         if (player.getSumScore() == dealer.getSumScore()) {
-            playersMoney.put(player.getName(), 0.0);
+            draw(player);
         }
+    }
+
+    private void draw(Player player) {
+        playersMoney.put(player.getName(), 0.0);
     }
 
     private void printResultMoney() {
