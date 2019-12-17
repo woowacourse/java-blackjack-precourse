@@ -2,8 +2,6 @@ package domain.view;
 
 import java.util.List;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import domain.casino.Money;
 import domain.user.Dealer;
 import domain.user.Player;
