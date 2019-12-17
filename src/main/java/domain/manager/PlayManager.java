@@ -59,6 +59,15 @@ public class PlayManager {
         }
     }
 
+    private boolean isDealerBlackjack() {
+        List<Integer> blackjackIndexList = makeBlackjackIndexList();
+        boolean blackjackStatus = false;
+        if (blackjackIndexList.size() > 0) {
+            blackjackStatus = settle(blackjackIndexList);
+        }
+        return blackjackStatus;
+    }
+
     private List<Integer> makeScoreList() {
         List<Integer> scoreList = new ArrayList<>();
         for (Player player : players) {
@@ -83,4 +92,6 @@ public class PlayManager {
             blackjackIndexList.add(index);
         }
     }
+
+
 }
