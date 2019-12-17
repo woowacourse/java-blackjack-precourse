@@ -1,10 +1,13 @@
-package utils;
+package domain.distribution;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 범위의 셔플된 숫자들을 생성하는 객체
+ */
 public class RandomNumbersGenerator {
 
     public static List<Integer> create(int minValue, int maxValue) {
