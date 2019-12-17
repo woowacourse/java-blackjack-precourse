@@ -130,5 +130,21 @@ public class GameManager {
 		printPlayerCard(dealer);
 		System.out.println("-°á°ú:" + printCardResult(dealer, players.size()));
 	}
+	private int printCardResult(Player player, int index) {
+		int result = 0;
+		for (int i = 0; i < player.printCard().size(); i++)
+			result += checkCardIntToString(player, i);
+		scoreResult[index] = result;
+		return result;
+	}
 
+	private int checkCardIntToString(Player player, int i) {
+		String[] arr = { "Q", "J", "K" };
+		if (Arrays.asList(arr).contains((player.printCard().get(i).getSymbol().toString()))) {
+			return 10;
+		}
+		return Integer.parseInt(player.printCard().get(i).getSymbol().toString());
+	}
+
+	
 }
