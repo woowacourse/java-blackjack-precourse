@@ -22,10 +22,14 @@ public class GameParticipant {
 
     public String getName(){return name;}
 
-    private int getSumOfCardScore(){
+    public int getSumOfCardScore(){
         int sum=0;
         for(Card card : cards){
             sum += card.getSymbol().getScore();
+        }
+
+        if( haveACECard() && is10BetterThen1(sum)){
+            sum += 9;
         }
         return sum;
     }
@@ -35,6 +39,19 @@ public class GameParticipant {
             return getSumOfCardScore() == 21;
         }
         return false;
+    }
+
+
+    private boolean is10BetterThen1(int sum){
+        return sum+9<21;
+    }
+
+    private boolean haveACECard(){
+        boolean haveACE = false;
+        for(Card card: cards){
+            haveACE = (haveACE || (card.getSymbol()==Symbol.ACE));
+        }
+        return haveACE;
     }
 
 }

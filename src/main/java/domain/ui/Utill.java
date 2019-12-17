@@ -38,4 +38,12 @@ public class Utill {
         System.out.println(participant.getName() + participant.getCards().toString());
     }
 
+    public boolean askNeedMoreCard(GameParticipant p){
+        Scanner sc = new Scanner(System.in);
+
+        if(p.getSumOfCardScore()<21) return false;
+        System.out.println(p.getName()+"은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        return sc.next() == "y";
+    }
+
 }

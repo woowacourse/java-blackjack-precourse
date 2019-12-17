@@ -19,18 +19,7 @@ public class Dealer extends GameParticipant {
         super("dealer");
     }
 
-    public void giveInitCard(GameParticipant participant) {
-        for (int i = 0; i < NUMBER_OF_CARD_GIVEN_FIRST; i++) {
-            giveCard(participant);
-        }
-    }
-
-    private void giveCard(GameParticipant participant) {
-        Card pickedCard = pickOneOfCardInCardpack();
-        participant.addCard(pickedCard);
-    }
-
-    private Card pickOneOfCardInCardpack() {
+    public Card giveCard() {
         Random random = new Random();
         Card pickedCard = cardpack.get(random.nextInt(cardpack.size()));
         cardpack.remove(pickedCard);
@@ -42,4 +31,9 @@ public class Dealer extends GameParticipant {
         return pickedCard;
     }
 
+
+    @Override
+    public void addCard(Card card) {
+        if(getSumOfCardScore() < 17) super.addCard(card);
+    }
 }
