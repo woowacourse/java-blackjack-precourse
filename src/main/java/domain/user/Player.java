@@ -23,6 +23,10 @@ public class Player {
         return name;
     }
 
+    public int getNumberOfCards() {
+        return cards.size();
+    }
+
     public String needMoreCard(Scanner sc) {
         System.out.println(name + ": 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
         return sc.nextLine();

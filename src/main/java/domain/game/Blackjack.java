@@ -10,6 +10,7 @@ public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
     public final int MAX_NAME_LENGTH = 5;
     public final int BLACKJACK_21 = 21;
+    public final int BLACKJACK_CONDITIONS_NUMBER_OF_CARDS = 2;
     public final int LESS_THAN_17 = 17;
     public final String YES = "y";
     public final String NO = "n";
@@ -17,7 +18,6 @@ public class Blackjack {
     public List<Player> players = new ArrayList<Player>();
     public Scanner sc = new Scanner(System.in);
     private Stack<Card> cards = new Stack<>();
-    private List<Player> winners = new ArrayList<>();
 
     public Blackjack(List<Card> cards) {
         this.cards.addAll(cards);
@@ -46,7 +46,6 @@ public class Blackjack {
         for (Player player : players) {
             if (isBlackJack(player)) {      // 플레이어 중 블랙잭이 있는지 확인
                 System.out.println(player.getName() + " 블랙잭!");
-                winners.add(player);
                 if (isBlackJack(dealer)) {      //플레이어 중 블랙잭이 있고, 딜러도 블랙잭인 경우 게임 종료
                     System.out.println("딜러 블랙잭! 게임이 종료됩니다.");
                     showResult();
@@ -123,11 +122,11 @@ public class Blackjack {
     }
 
     public boolean isBlackJack(Player player) {
-        return (player.calScore() == BLACKJACK_21);
+        return (player.calScore() == BLACKJACK_21) && (player.getNumberOfCards() == BLACKJACK_CONDITIONS_NUMBER_OF_CARDS);
     }
 
     public boolean isBlackJack(Dealer dealer) {
-        return (dealer.calScore() == BLACKJACK_21);
+        return (dealer.calScore() == BLACKJACK_21) && (dealer.getNumberOfCards() == BLACKJACK_CONDITIONS_NUMBER_OF_CARDS);
     }
 
     public void giveExtraCard(Player player) {

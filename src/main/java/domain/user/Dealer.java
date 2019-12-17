@@ -14,6 +14,10 @@ public class Dealer {
     public Dealer() {
     }
 
+    public int getNumberOfCards() {
+        return cards.size();
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }
