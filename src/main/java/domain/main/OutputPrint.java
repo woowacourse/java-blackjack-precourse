@@ -53,18 +53,39 @@ public class OutputPrint {
         System.out.println(playerList);
     }
 
+    /*
+    모든 플레이어에게 카드를 나눠주는 메소드
+     */
     public void distributeCardsToPlayers() {
         for (int i = 0; i < playerList.getSize() ; i ++) {
-            playerList.getPlayer(i).addCard(getCard());
+            distributeCardToPlayer(i);
         }
+    }
+
+    /*
+    특정 플레이어에게만 카드를 나눠주는 메소드
+     */
+    public void distributeCardToPlayer(int playerNumber) {
+        playerList.getPlayer(playerNumber).addCard(getCard());
     }
 
     public Card getCard() {
         return cardsList.get(theTopCardNumber++);
     }
 
-    public void wantMoreCards(String playerName) {
-        println(playerName+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n");
+    public void choiceMoreCard() {
+        for (int i = 0; i < playerList.getSize() ; i ++) {
+            Player currentPlayer = playerList.getPlayer(i);
+            getMoreCard(i, currentPlayer.getName());
+            System.out.println(currentPlayer);
+        }
+    }
+
+    public void getMoreCard(int playerNumber, String playerName) {
+        println(playerName+"(은)는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        if (inputScanner.getString().equals("y")) {
+            distributeCardToPlayer(playerNumber);
+        }
     }
 
     public void dealerLessThan16() {
