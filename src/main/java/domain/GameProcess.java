@@ -16,12 +16,13 @@ public class GameProcess {
     private int[] betting;
     private double[] win_or_lose;
     private List<Card> cards = new ArrayList<>();
-    private List<Dealer> player = new ArrayList<>();    // player[0]에 딜러, 나머지는 플레이어
+    private List<Dealer> players = new ArrayList<>();    // player[0]에 딜러, 나머지는 플레이어
     private final int DEALER_INDEX = 0;
     private final int ZERO_BETTING = 0;
     private final int MAX_CARD_NUMBER = 52;
     private final int BLACKJACK = 21;
     private final double WIN = 1.5, DRAW = 1, LOSE = -1;
+    private final double DEFAULT = 0;
 
     public void Game() {
         inputName();
@@ -31,8 +32,9 @@ public class GameProcess {
         GameStart();
         check_First();
         actPlayer();
-        checkDealerCard(player.get(DEALER_INDEX));
+        checkDealerCard(players.get(DEALER_INDEX));
         getAllPlayerScore();
+        checkWinOrLose();
     }
 
     private void inputName() {
@@ -59,9 +61,9 @@ public class GameProcess {
     }
 
     private void createPlayer(){
-        player.add(new Dealer());
+        players.add(new Dealer());
         for(int i = 0; i < playerName.length; i++){
-            player.add(new Player(playerName[i],betting[i]));
+            players.add(new Player(playerName[i],betting[i]));
         }
     }
 
@@ -86,20 +88,20 @@ public class GameProcess {
     }
 
     private void GameStart(){
-        for(int i = 0; i < player.size(); i++){
-            deal_TwoCard(player.get(i));
-            System.out.println(player.get(i));
+        for(int i = 0; i < players.size(); i++){
+            deal_TwoCard(players.get(i));
+            System.out.println(players.get(i));
         }
     }
 
     private void check_First(){
-        win_or_lose = new double[player.size()];
-        for(int i = 1; i < player.size(); i++){
-            if(player.get(DEALER_INDEX).getCardSum() == BLACKJACK
-                    && player.get(i).getCardSum() == BLACKJACK){
+        win_or_lose = new double[players.size()];
+        for(int i = 1; i < players.size(); i++){
+            if(players.get(DEALER_INDEX).getCardSum() == BLACKJACK
+                    && players.get(i).getCardSum() == BLACKJACK){
                 win_or_lose[i] = DRAW;
-            }else if(player.get(i).getCardSum() == BLACKJACK
-                        && player.get(DEALER_INDEX).getCardSum() != BLACKJACK){
+            }else if(players.get(i).getCardSum() == BLACKJACK
+                        && players.get(DEALER_INDEX).getCardSum() != BLACKJACK){
                 win_or_lose[i] = WIN;
             }
         }
@@ -122,9 +124,9 @@ public class GameProcess {
     }
 
     private void actPlayer(){
-        for(int i = 1; i < player.size(); i++){
-            chooseDeal(player.get(i));
-            if(player.get(i).getCardSum() > 21){
+        for(int i = 1; i < players.size(); i++){
+            chooseDeal(players.get(i));
+            if(players.get(i).getCardSum() > 21){
                 win_or_lose[i] = LOSE;
             }
         }
@@ -138,10 +140,30 @@ public class GameProcess {
     }
 
     private void getAllPlayerScore(){
-        for(int i = 0; i < player.size(); i++){
-            System.out.println(player.get(i) + "- 결과 :" + player.get(i).getCardSum());
+        for(int i = 0; i < players.size(); i++){
+            System.out.println(players.get(i) + "- 결과 :" + players.get(i).getCardSum());
         }
     }
 
+    private void checkWinOrLose(){
+        for(int i = 1; i < win_or_lose.length; i++){
+            if(win_or_lose[i] != DEFAULT){
+                continue;
+            }else if(players.get(DEALER_INDEX).getCardSum() > 21){
+                win_or_lose[i] = WIN;
+            }else if(isWinner(players.get(i))){
+                win_or_lose[i] = WIN;
+            }else{
+                win_or_lose[i] = LOSE;
+            }
+        }
+    }
+
+    private boolean isWinner(Dealer player){
+        if(players.get(DEALER_INDEX).getCardSum() <= player.getCardSum()){  // 숫자가 같으면 플레이어 승리
+            return true;
+        }
+        return false;
+    }
 
 }
