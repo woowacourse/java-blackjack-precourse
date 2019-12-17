@@ -1,6 +1,7 @@
 package application.domain.user;
 
 import application.domain.card.Card;
+import application.view.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public class Player extends User {
         cards.add(card);
     }
 
+    // TODO 추가 기능 구현
+
     @Override
     public String getFirstShuffleCardInfo() {
         StringBuffer sb = new StringBuffer();
@@ -32,8 +35,35 @@ public class Player extends User {
         return sb.toString();
     }
 
-    // TODO 추가 기능 구현
+    @Override
+    protected String getAllCardsInfo() {
+        StringBuffer sb = new StringBuffer();
+        for (Card card : cards) {
+            sb.append(card);
+            sb.append(' ');
+        }
+        return sb.toString();
+    }
 
+    @Override
+    protected int getScoreTo(int index) {
+        return 0;
+    }
+
+    @Override
+    protected boolean isBlackJack() {
+        return getScoreTo(1) == BLACK_JACK;
+    }
+
+    @Override
+    protected boolean isBust() {
+        return getScoreTo(cards.size() - 1) == BUST;
+    }
+
+    @Override
+    protected boolean isSatisfiedAddingCardCondition() {
+        return Input.isAddingCardFlag();
+    }
 
     @Override
     public String toString() {

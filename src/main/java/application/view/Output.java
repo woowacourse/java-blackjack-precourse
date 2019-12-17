@@ -7,4 +7,8 @@ public class Output {
         String playersFirstCardInfo = user.getFirstShuffleCardInfo();
         System.out.println(playersFirstCardInfo);
     }
+
+    public static void printAllCardsInfo(User user) {
+        user.getAllCardsInfo();
+    }
 }

@@ -35,6 +35,8 @@ public class Users {
     }
 
     public void checkCardsAndAddCard(CardSupplier supplier) {
-
+        for (User user : users) {
+            user.checkCardAndAddCard(supplier);
+        }
     }
 }
