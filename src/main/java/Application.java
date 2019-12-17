@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-import api.UserApi;
+import api.BlackjackApi;
 import domain.Blackjack;
 import domain.BlackjackPrinter;
 import domain.UserInterface;
@@ -31,27 +31,27 @@ public class Application {
         }
     }
 
-    private static PlayerServiceImpl setupPlayerService(Deck deck, BlackjackPrinter blackjackPrinter) {
+    private static PlayerService setupPlayerService(Deck deck, BlackjackPrinter blackjackPrinter) {
         UserInterface userInterface = new Console(new Scanner(System.in), blackjackPrinter);
         PlayerFactory playerFactory = new PlayerFactory();
         return new PlayerServiceImpl(deck, blackjackPrinter, userInterface, playerFactory);
     }
 
-    private static DealerServiceImpl setupDealerService(Deck deck, BlackjackPrinter blackjackPrinter) {
+    private static DealerService setupDealerService(Deck deck, BlackjackPrinter blackjackPrinter) {
         return new DealerServiceImpl(deck, blackjackPrinter);
     }
 
-    private static UserApi setupUserApi() {
+    private static BlackjackApi setupBlackjackApi() {
         Deck deck = new SingleDeck();
         BlackjackPrinter blackjackPrinter = new BlackjackPrinterImpl();
-        DealerServiceImpl dealerService = setupDealerService(deck, blackjackPrinter);
-        PlayerServiceImpl playerService = setupPlayerService(deck, blackjackPrinter);
-        return new UserApi(dealerService, playerService, blackjackPrinter);
+        DealerService dealerService = setupDealerService(deck, blackjackPrinter);
+        PlayerService playerService = setupPlayerService(deck, blackjackPrinter);
+        return new BlackjackApi(dealerService, playerService, blackjackPrinter);
     }
 
     private static Blackjack setupBlackjack() {
-        UserApi userApi = setupUserApi();
+        BlackjackApi blackjackApi = setupBlackjackApi();
         Dealer dealer = new Dealer();
-        return new Blackjack(userApi, dealer);
+        return new Blackjack(blackjackApi, dealer);
     }
 }

@@ -9,30 +9,30 @@ package domain;
 
 import java.util.List;
 
-import api.UserApi;
+import api.BlackjackApi;
 import domain.user.*;
 
 public class Blackjack {
-    private UserApi userApi;
+    private BlackjackApi blackjackApi;
 
     private Dealer dealer;
 
 
-    public Blackjack(UserApi userApi, Dealer dealer) {
-        this.userApi = userApi;
+    public Blackjack(BlackjackApi blackjackApi, Dealer dealer) {
+        this.blackjackApi = blackjackApi;
         this.dealer = dealer;
     }
 
 
     public void play() {
-        List<Player> players = userApi.join();
+        List<Player> players = blackjackApi.join();
 
-        userApi.receiveDefaultCards(dealer, players);
+        blackjackApi.receiveDefaultCards(dealer, players);
 
-        userApi.confirmCards(players, dealer);
+        blackjackApi.confirmCards(players, dealer);
 
-        userApi.match(dealer, players);
+        blackjackApi.match(dealer, players);
 
-        userApi.analyze(dealer, players);
+        blackjackApi.analyze(dealer, players);
     }
 }

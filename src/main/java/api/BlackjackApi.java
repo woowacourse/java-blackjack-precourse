@@ -1,5 +1,5 @@
 /*
- * @(#)UserApi.java 2019/12/17
+ * @(#)BlackjackApi.java 2019/12/17
  *
  * Copyright (c) 2019 Geunwon Lim
  * All rights reserved.
@@ -12,13 +12,13 @@ import java.util.List;
 import domain.BlackjackPrinter;
 import domain.user.*;
 
-public class UserApi {
+public class BlackjackApi {
 
-    private DealerServiceImpl dealerService;
-    private PlayerServiceImpl playerService;
+    private DealerService dealerService;
+    private PlayerService playerService;
     private BlackjackPrinter blackjackPrinter;
 
-    public UserApi(DealerServiceImpl dealerService, PlayerServiceImpl playerService, BlackjackPrinter blackjackPrinter) {
+    public BlackjackApi(DealerService dealerService, PlayerService playerService, BlackjackPrinter blackjackPrinter) {
         this.dealerService = dealerService;
         this.playerService = playerService;
         this.blackjackPrinter = blackjackPrinter;

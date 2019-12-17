@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerServiceImplTest {
 
-    private PlayerServiceImpl playerService;
+    private PlayerService playerService;
     private User mockUser = mock(User.class);
     private Deck mockDeck = mock(Deck.class);
     private BlackjackPrinter mockBlackjackPrinter = mock(BlackjackPrinter.class);

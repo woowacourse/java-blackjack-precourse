@@ -14,7 +14,7 @@ import domain.BlackjackPrinter;
 import domain.UserInterface;
 import domain.card.Deck;
 
-public class PlayerServiceImpl extends UserService {
+public class PlayerServiceImpl extends UserService implements PlayerService {
     private UserInterface userInterface;
     private PlayerFactory playerFactory;
 
@@ -24,6 +24,7 @@ public class PlayerServiceImpl extends UserService {
         this.playerFactory = playerFactory;
     }
 
+    @Override
     public void confirmCards(List<Player> players) {
         for (Player player : players) {
             confirmCards(player);
@@ -39,7 +40,7 @@ public class PlayerServiceImpl extends UserService {
 
         String will = userInterface.getWillForMoreCard(user);
         if (will.equals(Will.Stay.getValue())) {
-             return;
+            return;
         }
 
         hit(user);
@@ -51,6 +52,7 @@ public class PlayerServiceImpl extends UserService {
         confirmCards(user);
     }
 
+    @Override
     public List<Player> join() {
         List<Player> players = new ArrayList<>();
         String[] names = userInterface.extractNames();
@@ -62,18 +64,21 @@ public class PlayerServiceImpl extends UserService {
         return players;
     }
 
+    @Override
     public void receiveDefaultCards(List<Player> players) {
         for (Player player : players) {
             receiveDefaultCards(player);
         }
     }
 
+    @Override
     public void printResult(List<Player> players) {
         for (Player player : players) {
             blackjackPrinter.printUserResult(player);
         }
     }
 
+    @Override
     public void printProfit(List<Player> players) {
         for (Player player : players) {
             printProfit(player);

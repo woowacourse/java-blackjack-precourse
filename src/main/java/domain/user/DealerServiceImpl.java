@@ -11,7 +11,7 @@ import common.BlackjackConfig;
 import domain.BlackjackPrinter;
 import domain.card.Deck;
 
-public class DealerServiceImpl extends UserService {
+public class DealerServiceImpl extends UserService implements DealerService {
 
     public DealerServiceImpl(Deck deck, BlackjackPrinter blackjackPrinter) {
         super(deck, blackjackPrinter);
