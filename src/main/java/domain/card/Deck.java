@@ -22,4 +22,8 @@ public class Deck {
     public Card pop() {
         return this.cards.remove(0);
     }
+
+    public int getSize() {
+        return this.cards.size();
+    }
 }

@@ -3,7 +3,6 @@ package domain.game;
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
-import domain.user.Players;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +36,8 @@ public class BlackJack {
         // 결과 출력
         printCards(dealer, players);
 
-        players = hitPlayers(players, deck);
-        hitDealer(dealer, deck);
+        players = hit(players, deck);
+        hit(dealer, deck);
 
         // checkpoint 2. 여기까지 오면 게임 종료 조건 만족함
         // 점수 계산
@@ -49,16 +48,23 @@ public class BlackJack {
         printCards(dealer, players);
     }
 
-    private static Players hitPlayers(Players players, Deck deck) {
+    private static void hit(Dealer dealer, Deck deck) {
+        if (!isAboveThreshold(dealer.getScore())) {
+            dealer.addCard(deck.pop());
+            System.out.println(MESSAGE_DEALER_HIT);
+        }
+    }
+
+    private static Players hit(Players players, Deck deck) {
         List<Player> modifiedPlayers = new ArrayList<>();
         for (Player player : players.getPlayers()) {
-            hitPlayer(player, deck);
+            hit(player, deck);
             modifiedPlayers.add(player);
         }
         return new Players(modifiedPlayers);
     }
 
-    private static void hitPlayer(Player player, Deck deck) {
+    private static void hit(Player player, Deck deck) {
         while(shouldHit(player)) {
             player.addCard(deck.pop());
             System.out.println(player.getCardInfo());
@@ -83,13 +89,6 @@ public class BlackJack {
 
     private static boolean isValidChoice(String choice) {
         return choice.equals("y") || choice.equals("n");
-    }
-
-    private static void hitDealer(Dealer dealer, Deck deck) {
-        if (!isAboveThreshold(dealer.getScore())) {
-            dealer.addCard(deck.pop());
-            System.out.println(MESSAGE_DEALER_HIT);
-        }
     }
 
     public static boolean isAboveTarget(int userScore) {

@@ -1,14 +1,15 @@
-package domain.user;
+package domain.game;
 
 import domain.card.Deck;
+import domain.user.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Players {
+public class Players extends ArrayList<Player> {
     private static final int MINIMUM_NUMBER_OF_PLAYERS = 1;
 
-    private final List<Player> players;
+    private List<Player> players;
 
     public Players(List<Player> players) {
         validateSize(players);

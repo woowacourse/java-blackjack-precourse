@@ -22,6 +22,10 @@ public class BookKeeper {
         this.playersBalance = playersBalance;
     }
 
+    public void updateBalance(Dealer dealer) {
+
+    }
+
     public double getDealerBalance() {
         return this.dealerBalance;
     }
