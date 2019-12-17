@@ -66,20 +66,21 @@ public class Play {
             msg.append(players.get(p).getName() + ",");
         }
         msg.append("에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.\n");
-        Card dealerFirstCard = dealer.getFirstCard();
-        msg.append("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType() + "\n");
-
         System.out.println(msg);
-
+        showDealerCardStatus(dealer);
         for(int p = 0; p < cnt; p++){
             Player pl = players.get(p);
             showOneCardStatus(pl);
         }
-
     }
 
     public void showOneCardStatus(Player player){
         System.out.println(player.getName() + " 카드 : " + player.getCards() + "\n");
+    }
+
+    public void showDealerCardStatus(Dealer dealer){
+        Card dealerFirstCard = dealer.getFirstCard();
+        System.out.println("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType() + "\n");
     }
 
     public void askAddCard(Dealer dealer, List<Player> players){
@@ -121,6 +122,7 @@ public class Play {
             return;
         }
         getCardForDealer(1, dealer);
+        System.out.println("딜러는 16이하라 카드를 한장 더 받았습니다.");
     }
 
 }
