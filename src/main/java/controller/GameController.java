@@ -38,7 +38,6 @@ public class GameController {
             OutputSystem.printBettingPrice(names[i]);
             players.add(new Player(names[i], inputSystem.inputBettingPirce()));
         }
-        System.out.println();
     }
 
     public void gameStart() {
@@ -49,15 +48,19 @@ public class GameController {
             dealerBlackjackCalculate();
             return;
         }
-        for (int i = 0; i < players.size(); i++)
-            drawPlayerCard(i);
-        drawDealerCard();
+        playerAndDealerDrawCard();
     }
 
     public void gameResult() {
         calculateMoney();
         OutputSystem.printResultValue(dealer, players);
         OutputSystem.printResultMoney(dealerResult, playerResult);
+    }
+
+    private void playerAndDealerDrawCard() {
+        for (int i = 0; i < players.size(); i++)
+            drawPlayerCard(i);
+        drawDealerCard();
     }
 
     private void calculateMoney() {
@@ -113,14 +116,24 @@ public class GameController {
     }
 
     public double dealerToPlayerCompare(Player player) {
-        if (dealer.isDealerWinner(player)) {
-            playerResult.add(new Result(player.getName(), -player.getBettingMoney()));
-            return player.getBettingMoney();
-        }
-        if (dealer.isTie(player)) {
-            playerResult.add(new Result(player.getName(), 0));
-            return 0;
-        }
+        if (dealer.isDealerWinner(player))
+            return dealerWinnerSimulation(player);
+        if (dealer.isTie(player))
+            return dealerTieSimulation(player);
+        return dealerLoseSimulation(player);
+    }
+
+    private double dealerWinnerSimulation(Player player) {
+        playerResult.add(new Result(player.getName(), -player.getBettingMoney()));
+        return player.getBettingMoney();
+    }
+
+    private double dealerTieSimulation(Player player) {
+        playerResult.add(new Result(player.getName(), 0));
+        return 0;
+    }
+
+    private double dealerLoseSimulation(Player player) {
         playerResult.add(new Result(player.getName(), player.getBettingMoney() + player.blackJackBonus()));
         return -(player.getBettingMoney() + player.blackJackBonus());
     }
@@ -136,10 +149,14 @@ public class GameController {
             answer = inputSystem.inputBettingAnswer();
         }
         if (answer) {
-            players.get(playerIdx).addCard(cardDeck.drawCard());
-            OutputSystem.printUserCardList(players.get(playerIdx));
-            drawPlayerCard(playerIdx);
+            drawCardAndAnswer(playerIdx);
         }
+    }
+
+    private void drawCardAndAnswer(int playerIdx){
+        players.get(playerIdx).addCard(cardDeck.drawCard());
+        OutputSystem.printUserCardList(players.get(playerIdx));
+        drawPlayerCard(playerIdx);
     }
 
     private void drawDealerCard() {

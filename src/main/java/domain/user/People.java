@@ -56,6 +56,10 @@ public class People {
             aceCount += isAce(number.intValue());
             result += number.intValue();
         }
+        return getMaximumNumber(aceCount, result);
+    }
+
+    private int getMaximumNumber(int aceCount, int result) {
         for (int i = 0; i < aceCount; i++) {
             result = addCalculateBurst(result, TEN);
         }

@@ -7,9 +7,9 @@ import java.util.Objects;
  */
 public class Card {
     private final Symbol symbol;
-
     private final Type type;
-
+    private final int ACE_NUMBER = 1;
+    private final int TEN_NUMBER = 10;
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
@@ -35,13 +35,17 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" + "symbol=" + symbol + ", type=" + type + '}';
-    }
+}
 
     public Symbol getSymbol() {
         return symbol;
     }
 
     public String getCardString() {
+        int score = symbol.getScore();
+        if (score == ACE_NUMBER || score == TEN_NUMBER) {
+            return symbol.toString() + " " + type;
+        }
         return Integer.toString(symbol.getScore()) + type;
     }
 
