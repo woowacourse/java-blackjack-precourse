@@ -57,9 +57,8 @@ public class Player {
             ace.remove(0);
         }
 
-        if (ace.size() == 0) return score;
         if (ace.size() == 1) return score - 10;
-        if (score > BUST) return hasACE(score, cnt - 1);
+        if (ace.size() > 0 && score > BUST) return hasACE(score, cnt - 1);
         return score;
     }
 
