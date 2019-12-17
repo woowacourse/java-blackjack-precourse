@@ -10,6 +10,12 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  */
 public class Player {
+
+    private static final int ACE_ADDITIONAL_SCORE = 10;
+    private static final int MINUS = -1;
+    private static final double BASIC_BATTING_RATIO = 1.0;
+    private static final double BIGGER_BATTING_RATIO = 1.5;
+
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -26,8 +32,8 @@ public class Player {
     public int getScore() {
         int score = getCardsPoint();
 
-        if (cardsContainsAce() && ((score+10) <= GameManager.BLACK_JACK)) {
-            score += 10;
+        if (cardsContainsAce() && ((score + ACE_ADDITIONAL_SCORE) <= GameManager.BLACK_JACK)) {
+            score += ACE_ADDITIONAL_SCORE;
         }
         return score;
     }
@@ -58,18 +64,8 @@ public class Player {
         return String.join(", ", cardStringList);
     }
 
-//    public boolean completeBlackJack() {
-//        if (getCardsPoint() == 21) {
-//            return true;
-//        }
-//        if ((getCardsPoint() == 11) && cardsContainsAce()) {
-//            return true;
-//        }
-//        return false;
-//    }
-
     public boolean isWinner(int maxValue) {
-        if (getScore() > 21) {
+        if (getScore() > GameManager.BLACK_JACK) {
             return false;
         }
         if (getScore() >= maxValue) {
@@ -79,15 +75,15 @@ public class Player {
     }
 
     public int getEarnMoney(int maxValue) {
-        double battingRatio = 1.0;
+        double battingRatio = BASIC_BATTING_RATIO;
 
-        if ((cards.size() == 2) && (getScore() == 21)) {
-            battingRatio = 1.5;
+        if ((cards.size() == GameManager.START_CARD_COUNT) && (getScore() == GameManager.BLACK_JACK)) {
+            battingRatio = BIGGER_BATTING_RATIO;
         }
         if (isWinner(maxValue)) {
             return (int) (bettingMoney * battingRatio);
         }
-        return (int) ((-1) * bettingMoney * battingRatio);
+        return (int) (MINUS * bettingMoney * battingRatio);
     }
 
     public String getName() {

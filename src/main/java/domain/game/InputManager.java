@@ -18,6 +18,7 @@ import java.util.*;
 public class InputManager {
     private static final int MINIMUM_NAME_COUNT = 1;
     private static final int MINIMUM_NAME_LENGTH = 1;
+    private static final int ZERO = 0;
     public static final String YES = "y";
     public static final String NO = "n";
 
@@ -134,7 +135,7 @@ public class InputManager {
     }
 
     private boolean checkBattingMoneyIsMinus(String battingMoneyString) {
-        if (Integer.parseInt(battingMoneyString) < 0) {
+        if (Integer.parseInt(battingMoneyString) < ZERO) {
             print(ErrorMessage.PLAYER_BATTING_MONEY_IS_MINUS);
             return true;
         }
@@ -142,7 +143,7 @@ public class InputManager {
     }
 
     private boolean checkBattingMoneyIsZero(String battingMoneyString) {
-        if (Integer.parseInt(battingMoneyString) == 0) {
+        if (Integer.parseInt(battingMoneyString) == ZERO) {
             print(ErrorMessage.PLAYER_BATTING_MONEY_IS_ZERO);
             return true;
         }

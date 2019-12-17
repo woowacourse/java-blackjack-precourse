@@ -12,7 +12,6 @@
 package domain.game;
 
 import domain.card.CardDeck;
-import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 public class GameManager {
 
-    private static final int START_CARD_COUNT = 2;
+    public static final int START_CARD_COUNT = 2;
     public static final int BLACK_JACK = 21;
     public static final int OVERFLOW = -1;
 
@@ -57,7 +56,7 @@ public class GameManager {
     private void drawTwoCardsToDealerAndPlayer() {
         print(Message.makeMessageDrawTwoCardsToDealerAndPlayer(players));
 
-        for (int i=0; i<START_CARD_COUNT; i++) {
+        for (int i = 0; i < START_CARD_COUNT; i++) {
             dealer.addCard(cardDeck.getRandomCard());
         }
         for (Player player : players) {
@@ -67,7 +66,7 @@ public class GameManager {
 
     private void drawTwoCardsToPlayer(Player player) {
 
-        for (int i=0; i<START_CARD_COUNT; i++) {
+        for (int i = 0; i < START_CARD_COUNT; i++) {
             player.addCard(cardDeck.getRandomCard());
         }
     }
@@ -140,7 +139,9 @@ public class GameManager {
     }
 
     private int getPlayersMaxScore() {
-        int playerMaxScore = -1;
+        //int playerMaxScore = -1;
+        int playerMaxScore = OVERFLOW;
+        //기존 코드는 playerMaxScore에 어떤 점수보다 작은 값인 -1를 넣는 코드였는데 -1을 의미하는 상수인 OVERFLOW 사용.
 
         for (Player player : players) {
             playerMaxScore = getBiggerValueUnderBlackJack(playerMaxScore, player.getScore());
@@ -150,10 +151,10 @@ public class GameManager {
 
     private int getBiggerValueUnderBlackJack(int input1, int input2) {
         if (input1 > BLACK_JACK) {
-            input1 = -1;
+            input1 = OVERFLOW;
         }
         if (input2 > BLACK_JACK) {
-            input2 = -1;
+            input2 = OVERFLOW;
         }
 
         if (input1 > input2) {
@@ -161,11 +162,4 @@ public class GameManager {
         }
         return input2;
     }
-//    private boolean isDealerOverflow() {
-//        if (dealer.getScore() == OVERFLOW) {
-//            return true;
-//        }
-//        return false;
-//    }
-
 }

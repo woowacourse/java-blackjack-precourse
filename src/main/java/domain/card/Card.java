@@ -15,8 +15,6 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,7 +44,7 @@ public class Card {
     public int getSymbolValue(){
         return symbol.getScore();
     }
-    
+
     public boolean isAce() {
         return (symbol == Symbol.ACE);
     }

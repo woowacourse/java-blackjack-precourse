@@ -11,7 +11,8 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer {
-    private final int DEALER_CRITERIA = 16;
+    private static final int DEALER_CRITERIA = 16;
+    private static final int ACE_ADDITIONAL_SCORE = 10;
 
     private final List<Card> cards = new ArrayList<>();
 
@@ -24,8 +25,8 @@ public class Dealer {
     public int getScore() {
         int score = getCardsPoint();
 
-        if (cardsContainsAce() && ((score+10) <= GameManager.BLACK_JACK)) {
-            score += 10;
+        if (cardsContainsAce() && ((score + ACE_ADDITIONAL_SCORE) <= GameManager.BLACK_JACK)) {
+            score += ACE_ADDITIONAL_SCORE;
         }
         return score;
     }
@@ -54,16 +55,6 @@ public class Dealer {
             cardStringList.add(card.toPrintString());
         }
         return String.join(", ", cardStringList);
-    }
-
-    public boolean isWinner(int maxValue) {
-        if (getScore() > 21) {
-            return false;
-        }
-        if (getScore() >= maxValue) {
-            return true;
-        }
-        return false;
     }
 
     public boolean getMoreDraw() {
