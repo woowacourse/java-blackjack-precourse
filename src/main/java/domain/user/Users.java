@@ -1,8 +1,8 @@
 package domain.user;
 
 import domain.outcome.Outcomes;
-import domain.view.InputUtil;
-import domain.view.OutputUtil;
+import view.InputUtil;
+import view.OutputUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class Users {
     }
 
     public void receiveBeginningCard() {
-        users.forEach(User::addInitRandomCard);
+        users.forEach(User::addInitCard);
     }
 
     public void startAddCardQuestion(Outcomes outcomes) {

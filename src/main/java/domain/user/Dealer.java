@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.view.OutputUtil;
+import view.OutputUtil;
 
 /**
  * 게임 딜러를 의미하는 객체

@@ -1,7 +1,6 @@
-package domain.view;
+package view;
 
 import domain.outcome.Outcomes;
-import domain.user.Users;
 
 public class OutputUtil {
     public static void printUsersNameDemand() {

@@ -1,22 +1,11 @@
-package domain;
-
-import domain.card.Card;
-import domain.card.Symbol;
-import domain.card.Type;
 import domain.outcome.Outcomes;
-import domain.user.Dealer;
-import domain.user.Player;
-import domain.user.User;
 import domain.user.Users;
-import domain.view.InputUtil;
-import domain.view.OutputUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import view.InputUtil;
+import view.OutputUtil;
 
 public class BlackJackGame {
-    static boolean gameEndFlag = false;
-    static final Outcomes outcomes = new Outcomes();
+    private static boolean gameEndFlag = false;
+    private static final Outcomes outcomes = new Outcomes();
 
     public static void start() {
         Users users = initGameSetting();
@@ -27,26 +16,24 @@ public class BlackJackGame {
         decideOutcome(users);
     }
 
-    public static void checkInitBlackJack(Users users) {
-        // 딜러가 블랙잭일 경우
+    private static void checkInitBlackJack(Users users) {
         if (users.getDealer().isBlackJack()) {
-            calculateInitBlackJackPlayer(users, true, BenefitMultipleType.INIT_BOTH_BLACKJACK);
-            calculateInitBlackJackPlayer(users, false, BenefitMultipleType.USER_LOSE);
+            calculateInitBlackJackPlayer(users, true, true);
+            calculateInitBlackJackPlayer(users, false, true);
             gameEndFlag = true;
             return;
         }
-
         if (users.getInitBlackJackPlayer() > 0) {
-            calculateInitBlackJackPlayer(users, true, BenefitMultipleType.INIT_USER_BLACKJACK);
+            calculateInitBlackJackPlayer(users, true, false);
         }
     }
 
-    private static void calculateInitBlackJackPlayer(Users users, boolean playerBlackJackFlag, BenefitMultipleType multipleType) {
-        users.getPlayers().filter(player -> player.isBlackJack() == playerBlackJackFlag)
+    private static void calculateInitBlackJackPlayer(Users users, boolean isPlayerBlackJack, boolean isDealerBlackJack) {
+        users.getPlayer().filter(player -> player.isBlackJack() == isPlayerBlackJack)
                 .forEach(player ->
                         outcomes.addOutcomes(
                                 player.getName(),
-                                player.getBenefit(multipleType),
+                                player.calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack),
                                 player.getCards()
                         ));
     }
@@ -60,17 +47,16 @@ public class BlackJackGame {
     private static Users inputUserInfo() {
         OutputUtil.printUsersNameDemand();
         String[] playerNames = InputUtil.inputName();
-        Users users = Users.initUsers(playerNames);
-        return users;
+        return Users.initUsers(playerNames);
     }
 
     private static void devideCard(Users users) {
         OutputUtil.printDevideMessage(users.getUsersName());
         users.receiveBeginningCard();
-        users.printInitUserCard();
+        users.printBeginningUserCard();
     }
 
-    static void startDecideCardAddLoop(Users users) {
+    private static void startDecideCardAddLoop(Users users) {
         users.startAddCardQuestion(outcomes);
         users.printFinalOutput();
     }
@@ -79,7 +65,7 @@ public class BlackJackGame {
         return users.getDealer().calcurateScore();
     }
 
-    static void decideOutcome(Users users) {
+    private static void decideOutcome(Users users) {
         users.decideOutcome(getDealerScore(users), outcomes);
         outcomes.calcurateDealerBenefit();
         OutputUtil.printOutcomes(outcomes);

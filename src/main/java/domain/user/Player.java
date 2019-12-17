@@ -1,8 +1,8 @@
 package domain.user;
 
-import domain.BenefitType;
-import domain.view.InputUtil;
-import domain.view.OutputUtil;
+import domain.outcome.BenefitType;
+import view.InputUtil;
+import view.OutputUtil;
 
 /**
  * 게임 참여자를 의미하는 객체

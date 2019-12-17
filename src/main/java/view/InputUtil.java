@@ -1,4 +1,4 @@
-package domain.view;
+package view;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,7 +10,6 @@ public class InputUtil {
     static final String EMPTY_SPACE = "";
     static final String ONE = "1";
     static final String ELEVEN = "11";
-    // ENUM 활용해서 리팩토링해보기
     static final String YES = "y";
     static final String NO = "n";
 
