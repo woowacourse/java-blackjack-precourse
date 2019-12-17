@@ -117,7 +117,7 @@ public class UserRepository {
 	}
 	
 	public boolean playerAlwaysWin(int playerInx) {
-		if(userList.get(playerInx).isBlackJack() 
+		if (userList.get(playerInx).isBlackJack() 
 				&& !userList.get(dealerInx).isBlackJack()) {
 			return true;
 		}
@@ -146,7 +146,7 @@ public class UserRepository {
 	public boolean playerWin(int playerInx, int criteria) {
 		int playerScore = userList.get(playerInx).getScore();
 		
-		if(playerScore <= Jack && (playerScore > criteria || (criteria > Jack))) {
+		if (playerScore <= Jack && (playerScore > criteria || (criteria > Jack))) {
 			return true;
 		}
 		return false;

@@ -41,7 +41,7 @@ public class Card {
     }
     
     public boolean isAce() {
-    	if(symbol.getName().equals("A")) {
+    	if (symbol.getName().equals("A")) {
     		return true;
     	}
     	return false;

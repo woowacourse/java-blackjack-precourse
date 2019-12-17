@@ -58,7 +58,7 @@ public abstract class User {
 	}
 	
 	public boolean isAce(Card card, boolean ace) {
-		if(card.isAce() || ace) {
+		if (card.isAce() || ace) {
 			return true;
 		}
 		return false;
@@ -76,7 +76,7 @@ public abstract class User {
 	}
 	
 	public boolean isBlackJack() {
-		if(cards.size() == blackJackCardCnt && getScore() == Jack) {
+		if (cards.size() == blackJackCardCnt && getScore() == Jack) {
 			return true;
 		}
 		return false;

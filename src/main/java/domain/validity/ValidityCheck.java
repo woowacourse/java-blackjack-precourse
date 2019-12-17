@@ -29,7 +29,7 @@ public class ValidityCheck {
 	}
 	
 	public boolean properInput(boolean rightToUse, String player) {
-		if(player.length() != 0 && rightToUse) {
+		if (player.length() != 0 && rightToUse) {
 			return true;
 		}
 		return false;
