@@ -14,6 +14,7 @@ public class Initialize {
 
         System.out.println("게임에 참여할 사람의 이름을 입력하세요. (쉼표기준으로분리)");
         input = sc.nextLine();
+        input = input.trim();
 
         String[] names = input.split(",");
         for(String name : names) {

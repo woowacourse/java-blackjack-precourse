@@ -19,16 +19,24 @@ public class Blackjack {
 
     Scanner sc = new Scanner(System.in);
 
-    private int dealerResult = 0;
+    private static double dealerResult = 0;
     private ArrayList<Player> players = new ArrayList<>();
     private List<Card> cardDeck = new ArrayList<>();
+    private List<Integer> playerBlackjack = new ArrayList<>();
     private Dealer dealer = new Dealer();
     private Initialize init = new Initialize();
+    private static String result = new String();
+    private int isFinish;
 
     public static void main(String[] args) {
         Blackjack blackjack = new Blackjack();
         blackjack.startGame();
-        blackjack.gameSet();
+        if (blackjack.isFinish == 1) {
+            showWinner(result);
+            //System.exit(0);
+        } else if (blackjack.isFinish == 0) {
+            blackjack.gameSet();
+        }
     }
 
     public void startGame() {
@@ -52,7 +60,46 @@ public class Blackjack {
         for (Player player : players) {
             cardDeck = player.drawCards(2, cardDeck);
             player.showCards();
+            playerBlackjack.add(isBlackjack(dealer.checkBlackjack(), player));
         }
+        for (int i = 0; i < players.size(); i++) {
+            setIsFinish(i);
+        }
+    }
+
+    public int isBlackjack(boolean isDealerBlackjack, Player player) {
+        boolean isPlayerBlackjack = player.checkBlackjack();
+
+        if (isDealerBlackjack == true && isPlayerBlackjack == true) {
+            System.out.println(player.getName() + "와 딜러가 블랙잭입니다. 게임을 종료합니다.\n");
+            return 1;
+        } else if (isDealerBlackjack == false && isPlayerBlackjack == true) {
+            System.out.println(player.getName() + "이 블랙잭입니다. 게임을 종료합니다.\n");
+            return 2;
+        } else if (isDealerBlackjack == true && isPlayerBlackjack) {
+            System.out.println("딜러가 블랙잭입니다. 게임을 종료합니다.\n");
+            return 3;
+        }
+        return 4;
+    }
+
+    public void setIsFinish(int count) {
+        Player player = players.get(count);
+
+        if (playerBlackjack.get(count) == 1) {
+            dealerResult = 0;
+            result += player.getName() + " : " + player.getMoney() + "\n";
+            isFinish = 1;
+        } else if (playerBlackjack.get(count) == 2) {
+            dealerResult = player.getMoney() * (-0.5);
+            result += player.getName() + " : " + (player.getMoney() * 1.5) + "\n";
+            isFinish = 1;
+        } else if (playerBlackjack.get(count) == 3) {
+            dealerResult = player.getMoney();
+            result += player.getName() + " : " + (player.getMoney() * -1) + "\n";
+            isFinish = 1;
+        }
+        isFinish = 0;
     }
 
     public void participatePlayers(ArrayList<String> playerNames) {
@@ -64,7 +111,7 @@ public class Blackjack {
     }
 
     public void gameSet() {
-        String result = new String();
+
         for (Player player : players) {
             doDraw(player);
         }
@@ -117,8 +164,8 @@ public class Blackjack {
         }
     }
 
-    public void showWinner(String result) {
-        System.out.println("### 최종 수익");
+    public static void showWinner(String result) {
+        System.out.println("\n### 최종 수익");
         System.out.println("딜러: " + dealerResult);
         System.out.println(result);
     }

@@ -32,8 +32,11 @@ public class Dealer {
     }
 
     public void showFinal() {
-        System.out.println(
-                "딜러 : " + cards.get(0).getCardName() + ", " + cards.get(1).getCardName() + " - 결과:" + cardScore());
+        String cardList = new String();
+        for(Card card : cards) {
+            cardList += card.getCardName() + ", ";
+        }
+        System.out.println("딜러 : " + cardList + " - 결과:" + cardScore());
     }
 
     public int cardScore() {
@@ -54,9 +57,15 @@ public class Dealer {
     public int checkBurst(int score, int aceCount) {
         while (score <= 21 || aceCount != 0) {
             aceCount--;
-            score -= 9;
+            score -= 10;
         }
         return score;
     }
 
+    public boolean checkBlackjack() {
+        if(cardScore() == 21) {
+            return true;
+        }
+        return false;
+    }
 }

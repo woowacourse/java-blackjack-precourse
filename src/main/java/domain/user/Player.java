@@ -48,9 +48,16 @@ public class Player {
     public int checkBurst(int score, int aceCount) {
         while (score <= 21 || aceCount != 0) {
             aceCount--;
-            score -= 9;
+            score -= 10;
         }
         return score;
+    }
+
+    public boolean checkBlackjack() {
+        if(cardScore() == 21) {
+            return true;
+        }
+        return false;
     }
 
     public void showCards() {
@@ -58,8 +65,11 @@ public class Player {
     }
 
     public void showFinal() {
-        System.out.println(this.name + "카드 : " + cards.get(0).getCardName() + ", " + cards.get(1).getCardName()
-                + " - 결과:" + cardScore());
+        String cardList = new String();
+        for(Card card : cards) {
+            cardList += card.getCardName() + ", ";
+        }
+        System.out.println(this.name + " : " + cardList + " - 결과:" + cardScore());
     }
 
     public String getName() {
