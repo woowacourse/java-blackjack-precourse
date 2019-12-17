@@ -118,4 +118,13 @@ public class PlayManager {
             benefitArray[dealerIndex] = -benefit;
         }
     }
+
+    private void checkWinPlayer(List<Integer> blackjackIndexList) {
+        double blackjackIncrease = 1.5;
+        for (Integer blackjackPlayerIndex : blackjackIndexList) {
+            double benefit = players.get(blackjackPlayerIndex).win() * blackjackIncrease;
+            benefitArray[blackjackPlayerIndex] = benefit;
+            benefitArray[dealerIndex] = -benefit;
+        }
+    }
 }
