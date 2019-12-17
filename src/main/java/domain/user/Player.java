@@ -29,5 +29,9 @@ public class Player {
     public double getBettingMoney() {
 	return bettingMoney;
     }
+    
+    public String getName() {
+	return name;
+    }
 
 }
