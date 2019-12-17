@@ -12,6 +12,7 @@ public class UserRepository {
 	private final int playerFirstInx = 1;
 	private final int dealerInx = 0;
 	private final int Jack = 21;
+	private final int dealerCriteria = 17;
 	
 	private List<String> playerNameList = new ArrayList<String>();
 	private List<User> userList = new ArrayList<User>();
@@ -57,7 +58,6 @@ public class UserRepository {
 	public void showFirstUserCard() {
 		for (User user : userList) {
 			ViewOutput.showFristCardResult(user);
-			user.showFirstResult();
 		}
 	}
 	
@@ -72,7 +72,7 @@ public class UserRepository {
 	public void checkAnswer(User user) {
 		String answer = "y";
 		
-		while (answer.equals("y") && ((Player) user).isBelowJack()) {
+		while (answer.equals("y") && user.isBelow(Jack)) {
 			answer = ViewInput.askGetCard((Player)user);
 			ViewOutput.showEachResult(user);
 			System.out.println();
@@ -80,9 +80,9 @@ public class UserRepository {
 	}
 	
 	public void secondDealerDealOut() {
-		Dealer dealer = (Dealer)userList.get(dealerInx);
+		User dealer = userList.get(dealerInx);
 		
-		while (dealer.isBelowCriteria()) {
+		while (dealer.isBelow(dealerCriteria)) {
 			dealer.addCard(Game.getInstance().selectedCard());
 			ViewOutput.showDealerCheck();
 		}
@@ -125,7 +125,7 @@ public class UserRepository {
 	}
 	
 	public boolean isDraw(int playerInx, int criteria) {
-		if (userList.get(playerInx).getScore() == criteria ) {
+		if (userList.get(playerInx).getScore() == criteria) {
 			return true;
 		}
 		return false;

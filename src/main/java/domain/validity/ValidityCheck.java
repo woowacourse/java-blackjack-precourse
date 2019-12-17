@@ -15,21 +15,21 @@ public class ValidityCheck {
 	}
 	
 	public boolean checkPlayerNameList(List<String> playerNameList) {
-		boolean flag = true;
+		boolean rightToUse = true;
 		
 		for (String player : playerNameList) {
-			flag = wrongInput(flag, player);
+			rightToUse = properInput(rightToUse, player);
 		}
 		
-		if (!flag) {
+		if (!rightToUse) {
 			playerNameList.removeAll(playerNameList);
 			return false;
 		}
 		return true;
 	}
 	
-	public boolean wrongInput(boolean flag, String player) {
-		if(player.length() != 0 && flag) {
+	public boolean properInput(boolean rightToUse, String player) {
+		if(player.length() != 0 && rightToUse) {
 			return true;
 		}
 		return false;

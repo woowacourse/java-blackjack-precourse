@@ -8,19 +8,15 @@ import domain.card.Card;
 
 public abstract class User {
 	private final List<Card> cards = new ArrayList<>();
-	private final int blackJackCard = 2;
+	private final int blackJackCardCnt = 2;
 	protected final int Jack = 21;
 	
     public void addCard(Card card) {
         cards.add(card);
     }
     
-    public List<Card> getCards() {
+    protected List<Card> getCards() {
     	return cards;
-    }
-    
-    public void showFirstResult() {
-
     }
 
 	public abstract String getFirstCard();
@@ -37,17 +33,50 @@ public abstract class User {
 	}
 	
 	public int getScore() {
-		int score = 0;
+		int score = cards
+				.stream()
+				.collect(Collectors.summingInt(card -> card.getScore()));
 		
-		for (Card card : cards) {
-			score += card.getScore();
+		return getRealScore(score);
+	}
+	
+	public int getRealScore(int score) {
+		if (score > Jack && hasAce()) {
+			return score - 10;
 		}
-		
 		return score;
 	}
 	
+	public boolean hasAce() {
+		boolean flag = false;
+
+		for (Card card : cards) {
+			flag = checkAce(card, flag);
+		}
+		
+		return flag;
+	}
+	
+	public boolean checkAce(Card card, boolean flag) {
+		if(card.getSymbol().equals("A") || flag) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isBelow(int criteria) {
+		int score = getCards()
+				.stream()
+				.collect(Collectors.summingInt(card -> card.getScore()));
+		
+		if (score < criteria) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean checkBlackJack() {
-		if(cards.size() == blackJackCard && getScore() == Jack) {
+		if(cards.size() == blackJackCardCnt && getScore() == Jack) {
 			return true;
 		}
 		return false;
