@@ -1,5 +1,6 @@
 package domain.card;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -7,18 +8,11 @@ import java.util.stream.Collectors;
 
 public class UserCards {
 
-    private List<Card> cards;
+    private final List<Card> cards;
     private static final int LIMIT = 21;
 
-    public UserCards(List<Card> cards) {
-        checkCardsEmpty();
-        this.cards = cards;
-    }
-
-    private void checkCardsEmpty() {
-        if (cards.size() == 0) {
-            throw new IndexOutOfBoundsException("딜러의 카드가 존재하지 않습니다.");
-        }
+    public UserCards() {
+        this.cards = new ArrayList<>();
     }
 
     public void addRandomCard() {

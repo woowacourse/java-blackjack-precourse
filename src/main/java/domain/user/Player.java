@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.BenefitMultipleType;
+import domain.BenefitType;
 import domain.view.InputUtil;
 import domain.view.OutputUtil;
 
@@ -32,9 +32,7 @@ public class Player extends User {
 
     private boolean inputAddCardQuestion() {
         OutputUtil.printAddCardQuestion(name);
-        boolean addCardFlag = InputUtil.inputAddCardQuestion();
-
-        return addCardFlag;
+        return InputUtil.inputAddCardQuestion();
     }
 
     public boolean isWinBy(int dealerScore) {
@@ -45,8 +43,20 @@ public class Player extends User {
         return name;
     }
 
-    public double getBenefit(BenefitMultipleType benefitMultipleType) {
-        return bettingMoney * benefitMultipleType.getMultipleValue();
+    public double calcurateBenefit(BenefitType benefitType) {
+        return bettingMoney * benefitType.getMultipleValue();
+    }
+
+    public double calcurateBlackJackBenefit(boolean isDealerBlackJack, boolean isPlayerBlackJack) {
+        return BenefitType
+                .calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack)
+                .getMultipleValue()
+                * bettingMoney;
+    }
+
+    public double calcureateBenefit(boolean isWin) {
+        return BenefitType.calcureateWinnerBenefit(isWin).getMultipleValue()
+                * bettingMoney;
     }
 
     @Override

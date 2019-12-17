@@ -1,7 +1,5 @@
 package domain.user;
 
-import domain.card.Symbol;
-import domain.view.InputUtil;
 import domain.view.OutputUtil;
 
 /**
@@ -10,16 +8,12 @@ import domain.view.OutputUtil;
 public class Dealer extends User {
     private static final int ADD_CARD_LIMIT = 16;
 
-    public Dealer() {
-    }
-
     // TODO 추가 기능 구현
-    public String getFirstCard() {
-        super.checkCardsEmpty();
+    private String getFirstCard() {
         return getCards().get(0).getCardInfo();
     }
 
-    public boolean checkAddLimitExcess() {
+    private boolean checkAddLimitExcess() {
         int sum = calcurateScore();
         return sum > ADD_CARD_LIMIT;
     }

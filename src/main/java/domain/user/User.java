@@ -11,8 +11,8 @@ abstract public class User {
     private static final int LIMIT = 21;
     private static final int ONE = 1;
 
-    public User(UserCards userCards) {
-        this.userCards = userCards;
+    public User() {
+        this.userCards = new UserCards();
     }
 
     abstract public void printUserInfo();
