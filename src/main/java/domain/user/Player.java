@@ -23,4 +23,7 @@ public class Player extends BlackjackMember {
         return this.name;
     }
 
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
 }

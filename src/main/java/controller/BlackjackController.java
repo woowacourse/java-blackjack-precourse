@@ -13,6 +13,7 @@ import domain.user.Player;
 
 public class BlackjackController {
 	public static final int BLACKJACK = 21;
+	public static final double BLACKJACK_REWARD = 1.5;
 	public static final int DEALER_ADD_POINT = 16;
 	public static final int ACE_TERM = 10;
 	public static final int ZERO = 0;
@@ -51,8 +52,53 @@ public class BlackjackController {
 		printAllStatus(entry);
 	}
 
-	private void checkDeck() {
+	public boolean checkFirstServe(Dealer dealer, List<Player> players) {
+		if (dealer.isBlackjack()) {
+			dealerGetMoney(dealer, players);
+			return true;
+		}
 
+		if (playerWin(players)) {
+			playerGetMoneyOnFirst(dealer, players);
+			return true;
+		}
+
+		return false;
+	}
+
+	private void dealerGetMoney(Dealer dealer, List<Player> players) {
+		for (Player player : players) {
+			if (player.isBlackjack()) {
+				continue;
+			}
+
+			dealer.winBetting(player.loseBetting(player.getBettingMoney()));
+		}
+	}
+
+	private boolean playerWin(List<Player> players) {
+		boolean result = false;
+		for (Player player : players) {
+			result = result || player.isBlackjack();
+		}
+
+		return result;
+	}
+
+	private void playerGetMoneyOnFirst(Dealer dealer, List<Player> players) {
+		for (Player player : players) {
+			if (player.isBlackjack()) {
+				player.winBetting(dealer.loseBetting(player.getBettingMoney() * BLACKJACK_REWARD));
+			}
+		}
+	}
+
+	private void playerGetMoney(Dealer dealer, List<Player> players) {
+		for (Player player : players) {
+			if (player.isBlackjack()) {
+				player.winBetting(dealer.loseBetting(player.getBettingMoney()));
+			}
+		}
 	}
 
 }

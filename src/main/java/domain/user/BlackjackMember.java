@@ -9,9 +9,8 @@ import domain.card.Card;
 import domain.card.Symbol;
 
 public abstract class BlackjackMember {
-
+	private double revenue = ZERO;
 	private final List<Card> deck = new ArrayList<>();
-	private int currentMoney = ZERO;
 
 	public abstract String getName();
 
@@ -19,7 +18,7 @@ public abstract class BlackjackMember {
 		deck.add(card);
 	}
 
-	public int getScoreSum() {
+	private int getScoreSum() {
 		int scoreSum = ZERO;
 
 		for (Card card : deck) {
@@ -31,13 +30,13 @@ public abstract class BlackjackMember {
 
 	private int checkAce(int scoreSum) {
 		for (Card card : deck) {
-			scoreSum = addAceScore(scoreSum, card);
+			scoreSum = setAceScore(scoreSum, card);
 		}
 
 		return scoreSum;
 	}
 
-	private int addAceScore(int scoreSum, Card card) {
+	private int setAceScore(int scoreSum, Card card) {
 		if (card.getSymbol() == Symbol.ACE && scoreSum + ACE_TERM < BLACKJACK) {
 			scoreSum += ACE_TERM;
 		}
@@ -45,11 +44,20 @@ public abstract class BlackjackMember {
 		return scoreSum;
 	}
 
-	private boolean isBlackjack() {
+	public boolean isBlackjack() {
 		return getScoreSum() == BLACKJACK;
 	}
 
 	public List<Card> getDeck() {
 		return deck;
+	}
+
+	public void winBetting(double bettingAmount) {
+		revenue += bettingAmount;
+	}
+
+	public double loseBetting(double bettingAmount) {
+		revenue -= bettingAmount;
+		return bettingAmount;
 	}
 }
