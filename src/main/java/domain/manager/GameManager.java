@@ -12,7 +12,7 @@ public class GameManager {
     private static final Scanner SC = new Scanner(System.in);
     private static final int maxCardSum = 21;
 
-    private List<Player> players;
+    private List<Player> players = new ArrayList<Player>();
     private List<Card> cards;
     private Dealer dealer = new Dealer();
     private CardFactory cardFactory = new CardFactory();
@@ -42,7 +42,7 @@ public class GameManager {
 
     public List<Double> setBettingMoney(List<String> playerNames) {
         Scanner sc = SC;
-        List<Double> bettingMoney = new List<Double>;
+        List<Double> bettingMoney = new ArrayList<>();
         for (String tmp : playerNames) {
             System.out.println(tmp + "의 배팅 금액은?");
             Double input = sc.nextDouble();
