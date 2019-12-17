@@ -27,19 +27,20 @@ public class GameManager {
     private Deck deck;
 
     public GameManager() {
-        userList = new ArrayList<>();
+        initPlayer();
         deck = new Deck();
     }
 
     public void play() {
-        initPlayer();
         giveCardAtFirst();
         showCards();
         giveMoreCard();
+        showCards();
     }
 
     private void initPlayer() {
         List<String> playerName = inputView.getPlayerName();
+        userList = new ArrayList<>();
         for (String name : playerName) {
             int money = inputView.getBettingMoney(name);
             userList.add(new Player(name,money));
