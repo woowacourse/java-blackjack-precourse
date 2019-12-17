@@ -174,4 +174,14 @@ public class PlayManager {
         printFinalResult();
         printBenefitResult();
     }
+
+    private void reflectBenefit(int playerIndex) {
+        int dealerScore = dealer.calculateScore();
+        if (blackJackPlayerIndexList.contains(playerIndex)) {
+            return;
+        }
+        double benefit = players.get(playerIndex).checkBenefit(dealerScore);
+        benefitArray[playerIndex] = benefit;
+        benefitArray[dealerIndex] += -benefit;
+    }
 }
