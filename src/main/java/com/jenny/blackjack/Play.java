@@ -56,4 +56,22 @@ public class Play {
     public boolean isAlreadyUsed(int card){
         return alreadyUsedCards.contains(card);
     }
+
+    public void showCardStatus(Dealer dealer, List<Player> players){
+        StringBuilder msg = new StringBuilder("딜러와 ");
+        int cnt = players.size();
+
+        for(int p = 0; p < cnt; p++){
+            msg.append(players.get(p).getName() + ",");
+        }
+        msg.append("에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.\n");
+        Card dealerFirstCard = dealer.getFirstCard();
+        msg.append("딜러 카드 : " + dealerFirstCard.getSymbol() + dealerFirstCard.getType() + "\n");
+
+        for(int p = 0; p < cnt; p++){
+            Player pl = players.get(p);
+            msg.append(pl.getName() + " 카드 : " + pl.getCards() + "\n");
+        }
+        System.out.println(msg);
+    }
 }

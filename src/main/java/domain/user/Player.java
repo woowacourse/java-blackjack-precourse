@@ -24,4 +24,19 @@ public class Player {
 
     // TODO 추가 기능 구현
 
+    public String getName(){
+        return name;
+    }
+
+    public String getCards(){
+        int size = cards.size();
+        StringBuilder msg = new StringBuilder();
+
+        for(int idx = 0; idx < size; idx++){
+            Card card = cards.get(idx);
+            msg.append(card.getSymbol() + "" + card.getType() + ",");
+        }
+        return msg.toString();
+    }
+
 }

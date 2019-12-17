@@ -18,4 +18,8 @@ public class Dealer {
     }
 
     // TODO 추가 기능 구현
+
+    public Card getFirstCard(){
+        return cards.get(0);
+    }
 }
