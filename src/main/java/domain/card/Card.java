@@ -3,9 +3,9 @@ package domain.card;
 import java.util.Objects;
 
 /**
+ * @author : Kim SeYun
  * @ClassName : Card
  * @ClassExplanation : 카드한장을 의미하는 것
- * @author : Kim SeYun
  * @Date : 2019. 12. 17
  * @Copyright (c) 2019 SeYun Kim
  */
@@ -21,7 +21,7 @@ public class Card {
 
     // TODO Card 관련 추가 기능 구현
 
-    public int getScore(){
+    public int getScore() {
         return symbol.getScore();
     }
 

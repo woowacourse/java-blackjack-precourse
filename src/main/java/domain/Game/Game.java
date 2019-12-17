@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * @author : Kim SeYun
  * @ClassName : Game
  * @ClassExplanation : 실질적인 게임을 진행하는 곳
- * @author : Kim SeYun
  * @Date : 2019. 12. 17
  * @Copyright (c) 2019 SeYun Kim
  */
@@ -122,7 +122,7 @@ public class Game {
     public boolean dealerScoreExcess() {
         if (!dealer.scoreExcess()) {
             bettingMoneyMap.put(DEALER_NAME, 0.0);
-            players.stream().map(player -> bettingMoneyMap.put(player.getName(), player.getBettingMoney()));
+            players.stream().forEach(player -> bettingMoneyMap.put(player.getName(), player.getBettingMoney()));
             return true;
         }
         return false;
@@ -143,12 +143,11 @@ public class Game {
     }
 
     public void finalResultNoBlackJack() {
-        if (this.dealerScoreExcess()) {
+        if (dealer.scoreExcess()) {
             winnerScore = dealer.scoreCalculator();
         }
         players.stream().forEach(player -> this.maxScore(player));
         players.stream().forEach(player -> this.winnerFind(player));
-        winners.stream().forEach(winner -> System.out.println(winner.getName()));
         this.playerWinBettingMoney();
         this.loserBettingMoney();
     }

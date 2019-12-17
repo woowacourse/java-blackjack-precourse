@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
+ * @author : Kim SeYun
  * @ClassName : Input
  * @ClassExplanation : 입력 UI 관련 클래스
- * @author : Kim SeYun
  * @Date : 2019. 12. 17
  * @Copyright (c) 2019 SeYun Kim
  */
@@ -64,8 +64,8 @@ public class Input {
         return addCardAnwser;
     }
 
-    public boolean addCardDrawInputCheck(String addCardAnswer){
-        if(addCardAnswer.equals("y") || addCardAnswer.equals("n")){
+    public boolean addCardDrawInputCheck(String addCardAnswer) {
+        if (addCardAnswer.equals("y") || addCardAnswer.equals("n")) {
             return false;
         }
         return true;

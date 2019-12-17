@@ -3,9 +3,9 @@ package domain.Main;
 import domain.Game.Game;
 
 /**
+ * @author : Kim SeYun
  * @ClassName : MainGame
  * @ClassExplanation : Run Application
- * @author : Kim SeYun
  * @Date : 2019. 12. 17
  * @Copyright (c) 2019 SeYun Kim
  */
