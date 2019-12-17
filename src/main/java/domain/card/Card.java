@@ -7,7 +7,6 @@ import java.util.Objects;
  */
 public class Card {
     private final Symbol symbol;
-
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
@@ -37,5 +36,11 @@ public class Card {
                 "symbol=" + symbol +
                 ", type=" + type +
                 '}';
+    }
+    public Symbol getSymbol() {
+    	return symbol;
+    }
+    public Type getType() {
+    	return type;
     }
 }
