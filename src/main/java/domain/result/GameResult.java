@@ -5,7 +5,6 @@ import domain.user.User;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class GameResult {
     private static final Double PROFIT_ZERO = 0.0;
