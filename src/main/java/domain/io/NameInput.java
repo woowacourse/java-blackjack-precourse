@@ -14,7 +14,7 @@ public class NameInput {
 	String tmpname;
 	Scanner sc = new Scanner(System.in);
 	message.showNameInputMessage();
-	while (!checkName(tmpname=sc.nextLine().replaceAll(" ", ""))) {
+	while (!checkName(tmpname = sc.nextLine().replaceAll(" ", ""))) {
 	    message.showNameInputErrorMessage();
 	}
 	return splitName(tmpname);

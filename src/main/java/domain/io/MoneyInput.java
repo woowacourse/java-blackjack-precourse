@@ -3,12 +3,12 @@ package domain.io;
 import domain.io.Message;
 import java.util.Scanner;
 
-
 /**
  * 배팅금액을 입력받는 기능을 하는 클래스
  */
 public class MoneyInput {
     Message message = new Message();
+    private final static int ZERO = 0;
 
     public int inputMoney(String name) {
 	String money;
@@ -26,7 +26,7 @@ public class MoneyInput {
 	if (!isStringInt(money)) {
 	    return false;
 	}
-	if (Integer.parseInt(money) <= 0) {
+	if (Integer.parseInt(money) <= ZERO) {
 	    return false;
 	}
 	return true;
