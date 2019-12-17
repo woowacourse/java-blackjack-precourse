@@ -64,8 +64,8 @@ public class Game {
 	}
 
 	private void proceedGame() {
-		if (dealer.isBlackJack()) {
-			// GameController.showDealerBlackjack();
+		if (dealer.isBlackjack()) {
+			GameController.showDealerBlackjack();
 			return;
 		}
 		players.forEach(player -> drawCard(player));

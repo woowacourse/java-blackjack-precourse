@@ -52,7 +52,7 @@ public class Dealer {
 			.count();
 	}
 
-	public boolean isBlackJack() {
+	public boolean isBlackjack() {
 		return (cards.size() == TWO) && (this.getTotalScore() == MAXIMUM_SCORE);
 	}
 

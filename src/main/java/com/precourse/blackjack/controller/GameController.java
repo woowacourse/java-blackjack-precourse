@@ -93,4 +93,8 @@ public class GameController {
 		}
 		return result;
 	}
+
+	public static void showDealerBlackjack() {
+		OutputView.printDealerBlackjack();
+	}
 }
