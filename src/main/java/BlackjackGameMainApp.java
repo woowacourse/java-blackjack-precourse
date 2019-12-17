@@ -1,4 +1,5 @@
 import com.github.callmewaggs.game.BlackjackGame;
+import com.github.callmewaggs.game.BlackjackRule;
 import com.github.callmewaggs.game.domain.card.Card;
 import com.github.callmewaggs.game.domain.card.CardFactory;
 import com.github.callmewaggs.game.domain.user.Dealer;
@@ -11,10 +12,11 @@ public class BlackjackGameMainApp {
   public static void main(String[] args) {
     Dealer dealer = new Dealer();
     List<Player> players = PlayerFactory.preparePlayers();
-
     List<Card> cards = CardFactory.create();
 
-    BlackjackGame blackjackGame = new BlackjackGame(dealer, players, cards);
+    BlackjackRule blackjackRule = new BlackjackRule(dealer, players, cards);
+
+    BlackjackGame blackjackGame = new BlackjackGame(dealer, players, blackjackRule);
     blackjackGame.gameStart();
   }
 }

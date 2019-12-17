@@ -16,7 +16,7 @@ public class BlackjackRule {
   private final BlackjackGameResult gameResult;
   private final CardShuffler cardShuffler;
 
-  BlackjackRule(Dealer dealer, List<Player> players, List<Card> cards) {
+  public BlackjackRule(Dealer dealer, List<Player> players, List<Card> cards) {
     this.gameResult = new BlackjackGameResult(dealer, players);
     this.cardShuffler = new CardShuffler(cards);
   }

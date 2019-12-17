@@ -1,6 +1,5 @@
 package com.github.callmewaggs.game;
 
-import com.github.callmewaggs.game.domain.card.Card;
 import com.github.callmewaggs.game.domain.user.Dealer;
 import com.github.callmewaggs.game.domain.user.Player;
 import java.util.List;
@@ -11,10 +10,10 @@ public class BlackjackGame {
   private final List<Player> players;
   private final BlackjackRule blackjackRule;
 
-  public BlackjackGame(Dealer dealer, List<Player> players, List<Card> cards) {
+  public BlackjackGame(Dealer dealer, List<Player> players, BlackjackRule blackjackRule) {
     this.dealer = dealer;
     this.players = players;
-    this.blackjackRule = new BlackjackRule(dealer, players, cards);
+    this.blackjackRule = blackjackRule;
   }
 
   public void gameStart() {
