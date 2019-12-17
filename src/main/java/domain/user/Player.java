@@ -6,6 +6,7 @@ package domain.user;
  *  필드의 private를 변경할 수 없다
  *  Card에 필드를 추가할 수 없다
  */
+
 public class Player extends Gamer {
     private final String name;
     private final double bettingMoney;

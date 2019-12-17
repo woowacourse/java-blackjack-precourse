@@ -8,11 +8,13 @@ package domain.user;
  */
 public class Dealer extends Gamer {
 
+    final private String DEALER_NAME = "dealer";
+
     public Dealer() {
     }
 
     public String getName() {
-        return "dealer";
+        return DEALER_NAME;
     }
 
 }

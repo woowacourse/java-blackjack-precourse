@@ -9,6 +9,7 @@ import java.util.Objects;
  * Card에 필드를 추가할 수 없다
  */
 public class Card {
+
     private final Symbol symbol;
 
     private final Type type;

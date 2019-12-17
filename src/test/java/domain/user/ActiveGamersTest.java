@@ -19,18 +19,14 @@ class ActiveGamersTest {
     @DisplayName("입력받은 이름과 베팅 리스트를 매핑하여 참여하는 Gamer객체 생성")
     @Test
     public void createActiveGamers() {
-        List<String> playerNames = Arrays.asList("p1", "p2");
-        List<Double> playerBettings = Arrays.asList(1000.0, 2000.0);
-        ActiveGamers activeGamers = new ActiveGamers(playerNames, playerBettings);
+        ActiveGamers activeGamers = makeActiveGamers();
         assertThat(activeGamers.size()).isEqualTo(3);
-
 
         Gamer player = activeGamers.getGamers().get(0);
 
         assertThat(player).isInstanceOf(Player.class);
         assertThat(player.getName()).isEqualTo("p1");
         assertThat(((Player) player).getBettingMoney()).isEqualTo(1000.0);
-
         assertThat(activeGamers.getDealer()).isNotNull();
     }
 
@@ -52,23 +48,28 @@ class ActiveGamersTest {
     @Test
     public void addCardToEveryOne() {
         //given
+        ActiveGamers activeGamers = makeActiveGamers();
+        List<Card> cards = makeCardList();
+        //when
+        activeGamers.addCardToEveryOne(cards);
+        //then
+        assertThat(activeGamers.getGamers().get(0).getCards().get(0)).isEqualTo(cards.get(0));
+        assertThat(activeGamers.getGamers().get(1).getCards().get(0)).isEqualTo(cards.get(1));
+        assertThat(activeGamers.getDealer().getCards().get(0)).isEqualTo(cards.get(2));
+    }
+
+    private ActiveGamers makeActiveGamers() {
         List<String> playerNames = Arrays.asList("p1", "p2");
         List<Double> playerBettings = Arrays.asList(1000.0, 2000.0);
-        ActiveGamers activeGamers = new ActiveGamers(playerNames, playerBettings);
+        return new ActiveGamers(playerNames, playerBettings);
+    }
 
+    private List<Card> makeCardList() {
         Card cardClub = new Card(Symbol.ACE, Type.CLUB);
         Card cardDia = new Card(Symbol.ACE, Type.DIAMOND);
         Card cardHeart = new Card(Symbol.ACE, Type.HEART);
 
-        List<Card> cards = Arrays.asList(cardClub, cardDia, cardHeart);
-
-        //when
-        activeGamers.addCardToEveryOne(cards);
-
-        //then
-        assertThat(activeGamers.getGamers().get(0).getCards().get(0)).isEqualTo(cardClub);
-        assertThat(activeGamers.getGamers().get(1).getCards().get(0)).isEqualTo(cardDia);
-        assertThat(activeGamers.getDealer().getCards().get(0)).isEqualTo(cardHeart);
+        return Arrays.asList(cardClub, cardDia, cardHeart);
     }
 
 }

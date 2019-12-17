@@ -1,7 +1,7 @@
 package domain.card;
 
 public enum Symbol {
-    ACE(1, "A"),
+    ACE(11, "A"),  // 처음에는 11로 계산, 이후에 1로 변경
     TWO(2, "2"),
     THREE(3, "3"),
     FOUR(4, "4"),
@@ -30,4 +30,5 @@ public enum Symbol {
     public String getName() {
         return name;
     }
+
 }
