@@ -22,4 +22,6 @@ public interface User {
     boolean isGettingAdditionalCard();
 
     String getMessageForAdditionalCard();
+
+    boolean isScore(int score);
 }

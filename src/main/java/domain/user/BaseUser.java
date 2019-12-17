@@ -77,4 +77,9 @@ public abstract class BaseUser implements User {
 
     @Override
     abstract public String getMessageForAdditionalCard();
+
+    @Override
+    public boolean isScore(int score) {
+        return getScoreOfCards() == score;
+    }
 }

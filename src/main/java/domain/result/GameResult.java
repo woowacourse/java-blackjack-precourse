@@ -5,6 +5,7 @@ import domain.user.User;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GameResult {
     private static final Double PROFIT_ZERO = 0.0;
@@ -69,19 +70,67 @@ public class GameResult {
     public void decideGameResult() {
         List<User> bustPlayers = getBustPlayers();
 
-        handleLosers(bustPlayers, LOSS_ONE);
+        handleUsersWhenPlayersAreBust(bustPlayers);
 
         if (players.isEmpty()) {
-            handleDealer(dealer, dealerProfit);
+            handleUsersWhenAllPlayersAreBust();
+            return;
         }
 
         if (dealer.isBust()) {
             handleUsersWhenDealerIsBust();
+            return;
         }
 
-//        System.out.println("아직 미구현");
-//        System.out.println("size : " + gameResult.size());
+        int maxOfScore = getMaxOfScore();
+        List<User> winners = getWinners(maxOfScore);
 
+        if (winners.isEmpty()) {
+            handleUsersWhenDealerIsMaxOfScore();
+            return;
+        }
+
+        if (dealer.isScore(maxOfScore)) {
+            isInvalid();
+            return;
+        }
+
+        handleUsersWhenPlayersAreWinners(winners);
+    }
+
+    private void handleUsersWhenPlayersAreBust(List<User> bustPlayers) {
+        handleLosers(bustPlayers, LOSS_ONE);
+    }
+
+    private void handleUsersWhenAllPlayersAreBust() {
+        handleDealer(dealer, dealerProfit);
+    }
+
+    private int getMaxOfScore() {
+        Stream<User> dealerStream = Stream.of(dealer);
+        Stream<User> playersSteam = players.stream();
+        Stream<User> usersStream = Stream.concat(playersSteam, dealerStream);
+
+        return usersStream.mapToInt(player -> player.getScoreOfCards())
+                .max()
+                .orElse(-1);
+    }
+
+    private List<User> getWinners(int maxOfScore) {
+        return players.stream()
+                .filter(player -> player.isScore(maxOfScore))
+                .collect(Collectors.toList());
+    }
+
+    private void handleUsersWhenDealerIsMaxOfScore() {
+        handleLosers(players, LOSS_ONE);
+        handleDealer(dealer, dealerProfit);
+    }
+
+    private void handleUsersWhenPlayersAreWinners(List<User> winners) {
+        handleWinners(winners, PROFIT_ONE);
+        handleLosers(players, LOSS_ONE);
+        handleDealer(dealer, dealerProfit);
     }
 
     private List<User> getBustPlayers() {
