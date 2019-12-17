@@ -13,9 +13,15 @@ method
 - public String toString()
 
 ### class : CardFactory
+variable
+- private List<Card> cardDeck : 카드 덱을 저장하는 어레이 
+
 method
+- public CardFactory() : 기본 생성자
 - public static List<Card> create()
 - private static void createByType()
+- public List<Card> getCardDeck()
+- public Card drawCard() : 카드를 위에서부터 한장 뽑아서 return합니다
 	
 ### enum : Type
 variable
