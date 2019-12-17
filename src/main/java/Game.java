@@ -32,13 +32,28 @@ public class Game {
 
     public void startGame(){
         int nextCard;
+        StringBuilder stringBuilder = new StringBuilder("Dealer");
         assignedCard = new ArrayList<>();
 
         for(Player player: players){
             distributeCard(player,2);
+            stringBuilder.append(", "+player.getName());
         }
         distributeCard(dealer,2);
+        stringBuilder.append(" are get 2 cards.");
 
+        if(checkBlackJack()){
+            blackJackEnd();
+        }
+        gameProcess();
+    }
+
+    private void gameProcess(){
+        for(Player player:players){
+            while (true){
+
+            }
+        }
     }
 
     private int getNextCard(){
@@ -69,5 +84,37 @@ public class Game {
             user.addCard(deck.get(nextCard));
             assignedCard.add(nextCard);
         }
+    }
+
+    private boolean checkBlackJack(){
+        for(Player player:players){
+            if(player.getMaxScore() == 21){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void blackJackEnd(){
+        ArrayList<Integer> profit = new ArrayList<Integer>(players.size());
+
+        if(dealer.getMaxScore() == 21){
+            printProfit(profit,0);
+        }
+    }
+
+    private void printProfit(ArrayList<Integer> playerProf, Integer dealerProf){
+        int index = 0;
+        System.out.println("##Final Profits");
+        System.out.println("Dealer: "+dealerProf);
+
+        for(Player player:players){
+            System.out.println(player.getName()+": "+playerProf.get(index));
+            index++;
+        }
+    }
+
+    private void printUserStatus(User user){
+
     }
 }
