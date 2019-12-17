@@ -35,6 +35,7 @@ public class Game {
 		initialSet();
 		giveInitialCard();
 		getCardPerPlayer();
+		getCardDealer();
 	}
 
 	private void initialSet() {
@@ -300,6 +301,30 @@ public class Game {
 		}
 		myPrinter.printStopGetCard(player.getName());
 		return false;
+	}
+	
+	private void getCardDealer() {
+		if (dealer.getIsContainAce() == true) {
+			checkDealerSumWithAce();
+			return ;
+		}
+		checkDealerSum();
+	}
+	
+	private void checkDealerSumWithAce() {
+		if (dealer.getCardSumWithAce() == Constant.BLACKJACK) {
+			myPrinter.printDealerStopGetCard();
+			return;
+		}
+	}
+	
+	private void checkDealerSum() {
+		if (dealer.getCardSum() <= Constant.DEALER_PICK) {
+			myPrinter.printDealerGetCard();
+			dealer.addCard(makeRandomCard());
+			return;
+		}
+		myPrinter.printDealerStopGetCard();
 	}
 
 	public static void main(String[] args) {

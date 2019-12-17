@@ -8,6 +8,7 @@ public class Constant {
 	public final static int SYMBOL_COUNT = 13;
 	public final static int TYPE_COUNT = 4;
 	public final static int BLACKJACK = 21;
+	public final static int DEALER_PICK = 16;
 	
 	public final static String COMMA = ",";
 	public final static String EMPTY = "";

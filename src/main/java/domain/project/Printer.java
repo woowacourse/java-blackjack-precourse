@@ -66,6 +66,14 @@ public class Printer {
 		System.out.println(name + "의 카드의 합이 21을 넘었습니다. 더 이상 카드를 뽑을 수 없습니다.");
 	}
 	
+	public void printDealerStopGetCard() {
+		System.out.println("딜러는 17이상이라 카드를 더 받지 않았습니다.");
+	}
+	
+	public void printDealerGetCard() {
+		System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+	}
+	
 	public void printInitialCard(String nameString) {
 		System.out.println("\r\n딜러와 " + nameString + "에게 2장의 카드를 나누었습니다.");
 	}
