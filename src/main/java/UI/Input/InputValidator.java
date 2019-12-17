@@ -1,5 +1,7 @@
 package UI.Input;
 
+import java.util.stream.Stream;
+
 public class InputValidator {
     private static final int EMPTY_NAME_LENGTH = 0;
 
@@ -8,14 +10,27 @@ public class InputValidator {
 
     public static void validatePlayerNamesSplit(String[] playerNamesSplit) {
         for (String playerName : playerNamesSplit) {
-            validatePlayerName(playerName.trim());
+            validatePlayerName(playerName);
         }
+        validateDuplicatedNames(playerNamesSplit);
     }
 
     private static void validatePlayerName(String name) {
         if (name.length() == EMPTY_NAME_LENGTH) {
             throw new IllegalArgumentException("자동차의 이름은 공백일 수 없습니다.");
         }
+    }
+
+    private static void validateDuplicatedNames(String[] playerNamesSplit) {
+        if (playerNamesSplit.length != countDistinct(playerNamesSplit)) {
+            throw new IllegalArgumentException("플레이어의 이름은 중복될 수 없습니다.");
+        }
+    }
+
+    private static long countDistinct(String[] playerNamesSplit) {
+        return Stream.of(playerNamesSplit)
+                .distinct()
+                .count();
     }
 
     public static void validateBettingMoney(Double bettingMoney) {
