@@ -1,41 +1,26 @@
 package domain.game.round;
 
-import java.util.Comparator;
-import java.util.stream.Collectors;
-
 import controller.InputController;
-import controller.OutputController;
 import domain.game.Rule;
 import domain.game.Table;
 import domain.user.Gambler;
 import domain.user.Player;
+import view.OutputView;
 
 public class HitRound extends Round {
+
 	@Override
 	public void run(Table table) {
 		doPlayersPhase(table);
 		doDealerPhase(table);
-		findWinner(table);
-		showResultStatus(table);
-		// 정산
+		table.setWinners(table.getDealer().sumCardsMax());
+		printStatus(table);
+		doSettlement(table);
 	}
 
 	@Override
-	void findWinner(Table table) {
-		int playerMaxPoint = findPlayerMaxPoint(table);
-		winnerList = table.getPlayerList().stream()
-			.filter(player -> player.getSum() == playerMaxPoint)
-			.collect(Collectors.toList());
-		checkDealerWin(table.getDealer(),playerMaxPoint);
-		checkPlayerWin();
-	}
-
-	private int findPlayerMaxPoint(Table table) {
-		return table.getPlayerList().stream()
-			.filter(player -> (player.isBust(Rule.getBlackjackPoint()) == false))
-			.max(Comparator.comparingInt(player -> (player.sumCardsMax())))
-			.orElseGet(()->new Player("",0))
-			.getSum();
+	protected void doSettlement(Table table) {
+		table.doSettlement(Rule.RATIO_WIN,Rule.RATIO_LOSE);
 	}
 
 	private void doPlayersPhase(Table table) {
@@ -51,21 +36,21 @@ public class HitRound extends Round {
 		}
 		try {
 			table.drawCards(player, 1);
-			showPlayerDrawText(player);
-			doPlayerPhase(table, player);
+			printPlayerDrawText(player);
+			doPlayerPhase(table,player);
 		} catch (Exception e) {
-			System.out.println(Rule.getOutOfCardsMessage());
+			System.out.println(Rule.OUT_OF_CARDS_MESSAGE);
 		}
 	}
 
 	private boolean checkPlayerCondition(Player player) {
-		if(player.isBust(Rule.getBlackjackPoint())){
+		if (player.isBust(Rule.BLACKJACK_POINT)) {
 			return true;
 		}
 		InputController inputController = InputController.getInputController();
-		boolean yesOrNo=inputController.getYesOrNo(player.getName());
-		if(!yesOrNo){
-			showPlayerDrawText(player);
+		boolean yesOrNo = inputController.getYesOrNo(player.getName());
+		if (!yesOrNo) {
+			printPlayerDrawText(player);
 		}
 		return (!yesOrNo);
 	}
@@ -75,28 +60,28 @@ public class HitRound extends Round {
 			return;
 		}
 		try {
-			table.drawCards(table.getDealer(), 1);
-			showDealerDrawText();
+			table.drawDealer(1);
+			printDealerDrawText();
 			doDealerPhase(table);
 		} catch (Exception e) {
-			System.out.println(Rule.getOutOfCardsMessage());
+			System.out.println(Rule.OUT_OF_CARDS_MESSAGE);
 		}
 	}
 
 	private boolean checkDealerCondition(Gambler dealer) {
-		return (dealer.sumCardsMax() > Rule.getDealerDrawPoint()
-			|| dealer.isBust(Rule.getBlackjackPoint()));
+		return (dealer.sumCardsMax() > Rule.DEALER_DRAW_POINT
+			|| dealer.isBust(Rule.BLACKJACK_POINT));
 	}
 
-	private void showDealerDrawText() {
-		OutputController outputController = OutputController.getOutputController();
-		outputController.printDealerDrawLine(Rule.getDealerDrawPoint());
-		outputController.printNewLine();
+	private void printDealerDrawText() {
+		OutputView outputView = OutputView.getInstance();
+		outputView.printDealerDrawLine(Rule.DEALER_DRAW_POINT);
+		outputView.printNewLine();
 	}
 
-	private void showPlayerDrawText(Player player){
-		OutputController outputController = OutputController.getOutputController();
-		outputController.printPlayerCards(player);
-		outputController.printNewLine();
+	private void printPlayerDrawText(Player player) {
+		OutputView outputView = OutputView.getInstance();
+		outputView.printPlayerCards(player);
+		outputView.printNewLine();
 	}
 }

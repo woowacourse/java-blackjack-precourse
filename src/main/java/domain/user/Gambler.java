@@ -67,4 +67,10 @@ public abstract class Gambler {
 	public void setEarnings(double earnings) {
 		this.earnings = earnings;
 	}
+
+	public String[] getCardsText() {
+		return getCards().stream()
+			.map(Card::getCardData)
+			.toArray(String[]::new);
+	}
 }

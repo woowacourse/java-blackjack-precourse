@@ -2,91 +2,47 @@ package domain.game.round;
 
 import java.util.Arrays;
 
-import controller.OutputController;
 import domain.game.Rule;
 import domain.game.Table;
 import domain.user.Gambler;
 import domain.user.Player;
+import view.OutputView;
 
 public class BlackJackRound extends Round {
-	public BlackJackRound(Table table) {
-		super(table);
-	}
-
 	@Override
-	public void run() {
-		distribute(Rule.getBasicDraw());
-		findWinner();
-		showStatus();
-		if (hasWinners()) {
-			super.showStatus();
-			doSettlement();
+	public void run(Table table) {
+		distribute(table);
+		table.setWinners(Rule.BLACKJACK_POINT);
+		printStatus(table);
+		if (table.hasWinner()) {
+			super.printStatus(table);
+			doSettlement(table);
 		}
 	}
 
 	@Override
-	void findWinner() {
-		for (Gambler player : table.getPlayerList()
-		) {
-			player.setWinner((player.sumCardsMax() == Rule.getBlackjackPoint()));
-		}
-		checkDealerWin(table.getDealer(), Rule.getBlackjackPoint());
-		checkPlayerWin();
+	protected void printStatus(Table table) {
+		OutputView outputView = OutputView.getInstance();
+		outputView.printBlackJackRoundLine(table.getPlayerNames(), Rule.BASIC_DRAW);
+		outputView.printDealerCards(Arrays.asList(table.getDealerCardText()).subList(0,Rule.DEALER_OPEN_COUNT), false);
+		outputView.printNewLine();
+		outputView.printPlayerCards(table.getPlayerNames(),table.getPlayersCardText());
+		outputView.printNewLine();
 	}
 
 	@Override
-	protected void showStatus() {
-		OutputController outputController = OutputController.getOutputController();
-		outputController.printBlackJackRoundTextLine(table.getPlayerNames(), Rule.getBasicDraw());
-		outputController.printDealerCards(table.getDealer(), Rule.getOpenCount(), false);
-		outputController.printNewLine();
-		for (Gambler player : table.getPlayerList()
-		) {
-			outputController.printPlayerCards((Player)player);
-			outputController.printNewLine();
-		}
-		outputController.printNewLine();
-	}
-
-	@Override
-	protected void doSettlement() {
-		if (dealerWin) {
-			dealerSettlement();
+	protected void doSettlement(Table table) {
+		if (table.isDealerWin()) {
+			table.doSettlement(Rule.RATIO_PUSH,Rule.RATIO_LOSE);
 			return;
 		}
-		doPlayerSettlement();
+		table.doSettlement(Rule.RATIO_WIN_BLACKJACK, Rule.RATIO_PUSH);
 	}
 
-	private void doPlayerSettlement() {
-		double dealerSum = 0;
-		for (Gambler gambler : table.getPlayerList()
-		) {
-			Player player = (Player)gambler;
-			if (player.isWinner()) {
-				dealerSum -= player.getBettingMoney();
-				player.setEarnings(Rule.RATIO_WIN_BLACKJACK *player.getBettingMoney());
-			}
-		}
-		table.getDealer().setEarnings(dealerSum);
-	}
-
-	private void dealerSettlement() {
-		double dealerSum = 0;
-		for (Gambler gambler : table.getPlayerList()
-		) {
-			Player player = (Player)gambler;
-			if (!player.isWinner()) {
-				dealerSum += player.getBettingMoney();
-				player.setEarnings(Rule.RATIO_LOSE * player.getBettingMoney());
-			}
-		}
-		table.getDealer().setEarnings(dealerSum);
-	}
-
-	private void distribute(int count) {
+	private void distribute(Table table) {
 		try {
-			table.drawAll(Arrays.asList(table.getDealer()), count);
-			table.drawAll(table.getPlayerList(), count);
+			table.drawDealer(Rule.BASIC_DRAW);
+			table.drawAll(table.getPlayerList(), Rule.BASIC_DRAW);
 		} catch (Exception e) {
 			System.out.println(Rule.OUT_OF_CARDS_MESSAGE);
 		}
