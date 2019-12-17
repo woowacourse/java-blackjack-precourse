@@ -13,6 +13,13 @@ import java.util.stream.Collectors;
 
 public class Game {
 
+    private static final String USERNAME_DELEMITER = ",";
+    private static final String USER_BURSTED_STATEMENT = "해당 플레이어는 죽었습니다.";
+    private static final String WRONG_ANSWER_STATEMENT = "응답은 y 또는 n만 가능합니다.";
+    private static final String DEALER_ADD_MORE_CARD_STATEMENT = "딜러는 16이하라 한 장의 카드를 더 받았습니다.";
+    private static final String MORE_CARD_STRING = "y";
+    private static final String NO_MORE_CARD_STRING = "n";
+
     public void play() {
         Dealer dealer = new Dealer();
         Deck deck = new Deck();
@@ -35,7 +42,7 @@ public class Game {
 
     private List<String> initNames() {
         String namesInputFromUser = GameInputScanner.askNamesFromUser();
-        return Arrays.asList(namesInputFromUser.split(","));
+        return Arrays.asList(namesInputFromUser.split(USERNAME_DELEMITER));
     }
 
     private Player initPlayer(String name) {
@@ -94,7 +101,7 @@ public class Game {
         if (!player.isBursted()) {
             return wantMoreCard(player, deck);
         }
-        System.out.println("해당 플레이어는 죽었습니다");
+        System.out.println(USER_BURSTED_STATEMENT);
         return false;
     }
 
@@ -104,15 +111,15 @@ public class Game {
     }
 
     private boolean checkAnswer(Player player, Deck deck, String answer) {
-        if (answer.equals("n")) {
+        if (answer.equals(NO_MORE_CARD_STRING)) {
             return false;
         }
-        if (answer.equals("y")) {
+        if (answer.equals(MORE_CARD_STRING)) {
             Card card = deck.draw();
             player.addCard(card);
             return true;
         }
-        System.out.println("답은 y 또는 n으로만 가능합니다.");
+        System.out.println(WRONG_ANSWER_STATEMENT);
         return true;
     }
 
@@ -120,17 +127,17 @@ public class Game {
         while (dealer.isUnberSixteen()) {
             dealer.addCard(deck.draw());
             System.out.println();
-            System.out.println("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
-            System.out.println();
+            System.out.println(DEALER_ADD_MORE_CARD_STATEMENT);
         }
     }
 
     private void makeResult(Dealer dealer, List<Player> players) {
-        GamePrinter.printResult(dealer, players);
         System.out.println();
+        GamePrinter.printResult(dealer, players);
     }
 
     private void printProfit(Dealer dealer, List<Player> players) {
+        System.out.println();
         GamePrinter.printProfitResult(dealer, players);
     }
 }

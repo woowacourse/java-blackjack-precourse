@@ -5,7 +5,7 @@ import domain.user.Player;
 
 import java.util.List;
 
-public class BettingMoneyDecider {
+public class ProfitDecider {
 
     private static final double BLACK_JACK_MULTIPLE = 1.5d;
     private static final double NEGATIVE_POSITIVE_BASIS = -1d;
@@ -35,7 +35,7 @@ public class BettingMoneyDecider {
     }
 
     public static double calculateDealerProfit(Dealer dealer, List<Player> players) {
-        return players.stream().mapToDouble(player -> calculatePlayerProfit(dealer, player)).map(BettingMoneyDecider::changeNegativePositive).sum();
+        return players.stream().mapToDouble(player -> calculatePlayerProfit(dealer, player)).map(ProfitDecider::changeNegativePositive).sum();
     }
 
     private static double changeNegativePositive(double money) {
