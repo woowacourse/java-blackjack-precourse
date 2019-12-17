@@ -11,12 +11,12 @@ public class Player extends Gamer {
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
-    
+
     public String getName() {
-    	return this.name;
+        return this.name;
     }
-    
+
     public double getBettingMoney() {
-    	return this.bettingMoney;
+        return this.bettingMoney;
     }
 }

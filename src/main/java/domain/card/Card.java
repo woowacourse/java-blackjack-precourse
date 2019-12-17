@@ -14,22 +14,23 @@ public class Card {
         this.symbol = symbol;
         this.type = type;
     }
-    
+
     public int getSymbolScore() {
-    	return this.symbol.getScore();
+        return this.symbol.getScore();
     }
-    
+
     public boolean isTheSymbol(Symbol symbol) {
-    	return this.symbol == symbol;
+        return this.symbol == symbol;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Card card = (Card) o;
-        return symbol == card.symbol &&
-                type == card.type;
+        return symbol == card.symbol && type == card.type;
     }
 
     @Override
@@ -39,7 +40,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return symbol.getCardChar() +
-                type.getSuit();
+        return symbol.getCardChar() + type.getSuit();
     }
 }
