@@ -43,6 +43,6 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return type.getTypeName() + symbol.getSymbolName();
+		return symbol.getSymbolName() + type.getTypeName();
 	}
 }

@@ -37,7 +37,7 @@ public class OutputView {
 			deck.add(card.toString());
 		}
 
-		return String.join(COMMA, deck);
+		return String.join(SPACE, deck);
 	}
 
 

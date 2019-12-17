@@ -43,7 +43,8 @@ public class BlackjackController {
 
 	public void firstServe() {
 		for (BlackjackMember blackjackMember : entry) {
-			blackjackMember.addCard(cards.remove(ZERO));
+			blackjackMember.addCard(cards.remove((int)(Math.random() * cards.size())));
+			blackjackMember.addCard(cards.remove((int)(Math.random() * cards.size())));
 		}
 
 		printFirstServeMessage(entry);
@@ -53,7 +54,5 @@ public class BlackjackController {
 	private void checkDeck() {
 
 	}
-
-
 
 }
