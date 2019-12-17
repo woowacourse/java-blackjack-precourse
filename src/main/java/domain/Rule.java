@@ -74,9 +74,9 @@ public class Rule {
             return calculateProfitInDealerBurst(player);
         }
         if (isBlackJack(dealer)) {
-            return calculateProfitInBlackJack(player);
+            return calculateProfitInDealerBlackJack(player);
         }
-        return calculateProfitInBlackJack(player);
+        return player.getResultProfit(BLACKJACK_MONEY_RATIO);
     }
 
     private static double calculateProfit(Player player, int playerScore, int dealerScore) {
@@ -99,9 +99,9 @@ public class Rule {
         return player.getResultProfit(WINNING_MONEY_RATIO);
     }
 
-    private static double calculateProfitInBlackJack(Player player) {
+    private static double calculateProfitInDealerBlackJack(Player player) {
         if (isBlackJack(player)) {
-            return 0.0;
+            return TIE_MONEY_RATIO;
         }
         return player.getResultProfit(LOSING_MONEY_RATIO);
     }
