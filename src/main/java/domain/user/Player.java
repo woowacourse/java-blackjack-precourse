@@ -30,8 +30,18 @@ public class Player {
         return this.bettingMoney;
     }
 
+    public int getScore() {
+        int resultScore = 0;
+        for (int i = 0; i < cards.size(); i ++) {
+            resultScore += this.cards.get(i).getScore();
+        }
+        return resultScore;
+    }
+
     @Override
     public String toString() {
-        return this.name + ":" + cards;
+        return this.name +
+                " 카드:" + cards +
+                " - 결과: " + getScore();
     }
 }
