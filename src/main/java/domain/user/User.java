@@ -20,12 +20,16 @@ public class User {
         return String.join(", ", stringCardList);
     }
 
-    public boolean isSumUnderCondition(int condition) {
+    public int getSumScore() {
         // TODO: 2019-12-16 ACE 11로 계산하는 처리
         int sum = 0;
         for (Card c : cards) {
             sum += c.getScore();
         }
-        return sum <= condition;
+        return sum;
+    }
+
+    public boolean isSumUnderCondition(int condition) {
+        return getSumScore() <= condition;
     }
 }
