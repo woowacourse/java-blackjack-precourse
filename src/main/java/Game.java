@@ -13,7 +13,7 @@ public class Game {
     private ArrayList<Player> players;
     private Dealer dealer;
     private List<Card> deck;
-    private ArrayList<Integer> assignedCard;
+    private ArrayList<Integer> assignedCard = new ArrayList<>();
 
     public Game(String[] users) {
         int betMoney;
@@ -31,9 +31,7 @@ public class Game {
     }
 
     public void startGame(){
-        int nextCard;
         StringBuilder stringBuilder = new StringBuilder("Dealer");
-        assignedCard = new ArrayList<>();
 
         for(Player player: players){
             distributeCard(player,2);
@@ -41,6 +39,8 @@ public class Game {
         }
         distributeCard(dealer,2);
         stringBuilder.append(" are get 2 cards.");
+        System.out.println(stringBuilder.toString());
+        printUserStatus();
 
         if(checkBlackJack()){
             blackJackEnd();
@@ -49,9 +49,31 @@ public class Game {
     }
 
     private void gameProcess(){
-        for(Player player:players){
-            while (true){
 
+        for(Player player:players){
+            playerProcess(player);
+        }
+    }
+
+    private void playerProcess(Player player){
+        Scanner scanner = new Scanner(System.in);
+        String inputCommand;
+
+        while (true){
+            System.out.println(player.getName()+" get one more card? (y/n)");
+            inputCommand = scanner.nextLine();
+
+            if(inputCommand.equals("n")){
+                break;
+            }
+            distributeCard(player,1);
+            System.out.println(player.getName()+" card: "+player.getCardString());
+
+            if(player.getNormalScore() > 21){
+                System.out.println("Over 21");
+                player.profit -= player.getBettingMoney();
+                dealer.profit += player.getBettingMoney();
+                break;
             }
         }
     }
@@ -96,25 +118,42 @@ public class Game {
     }
 
     private void blackJackEnd(){
-        ArrayList<Integer> profit = new ArrayList<Integer>(players.size());
 
         if(dealer.getMaxScore() == 21){
-            printProfit(profit,0);
+            printProfit();
+            return;
         }
-    }
-
-    private void printProfit(ArrayList<Integer> playerProf, Integer dealerProf){
-        int index = 0;
-        System.out.println("##Final Profits");
-        System.out.println("Dealer: "+dealerProf);
 
         for(Player player:players){
-            System.out.println(player.getName()+": "+playerProf.get(index));
+
+            if(player.getMaxScore() == 21){
+                dealer.profit -= player.getBettingMoney()*1.5;
+                player.profit += player.getBettingMoney()*1.5;
+            }
+        }
+        printProfit();
+    }
+
+    private void printProfit(){
+        int index = 0;
+        System.out.println("##Final Profits");
+        System.out.println("Dealer: "+ dealer.profit);
+
+        for(Player player:players){
+            System.out.println(player.getName()+": "+ player.profit);
             index++;
         }
     }
 
-    private void printUserStatus(User user){
+    private void printUserStatus(){
+        StringBuilder stringBuilder = new StringBuilder("Dealer card: ");
+        stringBuilder.append(dealer.getCardString());
+        System.out.println(stringBuilder.toString());
 
+        for(Player player:players){
+            stringBuilder = new StringBuilder(player.getName()+" card: ");
+            stringBuilder.append(player.getCardString());
+            System.out.println(stringBuilder.toString());
+        }
     }
 }

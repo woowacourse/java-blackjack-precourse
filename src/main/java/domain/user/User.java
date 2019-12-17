@@ -7,8 +7,11 @@ import java.util.List;
 
 public class User {
     private final List<Card> cards = new ArrayList<>();
+    public Double profit;
 
-    public User(){};
+    public User(){
+        profit = 0.0;
+    };
 
     public void addCard(Card card) {
         cards.add(card);
@@ -37,5 +40,20 @@ public class User {
             totalScore += card.getScore();
         }
         return totalScore;
+    }
+
+    public String getCardString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean first = true;
+
+        for(Card card:cards){
+            if(first == true){
+                first = false;
+            } else{
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(card.toString());
+        }
+        return stringBuilder.toString();
     }
 }
