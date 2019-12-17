@@ -1,6 +1,7 @@
 package domain.game;
 
 import java.util.List;
+import java.util.Scanner;
 
 import domain.card.Card;
 import domain.user.Dealer;
@@ -10,9 +11,11 @@ public class UI {
 	public static void requestUserNameUI() {
 		System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
 	}
+	
 	public static void printBettingMoney(String playerName) {
 		System.out.println(playerName + "의 배팅 금액은?");
 	}
+	
 	public static void printDistributeResult(Dealer dealer, List<Player> players) {
 		System.out.print("딜러와 ");
 		printPlayerName(players.get(0).getName());
@@ -44,5 +47,19 @@ public class UI {
 	
 	public static void printPlayerName(String playerName) {
 		System.out.print(playerName);
+	}
+	
+	public static boolean isOneMoreCard(Player player) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println(player.getName()+"는 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+		char input = scan.next().charAt(0);
+		if(input == 'y' || input == 'Y') {
+			return true;
+		}
+		if(input == 'n' || input == 'N') {
+			return false;
+		}
+		System.out.println("올바르게 입력해주세요.(예는 y, 아니오는 n)");
+		return isOneMoreCard(player);
 	}
 }

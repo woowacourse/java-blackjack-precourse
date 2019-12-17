@@ -22,9 +22,11 @@ public class BlackJackGame {
 	List<Card> cards = CardFactory.create();
 	int cardsIndex = 0;
 
-	public void play() {
+	public void allPlay() {
 		initiate();
-		
+		for(int i = 0; i<players.size(); i++) {
+			play(players.get(i));
+		}
 
 	}
 
@@ -66,29 +68,11 @@ public class BlackJackGame {
 		double bettingMoney = scan.nextDouble();
 		return bettingMoney;
 	}
-//	Scanner scan = new Scanner(System.in);
-//	String input;
-//	String[] playerNames;
-//
-//	inputPlayers();
-//
-//	for(
-//
-//	int i = 0;i<playerNames.length;i++)
-//	{
-//
-//	}
-//
-//	getPlayersByNames(playerNames);
-//
-//	public static String[] inputPlayers() {
-//		System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
-//		input = scan.nextLine();
-//		playerNames = input.split(",");
-//
-//	}
-//
-//	public static Player[] getPlayersByNames(String[] playerNames) {
-//
-//	}
+	
+	public void play(Player player) {
+		while(UI.isOneMoreCard(player)) {
+//			receiveOneMoreCard();
+//			UI.printCards(player);
+		}
+	}
 }
