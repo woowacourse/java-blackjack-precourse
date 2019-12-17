@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class BlackJack {
+public class InitialSetting {
 
     private List<String> names = new ArrayList<>();
     private int userCnt;
@@ -83,6 +83,10 @@ public class BlackJack {
 
     public void registerUser(int idx, int betMoney){
         players.add(new Player(names.get(idx), betMoney));
+    }
+
+    public List<Player> getPlayers(){
+        return players;
     }
 
 }
