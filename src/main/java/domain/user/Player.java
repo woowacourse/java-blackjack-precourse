@@ -13,22 +13,12 @@
 
 package domain.user;
 
-import java.util.ArrayList;
-import java.util.List;
-import domain.card.Card;
-import domain.card.Deck;
-
-public class Player {
+public class Player extends User {
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
-    }
-
-    public void addCard(Deck deck){
-        cards.add(deck.getCard());
     }
 }

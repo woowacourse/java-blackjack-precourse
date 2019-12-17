@@ -1,21 +1,18 @@
+/*
+ * Copyright (c) 2019 by SorinJin
+ * All rights reserved.
+ *
+ * Dealer.java
+ * 게임 딜러를 의미하는 객체
+ *
+ * @author      Sorin Jin
+ * @version     1.0
+ * @date        16 Dec 2019
+ *
+ */
+
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * 게임 딜러를 의미하는 객체
- */
-public class Dealer {
-    private final List<Card> cards = new ArrayList<>();
-
+public class Dealer extends User {
     public Dealer() {}
-
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
-    // TODO 추가 기능 구현
 }
