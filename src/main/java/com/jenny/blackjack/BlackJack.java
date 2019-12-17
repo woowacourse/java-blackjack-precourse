@@ -35,7 +35,13 @@ public class BlackJack {
                 }
             }
         }
-        saveUserNames(splitedInput);
+        saveUserNames(splitedInput, cnt);
         return true;
+    }
+
+    public void saveUserNames(String[] splitedInput, int cnt){
+        for(int idx = 0; idx < cnt; idx++){
+            names.add(splitedInput[idx]);
+        }
     }
 }
