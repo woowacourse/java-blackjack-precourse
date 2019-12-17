@@ -24,11 +24,9 @@ public class User {
 	}
 
 	public int sumCardScore() {
-		if (containAce()) {
-			int sum_ace_eleven = sumScore() + ACE_BONUS_SCORE;
-			if (sum_ace_eleven < BURST_SCORE) {
-				return sum_ace_eleven;
-			}
+		int sum_ace_eleven = sumScore() + ACE_BONUS_SCORE;
+		if (containAce() && sum_ace_eleven < BURST_SCORE) {
+			return sum_ace_eleven;
 		}
 		return sumScore();
 	}
