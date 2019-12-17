@@ -66,7 +66,7 @@ public class Play {
         }
         msg.append("에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.\n");
         Card dealerFirstCard = dealer.getFirstCard();
-        msg.append("딜러 카드 : " + dealerFirstCard.getSymbol() + dealerFirstCard.getType() + "\n");
+        msg.append("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType() + "\n");
 
         for(int p = 0; p < cnt; p++){
             Player pl = players.get(p);
@@ -74,4 +74,6 @@ public class Play {
         }
         System.out.println(msg);
     }
+
+
 }

@@ -34,7 +34,7 @@ public class Player {
 
         for(int idx = 0; idx < size; idx++){
             Card card = cards.get(idx);
-            msg.append(card.getSymbol() + "" + card.getType() + ",");
+            msg.append(card.getSymbol() + " " + card.getType() + ",");
         }
         return msg.toString();
     }
