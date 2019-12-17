@@ -28,9 +28,8 @@ public class Game {
             players.stream().forEach(player -> player.cardDraw(cardDeck));
         }
         if (this.startBlackJack()) {
-            output.StartCardState(players);
-            players.stream().forEach(player -> this.playerAddCardDraw(player));
-            this.dealerAddCardDraw();
+            this.addCardDraw();
+            output.startCardState(players);
             output.finalCardResult(players);
         }
         output.bettingMoneyResult(bettingMoneyMap);
@@ -63,6 +62,11 @@ public class Game {
         if (output.dealerAddCardDraw()) {
             dealer.cardDraw(cardDeck);
         }
+    }
+
+    public void addCardDraw(){
+        players.stream().forEach(player -> this.playerAddCardDraw(player));
+        this.dealerAddCardDraw();
     }
 
     public boolean startBlackJack() {

@@ -15,7 +15,7 @@ public class Output {
         this.dealer = dealer;
     }
 
-    public void StartCardState(List<Player> players) {
+    public void startCardState(List<Player> players) {
         String playerNames = players.stream().map(player -> String.valueOf(player.getName())).collect(Collectors.joining(", "));
         System.out.println("딜러와 " + playerNames + "에게 2장의 카드를 나누었습니다.");
         System.out.println(dealer.cardsToString());
