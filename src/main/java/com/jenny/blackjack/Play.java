@@ -101,4 +101,12 @@ public class Play {
         addCardForDealer(dealer);
     }
 
+    public boolean isValidYN(String input){
+        input = input.toLowerCase();
+        if(input.equals("y") || input.equals("n")){
+            return true;
+        }
+        return false;
+    }
+
 }
