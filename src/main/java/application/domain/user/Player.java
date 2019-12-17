@@ -23,6 +23,15 @@ public class Player extends User {
         cards.add(card);
     }
 
+    @Override
+    public String getFirstShuffleCardInfo() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(cards.get(0));
+        sb.append(',');
+        sb.append(cards.get(1));
+        return sb.toString();
+    }
+
     // TODO 추가 기능 구현
 
 

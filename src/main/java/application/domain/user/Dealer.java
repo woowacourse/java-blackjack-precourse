@@ -18,5 +18,10 @@ public class Dealer extends User{
         cards.add(card);
     }
 
+    @Override
+    public String getFirstShuffleCardInfo() {
+        return cards.get(0).toString();
+    }
+
     // TODO 추가 기능 구현
 }
