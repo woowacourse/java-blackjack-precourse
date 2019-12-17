@@ -20,7 +20,7 @@ public class OutputPrint {
     private static int theTopCardNumber = 0;                        // 카드 덱의 가장 위에 있는 카드의 인덱스 번호.
     private static final int FIRST_CARD_DISTRIBUTE_NUMBER = 2;      // 처음 카드가 모두에게 분배될 때의 분배 갯수.
     private static final int BOUNDARY_DEALER_MUST_MORE_CARD = 16;   // 딜러가 이보다 적은 점수를 가졌다면 카드를 반드시 더 받아야 한다.
-    private static final int BUST_NUMBER = 21;
+    private static final int BLACK_JACK_NUMBER = 21;
     private static double dealerMoney = 0;
 
     OutputPrint() {
@@ -51,7 +51,33 @@ public class OutputPrint {
             dealer.addCard(getCard());
             distributeCardsToPlayers();
         }
+        for (int i = 0; i < playerList.getSize(); i ++) {
+            isBlackJack(playerList.getPlayer(i));
+        }
         printLog();
+    }
+
+    private void isBlackJack(Player player) {
+        if (isBlackJackDealer() && !isBlackJackPlayer(player)) {
+            println("딜러는 BLACKJACK 이지만 플레이어 "+ player.getName() +"(은)는 BLACKJACK 이 아닙니다.");
+            dealerMoney += player.getBettingMoney();
+            player.setBettingMoney(-player.getBettingMoney());
+        }
+        if (isBlackJackDealer() && isBlackJackPlayer(player)) {
+            println("플레이어" + player.getName() + "와 딜러 모두 BLACKJACK 입니다.");
+        }
+        if (!isBlackJackDealer() && isBlackJackPlayer(player)) {
+            println("플레이어 " + player + "는 BLACKJACK 입니다.");
+            player.setBettingMoney(player.getBettingMoney()*1.5);
+        }
+    }
+
+    private boolean isBlackJackPlayer(Player player) {
+        return player.getScore() == BLACK_JACK_NUMBER;
+    }
+
+    private boolean isBlackJackDealer() {
+        return dealer.getScore() == BLACK_JACK_NUMBER;
     }
 
     /*
@@ -77,7 +103,9 @@ public class OutputPrint {
     public void choiceMoreCard() {
         for (int i = 0; i < playerList.getSize() ; i ++) {
             Player currentPlayer = playerList.getPlayer(i);
-            getMoreCard(i, currentPlayer);
+            if (!isBlackJackPlayer(currentPlayer)) {
+                getMoreCard(i, currentPlayer);
+            }
         }
     }
 
@@ -100,13 +128,13 @@ public class OutputPrint {
     }
 
     private void isNotBust(int playerNumber, Player player) {
-        if (player.getScore() <= BUST_NUMBER) {
+        if (player.getScore() <= BLACK_JACK_NUMBER) {
             getMoreCard(playerNumber, player);
         }
     }
 
     private boolean isBust(Player player) {
-        return player.getScore() > BUST_NUMBER;
+        return player.getScore() > BLACK_JACK_NUMBER;
     }
 
     public void dealerLessThan16() {
@@ -118,7 +146,7 @@ public class OutputPrint {
     }
 
     private boolean isBustDealer() {
-        return dealer.getScore() > BUST_NUMBER;
+        return dealer.getScore() > BLACK_JACK_NUMBER;
     }
 
     public void finalReturn() {
