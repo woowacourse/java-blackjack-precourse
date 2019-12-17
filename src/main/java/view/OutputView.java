@@ -38,7 +38,7 @@ public class OutputView {
 
     public static void printDealerCardsAndResult(Dealer dealer) {
         System.out.println(DEALER_CARD + dealer.getCards().toString() + RESULT + dealer.sumOfCard()
-                + NEXT_LINE + NEXT_LINE + PROFIT + NEXT_LINE );
+                + NEXT_LINE + NEXT_LINE + PROFIT + NEXT_LINE);
     }
 
     public static void printPlayerProfit(Player player) {

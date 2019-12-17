@@ -40,7 +40,7 @@ public class Gamer {
 
     public Integer sumOfCard() {
         int sum = sumWithoutAce();
-        if (hasAce() && sumWithoutAce() <= MAX_SUM_WITHOUT_ACE){
+        if (hasAce() && sumWithoutAce() <= MAX_SUM_WITHOUT_ACE) {
             sum += PLUS_ACE;
         }
         return sum;
