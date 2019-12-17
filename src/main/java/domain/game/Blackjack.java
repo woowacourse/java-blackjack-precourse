@@ -101,6 +101,14 @@ public class Blackjack {
         dealer.addCard(card);
     }
 
+    public boolean isBlackJack(Player player) {
+        return (player.calScore() == BUST_NUMBER);
+    }
+
+    public boolean isBlackJack(Dealer dealer) {
+        return (dealer.calScore() == BUST_NUMBER);
+    }
+
     public void giveExtraCard(Player player) {
         while (!isBust(player) && isReceivingCard(player)) {
             deal(player);
