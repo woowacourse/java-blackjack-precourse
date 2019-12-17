@@ -135,4 +135,12 @@ public class PlayManager {
             System.out.println(player.toString() + " - 결과 : " + player.calculateScore());
         }
     }
+
+    private void printBenefitResult() {
+        System.out.println("\n## 최종 수익");
+        System.out.println("딜러 : " + benefitArray[dealerIndex]);
+        for (int playerIndex = 0; playerIndex < players.size(); playerIndex++) {
+            System.out.println(players.get(playerIndex).getName() + " : " + benefitArray[playerIndex]);
+        }
+    }
 }
