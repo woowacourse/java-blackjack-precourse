@@ -12,14 +12,15 @@ public abstract class User {
     private static final int ACE_NUMBER = 1;
     private static final int ACE_ELEVEN_NUMBER = 11;
 
-    void addCard(List<Card> cards, Card card) {
+    protected List<Card> cards = new ArrayList<>();
+
+    public void addCard(Card card) {
         cards.add(card);
     }
 
-    int calculateSum(List<Card> cards) {
+    public int calculateSum() {
         int result = 0;
-        List<Card> sortedCards = new ArrayList<>();
-        sortedCards.addAll(cards);
+        List<Card> sortedCards = new ArrayList<>(cards);
         sortedCards.sort((firstCard, secondCard) -> secondCard.getNumber() - firstCard.getNumber());
 
         for (Card card : sortedCards) {
@@ -30,19 +31,19 @@ public abstract class User {
         return result;
     }
 
-    public int checkAce(Card card, int score) {
+    private int checkAce(Card card, int score) {
         if (card.getNumber() == ACE_NUMBER && score < ACE_ELEVEN_NUMBER) {
             return ACE_ELEVEN_NUMBER;
         }
         return card.getNumber();
     }
 
-    boolean isBlackJack(List<Card> cards) {
-        return calculateSum(cards) == BLACK_JACK && cards.size() == BLACK_JACK_SIZE;
+    public boolean isBlackJack() {
+        return calculateSum() == BLACK_JACK && cards.size() == BLACK_JACK_SIZE;
     }
 
-    boolean isBursted(List<Card> cards) {
-        return calculateSum(cards) > BLACK_JACK;
+    public boolean isBursted() {
+        return calculateSum() > BLACK_JACK;
     }
 
     public abstract String getName();

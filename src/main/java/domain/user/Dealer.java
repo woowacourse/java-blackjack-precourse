@@ -13,29 +13,11 @@ public class Dealer extends User {
     private static final String NAME = "딜러";
     private static final int ONEMORE_CARD_BASIS = 16;
 
-    private final List<Card> cards = new ArrayList<>();
-
     public Dealer() {
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
-    public int calculateSum() {
-        return calculateSum(cards);
-    }
-
-    public boolean isBlackJack() {
-        return isBlackJack(cards);
     }
 
     public boolean isUnberSixteen() {
         return calculateSum() <= ONEMORE_CARD_BASIS;
-    }
-
-    public boolean isBursted() {
-        return isBursted(cards);
     }
 
     public List<Card> getCards() {

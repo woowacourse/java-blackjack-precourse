@@ -3,7 +3,6 @@ package domain.user;
 import domain.card.Card;
 import exception.InvalidException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +14,6 @@ public class Player extends User {
 
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
         if (name.isEmpty()) {
@@ -26,22 +24,6 @@ public class Player extends User {
         }
         this.name = name.trim();
         this.bettingMoney = bettingMoney;
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
-    public int calculateSum() {
-        return calculateSum(cards);
-    }
-
-    public boolean isBlackJack() {
-        return isBlackJack(cards);
-    }
-
-    public boolean isBursted() {
-        return isBursted(cards);
     }
 
     public String getName() {
