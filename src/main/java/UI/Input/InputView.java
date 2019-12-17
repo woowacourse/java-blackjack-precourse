@@ -7,7 +7,7 @@ public class InputView {
 
     private static final String INPUT_PLAYER_NAMES_MESSAGE = "게임에 참여할 사람들의 이름을 입력하세요.(쉼표 기준으로 분리)";
     private static final String INPUT_BETTING_MONEY_MESSAGE = "님 얼마를 배팅하시겠습니까?";
-    private static final String INPUT_IF_GET_CARD_MESSAGE = "님 카드를 1장 더 받으시겠습니까?";
+    private static final String INPUT_IF_GET_CARD_MESSAGE = "님 카드를 1장 더 받으시겠습니까?(예는 y, 아니오는 n)";
 
     private InputView() {}
 
