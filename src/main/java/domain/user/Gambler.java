@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import domain.card.Card;
 
 public abstract class Gambler {
-	private List<Integer> cardScores;
-
 	private int sum;
 
 	private boolean winner;
@@ -17,26 +15,23 @@ public abstract class Gambler {
 
 	public abstract void addCard(Card card);
 
-	public abstract List<Card> getCards();
+	protected abstract List<Card> getCards();
 
 	public int sumCardsMin() {
-		cardScores = getCards().stream()
+		sum = getCards().stream()
 			.map(Card::getSymbolScore)
-			.collect(Collectors.toList());
-
-		sum = cardScores.stream()
-			.reduce(0, Integer::sum);
+			.reduce(0,Integer::sum);
 
 		return sum;
 	}
 
 	public int sumCardsMax() {
 		sumCardsMin();
-		List<Integer> aces = cardScores.stream()
-			.filter(score -> (score == 1))
+		List<Card> aces = getCards().stream()
+			.filter(card -> (card.getSymbolScore() == 1))
 			.collect(Collectors.toList());
 
-		for (Iterator<Integer> iterator = aces.iterator(); sum + 10 <= 21 && iterator.hasNext(); iterator.next()) {
+		for (Iterator<Card> iterator = aces.iterator(); sum + 10 <= 21 && iterator.hasNext(); iterator.next()) {
 			sum += 10;
 		}
 
@@ -68,9 +63,9 @@ public abstract class Gambler {
 		this.earnings = earnings;
 	}
 
-	public String[] getCardsText() {
+	public List<String> getCardsText() {
 		return getCards().stream()
 			.map(Card::getCardData)
-			.toArray(String[]::new);
+			.collect(Collectors.toList());
 	}
 }
