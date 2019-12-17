@@ -63,7 +63,7 @@ public class Player {
 		return Status.KEEP_GO;
 	}
 
-	private int getScore() {
+	public int getScore() {
 		int score = 0;
 		Boolean aceInHand = false;
 

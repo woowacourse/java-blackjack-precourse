@@ -3,6 +3,7 @@ package controller;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Player;
+import domain.user.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +32,13 @@ public class BlackJackInitializingController {
 			indexList.add(i);
 		}
 		return indexList;
+	}
+
+	public static List<Status> initializePlayersStatus(int index) {
+		List<Status> playersStatus = new ArrayList<Status>();
+		for (int i = 0; i < index; i++) {
+			playersStatus.add(Status.KEEP_GO);
+		}
+		return playersStatus;
 	}
 }

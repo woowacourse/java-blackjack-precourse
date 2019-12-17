@@ -66,10 +66,9 @@ public class BlackJackController {
 		String moreCard = ""; // 한글자가 아닌 입력을 핸들하기 위한 String 선언
 
 		Scanner scanner = new Scanner(System.in);
-		while (!moreCard.equals("Y") || !moreCard.equals("y")
-			|| !moreCard.equals("N") || !moreCard.equals("n")) {
+		while (judgeRightInput(moreCard)) {
 			moreCard = scanner.nextLine();
-			moreCard = catchWrongInput(moreCard);
+			catchWrongInput(moreCard);
 		}
 		if (moreCard.equals("Y") || moreCard.equals("y")) {
 			return true;
@@ -77,18 +76,29 @@ public class BlackJackController {
 		return false ;
 	}
 
-	private static String catchWrongInput(String moreCard) {
+	private static Boolean judgeRightInput(String input) {
+		if (input.equals("Y")) {
+			return false;
+		} else if (input.equals("y")) {
+			return false;
+		} else if (input.equals("N")) {
+			return false;
+		} else if (input.equals("n")) {
+			return false;
+		}
+		return true;
+	}
+
+	private static void catchWrongInput(String moreCard) {
 		try {
 			validateMoreCard(moreCard);
 		} catch (WrongInputException e) {
 			BlackJackUIService.printWrongInputMessage();
 		}
-		return moreCard;
 	}
 
 	private static void validateMoreCard(String moreCard) throws WrongInputException {
-		if (!moreCard.equals("Y") || !moreCard.equals("y")
-			|| !moreCard.equals("N") || !moreCard.equals("n")) {
+		if (judgeRightInput(moreCard)){
 			throw new WrongInputException();
 		}
 	}
