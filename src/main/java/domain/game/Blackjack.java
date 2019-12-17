@@ -7,8 +7,8 @@ import domain.user.Player;
 import java.util.*;
 
 public class Blackjack {
-    public final int MAX_PLAYER_NUMBER = 5;
-    public final int MAX_NAME_LENGTH = 5;
+    public static final int MAX_PLAYER_NUMBER = 5;
+    public static final int MAX_NAME_LENGTH = 5;
     public final int CONDITION_SCORE = 21;
     public final int CONDITION_NUMBER_OF_CARDS = 2;
     public final int CONDITION_DEALER_SCORE = 17;
@@ -27,15 +27,7 @@ public class Blackjack {
     public void start() {
         createPlayers();
         Collections.shuffle(cards);
-        System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
-        deal(dealer);
-        deal(dealer);
-        dealer.openOneCard();
-        for (Player player : players) {
-            deal(player);
-            deal(player);
-            player.showCards();
-        }
+        dealCards();
 
         for (Player player : players) {
             if (isBlackJack(player)) {      // 플레이어 중 블랙잭이 있는지 확인
@@ -61,6 +53,7 @@ public class Blackjack {
 
         showResult();
     }
+
 
     public void createPlayers() {
         String[] nameArr = inputNames();
@@ -111,6 +104,19 @@ public class Blackjack {
             return (Double.parseDouble(betting) > 0);
         } catch (Exception e) {
             return false;
+        }
+    }
+
+
+    public void dealCards() {
+        System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
+        deal(dealer);
+        deal(dealer);
+        dealer.openOneCard();
+        for (Player player : players) {
+            deal(player);
+            deal(player);
+            player.showCards();
         }
     }
 
