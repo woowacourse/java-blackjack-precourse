@@ -45,12 +45,14 @@ public class Game {
 
     private double initBattingMoney(String name) {
         String battingMoneyFromUser = GameInputScanner.askBattingMoney(name);
+        System.out.println();
         return Double.parseDouble(battingMoneyFromUser);
     }
 
     private void runGame(Dealer dealer, List<Player> players, Deck deck) {
         handoutCards(dealer, players, deck);
         GamePrinter.printStatus(dealer, players);
+        System.out.println();
         askPlayers(players, deck);
         checkDealer(dealer, deck);
     }
@@ -82,7 +84,9 @@ public class Game {
         boolean oneMoreCard = true;
 
         while (oneMoreCard) {
+            GamePrinter.printPlayerStatus(player);
             oneMoreCard = pickOneMore(player, deck);
+            System.out.println();
         }
     }
 
@@ -115,12 +119,15 @@ public class Game {
     private void checkDealer(Dealer dealer, Deck deck) {
         while (dealer.isUnberSixteen()) {
             dealer.addCard(deck.draw());
+            System.out.println();
             System.out.println("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
+            System.out.println();
         }
     }
 
     private void makeResult(Dealer dealer, List<Player> players) {
         GamePrinter.printResult(dealer, players);
+        System.out.println();
     }
 
     private void printProfit(Dealer dealer, List<Player> players) {
