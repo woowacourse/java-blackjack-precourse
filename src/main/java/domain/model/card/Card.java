@@ -47,11 +47,7 @@ public class Card {
     }
 
     public String getSymbolScoreByLetter(Symbol symbol) {
-        if (symbol == Symbol.JACK) return "J";
-        if (symbol == Symbol.QUEEN) return "Q";
-        if (symbol == Symbol.KING) return "K";
-        if (symbol == Symbol.ACE) return "A";
-        return Integer.toString(symbol.getScore());
+        return symbol.getLetter();
 
     }
 }
