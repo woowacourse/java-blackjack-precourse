@@ -24,6 +24,10 @@ public class BlackJack {
         deck.shuffle();
 
         dealCards(dealer, players, deck);
+        BookKeeper bookKeeper = new BookKeeper(dealer, players.getPlayers());
+        System.out.println(bookKeeper.getDealerBalance());
+        System.out.println(bookKeeper.getPlayersBalance());
+
 
         // checkpoint 1. 중간점검
         // 점수 계산
