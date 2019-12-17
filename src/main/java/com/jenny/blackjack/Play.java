@@ -99,7 +99,7 @@ public class Play {
                 if(input.toLowerCase().equals("n")){
                     break;
                 }else{
-                    addCardForPlayer(p);
+                    getCardForPlayer(1, p);
                     showOneCardStatus(p);
                 }
             }
@@ -122,4 +122,5 @@ public class Play {
         }
         getCardForDealer(1, dealer);
     }
+
 }
