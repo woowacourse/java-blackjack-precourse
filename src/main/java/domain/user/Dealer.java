@@ -71,18 +71,28 @@ public class Dealer {
 
     /**
      * 딜러가 갖은 카드List를 리턴하는 getter
-     * 딜러의 카드는 첫카드를 제외하고 오픈된다.
      *
      * @return 딜러가 갖은 카드List
      */
     public String toStringCard() {
         List<String> cardInfo = new ArrayList<>();
 
-        for (int i = 1; i < cards.size(); i++) {
+        for (int i = 0; i < cards.size(); i++) {
             cardInfo.add(cards.get(i).toString());
         }
 
         return "딜러: " +
                 String.join(",", cardInfo);
+    }
+
+    /**
+     * 첫 시작할때 딜러는 첫카드를 제외하고 오픈
+     *
+     * @return 딜러가 받은 두번째 카드
+     */
+    public String startCardOpen() {
+        final int secondIndex = 1;
+        return "딜러: " + cards.get(secondIndex);
+
     }
 }

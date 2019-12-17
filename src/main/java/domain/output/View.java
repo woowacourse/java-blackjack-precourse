@@ -29,7 +29,7 @@ public class View {
      * @param dealer     딜러
      */
     public void viewPlayerAndDealer(List<Player> playerList, Dealer dealer) {
-        System.out.println(dealer.toStringCard());
+        System.out.println(dealer.startCardOpen());
         for (Player player : playerList) {
             System.out.println(player.toStringCard());
         }
@@ -69,5 +69,19 @@ public class View {
         return "딜러와 " +
                 String.join(",", nameList) +
                 "에게 2장의 카드르 나누었습니다.";
+    }
+
+    /**
+     * 게임이 종료될때 오픈하는 메세지
+     *
+     * @param playerList 플레이어정보를 갖고있는 List
+     * @param dealer 딜러객체
+     */
+    public void resultMsg(List<Player> playerList,Dealer dealer){
+        System.out.print(dealer.toStringCard());
+        for (Player player : playerList) {
+            System.out.print(player.toStringCard());
+            System.out.println(player.calculateSymbol());
+        }
     }
 }
