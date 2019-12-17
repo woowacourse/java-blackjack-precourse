@@ -65,4 +65,16 @@ public class Player extends Gamer {
         System.out.println("y 또는 n을 입력해주세요.");
         return false;
     }
+
+    public double checkBenefit(int dealerScore) {
+        int playerScore = calculateScore();
+        int scoreLimit = 21;
+        if (playerScore > scoreLimit || (dealerScore <= scoreLimit && playerScore < dealerScore)) {
+            return lose();
+        }
+        if (dealerScore == playerScore) {
+            return draw();
+        }
+        return win();
+    }
 }
