@@ -63,7 +63,7 @@ public abstract class BlackJackParticipant {
         ArrayList<Integer> scoreList = getAllCardsScore();
         int currentScore = scoreList.stream().mapToInt(Integer::intValue).sum();
 
-        if (currentScore > 21) {
+        if (currentScore >= BURST) {
             return (currentScore - TEN * checkHowManyAceInCards());
         }
 

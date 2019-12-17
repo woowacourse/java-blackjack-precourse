@@ -22,21 +22,28 @@ public class ResultController {
     private static final int EXIT_STATUS = 0;
     private double totalPlayerProfit = 0;
 
-
     public void startBlackJackProcedure(ArrayList<Player> playerList, Dealer dealer) {
 
         if (checkPlayerBlackJackOrNot(playerList)) {// 딜러가 블랙잭이고 플레이어 중에도 블랙잭이 있는 경우
             controlPrintingFinalResult(playerList, dealer); // 결과 출력
-            continueBlackJackProcedureForBoth(playerList, dealer);
+            continueBlackJackProcedureForBoth(playerList);
             System.exit(EXIT_STATUS); // 프로그램 종료
         }
 
         controlPrintingFinalResult(playerList, dealer); // 딜러만 블랙잭인 경우, 결과 출력
-        continueBlackJackProcedureForDealer(playerList, dealer);
+        continueBlackJackProcedureForDealer(playerList);
         System.exit(EXIT_STATUS); // 프로그램 종료
     }
 
-    public void continueBlackJackProcedureForBoth(ArrayList<Player> playerList, Dealer dealer) {
+    public void controlPrintingFinalResult(ArrayList<Player> playerList, Dealer dealer) {
+        PrintController.printDealerCardFinalInformation(dealer);
+
+        for (Player player : playerList) {
+            PrintController.printPlayerCardFinalInformation(player);
+        }
+    }
+
+    public void continueBlackJackProcedureForBoth(ArrayList<Player> playerList) {
 
         for (Player player : playerList) {
             totalPlayerProfit += player.getProfitByResult(getPlayerProfitForBlackJack(player));
@@ -49,7 +56,7 @@ public class ResultController {
         }
     }
 
-    public void continueBlackJackProcedureForDealer(ArrayList<Player> playerList, Dealer dealer) {
+    public void continueBlackJackProcedureForDealer(ArrayList<Player> playerList) {
 
         for (Player player : playerList) {
             totalPlayerProfit += player.getProfitByResult(getPlayerDefeatedProfitRate());
@@ -72,15 +79,7 @@ public class ResultController {
         return ifSomePlayerBlackJack;
     }
 
-    public void controlPrintingFinalResult(ArrayList<Player> playerList, Dealer dealer) {
-        PrintController.printDealerCardFinalInformation(dealer);
-
-        for (Player player : playerList) {
-            PrintController.printPlayerCardFinalInformation(player);
-        }
-    }
-
-    public void startDealerBurstProcedure(ArrayList<Player> playerList, Dealer dealer) {
+    public void startDealerBurstProcedure(ArrayList<Player> playerList) {
 
         for (Player player : playerList) {
             totalPlayerProfit += player.getProfitByResult(getPlayerWonProfitRate(player));
@@ -102,7 +101,9 @@ public class ResultController {
         controlPrintFinalProfitAndDealer(totalPlayerProfit);
 
         for (Player player : playerList) {
-            PrintController.printPlayerProfit(player.getProfitByResult(ProfitController.getPlayerResultForNormalFinishProcedure(player, dealer)), player);
+            PrintController
+                    .printPlayerProfit(player.getProfitByResult(
+                            getPlayerResultForNormalFinishProcedure(player, dealer)), player);
         }
     }
 

@@ -24,23 +24,24 @@ import static view.PrintController.*;
  */
 public class BlackJackGameController {
     private static final String COMMA = ", ";
-    private static final int EXTRA_CARD_LIMIT_FOR_DEALER = 16;
+    private static final int EXTRA_CARD_LIMIT_SCORE_FOR_DEALER = 16;
     private static final int TWO = 2;
+    public List<String> playerNameList;
     public ArrayList<Player> playerList = new ArrayList<>();
     public Dealer dealer;
-    public List<String> playerNameList;
 
     public void blackJackGameController() {
         makePlayerInstance();
         makeDealerInstance();
         makeEntireCardSet();
+
         initiateDrawing();
         moreDrawing();
         finishBlackJackGame();
     }
 
     public void makePlayerInstance() {
-        Double bettingMoney;
+        double bettingMoney;
         UserInput userInput = new UserInput();
 
         playerNameList = userInput.getPlayerName();
@@ -58,8 +59,8 @@ public class BlackJackGameController {
     public void initiateDrawing() {
         ResultController resultController = new ResultController();
         drawInitialCards(playerList, dealer);
-        printHandingTwoCardsInformation(String.join(COMMA, playerNameList));
-        printDealerCardInformation(dealer);
+        PrintController.printHandingTwoCardsInformation(String.join(COMMA, playerNameList));
+        PrintController.printDealerCardInformation(dealer);
         playerList.forEach(PrintController::printPlayerCardInformation);
         printBlankLine();
 
@@ -87,7 +88,7 @@ public class BlackJackGameController {
 
     public void tryDealerExtraDrawing() {
 
-        if (dealer.getCurrentScore() > EXTRA_CARD_LIMIT_FOR_DEALER) {
+        if (dealer.getCurrentScore() > EXTRA_CARD_LIMIT_SCORE_FOR_DEALER) {
             PrintController.printDealerCanNotDrawMoreCard();
             return;
         }
@@ -98,7 +99,7 @@ public class BlackJackGameController {
 
     public void letDealerExtraDrawing() {
 
-        while (dealer.getCurrentScore() <= EXTRA_CARD_LIMIT_FOR_DEALER) {
+        while (dealer.getCurrentScore() <= EXTRA_CARD_LIMIT_SCORE_FOR_DEALER) {
             controlDealerExtraDrawing(dealer);
         }
     }
@@ -108,7 +109,7 @@ public class BlackJackGameController {
         resultController.controlPrintingFinalResult(playerList, dealer);
 
         if (dealer.isBurst()) {
-            resultController.startDealerBurstProcedure(playerList, dealer);
+            resultController.startDealerBurstProcedure(playerList);
             return;
         }
 

@@ -38,6 +38,8 @@ public class PrintController {
     private static final String TOTAL_PROFIT = "## 최종 수익";
     private static final String COLON = ": ";
     private static final String LINE_BREAKER = "\n";
+    private static final int SEVEN = 7;
+    private static final String MANY = "여러";
 
     private static HashMap<Integer, String> integerToKoreanNumberHashMap = new HashMap<>();
 
@@ -52,10 +54,10 @@ public class PrintController {
 
     public static String integerToKoreanNumber(int number) {
         makeHashMap();
-        if (number < 7) {
+        if (number < SEVEN) {
             return integerToKoreanNumberHashMap.get(number);
         }
-        return "여러"; // 딜러가 추가로 카드를 7장 이상 뽑을 가능성은 무척 낮기에 다 적기보다 여러장으로 표기한다.
+        return MANY; // 딜러가 추가로 카드를 7장 이상 뽑을 가능성은 무척 낮기에 다 적기보다 여러장으로 표기한다.
     }
 
     public static void askPlayerName() {

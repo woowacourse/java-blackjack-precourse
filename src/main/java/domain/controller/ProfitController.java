@@ -8,8 +8,6 @@ package domain.controller;
 import domain.model.user.Dealer;
 import domain.model.user.Player;
 
-import java.util.ArrayList;
-
 /**
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
@@ -23,11 +21,16 @@ public class ProfitController {
     private static final double BLACKJACK_RATE = 1.5;
 
     public static double getPlayerProfitForBlackJack(Player player) {
-        if (player.isBlackJack()) return ZERO;
+
+        if (player.isBlackJack()) {
+            return ZERO;
+        }
+
         return MINUS_ONE;
     }
 
     public static double getPlayerDefeatedProfitRate() {
+
         return MINUS_ONE;
     }
 

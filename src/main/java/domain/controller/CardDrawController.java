@@ -37,14 +37,6 @@ public class CardDrawController {
     public static void drawInitialCards(ArrayList<Player> playerList, Dealer dealer) {
         drawInitialPlayersCards(playerList);
         drawInitialDealerCards(dealer);
-
-    }
-
-    public static Card drawCard() {
-        int cardIndex = generateRandomIntegerByInputInteger(entireCards.size());
-        Card drawnCard = entireCards.get(cardIndex);
-        entireCards.remove(cardIndex);
-        return drawnCard;
     }
 
     public static void drawInitialPlayersCards(ArrayList<Player> playerList) {
@@ -58,6 +50,13 @@ public class CardDrawController {
     public static void drawInitialDealerCards(Dealer dealer) {
         dealer.addCard(drawCard());
         dealer.addCard(drawCard());
+    }
+
+    public static Card drawCard() {
+        int cardIndex = generateRandomIntegerByInputInteger(entireCards.size());
+        Card drawnCard = entireCards.get(cardIndex);
+        entireCards.remove(cardIndex);
+        return drawnCard;
     }
 
     public static boolean controlPlayerExtraDrawing(Player player) {
