@@ -75,9 +75,9 @@ public class OutputView {
 
 	public void printEarnings(List<String> names, List<Double> playerEarnings, Double dealerEarnings) {
 		System.out.println(EARNINGS_HEADER);
-		System.out.println(DEALER+DELIMITERS[0]+dealerEarnings);
-		for(int i=0;i<names.size();i++){
-			System.out.println(names.get(i)+DELIMITERS[0]+playerEarnings.get(i));
+		System.out.println(DEALER + DELIMITERS[0] + dealerEarnings);
+		for (int i = 0; i < names.size(); i++) {
+			System.out.println(names.get(i) + DELIMITERS[0] + playerEarnings.get(i));
 		}
 	}
 

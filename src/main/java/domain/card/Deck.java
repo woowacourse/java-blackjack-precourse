@@ -10,9 +10,11 @@ public class Deck {
 		cards = CardFactory.create();
 		drawSequence = new DrawSequence(cards.size());
 	}
-	public void shuffle(){
+
+	public void shuffle() {
 		drawSequence.shuffle();
 	}
+
 	public Card draw() throws Exception {
 		if (drawSequence.hasNext() == false) {
 			throw new Exception();

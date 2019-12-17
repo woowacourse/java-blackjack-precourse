@@ -22,7 +22,7 @@ public class HitRound extends Round {
 
 	@Override
 	protected void doSettlement(Table table) {
-		table.doSettlement(Rule.RATIO_WIN,Rule.RATIO_LOSE);
+		table.doSettlement(Rule.RATIO_WIN, Rule.RATIO_LOSE);
 	}
 
 	private void doPlayersPhase(Table table) {
@@ -39,7 +39,7 @@ public class HitRound extends Round {
 		try {
 			table.drawCards(player, 1);
 			printPlayerDrawText(player);
-			doPlayerPhase(table,player);
+			doPlayerPhase(table, player);
 		} catch (Exception e) {
 			System.out.println(Rule.OUT_OF_CARDS_MESSAGE);
 		}
@@ -84,7 +84,7 @@ public class HitRound extends Round {
 
 	private void printPlayerDrawText(Player player) {
 		OutputView outputView = OutputView.getInstance();
-		outputView.printPlayerCards(player.getName(),player.getCardsText());
+		outputView.printPlayerCards(player.getName(), player.getCardsText());
 		outputView.printNewLine();
 	}
 }

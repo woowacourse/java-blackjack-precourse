@@ -22,16 +22,16 @@ public class BlackJackRound extends Round {
 	protected void printStatus(Table table) {
 		OutputView outputView = OutputView.getInstance();
 		outputView.printBlackJackRoundLine(table.getPlayerNames(), Rule.BASIC_DRAW);
-		outputView.printDealerCards(table.getDealerCardText().subList(0,Rule.DEALER_OPEN_COUNT), false);
+		outputView.printDealerCards(table.getDealerCardText().subList(0, Rule.DEALER_OPEN_COUNT), false);
 		outputView.printNewLine();
-		outputView.printPlayersCardsLine(table.getPlayerNames(),table.getPlayersCardText());
+		outputView.printPlayersCardsLine(table.getPlayerNames(), table.getPlayersCardText());
 		outputView.printNewLine();
 	}
 
 	@Override
 	protected void doSettlement(Table table) {
 		if (table.isDealerWin()) {
-			table.doSettlement(Rule.RATIO_PUSH,Rule.RATIO_LOSE);
+			table.doSettlement(Rule.RATIO_PUSH, Rule.RATIO_LOSE);
 			return;
 		}
 		table.doSettlement(Rule.RATIO_WIN_BLACKJACK, Rule.RATIO_PUSH);

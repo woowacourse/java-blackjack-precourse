@@ -14,18 +14,19 @@ public abstract class Gambler {
 
 	protected abstract List<Card> getCards();
 
-	public int sumMin(){
+	public int sumMin() {
 		return getCards().stream()
 			.map(Card::getSymbolScore)
-			.reduce(0,Integer::sum);
+			.reduce(0, Integer::sum);
 	}
 
-	public int sumMax(){
-		int sumMax=sumMin();
+	public int sumMax() {
+		int sumMax = sumMin();
 		List<Card> aces = getCards().stream()
 			.filter(card -> (card.getSymbolScore() == 1))
 			.collect(Collectors.toList());
-		for (Iterator<Card> iterator = aces.iterator(); sumMax + 10 <= Rule.BLACKJACK_POINT && iterator.hasNext(); iterator.next()) {
+		for (Iterator<Card> iterator = aces.iterator();
+			 sumMax + 10 <= Rule.BLACKJACK_POINT && iterator.hasNext(); iterator.next()) {
 			sumMax += 10;
 		}
 		return sumMax;
@@ -34,7 +35,6 @@ public abstract class Gambler {
 	public boolean isBust() {
 		return sumMin() > Rule.BLACKJACK_POINT;
 	}
-
 
 	public double getEarnings() {
 		return earnings;

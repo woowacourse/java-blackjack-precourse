@@ -9,16 +9,17 @@ public abstract class Round {
 	protected void printStatus(Table table) {
 		OutputView outputView = OutputView.getInstance();
 		outputView.printNewLine();
-		outputView.printDealerCards(table.getDealer().getCardsText(),true);
+		outputView.printDealerCards(table.getDealer().getCardsText(), true);
 		outputView.printResultLine(table.getDealer().sumMax());
-		outputView.printPlayersCardsResultLine(table.getPlayerNames(),table.getPlayersCardText(),table.getPlayerResults());
+		outputView.printPlayersCardsResultLine(table.getPlayerNames(), table.getPlayersCardText(),
+			table.getPlayerResults());
 		outputView.printNewLine();
 	}
 
 	protected abstract void doSettlement(Table table);
 
-	protected void printEarnings(Table table){
-		OutputView outputView=OutputView.getInstance();
-		outputView.printEarnings(table.getPlayerNames(),table.getPlayerEarnings(),table.getDealerShare());
+	protected void printEarnings(Table table) {
+		OutputView outputView = OutputView.getInstance();
+		outputView.printEarnings(table.getPlayerNames(), table.getPlayerEarnings(), table.getDealerShare());
 	}
 }

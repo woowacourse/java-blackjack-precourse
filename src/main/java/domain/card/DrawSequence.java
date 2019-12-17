@@ -10,9 +10,9 @@ public class DrawSequence implements Sequence {
 	private int index = 0;
 
 	public DrawSequence(int size) {
-		Integer array[]=new Integer[size];
-		for(int i=0;i<size;i++){
-			array[i]=i;
+		Integer array[] = new Integer[size];
+		for (int i = 0; i < size; i++) {
+			array[i] = i;
 		}
 		sequence = new ArrayList<Integer>(Arrays.asList(array));
 	}
