@@ -3,7 +3,7 @@ package domain.game;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Participant;
-import domain.user.User;
+import domain.user.Player;
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ public class Blackjack {
     public final String YES = "y";
     public final String NO = "n";
     public Dealer dealer;
-    public List<User> users = new ArrayList<User>();
+    public List<Player> players = new ArrayList<Player>();
     public Scanner sc = new Scanner(System.in);
     private Stack<Card> cards = new Stack<>();
 
@@ -39,7 +39,7 @@ public class Blackjack {
         for (String name : nameArr) {
             System.out.println(name + "의 배팅 금액을 입력해주세요.");
             double bettingMoney = getBettingMoney();
-            users.add(new User(name, bettingMoney));
+            players.add(new Player(name, bettingMoney));
         }
     }
 
@@ -92,8 +92,8 @@ public class Blackjack {
             deal(dealer);
         }
         for (int i = 0; i < CONDITION_INIT_CARDS; i++) {
-            for (User user : users) {
-                deal(user);
+            for (Player player : players) {
+                deal(player);
             }
         }
         System.out.println("\n딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
@@ -116,21 +116,21 @@ public class Blackjack {
     }
 
     public void dealCardsAgain() {
-        for (User user : users) {
-            giveExtraCard(user);
+        for (Player player : players) {
+            giveExtraCard(player);
         }
         giveExtraCard(dealer);
     }
 
-    public void giveExtraCard(User user) {
-        if (isBlackJack(user)) {
-            System.out.println(user.getName() + " 블랙잭!!\n");
+    public void giveExtraCard(Player player) {
+        if (isBlackJack(player)) {
+            System.out.println(player.getName() + " 블랙잭!!\n");
             return;
         }
-        while ((!isBust(user)) && (isReceivingCard(user))) {
-            deal(user);
+        while ((!isBust(player)) && (isReceivingCard(player))) {
+            deal(player);
         }
-        if (isBust(user)) {
+        if (isBust(player)) {
             System.out.println(" - 버스트");
         }
     }
@@ -142,8 +142,8 @@ public class Blackjack {
         }
     }
 
-    public boolean isReceivingCard(User user) {
-        String decision = user.needMoreCard(sc);
+    public boolean isReceivingCard(Player player) {
+        String decision = player.needMoreCard(sc);
         while (!isValidAnswer(decision)) {
             System.out.println("입력이 잘못되었습니다. 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
             decision = sc.nextLine();
@@ -158,8 +158,8 @@ public class Blackjack {
 
     public void showResult() {
         dealer.showOutcome();
-        for (User user : users) {
-            user.showOutcome();
+        for (Player player : players) {
+            player.showOutcome();
         }
         distributeMoney();
     }
@@ -167,43 +167,43 @@ public class Blackjack {
     public void distributeMoney() {
         System.out.println("\n\n##최종 수익");
         double totalSettlement = 0;
-        for (User user : users) {
-            double profitPercent = winOrLose(user);
-            totalSettlement -= user.doBalancing(profitPercent);
+        for (Player player : players) {
+            double profitPercent = winOrLose(player);
+            totalSettlement -= player.doBalancing(profitPercent);
         }
         dealer.doBalancing(totalSettlement);
     }
 
-    public double winOrLose(User user) {
+    public double winOrLose(Player player) {
         final double BLACKJACK_WIN = 1.5;
         final double WIN = 1;
         final double DRAW = 0;
         final double LOSE = -1;
 
         /* user가 버스트인 경우 승패 판단 */
-        if (isBust(user)) {
+        if (isBust(player)) {
             return LOSE;
         }
 
-        /* user가 블랙잭인 경우 승패 판단 */
-        if (isBlackJack(user)) {
+        /* player가 블랙잭인 경우 승패 판단 */
+        if (isBlackJack(player)) {
             if (isBlackJack(dealer)) {
                 return DRAW;
             }
             return BLACKJACK_WIN;
         }
 
-        /* user가 버스트도 블랙잭도 아닌 경우 승패 판단 */
+        /* player가 버스트도 블랙잭도 아닌 경우 승패 판단 */
         if (isBlackJack(dealer)) {
             return LOSE;
         }
         if (isBust(dealer)) {
             return WIN;
         }
-        if (user.calScore() > dealer.calScore()) {
+        if (player.calScore() > dealer.calScore()) {
             return WIN;
         }
-        if (user.calScore() == dealer.calScore()) {
+        if (player.calScore() == dealer.calScore()) {
             return DRAW;
         }
         return LOSE;
