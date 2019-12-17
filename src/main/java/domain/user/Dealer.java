@@ -36,8 +36,4 @@ public class Dealer {
         return "딜러: " +
                 String.join(",", cardInfo);
     }
-
-    public void toStringCardInfo() {
-        System.out.println(toStringCard());
-    }
 }

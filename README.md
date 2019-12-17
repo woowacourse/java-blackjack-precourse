@@ -2,7 +2,7 @@
 
 | 작성자 | version |git ID| 작성일시 | 변경사유 |
 |---|---|---|---|---|
-| 정은석 | 1.0v |joseph415 |2019.12.17 | ConstructionPlayerAndDearler 이름 변경,view를 담당하는 class생성 |
+| 정은석 | 1.0v |joseph415 |2019.12.17 | 카드 드로우시 카드정보나오는 ui 추가 |
 
 ___
 

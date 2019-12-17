@@ -29,10 +29,20 @@ public class View {
      * @param dealer     딜러
      */
     public void viewPlayerAndDealer(List<Player> playerList, Dealer dealer) {
-        dealer.toStringCardInfo();
+        System.out.println(dealer.toStringCard());
         for (Player player : playerList) {
-            player.toStringCardInfo();
+            System.out.println(player.toStringCard());
         }
+        System.out.println();
+    }
+
+    /**
+     * 플레이어의 카드정보를 보여주는 기능
+     *
+     * @param player 플레이어 정보
+     */
+    public void viewPlayerCard(Player player) {
+        System.out.println(player.toStringCard());
     }
 
     /**

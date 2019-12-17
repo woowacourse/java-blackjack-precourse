@@ -38,18 +38,15 @@ public class Player {
      *
      * @return 플레이어가 갖은 카드List
      */
-    public String toStringCard(){
+    public String toStringCard() {
         List<String> cardInfo = new ArrayList<>();
 
-        for(int i=0;i<cards.size();i++){
+        for (int i = 0; i < cards.size(); i++) {
             cardInfo.add(cards.get(i).toString());
         }
 
-        return this.name+
-                "카드: "+
+        return this.name +
+                "카드: " +
                 String.join(",", cardInfo);
-    }
-    public void toStringCardInfo() {
-        System.out.println(toStringCard());
     }
 }

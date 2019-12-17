@@ -72,6 +72,7 @@ public class CardDrawing {
     public void drawPlayerCard(Player player) {
         while (decision.decideDraw(player)) {
             player.addCard(cards.get(randomIndex.nextInt(52)));
+            view.viewPlayerCard(player);
         }
     }
 }
