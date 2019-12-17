@@ -9,8 +9,8 @@ import java.util.Set;
 public class OutputController {
     private static final String DELIMITER = " : ";
 
-    private static final String PREVIOUS_MARK_FOR_GAME_RESULT = "----- ";
-    private static final String SUBSEQUENT_MARK_FOR_GAME_RESULT = " -----";
+    private static final String PREVIOUS_MARK_FOR_GAME_RESULT = "---------- ";
+    private static final String SUBSEQUENT_MARK_FOR_GAME_RESULT = " ----------";
     private static final String SUBTITLE_FOR_GAME_RESULT = "게임 결과";
 
     private static final String PREVIOUS_MARK_FOR_USER_NAME = "[ ";

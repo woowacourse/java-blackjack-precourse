@@ -33,31 +33,41 @@ public class GameResult {
     }
 
     public boolean hasBlackjack() {
-        List<User> blackjackPlayers = players.stream()
-                .filter(User::isBlackjack)
-                .collect(Collectors.toList());
+        List<User> blackjackPlayers = getBlackjackPlayers();
 
         if (blackjackPlayers.isEmpty()) {
             return false;
         }
 
         if (dealer.isBlackjack()) {
-            handleWinners(blackjackPlayers, PROFIT_ZERO);
-            handleLosers(players, LOSS_ONE);
-            handleDealer(dealer, dealerProfit);
+            handleUsersWhenDealerIsBlackjack(blackjackPlayers);
             return true;
         }
 
-        handleWinners(blackjackPlayers, PROFIT_ONE_POINT_FIVE);
-        handleLosers(players, LOSS_ONE);
-        handleDealer(dealer, dealerProfit);
+        handleUsersWhenPlayersAreBlackjack(blackjackPlayers);
         return true;
     }
 
-    public void decideGameResult() {
-        List<User> bustPlayers = players.stream()
-                .filter(User::isBust)
+    private List<User> getBlackjackPlayers() {
+        return players.stream()
+                .filter(User::isBlackjack)
                 .collect(Collectors.toList());
+    }
+
+    private void handleUsersWhenPlayersAreBlackjack(List<User> blackjackPlayers) {
+        handleWinners(blackjackPlayers, PROFIT_ONE_POINT_FIVE);
+        handleLosers(players, LOSS_ONE);
+        handleDealer(dealer, dealerProfit);
+    }
+
+    private void handleUsersWhenDealerIsBlackjack(List<User> blackjackPlayers) {
+        handleWinners(blackjackPlayers, PROFIT_ZERO);
+        handleLosers(players, LOSS_ONE);
+        handleDealer(dealer, dealerProfit);
+    }
+
+    public void decideGameResult() {
+        List<User> bustPlayers = getBustPlayers();
 
         handleLosers(bustPlayers, LOSS_ONE);
 
@@ -66,13 +76,23 @@ public class GameResult {
         }
 
         if (dealer.isBust()) {
-            handleWinners(players, PROFIT_ONE);
-            handleDealer(dealer, dealerProfit);
+            handleUsersWhenDealerIsBust();
         }
 
 //        System.out.println("아직 미구현");
 //        System.out.println("size : " + gameResult.size());
 
+    }
+
+    private List<User> getBustPlayers() {
+        return players.stream()
+                .filter(User::isBust)
+                .collect(Collectors.toList());
+    }
+
+    private void handleUsersWhenDealerIsBust() {
+        handleWinners(players, PROFIT_ONE);
+        handleDealer(dealer, dealerProfit);
     }
 
     public void isInvalid() {
