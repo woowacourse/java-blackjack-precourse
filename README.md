@@ -128,6 +128,5 @@
 ## 프로그램 결과 화면 (커멘드라인 실행 화면)
 
 <div>
-![스크린샷 2019-12-17 오후 5 49 24](https://user-images.githubusercontent.com/49060374/70979847-a2492380-20f5-11ea-8618-8b71937cc579.png)
+<img width="900" alt="blackjack _result" src="https://user-images.githubusercontent.com/49060374/70980079-08ce4180-20f6-11ea-8649-cb42d5de3f0f.png">
 </div>
-
