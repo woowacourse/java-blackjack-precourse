@@ -43,7 +43,12 @@ public class Card {
 	}
 
 	public String getCardData() {
-		return symbol.getScore()+type.getName();
+		int numScore=symbol.getScore();
+		String score=Integer.toString(numScore);
+		if(numScore==1){
+			score="A";
+		}
+		return score+type.getName();
 	}
 
 	public int getSymbolScore() {
