@@ -16,7 +16,6 @@ public class Game {
 
     private static final String USERNAME_DELEMITER = ",";
     private static final String USER_BURSTED_STATEMENT = "해당 플레이어는 죽었습니다.";
-    private static final String WRONG_ANSWER_STATEMENT = "응답은 y 또는 n만 가능합니다.";
     private static final String DEALER_ADD_MORE_CARD_STATEMENT = "딜러는 16이하라 한 장의 카드를 더 받았습니다.";
     private static final String MORE_CARD_STRING = "y";
     private static final String NO_MORE_CARD_STRING = "n";
@@ -36,12 +35,19 @@ public class Game {
 
     private List<Player> initPlayers() {
         List<String> names = initNames();
-        return names.stream().map(this::initPlayer).collect(Collectors.toList());
+        validateDuplication(names);
+        return names.stream().map(String::trim).map(this::initPlayer).collect(Collectors.toList());
     }
 
     private List<String> initNames() {
         String namesInputFromUser = GameInputScanner.askNamesFromUser();
         return Arrays.asList(namesInputFromUser.split(USERNAME_DELEMITER));
+    }
+
+    private void validateDuplication(List<String> names) {
+        if (names.stream().map(String::trim).distinct().count() != names.size()) {
+            throw new InvalidException(InvalidException.PLAYER_NAME_DUPLICATE_EXCEPTION);
+        }
     }
 
     private Player initPlayer(String name) {
@@ -106,7 +112,7 @@ public class Game {
 
     private boolean wantMoreCard(Player player, Deck deck) {
         String answer = GameInputScanner.askAddOneMoreCard(player);
-        return checkAnswer(player, deck, answer);
+        return checkAnswer(player, deck, answer.trim());
     }
 
     private boolean checkAnswer(Player player, Deck deck, String answer) {

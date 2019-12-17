@@ -22,7 +22,7 @@ public class Player extends User {
         if (bettingMoney <= MINIMUM_BETTINGMONEY) {
             throw new InvalidException(InvalidException.NEGATIVE_BETTING_EXCEPTION);
         }
-        this.name = name.trim();
+        this.name = name;
         this.bettingMoney = bettingMoney;
     }
 
