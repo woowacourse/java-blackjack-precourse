@@ -40,7 +40,10 @@ public class Card {
     	return symbol.getScore();
     }
     
-    public String getSymbol() {
-    	return symbol.getName();
+    public boolean isAce() {
+    	if(symbol.getName().equals("A")) {
+    		return true;
+    	}
+    	return false;
     }
 }

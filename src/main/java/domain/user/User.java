@@ -48,17 +48,17 @@ public abstract class User {
 	}
 	
 	public boolean hasAce() {
-		boolean flag = false;
+		boolean hasAce = false;
 
 		for (Card card : cards) {
-			flag = checkAce(card, flag);
+			hasAce = isAce(card, hasAce);
 		}
 		
-		return flag;
+		return hasAce;
 	}
 	
-	public boolean checkAce(Card card, boolean flag) {
-		if(card.getSymbol().equals("A") || flag) {
+	public boolean isAce(Card card, boolean ace) {
+		if(card.isAce() || ace) {
 			return true;
 		}
 		return false;
@@ -75,7 +75,7 @@ public abstract class User {
 		return false;
 	}
 	
-	public boolean checkBlackJack() {
+	public boolean isBlackJack() {
 		if(cards.size() == blackJackCardCnt && getScore() == Jack) {
 			return true;
 		}

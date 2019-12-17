@@ -23,7 +23,7 @@ public class Player extends User {
     }
     
     public double getBettingMoney() {
-    	if (checkBlackJack()) {
+    	if (isBlackJack()) {
     		return bettingMoney * 1.5;
     	}
     	return bettingMoney;

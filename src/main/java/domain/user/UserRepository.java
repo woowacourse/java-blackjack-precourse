@@ -16,7 +16,7 @@ public class UserRepository {
 	
 	private List<String> playerNameList = new ArrayList<String>();
 	private List<User> userList = new ArrayList<User>();
-	private List<Double> profit = new ArrayList<Double>();
+	private List<Double> profitList = new ArrayList<Double>();
 			
 	public void makePlayerName(String name) {
 		String[] names = name.split(",", -1);
@@ -96,19 +96,19 @@ public class UserRepository {
 		System.out.println();
 	}
 	
-	public void makeProfitResult() {
+	public void makeProfitList() {
 		int criteria = userList.get(dealerInx).getScore();
 		
 		for (int i = 0; i < userList.size(); i++) {
-			profit.add((double)0);
+			profitList.add((double)0);
 		}
 		
 		for (int i = playerFirstInx; i < userList.size(); i++) {
-			compareResult(i, criteria);
+			compareScore(i, criteria);
 		}
 	}
 	
-	public void compareResult(int playerInx, int criteria) {		
+	public void compareScore(int playerInx, int criteria) {		
 		if (!isDraw(playerInx, criteria) || playerAlwaysWin(playerInx)) {
 			modifyProfit(getWinnerInx(playerInx, criteria), 
 					getLoserInx(getWinnerInx(playerInx, criteria), playerInx), 
@@ -117,8 +117,8 @@ public class UserRepository {
 	}
 	
 	public boolean playerAlwaysWin(int playerInx) {
-		if(userList.get(playerInx).checkBlackJack() 
-				&& !userList.get(dealerInx).checkBlackJack()) {
+		if(userList.get(playerInx).isBlackJack() 
+				&& !userList.get(dealerInx).isBlackJack()) {
 			return true;
 		}
 		return false;
@@ -132,8 +132,8 @@ public class UserRepository {
 	}
 	
 	public void modifyProfit(int winnerInx, int loserInx, double money) {
-		profit.set(winnerInx, profit.get(winnerInx) + money);
-		profit.set(loserInx, profit.get(loserInx) - money);
+		profitList.set(winnerInx, profitList.get(winnerInx) + money);
+		profitList.set(loserInx, profitList.get(loserInx) - money);
 	}
 	
 	public int getWinnerInx(int playerInx, int criteria) {
@@ -159,7 +159,7 @@ public class UserRepository {
 		return playerInx;
 	}
 	
-	public List<Double> getProfit() {
-		return profit;
+	public List<Double> getProfitList() {
+		return profitList;
 	}
 }

@@ -30,8 +30,8 @@ public class Game {
 		firstDealOut();
 		secondDealOut();
 		userRepository.showAllResult();
-		userRepository.makeProfitResult();
-		ViewOutput.showEachProfit(userRepository.getUserList(), userRepository.getProfit());
+		userRepository.makeProfitList();
+		ViewOutput.showEachProfit(userRepository.getUserList(), userRepository.getProfitList());
 	}
 	
 	public void firstDealOut() {
