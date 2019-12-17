@@ -5,7 +5,6 @@ import domain.card.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -33,7 +32,17 @@ public class Player {
         return allCards;
     }
 
+    public void printNameAndCards(){
+        List<String> cardNames = new ArrayList<>();
+        for( Card card : this.cards){
+            cardNames.add(card.toString());
+        }
+        System.out.print(this.name + ": ");
+        System.out.println(String.join(",", cardNames));
+    }
+
     public String toString(){
+        return this.name;
     }
 
 }

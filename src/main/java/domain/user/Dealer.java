@@ -27,4 +27,13 @@ public class Dealer {
         }
         return cards;
     }
+
+    public void printNameAndCards(){
+        List<String> cardNames = new ArrayList<>();
+        for( Card card : this.cards){
+            cardNames.add(card.toString());
+        }
+        System.out.print("딜러: ");
+        System.out.println(String.join(",", cardNames));
+    }
 }

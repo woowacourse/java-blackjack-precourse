@@ -62,20 +62,26 @@ public class GameManager {
             cards = each.generateCards(initialNumOfCards, cards);
         }
         cards = dealer.generateCards(initialNumOfCards, cards);
-        printAnouncement();
+        printInitialAnnouncement();
         printCurrentCards();
     }
 
-    public void printAnouncement() {
-
+    public void printInitialAnnouncement() {
+        System.out.print("딜러와 ");
+        List<String> playerNames = new ArrayList<>();
+        for(Player each: players){
+            playerNames.add(each.toString());
+        }
+        System.out.print(String.join(delimiter, playerNames));
+        System.out.println("에게 2장씩 나누었습니다.");
     }
 
     public void printCurrentCards() {
-
+        dealer.printNameAndCards();
         for (Player each : players) {
-            System.out.println();
+            each.printNameAndCards();
         }
-
+        System.out.println();
     }
 
 
