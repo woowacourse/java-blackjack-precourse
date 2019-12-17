@@ -19,7 +19,7 @@
 * isValidYN : 유효한 대답인지(y/n) 확인 
 * addCardForDealer : 딜러는 게임조건에 따라 알아서 카드를 추가하게 하기
 
-## 결과 출력 ##
+### 결과 출력 ###
 * showResultValue : 카드 최종 결과 보여주기 
 * calcResultValue : 카드 합 계산하기. 21초과인 경우는 0, 21인 경우는 카드 갯수가 2개인 경우 22, 그 외의 경우는 합 그대로 계산
 * handleAce : 상황에 따라 Ace의 값 다르게 계산하기
