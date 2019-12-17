@@ -33,7 +33,7 @@ public class Blackjack {
         blackjack.startGame();
         if (blackjack.isFinish == 1) {
             showWinner(result);
-            //System.exit(0);
+            System.exit(0);
         } else if (blackjack.isFinish == 0) {
             blackjack.gameSet();
         }
