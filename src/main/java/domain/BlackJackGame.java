@@ -51,6 +51,7 @@ public class BlackJackGame {
 	}
     }
 
+    
     public void getCardFirst() {
 	for (int i = 0; i < 2; i++) {
 	    getCard(dealer);
@@ -93,20 +94,33 @@ public class BlackJackGame {
 	this.cardList.remove(randindex);
 	return c;
     }
+    
+    public void selectMoreCard() {
+	for (int i = 0; i < player.length; i++) {
+	    getPlayerMoreCard(player[i]);
+	    message.showCardStatus(player[i]);
+	}
+    }
+    
 
+    
+    public boolean checkFirstBlackJack() {
+	if (!score.isBlackJack(score.getSum(dealer.getCards()))) { // 딜러가 블랙잭 아닌경우
+	    return checkOnlyPlayerBlackJack();
+	}
+	if (checkPlayerBlackJack()) { // 딜러와 플레이어 둘 다 블랙잭인 경우 ->변경사항 없음
+	    return true;
+	}
+	setDealerMoneyBlackJack();
+	return true;
+    }
+    
     public boolean checkFirstTurn() {
 	if (checkFirstBlackJack()) {
 	    message.showFinalScore(dealerMoney, playerMoney, player);
 	    return true; 		// 게임종료
 	}
 	return false;
-    }
-
-    public void selectMoreCard() {
-	for (int i = 0; i < player.length; i++) {
-	    getPlayerMoreCard(player[i]);
-	    message.showCardStatus(player[i]);
-	}
     }
 
     public void setFinalMoney() {
@@ -137,17 +151,7 @@ public class BlackJackGame {
 	}
     }
 
-    public boolean checkFirstBlackJack() {
-	if (!score.isBlackJack(score.getSum(dealer.getCards()))) { // 딜러가 블랙잭 아닌경우
-	    return checkOnlyPlayerBlackJack();
-	}
-	if (checkPlayerBlackJack()) { // 딜러와 플레이어 둘 다 블랙잭인 경우 ->변경사항 없음
-	    return true;
-	}
-	setDealerMoneyBlackJack();
-	return true;
-    }
-
+    
     public void setDealerMoneyBlackJack() {
 	for (int i = 0; i < player.length; i++) { // 딜러만 블랙잭인경우
 	    this.dealerMoney += playerMoney[i];
