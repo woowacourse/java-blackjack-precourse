@@ -38,7 +38,20 @@ public class Player {
         return this.bettingMoney;
     }
 
-    public int getScore() {
+    /*
+    score를 반환하며 에이스도 처리해준다.
+     */
+    public int getScoreHaveAce() {
+        for (int i = 0; i < cards.size(); i ++) {
+            if (cards.get(i).getScore() == 1
+                    && getScore() <= 10) {
+                return getScore() + 10;
+            }
+        }
+        return getScore();
+    }
+
+    private int getScore() {
         int resultScore = 0;
         for (int i = 0; i < cards.size(); i ++) {
             resultScore += this.cards.get(i).getScore();

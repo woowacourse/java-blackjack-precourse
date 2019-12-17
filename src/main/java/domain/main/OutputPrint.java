@@ -75,7 +75,7 @@ public class OutputPrint {
     }
 
     private boolean isBlackJackPlayer(Player player) {
-        return player.getScore() == BLACK_JACK_NUMBER;
+        return player.getScoreHaveAce() == BLACK_JACK_NUMBER;
     }
 
     private boolean isBlackJackDealer() {
@@ -130,13 +130,13 @@ public class OutputPrint {
     }
 
     private void isNotBust(int playerNumber, Player player) {
-        if (player.getScore() <= BLACK_JACK_NUMBER) {
+        if (player.getScoreHaveAce() <= BLACK_JACK_NUMBER) {
             getMoreCard(playerNumber, player);
         }
     }
 
     private boolean isBust(Player player) {
-        return player.getScore() > BLACK_JACK_NUMBER;
+        return player.getScoreHaveAce() > BLACK_JACK_NUMBER;
     }
 
     public void dealerLessThan16() {
@@ -177,11 +177,11 @@ public class OutputPrint {
     private void isNotBustDealer(Player player) {
         if ((dealer.getScore() <= BLACK_JACK_NUMBER)
                 && !isBust(player) && !isBlackJackPlayer(player)) {
-            if (dealer.getScore() > player.getScore()) {
+            if (dealer.getScore() > player.getScoreHaveAce()) {
                 dealerMoney += player.getBettingMoney();
                 player.setBettingMoney(- player.getBettingMoney());
             }
-            if (dealer.getScore() < player.getScore()) {
+            if (dealer.getScore() < player.getScoreHaveAce()) {
                 dealerMoney -= player.getBettingMoney()*0.5;
                 player.setBettingMoneyMultiple();
             }
