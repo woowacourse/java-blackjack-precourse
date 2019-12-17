@@ -15,7 +15,6 @@ public class BlackJackGame {
     }
 
     private void playGame() {
-        boolean loop = false;
         startGame();
         proceedGame();
         endGame();

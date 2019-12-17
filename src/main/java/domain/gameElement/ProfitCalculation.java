@@ -56,17 +56,17 @@ public class ProfitCalculation {
     }
 
     private void dealerWinPlayerProfit(Dealer dealer, Player player) {
-        dealer.setProfit(player.getBettingMoney());
-        player.setProfit(-player.getBettingMoney());
+        dealer.addProfit(player.getBettingMoney());
+        player.addProfit(-player.getBettingMoney());
     }
 
     private void dealerLosePlayerProfit(Dealer dealer, Player player) {
-        dealer.setProfit(-player.getBettingMoney());
-        player.setProfit(player.getBettingMoney());
+        dealer.addProfit(-player.getBettingMoney());
+        player.addProfit(player.getBettingMoney());
     }
 
     private void playerBlackJackProfit(Dealer dealer, Player player) {
-        dealer.setProfit(-player.getBettingMoney() * 1.5);
-        player.setProfit(player.getBettingMoney() * 1.5);
+        dealer.addProfit(-player.getBettingMoney() * 1.5);
+        player.addProfit(player.getBettingMoney() * 1.5);
     }
 }

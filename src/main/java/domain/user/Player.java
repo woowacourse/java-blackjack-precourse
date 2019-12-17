@@ -33,5 +33,4 @@ public class Player extends User {
     public void addCard(Card card) {
         cards.add(card);
     }
-
 }

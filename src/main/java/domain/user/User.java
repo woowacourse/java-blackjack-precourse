@@ -16,19 +16,20 @@ public abstract class User {
         return false;
     }
 
-    public void userCardsInfo(List<Card> cards, String name) {
-        System.out.print(name + "카드 : ");
+    public String userCardsInfo(List<Card> cards) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < cards.size() - 1; i++) {
-            System.out.print(cards.get(i).toString() + ", ");
+            stringBuilder.append(cards.get(i).toString() + ", ");
         }
-        System.out.println(cards.get(cards.size() - 1).toString());
+        stringBuilder.append(cards.get(cards.size() - 1));
+        return stringBuilder.toString();
     }
 
     public int getSumNumbers() {
         return sumNumbers;
     }
 
-    public void setSumNumbers(int sumNumbers) {
+    public void addSumNumbers(int sumNumbers) {
         this.sumNumbers += sumNumbers;
     }
 
@@ -36,7 +37,7 @@ public abstract class User {
         return profit;
     }
 
-    public void setProfit(double profit) {
+    public void addProfit(double profit) {
         this.profit += profit;
     }
 }

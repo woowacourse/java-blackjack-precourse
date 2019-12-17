@@ -15,11 +15,12 @@ public class HandOutCard {
     public void firstHandOutCards(List<User> users, int step) {
         handOutCards((Dealer) users.get(0));
         handOutCards((Dealer) users.get(0));
-        ((Dealer) users.get(0)).userCardsInfo(((Dealer) users.get(0)).getCards());
+        System.out.println("딜러카드 : " + ((Dealer) users.get(0)).userCardsInfo(((Dealer) users.get(0)).getCards()));
         for (int i = 1; i < users.size(); i++) {
             handOutCards((Player) users.get(i));
             handOutCards((Player) users.get(i));
-            users.get(i).userCardsInfo(((Player) users.get(i)).getCards(), ((Player) users.get(i)).getName());
+            System.out.println(((Player) users.get(i)).getName()+ "카드 : "
+                    + users.get(i).userCardsInfo(((Player) users.get(i)).getCards()));
         }
         new UsersSumNumbers().usersSumNumbers(users, step);
     }
@@ -38,7 +39,7 @@ public class HandOutCard {
     private void playerHandOutCards(Player player, int step) {
         while (player.getSumNumbers() < 21 && askHandOutCards(player)) {
             handOutCards(player);
-            player.userCardsInfo(player.getCards(), player.getName());
+            System.out.println(player.getName() + "카드 : " + player.userCardsInfo(player.getCards()));
             new UsersSumNumbers().usersSumNumbers(player, step);
         }
     }

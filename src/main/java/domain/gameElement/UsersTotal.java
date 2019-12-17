@@ -14,14 +14,13 @@ public class UsersTotal {
     }
 
     private void userTotalCards(Dealer dealer) {
-        System.out.println();
-        dealer.userCardsInfo(dealer.getCards(), "딜러");
-        System.out.println("    - 결과 : " + dealer.getSumNumbers());
+        System.out.println("\n딜러카드 : " + dealer.userCardsInfo(dealer.getCards()) 
+                + "- 결과 : " + dealer.getSumNumbers());
     }
 
     private void userTotalCards(Player player) {
-        player.userCardsInfo(player.getCards(), player.getName());
-        System.out.println("    - 결과 : " + player.getSumNumbers());
+        System.out.println("\n" + player.getName() + "카드 : " + player.userCardsInfo(player.getCards())
+                + " - 결과 : " + player.getSumNumbers());
     }
 
     public void usersTotalProfit(List<User> users) {

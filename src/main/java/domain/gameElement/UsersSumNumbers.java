@@ -27,17 +27,17 @@ public class UsersSumNumbers {
     private void dealerSumNumbers(Dealer dealer, int step) {
         List<Card> cards = dealer.getCards();
         if (step == 1) {
-            dealer.setSumNumbers(cardsSumNumbers("Dealer", cards.get(cards.size() - 2)));
+            dealer.addSumNumbers(cardsSumNumbers("Dealer", cards.get(cards.size() - 2)));
         }
-        dealer.setSumNumbers(cardsSumNumbers("Dealer", cards.get(cards.size() - 1)));
+        dealer.addSumNumbers(cardsSumNumbers("Dealer", cards.get(cards.size() - 1)));
     }
 
     private void playerSumNumbers(Player player, int step) {
         List<Card> cards = player.getCards();
         if (step == 1) {
-            player.setSumNumbers(cardsSumNumbers(player.getName(), cards.get(cards.size() - 2)));
+            player.addSumNumbers(cardsSumNumbers(player.getName(), cards.get(cards.size() - 2)));
         }
-        player.setSumNumbers(cardsSumNumbers(player.getName(), cards.get(cards.size() - 1)));
+        player.addSumNumbers(cardsSumNumbers(player.getName(), cards.get(cards.size() - 1)));
     }
 
     private int cardsSumNumbers(String name, Card card) {
