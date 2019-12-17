@@ -1,5 +1,6 @@
 package domain.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.*;
@@ -11,17 +12,18 @@ public class BlackJack {
     private Deck deck;
 
     public BlackJack() {
-        dealer = new Dealer();
-        user = Input.setPlayerList();
+        user = new ArrayList<>();
+        user.add(new Dealer());
+        user.addAll(Input.setPlayerList());
+        dealer = (Dealer)user.get(0);
         deck = new Deck();
     }
 
     public void start() {
-        dealer.addCard(deck.draw());
-        dealer.addCard(deck.draw());
         for (Player player : user) {
             player.addCard(deck.draw());
             player.addCard(deck.draw());
+            player.showCards();
         }
     }
 
