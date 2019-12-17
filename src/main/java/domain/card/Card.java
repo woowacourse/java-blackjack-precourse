@@ -25,8 +25,8 @@ public class Card {
 		return symbol.getName() + type.getTypeName();
 	}
 
-	public Symbol getSymbol() {
-		return symbol;
+	public boolean isAce() {
+		return symbol.equals(Symbol.ACE);
 	}
 
 	@Override

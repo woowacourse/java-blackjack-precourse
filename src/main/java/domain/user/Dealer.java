@@ -13,6 +13,11 @@ import java.util.List;
  */
 public class Dealer {
 	private static final String NAME = "딜러";
+	private static final int INIT_CARD_SIZE = 2;
+	private static final int BLACKJACK_SCORE = 21;
+	private static final int BURST_SCORE = 22;
+	private static final int ACE_BONUS_SCORE = 10;
+	private static final int DEALER_STAND_SCORE = 16;
 	private final List<Card> cards = new ArrayList<>();
 
 	public Dealer() {
@@ -29,7 +34,7 @@ public class Dealer {
 	}
 
 	public boolean bust() {
-		if (sumCardScore() > 21) {
+		if (sumCardScore() >= BURST_SCORE) {
 			return true;
 		}
 		return false;
@@ -37,8 +42,8 @@ public class Dealer {
 
 	public int sumCardScore() {
 		if (containAce()) {
-			int sum_ace_eleven = sumScore() + 10;
-			if (sum_ace_eleven <= 21) {
+			int sum_ace_eleven = sumScore() + ACE_BONUS_SCORE;
+			if (sum_ace_eleven < BURST_SCORE) {
 				return sum_ace_eleven;
 			}
 		}
@@ -46,32 +51,19 @@ public class Dealer {
 	}
 
 	private int sumScore() {
-		int sum = 0;
-
-		for (Card card : cards) {
-			sum += card.getScore();
-		}
+		int sum = cards.stream().map(Card::getScore).reduce(Integer::sum).get();
 		return sum;
 	}
 
 	public boolean isBlackJack() {
-		if (cards.size() == 2 && containAce() && sumCardScore() == 21) {
+		if (cards.size() == INIT_CARD_SIZE && containAce() && sumCardScore() == BLACKJACK_SCORE) {
 			return true;
 		}
 		return false;
 	}
 
 	private boolean containAce() {
-		for (Card card : cards) {
-			if (isAce(card)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean isAce(Card card) {
-		return card.getSymbol().equals(Symbol.ACE);
+		return cards.stream().anyMatch(Card::isAce);
 	}
 
 	public void checkCardNumber(CardSupplier cardSupplier) {
@@ -90,7 +82,7 @@ public class Dealer {
 	}
 
 	public boolean isLessThanSeventeen() {
-		return sumCardScore() <= 16;
+		return sumCardScore() <= DEALER_STAND_SCORE;
 	}
 
 	public String getDealerCards() {

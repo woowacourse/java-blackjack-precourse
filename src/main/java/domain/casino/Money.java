@@ -8,11 +8,13 @@ import domain.user.Player;
 import domain.view.OutputView;
 
 public class Money {
+	private static final double BLACKJACK_EARNING_RATE = 1.5;
+	private static final double ZERO = 0.0;
 
 	private HashMap<String, Double> earning = new HashMap<>();
 
 	public Money(List<Player> playerList) {
-		earning.put(Dealer.getNAME(), 0.0);
+		earning.put(Dealer.getNAME(), ZERO);
 		for (Player player : playerList) {
 			earning.put(player.getName(), player.getBettingMoney());
 		}
@@ -50,7 +52,7 @@ public class Money {
 
 	private void winAsBlackJack(Player player) {
 		if (player.isBlackJack()) {
-			earning.put(player.getName(), player.getBettingMoney() * 1.5);
+			earning.put(player.getName(), player.getBettingMoney() * BLACKJACK_EARNING_RATE);
 		}
 	}
 
@@ -61,25 +63,25 @@ public class Money {
 	}
 
 	private void winDealer(Player player, Dealer dealer) {
-		if (!player.isBlackJack() && player.sumCardScore() <= 21 && player.sumCardScore() > dealer.sumCardScore()) {
+		if (!player.isBlackJack() && !player.bust() && player.sumCardScore() > dealer.sumCardScore()) {
 			earning.put(player.getName(), player.getBettingMoney());
 		}
 	}
 
 	private void drawWithDealerAsBlackJack(Player player, Dealer dealer) {
 		if (player.isBlackJack() && dealer.isBlackJack()) {
-			earning.put(player.getName(), 0.0);
+			earning.put(player.getName(), ZERO);
 		}
 	}
 
 	private void drawWithDealer(Player player, Dealer dealer) {
 		if (!player.isBlackJack() && player.sumCardScore() == dealer.sumCardScore()) {
-			earning.put(player.getName(), 0.0);
+			earning.put(player.getName(), ZERO);
 		}
 	}
 
 	private void loseToDealer(Player player, Dealer dealer) {
-		if (player.sumCardScore() <= 21 && player.sumCardScore() < dealer.sumCardScore()) {
+		if (!player.bust() && player.sumCardScore() < dealer.sumCardScore()) {
 			earning.put(player.getName(), -player.getBettingMoney());
 		}
 	}

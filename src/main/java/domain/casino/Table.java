@@ -12,6 +12,7 @@ import domain.view.InputView;
 import domain.view.OutputView;
 
 public class Table {
+	private static final int INIT_CARD_SIZE = 2;
 	private static List<Card> cards = CardFactory.create();
 	private List<Player> playerList;
 	private Dealer dealer = new Dealer();
@@ -26,10 +27,10 @@ public class Table {
 
 	// 플레이어 객체 생성 : 배팅 금액, 이름 등록
 	private void getPlayers() {
-		String[] playerNames = InputView.inputPlayerNames();
-		playerList = new ArrayList<>(playerNames.length);
+		List<String> playerNames = InputView.inputPlayerNames();
+		playerList = new ArrayList<>(playerNames.size());
 		for (String playerName : playerNames) {
-			int bettingMoney = InputView.getBettingMoney(playerName);
+			double bettingMoney = InputView.getBettingMoney(playerName);
 			Player player = new Player(playerName, bettingMoney);
 			playerList.add(player);
 		}
@@ -37,7 +38,7 @@ public class Table {
 
 	// 카드 지급 : 딜러, 플레이어
 	private void distributeCards() {
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < INIT_CARD_SIZE; i++) {
 			distributeCardsToDealer();
 			distributeCardsToPlayers();
 		}

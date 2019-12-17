@@ -1,71 +1,94 @@
 package domain.view;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import domain.user.Player;
 
 public class InputView {
+	private static final String GET_PLAYERS_NAME = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
+	private static final String GET_BETTING_MONEY = "의 배팅 금액은?";
+	private static final String ASK_GET_MORE_CARD = ", 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)";
+	private static final String INVALID_INPUT_ERROR_MSG = "입력값 형식이 잘못 되었습니다.";
+	private static final String INVALID_NUMBER_ERROR_MSG = "숫자가 아닙니다. 배팅금액을 올바른 형식으로 입력해주세요(ex. 1000, 150.2 등)";
+	private static final String NEGATIVE_NUMBER_ERROR_MSG = "0 또는 음수는 입력할 수 없습니다.";
+	private static final String DUPLICATED_NAME_ERROR_MSG = "이름은 중복될 수 없습니다.";
+	private static final String COMMA = ",";
+	private static final String DOUBLE_COMMA = ",,";
+	private static final String GET_MORE_CARD = "y";
+	private static final String NO_MORE_CARD = "n";
+	private static final double ZERO = 0.0;
+
 	private static final Scanner scanner = new Scanner(System.in);
 
-	public static String[] inputPlayerNames() {
-		String[] playerNames;
-
-		do {
-			System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
-			String input = scanner.nextLine().trim();
-			playerNames = input.split(",");
-		} while (isNull(playerNames) || isInvalidInput(playerNames));
-		return playerNames;
-	}
-
-	private static boolean isNull(String[] players) {
-		for (String player : players) {
-			if (player.isEmpty()) {
-				System.out.println("한 명 이상의 플레이어를 입력해주세요.");
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private static boolean isInvalidInput(String[] players) {
-		if (players.length == 0) {
-			System.out.println("입력값 형식이 잘못 되었습니다.");
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean isValidNumber(int number) {
-		if (number > 0) {
-			return true;
-		}
-		System.out.println("1이상의 양수만 입력해주세요");
-		return false;
-	}
-
-	public static int getBettingMoney(String player) {
+	public static List<String> inputPlayerNames() {
+		System.out.println(GET_PLAYERS_NAME);
 		try {
-			System.out.println(player + "의 배팅 금액은?");
-			int bettingMoney = Integer.parseInt(scanner.nextLine());
-			if (!isValidNumber(bettingMoney)) {
+			String input = scanner.nextLine().trim();
+			List<String> playerNames = Arrays.asList(input.replaceAll("\\s", "").split(COMMA));
+			validateInput(input, playerNames);
+			return playerNames;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return inputPlayerNames();
+		}
+	}
+
+	private static void validateInput(String input, List<String> players) {
+		isInvalidInput(input);
+		isInvalidPlayerName(players);
+		isDuplicatedPlayerName(players);
+	}
+
+	private static void isInvalidInput(String input) {
+		if (input.isEmpty() || input.contains(DOUBLE_COMMA) || input.endsWith(COMMA)) {
+			throw new InputMismatchException(INVALID_INPUT_ERROR_MSG);
+		}
+	}
+
+	private static void isInvalidPlayerName(List<String> players) {
+		for (String player : players) {
+			isInvalidInput(player);
+		}
+	}
+
+	private static void isDuplicatedPlayerName(List<String> players) {
+		if (players.size() != new HashSet<String>(players).size()) {
+			throw new InputMismatchException(DUPLICATED_NAME_ERROR_MSG);
+		}
+	}
+
+	private static boolean isPositiveNumber(double number) {
+		if (number > ZERO) {
+			return true;
+		}
+		System.out.println(NEGATIVE_NUMBER_ERROR_MSG);
+		return false;
+	}
+
+	public static double getBettingMoney(String player) {
+		System.out.println(player + GET_BETTING_MONEY);
+		try {
+			double bettingMoney = Double.parseDouble(scanner.nextLine());
+			if (!isPositiveNumber(bettingMoney)) {
 				return getBettingMoney(player);
 			}
 			return bettingMoney;
 		} catch (IllegalArgumentException e) {
-			System.out.println("입력값이 올바르지 않습니다.");
+			System.out.println(INVALID_NUMBER_ERROR_MSG);
 			return getBettingMoney(player);
 		}
 	}
 
 	public static boolean getMoreCard(Player player) {
-		System.out.println(player.getName() + ", 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+		System.out.println(player.getName() + ASK_GET_MORE_CARD);
 		String answer = scanner.nextLine();
-		// y,n 이외의 입력값에 대해 예외처리하기
-		if (answer.equals("y")) {
-			return true;
+		if (!answer.equals(GET_MORE_CARD) && !answer.equals(NO_MORE_CARD)) {
+			return getMoreCard(player);
 		}
-		return false;
+		return answer.equals(GET_MORE_CARD);
 	}
-
 }

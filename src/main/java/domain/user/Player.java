@@ -13,6 +13,11 @@ import java.util.List;
  * 게임 참여자를 의미하는 객체
  */
 public class Player {
+	private static final int INIT_CARD_SIZE = 2;
+	private static final int BLACKJACK_SCORE = 21;
+	private static final int BURST_SCORE = 22;
+	private static final int ACE_BONUS_SCORE = 10;
+
 	private final String name;
 	private final double bettingMoney;
 	private final List<Card> cards = new ArrayList<>();
@@ -37,7 +42,7 @@ public class Player {
 	}
 
 	public boolean bust() {
-		if (sumCardScore() > 21) {
+		if (sumCardScore() >= BURST_SCORE) {
 			return true;
 		}
 		return false;
@@ -45,8 +50,8 @@ public class Player {
 
 	public int sumCardScore() {
 		if (containAce()) {
-			int sum_ace_eleven = sumScore() + 10;
-			if (sum_ace_eleven <= 21) {
+			int sum_ace_eleven = sumScore() + ACE_BONUS_SCORE;
+			if (sum_ace_eleven < BURST_SCORE) {
 				return sum_ace_eleven;
 			}
 		}
@@ -54,32 +59,19 @@ public class Player {
 	}
 
 	private int sumScore() {
-		int sum = 0;
-
-		for (Card card : cards) {
-			sum += card.getScore();
-		}
+		int sum = cards.stream().map(Card::getScore).reduce(Integer::sum).get();
 		return sum;
 	}
 
 	public boolean isBlackJack() {
-		if (cards.size() == 2 && containAce() && sumCardScore() == 21) {
+		if (cards.size() == INIT_CARD_SIZE && containAce() && sumCardScore() == BLACKJACK_SCORE) {
 			return true;
 		}
 		return false;
 	}
 
 	private boolean containAce() {
-		for (Card card : cards) {
-			if (isAce(card)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean isAce(Card card) {
-		return card.getSymbol().equals(Symbol.ACE);
+		return cards.stream().anyMatch(Card::isAce);
 	}
 
 	public void checkCardNumber(CardSupplier cardSupplier) {
