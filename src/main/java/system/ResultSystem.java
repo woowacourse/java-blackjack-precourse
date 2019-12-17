@@ -4,6 +4,7 @@ import domain.user.Dealer;
 import domain.user.Player;
 import view.OutputView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class ResultSystem {
 
     public ResultSystem(Dealer dealer, List<Player> playerList) {
         this.dealer = dealer;
-        this.playerList = playerList;
+        this.playerList = new ArrayList<>(playerList);
     }
 
     public void getResult() {
