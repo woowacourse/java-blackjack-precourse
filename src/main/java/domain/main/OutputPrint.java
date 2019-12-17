@@ -182,7 +182,7 @@ public class OutputPrint {
                 player.setBettingMoney(- player.getBettingMoney());
             }
             if (dealer.getScore() < player.getScoreHaveAce()) {
-                dealerMoney -= player.getBettingMoney()*0.5;
+                dealerMoney -= player.getBettingMoney() * HALF;
                 player.setBettingMoneyMultiple();
             }
         }
