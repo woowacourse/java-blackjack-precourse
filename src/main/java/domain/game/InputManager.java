@@ -155,14 +155,14 @@ public class InputManager {
             print(Message.makeMessagePlayerWantMoreCard(player));
             playerChoice = scanner.nextLine().trim();
         } while (!checkPlayerInputIsYesOrNo(playerChoice));
-        if (playerChoice == YES) {
+        if (playerChoice.equals(YES)) {
             return true;
         }
         return false;
     }
 
     private boolean checkPlayerInputIsYesOrNo(String playerChoice) {
-        if ((playerChoice == YES) || (playerChoice == NO)) {
+        if (playerChoice.equals(YES) || playerChoice.equals(NO)) {
             return true;
         }
         print(ErrorMessage.INPUT_IS_NOT_YES_OR_NO);
