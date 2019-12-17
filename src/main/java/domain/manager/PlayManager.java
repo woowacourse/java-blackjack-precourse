@@ -63,7 +63,7 @@ public class PlayManager {
         List<Integer> blackjackIndexList = makeBlackjackIndexList();
         boolean blackjackStatus = false;
         if (blackjackIndexList.size() > 0) {
-            blackjackStatus = settle(blackjackIndexList);
+            blackjackStatus = settleMidway(blackjackIndexList);
         }
         return blackjackStatus;
     }
@@ -93,7 +93,7 @@ public class PlayManager {
         }
     }
 
-    private boolean settle(List<Integer> blackjackIndexList) {
+    private boolean settleMidway(List<Integer> blackjackIndexList) {
         if (blackjackIndexList.contains(dealerIndex)) {
             checkLostPlayer(blackjackIndexList);
             printFinalResult();
@@ -105,4 +105,9 @@ public class PlayManager {
         return false;
     }
 
+    private void checkLostPlayer(List<Integer> blackjackIndexList) {
+        for (int playerIndex = 0; playerIndex < players.size(); playerIndex++) {
+            updateBenefitToLostPlayers(blackjackIndexList, playerIndex);
+        }
+    }
 }
