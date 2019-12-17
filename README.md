@@ -30,7 +30,7 @@
 - else 예약어 사용 X(2주차와 동일)
 
 - 메소드의 길이가 **10 라인**을 넘지 않도록 구현<br>
-    최대한 10라인을 넘지 않기 위해 노력, 정말 힘든경우 15라인까지 허용
+    최대한 10라인을 넘지 않기 위해 노력, 정말 힘든경우 15라인까지 허용<br>
     함수가 한 가지 일만 잘 하도록 구현
 - indent depth를 **1**까지 허용<br>
     최대한 1을 유지하기 위해 노력하고, 정말 힘든 경우 2까지 허용한다.
@@ -62,16 +62,143 @@ public class Card {
 	//추가 구현..
 }
 ```
-
-- [ ] 모양 4개 각 13가지 카드 등 정보를 저장하는 상수 설정
-- [ ] 생성자에 입력받은 symbol과 type가 유효한지 검사하는 함수
-- [ ] 1 ~ 52 사이의(각 모양 별 13장의 카드 * 4가지 모양)숫자를 입력하면 해당하는 카드를 리턴하는 함수
-- [ ] 카드의 숫자를 리턴하는 함수
-- [ ] 해당 카드가 Ace 인지 체크하는 함수 `isAce()`
-- [ ] 문자열로 만들어 리턴하는 함수`toString()`
+- 문자열로 만들어 리턴하는 함수`toPrintString()`
+- 카드의 숫자를 리턴하는 함수 `getSymbolValue()`
+- 해당 카드가 Ace 인지 체크하는 함수 `isAce()`
 
 <br>
 <br>
+
+```
+public class Symbol
+```
+
+- 해당 Symbol에 해당하는 문자열 리턴하는 함수 `toString()`
+<br>
+<br>
+
+```
+public class Type
+```
+- 해당 Type에 해당하는 문자열 리턴하는 함수 `toString()`
+<br>
+<br>
+
+
+```
+public class CardDeck
+```
+- *//가장 위에 있는 카드 리턴하는 함수*
+- *//카드 패 섞는 함수*
+- ->Card 리스트 중 랜덤 index에 있는 Card 리턴하는 함수`getRandomCard()`
+- 이미 사용된 Card인지 확인하는 함수 `isUsed()`
+- 0 ~ 'Card 리스트의 사이즈' 사이에 있는 랜덤값 리턴하는 함수 `getRandomIndex()`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+```
+public class GameManager
+```
+- 처음에 카드 나눠주는 수에 해당하는 상수 `START_CARD_COUNT`,<br>
+ 블랙잭에 해당하는 상수 `BLACK_JACK`,<br>
+ 점수가 블랙잭보다 큰 경우 -1 처리 하는 상수 `OVERFLOW`
+- 생성자 `GameManager()`
+- 게임 진행하는 함수 `start()`
+- Player 정의하는 함수 `initializePlayers()`
+- 카드 2장 Player들과 Dealer에게 주는 함수 `drawTwoCardsToDealerAndPlayer()`
+- Player에게 카드 2장 주는 함수 `drawTwoCardsToPlayer()`
+- 메시지 출력하는 함수 `print()`
+- Dealer와 Player들의 카드 리스트 출력해주는 함수 `showCardLists()`
+- Player들과 Dealer에게 추가 패 받게 하는 함수 `getMoreCards()`
+- Player에게 추가 패 받을건지 질문하는 함수 `askPlayerDrawOrNot()`
+- Dealer가 추가 패 받게하는 함수 `checkDealerDrawOrNot()`
+- Dealer가 조건에 만족할 때 까지 추가 패 받게하는 함수 `dealerDrawMore()`
+- 최종 카드 패 출력하는 함수 `showFinalCardLists()`
+- 최종 손익 출력하는 함수 `showProfit()`
+- 승자의 점수 구하는 함수 `getWinnerScore()`
+- Player들의 최고 점수 구하는 함수 `getPlayersMaxScore()`
+- 두 값 중 21보다 작은 가장 큰 값을 리턴하는 함수 `getBiggerValueUnderBlackJack()`
+       
+
+<br>
+<br>
+
+
+```
+public class InputManager
+```
+- 이름의 최소 갯수 해당하는 상수 `MINIMUM_NAME_COUNT`<br>
+이름의 최소 길이 해당하는 상수 `MINIMUM_NAME_LENGTH`<br>
+숫자 0에 해당하는 상수 `ZERO`<br>
+사용자의 "y"입력에 해당하는 상수 `YES`<br>
+사용자의 "n"입력에 해당하는 상수 `NO`<br>
+<br>
+
+- 사용자 이름을 입력받는 함수 `getPlayerNames()`
+- 이름이 유효한지 체크하는 함수 `checkNamesValid()`
+- String[]을 ArrayList<String>으로 변환하는 함수 `makeArrayToArrayList()`
+- 입력받은 문자열 배열의 좌우 공백 제거하는 함수 `trimWhiteSpace()`
+- 이름의 갯수 유효한지 체크하는 함수 `checkNamesCountValid()`
+- 이름들의 길이 유효한지 체크하는 함수 `checkNamesLengthValid()`
+- 이름의 길이 유효한지 체크하는 함수 `checkNameLengthValid()`
+- 이름이 중복되지 않았는지 체크하는 함수 `checkNamesDuplicated()`
+- ArrayList에 문자열 포함되어 있는지 확인하는 함수 `listContainsString()`
+
+<br>
+
+- 베팅할 금액 입력받는 함수 `getPlayerBattingMoney()`
+- 베팅할 금액이 유효한지 체크하는 함수 `checkBattingMoneyValid()`
+- 베팅할 금액이 문자를 포함하는지 체크하는 함수 `checkBattingMoneyContainsChar()`
+- 베팅할 금액이 음수인지 체크하는 함수 `checkBattingMoneyIsMinus()`
+- 베팅할 금액이 0인지 체크하는 함수 `checkBattingMoneyIsZero()`
+
+<br>
+
+- Player에게서 추가 패를 받을지 말지 입력받는 함수 `getPlayerChoiceDrawOneMoreOrNot()`
+- 사용자의 입력이 "y" 혹은 "n" 인지 체크하는 함수 `checkPlayerInputIsYesOrNo()`
+
+<br>
+<br>
+
+
+```
+public class Message
+```
+- 각종 메시지를 나타내는 상수 및 함수 
+- 이하 생략...
+
+<br>
+<br>
+
+```
+public class ErrorMessage
+```
+- 입력된 플레이어 이름이 하나도 없을 때 에러메시지에 해당하는 상수 `PLAYER_IS_NOT_ENTERED`
+- 입력된 플레이어 이름의 길이가 0일 때 에러메시지에 해당하는 상수 `PLAYER_NAME_IS_TOO_SHORT`
+- 입력된 플레이어 이름이 중복되었을 때 에러메시지에 해당하는 상수 `PLAYER_NAME_IS_DUPLICATED`
+- 입력된 베팅 금액에 문자가 포함되었을 때 에러메시지에 해당하는 상수 `PLAYER_BATTING_MONEY_CONTAINS_CHAR`
+- 입력된 베팅 금액이 음수일 경우 에러메시지에 해당하는 상수 `PLAYER_BATTING_MONEY_IS_MINUS`
+- 입력된 베팅 금액이 0일 경우 에러메시지에 해당하는 상수 `PLAYER_BATTING_MONEY_IS_ZERO`
+- 입력이 "y" 또는 "n"가 아닐 경우 에러메시지에 해당하는 상수 `INPUT_IS_NOT_YES_OR_NO`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
 
 ```
 package domain.user;
@@ -81,7 +208,7 @@ import src.main.java.domain.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-//게임 참여자를 의미하는 객
+//게임 참여자를 의미하는 객체
 public class Player {
     private final String name;
     private final double bettingMoney;
@@ -99,12 +226,19 @@ public class Player {
     //추가 구현...
 }
 ```
-
-- [ ] 첫 패에(처음 받은 두 카드) 블랙잭이 되었는지 확인하는 함수
-- [ ] 가진 패의 총 합을 계산해 리턴하는 함수
-- [ ] 가진 패의 총 합이 21을 넘는지 확인하여 리턴하는 함수
-- [ ] 승자인지 패자인지 승자의 값을 입력받아 true false 리턴하는 함수
-
+- ACE가 카드 패에 있을 경우 추가 점수를 나타내는 상수`ACE_ADDITIONAL_SCORE` <br>
+패자 일 경우 곱하는 -1을 나타내는 상수`MINUS` <br>
+기본 베팅률을 나타내는 상수`BASIC_BATTING_RATIO` <br>
+첫 두 패에 블랙잭이 나올 경우의 베팅률을 나타내는 상수 `BIGGER_BATTING_RATIO` <br>
+- 생성자 `Player()`
+- 카드를 추가하는 함수 `addCard()`
+- ACE를 고려한 최종 점수를 리턴하는 함수 `getScore()`
+- 카드패에 ACE가 있는지 확인하는 함수 `cardsContainsAce()`
+- 순수하게 카드의 점수만 합하는 함수 `getCardsPoint()`
+- 카드패를 문자열로 만들어 리턴하는 함수 `getCardListString()`
+- 최고 점수를 입력받아 승자인지 아닌지 true, false 리턴하는 함수 `isWinner()`
+- 승패를 고려하여 최종적으로 번 돈 리턴하는 함수 `getEarnMoney()`
+- 이름 리턴하는 함수 `getName()`
 
 <br>
 <br>
@@ -131,85 +265,35 @@ public class Dealer {
 }
 ```
 
-- [ ] 패를 더 받을 지 말지 결정하는 기준값 16에 해당하는 상수
-- [ ] 패를 더 받을 지 말지 결정하는 함수
-- [ ] 가진 패의 총 합을 계산해 리턴하는 함수
-- [ ] 가장 수가 작은 카드를 리턴하는 함수
-- [ ] 가진 패의 총 합이 21을 넘는지 확인하여 리턴하는 함수
-- [ ] 승자인지 패자인지 승자의 값을 입력받아 true false 리턴하는 함수
+- Dealer가 추가 패를 받을지 말지 기준이 되는 상수`DEALER_CRITERIA` <br>
+ACE가 카드 패에 있을 경우 추가 점수를 나타내는 상수`ACE_ADDITIONAL_SCORE` <br>
+- 생성자 `Dealer()`
+- 카드를 추가하는 함수 `addCard()`
+- ACE를 고려한 최종 점수를 리턴하는 함수 `getScore()`
+- 카드패에 ACE가 있는지 확인하는 함수 `cardsContainsAce()`
+- 순수하게 카드의 점수만 합하는 함수 `getCardsPoint()`
+- 카드패를 문자열로 만들어 리턴하는 함수 `getCardListString()`
+- 추가 패를 받아야 하면 true 리턴, 아니면 false 리턴하는 함수 `getMoreDraw()`
+- 가장 크기가 작은 Card를 리턴하는 함수 `getSmallestCard()`
+- 승패와 Player들을 고려하여 최종적으로 번 돈 리턴하는 함수 `getEarnMoney()`
 
 
 <br>
 <br>
-
-```
-public class CardDeck
-```
-~~52 장의 카드 덱을 만드는 함수~~<br>
-~~1과 52사이 중 겹치지 않는 랜덤 리스트를 만드는 함수~~<br>
-- [ ] //셔플(뒤섞는)하는 함수
-- [ ] 가장 위에 위치하는 카드를 뽑아서 return 하는 함수
-
 <br>
 <br>
-
-```
-public class GameManager
-```
-- [ ] 생성자(players, dealer, cardDeck)
-- [ ] 사용자의 이름 초기화 하는 함수
-- [ ] 사용자의 이름 중복 확인하는 함수
-- [ ] 베팅 금액 초기화 하는 함수
-- [ ] 입력받은 사용자 이름 대로 Player객체 만들어서 ArrayList에 추가하는 함수
-- [ ] 게임 턴을 진행하는 함수
-- [ ] 승자를 구하는 함수
-
-<br>
-<br>
-
-```
-public class Message
-```
-- [ ] 플레이어 이름 입력 메시지
-- [ ] 베팅 금액 입력 메시지
-- [ ] "딜러" 메시지
-- [ ] "카드" 메시지
-- [ ] "결과" 메시
-- [ ] "~에게 2장의 카드 나누었습니다" 메시지
-- [ ] "## 최종 수익" 메시 
-- [ ] "~는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)" 메시지 
-- [ ] "딜러는 16 이하라 한 장의 카드를 더 받았습니다." 메시지
-- [ ] "딜러는 17 이상이라 한 장의 카드를 더 받지 않았습니다." 메시지
-
-<br>
-<br>
-
-```
-public class InputManager
-```
-- [ ] 사용자 이름 입력받는 함수
-- [ ] 사용자의 이름 최소 길이 1 이상인지 체크하는 함수
-- [ ] 사용자의 베팅 금액 입력 받는 함수
-- [ ] 베팅 금액에 문자나 음수가 입력되었는지 체크하는 함수
-- [ ] 보기 A 와 B 중 하나의 입력을 사용자에게 받는 함수
-
 <br>
 <br>
 
 
-```
+
+``` 
 public class Main
 ```
-- [ ] 메인함수
+-  메인함수
 
 <br>
 <br>
-
-### - 고민거리
-
-  ~~1. 1부터 52 사이의 숫자를 입력할때 해당하는 카드를 만드는 함수는 Card 클래스에 위치해아하나 아님 CardDeck 클래스에 위치해야 하나?~~<br>
--> ~~내가 만든 규칙에 따라 1 ~ 52 사이의 정수가 하나 결정되면 해당 카드의 모양과 값이 결정되므로 카드 한장을 나타내는 Card 클래스에서 만드는 것이 좋을 것 같다.~~ <br>
--> CardFactory 클래스에서 트럼프 카드 전체를 생성
 <br>
 <br>
 <br>
