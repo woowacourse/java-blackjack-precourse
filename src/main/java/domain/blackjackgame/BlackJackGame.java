@@ -2,18 +2,29 @@ package domain.blackjackgame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
+import domain.card.Card;
+import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.User;
 
 public class BlackJackGame {
+	private static final int TWO = 2;
+	
 	private final Scanner scanner;
 	private final List<Player> players;
+	private final List<Card> cards;
+	private final Dealer dealer;
 	private String[] playerNames;
 
 	public BlackJackGame() {
 		scanner = new Scanner(System.in);
 		players = new ArrayList<>();
+		dealer = new Dealer();
+		cards = CardFactory.create();
 	}
 
 	public void init() {
@@ -22,8 +33,8 @@ public class BlackJackGame {
 	}
 
 	private boolean inputPlayer() {
-		String playerInput = scanner.nextLine();
-		playerNames = playerInput.split(",");
+		System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
+		playerNames = scanner.nextLine().split(",");
 		if (playerNames.length == 0) {
 			return false;
 		}
@@ -35,9 +46,9 @@ public class BlackJackGame {
 	}
 
 	private boolean inputBettingMoney(String playerName) {
-		double bettingMoney = 0;
+		System.out.println(playerName+"의 배팅 금액은?");
 		try {
-			bettingMoney = Double.parseDouble(scanner.nextLine());
+			double bettingMoney = Double.parseDouble(scanner.nextLine());
 			Player player = new Player(playerName, bettingMoney);
 			players.add(player);
 			return true;
@@ -46,5 +57,17 @@ public class BlackJackGame {
 			return false;
 		}
 	}
+	
+	private void giveCards(User user) {
+		Card randomCard = randomizeCard();
+		user.addCard(randomCard);
+	}
 
+	private Card randomizeCard() {
+		Random generator = new Random();
+		int randomIndex = generator.nextInt(cards.size());
+		Card randomCard = cards.get(randomIndex);
+		cards.remove(randomIndex);
+		return randomCard;
+	}
 }
