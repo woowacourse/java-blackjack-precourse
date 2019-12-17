@@ -19,6 +19,7 @@ import domain.user.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * 카드를 드로우 하는 기능하는 클레스
@@ -28,6 +29,7 @@ import java.util.Random;
  */
 public class CardDrawing {
     static final List<Card> cards = CardFactory.create();
+    Scanner sc = new Scanner(System.in);
     Random randomIndex = new Random();
 
     /**
@@ -47,6 +49,7 @@ public class CardDrawing {
 
         toStringCardInfo(playerList, dealer);
     }
+
 
     public void drawCard(List<Player> playerList, Dealer dealer) {
 
