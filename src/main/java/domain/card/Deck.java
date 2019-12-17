@@ -12,11 +12,8 @@ public class Deck {
         for (Card card : CardFactory.create()) {
             cards.add(card);
         }
-        this.cards = cards;
-    }
-
-    public void shuffle() {
         Collections.shuffle(cards);
+        this.cards = cards;
     }
 
     public Card pop() {

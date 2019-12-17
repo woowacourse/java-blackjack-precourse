@@ -16,6 +16,18 @@ public class User {
         cards.add(card);
     }
 
+    public boolean isDead() {
+        return !hasPositiveDistance();
+    }
+
+    public boolean hasPositiveDistance() {
+        return getDistanceToTarget() >= 0;
+    }
+
+    public boolean isBlackJack() {
+        return hasDistanceEqualTo(0);
+    }
+
     public boolean hasDistanceEqualTo(int minDistance) {
         return getDistanceToTarget() == minDistance;
     }
@@ -58,5 +70,9 @@ public class User {
             result += " ";
         }
         return result;
+    }
+
+    public String getCardInfoWithScore() {
+        return getCardInfo() + "-결과: " + getScore();
     }
 }

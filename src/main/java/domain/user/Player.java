@@ -34,6 +34,11 @@ public class Player extends User{
         return this.name + "의 카드: " + super.getCardInfo();
     }
 
+    @Override
+    public String getCardInfoWithScore() {
+        return this.name + "의 카드: " + super.getCardInfoWithScore();
+    }
+
     public String getName() {
         return this.name;
     }

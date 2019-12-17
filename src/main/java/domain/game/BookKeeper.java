@@ -2,7 +2,9 @@ package domain.game;
 
 import domain.user.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BookKeeper {
     private static final double REWARD_FACTOR = 1.5;
@@ -15,14 +17,14 @@ public class BookKeeper {
         double dealerCashFlow = 0;
         HashMap<String, Double> playerCashFlows = players.initializeCashFlows();
         for (Double cashFlow : playerCashFlows.values()) {
-            dealerCashFlow += cashFlow;
+            dealerCashFlow -= cashFlow;
         }
         this.dealerCashFlow = dealerCashFlow;
         this.playerCashFlows = playerCashFlows;
     }
 
-    public void updateCashFlows(Players players, boolean blackJack) {
-        for (Player player : players.getWinners()) {
+    public void updateCashFlows(List<Player> winners, boolean blackJack) {
+        for (Player player : winners) {
             double cashFlow = applyRewardFactor(blackJack) * player.getBettingMoney();
             this.playerCashFlows.replace(player.getName(), cashFlow);
             this.dealerCashFlow -= cashFlow;
@@ -34,6 +36,22 @@ public class BookKeeper {
             return REWARD_FACTOR;
         }
         return NO_REWARD_FACTOR;
+    }
+
+    public String getDealerCashFlowInfo() {
+        return "딜러: " + this.dealerCashFlow;
+    }
+
+    public List<String> getPlayerCashFlowInfo() {
+        List<String> cashFlowInfo = new ArrayList<>();
+        for (String playerName : this.playerCashFlows.keySet()) {
+            cashFlowInfo.add(getPlayerCashFlowInfo(playerName));
+        }
+        return cashFlowInfo;
+    }
+
+    public String getPlayerCashFlowInfo(String playerName) {
+        return playerName + ": " + this.playerCashFlows.get(playerName);
     }
 
     public double getDealerCashFlow() {

@@ -15,44 +15,51 @@ public class BlackJack {
     private static final String ERROR_NEW_CARD = "소문자 y와 n중에 선택해주세요.";
     private static final String MESSAGE_DEALER_HIT = "딜러는 16이하라 한장의 카드를 더 받았습니다.";
 
-    public static void main(String[] args) {
+    public static void playGame() {
         Dealer dealer = new Dealer();
         Players players = new Players(createPlayers(receiveInput(PROMPT_PLAYER_NAMES)));
-
         Deck deck = new Deck();
-        deck.shuffle();
-
-        deal(dealer, players, deck);
         BookKeeper bookKeeper = new BookKeeper(players);
-        System.out.println(bookKeeper.getDealerCashFlow());
-        System.out.println(bookKeeper.getPlayerCashFlows());
+        deal(dealer, players, deck);
+        checkPointAfterDeal(dealer, players, bookKeeper);
+        hit(dealer, players, deck);
+        checkPointAfterHit(dealer, players, bookKeeper);
+    }
 
-
-        // checkpoint 1. 중간점검
-        // 점수 계산
-        // 아직까지 죽는 유저는 없음
-        // 블랙잭 확인
-        // 돈 계산
-        // 결과 출력
-        printCards(dealer, players);
-
-        players.hit(deck);
-        hit(dealer, deck);
-
-        // checkpoint 2. 여기까지 오면 게임 종료 조건 만족함
-        // 점수 계산
-        // 생존자 확인
-        // 생존자 중 승자 확인
-        // 돈 계산
-        // 결과 출력
+    private static void checkPointAfterDeal(Dealer dealer, Players players, BookKeeper bookKeeper) {
+        List<Player> winners = players.getWinners(true);
+        if (dealer.isBlackJack()) {
+            bookKeeper.updateCashFlows(winners, false);
+        }
+        bookKeeper.updateCashFlows(winners, true);
+        if (!winners.isEmpty()) {
+            endGame(dealer, players, bookKeeper);
+        }
         printCards(dealer, players);
     }
+
+    private static void checkPointAfterHit(Dealer dealer, Players players, BookKeeper bookKeeper) {
+        List<Player> winners = players.getWinners(false);
+        if (dealer.isDead()) {
+            bookKeeper.updateCashFlows(players.getSurvivors(), false);
+        }
+        if (!players.BeatenBy(dealer)) {
+            bookKeeper.updateCashFlows(winners, false);
+        }
+        endGame(dealer, players, bookKeeper);
+    }
+
 
     private static void deal(Dealer dealer, Players players, Deck deck) {
         dealer.addCard(deck.pop());
         dealer.addCard(deck.pop());
         players.addCards(deck);
         players.addCards(deck);
+    }
+
+    private static void hit(Dealer dealer, Players players, Deck deck) {
+        players.hit(deck);
+        hit(dealer, deck);
     }
 
     private static void hit(Dealer dealer, Deck deck) {
@@ -70,7 +77,7 @@ public class BlackJack {
     }
 
     private static boolean shouldHit(Player player) {
-        if (isAboveTarget(player.getScore())) {
+        if (player.isDead()) {
             return false;
         }
         return makeValidChoice(player, PROMPT_NEW_CARD, ERROR_NEW_CARD);
@@ -83,23 +90,6 @@ public class BlackJack {
             choice = receiveInput(player.getName() + prompt);
         }
         return choice.equals("y");
-    }
-
-    private static boolean isValidChoice(String choice) {
-        return choice.equals("y") || choice.equals("n");
-    }
-
-    public static boolean isAboveTarget(int userScore) {
-        return userScore >  Constant.TARGET.getScore();
-    }
-
-    public static boolean isAboveThreshold(int userScore) {
-        return userScore >  Constant.DEALER_HIT.getScore();
-    }
-
-    private static void printCards(Dealer dealer, Players players) {
-        System.out.println(dealer.getCardInfo());
-        players.getCardInfo().forEach(System.out::println);
     }
 
     private static List<Player> createPlayers(String playerNames) {
@@ -119,5 +109,34 @@ public class BlackJack {
 
     private static String[] split(String text) {
         return text.split(",");
+    }
+
+    private static boolean isValidChoice(String choice) {
+        return choice.equals("y") || choice.equals("n");
+    }
+
+    public static boolean isAboveThreshold(int userScore) {
+        return userScore >  Constant.DEALER_HIT.getScore();
+    }
+
+    private static void endGame(Dealer dealer, Players players, BookKeeper bookKeeper) {
+        printCardsWithScore(dealer, players);
+        printCashFlows(bookKeeper);
+        System.exit(0);
+    }
+
+    private static void printCashFlows(BookKeeper bookKeeper) {
+        System.out.println(bookKeeper.getDealerCashFlowInfo());
+        bookKeeper.getPlayerCashFlowInfo().forEach(System.out::println);
+    }
+
+    private static void printCardsWithScore(Dealer dealer, Players players) {
+        System.out.println(dealer.getCardInfoWithScore());
+        players.getCardInfoWithScore().forEach(System.out::println);
+    }
+
+    private static void printCards(Dealer dealer, Players players) {
+        System.out.println(dealer.getCardInfo());
+        players.getCardInfo().forEach(System.out::println);
     }
 }

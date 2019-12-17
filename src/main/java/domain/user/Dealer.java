@@ -10,4 +10,9 @@ public class Dealer extends User{
     public String getCardInfo() {
         return "딜러의 카드: " + super.getCardInfo();
     }
+
+    @Override
+    public String getCardInfoWithScore() {
+        return "딜러의 카드: " + super.getCardInfoWithScore();
+    }
 }
