@@ -35,6 +35,7 @@ public class GameProcess {
         checkDealerCard(players.get(DEALER_INDEX));
         getAllPlayerScore();
         checkWinOrLose();
+        printResult();
     }
 
     private void inputName() {
@@ -166,4 +167,18 @@ public class GameProcess {
         return false;
     }
 
+    private void getBettingResult(){
+        for(int i = 1; i < win_or_lose.length; i++){
+            win_or_lose[i] *= betting[i-1];
+            win_or_lose[DEALER_INDEX] -= win_or_lose[i];
+        }
+    }
+
+    private void printResult(){
+        getBettingResult();
+        System.out.println("최종 수익");
+        for(int i = 0; i < players.size(); i++){
+            System.out.println(players.get(i).getName() +" : " + (int)win_or_lose[i]);
+        }
+    }
 }
