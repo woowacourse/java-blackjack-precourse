@@ -15,6 +15,7 @@ package domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import domain.card.Card;
 import domain.card.Deck;
 import util.GameRule;
@@ -22,16 +23,18 @@ import util.GameRule;
 abstract public class User {
     private List<Card> cards = new ArrayList<>();
 
-    public void addCard(Deck deck){
+    public void addCard(Deck deck) {
         cards.add(deck.getCard());
     }
+
     public abstract void addCardIfWant(Deck deck);
+
     public abstract boolean canGetCard();
 
     public String toStringCards() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Card card : cards) {
-            stringBuilder.append("\t"+card.toString());
+            stringBuilder.append("\t" + card.toString());
         }
         return stringBuilder.toString();
     }
@@ -48,20 +51,20 @@ abstract public class User {
         int score = 0;
         boolean hasAce = false;
         for (Card card : cards) {
-            if(card.getCardNumber() == GameRule.ACE) {
+            if (card.getCardNumber() == GameRule.ACE) {
                 hasAce = true;
                 continue;
             }
             score += card.getCardNumber();
         }
-        if(hasAce) {
+        if (hasAce) {
             score += determineAceValue(score);
         }
         return score;
     }
 
     private int determineAceValue(int score) {
-        if((score + GameRule.ACE_VALUE_ELEVEN) <= GameRule.BUST) {
+        if ((score + GameRule.ACE_VALUE_ELEVEN) <= GameRule.BUST) {
             return GameRule.ACE_VALUE_ELEVEN;
         }
         return GameRule.ACE_VALUE_ONE;

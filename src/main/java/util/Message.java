@@ -25,8 +25,8 @@ public enum Message {
     ERROR_BETTING_MONEY_RANGE("1보다 큰 수를 입력해야 합니다."),
     ERROR_MORE_CARD_ANSWER_FORMAT("y 혹은 n을 입력하세요"),
     MESSAGE_DEALER_GET_CARD("딜러는 16이하라 한 장의 카드를 더 받았습니다."),
-    MESSAGE_DEALER_DONT_GET_CARD("딜러는 17이상이라 카드를 받지 않았습니다.");
-
+    MESSAGE_DEALER_DONT_GET_CARD("딜러는 17이상이라 카드를 받지 않았습니다."),
+    MESSAGE_PLAYER_BUST("님께서 Bust 되셨습니다.");
 
     private String message;
 

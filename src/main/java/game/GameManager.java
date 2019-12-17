@@ -1,4 +1,4 @@
-package game;/*
+/*
  * Copyright (c) 2019 by SorinJin
  * All rights reserved.
  *
@@ -11,8 +11,11 @@ package game;/*
  *
  */
 
+package game;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -23,6 +26,7 @@ import view.OutputView;
 public class GameManager {
     public static final InputView inputView = new InputView();
     public static final OutputView outputView = new OutputView();
+    private final String CLONE = ":";
     private List<User> userList;
     private Deck deck;
 
@@ -44,7 +48,7 @@ public class GameManager {
         userList = new ArrayList<>();
         for (String name : playerName) {
             int money = inputView.getBettingMoney(name);
-            userList.add(new Player(name,money));
+            userList.add(new Player(name, money));
         }
         Dealer dealer = new Dealer();
         userList.add(dealer);
@@ -63,7 +67,7 @@ public class GameManager {
         }
     }
 
-    private void giveMoreCard(){
+    private void giveMoreCard() {
         for (User user : userList) {
             user.addCardIfWant(deck);
         }
@@ -74,18 +78,18 @@ public class GameManager {
         User dealer = userList.get(dealerIndex);
         int dealerScore = getDealerScore(dealer);
         double dealerProfit = 0;
-        for (int i=0; i<dealerIndex; i++) {
-            Player player = (Player)userList.get(i);
+        for (int i = 0; i < dealerIndex; i++) {
+            Player player = (Player) userList.get(i);
             double profit = player.getProfit(dealerScore);
-            System.out.println(player.getName() + " : " + profit);
+            System.out.println(player.getName() + CLONE + profit);
             dealerProfit -= profit;
         }
-        System.out.println("dealer : " + dealerProfit);
+        System.out.println("딜러" + CLONE + dealerProfit);
     }
 
     private int getDealerScore(User dealer) {
         int dealerScore = 0;
-        if(!dealer.isBust()) {
+        if (!dealer.isBust()) {
             dealerScore = dealer.getScore();
         }
         return dealerScore;

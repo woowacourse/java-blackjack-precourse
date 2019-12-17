@@ -18,7 +18,8 @@ import util.GameRule;
 import util.Message;
 
 public class Dealer extends User {
-    public Dealer() {}
+    public Dealer() {
+    }
 
     @Override
     public void addCardIfWant(Deck deck) {
@@ -37,6 +38,6 @@ public class Dealer extends User {
 
     @Override
     public String toStringCards() {
-        return "딜러:"+super.toStringCards();
+        return "딜러:" + super.toStringCards();
     }
 }

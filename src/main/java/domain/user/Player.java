@@ -16,6 +16,7 @@ package domain.user;
 import domain.card.Deck;
 import game.GameManager;
 import util.GameRule;
+import util.Message;
 
 public class Player extends User {
     private final String name;
@@ -33,8 +34,8 @@ public class Player extends User {
             System.out.println(toStringCards());
         }
 
-        if(isBust()) {
-            System.out.println(name + "님께서 Bust 되셨습니다.");
+        if (isBust()) {
+            System.out.println(name + Message.MESSAGE_PLAYER_BUST.getMessage());
         }
     }
 
@@ -45,24 +46,24 @@ public class Player extends User {
 
     @Override
     public String toStringCards() {
-        return name+":"+super.toStringCards();
+        return name + ":" + super.toStringCards();
     }
 
     public double getProfit(int dealerScore) {
         if (isBlackJack()) {
-            return bettingMoney * 1.5;
+            return bettingMoney * GameRule.BLACKJACK_MONEY_RATE;
         }
         if (isBust()) {
-            return bettingMoney * -1.0;
+            return bettingMoney * GameRule.BUST_MONEY_RATE;
         }
         int score = getScore();
         if (score > dealerScore) {
             return bettingMoney;
         }
         if (score == dealerScore) {
-            return 0;
+            return GameRule.DRAW_MONEY_RATE;
         }
-        return bettingMoney * -1;
+        return bettingMoney * GameRule.LOSE_MONEY_RATE;
     }
 
     public String getName() {

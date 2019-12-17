@@ -24,7 +24,8 @@ public class InputExceptionController {
     private final String BLANK = " ";
     private final String NONE = "";
 
-    private InputExceptionController() {}
+    private InputExceptionController() {
+    }
 
     private static class InnerInstanceClass {
         private static final InputExceptionController instance = new InputExceptionController();
@@ -37,7 +38,7 @@ public class InputExceptionController {
     public boolean isValidName(List<String> playerNames) {
         List<String> playerNameRemoveBlank = new ArrayList<>();
         for (String name : playerNames) {
-            playerNameRemoveBlank.add(name.replace(BLANK,NONE));
+            playerNameRemoveBlank.add(name.replace(BLANK, NONE));
         }
         if (hasBlankName(playerNameRemoveBlank)) {
             System.out.println(Message.ERROR_BLANK_NAME.getMessage());
@@ -75,12 +76,12 @@ public class InputExceptionController {
     }
 
     public boolean isValidBettingMoney(String money) {
-        if(!isNumber(money)) {
+        if (!isNumber(money)) {
             System.out.println(Message.ERROR_NOT_A_NUMBER.getMessage());
             return false;
         }
         int bettingMoney = Integer.parseInt(money);
-        if(!isRangeOfBettingMoney(bettingMoney)) {
+        if (!isRangeOfBettingMoney(bettingMoney)) {
             System.out.println(Message.ERROR_BETTING_MONEY_RANGE.getMessage());
             return false;
         }
@@ -90,7 +91,7 @@ public class InputExceptionController {
     private boolean isNumber(String str) {
         try {
             Integer.parseInt(str);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
         return true;
