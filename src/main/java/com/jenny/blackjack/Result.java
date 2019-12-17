@@ -54,10 +54,6 @@ public class Result {
         return cnt;
     }
 
-    public boolean isBurst(User user){
-        return user.getSumOfCards() > 21;
-    }
-
     public boolean isBlackJack(User user){
         return calcResultValue(user) == 22;
     }

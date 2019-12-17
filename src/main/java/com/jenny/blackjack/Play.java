@@ -4,6 +4,7 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.User;
 
 import java.util.HashSet;
 import java.util.List;
@@ -106,6 +107,10 @@ public class Play {
                 }else{
                     getCardForPlayer(1, p);
                     showOneCardStatus(p);
+                    if(isBurst(p)){
+                        System.out.println("21 초과로 패배하셨습니다.");
+                        break;
+                    }
                 }
             }
         }
@@ -129,4 +134,7 @@ public class Play {
         System.out.println("딜러는 16이하라 카드를 한장 더 받았습니다.");
     }
 
+    public boolean isBurst(User user){
+        return user.getSumOfCards() > 21;
+    }
 }
