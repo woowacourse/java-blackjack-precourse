@@ -13,27 +13,52 @@ import java.util.stream.Stream;
 public class Users {
     private static List<User> users;
     private static final int EMPTY = 0;
+    private static final char COMMA = ',';
 
     private Users(List<User> users) {
-        valid(users);
+        validAllNameEmpty(users);
         Users.users = users;
     }
 
-    private void valid(List<User> users) {
+    private void validAllNameEmpty(List<User> users) {
         if (users.size() != EMPTY) {
             return;
         }
         throw new IllegalArgumentException("이름을 채워주세요!");
     }
 
-    public static Users initUsers(String[] names) {
+    public static Users initUsers(String nameInput) {
+        validEmptyNameUser(nameInput);
         List<User> userList = new ArrayList<>();
         addDealer(userList);
+        String[] names = nameInput.split(String.valueOf(COMMA));
         for (String name : names) {
             printBettingMoneyDemand(name);
             userList.add(new Player(name, InputUtil.inputBettingMoney()));
         }
         return new Users(userList);
+    }
+
+    private static void validEmptyNameUser(String name) {
+        if (name.split(String.valueOf(COMMA)).length == countComma(name) + 1) {
+            return;
+        }
+        throw new IllegalArgumentException("쉼표를 너무 많이 사용하셨어요!");
+    }
+
+    private static int countComma(String name) {
+        int countComma = 0;
+        for (int i = 0; i < name.length(); i++) {
+            countComma += countOf(name, i);
+        }
+        return countComma;
+    }
+
+    private static int countOf(String str, int index) {
+        if (str.charAt(index) == Users.COMMA) {
+            return 1;
+        }
+        return 0;
     }
 
     private static void addDealer(List<User> userList) {
@@ -70,6 +95,7 @@ public class Users {
             return;
         }
         decideWinOrLose(true, dealderScore, outcomes);
+        decideDraw(dealderScore, outcomes);
         decideWinOrLose(false, dealderScore, outcomes);
     }
 
@@ -81,10 +107,8 @@ public class Users {
         getPlayer()
                 .filter(player -> !outcomes.isHavePlayer(player.getName()))
                 .filter(player -> player.checkExcess() == checkExcessFlag)
-                .forEach(player -> {
-                    addOutcome(player, outcomes,
-                            player.calcureateBenefit(winFlag));
-                });
+                .forEach(player -> addOutcome(player, outcomes,
+                        player.calcureateBenefit(winFlag)));
     }
 
     private void decideWinOrLose(
@@ -95,11 +119,19 @@ public class Users {
         getPlayer()
                 .filter(player -> !outcomes.isHavePlayer(player.getName()))
                 .filter(player -> player.isWinBy(dealerScore) == winFlag)
-                .filter(player -> !player.checkExcess())
-                .forEach(player -> {
-                    addOutcome(player, outcomes,
-                            player.calcureateBenefit(winFlag));
-                });
+                .forEach(player -> addOutcome(player, outcomes,
+                        player.calcureateBenefit(winFlag)));
+    }
+
+    private void decideDraw(
+            int dealerScore,
+            Outcomes outcomes
+    ) {
+        getPlayer()
+                .filter(player -> !outcomes.isHavePlayer(player.getName()))
+                .filter(player -> player.isDraw(dealerScore))
+                .forEach(player -> addOutcome(player, outcomes,
+                        player.calcureateDrawBenefit()));
     }
 
     private void addOutcome(Player player, Outcomes outcomes, Double benefit) {

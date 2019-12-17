@@ -46,7 +46,8 @@ public class BlackJackGame {
 
     private static Users inputUserInfo() {
         OutputUtil.printUsersNameDemand();
-        String[] playerNames = InputUtil.inputName();
+        String playerNames = InputUtil.inputName();
+
         return Users.initUsers(playerNames);
     }
 

@@ -51,7 +51,7 @@ public class Outcome {
 
     private String printCards() {
         return cards.stream()
-                .map(i -> i.getCardInfo())
+                .map(i -> i.toString())
                 .collect(Collectors.joining(", "));
     }
 }
