@@ -13,12 +13,14 @@ import java.util.Scanner;
  */
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
-    private final String name;
-    private final double bettingMoney;
+    private String name;
+    private double bettingMoney;
     public final int NUMBER_OF_START_CARDS = 2;
-    public final int STANDARD_POINT = 21;
+    public static final int STANDARD_POINT = 21;
     public final int DRAW_STANDARD_POINT = 16;
     public final int ACE_POINT = 10;
+    public final int FAIL_RATE = -1;
+    public final double SUCCESS_RATE = 1.5;
     public List<Boolean> aceList = new ArrayList<Boolean>();
     public int playerScore = 0;
     public int NumberOfAce = 0;
@@ -28,12 +30,12 @@ public class Dealer {
         this.bettingMoney = bettingMoney;
     }
 
-
     public void addCard(Card card) {
         cards.add(card);
     }
 
     // TODO 추가 기능 구현
+
     public void printPlayerBettingMoney() {
         System.out.println(name + "의 배팅금액 : " + bettingMoney);
     }
@@ -54,12 +56,10 @@ public class Dealer {
 
 
     public void cardDrawOrPass() {
-        while (chooseCalculateMethod() <= DRAW_STANDARD_POINT) {
+        if (chooseCalculateMethod() <= DRAW_STANDARD_POINT) {
             System.out.println("딜러는 16이하로 한 장을 더 받습니다.");
             addCard(GamePlay.addNewCard());
-            playerScore = 0;
         }
-
     }
 
     public void checkAceCard(Card card) {
@@ -80,6 +80,7 @@ public class Dealer {
     }
 
     public int chooseCalculateMethod() {
+        playerScore = 0;
         if (aceList.contains(true)) {
             return calculateScoreWithAce();
         }
@@ -109,4 +110,20 @@ public class Dealer {
         return playerScore;
     }
 
+    public boolean isDealerSuccess(){
+        return playerScore == STANDARD_POINT;
+    }
+    public boolean isDealerFail(){
+        return playerScore > Dealer.STANDARD_POINT;
+    }
+
+    public double result(){
+        if (isDealerFail()){
+            return bettingMoney * FAIL_RATE;
+        }
+        if (isDealerSuccess()){
+            return bettingMoney * SUCCESS_RATE;
+        }
+        return bettingMoney;
+    }
 }
