@@ -159,5 +159,19 @@ public class GameManager {
 		}
 	}
 
+	public void printDealerMoney() {
+		System.out.print("µô·¯:");
+		if(winner==players.size()) {
+			System.out.println("+"+players.get(0).getBettingMoney());
+		}
+		System.out.println("0");
+		printWinner();
+	}
+	public void printWinner() {
+		for (Player player : players) {
+			System.out.print(player.getName() + ": ");
+			printResultMoney(player);
+		}
+	}
 
 }
