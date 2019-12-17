@@ -37,11 +37,12 @@ public class OutputView {
     }
 
     public static void printDealerCardsAndResult(Dealer dealer) {
-        System.out.println(DEALER_CARD + dealer.getCards().toString() + RESULT + dealer.sumOfCard() + NEXT_LINE);
+        System.out.println(DEALER_CARD + dealer.getCards().toString() + RESULT + dealer.sumOfCard()
+                + NEXT_LINE + NEXT_LINE + PROFIT + NEXT_LINE );
     }
 
     public static void printPlayerProfit(Player player) {
-        System.out.println(PROFIT + NEXT_LINE + player.getName() + COLON + player.getProfit());
+        System.out.println(player.getName() + COLON + player.getProfit());
     }
 
     public static void printDealer(double profit) {
