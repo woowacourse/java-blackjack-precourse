@@ -10,11 +10,7 @@ public class Main {
         List<Card> cards;
         CardFactory factory = new CardFactory();
         cards = factory.create();
-
-        for(Card card : cards){
-            System.out.println(card.toString());
-        }
-        System.out.println(cards.size());
+        
         Manager manager = new Manager(cards);
         manager.start();
     }

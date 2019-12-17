@@ -19,8 +19,8 @@ public class Manager {
     List<Integer> deal_number = new ArrayList<>();
     Random rand = new Random();
     Dealer dealer = new Dealer();
-    boolean dealer_blackjack = false;
-    List<Boolean> player_blackjack;
+//    boolean dealer_blackjack = false;
+//    List<Boolean> player_blackjack;
 
     public Manager(List<Card> cards){
         this.cards = cards;
@@ -70,14 +70,14 @@ public class Manager {
         for(Player player: players){
             deal_the_card(player);
             deal_the_card(player);
-            player_blackjack.add(false);
-
-            if(player.calculate_score() == 21){
-                player_blackjack.remove(index);
-                player_blackjack.add(true);
-            }
-
-            ++index;
+//            player_blackjack.add(false);
+//
+//            if(player.calculate_score() == 21){
+//                player_blackjack.remove(index);
+//                player_blackjack.add(true);
+//            }
+//
+//            ++index;
         }
     }
 
@@ -85,9 +85,9 @@ public class Manager {
         deal_the_card_to_dealer();
         deal_the_card_to_dealer();
 
-        if(dealer.calculate_score() == 21){
-            dealer_blackjack = true;
-        }
+//        if(dealer.calculate_score() == 21){
+//            dealer_blackjack = true;
+//        }
     }
 
     private void deal_the_card_to_dealer(){
@@ -149,21 +149,21 @@ public class Manager {
         }
     }
 
-    private void end_game(){
-        double dealer_money = 0;
-        double[] player_money = new double[players.size()];
-        int index = 0;
-
-        if(dealer_blackjack){
-            for(Boolean bool : player_blackjack){
-                if(bool){
-                    player_money[index] = players.get(index).getBettingMoney();
-                }
-                ++index;
-            }
-
-        }
-
-    }
+//    private void end_game(){
+//        double dealer_money = 0;
+//        double[] player_money = new double[players.size()];
+//        int index = 0;
+//
+//        if(dealer_blackjack){
+//            for(Boolean bool : player_blackjack){
+//                if(bool){
+//                    player_money[index] = players.get(index).getBettingMoney();
+//                }
+//                ++index;
+//            }
+//
+//        }
+//
+//    }
 
 }
