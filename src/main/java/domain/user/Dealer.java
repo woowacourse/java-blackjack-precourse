@@ -17,5 +17,15 @@ public class Dealer {
     public void addCard(Card card) {
         cards.add(card);
     }
-
+    
+    public String getDealerSymbolAndType() {
+    	return cards.get(0).getCardSymbolType();
+    }
+    
+    public void getPlayerSymbolAndType(List<String> playerCards) {
+    	for (Card card : cards) {
+    		playerCards.add(card.getCardSymbolType());
+    	}
+    }
+    
 }

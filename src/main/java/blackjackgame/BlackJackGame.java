@@ -15,9 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.Deck;
-import domain.user.Dealer;
-import domain.user.Player;
-import view.Input;
+import domain.user.*;
+import view.*;
 
 public class BlackJackGame {
 	private static final String COMMA = ",";
@@ -26,6 +25,7 @@ public class BlackJackGame {
 	private List<Player> players = new ArrayList<>();
 	private Dealer dealer = new Dealer();
 	private Input input = new Input();
+	private Output output = new Output();
 	private Deck deck = new Deck();
 	private String[] playerNames;
 
@@ -34,7 +34,8 @@ public class BlackJackGame {
 		makePlayers();
 		makeCardSet();
 		shuffleCards();
-		drawTwoCards(); 
+		drawTwoCards();
+		printDrawCards();
 	}
 
 	private void makePlayers() {
@@ -62,6 +63,10 @@ public class BlackJackGame {
 		for (Player player : players) {
 			player.addCard(deck.drawCard());
 		}
+	}
+	
+	private void printDrawCards() {
+		output.printDrawCards(dealer, players, playerNames);
 	}
 
 }
