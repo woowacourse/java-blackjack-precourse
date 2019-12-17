@@ -108,7 +108,7 @@ public class InputManager {
         do {
             print(Message.makeMessageAskPlayerBattingAmout(playerName));
             battingMoneyString = scanner.nextLine().trim();
-        } while (checkBattingMoneyValid(battingMoneyString));
+        } while (!checkBattingMoneyValid(battingMoneyString));
 
         return Double.parseDouble(battingMoneyString);
     }

@@ -32,6 +32,7 @@ public class GameManager {
     public GameManager() {
         cardDeck = new CardDeck();
         dealer = new Dealer();
+        players = new ArrayList<>();
         inputManager = new InputManager();
     }
 
