@@ -72,7 +72,7 @@ public class Game {
 	}
 
 	private void drawCard(Player player) {
-		while (GameController.hitCard(player.getName())) {
+		while (player.canHit() && GameController.hitCard(player.getName())) {
 			player.addCard(cardDeck.pop());
 			GameController.showCards(OutputUtil.getPlayerNameAndCards(player));
 		}

@@ -51,4 +51,8 @@ public class Dealer {
 	public boolean isBlackJack() {
 		return (cards.size() == TWO) && (this.getTotalScore() == MAXIMUM_SCORE);
 	}
+
+	public boolean canHit() {
+		return getTotalScore() < MAXIMUM_SCORE;
+	}
 }
