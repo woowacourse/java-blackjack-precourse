@@ -33,11 +33,12 @@ public class Gamer {
     }
 
     private boolean haveAce() {
-        boolean presenceOfAce = false;
         for (Card card : cards) {
-            presenceOfAce = card.isAce();
+            if (card.isAce()) {
+                return true;
+            }
         }
-        return presenceOfAce;
+        return false;
     }
 
     private int adjustAce(int basicScore) {
