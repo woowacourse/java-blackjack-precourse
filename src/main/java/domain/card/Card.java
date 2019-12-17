@@ -45,4 +45,8 @@ public class Card {
     public int getSymbol() {
         return symbol.getScore();
     }
+
+    public Type getType() {
+        return this.type;
+    }
 }

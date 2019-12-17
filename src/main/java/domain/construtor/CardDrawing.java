@@ -20,7 +20,6 @@ import domain.user.Player;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * 카드를 드로우 하는 기능하는 클레스
@@ -85,10 +84,13 @@ public class CardDrawing {
      */
     public void drawDealerCard(int score, Dealer dealer) {
         while (score <= DEALER_DRAW_STANDARD) {
-            dealer.addCard(cards.get(randomIndex.nextInt(52)));
             view.viewDealerMoreDraw(DEALER_DRAW);
-            return;
+            dealer.addCard(cards.get(randomIndex.nextInt(52)));
+            score = dealer.calculateSymbol();
+            System.out.println();
         }
-        view.viewDealerMoreDraw(!DEALER_DRAW);
+        if (dealer.calculateSymbol() > DEALER_DRAW_STANDARD) {
+            view.viewDealerMoreDraw(!DEALER_DRAW);
+        }
     }
 }
