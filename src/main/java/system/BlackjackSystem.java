@@ -31,6 +31,7 @@ public class BlackjackSystem {
         for (Player p : playerList) {
             AskPlayerToGetCard(p);
         }
+        printResultStatus();
     }
 
     private void setGame() {
@@ -120,5 +121,12 @@ public class BlackjackSystem {
         if (answer == 'n') return;
         giveCard(player);
         OutputView.printCardStatus(player);
+    }
+
+    private void printResultStatus() {
+        OutputView.printResultStatus(dealer);
+        for (Player player : playerList) {
+            OutputView.printResultStatus(player);
+        }
     }
 }

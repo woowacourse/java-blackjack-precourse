@@ -2,6 +2,7 @@ package view;
 
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,5 +30,19 @@ public class OutputView {
 
     public static void printDealerGetCardMessage() {
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+    }
+
+    public static void printResultStatus(Dealer dealer) {
+        printCardStatus(dealer);
+        printSumScore(dealer);
+    }
+
+    public static void printResultStatus(Player player) {
+        printCardStatus(player);
+        printSumScore(player);
+    }
+
+    private static void printSumScore(User user) {
+        System.out.println("결과 : " + user.getSumScore());
     }
 }
