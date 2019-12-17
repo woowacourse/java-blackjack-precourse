@@ -1,22 +1,14 @@
 package domain.user;
 
-import domain.card.Card;
-import domain.card.Symbol;
-import domain.game.Constant;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player extends User{
     private static final int MINIMUM_LENGTH_OF_PLAYER_NAME = 1;
     private static final int MINIMUM_BETTING_SIZE = 0;
 
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
         validateName(name);
@@ -37,47 +29,16 @@ public class Player {
         }
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
-    private boolean hasAce() {
-        return this.cards.stream().anyMatch(Card::isAce);
-    }
-
-    public int getScore() {
-        int sumOfScores = sumCardScores();
-        if (hasAce()) {
-            return adjustAceScore(sumOfScores);
-        }
-        return sumOfScores;
-    }
-
-    private int sumCardScores() {
-        return this.cards.stream()
-                .map(Card::getSymbol)
-                .mapToInt(Symbol::getScore)
-                .sum();
-    }
-
-    private int adjustAceScore(int sumOfScores) {
-        int adjustment =  Constant.ALTERNATIVE_ACE.getScore() - Symbol.ACE.getScore();
-        if (sumOfScores + adjustment <=  Constant.TARGET.getScore()) {
-            return sumOfScores + adjustment;
-        }
-        return sumOfScores;
-    }
-
+    @Override
     public String getCardInfo() {
-        String result =  this.name + "의 카드: ";
-        for (Card card : this.cards) {
-            result += card.getCardInfo();
-            result += " ";
-        }
-        return result;
+        return this.name + "의 카드: " + super.getCardInfo();
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public double getBettingMoney() {
+        return this.bettingMoney;
     }
 }
