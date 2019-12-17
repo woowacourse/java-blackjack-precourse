@@ -68,5 +68,13 @@ public class GameManager {
 		addCardPlayer();
 	}
 
-	
+	private void printDealerCard() {
+		System.out.println("딜러와 2장의 카드를 나누었습니다");
+		dealer.addCard(randomCard());
+		dealer.addCard(randomCard());
+		System.out.print("딜러: ");
+		printPlayerCard(dealer);
+
+	}
+
 }
