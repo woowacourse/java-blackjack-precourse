@@ -39,10 +39,16 @@ public class BlackJackGame {
         if (player.isBust()) {
             return;
         }
+        
+        askDraw(player);
+    }
+    
+    private void askDraw(Player player) {
         BooleanInput booleanInput = new BooleanInput(player.getName());
         if (!booleanInput.getAgree()) {
             return;
         }
+        
         player.draw();
         CardsPrinter.printWithName(player);
         drawPlayerCard(player);
