@@ -74,10 +74,8 @@ public class User {
             score = anotherCardsSum(cards, card, score, i);
         }
         if(score + ANOTHER_ACE_NUMBER <= BLACKJACK) {
-            System.out.println("11");
             return ANOTHER_ACE_NUMBER;
         }
-        System.out.println("1");
         return ACE_NUMBER;
     }
 

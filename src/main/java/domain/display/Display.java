@@ -52,11 +52,15 @@ public class Display {
 
     private void displayFirstTurnBlackJackOnlyPlayer(List<Player> players, int winnerMoney, int loseMoney) {
         System.out.println("플레이어가 1회차에 블랙잭에 당첨되었습니다!");
-        System.out.println("###최종수익");
+        displayResult();
         for(Player player : players) {
             winnerOrLose(player);
         }
         System.out.println("딜러 :" + (loseMoney - winnerMoney));
+    }
+
+    private void displayResult() {
+        System.out.println("###최종수익");
     }
 
     private void winnerOrLose(Player player) {
@@ -143,7 +147,7 @@ public class Display {
     public void displayTie(List<Player> players, int maxScore) {
         int loseMoney = 0;
         System.out.println("플레이어와 딜러가 둘다 블랙잭이므로 블랙잭인 플레이어는 배당금을 돌려받습니다.");
-        System.out.println("###최종수익");
+        displayResult();
         for(Player player : players) {
             drawnPlayerAndDealer(maxScore, player);
             loseMoney = getLoseMoney(maxScore, loseMoney, player);
@@ -168,7 +172,7 @@ public class Display {
     private void displayBlackJack(List<Player> players, int maxScore) {
         int winnerMoney = 0;
         int loseMoney = 0;
-        System.out.println("###최종수익");
+        displayResult();
         for(Player player : players) {
             winnerMoney = getWinnerMoney(maxScore, winnerMoney, player);
             loseMoney = getLoseMoney(maxScore, loseMoney, player);
@@ -186,7 +190,7 @@ public class Display {
 
     private void displayPlayerWin(List<Player> players) {
         System.out.println("딜러가 21을 초과 했으므로 모든 플레이어는 배팅 금액을 받습니다.");
-        System.out.println("###최종수익");
+        displayResult();
         int loseMoney = 0;
         for(Player player : players) {
             System.out.println(player.getName() + " : " + (int)player.getBettingMoney());
@@ -197,7 +201,7 @@ public class Display {
 
     public void displayBlackJackDealer(List<Player> players) {
         int dealerMoney = 0;
-        System.out.println("###최종수익");
+        displayResult();
         for(Player player : players) {
             System.out.println(player.getName() + " : " + (int) (-player.getBettingMoney()));
             dealerMoney += player.getBettingMoney();
@@ -240,5 +244,9 @@ public class Display {
 
     public void displayNameErrorMessage() {
         System.out.println("이름은 영문자 (대소문자 구별x)만 가능합니다.");
+    }
+
+    public void displayGetMoneyErrorMessage() {
+        System.out.println("만원 단위로 입력해주시기 바랍니다.");
     }
 }

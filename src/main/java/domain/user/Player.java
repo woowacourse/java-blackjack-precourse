@@ -1,10 +1,5 @@
 package domain.user;
 
-import domain.card.Card;
-import domain.card.Symbol;
-
-import java.util.*;
-
 /**
  * 게임 참여자를 의미하는 객체
  */

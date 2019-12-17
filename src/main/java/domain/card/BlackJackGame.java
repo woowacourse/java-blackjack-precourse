@@ -214,14 +214,11 @@ public class BlackJackGame {
             checkBettingMoney(money);
             return true;
         } catch (NumberFormatException e) {
-            displayGetMoneyErrorMessage();
+            display.displayGetMoneyErrorMessage();
         }
         return false;
     }
 
-    private void displayGetMoneyErrorMessage() {
-        System.out.println("만원 단위로 입력해주시기 바랍니다.");
-    }
 
     private void checkBettingMoney(int bettingMoney) {
         if(bettingMoney % LEAST_BETTING_MONEY != LEAST_BETTING_MONEY_UNIT
