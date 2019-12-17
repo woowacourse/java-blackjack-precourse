@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.game.Blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class Dealer implements Participant {
     @Override
     public void addCard(Card card) {
         cards.add(card);
+        if (cards.size() == Blackjack.CONDITION_INIT_CARDS) {
+            openOneCard();
+        }
     }
 
     @Override

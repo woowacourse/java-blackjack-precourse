@@ -10,9 +10,9 @@ import java.util.*;
 public class Blackjack {
     public static final int MAX_PLAYER_NUMBER = 5;
     public static final int MAX_NAME_LENGTH = 5;
-    public final int CONDITION_SCORE = 21;
-    public final int CONDITION_NUMBER_OF_CARDS = 2;
-    public final int CONDITION_DEALER_SCORE = 17;
+    public static final int CONDITION_SCORE = 21;
+    public static final int CONDITION_INIT_CARDS = 2;
+    public static final int CONDITION_DEALER_SCORE = 17;
     public final String YES = "y";
     public final String NO = "n";
     public Dealer dealer;
@@ -88,15 +88,15 @@ public class Blackjack {
 
 
     public void dealCards() {
-        System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
-        deal(dealer);
-        deal(dealer);
-        dealer.openOneCard();
-        for (User user : users) {
-            deal(user);
-            deal(user);
-            user.showCards();
+        for (int i = 0; i < CONDITION_INIT_CARDS; i++) {
+            deal(dealer);
         }
+        for (int i = 0; i < CONDITION_INIT_CARDS; i++) {
+            for (User user : users) {
+                deal(user);
+            }
+        }
+        System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
     }
 
     public void deal(Participant participant) {
@@ -105,7 +105,7 @@ public class Blackjack {
     }
 
     public boolean isBlackJack(Participant participant) {
-        return (participant.calScore() == CONDITION_SCORE) && (participant.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
+        return (participant.calScore() == CONDITION_SCORE) && (participant.getNumberOfCards() == CONDITION_INIT_CARDS);
     }
 
     public boolean isBust(Participant participant) {
@@ -130,7 +130,6 @@ public class Blackjack {
         }
         while ((!isBust(user)) && (isReceivingCard(user))) {
             deal(user);
-            user.showCards();
         }
     }
 
