@@ -22,8 +22,11 @@ import java.util.List;
  * 최종결과를 보여주는 클레스
  */
 public class SelectionWinner {
+    static double dealerSum = 0;
     static final int BLACKJACK = 21;
+    static int temp = 99999;
     View view = new View();
+    static List<Double> playerMoneyList = new ArrayList<>();
 
     /**
      * 시작하자마자 블랙젝이있는경우 최종결과 리턴
@@ -32,9 +35,6 @@ public class SelectionWinner {
      * @param dealer     딜러객체
      */
     public void startBlackjack(List<Player> playerList, Dealer dealer) {
-        double dealerSum = 0;
-        List<Double> playerMoneyList = new ArrayList<>();
-
         if (dealer.calculateSymbol() == BLACKJACK) {
             getDealerBlackjack(playerList, playerMoneyList, dealerSum);
             return;
@@ -79,5 +79,79 @@ public class SelectionWinner {
             dealerSum -= (0.5) * player.getbettingMoney();
         }
         view.resultMsg(dealerSum, playerList, playerMoneyList);
+    }
+
+    /**
+     * 최종 수익 리스트를 들어서 출력하는 기능
+     *
+     * @param playerList 플레이어 리스트
+     * @param dealer     딜러객체
+     */
+    public void determineBlackjack(List<Player> playerList, Dealer dealer) {
+        if (dealer.calculateSymbol() > BLACKJACK) {
+            overDealerBlackjack(playerList);
+            return;
+        }
+        makeResult(playerList);
+    }
+
+    /**
+     * 딜러의 값이 21을 넘는경우
+     *
+     * @param playerList 플레이어 리스트
+     */
+    public void overDealerBlackjack(List<Player> playerList) {
+        playerList.forEach(player -> playerMoneyList.add(player.getbettingMoney()));
+        view.resultMsg(0.0, playerList, playerMoneyList);
+    }
+
+    /**
+     * 결과를 만드는 과정
+     *
+     * @param playerList 플레이어 리스트
+     */
+    public void makeResult(List<Player> playerList) {
+        for (Player player : playerList) {
+            if (player.calculateSymbol() > BLACKJACK) {
+                playerMoneyList.add(-player.getbettingMoney());
+                dealerSum += player.getbettingMoney();
+            }
+            playerMoneyList.add(+player.getbettingMoney());
+        }
+        makeResultFilter(playerList);
+        view.resultMsg(dealerSum, playerList, playerMoneyList);
+    }
+
+    /**
+     * 21에 가장가까운 플레이어 뽑는 과정
+     *
+     * @param playerList 플레이어 리스트
+     */
+    public void makeResultFilter(List<Player> playerList) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerMoneyList.get(i) > 0) {
+                makeResultFilterMore(playerList, i);
+            }
+        }
+    }
+
+    /**
+     * 필터 과정중에 우승자 한명제외하고 나머지는 손해
+     *
+     * @param playerList 플레이어 리스트
+     * @param index      인덱스
+     */
+    public void makeResultFilterMore(List<Player> playerList, int index) {
+        if (temp > BLACKJACK - playerList.get(index).calculateSymbol()) {
+            temp = BLACKJACK - playerList.get(index).calculateSymbol();
+            return;
+        }
+        dealerSum += playerMoneyList.get(index);
+        playerMoneyList.set(index, -playerMoneyList.get(index));
+    }
+
+    public void winner(List<Player> playerList,Dealer dealer){
+        view.resultCardMsg(playerList,dealer);
+        determineBlackjack(playerList,dealer);
     }
 }

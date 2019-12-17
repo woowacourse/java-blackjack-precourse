@@ -26,12 +26,13 @@ public class BlackjackGame {
         dealer = construct.constructDealer();
         drawing.startShuffle(playerList,dealer);
         if(playerList.stream().anyMatch(player -> player.calculateSymbol() == BLACKJACK)){
+            view.resultCardMsg(playerList,dealer);
             winner.startBlackjack(playerList,dealer);
+            return;
         }
-
-        drawing.drawAllPlayer(playerList);
+        drawing.drawAllPlayer(playerList,dealer);
         drawing.drawDealerCard(dealer.calculateSymbol(),dealer);
-        view.resultCardMsg(playerList,dealer);
+        winner.winner(playerList,dealer);
     }
 
 }

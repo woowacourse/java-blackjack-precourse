@@ -35,6 +35,7 @@ public class CardDrawing {
     Random randomIndex = new Random();
     InputDecision decision = new InputDecision();
     View view = new View();
+    SelectionWinner winner = new SelectionWinner();
 
     /**
      * 시작할때 플레이어에게 2장을 지급하고 딜러가 2장을 드로우하는 기능
@@ -59,7 +60,7 @@ public class CardDrawing {
      *
      * @param playerList 플레이어 리스트
      */
-    public void drawAllPlayer(List<Player> playerList) {
+    public void drawAllPlayer(List<Player> playerList,Dealer dealer) {
         for (Player player : playerList) {
             drawPlayerCard(player);
         }
