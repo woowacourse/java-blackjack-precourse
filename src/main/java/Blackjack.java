@@ -5,26 +5,24 @@
  * All rights reserved.
  */
 
-package domain;
-
 import java.util.List;
 
 import api.BlackjackApi;
 import domain.user.*;
 
-public class Blackjack {
+class Blackjack {
     private BlackjackApi blackjackApi;
 
     private Dealer dealer;
 
 
-    public Blackjack(BlackjackApi blackjackApi, Dealer dealer) {
+    Blackjack(BlackjackApi blackjackApi, Dealer dealer) {
         this.blackjackApi = blackjackApi;
         this.dealer = dealer;
     }
 
 
-    public void play() {
+    void play() {
         List<Player> players = blackjackApi.join();
 
         blackjackApi.receiveDefaultCards(dealer, players);

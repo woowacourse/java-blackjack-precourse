@@ -8,7 +8,7 @@
 import java.util.Scanner;
 
 import api.BlackjackApi;
-import domain.Blackjack;
+import api.BlackjackApiImpl;
 import domain.BlackjackPrinter;
 import domain.UserInterface;
 import domain.card.Deck;
@@ -44,7 +44,7 @@ public class Application {
         BlackjackPrinter blackjackPrinter = new BlackjackPrinterImpl();
         DealerService dealerService = setupDealerService(deck, blackjackPrinter);
         PlayerService playerService = setupPlayerService(deck, blackjackPrinter);
-        return new BlackjackApi(dealerService, playerService, blackjackPrinter);
+        return new BlackjackApiImpl(dealerService, playerService, blackjackPrinter);
     }
 
     private static Blackjack setupBlackjack() {

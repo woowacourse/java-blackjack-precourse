@@ -17,9 +17,9 @@ import domain.UserInterface;
 import domain.card.*;
 import domain.user.*;
 
-class BlackjackApiTest {
+class BlackjackApiImplTest {
 
-    private BlackjackApi blackjackApi;
+    private BlackjackApiImpl blackjackApiImpl;
     private BlackjackPrinter mockBlackjackPrinter = mock(BlackjackPrinter.class);
     private UserInterface mockUserInterface = mock(UserInterface.class);
     private Dealer dealer;
@@ -31,7 +31,7 @@ class BlackjackApiTest {
         PlayerFactory playerFactory = new PlayerFactory();
         DealerService dealerService = new DealerServiceImpl(deck, mockBlackjackPrinter);
         PlayerService playerService = new PlayerServiceImpl(deck, mockBlackjackPrinter, mockUserInterface, playerFactory);
-        blackjackApi = new BlackjackApi(dealerService, playerService, mockBlackjackPrinter);
+        blackjackApiImpl = new BlackjackApiImpl(dealerService, playerService, mockBlackjackPrinter);
     }
 
     @Test
@@ -42,7 +42,7 @@ class BlackjackApiTest {
         dealer = makeDealer(cardsWhichBust);
         player = makePlayer(cardsWhichBust);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(bettingMoney, dealer.getProfit());
         assertEquals(-bettingMoney, player.getProfit());
@@ -57,7 +57,7 @@ class BlackjackApiTest {
         List<Card> cardsWhichNotBust = makeCardsWhichNotBust();
         player = makePlayer(cardsWhichNotBust);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(-bettingMoney, dealer.getProfit());
         assertEquals(bettingMoney, player.getProfit());
@@ -72,7 +72,7 @@ class BlackjackApiTest {
         List<Card> blackjack = makeBlackjack();
         player = makePlayer(blackjack);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(-bettingMoney * BlackjackConfig.BLACKJACK_RATE, dealer.getProfit());
         assertEquals(bettingMoney * BlackjackConfig.BLACKJACK_RATE, player.getProfit());
@@ -87,7 +87,7 @@ class BlackjackApiTest {
         List<Card> cardsWhichBust = makeCardsWhichBust();
         player = makePlayer(cardsWhichBust);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(bettingMoney, dealer.getProfit());
         assertEquals(-bettingMoney, player.getProfit());
@@ -101,7 +101,7 @@ class BlackjackApiTest {
         dealer = makeDealer(cardsWhichNotBust);
         player = makePlayer(cardsWhichNotBust);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(0, dealer.getProfit());
         assertEquals(0, player.getProfit());
@@ -116,7 +116,7 @@ class BlackjackApiTest {
         List<Card> cardsSmaller = makeCardsSmaller();
         player = makePlayer(cardsSmaller);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(bettingMoney, dealer.getProfit());
         assertEquals(-bettingMoney, player.getProfit());
@@ -131,7 +131,7 @@ class BlackjackApiTest {
         List<Card> cardsBigger = makeCardsWhichNotBust();
         player = makePlayer(cardsBigger);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(-bettingMoney, dealer.getProfit());
         assertEquals(bettingMoney, player.getProfit());
@@ -146,7 +146,7 @@ class BlackjackApiTest {
         List<Card> blackjack = makeBlackjack();
         player = makePlayer(blackjack);
         //when
-        blackjackApi.match(dealer, Collections.singletonList(player));
+        blackjackApiImpl.match(dealer, Collections.singletonList(player));
         //then
         assertEquals(-bettingMoney * BlackjackConfig.BLACKJACK_RATE, dealer.getProfit());
         assertEquals(bettingMoney * BlackjackConfig.BLACKJACK_RATE, player.getProfit());
