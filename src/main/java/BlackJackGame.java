@@ -141,7 +141,7 @@ public class BlackJackGame {
     private int getShare(Player player, Dealer dealer) {
         int x = getProfit(player, dealer);
         if (x != 0) return x;
-        if (player.getScore() < dealer.getScore() || (player.isBusted() && !dealer.isBusted())) {
+        if ((!player.isBusted() && player.getScore() < dealer.getScore()) || (player.isBusted() && !dealer.isBusted())) {
             return (int) (-1 * player.getBettingMoney());
         }
         return 0;
