@@ -12,7 +12,7 @@ public class Player implements User {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
-    private int resultMoney;
+    private double resultMoney;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -54,11 +54,15 @@ public class Player implements User {
         return sum;
     }
 
-    public void setResultMoney(int money){
+    public void setResultMoney(double money){
         this.resultMoney = money;
     }
 
-    public int getResultMoney(){
+    public double getResultMoney(){
         return resultMoney;
+    }
+
+    public double getBettingMoney(){
+        return bettingMoney;
     }
 }

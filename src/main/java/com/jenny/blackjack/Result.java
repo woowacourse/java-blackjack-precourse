@@ -74,4 +74,13 @@ public class Result {
             System.out.println(p.getName() + " : " + p.getResultMoney());
         }
     }
+
+    public int getTotalBetMoney(List<Player> players){
+        int sum = 0;
+
+        for(Player p : players){
+            sum += p.getBettingMoney();
+        }
+        return sum;
+    }
 }
