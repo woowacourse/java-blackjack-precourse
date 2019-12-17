@@ -2,6 +2,8 @@ package domain.user;
 
 import domain.card.Card;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class User {
@@ -17,15 +19,19 @@ public abstract class User {
 
     int calculateSum(List<Card> cards) {
         int result = 0;
+        List<Card> sortedCards = new ArrayList<>();
+        sortedCards.addAll(cards);
+        sortedCards.sort((firstCard, secondCard) -> secondCard.getNumber() - firstCard.getNumber());
 
-        for (Card card : cards) {
-            result += checkAce(card, result);
+        for (Card card : sortedCards) {
+            int cardNumber = checkAce(card, result);
+            result += cardNumber;
         }
 
-        return cards.stream().mapToInt(Card::getNumber).sum();
+        return result;
     }
 
-    private int checkAce(Card card, int score) {
+    public int checkAce(Card card, int score) {
         if (card.getNumber() == ACE_NUMBER && score < ACE_ELEVEN_NUMBER) {
             return ACE_ELEVEN_NUMBER;
         }
@@ -38,10 +44,6 @@ public abstract class User {
 
     boolean isBursted(List<Card> cards) {
         return calculateSum(cards) > BLACK_JACK;
-    }
-
-    boolean isInGame(List<Card> cards) {
-        return calculateSum(cards) < BLACK_JACK;
     }
 
     public abstract String getName();

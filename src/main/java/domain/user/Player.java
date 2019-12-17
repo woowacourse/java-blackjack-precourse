@@ -24,7 +24,7 @@ public class Player extends User {
     }
 
     public int calculateSum() {
-        return cards.stream().mapToInt(Card::getNumber).sum();
+        return calculateSum(cards);
     }
 
     public boolean isBlackJack() {

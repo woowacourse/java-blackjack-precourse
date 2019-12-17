@@ -23,7 +23,7 @@ public class Dealer extends User {
     }
 
     public int calculateSum() {
-        return cards.stream().mapToInt(Card::getNumber).sum();
+        return calculateSum(cards);
     }
 
     public boolean isBlackJack() {
@@ -36,10 +36,6 @@ public class Dealer extends User {
 
     public boolean isBursted() {
         return isBursted(cards);
-    }
-
-    public boolean isSameScore(int score) {
-        return calculateSum() == score;
     }
 
     public List<Card> getCards() {
