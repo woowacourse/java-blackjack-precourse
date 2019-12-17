@@ -105,4 +105,8 @@ public class GameController {
 	public static void showDealerHit() {
 		OutputView.printDealerHit();
 	}
+
+	public static void showGameResult(String gameResult) {
+		OutputView.printGameResult(gameResult);
+	}
 }

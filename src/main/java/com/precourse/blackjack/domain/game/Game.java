@@ -41,7 +41,7 @@ public class Game {
 	public void start() {
 		setGame();
 		proceedGame();
-		//EndGame();
+		endGame();
 	}
 
 	private void setGame() {
@@ -88,5 +88,9 @@ public class Game {
 			GameController.showDealerHit();
 			dealer.addCard(cardDeck.pop());
 		}
+	}
+
+	private void endGame() {
+		GameController.showGameResult(OutputUtil.getGameResult(players, dealer));
 	}
 }

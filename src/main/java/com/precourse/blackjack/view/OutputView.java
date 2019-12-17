@@ -53,4 +53,8 @@ public class OutputView {
 	public static void printDealerHit() {
 		System.out.println(DEALER_HIT);
 	}
+
+	public static void printGameResult(String gameResult) {
+		System.out.println(gameResult);
+	}
 }
