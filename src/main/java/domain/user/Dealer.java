@@ -1,11 +1,9 @@
 package domain.user;
 
-import com.sun.deploy.util.StringUtils;
 import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 게임 딜러를 의미하는 객체

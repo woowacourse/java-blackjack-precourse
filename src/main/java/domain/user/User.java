@@ -6,25 +6,30 @@ import java.util.List;
 
 public abstract class User {
 
-    static final int BLACK_JACK = 21;
-    static final int BLACK_JACK_SIZE = 2;
+    private static final int BLACK_JACK = 21;
+    private static final int BLACK_JACK_SIZE = 2;
+    private static final int ACE_NUMBER = 1;
+    private static final int ACE_ELEVEN_NUMBER = 11;
 
-    public void addCard(List<Card> cards, Card card) {
+    void addCard(List<Card> cards, Card card) {
         cards.add(card);
     }
 
-    public int calculateSum(List<Card> cards) {
+    int calculateSum(List<Card> cards) {
         int result = 0;
 
         for (Card card : cards) {
-            int number = card.getNumber();
-            if (number == 1) {
-                result += 10;
-            }
-            result += number;
+            result += checkAce(card, result);
         }
 
         return cards.stream().mapToInt(Card::getNumber).sum();
+    }
+
+    private int checkAce(Card card, int score) {
+        if (card.getNumber() == ACE_NUMBER && score < ACE_ELEVEN_NUMBER) {
+            return ACE_ELEVEN_NUMBER;
+        }
+        return card.getNumber();
     }
 
     boolean isBlackJack(List<Card> cards) {
