@@ -1,5 +1,6 @@
 package game;
 
+import domain.card.Card;
 import domain.deck.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -11,11 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Game {
-
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.play();
-    }
 
     public void play() {
         Dealer dealer = new Dealer();
@@ -99,18 +95,21 @@ public class Game {
     }
 
     private boolean wantMoreCard(Player player, Deck deck) {
-        while (true) {
-            String answer = GameInputScanner.askAddOneMoreCard(player);
-            if (answer.equals("y")) {
-                player.addCard(deck.draw());
-                GamePrinter.printPlayerStatus(player);
-                return true;
-            }
-            if (answer.equals("n")) {
-                return false;
-            }
-            System.out.println("답은 y 또는 n으로만 가능합니다.");
+        String answer = GameInputScanner.askAddOneMoreCard(player);
+        return checkAnswer(player, deck, answer);
+    }
+
+    private boolean checkAnswer(Player player, Deck deck, String answer) {
+        if (answer.equals("n")) {
+            return false;
         }
+        if (answer.equals("y")) {
+            Card card = deck.draw();
+            player.addCard(card);
+            return true;
+        }
+        System.out.println("답은 y 또는 n으로만 가능합니다.");
+        return true;
     }
 
     private void checkDealer(Dealer dealer, Deck deck) {
