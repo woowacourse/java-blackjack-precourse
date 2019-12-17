@@ -29,8 +29,15 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
     public void printUserResult(User user) {
         stringBuilder = buildUserResult(user);
         stringBuilder.append(" - 결과: ");
-        stringBuilder.append(user.calculateScore());
+        int score = user.calculateScore();
 
+        if (BlackjackConfig.BLACKJACK < score) {
+            stringBuilder.append(String.format("버스트(%d)", score));
+            printStringBuilder(stringBuilder);
+            return;
+        }
+
+        stringBuilder.append(score);
         printStringBuilder(stringBuilder);
     }
 
