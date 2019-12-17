@@ -2,6 +2,7 @@ package gameRunner;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.result.ResultGamersScore;
 import domain.user.ActiveGamers;
 import domain.user.Dealer;
 import domain.user.Gamer;
@@ -65,6 +66,11 @@ public class BlackJackGame {
 
     private void giveCardToGamer(Gamer gamer) {
         gamer.addCard(cardFactory.popRandomCard());
+    }
+
+    public void giveFinalResult() {
+        ResultGamersScore resultGamersScore = new ResultGamersScore(activeGamers);
+        showResult(resultGamersScore);
     }
 
 }

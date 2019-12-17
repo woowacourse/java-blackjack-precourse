@@ -22,5 +22,4 @@ public class Dealer extends Gamer {
         return getScoreOfGamer() <= LIMIT_NUMBER;
     }
 
-
 }

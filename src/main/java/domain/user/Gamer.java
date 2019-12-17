@@ -6,9 +6,10 @@ import domain.card.Symbol;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.result.ResultGamersScore.BLACK_JACK_NUMBER;
+
 public class Gamer {
 
-    private final int BLACK_JACK_NUMBER = 21;
     private final int ACE_RECOVER_NUMBER = 10;
 
     private final List<Card> cards = new ArrayList<>();
@@ -25,8 +26,10 @@ public class Gamer {
         return "";
     }
 
+    public int getCardSize() {
+        return cards.size();
+    }
 
-    //게임 스코어 계산
     public int getScoreOfGamer() {
         int scoreOfGamer = getCardScore();
         for (int i = 0; i < getAceCount(); i++) {

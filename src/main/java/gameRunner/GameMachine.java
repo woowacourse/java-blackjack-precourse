@@ -19,6 +19,7 @@ public class GameMachine {
         BlackJackGame blackJackGame = new BlackJackGame(names, bettingMoneys);
         blackJackGame.giveInitCard();
         blackJackGame.giveMoreCardToGamers(inputView);
+        blackJackGame.giveFinalResult();
     }
 
 

@@ -24,6 +24,4 @@ public class Player extends Gamer {
         return bettingMoney;
     }
 
-    // TODO 추가 기능 구현
-
 }

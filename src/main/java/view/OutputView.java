@@ -1,6 +1,8 @@
 package view;
 
 import domain.card.Card;
+import domain.result.GamerResult;
+import domain.result.ResultGamersScore;
 import domain.user.ActiveGamers;
 import domain.user.Gamer;
 
@@ -63,4 +65,15 @@ public class OutputView {
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 
+    public static void showResult(ResultGamersScore resultGamersScores) {
+        System.out.println("## 최종 수익");
+        for (GamerResult gamerResult : resultGamersScores.getGamerResults()) {
+            showGamersResult(gamerResult);
+        }
+
+    }
+
+    public static void showGamersResult(GamerResult gameResult) {
+        System.out.printf("%s : %.0f\n", gameResult.getName(), gameResult.getResultMoney());
+    }
 }
