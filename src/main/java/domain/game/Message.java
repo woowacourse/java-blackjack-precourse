@@ -52,7 +52,7 @@ public class Message {
 
     public static String makeMessageDealerSmallestState(Dealer dealer) {
         Card smallestCard = dealer.getSmallestCard();
-        return DEALER + CARD + smallestCard.toString();
+        return DEALER + CARD + smallestCard.toPrintString();
     }
 
     public static String makeMessageDealerState(Dealer dealer) {

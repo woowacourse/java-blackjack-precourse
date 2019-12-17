@@ -152,7 +152,7 @@ public class InputManager {
         String playerChoice;
 
         do {
-            print(player.getName() + Message.makeMessagePlayerWantMoreCard(player));
+            print(Message.makeMessagePlayerWantMoreCard(player));
             playerChoice = scanner.nextLine().trim();
         } while (!checkPlayerInputIsYesOrNo(playerChoice));
         if (playerChoice == YES) {
