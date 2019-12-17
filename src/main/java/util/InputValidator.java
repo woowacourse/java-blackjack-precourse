@@ -15,7 +15,7 @@ public class InputValidator {
 
     public static boolean isNumberInRange(String input, int min) {
         try {
-            int inputNumber = Integer.parseInt(input);
+            double inputNumber = Double.parseDouble(input);
             return checkRange(inputNumber, min);
         } catch (NumberFormatException e) {
             InputView.printNumberError();
@@ -23,7 +23,7 @@ public class InputValidator {
         }
     }
 
-    public static boolean checkRange(int input, int min) {
+    public static boolean checkRange(double input, int min) {
         if (input > min) {
             return true;
         }
