@@ -24,14 +24,14 @@ public class Player extends User {
     public List<Card> getCards() {
         return cards;
     }
-    
+
     public double getBettingMoney() {
-    	return bettingMoney;
+        return bettingMoney;
     }
 
+    @Override
     public void addCard(Card card) {
         cards.add(card);
-        sumNumbers += card.getCardNumber("Player", sumNumbers);
     }
 
 }

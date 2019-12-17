@@ -6,31 +6,11 @@ import domain.card.Card;
 public abstract class User {
     int sumNumbers = 0;
     double profit = 0.0;
-    private boolean blackJackTF = false;
-    private boolean bustTF = false;
-    private boolean twentyoneTF = false;
 
-    abstract void addCard(Card card);
+    public abstract void addCard(Card card);
 
-    public boolean blackJackYN(int sumNumbers) {
-        if (sumNumbers == 21) {
-            blackJackTF = true;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean bustYN(int sumNumbers) {
-        if (sumNumbers > 21) {
-            bustTF = true;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean twentyoneYN(int sumNumbers) {
-        if (sumNumbers == 21) {
-            twentyoneTF = true;
+    public boolean stopGameYN(int sumNumbers) {
+        if (sumNumbers >= 21) {
             return true;
         }
         return false;
@@ -46,6 +26,10 @@ public abstract class User {
 
     public int getSumNumbers() {
         return sumNumbers;
+    }
+
+    public void setSumNumbers(int sumNumbers) {
+        this.sumNumbers = sumNumbers;
     }
 
     public double getProfit() {

@@ -18,7 +18,7 @@ public class Card {
         this.type = type;
     }
 
-    public int getCardNumber(String user, int sumNumbers) {
+    public int getCardNumber(String user) {
         int cardNumber = symbol.getScore();
         if (cardNumber == 1 && user.equals("Player")) {
             selectAceNumberPlayer();

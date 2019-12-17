@@ -1,9 +1,21 @@
 package domain.gameElement;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
-public class PlayerBettingMoneyChecker {
+public class PlayersSetBettingMoney {
     private final int digitsLimit = 10; //10억 단위 미만만 허용
+    private Scanner scanner = new Scanner(System.in);
+
+    public double playerSetBettingMoney(String playerName) {
+        String bettingMoney = "";
+        PlayersSetBettingMoney playerBettingMoneyChecker = new PlayersSetBettingMoney();
+        do {
+            System.out.println("\n" + playerName + "의 배팅 금액은? (1원 단위로 쉼표없이 입력해주세요, 10억 미만으로만 가능합니다.)");
+            bettingMoney = scanner.nextLine().trim();
+        } while (!playerBettingMoneyChecker.playerBettingMoneyCheck(bettingMoney));
+        return Double.parseDouble(bettingMoney);
+    }
 
     public boolean playerBettingMoneyCheck(String bettingMoney) {
         if (bettingMoney.isEmpty()) {

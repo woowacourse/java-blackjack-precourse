@@ -23,8 +23,8 @@ public class Dealer extends User {
         return cards;
     }
 
+    @Override
     public void addCard(Card card) {
         cards.add(card);
-        sumNumbers += card.getCardNumber("Dealer", sumNumbers);
     }
 }
