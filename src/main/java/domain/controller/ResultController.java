@@ -20,6 +20,8 @@ import static domain.controller.ProfitController.*;
  */
 public class ResultController {
     private static final int EXIT_STATUS = 0;
+    private double totalPlayerProfit = 0;
+
 
     public void startBlackJackProcedure(ArrayList<Player> playerList, Dealer dealer) {
 
@@ -35,33 +37,28 @@ public class ResultController {
     }
 
     public void continueBlackJackProcedureForBoth(ArrayList<Player> playerList, Dealer dealer) {
-        double totalPlayerProfit = 0;
 
         for (Player player : playerList) {
-            totalPlayerProfit
-                    += player.getProfitByBettingMoney(getPlayerProfitForBlackJack(player));
+            totalPlayerProfit += player.getProfitByResult(getPlayerProfitForBlackJack(player));
         }
 
-        PrintController.printFinalProfit();
-        PrintController.printDealerProfit(-totalPlayerProfit);
+        controlPrintFinalProfitAndDealer(totalPlayerProfit);
 
         for (Player player : playerList) {
-            PrintController.printPlayerProfit(player.getProfitByBettingMoney(getPlayerProfitForBlackJack(player)), player);
+            PrintController.printPlayerProfit(player.getProfitByResult(getPlayerProfitForBlackJack(player)), player);
         }
     }
 
     public void continueBlackJackProcedureForDealer(ArrayList<Player> playerList, Dealer dealer) {
-        double totalPlayerProfit = 0;
 
         for (Player player : playerList) {
-            totalPlayerProfit += player.getProfitByBettingMoney(getPlayerDefeatedProfitRate());
+            totalPlayerProfit += player.getProfitByResult(getPlayerDefeatedProfitRate());
         }
 
-        PrintController.printFinalProfit();
-        PrintController.printDealerProfit(-totalPlayerProfit);
+        controlPrintFinalProfitAndDealer(totalPlayerProfit);
 
         for (Player player : playerList) {
-            PrintController.printPlayerProfit(player.getProfitByBettingMoney(getPlayerDefeatedProfitRate()), player);
+            PrintController.printPlayerProfit(player.getProfitByResult(getPlayerDefeatedProfitRate()), player);
         }
     }
 
@@ -84,32 +81,33 @@ public class ResultController {
     }
 
     public void startDealerBurstProcedure(ArrayList<Player> playerList, Dealer dealer) {
-        double totalPlayerProfit = 0;
 
         for (Player player : playerList) {
-            totalPlayerProfit += player.getProfitByBettingMoney(getPlayerWonProfitRate(player));
+            totalPlayerProfit += player.getProfitByResult(getPlayerWonProfitRate(player));
         }
 
-        PrintController.printFinalProfit();
-        PrintController.printDealerProfit(-totalPlayerProfit);
+        controlPrintFinalProfitAndDealer(totalPlayerProfit);
 
         for (Player player : playerList) {
-            PrintController.printPlayerProfit(player.getProfitByBettingMoney(getPlayerWonProfitRate(player)), player);
+            PrintController.printPlayerProfit(player.getProfitByResult(getPlayerWonProfitRate(player)), player);
         }
     }
 
     public void startNormalFinishProcedure(ArrayList<Player> playerList, Dealer dealer) {
-        double totalPlayerProfit = 0;
 
         for (Player player : playerList) {
-            totalPlayerProfit += player.getProfitByBettingMoney(getPlayerResultForNormalFinishProcedure(player, dealer));
+            totalPlayerProfit += player.getProfitByResult(getPlayerResultForNormalFinishProcedure(player, dealer));
         }
 
+        controlPrintFinalProfitAndDealer(totalPlayerProfit);
+
+        for (Player player : playerList) {
+            PrintController.printPlayerProfit(player.getProfitByResult(ProfitController.getPlayerResultForNormalFinishProcedure(player, dealer)), player);
+        }
+    }
+
+    public void controlPrintFinalProfitAndDealer(double totalPlayerProfit) {
         PrintController.printFinalProfit();
         PrintController.printDealerProfit(-totalPlayerProfit);
-
-        for (Player player : playerList) {
-            PrintController.printPlayerProfit(player.getProfitByBettingMoney(ProfitController.getPlayerResultForNormalFinishProcedure(player, dealer)), player);
-        }
     }
 }

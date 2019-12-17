@@ -24,7 +24,7 @@ public class Player extends BlackJackParticipant {
         return this.name;
     }
 
-    public double getProfitByBettingMoney(double profitRate) {
+    public double getProfitByResult(double profitRate) {
         return this.bettingMoney * profitRate;
     }
 
