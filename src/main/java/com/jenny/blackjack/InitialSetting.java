@@ -33,6 +33,10 @@ public class InitialSetting {
         if(cnt == 0){
             return false;
         }
+        if(cnt > 8){
+            System.out.println("8인 이하만 참여하실 수 있습니다.");
+            return false;
+        }
         for(int compared = 0; compared < cnt; compared++){
             for(int each = compared+1; each < cnt; each++){
                 if(splitedInput[compared].equals(splitedInput[each])
