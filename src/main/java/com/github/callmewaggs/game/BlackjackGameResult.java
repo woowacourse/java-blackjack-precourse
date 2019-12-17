@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BlackjackGameResult {
+class BlackjackGameResult {
 
   private static final int INITIAL_VALUE = 1;
   private static final int DOUBLE_VALUE = 2;
@@ -14,7 +14,7 @@ public class BlackjackGameResult {
 
   private Map<String, Double> participantsIncome;
 
-  public BlackjackGameResult(Dealer dealer, List<Player> players) {
+  BlackjackGameResult(Dealer dealer, List<Player> players) {
     participantsIncome = new LinkedHashMap<>();
     double dealerInitialIncome = 0;
     for (Player player : players) {
@@ -25,15 +25,15 @@ public class BlackjackGameResult {
     participantsIncome.put(dealer.getName(), dealerInitialIncome);
   }
 
-  public void playerWin(Dealer dealer, Player player) {
+  void playerWin(Dealer dealer, Player player) {
     calculateWithGivenValue(dealer, player, DOUBLE_VALUE);
   }
 
-  public void push(Dealer dealer, Player player) {
+  void push(Dealer dealer, Player player) {
     calculateWithGivenValue(dealer, player, INITIAL_VALUE);
   }
 
-  public void playersBlackjack(Dealer dealer, Player player) {
+  void playersBlackjack(Dealer dealer, Player player) {
     calculateWithGivenValue(dealer, player, DOUBLE_VALUE + HALF_VALUE);
   }
 
@@ -44,7 +44,7 @@ public class BlackjackGameResult {
         participantsIncome.get(dealer.getName()) - player.getBettingMoney() * value);
   }
 
-  public void printIncomes() {
+  void printIncomes() {
     IOHelper.printFinalResultMessage();
     IOHelper.printNameAndIncome(participantsIncome);
   }

@@ -33,7 +33,7 @@ public class IOHelper {
     System.out.println(message);
   }
 
-  public static void printAfterDealInitialCards(List<Participant> participants) {
+  static void printAfterDealInitialCards(List<Participant> participants) {
     printNames(participants);
     printCardsWithoutScore(participants);
   }
@@ -44,19 +44,19 @@ public class IOHelper {
     printMessage("\n" + names + "에게 2장의 카드를 나누었습니다.");
   }
 
-  public static void printCardsWithoutScore(List<Participant> participants) {
+  private static void printCardsWithoutScore(List<Participant> participants) {
     for (Participant participant : participants) {
       printCardsWithoutScore(participant);
     }
   }
 
-  public static void printCardsWithScore(List<Participant> participants) {
+  static void printCardsWithScore(List<Participant> participants) {
     for (Participant participant : participants) {
       printCardsWithScore(participant, String.valueOf(participant.getCurrentScore()));
     }
   }
 
-  public static void printCardsWithoutScore(Participant participant) {
+  static void printCardsWithoutScore(Participant participant) {
     printCardsWithScore(participant, null);
   }
 
@@ -84,11 +84,11 @@ public class IOHelper {
     printMessage(name + "은/는 점수의 총합이 21을 초과하므로 카드를 더 받을 수 없습니다.");
   }
 
-  public static void printFinalResultMessage() {
+  static void printFinalResultMessage() {
     printMessage("\n## 최종 수익");
   }
 
-  public static void printNameAndIncome(Map<String, Double> participantsIncome) {
+  static void printNameAndIncome(Map<String, Double> participantsIncome) {
     participantsIncome.forEach((name, income) -> printMessage(name + " : " + income));
   }
 }

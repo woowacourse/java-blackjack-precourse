@@ -16,12 +16,12 @@ public class BlackjackRule {
   private BlackjackGameResult gameResult;
   private CardShuffler cardShuffler;
 
-  public BlackjackRule(Dealer dealer, List<Player> players, List<Card> cards) {
+  BlackjackRule(Dealer dealer, List<Player> players, List<Card> cards) {
     this.gameResult = new BlackjackGameResult(dealer, players);
     this.cardShuffler = new CardShuffler(cards);
   }
 
-  public void dealInitialCards(Dealer dealer, List<Player> players) {
+  void dealInitialCards(Dealer dealer, List<Player> players) {
     List<Participant> participants = getAllParticipants(dealer, players);
     for (int i = 0; i < INITIAL_CARDS_COUNT; ++i) {
       dealCardToDealerAndPlayers(participants);
@@ -35,7 +35,7 @@ public class BlackjackRule {
     }
   }
 
-  public void askHitOrStay(Dealer dealer, List<Player> players) {
+  void askHitOrStay(Dealer dealer, List<Player> players) {
     for (Player player : players) {
       takeCardIfPlayerHit(player);
     }
@@ -45,7 +45,7 @@ public class BlackjackRule {
     IOHelper.printCardsWithScore(getAllParticipants(dealer, players));
   }
 
-  public void dealerLose(Dealer dealer, List<Player> players) {
+  void dealerLose(Dealer dealer, List<Player> players) {
     IOHelper.printFinalResultMessage();
     for (Player player : players) {
       gameResult.playerWin(dealer, player);
@@ -53,7 +53,7 @@ public class BlackjackRule {
     gameResult.printIncomes();
   }
 
-  public void judgeWinOrLose(Dealer dealer, List<Player> players) {
+  void judgeWinOrLose(Dealer dealer, List<Player> players) {
     for (Player player : players) {
       if (dealer.getCurrentScore() < player.getCurrentScore()) {
         gameResult.playerWin(dealer, player);
@@ -83,7 +83,7 @@ public class BlackjackRule {
     return participants;
   }
 
-  public void whenDealerIsBlackjack(Dealer dealer, List<Player> players) {
+  void whenDealerIsBlackjack(Dealer dealer, List<Player> players) {
     for (Player player : players) {
       if (player.isBlackjack()) {
         gameResult.push(dealer, player);
@@ -91,7 +91,7 @@ public class BlackjackRule {
     }
   }
 
-  public void whenPlayerIsBlackjack(Dealer dealer, Player player) {
+  void whenPlayerIsBlackjack(Dealer dealer, Player player) {
     gameResult.playersBlackjack(dealer, player);
   }
 }

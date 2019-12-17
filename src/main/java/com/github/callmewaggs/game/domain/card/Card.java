@@ -11,16 +11,16 @@ public class Card {
 
   private final Type type;
 
-  public Card(Symbol symbol, Type type) {
+  Card(Symbol symbol, Type type) {
     this.symbol = symbol;
     this.type = type;
   }
 
-  public int getScore() {
+  int getScore() {
     return symbol.getScore();
   }
 
-  public String getScoreAndType() {
+  String getScoreAndType() {
     return symbol.getSymbolOfScore() + "/" + type;
   }
 
