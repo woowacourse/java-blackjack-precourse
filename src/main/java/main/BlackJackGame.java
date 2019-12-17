@@ -1,3 +1,5 @@
+package main;
+
 import domain.user.Gamers;
 import domain.user.Player;
 import utils.BooleanInput;
