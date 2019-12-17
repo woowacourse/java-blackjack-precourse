@@ -27,14 +27,6 @@ public class Players {
         }
     }
 
-    public List<Integer> sumCardScores() {
-        List<Integer> scoreSums = new ArrayList<>();
-        for (Player player : this.players) {
-            scoreSums.add(new Integer(player.getScore()));
-        }
-        return scoreSums;
-    }
-
     public List<String> getCardInfo() {
         List<String> cardInfos = new ArrayList<>();
         for (Player player : this.players) {

@@ -62,7 +62,7 @@ public class BlackJack {
     }
 
     private static boolean shouldHit(Player player) {
-        if (Scorer.isAboveTarget(player)) {
+        if (isAboveTarget(player.getScore())) {
             return false;
         }
         return makeValidChoice(player, PROMPT_NEW_CARD, ERROR_NEW_CARD);
@@ -82,10 +82,18 @@ public class BlackJack {
     }
 
     private static void hitDealer(Dealer dealer, Deck deck) {
-        if (!Scorer.isAboveThreshold(dealer)) {
+        if (!isAboveThreshold(dealer.getScore())) {
             dealer.addCard(deck.pop());
             System.out.println(MESSAGE_DEALER_HIT);
         }
+    }
+
+    public static boolean isAboveTarget(int userScore) {
+        return userScore >  Constant.TARGET.getScore();
+    }
+
+    public static boolean isAboveThreshold(int userScore) {
+        return userScore >  Constant.DEALER_HIT.getScore();
     }
 
     private static void printCards(Dealer dealer, Players players) {
