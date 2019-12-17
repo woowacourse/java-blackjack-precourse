@@ -12,6 +12,12 @@
 
 - 유의사항 : ACE 는 1또는 11로 계산될 수 있으며, King , Queen , Jack은 10으로 간주한다.
 
+## 프로그램 사용 설명서
+
+1. Git clone을 통해, 프로젝트를 import 한다.(gradle로 import하시거나, 인텔리제이의 경우 바로 clone으로 하시면 됩니다.)
+2. gradle build 
+3. src - main - java - Application main method 를 실행한다.
+
 ## 기능 구현
 
 1. 프로그램을 실행하면, 게임에 참여 할 사람의 이름을 입력받는다. (쉼표 기준으로 분리)
@@ -120,3 +126,8 @@
     - Program : Command Line Program
     
 ## 프로그램 결과 화면 (커멘드라인 실행 화면)
+
+<div>
+![스크린샷 2019-12-17 오후 5 49 24](https://user-images.githubusercontent.com/49060374/70979847-a2492380-20f5-11ea-8618-8b71937cc579.png)
+</div>
+
