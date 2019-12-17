@@ -34,6 +34,10 @@ public class Dealer {
         return msg.toString();
     }
 
+    public List<Card> getCardsList(){
+        return cards;
+    }
+
     public int getSumOfCards(){
         int sum = 0;
         int size = cards.size();

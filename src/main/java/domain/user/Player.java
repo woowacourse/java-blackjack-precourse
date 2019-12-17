@@ -39,4 +39,7 @@ public class Player {
         return msg.toString();
     }
 
+    public List<Card> getCardsList(){
+        return cards;
+    }
 }
