@@ -12,6 +12,16 @@ public class BlackJackGame {
 	private int numberOfPlayers = 0;
 	private List<Player> players = new ArrayList<Player>();
 	
+	public BlackJackGame() {
+	}
+	public void run() {
+		setPlayerNames();
+		setPlayers();
+		System.out.println(players.size()+"명의 플레이어가 존재합니다");
+		for(int i=0;i<numberOfPlayers;i++) {
+			System.out.println(getPlayerNameByIndex(i));
+		}
+	}
 	public void setPlayerNames() {
 		String[] nameArray;
 		String nameString;
@@ -21,6 +31,7 @@ public class BlackJackGame {
 		for(int i=0;i<nameArray.length;i++) {
 			playerNames.add(nameArray[i]);
 		}
+		setNumberOfPlayers();
 	}
 	public void setNumberOfPlayers() {
 		this.numberOfPlayers = playerNames.size();

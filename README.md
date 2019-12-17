@@ -63,3 +63,4 @@ method
 - public void setPlayers()
 - public int getNumberOfPlayers()
 - public String getPlayerNameByIndex(int index)
+- public void run()
