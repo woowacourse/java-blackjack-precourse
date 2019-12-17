@@ -35,7 +35,7 @@ public class OutputView {
     private static String getPlayersCardsState(ArrayList<Player> players) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Player player : players) {
-            getCardStateLine(stringBuilder, player);
+            setCardStateLine(stringBuilder, player);
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
@@ -43,12 +43,12 @@ public class OutputView {
 
     public static void printPlayerCardState(Player player) {
         StringBuilder stringBuilder = new StringBuilder();
-        getCardStateLine(stringBuilder, player);
+        setCardStateLine(stringBuilder, player);
         stringBuilder.append("\n");
         System.out.println(stringBuilder.toString());
     }
 
-    private static void getCardStateLine(StringBuilder stringBuilder, User user) {
+    private static void setCardStateLine(StringBuilder stringBuilder, User user) {
         stringBuilder.append(user.getName());
         stringBuilder.append(USER_CARDS_STATE_MESSAGE);
         stringBuilder.append(cardState(user));
@@ -68,10 +68,10 @@ public class OutputView {
 
     public static void printResultState(Dealer dealer, ArrayList<Player> players) {
         StringBuilder stringBuilder = new StringBuilder();
-        getCardStateLine(stringBuilder, dealer);
+        setCardStateLine(stringBuilder, dealer);
         appendTotalScoreLine(stringBuilder, dealer);
         for (Player player : players) {
-            getCardStateLine(stringBuilder, player);
+            setCardStateLine(stringBuilder, player);
             appendTotalScoreLine(stringBuilder, player);
         }
         System.out.println(stringBuilder.toString());
