@@ -1,31 +1,55 @@
 package domain.user;
 
+import com.sun.deploy.util.StringUtils;
 import domain.card.Card;
-import domain.deck.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
+public class Dealer extends User {
+
+    private static final String NAME = "딜러";
     private static final int ONEMORE_CARD_BASIS = 16;
 
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    private boolean isUnberSixteen() {
+    public int calculateSum() {
+        return cards.stream().mapToInt(Card::getNumber).sum();
+    }
+
+    public boolean isBlackJack() {
+        return isBlackJack(cards);
+    }
+
+    public boolean isUnberSixteen() {
         return calculateSum() <= ONEMORE_CARD_BASIS;
     }
 
-    public int calculateSum() {
-        return cards.stream().mapToInt(Card::getNumber).sum();
+    public boolean isBursted() {
+        return isBursted(cards);
+    }
+
+    public boolean isSameScore(int score) {
+        return calculateSum() == score;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public String getName() {
+        return NAME;
     }
 
 }
