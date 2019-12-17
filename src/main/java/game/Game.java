@@ -4,6 +4,7 @@ import domain.card.Card;
 import domain.deck.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
+import exception.InvalidException;
 import gameInput.GameInputScanner;
 import gameOutput.GamePrinter;
 
@@ -25,8 +26,8 @@ public class Game {
         Deck deck = initDeck();
         List<Player> players = initPlayers();
         runGame(dealer, players, deck);
-        makeResult(dealer, players);
-        printProfit(dealer, players);
+        GamePrinter.printResult(dealer, players);
+        GamePrinter.printProfit(dealer, players);
     }
 
     private Deck initDeck() {
@@ -117,8 +118,7 @@ public class Game {
             player.addCard(card);
             return true;
         }
-        System.out.println(WRONG_ANSWER_STATEMENT);
-        return true;
+        throw new InvalidException(InvalidException.ANSWER_SHOULD_BE_Y_OR_N_EXCEPTION);
     }
 
     private void checkDealer(Dealer dealer, Deck deck) {
@@ -127,15 +127,5 @@ public class Game {
             System.out.println();
             System.out.println(DEALER_ADD_MORE_CARD_STATEMENT);
         }
-    }
-
-    private void makeResult(Dealer dealer, List<Player> players) {
-        System.out.println();
-        GamePrinter.printResult(dealer, players);
-    }
-
-    private void printProfit(Dealer dealer, List<Player> players) {
-        System.out.println();
-        GamePrinter.printProfitResult(dealer, players);
     }
 }

@@ -44,6 +44,7 @@ public class GamePrinter {
     }
 
     public static void printResult(Dealer dealer, List<Player> players) {
+        System.out.println();
         System.out.println(makeDealerResultStatement(dealer));
         players.forEach(player -> System.out.println(makePlayerResultStatement(player)));
     }
@@ -60,7 +61,8 @@ public class GamePrinter {
         return String.format(RESULT_FORMATTED_STRING, dealer.getName(), cardsName, dealer.calculateSum());
     }
 
-    public static void printProfitResult(Dealer dealer, List<Player> players) {
+    public static void printProfit(Dealer dealer, List<Player> players) {
+        System.out.println();
         System.out.println(PROFIT_STATEMENT);
         printDealerProfit(dealer, players);
         players.forEach(player -> printPlayerProfit(dealer, player));
