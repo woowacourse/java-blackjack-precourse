@@ -93,5 +93,16 @@ public class PlayManager {
         }
     }
 
+    private boolean settle(List<Integer> blackjackIndexList) {
+        if (blackjackIndexList.contains(dealerIndex)) {
+            checkLostPlayer(blackjackIndexList);
+            printFinalResult();
+            printBenefitResult();
+            return true;
+        }
+        blackJackPlayerIndexList = blackjackIndexList;
+        checkWinPlayer(blackJackPlayerIndexList);
+        return false;
+    }
 
 }
