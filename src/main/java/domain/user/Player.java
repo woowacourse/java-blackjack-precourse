@@ -14,6 +14,10 @@ public class Player extends GameParticipant{
         this.bettingMoney = bettingMoney;
     }
 
+    public double getBattingMoney(){
+        return bettingMoney;
+    }
+
     @Override
     public void addMoreCard(Card card) {
         Utill utill = new Utill();

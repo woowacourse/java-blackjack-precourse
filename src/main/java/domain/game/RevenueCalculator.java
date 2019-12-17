@@ -2,6 +2,7 @@ package domain.game;
 
 import domain.user.Dealer;
 import domain.user.GameParticipant;
+import domain.user.Player;
 
 import java.util.ArrayList;
 
@@ -38,8 +39,8 @@ public class RevenueCalculator {
         }
 
         if (p.isBlackjack() && !dealer.isBlackjack()) {
-            finalRevenueListOfGameParticipant.add(p.getSumOfCardScore() * MULTIPLE_OF_BATTING_MONEY_WHEN_BLACKJACK);
-            finalRevenueOfDealer -= (p.getSumOfCardScore() * MULTIPLE_OF_BATTING_MONEY_WHEN_BLACKJACK);
+            finalRevenueListOfGameParticipant.add(((Player)p).getBattingMoney() * MULTIPLE_OF_BATTING_MONEY_WHEN_BLACKJACK);
+            finalRevenueOfDealer -= (((Player)p).getBattingMoney() * MULTIPLE_OF_BATTING_MONEY_WHEN_BLACKJACK);
         }
     }
 
@@ -49,13 +50,13 @@ public class RevenueCalculator {
         }
 
         if (isWinner(p) || (!isWinner(p) && dealer.isBust() && !p.isBust())) {
-            finalRevenueListOfGameParticipant.add(p.getSumOfCardScore());
-            finalRevenueOfDealer -= p.getSumOfCardScore();
+            finalRevenueListOfGameParticipant.add(((Player)p).getBattingMoney());
+            finalRevenueOfDealer -= ((Player)p).getBattingMoney();
         }
 
         if (!isWinner(p) && !dealer.isBust()) {
-            finalRevenueListOfGameParticipant.add(-p.getSumOfCardScore());
-            finalRevenueOfDealer += p.getSumOfCardScore();
+            finalRevenueListOfGameParticipant.add(-((Player)p).getBattingMoney());
+            finalRevenueOfDealer += ((Player)p).getBattingMoney();
         }
     }
 
