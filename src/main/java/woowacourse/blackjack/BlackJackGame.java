@@ -36,7 +36,6 @@ public class BlackJackGame {
     private void getBettingMoney(List<String> playerNames) {
         for (String playerName : playerNames) {
             this.players.add(new Player(playerName, this.input.getPlayerBettingMoney(playerName)));
-            System.out.println();
         }
     }
 
@@ -64,7 +63,7 @@ public class BlackJackGame {
     }
 
     private void checkHitPlayer(Player player) {
-        while (this.isHitPlayer(player)){
+        while (this.isHitPlayer(player)) {
             this.output.printPlayerCards(player);
         }
         System.out.println();

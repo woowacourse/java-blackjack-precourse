@@ -41,6 +41,7 @@ public class Output {
     }
 
     private void printAlertGetCards(List<Player> players) {
+        System.out.println();
         System.out.print("딜러와 ");
         List<String> stringNames = new ArrayList<>();
         for (Player player: players) {
