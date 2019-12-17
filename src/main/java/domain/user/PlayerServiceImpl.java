@@ -1,6 +1,5 @@
 package domain.user;
 
-import common.BlackjackConfig;
 import domain.BlackjackPrinter;
 import domain.UserInterface;
 import domain.card.Deck;
@@ -26,17 +25,13 @@ public class PlayerServiceImpl extends UserService {
 
     @Override
     public void confirmCards(User user) {
-        //todo: refac
         if (user.isBust()) {
-            //todo: refac
-            System.out.println(String.format("%s는 버스트하여, 더이상 카드를 받을 수 없습니다.", user));
+            blackjackPrinter.printBurst(user);
             return;
         }
 
-        blackjackPrinter.printRequestForHit(user);
-        String will = userInterface.getWillForMoreCard();
+        String will = userInterface.getWillForMoreCard(user);
         if (will.equals(Will.Stay.getValue())) {
-             blackjackPrinter.printUserState(user);
              return;
         }
 
@@ -52,13 +47,10 @@ public class PlayerServiceImpl extends UserService {
     public List<Player> join() {
         List<Player> players = new ArrayList<>();
         String[] names = userInterface.extractNames();
-        //todo: refac
-        System.out.println();
+
         for (String name : names) {
 
             double bettingMoney = userInterface.getBettingMoney(name);
-            //todo: refac
-            System.out.println();
             players.add(playerFactory.create(name, bettingMoney));
         }
         return players;

@@ -27,7 +27,6 @@ public enum Symbol {
 
     @Override
     public String toString() {
-        //todo: check rafactoring
         if (this == ACE) {
             return "A";
         }

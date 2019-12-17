@@ -14,8 +14,6 @@ public interface BlackjackPrinter {
 
     void printDealerHit(User user);
 
-    void printResult(Dealer dealer, List<Player> players);
-
     void printRequestForNames();
 
     void printRequestForMoney(String name);
@@ -27,4 +25,10 @@ public interface BlackjackPrinter {
     void printBreaktime();
 
     void printError(RuntimeException e);
+
+    void printProfit(User user);
+
+    void printBurst(User user);
+
+    void printProfitGuide();
 }

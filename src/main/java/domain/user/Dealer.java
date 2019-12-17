@@ -1,5 +1,6 @@
 package domain.user;
 
+import common.BlackjackConfig;
 import domain.card.Card;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Dealer extends User {
 
     @Override
     public String toString() {
-        return "딜러";
+        return BlackjackConfig.DEALER_NAME;
     }
 
     public void win(double money) {

@@ -4,6 +4,7 @@ import common.BlackjackConfig;
 import domain.BlackjackPrinter;
 import domain.UserInterface;
 import domain.errors.InvalidInputException;
+import domain.user.User;
 import domain.user.Will;
 
 import java.util.Arrays;
@@ -23,6 +24,7 @@ public class Console implements UserInterface {
     public String[] extractNames() {
         blackjackPrinter.printRequestForNames();
         String input = scanner.nextLine();
+        System.out.println();
         try {
             return parseNames(input);
         } catch (RuntimeException e) {
@@ -74,6 +76,7 @@ public class Console implements UserInterface {
         try {
             double bettingMoney = Double.parseDouble(scanner.nextLine());
             validateMoney(bettingMoney);
+            System.out.println();
             return bettingMoney;
         } catch (RuntimeException e) {
             blackjackPrinter.printError(e);
@@ -88,15 +91,22 @@ public class Console implements UserInterface {
     }
 
     @Override
-    public String getWillForMoreCard() {
-
+    public String getWillForMoreCard(User user) {
+        blackjackPrinter.printRequestForHit(user);
         try {
-            String input = scanner.nextLine();
+            String input = getInputOfWill(user);
             return parseWill(input);
         } catch (RuntimeException e) {
             blackjackPrinter.printError(e);
-            return getWillForMoreCard();
+            return getWillForMoreCard(user);
         }
+    }
+    private String getInputOfWill(User user) {
+        String input = scanner.nextLine();
+        if (input.equals(Will.Stay.getValue())) {
+            blackjackPrinter.printUserState(user);
+        }
+        return input;
     }
 
     private String parseWill(String input) {

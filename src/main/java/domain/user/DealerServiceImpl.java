@@ -15,7 +15,6 @@ public class DealerServiceImpl extends UserService {
         int point = user.calculateScore();
 
         while (pointInRange(point)) {
-
             blackjackPrinter.printDealerHit(user);
             user.addCard(deck.pick());
             point = user.calculateScore();

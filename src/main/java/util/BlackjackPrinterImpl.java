@@ -18,12 +18,11 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
         stringBuilder = new StringBuilder();
     }
 
+    //todo: check refac template/callback
     @Override
     public void printUserState(User user) {
         stringBuilder = buildUserState(user);
-        System.out.println(stringBuilder);
-        //todo: refac
-        stringBuilder.delete(0, stringBuilder.length());
+        printStringBuilder(stringBuilder);
     }
 
     @Override
@@ -32,8 +31,7 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
         stringBuilder.append(" - 결과: ");
         stringBuilder.append(user.calculateScore());
 
-        System.out.println(stringBuilder);
-        stringBuilder.delete(0, stringBuilder.length());
+        printStringBuilder(stringBuilder);
     }
 
     //todo: fix bug - when dealer
@@ -48,15 +46,15 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
         stringBuilder.append(String.join(", ", cardNames));
         return stringBuilder;
     }
+    private void printStringBuilder(StringBuilder stringBuilder) {
+        System.out.println(stringBuilder);
+        stringBuilder.setLength(0);
+        stringBuilder.trimToSize();
+    }
 
     @Override
     public void printDealerHit(User user) {
         System.out.println(String.format("%s는 %d이하라 한 장의 카드를 더 받았습니다.", user, BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER));
-    }
-
-    @Override
-    public void printResult(Dealer dealer, List<Player> players) {
-        System.out.println("##최종수익");
     }
 
     @Override
@@ -88,5 +86,20 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
     @Override
     public void printError(RuntimeException e) {
         System.out.println(String.format("다음과 같은 오류가 있습니다: %s", e.getMessage()));
+    }
+
+    @Override
+    public void printProfit(User user) {
+        System.out.println(String.format("%s: %.0f", user, user.getProfit()));
+    }
+
+    @Override
+    public void printBurst(User user) {
+        System.out.println(String.format("%s는 버스트하여, 더이상 카드를 받을 수 없습니다.", user));
+    }
+
+    @Override
+    public void printProfitGuide() {
+        System.out.println("## 최종수익");
     }
 }

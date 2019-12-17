@@ -58,6 +58,7 @@ public class UserApi {
 
     }
 
+    //todo: refac: 버그 수정 - 버스트 블랙잭일 때 고려 다시 필요. 딜러가 버스트면, 플레이어가 블랙잭이어도 안쳐줌.
     private Result match(Dealer dealer, Player player) {
         if (bustExists(dealer, player)) {
             return checkBust(dealer, player);
@@ -78,7 +79,7 @@ public class UserApi {
         return dealer.isBust() || player.isBust();
     }
 
-    //todo: refac when blackjack doesnt' exist
+    //todo: refac when blackjack doesn't exist
     private Result checkBlackjack(Dealer dealer, Player player) {
         if (player.isBlackjack() &&  dealer.isBlackjack()) {
             return Result.Draw;
@@ -125,8 +126,7 @@ public class UserApi {
     }
 
     private void printProfit(Dealer dealer, List<Player> players) {
-        //todo: refac
-        System.out.println("##최종수익");
+        blackjackPrinter.printProfitGuide();
         dealerService.printProfit(dealer);
         playerService.printProfit(players);
     }

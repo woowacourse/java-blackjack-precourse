@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public abstract class User {
     protected final List<Card> cards = new ArrayList<>();
-    protected double profit;
+    protected double profit = 0;
 
     public List<Card> getCards() {
         return cards;
@@ -49,6 +49,8 @@ public abstract class User {
         }
         return sum;
     }
+
+    //todo: check refac
     private int calculateSurplus(int sum, Card ace) {
         if ( BlackjackConfig.BLACKJACK < sum + BlackjackConfig.SURPLUS_OF_ACE )  {
             return 0;
@@ -56,12 +58,12 @@ public abstract class User {
         return BlackjackConfig.SURPLUS_OF_ACE;
     }
 
-    ;
     private Map<Boolean, List<Card>> splitCards(List<Card> cards) {
 
         return cards.stream()
                 .collect(Collectors.partitioningBy(card -> card.getSymbol().equals(Symbol.ACE)));
     }
+
     private boolean matchesA() {
         return true;
     }
