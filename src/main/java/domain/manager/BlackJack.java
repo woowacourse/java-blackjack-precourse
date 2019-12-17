@@ -76,7 +76,7 @@ public class BlackJack {
 
     public void dealerDraw() {
         if (dealer.getScore() <= Constant.DEALER_POINT) {
-            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+            System.out.println("\n딜러는 16이하라 한장의 카드를 더 받았습니다.");
             dealer.addCard(deck.draw());
         }
     }
@@ -88,11 +88,14 @@ public class BlackJack {
         }
 
         winner = user.stream()
-                .filter(p -> p.getScore() > dealer.getScore() && p.getScore() <= Constant.BUST_POINT)
+                .filter(p -> p.getScore() >= dealer.getScore() && p.getScore() <= Constant.BUST_POINT)
                 .collect(Collectors.toList());
     }
 
     public List<Player> getLoserList() {
+        if (dealer.getScore() > Constant.BUST_POINT)
+            return new ArrayList<>();
+
         return user.stream()
                 .filter(p -> p.getScore() < dealer.getScore() || p.getScore() > Constant.BUST_POINT)
                 .collect(Collectors.toList());
@@ -119,7 +122,6 @@ public class BlackJack {
             if (!winner.contains(player) && !loser.contains(player))
                 player.showMoney(Constant.DRAW);
         }
-
         System.exit(0);
     }
 
