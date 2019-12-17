@@ -27,9 +27,15 @@ public class BlackjackMember {
 
 	private int checkAce(int scoreSum) {
 		for (Card card : cards) {
-			if (card.getSymbol() == Symbol.ACE && scoreSum > MAX) {
-				scoreSum -= ACE_TERM;
-			}
+			scoreSum = addAceScore(scoreSum, card);
+		}
+
+		return scoreSum;
+	}
+
+	private int addAceScore(int scoreSum, Card card) {
+		if (card.getSymbol() == Symbol.ACE && scoreSum + ACE_TERM < MAX) {
+			scoreSum += ACE_TERM;
 		}
 
 		return scoreSum;
