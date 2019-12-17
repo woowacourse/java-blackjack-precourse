@@ -61,7 +61,7 @@ public class BlackjackGame {
 
 	private void draw() {
 		drawFirstTurn();
-		if (isDealerBlackJack()) { // game over
+		if (dealer.isBlackjack()) { // game over
 			return;
 		}
 		drawAdditionalTurns();
@@ -89,10 +89,6 @@ public class BlackjackGame {
 		OutputView.showFirstDrawMessage(players);
 		OutputView.showFirstCard(dealer);
 		OutputView.showCurrentCards(players);
-	}
-
-	private boolean isDealerBlackJack() {
-		return dealer.isBlackjack();
 	}
 
 	private void drawAdditionalTurns() {
