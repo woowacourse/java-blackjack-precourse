@@ -59,6 +59,6 @@ public class Result {
     }
 
     public boolean isBlackJack(User user){
-        return user.getCardsList().size() == 2 && user.getSumOfCards() == 21;
+        return calcResultValue(user) == 22;
     }
 }
