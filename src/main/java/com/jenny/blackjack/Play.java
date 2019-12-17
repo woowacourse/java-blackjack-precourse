@@ -115,4 +115,11 @@ public class Play {
         return false;
     }
 
+    public void addCardForDealer(Dealer dealer){
+        int sum = dealer.getSumOfCards();
+        if(sum > 16){
+            return;
+        }
+        getCardForDealer(1, dealer);
+    }
 }

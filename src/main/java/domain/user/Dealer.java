@@ -22,4 +22,8 @@ public class Dealer {
     public Card getFirstCard(){
         return cards.get(0);
     }
+
+    public int getSumOfCards(){
+        return 0;
+    }
 }
