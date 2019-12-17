@@ -69,7 +69,6 @@ public class GameResult {
 
     public void decideGameResult() {
         List<User> bustPlayers = getBustPlayers();
-
         handleUsersWhenPlayersAreBust(bustPlayers);
 
         if (players.isEmpty()) {
@@ -82,6 +81,10 @@ public class GameResult {
             return;
         }
 
+        decideWinnerFromMaxOfScore();
+    }
+
+    private void decideWinnerFromMaxOfScore() {
         int maxOfScore = getMaxOfScore();
         List<User> winners = getWinners(maxOfScore);
 
