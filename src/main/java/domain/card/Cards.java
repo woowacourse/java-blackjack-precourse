@@ -12,5 +12,4 @@ public class Cards {
     public Card getCardByIndex(int index) {
         return cards.get(index);
     }
-
 }
