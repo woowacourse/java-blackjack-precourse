@@ -25,6 +25,7 @@ public class Result {
      * 상황에따라 10을 더하는것이 유리하면 그렇게 한다
      * 블랙잭 조건이 되는 경우는 21이 아닌 22로 계산하여
      * 금액 계산시 21과 구분짓도록 한다
+     * 버스트(21초과)인 경우는 0점으로 처리한다
      */
     public int calcResultValue(User user){
         List<Card> cards = user.getCardsList();
@@ -40,6 +41,9 @@ public class Result {
         }
         if(sum == 21 && cards.size() == 2){
             sum++;
+        }
+        if(sum > 21){
+            sum = 0;
         }
         return sum;
     }
