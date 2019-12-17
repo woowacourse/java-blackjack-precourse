@@ -15,4 +15,10 @@ public class Dealer extends Helper {
         return "딜러 카드 : " + super.cardsToString();
     }
 
+    public boolean addCardDraw(){
+        if(super.scoreCalculator() <= 16){
+            return true;
+        }
+        return false;
+    }
 }

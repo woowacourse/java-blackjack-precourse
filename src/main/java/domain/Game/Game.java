@@ -26,7 +26,12 @@ public class Game {
         }
         output.StartCardState(players);
         players.stream().forEach(player -> this.PlayerAddCardDraw(player));
-        players.stream().forEach(player -> System.out.println(player.scoreCalcualtor()));
+        players.stream().forEach(player -> System.out.println(player.scoreCalculator()));
+        if(output.dealerAddCardDraw()){
+            dealer.cardDraw(cardDeck);
+            dealer.cardsToString();
+        }
+        output.finalCardResult(players);
     }
 
     public void playerObjectCreate() {

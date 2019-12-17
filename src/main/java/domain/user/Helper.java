@@ -1,12 +1,10 @@
 package domain.user;
 
 import domain.card.Card;
-import sun.security.krb5.internal.tools.Klist;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Helper {
@@ -34,7 +32,7 @@ public class Helper {
         cardDeck.remove(selectedCard);
     }
 
-    public int scoreCalcualtor(){
+    public int scoreCalculator(){
         Stream<Integer> cardScore = cards.stream().map(card -> card.getScore());
         int scoreResult = cardScore.collect(Collectors.summingInt(score -> score));
         return scoreResult;
