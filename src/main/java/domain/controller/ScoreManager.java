@@ -32,10 +32,22 @@ public class ScoreManager {
     }
 
     public boolean checkBlackJack(Dealer dealer) {
+        if (isBiggerThanBlackJack(dealer)) {
+            return true;
+        }
+
         if (isBlackJack(dealer)) {
             return true;
         }
         return false;
+    }
+
+    public boolean checkBiggerThanBlackJack(Player[] players) {
+        boolean flag = false;
+        for (Player player : players) {
+            flag = isBiggerThanBlackJack(player);
+        }
+        return flag;
     }
 
     public boolean checkBlackJack(Player[] players) {
@@ -55,8 +67,8 @@ public class ScoreManager {
     }
 
     public int getSumScore(User user) {
-        int score = user.getCards().stream()
-                .mapToInt(Card::getSymbolByScore).sum();
+        int score = user.getCards()
+                .stream().mapToInt(Card::getSymbolByScore).sum();
 
         if (isContainAce(user)
                 && ((score + ACE_ELEVEN_MODE) <= BLACKJACK)) {
@@ -75,9 +87,9 @@ public class ScoreManager {
     }
 
     private boolean isBiggerThanBlackJack(User user) {
-        int score = user.getCards().stream()
-                .mapToInt(Card::getSymbolByScore).sum();
+        int score = getSumScore(user);
         if (score > BLACKJACK) {
+            announcer.announceOverBlackJack(user, getSumScore(user));
             return true;
         }
         return false;
