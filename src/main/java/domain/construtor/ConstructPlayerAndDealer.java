@@ -37,7 +37,7 @@ public class ConstructPlayerAndDealer {
      *
      * @return 플레이어객체를 담은 list
      */
-    public List<Player> constructorPlayer() {
+    public List<Player> constructPlayer() {
         names = input.inputName();
         System.out.println();
         Map<String, Double> maps = money.inputMoney(names);
@@ -52,7 +52,7 @@ public class ConstructPlayerAndDealer {
      *
      * @return 딜러 객체
      */
-    public Dealer constructorDealer() {
+    public Dealer constructDealer() {
         return new Dealer();
     }
 

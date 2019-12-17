@@ -17,8 +17,8 @@ public class BlackjackGame {
     static CardDrawing drawing = new CardDrawing();
 
     public static void main(String[] args) {
-        playerList = construct.constructorPlayer();
-        dealer = construct.constructorDealer();
+        playerList = construct.constructPlayer();
+        dealer = construct.constructDealer();
         drawing.startShuffle(playerList,dealer);
     }
 

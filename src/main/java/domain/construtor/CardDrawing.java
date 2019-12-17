@@ -13,6 +13,7 @@ package domain.construtor;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.input.InputDecision;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -31,6 +32,7 @@ public class CardDrawing {
     static final List<Card> cards = CardFactory.create();
     Scanner sc = new Scanner(System.in);
     Random randomIndex = new Random();
+    InputDecision decision = new InputDecision();
 
     /**
      * 시작할때 플레이어에게 2장을 지급하고 딜러가 2장을 드로우하는 기능
@@ -48,11 +50,6 @@ public class CardDrawing {
         playerList.forEach(player -> player.addCard(cards.get(randomIndex.nextInt(52))));
 
         toStringCardInfo(playerList, dealer);
-    }
-
-
-    public void drawCard(List<Player> playerList, Dealer dealer) {
-
     }
 
     /**
