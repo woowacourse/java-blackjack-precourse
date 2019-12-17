@@ -81,7 +81,7 @@ public class Player {
     public int getEarnMoney(int maxValue) {
         double battingRatio = 1.0;
 
-        if ((cards.size() == 2) && (getCardsPoint() == 21)) {
+        if ((cards.size() == 2) && (getScore() == 21)) {
             battingRatio = 1.5;
         }
         if (isWinner(maxValue)) {
