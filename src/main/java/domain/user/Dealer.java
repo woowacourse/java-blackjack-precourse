@@ -30,9 +30,9 @@ public class Dealer {
             }
             sum += cards.get(i).getCardScore();
         }
-
         while(sum > 21 && ACE_count != 0){
             sum -= (ACE_MAX - ACE_MIN);
+            ACE_count--;
         }
 
         return sum;
@@ -44,11 +44,9 @@ public class Dealer {
 
     @Override
     public String toString(){
-        String player = "";
-        for(int i = 0; i < cards.size(); i++){
-            player += cards.get(i).toString() + ", ";
-        }
-        return getName() + " : " + player;
+        String card = "";
+        card = String.join(",", cards.toString());
+        return getName() + " : " + card;
     }
 
 

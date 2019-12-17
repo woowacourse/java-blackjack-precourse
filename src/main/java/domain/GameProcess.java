@@ -32,6 +32,7 @@ public class GameProcess {
         check_First();
         actPlayer();
         checkDealerCard(player.get(DEALER_INDEX));
+        getAllPlayerScore();
     }
 
     private void inputName() {
@@ -111,6 +112,7 @@ public class GameProcess {
                                 + "(예는 y, 아니요는 n)");
             answer = sc.next().charAt(0);
             if(answer == 'n'){
+                System.out.println(player);
                 return;
             }else{
                 deal_OneCard(player);
@@ -130,8 +132,16 @@ public class GameProcess {
 
     private void checkDealerCard(Dealer dealer){
         while(dealer.getCardSum() <= 16){
-            System.out.println("딜러는 카드를 한 장 받았습니다.");
+            System.out.println("\n딜러는 카드를 한 장 받았습니다.");
             deal_OneCard(dealer);
         }
     }
+
+    private void getAllPlayerScore(){
+        for(int i = 0; i < player.size(); i++){
+            System.out.println(player.get(i) + "- 결과 :" + player.get(i).getCardSum());
+        }
+    }
+
+
 }

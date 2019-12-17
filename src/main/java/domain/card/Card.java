@@ -27,13 +27,13 @@ public class Card {
     }
 
     public boolean isACE(){
-        if(symbol == Symbol.ACE){
+        if(symbol.getScore() == Symbol.ACE.getScore()){
             return true;
         }
         return false;
     }
     @Override
     public String toString() {
-        return  symbol.getScore() + " " + type;
+        return  symbol + " " + type;
     }
 }
