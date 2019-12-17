@@ -130,7 +130,7 @@ public class PlayManager {
 
     private void printFinalResult() {
         System.out.println();
-        System.out.println(dealer.toString() + "(히든)" + dealer.getHiddenCard() + " - 결과 : " + dealer.calculateScore());
+        System.out.println(dealer.toString() + ", (히든)" + dealer.getHiddenCard() + " - 결과 : " + dealer.calculateScore());
         for (Player player : players) {
             System.out.println(player.toString() + " - 결과 : " + player.calculateScore());
         }
@@ -155,15 +155,15 @@ public class PlayManager {
         int scoreLimit = 21;
         while (player.calculateScore() < scoreLimit && player.wantHit()) {
             player.addCard(deck.giveRandomCard());
-            System.out.println(player.toString());
+            System.out.println(player.toString() + "\n");
         }
     }
 
     private void askHit(Dealer dealer) {
         while (dealer.calculateScore() <= 16) {
-            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
             dealer.addCard(deck.giveRandomCard());
-            System.out.println(dealer.toString());
+            System.out.println(dealer.toString() + "\n");
         }
     }
 
