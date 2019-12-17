@@ -14,7 +14,7 @@ public class PlayManager {
     private final Deck deck = new Deck(CardFactory.create());
     private int dealerIndex;
     private double[] benefitArray;
-    private List<Integer> blackJackPlayerIndexList;
+    private List<Integer> blackJackPlayerIndexList = new ArrayList<>();
 
     public PlayManager(List<String> playerNameList, List<Integer> bettingMoneyList) {
         this.getPlayers(playerNameList, bettingMoneyList);
