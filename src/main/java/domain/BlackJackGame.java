@@ -4,25 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
 
 public class BlackJackGame {
 	Scanner scanner = new Scanner(System.in);
 	private List<String> playerNames = new ArrayList<String>();
-	private List<Integer> bettingMoney = new ArrayList<Integer>();
+	private List<Double> bettingMoney = new ArrayList<Double>();
 	private int numberOfPlayers = 0;
 	private List<Player> players = new ArrayList<Player>();
-	
+	private Dealer dealer = new Dealer();
+	private CardFactory deck = new CardFactory();
 	public BlackJackGame() {
 	}
 	public void run() {
 		setPlayerNames();
 		setBettingMoney();
 		setPlayers();
-		System.out.println(players.size()+"명의 플레이어가 존재합니다");
+		
+		firstDraw();
+		printAllHands();
 		for(int i=0;i<numberOfPlayers;i++) {
-			System.out.println(getPlayerNameByIndex(i));
+			drawCard(players.get(i));
 		}
+		setGameResult();
+		checkDealerScore();
+		printFinalState();
+		printFinalBenefit();
+		return;
+	}
+	public void setDealer() {
+		
 	}
 	public void setPlayerNames() {
 		String[] nameArray;
@@ -40,7 +53,7 @@ public class BlackJackGame {
 		for(int i=0;i<getNumberOfPlayers();i++) {
 			System.out.println(getPlayerNameByIndex(i)+"의 배팅 금액은?");
 			tmpBettingMoney = scanner.nextInt();
-			bettingMoney.add(tmpBettingMoney);
+			bettingMoney.add((double)tmpBettingMoney);
 		}
 	}
 	public void setNumberOfPlayers() {
@@ -60,7 +73,97 @@ public class BlackJackGame {
 	public String getPlayerNameByIndex(int index) {
 		return this.playerNames.get(index);
 	}
-	public int getBettingMoneyByIndex(int index) {
+	public double getBettingMoneyByIndex(int index) {
 		return this.bettingMoney.get(index);
+	}
+	public void firstDraw() {
+		System.out.println("딜러와 "+getPlayerNames()+"에게 카드를 두장씩 나누었습니다.");
+		dealer.addCard(deck.drawCard());
+		dealer.addCard(deck.drawCard());
+		
+		for(int i=0;i<getNumberOfPlayers();i++) {
+			players.get(i).addCard(deck.drawCard());
+			players.get(i).addCard(deck.drawCard());
+		}
+		setScore();
+	}
+	public void drawCard(Player player) {
+		//String input = null;
+		while(player.getScore()<21) {
+			System.out.println(player.getName()+"는 카드를 추가로 받으시겠습니까? (y/n)");
+			char input = scanner.next().trim().charAt(0);
+			if(input=='y') {
+				player.addCard(deck.drawCard());
+				player.setScore();
+			}else {
+				return;
+			}
+		}
+	}
+	public String getPlayerNames() {
+		String result = "";
+		for(int i=0;i<getNumberOfPlayers()-1;i++) {
+			result = result + getPlayerNameByIndex(i) +", ";
+		}
+		result = result+getPlayerNameByIndex(getNumberOfPlayers()-1);
+		return result;
+	}
+	public void setScore() {
+		dealer.setScore();
+		for(int i=0;i<numberOfPlayers;i++) {
+			players.get(i).setScore();
+		}
+	}
+	public int findBlackJackPlayerIndex() {
+		int index = -1;
+		
+		return index;
+	}
+	public void checkDealerScore() {
+		if(dealer.getScore()<17) {
+			System.out.println("딜러의 점수가 16이하이므로 한장을 더 받습니다");
+			dealer.addCard(deck.drawCard());
+			dealer.printHands();
+			dealer.setScore();
+		}
+	}
+	public void printFinalBenefit() {
+		int result = 0;
+		System.out.println("##최종 수익##");
+		System.out.println("딜러 : "+(int)dealer.getBettingMoney());
+		for(int i=0;i<numberOfPlayers;i++) {
+			result = (int)(players.get(i).getBettingMoney()-bettingMoney.get(i));
+			System.out.println(getPlayerNameByIndex(i)+" : "+result);
+		}
+	}
+	public void setGameResult() {
+		
+	}
+	public void printFinalState() {
+		System.out.println();
+		System.out.println("-------------최종결과----------------");
+		System.out.println("총 배팅액수 : "+getTotalBetting());
+		System.out.println("-----------------------------");
+		dealer.printHands();
+		System.out.println("딜러의 점수 : "+dealer.getScore());
+		System.out.println("-----------------------------");
+		for(int i=0;i<numberOfPlayers;i++) {
+			players.get(i).printHands();
+			System.out.println(getPlayerNameByIndex(i)+"의 점수 : "+players.get(i).getScore());
+			System.out.println("-----------------------------");
+		}
+	}
+	public int getTotalBetting() {
+		int sum =0;
+		for(int i=0;i<numberOfPlayers;i++) {
+			sum += bettingMoney.get(i);
+		}
+		return sum;
+	}
+	public void printAllHands() {
+		dealer.printHands();
+		for(int i=0;i<numberOfPlayers;i++) {
+			players.get(i).printHands();
+		}
 	}
 }

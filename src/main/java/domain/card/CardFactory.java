@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class CardFactory {
 	private List<Card> cardDeck = new ArrayList<Card>();
+	private static int sizeOfDeck = 0;
 	public CardFactory() {
 		cardDeck = create();
 	}
@@ -19,6 +20,7 @@ public class CardFactory {
             createByType(cards, symbol);
         }
         Collections.shuffle(cards); //shuffle card list at creation
+        sizeOfDeck = cards.size()-1;
         return Collections.unmodifiableList(cards);
     }
 
@@ -33,9 +35,8 @@ public class CardFactory {
     }
     public Card drawCard() {
     	Card card;
-    	int sizeOfCardDeck = cardDeck.size();
-    	card = cardDeck.get(sizeOfCardDeck);
-    	cardDeck.remove(sizeOfCardDeck);
+    	card = cardDeck.get(sizeOfDeck);
+    	sizeOfDeck--;
     	return card;
     }
 }
