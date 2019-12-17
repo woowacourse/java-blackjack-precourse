@@ -26,7 +26,7 @@ public enum Symbol {
     }
 
     public String toString() {
-        if (this.getScore() == 1) {
+        if (this.getScore() == ACE.getScore()) {
             return "A";
         }
         if ((this == Symbol.JACK) || (this == Symbol.QUEEN) || (this == Symbol.KING)) {
