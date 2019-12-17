@@ -57,4 +57,15 @@ public class Input {
         }
         return bettingMoney;
     }
+
+    public static String askDraw(Player user) {
+        System.out.println(user.getName() + "은 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
+        String answer = s.next();
+        
+        while (!answer.equals("y") && !answer.equals("n")) {
+            System.err.println("잘못 입력하셨습니다. y나 n을 입력해주세요.");
+            return askDraw(user);
+        }
+        return answer;
+    }
 }
