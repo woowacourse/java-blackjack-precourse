@@ -87,14 +87,14 @@ public class ResultController {
         double totalPlayerProfit = 0;
 
         for (Player player : playerList) {
-            totalPlayerProfit += player.getProfitByBettingMoney(getPlayerWonProfitRate());
+            totalPlayerProfit += player.getProfitByBettingMoney(getPlayerWonProfitRate(player));
         }
 
         PrintController.printFinalProfit();
         PrintController.printDealerProfit(-totalPlayerProfit);
 
         for (Player player : playerList) {
-            PrintController.printPlayerProfit(player.getProfitByBettingMoney(getPlayerWonProfitRate()), player);
+            PrintController.printPlayerProfit(player.getProfitByBettingMoney(getPlayerWonProfitRate(player)), player);
         }
     }
 

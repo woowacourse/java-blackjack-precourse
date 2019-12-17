@@ -29,7 +29,12 @@ public class ProfitController {
         return MINUS_ONE;
     }
 
-    public static double getPlayerWonProfitRate() {
+    public static double getPlayerWonProfitRate(Player player) {
+
+        if (player.isBlackJack()) {
+            return BLACKJACK_RATE;
+        }
+
         return ONE;
     }
 
