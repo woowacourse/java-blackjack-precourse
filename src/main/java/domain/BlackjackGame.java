@@ -29,10 +29,14 @@ public class BlackjackGame {
     }
 
     static void evaluateRound() {
-        int dealerScore = GameProcessor.calculateDealerHandValue(dealer);
+        evaluatePlayerRound();
+    }
+
+    static void evaluatePlayerRound() {
         ArrayList<Integer> playerScoreArray = GameProcessor.calculateAllPlayersHandValue(playersArray);
-        System.out.println(dealerScore);
-        System.out.println(playerScoreArray);
+        for (int i = 0; i < playersArray.size(); i++) {
+            GameProcessor.askPlayerAnotherCard(playersArray.get(i), shuffledCards);
+        }
     }
 
     public static void main(String[] args) {

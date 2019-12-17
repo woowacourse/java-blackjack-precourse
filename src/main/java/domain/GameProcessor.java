@@ -8,6 +8,7 @@ import domain.user.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class GameProcessor {
     private static ArrayList<Player> playersArray = new ArrayList<Player>();
@@ -20,9 +21,6 @@ public class GameProcessor {
             playersArray.add(new Player(playerName, playerMoney));
             playersNamesList.add(playerName);
         }
-        //for (int i = 0; i < playersArray.size(); i++) {
-        //    System.out.println(playersArray.get(i).getName() + ", " + (int)playersArray.get(i).getBettingMoney());
-        //}
         playersNames = String.join(", ", playersNamesList);
         return playersArray;
     }
@@ -47,19 +45,10 @@ public class GameProcessor {
 
     static void showFirstRoundResult(Dealer dealer, ArrayList<Player> playersArray) {
         System.out.println("딜러와 " + playersNames + "에게 2장의 카드를 딜하였습니다.");
-        System.out.println("딜러 : " + dealer.getCards().get(0));
+        System.out.println("딜러 : " + dealer.getCards().get(0) + ", " +dealer.getCards().get(1));
         for (Player player : playersArray) {
             System.out.println(player.getName() + " : " + player.getCards());
         }
-    }
-
-    static int calculateDealerHandValue(Dealer dealer) {
-        List<Card> dealerCards = dealer.getCards();
-        int score = 0;
-        for (int i = 0; i < dealerCards.size(); i++) {
-            score += dealerCards.get(i).getScore();
-        }
-        return score;
     }
 
     static int calculatePlayerHandValue(Player player) {
@@ -69,6 +58,22 @@ public class GameProcessor {
             score += playerCards.get(i).getScore();
         }
         return score;
+    }
+
+    static void askPlayerAnotherCard(Player player, List<Card> cards) {
+        System.out.println(player.getName() + "님, 카드를 한장 더 받으시겠습니까?(y/n)");
+        Scanner playerCardInput = new Scanner(System.in);
+        String playerCardChoice = playerCardInput.next();;
+        if (playerCardChoice.equals("Y") || playerCardChoice.equals("y")) {
+            givePlayerAnotherCard(player, cards);
+        }
+    }
+
+    static void givePlayerAnotherCard(Player player, List<Card> cards) {
+        player.addCard(dealCard(cards));
+        System.out.println("Get card");
+        System.out.println(player.getCards());
+        askPlayerAnotherCard(player, cards);
     }
 
     static ArrayList<Integer> calculateAllPlayersHandValue(ArrayList<Player> playersArray) {
