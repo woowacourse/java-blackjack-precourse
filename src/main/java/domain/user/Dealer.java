@@ -22,4 +22,8 @@ public class Dealer extends Player {
         System.out.println(super.getName() + " : " + money);
     }
 
+    @Override
+    public void showCards() {
+        System.out.println(super.getName() + " : " + super.getCard().get(0));
+    }
 }

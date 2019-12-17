@@ -35,6 +35,10 @@ public class Player {
         return bettingMoney;
     }
 
+    public List<Card> getCard() {
+        return cards;
+    }
+
     public int getScore() {
         int score = 0;
 
