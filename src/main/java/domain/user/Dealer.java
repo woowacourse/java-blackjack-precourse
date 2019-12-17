@@ -22,6 +22,15 @@ public class Dealer {
         System.out.println("딜러: " + cards.get(0));
     }
 
+    public void openCards() {
+        StringBuilder msg = new StringBuilder();
+        msg.append("딜러 카드: ");
+        for (Card card : cards) {
+            msg.append(card + ", ");
+        }
+        System.out.println(msg.substring(0, msg.length() - 2));
+    }
+
     public int calScore() {
         int score = 0;
         for (Card card : cards) {

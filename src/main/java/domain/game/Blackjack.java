@@ -45,6 +45,7 @@ public class Blackjack {
             giveExtraCard(player);
         }
         giveExtraCard(dealer);
+        printResult();
     }
 
     public String[] getNames() {
@@ -132,6 +133,15 @@ public class Blackjack {
         while (dealer.calScore() < LESS_THAN_17) {
             deal(dealer);
             System.out.println("딜러는 카드의 합이 16이하라 한 장의 카드를 더 받았습니다.");
+        }
+    }
+
+    public void printResult() {
+        dealer.openCards();
+        System.out.println("결과: " + dealer.calScore() + "점");
+        for (Player player : players) {
+            player.showCards();
+            System.out.println("결과: " + player.calScore() + "점");
         }
     }
 }
