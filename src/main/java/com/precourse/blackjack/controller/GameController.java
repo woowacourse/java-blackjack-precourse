@@ -101,4 +101,8 @@ public class GameController {
 	public static void showDealerNoHit() {
 		OutputView.printDealerNoHit();
 	}
+
+	public static void showDealerHit() {
+		OutputView.printDealerHit();
+	}
 }
