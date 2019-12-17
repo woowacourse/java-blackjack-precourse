@@ -21,10 +21,19 @@ public class StatePrinter {
     }
 
     public static void printEarning(String name, double earning) {
-        System.out.println(name + " : " + earning);
+        System.out.println(name + " : " + doubleToString(earning));
     }
 
     public static void printDealerDrawMessage() {
         System.out.println("\n딜러의 점수가 16이하라 한 장의 카드를 더 받았습니다.");
     }
+    
+    /** 값이 정수일 경우 소수점 제거를 위한 메소드 */
+    private static String doubleToString(double number) {
+        if (number == (int) number) {
+            return String.valueOf((int) number);
+        }
+        
+        return String.valueOf(number);
+   }
 }
