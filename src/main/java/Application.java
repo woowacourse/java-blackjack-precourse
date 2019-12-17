@@ -29,14 +29,10 @@ public class Application {
         }
     }
 
-    private static PlayerService setupPlayerService(Deck deck, BlackjackPrinter blackjackPrinter) {
-        UserInterface userInterface = new Console(new Scanner(System.in), blackjackPrinter);
-        PlayerFactory playerFactory = new PlayerFactory();
-        return new PlayerServiceImpl(deck, blackjackPrinter, userInterface, playerFactory);
-    }
-
-    private static DealerService setupDealerService(Deck deck, BlackjackPrinter blackjackPrinter) {
-        return new DealerServiceImpl(deck, blackjackPrinter);
+    private static Blackjack setupBlackjack() {
+        BlackjackApi blackjackApi = setupBlackjackApi();
+        Dealer dealer = new Dealer();
+        return new Blackjack(blackjackApi, dealer);
     }
 
     private static BlackjackApi setupBlackjackApi() {
@@ -47,9 +43,13 @@ public class Application {
         return new BlackjackApiImpl(dealerService, playerService, blackjackPrinter);
     }
 
-    private static Blackjack setupBlackjack() {
-        BlackjackApi blackjackApi = setupBlackjackApi();
-        Dealer dealer = new Dealer();
-        return new Blackjack(blackjackApi, dealer);
+    private static DealerService setupDealerService(Deck deck, BlackjackPrinter blackjackPrinter) {
+        return new DealerServiceImpl(deck, blackjackPrinter);
+    }
+
+    private static PlayerService setupPlayerService(Deck deck, BlackjackPrinter blackjackPrinter) {
+        UserInterface userInterface = new Console(new Scanner(System.in), blackjackPrinter);
+        PlayerFactory playerFactory = new PlayerFactory();
+        return new PlayerServiceImpl(deck, blackjackPrinter, userInterface, playerFactory);
     }
 }

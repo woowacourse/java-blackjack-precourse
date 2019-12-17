@@ -29,6 +29,11 @@ public class BlackjackApiImpl implements BlackjackApi {
         return playerService.join();
     }
 
+    @Override
+    public void shuffle() {
+        dealerService.shuffle();
+    }
+
     /** 게임 시작 후, 딜러 및 모든 플레이어들이 기본 카드를 지급받는 함수입니다. */
     @Override
     public void receiveDefaultCards(Dealer dealer, List<Player> players) {

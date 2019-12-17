@@ -24,13 +24,10 @@ class Blackjack {
 
     void play() {
         List<Player> players = blackjackApi.join();
-
+        blackjackApi.shuffle();
         blackjackApi.receiveDefaultCards(dealer, players);
-
         blackjackApi.confirmCards(players, dealer);
-
         blackjackApi.match(dealer, players);
-
         blackjackApi.analyze(dealer, players);
     }
 }

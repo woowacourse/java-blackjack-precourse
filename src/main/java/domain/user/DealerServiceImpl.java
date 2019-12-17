@@ -18,6 +18,11 @@ public class DealerServiceImpl extends UserService implements DealerService {
     }
 
     @Override
+    public void shuffle() {
+        deck.shuffle();
+    }
+
+    @Override
     public void confirmCards(User user) {
         int point = user.calculateScore();
 
@@ -30,10 +35,5 @@ public class DealerServiceImpl extends UserService implements DealerService {
 
     private boolean pointInRange(int point) {
         return point <= BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER;
-    }
-
-    public Deck shuffle() {
-        deck.shuffle();
-        return deck;
     }
 }
