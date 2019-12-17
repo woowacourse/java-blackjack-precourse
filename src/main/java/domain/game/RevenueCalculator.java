@@ -6,6 +6,8 @@ import domain.user.GameParticipant;
 import java.util.ArrayList;
 
 public class RevenueCalculator {
+    private final static double MULTIPLE_OF_BATTING_MONEY_WHEN_BLACKJACK = 1.5;
+    private final static double FINAL_REVENUE_WHEN_DEALER_AND_PLAYER_BLACKJACK = 0.0;
 
     private ArrayList<Double> finalRevenueListOfGameParticipant = new ArrayList<Double>();
     private ArrayList<GameParticipant> participants;
@@ -32,12 +34,12 @@ public class RevenueCalculator {
 
     private void calculateFinalRevenueOfPlayerInBlackjack(GameParticipant p) {
         if (p.isBlackjack() && dealer.isBlackjack()) {
-            finalRevenueListOfGameParticipant.add(0.0);
+            finalRevenueListOfGameParticipant.add(FINAL_REVENUE_WHEN_DEALER_AND_PLAYER_BLACKJACK);
         }
 
         if (p.isBlackjack() && !dealer.isBlackjack()) {
-            finalRevenueListOfGameParticipant.add(p.getSumOfCardScore() * 1.5);
-            finalRevenueOfDealer -= (p.getSumOfCardScore() * 1.5);
+            finalRevenueListOfGameParticipant.add(p.getSumOfCardScore() * MULTIPLE_OF_BATTING_MONEY_WHEN_BLACKJACK);
+            finalRevenueOfDealer -= (p.getSumOfCardScore() * MULTIPLE_OF_BATTING_MONEY_WHEN_BLACKJACK);
         }
     }
 

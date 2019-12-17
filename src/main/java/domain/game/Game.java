@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Game {
 
+    private final static int NUMBER_OF_INIT_CARDS = 2;
     private ArrayList<GameParticipant> participants = new ArrayList<GameParticipant>();
     private Dealer dealer = new Dealer();
     private Utill utill = new Utill();
@@ -49,7 +50,7 @@ public class Game {
     }
 
     private void receiveInitCardEachParticipant(GameParticipant p) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < NUMBER_OF_INIT_CARDS; i++) {
             p.addCard(dealer.giveCard());
         }
         utill.printCardListOfGameParticipant(p);
