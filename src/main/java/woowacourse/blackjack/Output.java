@@ -89,6 +89,10 @@ public class Output {
         System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
     }
 
+    public void printYesOrNoAgain() {
+        System.out.println("y or n (대문자 가능)로만 대답해주십시오.");
+    }
+
     public void printAddDealerCard() {
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
         System.out.println();

@@ -24,6 +24,17 @@ public class Input {
 
     public String getYesOrNo(Player player) {
         this.output.printYesOrNo(player);
-        return sc.nextLine();
+        String answer = sc.nextLine();
+        while (!this.isGetYesOrNoValidator(answer)) {
+            this.output.printYesOrNoAgain();
+            this.output.printYesOrNo(player);
+            answer = sc.nextLine();
+        }
+        return answer;
+    }
+
+    private boolean isGetYesOrNoValidator(String answer) {
+        return answer.equals("y") || answer.equals("n")
+                || answer.equals("Y") || answer.equals("N");
     }
 }
