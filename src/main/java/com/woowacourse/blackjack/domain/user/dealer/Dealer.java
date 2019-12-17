@@ -14,9 +14,7 @@ public class Dealer extends Gamer {
     public static final Name NAME = new Name("딜러");
     private static final int MAX_DRAWABLE_SCORE = 16;
 
-    public Dealer() {
-        super();
-    }
+    public Dealer() {}
 
     public boolean canDraw() {
         return getScore() <= MAX_DRAWABLE_SCORE;
