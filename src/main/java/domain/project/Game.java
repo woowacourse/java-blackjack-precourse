@@ -237,9 +237,8 @@ public class Game {
 	}
 
 	private void printDealerCard() {
-		dealer.setCardString();
 		myPrinter.printDealer();
-		myPrinter.printCard(dealer);
+		myPrinter.printCard(dealer.getCardString());
 	}
 
 	private void printPlayerSetCard() {
@@ -249,9 +248,8 @@ public class Game {
 	}
 
 	private void printPlayerCard(Player player) {
-		player.setCardString();
 		myPrinter.printPlayerName(player.getName());
-		myPrinter.printCard(player);
+		myPrinter.printCard(player.getCardString());
 	}
 
 	private void getCardPerPlayer() {
@@ -335,9 +333,8 @@ public class Game {
 	}
 	
 	private void printDealerResult() {
-		dealer.setResultString();
 		myPrinter.printDealer();
-		myPrinter.printCard(dealer);
+		myPrinter.printCard(dealer.getResultString());
 	}
 	
 	private void printPlayerSetResult() {
@@ -347,9 +344,8 @@ public class Game {
 	}
 	
 	private void printPlayerResult(Player player) {
-		player.setResultString();
 		myPrinter.printPlayerName(player.getName());
-		myPrinter.printCard(player);
+		myPrinter.printCard(player.getResultString());
 	}
 
 	public static void main(String[] args) {

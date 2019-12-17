@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Person {
 	private final List<Card> cards = new ArrayList<>();
-	private String cardString;
 	private int cardSum;
 	private int cardSumWithAce;
 	private boolean isContainAce;
@@ -20,21 +19,19 @@ public class Person {
 		calculateCard();
 	}
 
-	public void setCardString() {
-		cardString = "";
+	public String getCardString() {
+		String cardString = "";
 		ArrayList<String> cardStringSet = new ArrayList<String>();
 
 		for (Card c : cards) {
 			cardStringSet.add(c.makeCardString());
 		}
 		cardString = String.join(", ", cardStringSet);
+		return cardString;
 	}
 	
-	public void setResultString() {
-		String result = makeResult();
-		
-		setCardString();
-		cardString = cardString + Constant.RESULT + result;
+	public String getResultString() {
+		return getCardString() + Constant.RESULT + makeResult();
 	}
 	
 	private String makeResult() {
@@ -45,10 +42,6 @@ public class Person {
 			return Integer.toString(cardSumWithAce);
 		}
 		return Integer.toString(cardSum);
-	}
-
-	public String getCardString() {
-		return this.cardString;
 	}
 
 	private void addCardNumber() {

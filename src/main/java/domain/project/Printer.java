@@ -46,8 +46,8 @@ public class Printer {
 		System.out.print(name + "카드: ");
 	}
 	
-	public void printCard(Person person) {
-		 System.out.println(person.getCardString());
+	public void printCard(String result) {
+		 System.out.println(result);
 	}
 	
 	public void printNewLine() {
