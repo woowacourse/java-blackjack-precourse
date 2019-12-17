@@ -14,6 +14,8 @@ import static util.Numbers.getRandomNumber;
 import static util.Strings.splitPlayerName;
 import static view.InputView.inputPlayerMoney;
 import static view.InputView.inputPlayerName;
+import static view.OutputView.printCardStatus;
+import static view.OutputView.printInitDistributionMessage;
 
 public class SettingSystem {
     private static int CARD_COUNT = 52;
@@ -35,6 +37,7 @@ public class SettingSystem {
         StringTokenizer st = splitPlayerName(names, ",");
         setPlayer(st);
         distributeCard();
+        printInitStatus();
     }
 
     private void setPlayer(StringTokenizer st) {
@@ -64,5 +67,14 @@ public class SettingSystem {
         for (Player p : playerList) {
             giveCard(p);
         }
+    }
+
+    private void printInitStatus() {
+        printInitDistributionMessage(playerList);
+        printCardStatus(dealer);
+        for (Player p : playerList) {
+            printCardStatus(p);
+        }
+        System.out.println();
     }
 }
