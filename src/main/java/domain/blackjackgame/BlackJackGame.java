@@ -40,6 +40,7 @@ public class BlackJackGame {
 		while (!inputPlayer()) {
 		}
 		if (startGame()) {
+			printCards();
 			twoCardPlayerWin();
 			return;
 		}
@@ -214,6 +215,7 @@ public class BlackJackGame {
 	}
 
 	private void dealerFail() {
+		printCards();
 		System.out.println("딜러가 21을 초과했습니다.");
 		System.out.println("### 최종 수익 ###");
 		double dealerMoney = 0;
@@ -235,9 +237,6 @@ public class BlackJackGame {
 		if (!user.hasAce())
 			return;
 		for (Card card : user.getCards()) {
-			if (isFailScore(user.getScore() + ACE_DIFFERENCE)) {
-				return;
-			}
 			if (card.getSymbol().getScore() == ACE) {
 				user.setScore(user.getScore() - ACE_DIFFERENCE);
 			}
