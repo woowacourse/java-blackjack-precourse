@@ -16,6 +16,9 @@ public class Result {
         System.out.println("결과 : " + dealerValue);
         for(Player p : players){
             int value = calcResultValue(p);
+            if(value == 22){
+                value = 21;
+            }
             play.showOneCardStatus(p);
             System.out.print("결과 : " + value + "로 딜러보다 ");
             if(value > dealerValue){
