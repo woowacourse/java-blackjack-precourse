@@ -15,9 +15,9 @@ public class Game {
         this.playerObjectCreate();
     }
 
-    public void playerObjectCreate(){
+    public void playerObjectCreate() {
         playerNames = input.playerNameInput();
-        for(String playerName : playerNames){
+        for (String playerName : playerNames) {
             Double bettingMoney = input.bettingMoneyInput(playerName);
             players.add(new Player(playerName, bettingMoney));
         }

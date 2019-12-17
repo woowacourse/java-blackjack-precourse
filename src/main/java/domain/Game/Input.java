@@ -42,7 +42,7 @@ public class Input {
         } catch (Exception e) {
             return true;
         }
-        
+
         return !bettingMoneyInput.matches("^[0-9]*$");
     }
 }
