@@ -73,6 +73,11 @@ public class BlackJackGame {
 		for (Player player : players) {
 			giveFirstTwoCards(player);
 		}
+		System.out.print("딜러와 ");
+		for (Player player : players) {
+			System.out.print(player.getName()+" ");
+		}
+		System.out.println("에게 2장의 카드를 나누어주었습니다.");
 	}
 
 	private void giveFirstTwoCards(User user) {
@@ -98,22 +103,41 @@ public class BlackJackGame {
 
 	private void playGame() {
 		for(Player player : players) {
+			getMoreCards(player);
 		}
 	}
 
-	private boolean compareMaxScore(User user) {
-		if(user.getScore() <= MAX_SCORE) {
+	private void getMoreCards(Player player) {
+		while(!isMaxScore(player)) {
+			System.out.println(player.getName()+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+			String input = scanner.nextLine();
+			if(input.equals("y")) {
+				giveCard(player);
+				printCards();
+				continue;
+			}
+			if(input.equals("n")) {
+				return;
+			}
+			System.out.println("잘못된 입력을 하셨습니다. 다시 입력해주세요.");
+		}
+	}
+	
+	private boolean isMaxScore(User user) {
+		if(user.getScore() >= MAX_SCORE) {
 			return true;
 		}
 		return false;
 	}
 	
 	private void printCards() {
+		System.out.println("====================================");
 		System.out.print("딜러의 카드: ");
 		dealer.printCards();
 		for (Player player : players) {
 			System.out.print(player.getName() + "의 카드: ");
 			player.printCards();
 		}
+		System.out.println("====================================");
 	}
 }
