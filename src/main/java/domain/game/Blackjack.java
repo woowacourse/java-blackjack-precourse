@@ -40,17 +40,7 @@ public class Blackjack {
             }
         }
 
-        for (Player player : players) {
-            giveExtraCard(player);
-        }
-
-        if (isBlackJack(dealer)) {      // 딜러가 카드를 더 받기전에 블랙잭인지 확인, 딜러가 블랙잭이면 게임 종료
-            System.out.println("딜러 블랙잭! 게임이 종료됩니다.");
-            showResult();
-            return;
-        }
-        giveExtraCard(dealer);
-
+        dealCardsAgain();
         showResult();
     }
 
@@ -130,19 +120,13 @@ public class Blackjack {
         dealer.addCard(card);
     }
 
+
     public boolean isBlackJack(Player player) {
         return (player.calScore() == CONDITION_SCORE) && (player.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
     }
 
     public boolean isBlackJack(Dealer dealer) {
         return (dealer.calScore() == CONDITION_SCORE) && (dealer.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
-    }
-
-    public void giveExtraCard(Player player) {
-        while (!isBust(player) && isReceivingCard(player)) {
-            deal(player);
-            player.showCards();
-        }
     }
 
     public boolean isBust(Player player) {
@@ -161,6 +145,34 @@ public class Blackjack {
         return false;
     }
 
+
+    public void dealCardsAgain() {
+        for (Player player : players) {
+            giveExtraCard(player);
+        }
+
+        if (isBlackJack(dealer)) {      // 딜러가 카드를 더 받기전에 블랙잭인지 확인, 딜러가 블랙잭이면 게임 종료
+            System.out.println("딜러 블랙잭! 게임이 종료됩니다.");
+            showResult();
+            return;
+        }
+        giveExtraCard(dealer);
+    }
+
+    public void giveExtraCard(Player player) {
+        while (!isBust(player) && isReceivingCard(player)) {
+            deal(player);
+            player.showCards();
+        }
+    }
+
+    public void giveExtraCard(Dealer dealer) {
+        while (dealer.calScore() < CONDITION_DEALER_SCORE) {
+            deal(dealer);
+            System.out.println("딜러는 카드의 합이 16이하라 한 장의 카드를 더 받았습니다.");
+        }
+    }
+
     public boolean isReceivingCard(Player player) {
         String decision = player.needMoreCard(sc);
         while (!isValidAnswer(decision)) {
@@ -174,12 +186,6 @@ public class Blackjack {
         return (decision.equals(YES) || decision.equals(NO));
     }
 
-    public void giveExtraCard(Dealer dealer) {
-        while (dealer.calScore() < CONDITION_DEALER_SCORE) {
-            deal(dealer);
-            System.out.println("딜러는 카드의 합이 16이하라 한 장의 카드를 더 받았습니다.");
-        }
-    }
 
     public void showResult() {
         dealer.showCards();
@@ -222,7 +228,7 @@ public class Blackjack {
         } else {
             if (player.calScore() > dealer.calScore()) {
                 return WIN;
-            } else if(player.calScore() == dealer.calScore()) {
+            } else if (player.calScore() == dealer.calScore()) {
                 return DRAW;
             } else {
                 return LOSE;
