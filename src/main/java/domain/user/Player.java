@@ -18,5 +18,9 @@ public class Player extends BlackjackMember {
     }
 
     // TODO 추가 기능 구현
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
 }

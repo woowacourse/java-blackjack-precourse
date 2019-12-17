@@ -6,44 +6,43 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
-    private final Symbol symbol;
+	private final Symbol symbol;
 
-    private final Type type;
+	private final Type type;
 
-    public Card(Symbol symbol, Type type) {
-        this.symbol = symbol;
-        this.type = type;
-    }
+	public Card(Symbol symbol, Type type) {
+		this.symbol = symbol;
+		this.type = type;
+	}
 
-    // TODO Card 관련 추가 기능 구현
+	// TODO Card 관련 추가 기능 구현
 
-    public int getScore() {
-        return symbol.getScore();
-    }
+	public int getScore() {
+		return symbol.getScore();
+	}
 
-    public Symbol getSymbol() {
-        return symbol;
-    }
+	public Symbol getSymbol() {
+		return symbol;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return symbol == card.symbol &&
-                type == card.type;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Card card = (Card)o;
+		return symbol == card.symbol &&
+			type == card.type;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(symbol, type);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(symbol, type);
+	}
 
-    @Override
-    public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return type.getTypeName() + symbol.getSymbolName();
+	}
 }

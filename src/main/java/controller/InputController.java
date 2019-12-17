@@ -17,10 +17,10 @@ public class InputController {
 		this.scanner = new Scanner(System.in);
 	}
 
-	public List<Player> getPlayers(List<String> playerNames) {
+	public List<Player> getPlayers() {
 		List<Player> players = new ArrayList<>();
 
-		for (String playerName : playerNames) {
+		for (String playerName : getPlayerNames()) {
 			players.add(new Player(playerName, getPlayerBettingMoney(playerName)));
 		}
 

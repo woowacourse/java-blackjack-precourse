@@ -8,8 +8,12 @@ import java.util.List;
 import domain.card.Card;
 import domain.card.Symbol;
 
-public class BlackjackMember {
+public abstract class BlackjackMember {
+
 	private final List<Card> deck = new ArrayList<>();
+	private int currentMoney = ZERO;
+
+	public abstract String getName();
 
 	public void addCard(Card card) {
 		deck.add(card);
@@ -34,10 +38,18 @@ public class BlackjackMember {
 	}
 
 	private int addAceScore(int scoreSum, Card card) {
-		if (card.getSymbol() == Symbol.ACE && scoreSum + ACE_TERM < MAX) {
+		if (card.getSymbol() == Symbol.ACE && scoreSum + ACE_TERM < BLACKJACK) {
 			scoreSum += ACE_TERM;
 		}
 
 		return scoreSum;
+	}
+
+	private boolean isBlackjack() {
+		return getScoreSum() == BLACKJACK;
+	}
+
+	public List<Card> getDeck() {
+		return deck;
 	}
 }
