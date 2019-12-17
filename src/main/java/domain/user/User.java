@@ -1,88 +1,60 @@
 package domain.user;
 
 import domain.card.Card;
-import domain.card.RandomCardFactory;
 import domain.card.Symbol;
+import domain.card.UserCards;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 abstract public class User {
-    private final List<Card> cards = new ArrayList<>();
+    private final UserCards userCards;
     private static final int LIMIT = 21;
-    private static final int ONE = 21;
+    private static final int ONE = 1;
+
+    public User(UserCards userCards) {
+        this.userCards = userCards;
+    }
+
+    abstract public void printUserInfo();
+
+    abstract public void printFinalOutput();
 
     public void addRandomCard() {
-        cards.add(RandomCardFactory.create());
+        userCards.addRandomCard();
+    }
+
+    public void addInitCard() {
+        userCards.addRandomCard();
+        userCards.addRandomCard();
     }
 
     public void addFixCard(Card card) {
-        cards.add(card);
+        userCards.addFixCard(card);
     }
 
     public List<Card> getCards() {
-        return Collections.unmodifiableList(cards);
+        return userCards.getCards();
     }
 
     public String printCards() {
-        return cards.stream()
-                .map(i -> i.getCardInfo())
-                .collect(Collectors.joining(", "));
-    }
-
-    public void checkCardsEmpty() {
-        if (cards.size() == 0) {
-            throw new IndexOutOfBoundsException("딜러의 카드가 존재하지 않습니다.");
-        }
-    }
-
-    public int getAceCount() {
-        return (int) cards.stream().filter(card ->
-                card.getSymbol() == Symbol.ACE
-        ).count();
+        return userCards.printCards();
     }
 
     public boolean checkExcess() {
-        Optional<Integer> sum = cards.stream()
-                .map(card -> card.getSymbol().getScore())
-                .reduce(Integer::sum);
-        if (sum.isPresent()) {
-            return sum.get() > LIMIT;
-        }
-        throw new IllegalStateException("카드가 없는 경우가 발생하였습니다.");
+        return userCards.checkExcess();
     }
 
     public boolean isBlackJack() {
-        boolean isHaveTen = cards.stream().anyMatch(card ->
-                card.getSymbol() == Symbol.JACK ||
-                        card.getSymbol() == Symbol.KING ||
-                        card.getSymbol() == Symbol.QUEEN ||
-                        card.getSymbol() == Symbol.TEN);
-
-        if (getAceCount() == ONE && isHaveTen)     // A가 있고 K,J,Q,TEN 중 하나가 존재해야 블랙잭이다.
-            return true;
-
-        return false;
-    }
-
-    public boolean isPlayer() {
-        return this instanceof Player;
-    }
-
-    public boolean isDealer() {
-        return this instanceof Dealer;
+        return userCards.getAceCount() == ONE && userCards.isHaveTen();
     }
 
     public int calcurateScore() {
-        int scoreExceptAce = calcurateScoreExceptAce();
+        int scoreExceptAce = userCards.calcurateScoreExceptAce();
         return startCalcurateAceScoreLoop(scoreExceptAce);
     }
 
-    public int startCalcurateAceScoreLoop(int score) {
-        for (int i = getAceCount(); i > 0; i--) {
+    private int startCalcurateAceScoreLoop(int score) {
+        for (int i = userCards.getAceCount(); i > 0; i--) {
             score += calcureateAceScore(score);
         }
         return score;
@@ -92,22 +64,14 @@ abstract public class User {
         if (score + Symbol.ACE.getBonusScore() > LIMIT) {
             return Symbol.ACE.getScore();
         }
-
         return Symbol.ACE.getBonusScore();
     }
 
-    private int calcurateScoreExceptAce() {
-        Optional<Integer> scoreExceptAce = cards.stream()
-                .filter(card -> card.getSymbol() != Symbol.ACE)
-                .map(card -> card.getSymbol().getScore())
-                .reduce(Integer::sum);
-        if (scoreExceptAce.isPresent()) {
-            return scoreExceptAce.get();
-        }
-        return 0;
+    public boolean isPlayer() {
+        return this instanceof Player;
     }
 
-    abstract public void printUserInfo();
-
-    abstract public void printFinalOutput();
+    public boolean isDealer() {
+        return this instanceof Dealer;
+    }
 }
