@@ -1,8 +1,9 @@
-package domain;
+package domain.outcome;
 
 public enum BenefitType {
     INIT_USER_BLACKJACK(0.5),
     INIT_BOTH_BLACKJACK(0),
+    DROW(0),
     USER_WIN(1.0),
     USER_LOSE(-1.0);
 

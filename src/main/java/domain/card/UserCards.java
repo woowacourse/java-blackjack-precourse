@@ -64,7 +64,7 @@ public class UserCards {
 
     public String printCards() {
         return cards.stream()
-                .map(Card::getCardInfo)
+                .map(Card::toString)
                 .collect(Collectors.joining(", "));
     }
 }

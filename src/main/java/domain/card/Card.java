@@ -41,13 +41,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
-    }
-
-    public String getCardInfo() {
-        return String.valueOf(symbol.getName())+ type;
+        return String.valueOf(symbol.getName()) + type;
     }
 }
