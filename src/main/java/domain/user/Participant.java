@@ -12,5 +12,7 @@ public interface Participant {
 
     int calScore();
 
+    void showOutcome();
+
     double doBalancing(double result);
 }

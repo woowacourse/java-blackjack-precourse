@@ -25,7 +25,7 @@ public class User implements Participant {
     }
 
     public String needMoreCard(Scanner sc) {
-        System.out.println(name + ": 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
+        System.out.println("\n" + name + ": 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
         return sc.nextLine();
     }
 
@@ -45,11 +45,11 @@ public class User implements Participant {
     @Override
     public void showCards() {
         StringBuilder msg = new StringBuilder();
-        msg.append(name + "카드: ");
+        msg.append("\n" + name + " 카드: ");
         for (Card card : cards) {
             msg.append(card + ", ");
         }
-        System.out.println(msg.substring(0, msg.length() - 2));
+        System.out.print(msg.substring(0, msg.length() - 2));
     }
 
     @Override
@@ -59,6 +59,12 @@ public class User implements Participant {
             score += card.getScore();
         }
         return score;
+    }
+
+    @Override
+    public void showOutcome() {
+        showCards();
+        System.out.print(" - 결과: " + calScore() + "점");
     }
 
     @Override

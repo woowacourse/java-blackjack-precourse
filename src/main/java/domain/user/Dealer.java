@@ -16,7 +16,7 @@ public class Dealer implements Participant {
     }
 
     public void openOneCard() {
-        System.out.println("딜러: " + cards.get(0));
+        System.out.print("\n딜러: " + cards.get(0));
     }
 
     @Override
@@ -35,11 +35,11 @@ public class Dealer implements Participant {
     @Override
     public void showCards() {
         StringBuilder msg = new StringBuilder();
-        msg.append("딜러 카드: ");
+        msg.append("\n딜러 카드: ");
         for (Card card : cards) {
             msg.append(card + ", ");
         }
-        System.out.println(msg.substring(0, msg.length() - 2));
+        System.out.print(msg.substring(0, msg.length() - 2));
     }
 
     @Override
@@ -49,6 +49,12 @@ public class Dealer implements Participant {
             score += card.getScore();
         }
         return score;
+    }
+
+    @Override
+    public void showOutcome() {
+        showCards();
+        System.out.print(" - 결과: " + calScore() + "점");
     }
 
     @Override

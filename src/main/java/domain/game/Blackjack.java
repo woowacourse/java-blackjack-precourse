@@ -96,7 +96,7 @@ public class Blackjack {
                 deal(user);
             }
         }
-        System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
+        System.out.println("\n딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
     }
 
     public void deal(Participant participant) {
@@ -110,7 +110,7 @@ public class Blackjack {
 
     public boolean isBust(Participant participant) {
         if (participant.calScore() > CONDITION_SCORE) {
-            System.out.println("버스트");
+//            System.out.println("버스트");
             return true;
         }
         return false;
@@ -155,13 +155,10 @@ public class Blackjack {
 
 
     public void showResult() {
-        dealer.showCards();
-        System.out.println("결과: " + dealer.calScore() + "점");
+        dealer.showOutcome();
         for (User user : users) {
-            user.showCards();
-            System.out.println("결과: " + user.calScore() + "점");
+            user.showOutcome();
         }
-
         double dealerSettlement = 0;
         for (User user : users) {
             double result = getResult(user);
