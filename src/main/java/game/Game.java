@@ -22,17 +22,15 @@ public class Game {
 
     public void play() {
         Dealer dealer = new Dealer();
-        Deck deck = new Deck();
-        initDeck(deck);
+        Deck deck = initDeck();
         List<Player> players = initPlayers();
         runGame(dealer, players, deck);
         makeResult(dealer, players);
         printProfit(dealer, players);
     }
 
-    private void initDeck(Deck deck) {
-        deck.initCards();
-        deck.shuffle();
+    private Deck initDeck() {
+        return new Deck();
     }
 
     private List<Player> initPlayers() {
