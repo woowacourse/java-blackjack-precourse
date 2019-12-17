@@ -1,5 +1,7 @@
 package com.jenny.blackjack;
 
+import domain.user.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,6 +10,7 @@ public class BlackJack {
 
     private List<String> names = new ArrayList<>();
     private int userCnt;
+    private List<Player> players = new ArrayList<>();
 
     public void askUserName(){
         Scanner sc = new Scanner(System.in);
@@ -77,4 +80,9 @@ public class BlackJack {
         }
         return true;
     }
+
+    public void registerUser(int idx, int betMoney){
+        players.add(new Player(names.get(idx), betMoney));
+    }
+
 }
