@@ -34,7 +34,7 @@ public class OutputView {
 		printCards(cardsData);
 	}
 
-	public void printPlayersCards(List<String> names, List<List<String>> cardsData) {
+	public void printPlayersCardsLine(List<String> names, List<List<String>> cardsData) {
 		for (int i = 0; i < names.size(); i++) {
 			printPlayerCards(names.get(i), cardsData.get(i));
 			System.out.println();

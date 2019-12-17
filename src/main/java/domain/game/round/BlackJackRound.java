@@ -1,7 +1,5 @@
 package domain.game.round;
 
-import java.util.Arrays;
-
 import domain.game.Rule;
 import domain.game.Table;
 import view.OutputView;
@@ -26,7 +24,7 @@ public class BlackJackRound extends Round {
 		outputView.printBlackJackRoundLine(table.getPlayerNames(), Rule.BASIC_DRAW);
 		outputView.printDealerCards(table.getDealerCardText().subList(0,Rule.DEALER_OPEN_COUNT), false);
 		outputView.printNewLine();
-		outputView.printPlayersCards(table.getPlayerNames(),table.getPlayersCardText());
+		outputView.printPlayersCardsLine(table.getPlayerNames(),table.getPlayersCardText());
 		outputView.printNewLine();
 	}
 
