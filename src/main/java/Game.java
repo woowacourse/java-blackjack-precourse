@@ -44,14 +44,18 @@ public class Game {
 
         if(checkBlackJack()){
             blackJackEnd();
+        }else {
+            gameProcess();
         }
-        gameProcess();
     }
 
     private void gameProcess(){
 
         for(Player player:players){
             playerProcess(player);
+        }
+        if(dealerProcess()){
+            makeResult();
         }
     }
 
@@ -71,11 +75,81 @@ public class Game {
 
             if(player.getNormalScore() > 21){
                 System.out.println("Over 21");
-                player.profit -= player.getBettingMoney();
-                dealer.profit += player.getBettingMoney();
                 break;
             }
         }
+    }
+
+    private boolean dealerProcess(){
+
+        if(dealer.getMaxScore() < 17){
+            System.out.println("Dealer score is less then 16. get one card for dealer");
+            distributeCard(dealer,1);
+        }
+
+        if(dealer.getNormalScore() > 21){
+            System.out.println("Dealer Score is over 21. Player Wins");
+
+            for(Player player:players){
+                dealer.profit -= player.getBettingMoney();
+                player.profit += player.getBettingMoney();
+            }
+            printProfit();
+            return false;
+        }
+        System.out.println();
+        return true;
+    }
+
+    private void makeResult() {
+        Integer dealerScore = getTScore(dealer);
+        Integer maxScore = 0;
+        Integer score;
+
+        for(Player player:players){
+            score = getTScore(player);
+            if(score > maxScore){
+                maxScore = score;
+            }
+        }
+
+        if(dealerScore > maxScore){
+            maxScore = dealerScore;
+        }
+
+        for(Player player:players){
+
+            if(getTScore(player) != maxScore){
+                player.profit -= player.getBettingMoney();
+                dealer.profit += player.getBettingMoney();
+            } else{
+                dealer.profit -= player.getBettingMoney();
+                player.profit += player.getBettingMoney();
+            }
+        }
+        printResult();
+    }
+
+    private void printResult(){
+        System.out.println("Dealer: "+ dealer.getCardString() + " - result: " +getTScore(dealer));
+        for(Player player:players){
+            System.out.println(player.getName()+": "+ player.getCardString() + " - result: " +getTScore(player));
+        }
+        System.out.println();
+
+        printProfit();
+    }
+
+    private int getTScore(User user){
+        if(21 - user.getNormalScore() < 0){
+            return 0;
+        }
+
+        if(21 - user.getMaxScore() < 0){
+            return user.getNormalScore();
+        }
+
+        return user.getMaxScore();
     }
 
     private int getNextCard(){
@@ -118,6 +192,7 @@ public class Game {
     }
 
     private void blackJackEnd(){
+        System.out.println("BlackJack Appeared!");
 
         if(dealer.getMaxScore() == 21){
             printProfit();
@@ -135,13 +210,11 @@ public class Game {
     }
 
     private void printProfit(){
-        int index = 0;
         System.out.println("##Final Profits");
         System.out.println("Dealer: "+ dealer.profit);
 
         for(Player player:players){
             System.out.println(player.getName()+": "+ player.profit);
-            index++;
         }
     }
 
