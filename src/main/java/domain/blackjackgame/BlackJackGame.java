@@ -67,10 +67,10 @@ public class BlackJackGame {
 	}
 
 	private void startGame() {
+		giveFirstTwoCards(dealer);
 		for (Player player : players) {
 			giveFirstTwoCards(player);
 		}
-		giveFirstTwoCards(dealer);
 	}
 
 	private void giveFirstTwoCards(User user) {
@@ -87,22 +87,22 @@ public class BlackJackGame {
 	private Card randomizeCard() {
 		Random generator = new Random();
 		int randomIndex = 0;
-		Card randomCard = null;
-		while(!checkSameCard.contains(randomIndex = generator.nextInt(cards.size()))) {
-			randomCard = cards.get(randomIndex);
-			checkSameCard.add(randomIndex);
-			break;
+		while (checkSameCard.contains(randomIndex = generator.nextInt(cards.size()))) {
 		}
+		Card randomCard = cards.get(randomIndex);
+		checkSameCard.add(randomIndex);
 		return randomCard;
 	}
-	
+
 	private void playGame() {
 		printCards();
 	}
 
 	private void printCards() {
+		System.out.print("딜러의 카드: ");
 		dealer.printCards();
 		for (Player player : players) {
+			System.out.print(player.getName() + "의 카드: ");
 			player.printCards();
 		}
 	}

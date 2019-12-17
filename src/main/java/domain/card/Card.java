@@ -33,6 +33,6 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "[" + symbol + "|" + type + "]";
+		return "[" + symbol.getScore() + "|" + type + "]";
 	}
 }

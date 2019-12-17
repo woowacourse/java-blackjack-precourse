@@ -18,7 +18,7 @@ public class User {
 
 	public void printCards() {
 		for (Card card : cards) {
-			System.out.print(card.toString());
+			System.out.print(card.toString()+", ");
 		}
 		System.out.println();
 	}
