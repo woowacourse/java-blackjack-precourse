@@ -71,9 +71,6 @@ public class BlackJackGame {
 	}
 
 	public void play(Player player) {
-		if(player.getScore() >= 22) {
-			return;
-		}
 		while (UI.isOneMoreCard(player)) {
 			player.addCard(cards.get(cardsIndex++));
 			UI.printCards(player);

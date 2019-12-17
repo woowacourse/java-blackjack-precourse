@@ -50,6 +50,23 @@ public class UI {
 	}
 	
 	public static boolean isOneMoreCard(Player player) {
+		if(checkOverflow(player)) {
+			return false;
+		}
+		if(askOneMoreCard(player)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean checkOverflow(Player player) {
+		if(player.getScore() >= 21) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean askOneMoreCard(Player player) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println(player.getName()+"는 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 		char input = scan.next().charAt(0);
@@ -61,5 +78,6 @@ public class UI {
 		}
 		System.out.println("올바르게 입력해주세요.(예는 y, 아니오는 n)");
 		return isOneMoreCard(player);
+
 	}
 }
