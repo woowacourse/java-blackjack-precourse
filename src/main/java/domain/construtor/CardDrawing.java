@@ -14,10 +14,10 @@ package domain.construtor;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.input.InputDecision;
+import domain.output.View;
 import domain.user.Dealer;
 import domain.user.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -33,6 +33,7 @@ public class CardDrawing {
     Scanner sc = new Scanner(System.in);
     Random randomIndex = new Random();
     InputDecision decision = new InputDecision();
+    View view = new View();
 
     /**
      * 시작할때 플레이어에게 2장을 지급하고 딜러가 2장을 드로우하는 기능
@@ -41,7 +42,7 @@ public class CardDrawing {
      * @param dealer     딜러정보를 갖고있는 List
      */
     public void startShuffle(List<Player> playerList, Dealer dealer) {
-        System.out.println(toString(playerList));
+        view.startMessage(playerList);
 
         dealer.addCard(cards.get(randomIndex.nextInt(52)));
         dealer.addCard(cards.get(randomIndex.nextInt(52)));
@@ -49,7 +50,7 @@ public class CardDrawing {
         playerList.forEach(player -> player.addCard(cards.get(randomIndex.nextInt(52))));
         playerList.forEach(player -> player.addCard(cards.get(randomIndex.nextInt(52))));
 
-        toStringCardInfo(playerList, dealer);
+        view.viewPlayerAndDealer(playerList, dealer);
     }
 
     /**
@@ -71,37 +72,6 @@ public class CardDrawing {
     public void drawPlayerCard(Player player) {
         while (decision.decideDraw(player)) {
             player.addCard(cards.get(randomIndex.nextInt(52)));
-        }
-    }
-
-    /**
-     * 플레이어와 딜러에게 시작과 동시에 카드를 2장 지급했다는 상태메시지
-     *
-     * @param playerList 플레이어정보를 갖고있는 List
-     * @return 상태메시지
-     */
-    public String toString(List<Player> playerList) {
-        List<String> nameList = new ArrayList<>();
-
-        for (Player player : playerList) {
-            nameList.add(player.getName());
-        }
-
-        return "딜러와 " +
-                String.join(",", nameList) +
-                "에게 2장의 카드르 나누었습니다.";
-    }
-
-    /**
-     * 뽑은 카드가 뭔지 나타내는 상태메시지
-     *
-     * @param playerList 플레이어정보를 갖고있는 List
-     */
-    public void toStringCardInfo(List<Player> playerList, Dealer dealer) {
-        System.out.println(dealer.toStringCard());
-
-        for (Player player : playerList) {
-            System.out.println(player.toStringCard());
         }
     }
 }

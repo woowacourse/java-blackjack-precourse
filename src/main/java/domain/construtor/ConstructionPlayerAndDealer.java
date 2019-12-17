@@ -1,5 +1,5 @@
 /*
- * class: ConstructPlayerAndDealer
+ * class: ConstructionPlayerAndDealer
  *
  * version: 1.0v
  *
@@ -26,7 +26,7 @@ import java.util.Map;
  * @author joseph415
  * @version 1.0 2019.12.16
  */
-public class ConstructPlayerAndDealer {
+public class ConstructionPlayerAndDealer {
     List<String> names;
     List<Player> playerList = new ArrayList<>();
     InputName input = new InputName();

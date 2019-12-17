@@ -49,4 +49,7 @@ public class Player {
                 "카드: "+
                 String.join(",", cardInfo);
     }
+    public void toStringCardInfo() {
+        System.out.println(toStringCard());
+    }
 }

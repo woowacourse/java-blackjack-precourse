@@ -2,7 +2,7 @@
 
 | 작성자 | version |git ID| 작성일시 | 변경사유 |
 |---|---|---|---|---|
-| 정은석 | 1.0v |joseph415 |2019.12.17 | 플레이어마다 카드를 뽑는기능 |
+| 정은석 | 1.0v |joseph415 |2019.12.17 | ConstructionPlayerAndDearler 이름 변경,view를 담당하는 class생성 |
 
 ___
 
