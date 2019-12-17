@@ -40,4 +40,8 @@ public class Result {
     public boolean isBurst(User user){
         return user.getSumOfCards() > 21;
     }
+
+    public boolean isBlackJack(User user){
+        return user.getCardsList().size() == 2 && user.getSumOfCards() == 21;
+    }
 }
