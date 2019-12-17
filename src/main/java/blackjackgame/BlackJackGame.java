@@ -13,6 +13,7 @@ package blackjackgame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.card.Deck;
 import domain.user.*;
@@ -41,6 +42,7 @@ public class BlackJackGame {
 		printDrawCards();
 		checkBlackJack();
 		reDraw();
+		findWinner();
 	}
 
 	private void makePlayers() {
@@ -99,6 +101,13 @@ public class BlackJackGame {
 				reDraw();
 			}
 		}
+	}
+	
+	private int findWinner() {
+		int sum = players.stream()
+						.map(player -> player.numberSum())
+						.collect(Collectors.summingInt(score -> score));
+		return sum;
 	}
 	
 }

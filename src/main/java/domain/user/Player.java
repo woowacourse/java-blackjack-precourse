@@ -45,7 +45,7 @@ public class Player {
     	return numberSum() == BLACKJACK;
     }
     
-    private int numberSum() {
+    public int numberSum() {
     	int numSum = 0;
     	for (int i = 0; i < cards.size(); i++) {
     		numSum += cards.get(i).getSymbol().getScore();
