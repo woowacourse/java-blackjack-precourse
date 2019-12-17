@@ -180,30 +180,32 @@ public class Blackjack {
         final double DRAW = 0;
         final double LOSE = -1;
 
-        if (isBlackJack(user)) {
-            if (isBlackJack(dealer)) {
-                return DRAW;
-            } else {
-                return BLACKJACK_WIN;
-            }
-        }
-
+        /* user가 버스트인 경우 승패 판단 */
         if (isBust(user)) {
             return LOSE;
         }
 
+        /* user가 블랙잭인 경우 승패 판단 */
+        if (isBlackJack(user)) {
+            if (isBlackJack(dealer)) {
+                return DRAW;
+            }
+            return BLACKJACK_WIN;
+        }
+
+        /* user가 버스트도 블랙잭도 아닌 경우 승패 판단 */
         if (isBlackJack(dealer)) {
             return LOSE;
-        } else if (isBust(dealer)) {
-            return WIN;
-        } else {
-            if (user.calScore() > dealer.calScore()) {
-                return WIN;
-            } else if (user.calScore() == dealer.calScore()) {
-                return DRAW;
-            } else {
-                return LOSE;
-            }
         }
+        if (isBust(dealer)) {
+            return WIN;
+        }
+        if (user.calScore() > dealer.calScore()) {
+            return WIN;
+        }
+        if (user.calScore() == dealer.calScore()) {
+            return DRAW;
+        }
+        return LOSE;
     }
 }
