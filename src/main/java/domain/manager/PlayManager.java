@@ -166,4 +166,12 @@ public class PlayManager {
             System.out.println(dealer.toString());
         }
     }
+
+    private void progressEndStage() {
+        for (int playerIndex = 0; playerIndex < players.size(); playerIndex++) {
+            reflectBenefit(playerIndex);
+        }
+        printFinalResult();
+        printBenefitResult();
+    }
 }
