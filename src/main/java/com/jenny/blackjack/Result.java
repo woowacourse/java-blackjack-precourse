@@ -57,4 +57,21 @@ public class Result {
     public boolean isBlackJack(User user){
         return calcResultValue(user) == 22;
     }
+
+    public void showResultMoney(Dealer dealer, List<Player> players){
+        int totalBetMoney = getTotalBetMoney(players);
+        int dealerValue = calcResultValue(dealer);
+
+        System.out.println("## 최종수익");
+        if(isBlackJack(dealer)){
+            totalBetMoney = isPush(players, totalBetMoney);
+        }else{
+            totalBetMoney = doesWin(players, totalBetMoney);
+        }
+
+        System.out.println("딜러 : " + totalBetMoney);
+        for(Player p : players){
+            System.out.println(p.getName() + " : " + p.getResultMoney());
+        }
+    }
 }

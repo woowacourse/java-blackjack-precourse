@@ -25,6 +25,6 @@
 * showResultMoney : 결과적으로 얻는 금액 표시하기
 * isBurst : 21초과인지 체크
 * isBlackJack : 카드가 두장이고 합이 21인가 체크
-* getHighestValue : 21이하의 가장 큰 값을 갖는 유저를 알아내기
+* 
 * isPush : 블랙잭으로 승리한 유저가 있을 경우 딜러도 블랙잭인지 확인
 * calcResult : 유저별 수익 계산하기

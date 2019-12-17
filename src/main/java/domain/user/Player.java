@@ -12,6 +12,7 @@ public class Player implements User {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
+    private int resultMoney;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -51,5 +52,13 @@ public class Player implements User {
             sum += card.getSymbol().getScore();
         }
         return sum;
+    }
+
+    public void setResultMoney(int money){
+        this.resultMoney = money;
+    }
+
+    public int getResultMoney(){
+        return resultMoney;
     }
 }
