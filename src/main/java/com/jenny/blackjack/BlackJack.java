@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class BlackJack {
 
     private List<String> names = new ArrayList<>();
+    private int userCnt;
 
     public void askUserName(){
         Scanner sc = new Scanner(System.in);
@@ -35,13 +36,34 @@ public class BlackJack {
                 }
             }
         }
-        saveUserNames(splitedInput, cnt);
+        userCnt = cnt;
+        saveUserNames(splitedInput);
         return true;
     }
 
-    public void saveUserNames(String[] splitedInput, int cnt){
-        for(int idx = 0; idx < cnt; idx++){
+    public void saveUserNames(String[] splitedInput){
+        for(int idx = 0; idx < userCnt; idx++){
             names.add(splitedInput[idx]);
+        }
+    }
+
+    public void askBetMoney(){
+        Scanner sc = new Scanner(System.in);
+        List<Integer> moneys = new ArrayList<>();
+
+        for(int idx = 0; idx < userCnt; idx++){
+            int betMoney;
+            while(true){
+                System.out.println(names.get(idx) + "의 배팅 금액은?");
+                betMoney = Interger.parseInt(sc.nextLine());
+                if(isValidMoney(betMoney)){
+                    moneys.add(betMoney);
+                    break;
+                }else{
+                    System.out.println("숫자만 입력하실 수 있습니다.");
+                }
+            }
+            registerUser(idx, betMoney);
         }
     }
 }
