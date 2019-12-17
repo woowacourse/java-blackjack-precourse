@@ -4,7 +4,7 @@ import com.sun.deploy.util.StringUtils;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
-import domain.user.User;
+import game.BattingMoneyDecider;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +13,8 @@ public class GamePrinter {
 
     private static final String STATUS_FORMATTED_STRING = "%s 카드: %s";
     private static final String RESULT_FORMATTED_STRING = "%s 카드: %s - 결과: %d";
+    private static final String PROFIT_FORMATTED_STRING = "%s 수익: %.0f";
+    private static final String PROFIT_STATEMENT = "최종 수익";
     private static final int DEALER_OPEN_CARD_INDEX = 0;
 
     public static void printStatus(Dealer dealer, List<Player> players) {
@@ -54,7 +56,30 @@ public class GamePrinter {
         List<String> cardNames = dealer.getCards().stream().map(Card::getName).collect(Collectors.toList());
         String cardsName = StringUtils.join(cardNames, ", ");
         return String.format(RESULT_FORMATTED_STRING, dealer.getName(), cardsName, dealer.calculateSum());
+    }
 
+    public static void printProfitResult(Dealer dealer, List<Player> players) {
+        System.out.println(PROFIT_STATEMENT);
+        printDealerProfit(dealer, players);
+        players.forEach(player -> printPlayerProfit(dealer, player));
+    }
+
+    private static void printDealerProfit(Dealer dealer, List<Player> players) {
+        System.out.println(makeDealerProfit(dealer, players));
+    }
+
+    private static String makeDealerProfit(Dealer dealer, List<Player> players) {
+        double dealerProfit = BattingMoneyDecider.getDealerMoney(dealer, players);
+        return String.format(PROFIT_FORMATTED_STRING, dealer.getName(), dealerProfit);
+    }
+
+    private static void printPlayerProfit(Dealer dealer, Player player) {
+        System.out.println(makePlayerProfit(dealer, player));
+    }
+
+    private static String makePlayerProfit(Dealer dealer, Player player) {
+        double playerProfit = BattingMoneyDecider.getPlayerMoney(dealer, player);
+        return String.format(PROFIT_FORMATTED_STRING, player.getName(), playerProfit);
     }
 
 }
