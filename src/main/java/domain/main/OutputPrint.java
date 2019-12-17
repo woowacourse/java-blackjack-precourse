@@ -68,7 +68,8 @@ public class OutputPrint {
         }
         if (!isBlackJackDealer() && isBlackJackPlayer(player)) {
             println("플레이어 " + player + "는 BLACKJACK 입니다.");
-            player.setBettingMoney(player.getBettingMoney()*1.5);
+            dealerMoney -= player.getBettingMoney()*0.5;
+            player.setBettingMoneyMultiple();
         }
     }
 
@@ -145,16 +146,44 @@ public class OutputPrint {
         }
     }
 
-    private boolean isBustDealer() {
-        return dealer.getScore() > BLACK_JACK_NUMBER;
-    }
-
     public void finalReturn() {
         println("## 최종 수익");
+        compareDealerPlayer();
         println("딜러: " + dealerMoney);
         for (int i = 0; i < playerList.getSize(); i ++) {
             Player currentPlayer = playerList.getPlayer(i);
-            println(currentPlayer.getName() + ": " +currentPlayer.getBettingMoney());
+            println(currentPlayer.getName() + ": "
+                    +currentPlayer.getBettingMoney());
+        }
+    }
+
+    private void compareDealerPlayer() {
+        for (int i = 0; i < playerList.getSize(); i ++) {
+            Player currentPlayer = playerList.getPlayer(i);
+            isBustDealer(currentPlayer);
+            isNotBustDealer(currentPlayer);
+        }
+    }
+
+    private void isBustDealer(Player player) {
+        if ((dealer.getScore() > BLACK_JACK_NUMBER)
+                && !isBust(player) && !isBlackJackPlayer(player)) {
+            dealerMoney -= player.getBettingMoney()*0.5;
+            player.setBettingMoneyMultiple();
+        }
+    }
+
+    private void isNotBustDealer(Player player) {
+        if ((dealer.getScore() <= BLACK_JACK_NUMBER)
+                && !isBust(player) && !isBlackJackPlayer(player)) {
+            if (dealer.getScore() > player.getScore()) {
+                dealerMoney += player.getBettingMoney();
+                player.setBettingMoney(- player.getBettingMoney());
+            }
+            if (dealer.getScore() < player.getScore()) {
+                dealerMoney -= player.getBettingMoney()*0.5;
+                player.setBettingMoneyMultiple();
+            }
         }
     }
 

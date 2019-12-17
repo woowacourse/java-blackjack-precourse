@@ -30,6 +30,10 @@ public class Player {
         this.bettingMoney = money;
     }
 
+    public void setBettingMoneyMultiple() {
+        this.bettingMoney *= 1.5;
+    }
+
     public Double getBettingMoney() {
         return this.bettingMoney;
     }
