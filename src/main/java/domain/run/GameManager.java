@@ -174,4 +174,13 @@ public class GameManager {
 		}
 	}
 
+	private boolean printResultMoney(Player player) {
+		if(players.get(winner)==player) {
+			System.out.println("+"+player.getBettingMoney());
+			return true;
+		}
+		System.out.println("-"+player.getBettingMoney());
+		return false;
+	}
+
 }
