@@ -89,7 +89,6 @@ public class Table {
 
 	private double doWinnerSettlement(double winnerRatio) {
 		double dealerEarning = 0;
-
 		for (Gambler gambler : playerList.stream()
 			.filter(gambler -> (winnerList.contains(gambler) && !drawsList.contains(gambler)))
 			.collect(Collectors.toList())
