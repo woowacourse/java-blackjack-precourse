@@ -19,6 +19,10 @@ public class PlayerList {
         return playerList.get(playerNumber);
     }
 
+    public int getSize() {
+        return playerList.size();
+    }
+
     public String toStringNames() {
         List<String> players = new ArrayList<String>();
         for (Player player : playerList) {
@@ -31,7 +35,7 @@ public class PlayerList {
     public String toString() {
         String printPlayerList = "";
         for (Player player : playerList) {
-            printPlayerList += player.getName() + ":" + player.getBettingMoney() + "\n";
+            printPlayerList += player.toString() + "\n";
         }
         return printPlayerList;
     }

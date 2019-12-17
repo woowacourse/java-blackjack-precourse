@@ -17,7 +17,8 @@ public class OutputPrint {
     private static CardFactory cardFactory;
     private static Dealer dealer;
     List<Card> cardsList;
-    private static int theTopCardNumber = 0;        // 카드 덱의 가장 위에 있는 카드의 인덱스 번호.
+    private static int theTopCardNumber = 0;                        // 카드 덱의 가장 위에 있는 카드의 인덱스 번호.
+    private static final int FIRST_CARD_DISTRIBUTE_NUMBER = 2;      // 처음 카드가 모두에게 분배될 때의 분배 갯수.
 
     OutputPrint() {
         this.inputScanner = new InputScanner();
@@ -44,7 +45,18 @@ public class OutputPrint {
 
     public void giveCardsFirstToPlayers() {
         println("딜러와 " + playerList.toStringNames() + "에게 2장의 카드를 나누어주었습니다.");
-        dealer.addCard(getCard());
+        for (int i = 0; i < FIRST_CARD_DISTRIBUTE_NUMBER; i ++ ) {
+            dealer.addCard(getCard());
+            distributeCardsToPlayers();
+        }
+        System.out.println(dealer);
+        System.out.println(playerList);
+    }
+
+    public void distributeCardsToPlayers() {
+        for (int i = 0; i < playerList.getSize() ; i ++) {
+            playerList.getPlayer(i).addCard(getCard());
+        }
     }
 
     public Card getCard() {

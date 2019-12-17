@@ -30,4 +30,8 @@ public class Player {
         return this.bettingMoney;
     }
 
+    @Override
+    public String toString() {
+        return this.name + ":" + cards;
+    }
 }
