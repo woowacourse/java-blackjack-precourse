@@ -104,5 +104,22 @@ public class GameManager {
 		return card;
 	}
 
+	public void addCardPlayer() {
+		for (Player player : players) {
+			System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+			choiceAddCard(sc.next(), player);
+		}
+		checkDealerCardResult();
+	}
+
+	private void choiceAddCard(String answer, Player player) {
+		if (answer.equals("y") || answer.equals("Y")) {
+			player.addCard(randomCard());
+		}
+		System.out.print(player.getName() + ": ");
+		printPlayerCard(player);
+		System.out.println();
+	}
+
 
 }
