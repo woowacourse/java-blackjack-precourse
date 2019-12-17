@@ -25,11 +25,11 @@ public class Discriminator {
     }
 
     private boolean scoreEqualsToDealer(Contender contender) {
-        return contender.getSum() == dealer.getSum();
+        return contender.getFinalSum() == dealer.getFinalSum();
     }
 
     private boolean scoreEqualsToFirst(Contender contender) {
-        return contender.getSum() == firstPlaced.getSum();
+        return contender.getFinalSum() == firstPlaced.getFinalSum();
     }
 
     private List<Contender> getWinners() {
@@ -49,7 +49,7 @@ public class Discriminator {
     }
 
     private List<Contender> playerLoses() {
-        if (firstPlaced.getSum() < dealer.getSum()) {
+        if (firstPlaced.getFinalSum() < dealer.getFinalSum()) {
             return new ArrayList<>();
         }
         return draws();
@@ -57,7 +57,7 @@ public class Discriminator {
 
     private List<Contender> draws() {
         Stream<Contender> survivors = contenders.getStream();
-        if (firstPlaced.getSum() == dealer.getSum()) {
+        if (firstPlaced.getFinalSum() == dealer.getFinalSum()) {
             return survivors.filter(this::scoreEqualsToDealer).collect(Collectors.toList());
         }
         return survivors.filter(this::scoreEqualsToFirst).collect(Collectors.toList());

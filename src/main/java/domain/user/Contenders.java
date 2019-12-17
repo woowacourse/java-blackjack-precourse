@@ -26,7 +26,7 @@ public class Contenders implements Iterable<Contender> {
 
     public void printResult() {
         for (Contender contender : contenders) {
-            System.out.println(contender + " - 결과: " + contender.getSum());
+            System.out.println(contender + " - 결과: " + contender.getFinalSum());
         }
     }
 

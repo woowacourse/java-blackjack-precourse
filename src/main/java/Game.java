@@ -59,7 +59,7 @@ public class Game {
     }
 
     private void showResult() {
-        System.out.println(dealer + " - 결과: " + dealer.getSum());
+        System.out.println(dealer + " - 결과: " + dealer.getFinalSum());
         contenders.printResult();
     }
 
