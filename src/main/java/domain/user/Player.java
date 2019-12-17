@@ -4,6 +4,7 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.StringJoiner;
 
 /**
@@ -19,14 +20,41 @@ public class Player extends Gamer {
     }
 
     public String toString() {
-        return name + " : " + cardsToString(getCards());
+        return name + " : " + cardsToString();
     }
 
-    public String cardsToString(List<Card> cards) {
+    private String cardsToString() {
+        List<Card> cards = getCards();
         StringJoiner stringJoiner = new StringJoiner(", ");
         for (Card card : cards) {
             stringJoiner.add(card.toString());
         }
         return stringJoiner.toString();
+    }
+
+    public double lose() {
+        return -bettingMoney;
+    }
+
+    public double win() {
+        return bettingMoney;
+    }
+
+    public double draw() {
+        return 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean wantHit() {
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+        do {
+            System.out.printf("%s는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)\n", name);
+            answer = scanner.nextLine().toLowerCase();
+        } while (!isValid(answer));
+        return answer.equals("y");
     }
 }
