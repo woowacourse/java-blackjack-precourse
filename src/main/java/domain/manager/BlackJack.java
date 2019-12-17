@@ -35,24 +35,15 @@ public class BlackJack {
     public String getPlayerNameList() {
         List<String> playerNameList = new ArrayList<>();
 
-        for (Player player : user) {
+        for (Player player : user.subList(1, user.size()))
             playerNameList.add(player.getName());
-        }
-        playerNameList.remove(0);
 
         return String.join(",", playerNameList);
     }
 
     public void checkDealerBlackJack() {
-        isBlackJack();
-        if (winner.contains(dealer))
+        if (dealer.getScore() == Constant.BUST_POINT)
             showFinalMoney();
-    }
-
-    public void isBlackJack() {
-        winner = user.stream()
-                .filter(p -> p.getScore() == Constant.BUST_POINT)
-                .collect(Collectors.toList());
     }
 
     public void askDraw() {
@@ -88,7 +79,8 @@ public class BlackJack {
         }
 
         winner = user.stream()
-                .filter(p -> p.getScore() >= dealer.getScore() && p.getScore() <= Constant.BUST_POINT)
+                .filter(p -> p.getScore() >= dealer.getScore() 
+                        && p.getScore() <= Constant.BUST_POINT)
                 .collect(Collectors.toList());
     }
 
@@ -97,7 +89,8 @@ public class BlackJack {
             return new ArrayList<>();
 
         return user.stream()
-                .filter(p -> p.getScore() < dealer.getScore() || p.getScore() > Constant.BUST_POINT)
+                .filter(p -> p.getScore() < dealer.getScore() 
+                        || p.getScore() > Constant.BUST_POINT)
                 .collect(Collectors.toList());
     }
 
