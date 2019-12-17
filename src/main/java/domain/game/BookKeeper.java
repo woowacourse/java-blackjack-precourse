@@ -53,12 +53,4 @@ public class BookKeeper {
     public String getPlayerCashFlowInfo(String playerName) {
         return playerName + ": " + this.playerCashFlows.get(playerName);
     }
-
-    public double getDealerCashFlow() {
-        return this.dealerCashFlow;
-    }
-
-    public HashMap<String, Double> getPlayerCashFlows() {
-        return this.playerCashFlows;
-    }
 }
