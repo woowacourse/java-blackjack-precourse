@@ -7,6 +7,8 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 public class Score {
+    private int dealerscore;
+    private int[] playerscore;
     
     public int getSum(List<Card> card) {
 	int sum = (int)card.stream().mapToInt(Card::getScore).sum();
@@ -17,6 +19,17 @@ public class Score {
 	return sum;
     }
     
+    public void setScore(Player[] player) {
+	playerscore=new int[player.length];
+	for(int i=0;i<player.length;i++) {
+	    this.playerscore[i]=getSum(player[i].getCards())
+	}
+    }
+    
+    public void setScore(Dealer dealer) {
+	this.dealerscore=getSum(dealer.getCards());
+    }
+    
     public int plusAce(int sum) {
 	if(sum+11>21) {
 	    return sum+1;
@@ -24,8 +37,8 @@ public class Score {
 	return sum+11;
     }
     
-    public boolean isBlackJack(List<Card> card) {
-	if(getSum(card)==21) {
+    public boolean isBlackJack(int sum) {
+	if(sum==21) {
 	    return true;
 	}
 	return false;
