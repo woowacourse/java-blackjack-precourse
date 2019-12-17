@@ -57,4 +57,12 @@ public class Player extends Gamer {
         } while (!isValid(answer));
         return answer.equals("y");
     }
+
+    public boolean isValid(String inputString) {
+        if (inputString.equals("y") || inputString.equals("n")) {
+            return true;
+        }
+        System.out.println("y 또는 n을 입력해주세요.");
+        return false;
+    }
 }
