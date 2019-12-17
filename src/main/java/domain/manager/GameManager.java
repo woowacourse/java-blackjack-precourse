@@ -21,6 +21,7 @@ public class GameManager {
         GameManager game = new GameManager();
         game.startGame();
         game.playGame();
+        game.endGame();
     }
 
     public void startGame() {
@@ -29,7 +30,6 @@ public class GameManager {
         initializePlayers(playerNames, bettingMoney);
         cards = cardFactory.create();
         generateInitialCards();//딜러, 플레이어 각각 두장의 카드 발급
-        //현재 상황 출력
     }
 
     public String[] setPlayerNames() {
@@ -93,11 +93,11 @@ public class GameManager {
 
     public void checkDealerCardSum(){
         if(dealer.sumUpCards() <= 16){
-            System.out.println("");
+            System.out.println("딜러는 16 이하라 한 장의 카드를 더 받았습니다.");
             cards = dealer.generateCards(1, cards);
             return;
         }
-
+        System.out.println("딜러는 16 이상이므로 카드를 받지 않았습니다.");
     }
 
     public void checkEachPlayerCardSum(){
@@ -128,6 +128,26 @@ public class GameManager {
     public void getAddMoreCard(Player player, boolean toContinue){
         if(!toContinue){ return; }
         cards = player.generateCards(1, cards);
+    }
+
+    public void endGame(){
+        printFinalCardStates();
+        System.out.println();
+        //printFinalBenefits();
+    }
+
+    public void printFinalCardStates(){
+        dealer.printNameAndCards();
+        System.out.println("결과-"+dealer.sumUpCards());
+        for (Player each : players) {
+            each.printNameAndCards();
+            System.out.println("결과-"+each.sumUpCards());
+        }
+        System.out.println();
+    }
+
+    public void printFinalBenefits(){
+
     }
 
 }
