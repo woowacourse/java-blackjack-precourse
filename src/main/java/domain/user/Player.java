@@ -31,7 +31,7 @@ public class Player extends User {
 
     public void proceed(Stack stack) {
         String response = "";
-        while (isBlackjack() || (validateUnder(21) && !response.equals("n"))) {
+        while (!isBlackjack() && (validateUnder(21) && !response.equals("n"))) {
             response = choice(stack);
         }
     }
@@ -61,9 +61,34 @@ public class Player extends User {
     }
 
     public void showResult() {
-        System.out.println(getName() + " 카드: " + printCardValue() + " - 결과: " + getScore());
+        System.out.println(getName() + " 카드: " + printCardValue() + " - 결과: " + getRealScore());
     }
 
-    public void showProfit() {
+
+    public int compare(Dealer dealer) {
+        if (!validateUnder(22)) {
+            return (int) bettingMoney * -1;
+        }
+        if (validateUnder(22) && !dealer.validateUnder(22)) {
+            return (int) bettingMoney;
+        }
+        if (isBlackjack()) {
+            return (int) (bettingMoney * 1.5);
+        }
+        if (getRealScore() > dealer.getRealScore()) {
+            return (int) bettingMoney;
+        }
+        if (getRealScore() < dealer.getRealScore()) {
+            return (int) bettingMoney * -1;
+        }
+        if (getRealScore() == dealer.getRealScore()) {
+            return 0;
+        }
+        return 0;    // no use
     }
+
+    public void printProfit(int profit) {
+        System.out.println(getName() + ": " + profit);
+    }
+
 }

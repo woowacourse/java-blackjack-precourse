@@ -2,7 +2,6 @@ package domain.blackjackgame;
 
 import domain.card.CardFactory;
 import domain.card.Stack;
-import domain.user.User;
 import domain.user.Users;
 
 public class BlackjackGame {
@@ -20,6 +19,7 @@ public class BlackjackGame {
         users.distribute(stack);
         users.processEachUser(stack);
         users.showResult();
+        users.calculate();
 
     }
 

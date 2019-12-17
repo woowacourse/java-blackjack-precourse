@@ -4,6 +4,7 @@ import domain.card.Stack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Users {
     private List<User> users;
@@ -106,30 +107,28 @@ public class Users {
         }
     }
 
-    public void showProfits() {    //TODO  중복되는 코드 제거하기. Dealer와 List<Player>를 리턴함으로써 가능할 듯
-        //getDealer();
+    public Dealer getDealer() {
+        List<Dealer> dealers = users.stream().filter(Dealer.class::isInstance).map(Dealer.class::cast).collect(Collectors.toList());
+
+        return dealers.get(0);
     }
 
-    /* Dealer getDealer() {
-        Dealer dealer = new Dealer();
-        for (User user : users) {
-            dealer = checkDealer(user, dealer);
-            if (user instanceof Dealer) {
-                dealer = (Dealer) user;
-            }
-        }
-        return dealer;
+    public List<Player> getPlayers() {
+        List<Player> players = users.stream().filter(Player.class::isInstance).map(Player.class::cast).collect(Collectors.toList());
+
+        return players;
     }
 
-    private Dealer checkDealer(User user) {
-        try {
-            Dealer dealer = (Dealer) user;
-            return dealer;
-        } catch (Exception e) {
-
+    public void calculate() {
+        int playersProfitSum = 0;
+        List<Player> players = getPlayers();
+        Dealer dealer = getDealer();
+        System.out.println("## 최종수익");
+        for (Player player : players) {
+            int profit = player.compare(dealer);
+            player.printProfit(profit);
+            playersProfitSum += profit;
         }
-        return null;
-    }*/
-
-
+        dealer.printProfit(playersProfitSum);
+    }
 }

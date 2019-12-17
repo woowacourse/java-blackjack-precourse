@@ -26,7 +26,7 @@ public class Dealer extends User {
     }
 
     public void proceed(Stack stack) {
-        while (validateOver(16)) {
+        while (validateUnder(17)) {
             addCard(stack.popCard());
             System.out.println(MESSAGE_DEALER_GET_MORE_CARD);
         }
@@ -34,9 +34,13 @@ public class Dealer extends User {
     }
 
     public void showResult() {
-        System.out.println("딜러 카드: " + printCardValue() + " - 결과: " + getScore());
+        System.out.println("딜러 카드: " + printCardValue() + " - 결과: " + getRealScore());
     }
 
     public void showProfit() {
+    }
+
+    public void printProfit(int playersProfitSum) {
+        System.out.println("딜러: " + playersProfitSum * -1);
     }
 }
