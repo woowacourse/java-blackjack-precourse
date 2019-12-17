@@ -153,9 +153,17 @@ public class PlayManager {
 
     private void askHit(Player player) {
         int scoreLimit = 21;
-        while (player.calculateScore() < scoreLimit && player.isHit()) {
+        while (player.calculateScore() < scoreLimit && player.wantHit()) {
             player.addCard(deck.giveRandomCard());
             System.out.println(player.toString());
+        }
+    }
+
+    private void askHit(Dealer dealer) {
+        while (dealer.calculateScore() <= 16) {
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+            dealer.addCard(deck.giveRandomCard());
+            System.out.println(dealer.toString());
         }
     }
 }
