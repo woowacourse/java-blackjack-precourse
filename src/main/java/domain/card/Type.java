@@ -7,13 +7,13 @@ public enum Type {
     CLUB;
 
     public String toKorean() {
-        if (this == SPADE) {
+        if (this.equals(SPADE)) {
             return "스페이드";
         }
-        if (this == DIAMOND) {
+        if (this.equals(DIAMOND)) {
             return "다이아몬드";
         }
-        if (this == HEART) {
+        if (this.equals(HEART)) {
             return  "하트";
         }
         return "클로버";
