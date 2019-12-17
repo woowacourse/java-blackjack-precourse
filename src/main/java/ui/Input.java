@@ -9,7 +9,6 @@ public class Input {
     private static final String YES_RESPONSE = "y";
     private static final String NO_RESPONSE = "n";
     private static final String NAME_DIVIDER = ",";
-    private static final int MIN_PLAYER = 2;
     private static final int MAX_PLAYER = 8;
 
     private Scanner scanner = new Scanner(System.in);
@@ -21,8 +20,10 @@ public class Input {
     public List<String> getPlayerEntry() {
         Output.displayForGetPlayerNames();
         return Optional.of(userResponse())
+                .filter(this::isNotEmptyInput)
                 .filter(this::isNotEmptyName)
                 .filter(this::isNotEndWithDivider)
+                .filter(this::possiblePlayerNumbers)
                 .map(this::nameSpliter)
                 .orElseGet(this::getPlayerEntry);
     }
@@ -42,19 +43,30 @@ public class Input {
                 .orElseGet(() -> pickExtraCard(playerName));
     }
 
-    public boolean isNotEmptyName(String playerNames) {
+    private boolean isNotEmptyInput(String playerNames) {
+        return !playerNames.equals("");
+    }
+
+    private boolean isNotEmptyName(String playerNames) {
         return !playerNames.contains(NAME_DIVIDER + NAME_DIVIDER);
     }
 
-    public boolean isNotEndWithDivider(String playerNames) {
+    private boolean isNotEndWithDivider(String playerNames) {
         return !playerNames.endsWith(NAME_DIVIDER);
     }
 
-    public List<String> nameSpliter(String playerNames) {
+    private List<String> nameSpliter(String playerNames) {
         return Arrays.asList(playerNames.split(NAME_DIVIDER));
     }
 
-    public Optional<Double> stringToDoubleForMoney(String bettingMoney) {
+    private boolean possiblePlayerNumbers(String playerNames) {
+        return playerNames.chars().mapToObj(x -> (char)x)
+                .map(String::valueOf)
+                .filter(x -> x.equals(NAME_DIVIDER))
+                .count() < MAX_PLAYER;
+    }
+
+    private Optional<Double> stringToDoubleForMoney(String bettingMoney) {
         try {
             return Optional.of(Double.parseDouble(bettingMoney));
         } catch (NumberFormatException e) {
@@ -62,12 +74,8 @@ public class Input {
         }
     }
 
-    public boolean isCorrectYesOrNo(String response) {
+    private boolean isCorrectYesOrNo(String response) {
         return response.equals(YES_RESPONSE)
                 || response.equals(NO_RESPONSE);
-    }
-
-    public boolean responseChange(String response) {
-        return response.equals(YES_RESPONSE);
     }
 }

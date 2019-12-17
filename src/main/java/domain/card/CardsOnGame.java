@@ -22,8 +22,12 @@ public class CardsOnGame {
     }
 
     public Card pickUpCard() {
-        Card pick = cardsForGame.get(cardsForGame.size() - 1);
-        cardsForGame.remove(cardsForGame.size() - 1);
-        return pick;
+        try {
+            Card pick = cardsForGame.get(cardsForGame.size() - 1);
+            cardsForGame.remove(cardsForGame.size() - 1);
+            return pick;
+        } catch (Exception e) {
+            throw new NullPointerException("카드가 부족합니다.");
+        }
     }
 }
