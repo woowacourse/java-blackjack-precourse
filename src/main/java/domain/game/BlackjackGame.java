@@ -4,9 +4,6 @@ import domain.user.*;
 import domain.ui.Utill;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-
 
 public class BlackjackGame {
 
@@ -17,6 +14,7 @@ public class BlackjackGame {
     public void startGame() {
         initGame();
         runGame();
+        finishGame();
     }
 
     private void initGame() {
@@ -30,11 +28,33 @@ public class BlackjackGame {
     }
 
     private void runGame() {
+        giveInitCardToAllParticipants();
+        if (isThereBlackjack()) {
+            return;
+        }
 
+    }
+
+    private void finishGame(){
+        calculationFinalRevence();
+    }
+
+    private void giveInitCardToAllParticipants() {
         for (GameParticipant p : participants) {
             dealer.giveInitCard(p);
             utill.printCardListOfGameParticipant(p);
         }
+    }
+
+    private boolean isThereBlackjack() {
+        boolean blackjack = false;
+        for (GameParticipant p : participants) {
+            blackjack = (blackjack || p.isBlackjack());
+        }
+        return blackjack;
+    }
+
+    private void calculationFinalRevence(){
 
     }
 
