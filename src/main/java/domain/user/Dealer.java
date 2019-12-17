@@ -9,4 +9,10 @@ public class Dealer extends Helper {
     }
 
     // TODO 추가 기능 구현
+
+
+    @Override
+    public String cardsToString() {
+        return "딜러 카드 : " + super.cardsToString();
+    }
 }

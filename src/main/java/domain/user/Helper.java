@@ -4,6 +4,7 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Helper {
 
@@ -15,5 +16,10 @@ public class Helper {
 
     public List<Card> getCards() {
         return cards;
+    }
+
+    public String cardsToString(){
+        String cardList =  cards.stream().map(card -> String.valueOf(card.toString())).collect(Collectors.joining(", "));
+        return "";
     }
 }

@@ -8,11 +8,13 @@ import java.util.List;
 public class Game {
 
     private final Input input = new Input();
+    private final Output output = new Output();
     private final List<Player> players = new ArrayList<>();
     private String[] playerNames;
 
     public void Play() {
         this.playerObjectCreate();
+        output.StartCardState(players);
     }
 
     public void playerObjectCreate() {
