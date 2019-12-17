@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import domain.card.Card;
@@ -23,6 +24,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#calculateScore: Ace가 없음")
     void calculateScoreWithoutAce() {
         //given
         List<Card> cardsWithoutAce = Arrays.asList(
@@ -38,6 +40,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#calculateScore: Ace가 있고, 11점으로 계산")
     void calculateScoreWithAceWhenNotExceedsBlackjack() {
         //given
         List<Card> cardsWithAce = Arrays.asList(
@@ -53,6 +56,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#calculateScore: Ace가 있고, 11점으로 계산하면 버스터여서 1로 계산")
     void calculateScoreWithAceWhenExceedsBlackjack() {
         //given
         List<Card> cardsWithAce = Arrays.asList(
@@ -69,6 +73,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#isBust: 점수가 21점을 넘을 때")
     void isBustWhenBust() {
         //given
         List<Card> cardsWhichBust = Arrays.asList(
@@ -85,6 +90,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#isBust: 점수가 21점을 넘지 않을 때")
     void isBustWhenNotBust() {
         //given
         List<Card> cardsWhichNotBust = Arrays.asList(
@@ -99,6 +105,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#isBlackjack: 점수가 21점이고 개수가 2개일 때")
     void isBlackjackWhenBlackjack() {
         //given
         List<Card> blackjack = Arrays.asList(
@@ -113,6 +120,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#isBlackjack: 점수가 21이 아닐 때")
     void isBlackjackWhenNotBlackjackScore() {
         //given
         List<Card> notBlackjack = Arrays.asList(
@@ -127,6 +135,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("#isBlackjack: 점수가 21점이기는 해도, 개수가 2개일 때.")
     void isBlackjackWhenNotBlackjackSize() {
         //given
         List<Card> notBlackjack = Arrays.asList(

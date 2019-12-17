@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import domain.BlackjackPrinter;
@@ -29,6 +30,7 @@ class PlayerServiceImplTest {
 
 
     @Test
+    @DisplayName("#confirmCards: 이미 버스트일 때")
     void confirmCardsWhenBust() {
         //given
         when(mockUser.isBust()).thenReturn(true);
@@ -41,6 +43,7 @@ class PlayerServiceImplTest {
     }
 
     @Test
+    @DisplayName("#confirmCards: 버스트가 아니고, stay를 원할 때")
     void confirmCardsWhenNotBustWantToStay() {
 
         //given
@@ -57,6 +60,7 @@ class PlayerServiceImplTest {
     }
 
     @Test
+    @DisplayName("#confirmCards: 버스트가 아니고, hit을 원할 때")
     void confirmCardsWhenNotBustWantToHit() {
         //given
         when(mockUser.isBust())
@@ -74,6 +78,7 @@ class PlayerServiceImplTest {
     }
 
     @Test
+    @DisplayName("#join: 두 명 참여")
     void join() {
         String pobiName = "pobi";
         String jasonName = "jason";

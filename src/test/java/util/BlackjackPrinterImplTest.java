@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import common.BlackjackConfig;
@@ -31,6 +32,7 @@ class BlackjackPrinterImplTest {
     }
 
     @Test
+    @DisplayName("#printUserState: 플레이어의 상태 출력.")
     void printUserStateWhenPlayer() {
         Player player = new Player("pobi", 100);
         List<Card> cards = makeCards();
@@ -44,6 +46,7 @@ class BlackjackPrinterImplTest {
     }
 
     @Test
+    @DisplayName("#printUserState: 딜러의 상태 출력.")
     void printUserStateWhenDealer() {
         //given
         User dealer = new Dealer();
@@ -58,7 +61,8 @@ class BlackjackPrinterImplTest {
     }
 
     @Test
-    void printUserResult() {
+    @DisplayName("#printUserResult: 딜러의 결과 출력.")
+    void printUserResultOfDealer() {
         //given
         Dealer dealer = new Dealer();
         List<Card> cards = makeCards();
@@ -80,6 +84,7 @@ class BlackjackPrinterImplTest {
     }
 
     @Test
+    @DisplayName("#printDealerHit: 딜러가 한 장 더 받았을 때 출력.")
     void printDealerHit() {
         //given
         Dealer dealer = new Dealer();

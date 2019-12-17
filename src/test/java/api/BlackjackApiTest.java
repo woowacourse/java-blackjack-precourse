@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import common.BlackjackConfig;
@@ -34,6 +35,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 딜러, 플레이어 모두 버스트하여 딜러가 이길 때")
     void matchWhenDealerBustPlayerBust() {
         List<Card> cardsWhichBust = makeCardsWhichBust();
         double bettingMoney = 100;
@@ -47,6 +49,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 딜러가 버스트하여 플레이어가 블랙잭 없이 이겼을 때")
     void matchWhenDealerBustPlayerNotBustNotBlackjack() {
         double bettingMoney = 100;
         List<Card> cardsWhichBust = makeCardsWhichBust();
@@ -61,6 +64,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 딜러가 버스트하고, 플레이어는 블랙잭으로 이겼을 때")
     void matchWhenDealerBustPlayerNotBustAndBlackjack() {
         List<Card> cardsWhichBust = makeCardsWhichBust();
         dealer = makeDealer(cardsWhichBust);
@@ -75,6 +79,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 플레이어가 버스트하여 졌을 때(딜러는 버스트 안함.)")
     void matchWhenDealerNotBustPlayerBust() {
         List<Card> cardsWhichNotBust = makeCardsWhichNotBust();
         dealer = makeDealer(cardsWhichNotBust);
@@ -89,6 +94,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 플레이어가 딜러와 비겼을 때")
     void matchWhenDraw() {
         //given
         List<Card> cardsWhichNotBust = makeCardsWhichNotBust();
@@ -102,6 +108,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 플레이어가 버스트, 블랙잭 없이 졌을 때")
     void matchWhenDelaerWinWithoutBustAndBlackjack() {
         List<Card> cardsBigger = makeCardsWhichNotBust();
         dealer = makeDealer(cardsBigger);
@@ -116,6 +123,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 플레이어가 블랙잭 없이 이겼을 때")
     void matchWhenPlayerWinWithoutBustAndBlackjack() {
         List<Card> cardsSmaller = makeCardsSmaller();
         dealer = makeDealer(cardsSmaller);
@@ -130,6 +138,7 @@ class BlackjackApiTest {
     }
 
     @Test
+    @DisplayName("#match: 플레이어가 블랙잭으로 이겼을 때")
     void matchWhenPlayerWinWithoutBustWithBlackjack() {
         List<Card> cardsSmaller = makeCardsSmaller();
         dealer = makeDealer(cardsSmaller);
