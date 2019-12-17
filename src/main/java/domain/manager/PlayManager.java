@@ -107,7 +107,15 @@ public class PlayManager {
 
     private void checkLostPlayer(List<Integer> blackjackIndexList) {
         for (int playerIndex = 0; playerIndex < players.size(); playerIndex++) {
-            updateBenefitToLostPlayers(blackjackIndexList, playerIndex);
+            reflectBenefitToLostPlayers(blackjackIndexList, playerIndex);
+        }
+    }
+
+    private void reflectBenefitToLostPlayers(List<Integer> blackjackIndexList, int playerIndex) {
+        if (!blackjackIndexList.contains(playerIndex)) {
+            double benefit = players.get(playerIndex).lose();
+            benefitArray[playerIndex] = benefit;
+            benefitArray[dealerIndex] = -benefit;
         }
     }
 }
