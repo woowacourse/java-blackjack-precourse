@@ -5,5 +5,11 @@ package domain.user;
  */
 public class Dealer extends Entry {
 
-    public Dealer() {}
+    public Dealer() {
+    }
+
+    @Override
+    public String toString() {
+        return "딜러의 카드 : " + this.getAllCardName();
+    }
 }
