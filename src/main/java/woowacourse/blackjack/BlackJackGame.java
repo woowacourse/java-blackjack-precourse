@@ -9,12 +9,12 @@ import domain.card.CardFactory;
 import domain.card.Card;
 
 public class BlackJackGame {
-    private Input input = new Input();
-    private Output output = new Output();
-    private List<Player> players = new ArrayList<>();
-    private Dealer dealer = new Dealer();
-    private List<Card> cards =  CardFactory.create();
-    private List<Card> getCardsList = new ArrayList<>();
+    private final Input input = new Input();
+    private final Output output = new Output();
+    private final List<Player> players = new ArrayList<>();
+    private final Dealer dealer = new Dealer();
+    private final List<Card> cards =  CardFactory.create();
+    private final List<Card> getCardsList = new ArrayList<>();
 
     public void runGame() {
         this.inputNameAndBettingMoney();

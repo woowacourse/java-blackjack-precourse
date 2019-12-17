@@ -7,18 +7,49 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Input {
-    private Scanner sc = new Scanner(System.in);
-    private Output output = new Output();
+    private final Scanner sc = new Scanner(System.in);
+    private final Output output = new Output();
 
     public List<String> getPlayerNames() {
         this.output.printNamesInput();
-        return Arrays.asList(sc.nextLine().split(","));
+        List<String> playerNames = Arrays.asList(sc.nextLine().split(","));
+        while (!this.isPlayerNamesValidator(playerNames)) {
+            this.output.printNamesInput();
+            playerNames = Arrays.asList(sc.nextLine().split(","));
+        }
+        return playerNames;
+    }
+
+    private boolean isPlayerNamesValidator(List<String> playerNames) {
+        long count = playerNames.stream().filter(x -> x.matches("^[a-zA-Z0-9_-]+$")).count();
+        if (playerNames.size() == count) {
+            return this.isNameLengthValidator(playerNames);
+        }
+        this.output.printNamesInputAgain();
+        return false;
+    }
+
+    private boolean isNameLengthValidator(List<String> playerNames) {
+        long count = playerNames.stream().filter(x -> x.length() > 16).count();
+        if (count == 0) {
+            return this.isNameListLengthValidator(playerNames);
+        }
+        this.output.printNamesLengthInputAgain();
+        return false;
+    }
+
+    private boolean isNameListLengthValidator(List<String> playerNames) {
+        if (playerNames.size() < 9) {
+            return true;
+        }
+        this.output.printNameListLengthInputAgain();
+        return false;
     }
 
     public double getPlayerBettingMoney(String playerName) {
         this.output.printBettingMoneyInput(playerName);
         String bettingMoney = sc.nextLine();
-        while (!isGetPlayerBettingMoneyValidator(bettingMoney) || !(Double.parseDouble(bettingMoney) >= 1)) {
+        while (!isPlayerBettingMoneyValidator(bettingMoney) || !(Double.parseDouble(bettingMoney) >= 1)) {
             this.output.printBettingMoneyInputAgain();
             this.output.printBettingMoneyInput(playerName);
             bettingMoney = sc.nextLine();
@@ -26,7 +57,7 @@ public class Input {
         return Double.parseDouble(bettingMoney);
     }
 
-    private boolean isGetPlayerBettingMoneyValidator(String bettingMoney) {
+    private boolean isPlayerBettingMoneyValidator(String bettingMoney) {
         try {
             Double.parseDouble(bettingMoney);
             return true;
@@ -38,7 +69,7 @@ public class Input {
     public String getYesOrNo(Player player) {
         this.output.printYesOrNo(player);
         String answer = sc.nextLine();
-        while (!this.isGetYesOrNoValidator(answer)) {
+        while (!this.isYesOrNoValidator(answer)) {
             this.output.printYesOrNoAgain();
             this.output.printYesOrNo(player);
             answer = sc.nextLine();
@@ -46,7 +77,7 @@ public class Input {
         return answer;
     }
 
-    private boolean isGetYesOrNoValidator(String answer) {
+    private boolean isYesOrNoValidator(String answer) {
         return answer.equals("y") || answer.equals("n")
                 || answer.equals("Y") || answer.equals("N");
     }

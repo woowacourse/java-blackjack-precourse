@@ -12,6 +12,18 @@ public class Output {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
     }
 
+    public void printNamesInputAgain() {
+        System.out.println("이름은 공백없이 쉽표로 분리되며 공백이 필료한 경우는 _ 나 - 를 사용하십시오.");
+    }
+
+    public void printNamesLengthInputAgain() {
+        System.out.println("이름은 16자까지 가능합니다.");
+    }
+
+    public void printNameListLengthInputAgain() {
+        System.out.println("인원은 최대 8명까지 가능합니다.");
+    }
+
     public void printBettingMoneyInput(String playerName) {
         System.out.println(playerName + "의 배팅 금액은?");
     }

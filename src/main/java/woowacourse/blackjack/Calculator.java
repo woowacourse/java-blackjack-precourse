@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Calculator {
     private double dealerRevenue = 0;
-    private HashMap<Player, Double> playersRevenue = new HashMap<Player, Double>();
+    private final HashMap<Player, Double> playersRevenue = new HashMap<Player, Double>();
 
     public void setWhenBlackJack(Dealer dealer, List<Player> players) {
         for (Player player: players) {
