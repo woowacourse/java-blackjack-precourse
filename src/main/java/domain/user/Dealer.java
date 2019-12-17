@@ -23,6 +23,17 @@ public class Dealer {
         return cards.get(0);
     }
 
+    public String getCards(){
+        int size = cards.size();
+        StringBuilder msg = new StringBuilder();
+
+        for(int idx = 0; idx < size; idx++){
+            Card card = cards.get(idx);
+            msg.append(card.getSymbol() + " " + card.getType() + ",");
+        }
+        return msg.toString();
+    }
+
     public int getSumOfCards(){
         int sum = 0;
         int size = cards.size();

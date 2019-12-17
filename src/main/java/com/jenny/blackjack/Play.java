@@ -67,7 +67,7 @@ public class Play {
         }
         msg.append("에게 " + INITIAL_CARDS + "장의 카드를 나누었습니다.\n");
         System.out.println(msg);
-        showDealerCardStatus(dealer);
+        showDealerFirstCard(dealer);
         for(int p = 0; p < cnt; p++){
             Player pl = players.get(p);
             showOneCardStatus(pl);
@@ -78,9 +78,13 @@ public class Play {
         System.out.println(player.getName() + " 카드 : " + player.getCards() + "\n");
     }
 
-    public void showDealerCardStatus(Dealer dealer){
+    public void showDealerFirstCard(Dealer dealer){
         Card dealerFirstCard = dealer.getFirstCard();
         System.out.println("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType() + "\n");
+    }
+
+    public void showDealerCardStatus(Dealer dealer){
+        System.out.println("딜러 카드 : " + dealer.getCards() + "\n");
     }
 
     public void askAddCard(Dealer dealer, List<Player> players){
