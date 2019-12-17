@@ -40,7 +40,7 @@ public class Card {
     }
 
     public String cardToString() {
-        return symbol.getScore()+""+type.getKoreanType();
+        return symbol.getExpression()+""+type.getKoreanType();
     }
 
 }
