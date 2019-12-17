@@ -8,6 +8,7 @@ public abstract class Round {
 
 	protected void printStatus(Table table) {
 		OutputView outputView = OutputView.getInstance();
+		outputView.printNewLine();
 		outputView.printDealerCards(table.getDealer().getCardsText(),true);
 		outputView.printResultLine(table.getDealer().sumMax());
 		outputView.printPlayersCardsResultLine(table.getPlayerNames(),table.getPlayersCardText(),table.getPlayerResults());
@@ -18,6 +19,6 @@ public abstract class Round {
 
 	protected void printEarnings(Table table){
 		OutputView outputView=OutputView.getInstance();
-		outputView.printEarnings(table.getPlayerNames(),table.getPlayerEarnings(),table.getDealerEarnings());
+		outputView.printEarnings(table.getPlayerNames(),table.getPlayerEarnings(),table.getDealerShare());
 	}
 }

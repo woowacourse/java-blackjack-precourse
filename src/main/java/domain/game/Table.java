@@ -17,13 +17,21 @@ import domain.user.PlayerFactory;
 public class Table {
 	private Deck deck;
 	private List<Gambler> playerList;
+	private List<Double> earningsList;
+	private List<Gambler> winnerList;
+	private List<Gambler> drawsList;
 	private Gambler dealer;
+	private Double dealerShare = 0.0;
+	private boolean dealerWin;
 
 	public Table(List<String> players, List<Double> bettings) {
 		playerList = PlayerFactory.create(players, bettings);
 		dealer = new Dealer();
 		deck = new Deck();
 		deck.shuffle();
+		Double tempList[] = new Double[players.size()];
+		Arrays.fill(tempList, 0.0);
+		earningsList = Arrays.asList(tempList);
 	}
 
 	public void drawAll(List<Gambler> gamblers, int count) throws Exception {
@@ -45,27 +53,26 @@ public class Table {
 	}
 
 	public void setWinners(int winnerScore) {
-		dealer.setWinner(dealer.sumMax() >= winnerScore);
-		for (Gambler player : playerList
-		) {
-			player.setWinner((!player.isBust() && player.sumMax() >= winnerScore )|| dealer.isBust());
+		winnerList = playerList.stream()
+			.filter(player -> (!player.isBust() && player.sumMax() >= winnerScore) || dealer.isBust())
+			.collect(Collectors.toList());
+		if (dealer.sumMax() >= winnerScore) {
+			dealerWin = true;
 		}
 	}
 
 	public void setDraws() {
-		for (Gambler player:playerList
-			 ) {
-			player.setDraw(player.sumMax()==dealer.sumMax());
-		}
+		drawsList = playerList.stream()
+			.filter(player -> (player.sumMax() == dealer.sumMax()))
+			.collect(Collectors.toList());
 	}
 
 	public boolean isPlayerWin() {
-		return playerList.stream()
-			.anyMatch(Gambler::isWinner);
+		return winnerList.size() > 0;
 	}
 
 	public boolean isDealerWin() {
-		return dealer.isWinner();
+		return dealerWin;
 	}
 
 	public boolean hasWinner() {
@@ -76,34 +83,35 @@ public class Table {
 		double dealerEarning = 0;
 		dealerEarning += doWinnerSettlement(winnerRatio);
 		dealerEarning += doLoserSettlement(loserRatio);
-		dealer.setEarnings(dealerEarning);
+		dealerShare = dealerEarning;
 		return;
 	}
 
 	private double doWinnerSettlement(double winnerRatio) {
-		double dealerShare = 0;
+		double dealerEarning = 0;
+
 		for (Gambler gambler : playerList.stream()
-			.filter(gambler -> (gambler.isWinner()&&!gambler.isDraw()))
+			.filter(gambler -> (winnerList.contains(gambler) && !drawsList.contains(gambler)))
 			.collect(Collectors.toList())
 		) {
 			Player winner = (Player)gambler;
-			winner.setEarnings(winnerRatio * winner.getBettingMoney());
-			dealerShare -= winnerRatio * winner.getBettingMoney();
+			earningsList.set(playerList.indexOf(gambler), winnerRatio * winner.getBettingMoney());
+			dealerEarning -= winnerRatio * winner.getBettingMoney();
 		}
-		return dealerShare;
+		return dealerEarning;
 	}
 
 	private double doLoserSettlement(double loserRatio) {
-		double dealerShare = 0;
+		double dealerEarning = 0;
 		for (Gambler gambler : playerList.stream()
-			.filter(gambler -> (!gambler.isWinner()) && (!gambler.isDraw()))
+			.filter(gambler -> (!winnerList.contains(gambler)) && (!drawsList.contains(gambler)))
 			.collect(Collectors.toList())
 		) {
 			Player loser = (Player)gambler;
-			loser.setEarnings(loserRatio * loser.getBettingMoney());
-			dealerShare -= loserRatio * loser.getBettingMoney();
+			earningsList.set(playerList.indexOf(gambler), loserRatio * loser.getBettingMoney());
+			dealerEarning -= loserRatio * loser.getBettingMoney();
 		}
-		return dealerShare;
+		return dealerEarning;
 	}
 
 	public List<Gambler> getPlayerList() {
@@ -117,17 +125,15 @@ public class Table {
 	}
 
 	public List<Double> getPlayerEarnings() {
-		return playerList.stream()
-			.map(Gambler::getEarnings)
-			.collect(Collectors.toList());
+		return earningsList;
 	}
 
 	public Gambler getDealer() {
 		return dealer;
 	}
 
-	public Double getDealerEarnings() {
-		return dealer.getEarnings();
+	public Double getDealerShare() {
+		return dealerShare;
 	}
 
 	public List<List<String>> getPlayersCardText() {
