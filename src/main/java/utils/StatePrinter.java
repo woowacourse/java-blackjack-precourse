@@ -1,10 +1,10 @@
 package utils;
 
-import domain.user.Gamers;
+import java.util.List;
 
 public class StatePrinter {
-	public static void printInitDrawMessage(Gamers gamers) {
-		System.out.println("\n딜러와 " + String.join(", ", gamers.getPlayerNames()) + "에게 각 2장의 카드를 나누어 주었습니다.");
+	public static void printInitDrawMessage(List<String> strings) {
+		System.out.println("\n딜러와 " + String.join(", ", strings + "에게 각 2장의 카드를 나누어 주었습니다."));
 	}
 	
 	public static void printDealerBlackJack() {
@@ -20,6 +20,6 @@ public class StatePrinter {
 	}
 	
 	public static void printDealerDrawMessage() {
-		System.out.println("딜러의 점수가 16이하라 한 장의 카드를 더 받았습니다.");
+		System.out.println("\n딜러의 점수가 16이하라 한 장의 카드를 더 받았습니다.");
 	}
 }

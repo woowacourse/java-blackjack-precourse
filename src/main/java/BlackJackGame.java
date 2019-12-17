@@ -5,14 +5,13 @@ import utils.CardsPrinter;
 import utils.EarningCalculator;
 import utils.StatePrinter;
 
-public class BlackJack {
+public class BlackJackGame {
 	private static final String TEMP_DEALER_NAME = "딜러";
-	private static final int MIN_DEALER_SCORE = 17;
 	Gamers gamers = new Gamers();
 	
 	public void start() {
 		gamers.drawInit();
-		StatePrinter.printInitDrawMessage(gamers);
+		StatePrinter.printInitDrawMessage(gamers.getPlayerNames());
 		printTable();
 		if (gamers.getDealer().isBlackJack()) {
 			printResult();
@@ -42,7 +41,7 @@ public class BlackJack {
 	}
 	
 	private void drawDealerCard() {
-		while (gamers.getDealer().calculateFinalScore() < MIN_DEALER_SCORE) {
+		while (gamers.getDealer().isHittable()) {
 			gamers.getDealer().draw();
 			StatePrinter.printDealerDrawMessage();
 		}
@@ -53,6 +52,7 @@ public class BlackJack {
 		for (Player player : gamers.getPlayers()) {
 			CardsPrinter.printWithName(player);
 		}
+		System.out.println();
 	}
 	
 	private void printTableWithScore() {

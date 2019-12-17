@@ -5,12 +5,8 @@ public class NumberInput {
 	private double number = 0;
 	
 	public NumberInput(String string) {
-		System.out.println(string + "의 배팅 금액은?");
+		System.out.println("\n" + string + "의 배팅 금액은?");
 		input();
-	}
-	
-	public double getNumber() {
-		return this.number;
 	}
 
 	private void input() {
@@ -30,5 +26,9 @@ public class NumberInput {
 		if (num <= MIN_NUMBER) {
 			throw new IllegalArgumentException();
 		}
+	}
+	
+	public double getNumber() {
+		return this.number;
 	}
 }

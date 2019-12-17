@@ -9,10 +9,6 @@ public class BooleanInput {
 		System.out.println(string + "님은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 		input();
 	}
-	
-	public boolean getAgree() {
-		return this.agree;
-	}
 
 	private void input() {
 		String agreeString = UserInput.input();
@@ -35,5 +31,9 @@ public class BooleanInput {
 				&& !agreeString.equals(DISAGREE_CHAR)) {
 			throw new IllegalArgumentException();
 		}
+	}
+	
+	public boolean getAgree() {
+		return this.agree;
 	}
 }

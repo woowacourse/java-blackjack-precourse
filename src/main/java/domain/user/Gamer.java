@@ -25,7 +25,7 @@ public class Gamer {
     	addCard(CardDrawer.draw());
     }
     
-    public int calculateScore() {
+    private int calculateScore() {
     	int score = 0;
     	
     	for (Card card : cards) {

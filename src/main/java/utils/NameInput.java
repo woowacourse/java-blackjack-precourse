@@ -10,10 +10,6 @@ public class NameInput {
 		input();
 	}
 	
-	public String[] getNames() {
-		return this.names;
-	}
-	
 	private void input() {
 		String[] output = UserInput.input().split("," , -1);
 		
@@ -44,5 +40,9 @@ public class NameInput {
 			System.out.println("최대 인원 수는 " + MAX_LENGTH + "명입니다. 다시 입력하세요.");
 			throw new IllegalArgumentException();
 		}
+	}
+	
+	public String[] getNames() {
+		return this.names;
 	}
 }
