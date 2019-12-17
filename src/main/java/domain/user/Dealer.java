@@ -14,8 +14,7 @@ public class Dealer extends Player {
     public void showMoney(List<Player> user) {
         int money = 0;
 
-        user.remove(0);
-        for (Player player : user) {
+        for (Player player : user.subList(1, user.size())) {
             money += player.getBettingMoney();
         }
 
