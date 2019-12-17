@@ -10,9 +10,9 @@ import java.util.List;
 
 public class PlayerUtility {
 
+    private static final String MESSAGE_NAME_CONDITION = "이름은 한 글자 이상이어야 합니다";
     private static final String PLAYER_NAME_DELIMITER = ",";
     private static final String MESSAGE_INPUT_INTEGER = "정수를 입력해주세요";
-    public static final String MESSAGE_NAME_CONDITION = "이름은 한 글자 이상이어야 합니다";
 
     public static Users generatePlayers() {
         String[] playerNames = getPlayerNames();
