@@ -23,7 +23,7 @@ public class BlackjackGame {
       blackjackRule.whenDealerIsBlackjack(dealer, players);
       return;
     }
-    checkPlayersBlackjack();
+    checkBlackjackForAllPlayers();
     blackjackRule.askHitOrStay(dealer, players);
     if (isDealerBust()) {
       blackjackRule.dealerLose(dealer, players);
@@ -36,12 +36,16 @@ public class BlackjackGame {
     return dealer.isBust();
   }
 
-  private void checkPlayersBlackjack() {
+  private void checkBlackjackForAllPlayers() {
     for (Player player : players) {
-      if (player.isBlackjack()) {
-        blackjackRule.whenPlayerIsBlackjack(dealer, player);
-        players.remove(player);
-      }
+      checkBlackjackByPlayer(dealer, player);
+    }
+  }
+
+  private void checkBlackjackByPlayer(Dealer dealer, Player player) {
+    if (player.isBlackjack()) {
+      blackjackRule.whenPlayerIsBlackjack(dealer, player);
+      players.remove(player);
     }
   }
 }

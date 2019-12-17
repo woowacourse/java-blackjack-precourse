@@ -96,9 +96,13 @@ public class BlackjackRule {
 
   void whenDealerIsBlackjack(Dealer dealer, List<Player> players) {
     for (Player player : players) {
-      if (player.isBlackjack()) {
-        gameResult.push(dealer, player);
-      }
+      checkPlayerIsBlackjackToo(dealer, player);
+    }
+  }
+
+  private void checkPlayerIsBlackjackToo(Dealer dealer, Player player) {
+    if (player.isBlackjack()) {
+      gameResult.push(dealer, player);
     }
   }
 
