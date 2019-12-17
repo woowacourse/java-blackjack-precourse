@@ -75,13 +75,14 @@ public class HitRound extends Round {
 
 	private void printDealerDrawText() {
 		OutputView outputView = OutputView.getInstance();
+		outputView.printNewLine();
 		outputView.printDealerDrawLine(Rule.DEALER_DRAW_POINT);
 		outputView.printNewLine();
 	}
 
 	private void printPlayerDrawText(Player player) {
 		OutputView outputView = OutputView.getInstance();
-		outputView.printPlayerCards(player);
+		outputView.printPlayerCards(player.getName(),player.getCardsText());
 		outputView.printNewLine();
 	}
 }

@@ -11,14 +11,40 @@ public class OutputView {
 	private static final String DEALER_DRAW_FORMAT = "%s는 %d이하라 한장의 카드를 더 받았습니다.";
 	private static final String BLACKJACK_ROUND_DRAW_FORMAT = "%s와 %s에게 %d장의 나누었습니다.";
 
-	public void printCards(List<String> cardsText) {
-		System.out.print(String.join(SEPARATOR[0], cardsText));
+	private static OutputView outputView;
+
+	private OutputView() {
 	}
 
-	public void printPlayerCards(List<String> cardsData, String name) {
+	public static OutputView getInstance() {
+		if (outputView == null) {
+			outputView = new OutputView();
+		}
+		return outputView;
+	}
+
+	public void printCards(List<String> cardsData) {
+		System.out.print(String.join(SEPARATOR[0], cardsData));
+	}
+
+	public void printPlayerCards(String name, List<String> cardsData) {
 		String printData = name + CARD;
 		System.out.print(printData + DELIMITERS[0]);
 		printCards(cardsData);
+	}
+
+	public void printPlayersCards(List<String> names, List<List<String>> cardsData) {
+		for (int i = 0; i < names.size(); i++) {
+			printPlayerCards(names.get(i), cardsData.get(i));
+			System.out.println();
+		}
+	}
+
+	public void printPlayersCardsResult(List<String> names, List<List<String>> cardsData,List<Integer> results){
+		for (int i = 0; i < names.size(); i++) {
+			printPlayerCards(names.get(i), cardsData.get(i));
+			printResultLine(results.get(i));
+		}
 	}
 
 	public void printDealerCards(List<String> cardsData, boolean withCardText) {

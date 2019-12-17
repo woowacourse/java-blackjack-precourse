@@ -42,8 +42,8 @@ public class Table {
 		return dealer;
 	}
 
-	public List<String[]> getPlayersCardText() {
-		ArrayList<String[]> playersCardText = new ArrayList<>();
+	public List<List<String>> getPlayersCardText() {
+		ArrayList<List<String>> playersCardText = new ArrayList<>();
 		for (Gambler player : playerList
 		) {
 			playersCardText.add(player.getCardsText());
@@ -51,7 +51,13 @@ public class Table {
 		return playersCardText;
 	}
 
-	public String[] getDealerCardText() {
+	public List<Integer> getPlayerResults() {
+		return playerList.stream()
+			.map(Gambler::getSum)
+			.collect(Collectors.toList());
+	}
+
+	public List<String> getDealerCardText() {
 		return dealer.getCardsText();
 	}
 
@@ -76,7 +82,7 @@ public class Table {
 	public void setWinners(int winnerScore) {
 		for (Gambler player : playerList
 		) {
-			player.setWinner(player.sumCardsMax() > winnerScore-1 && !player.isBust(winnerScore));
+			player.setWinner(player.sumCardsMax() > winnerScore - 1 && !player.isBust(winnerScore));
 		}
 		dealer.setWinner(dealer.getSum() > winnerScore);
 	}

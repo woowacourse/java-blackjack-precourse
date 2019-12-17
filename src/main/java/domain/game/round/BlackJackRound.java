@@ -4,8 +4,6 @@ import java.util.Arrays;
 
 import domain.game.Rule;
 import domain.game.Table;
-import domain.user.Gambler;
-import domain.user.Player;
 import view.OutputView;
 
 public class BlackJackRound extends Round {
@@ -24,9 +22,9 @@ public class BlackJackRound extends Round {
 	protected void printStatus(Table table) {
 		OutputView outputView = OutputView.getInstance();
 		outputView.printBlackJackRoundLine(table.getPlayerNames(), Rule.BASIC_DRAW);
-		outputView.printDealerCards(Arrays.asList(table.getDealerCardText()).subList(0,Rule.DEALER_OPEN_COUNT), false);
+		outputView.printDealerCards(table.getDealerCardText().subList(0,Rule.DEALER_OPEN_COUNT), false);
 		outputView.printNewLine();
-		outputView.printPlayerCards(table.getPlayerNames(),table.getPlayersCardText());
+		outputView.printPlayersCards(table.getPlayerNames(),table.getPlayersCardText());
 		outputView.printNewLine();
 	}
 
