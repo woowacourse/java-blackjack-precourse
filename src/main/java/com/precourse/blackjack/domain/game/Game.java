@@ -40,7 +40,7 @@ public class Game {
 
 	public void start() {
 		setGame();
-		//proceedGame();
+		proceedGame();
 		//EndGame();
 	}
 
@@ -61,5 +61,20 @@ public class Game {
 		GameController.showInitialCardDealingEnd(OutputUtil.getAllNames(players, dealer));
 		GameController.showCards(OutputUtil.getDealerFirstCards(dealer));
 		players.forEach(player -> GameController.showCards(OutputUtil.getPlayerNameAndCards(player)));
+	}
+
+	private void proceedGame() {
+		if (dealer.isBlackJack()) {
+			// GameController.showDealerBlackjack();
+			return;
+		}
+		players.forEach(player -> drawCard(player));
+	}
+
+	private void drawCard(Player player) {
+		while (GameController.hitCard(player.getName())) {
+			player.addCard(cardDeck.pop());
+			GameController.showCards(OutputUtil.getPlayerNameAndCards(player));
+		}
 	}
 }

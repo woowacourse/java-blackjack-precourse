@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.precourse.blackjack.domain.card.Card;
 import com.precourse.blackjack.domain.game.Game;
 import com.precourse.blackjack.domain.user.Player;
 import com.precourse.blackjack.domain.util.InputUtil;
@@ -80,5 +79,18 @@ public class GameController {
 
 	public static void showCards(String nameAndCards) {
 		OutputView.printCards(nameAndCards);
+	}
+
+	public static boolean hitCard(String playerName) {
+		boolean result;
+
+		try {
+			InputView.printHitCardQuestion(playerName);
+			result = InputUtil.readHitCard();
+		} catch (IOException e) {
+			OutputView.printWrongHitCardInput();
+			return hitCard(playerName);
+		}
+		return result;
 	}
 }
