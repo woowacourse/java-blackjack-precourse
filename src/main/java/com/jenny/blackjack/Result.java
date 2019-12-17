@@ -37,5 +37,7 @@ public class Result {
         return sum;
     }
 
-
+    public boolean isBurst(User user){
+        return user.getSumOfCards() > 21;
+    }
 }
