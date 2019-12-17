@@ -9,6 +9,7 @@ import domain.user.Player;
 public class BlackJackGame {
 	Scanner scanner = new Scanner(System.in);
 	private List<String> playerNames = new ArrayList<String>();
+	private List<Integer> bettingMoney = new ArrayList<Integer>();
 	private int numberOfPlayers = 0;
 	private List<Player> players = new ArrayList<Player>();
 	
@@ -16,6 +17,7 @@ public class BlackJackGame {
 	}
 	public void run() {
 		setPlayerNames();
+		setBettingMoney();
 		setPlayers();
 		System.out.println(players.size()+"명의 플레이어가 존재합니다");
 		for(int i=0;i<numberOfPlayers;i++) {
@@ -33,22 +35,32 @@ public class BlackJackGame {
 		}
 		setNumberOfPlayers();
 	}
+	public void setBettingMoney() {
+		int tmpBettingMoney;
+		for(int i=0;i<getNumberOfPlayers();i++) {
+			System.out.println(getPlayerNameByIndex(i)+"의 배팅 금액은?");
+			tmpBettingMoney = scanner.nextInt();
+			bettingMoney.add(tmpBettingMoney);
+		}
+	}
 	public void setNumberOfPlayers() {
 		this.numberOfPlayers = playerNames.size();
 	}
 	public void setPlayers() {
-		int bettingMoney = 0;
 		for(int i=0;i<getNumberOfPlayers();i++) {
 			System.out.println(getPlayerNameByIndex(i)+"의 배팅 금액은?");
-			bettingMoney = scanner.nextInt();
-			Player tmpPlayer = new Player(getPlayerNameByIndex(i), bettingMoney);
+			Player tmpPlayer = new Player(getPlayerNameByIndex(i), getBettingMoneyByIndex(i));
 			players.add(tmpPlayer);
 		}
 	}
+	
 	public int getNumberOfPlayers() {
 		return this.numberOfPlayers;
 	}
 	public String getPlayerNameByIndex(int index) {
 		return this.playerNames.get(index);
+	}
+	public int getBettingMoneyByIndex(int index) {
+		return this.bettingMoney.get(index);
 	}
 }

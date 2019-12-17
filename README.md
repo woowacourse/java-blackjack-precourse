@@ -56,6 +56,7 @@ vairiable
 - private List<String> playerNames
 - private int numberOfPlayers
 - private List<Player> players
+- private List<Integer> bettiingMoney
 
 method
 - public void setPlayerNames()
@@ -64,3 +65,5 @@ method
 - public int getNumberOfPlayers()
 - public String getPlayerNameByIndex(int index)
 - public void run()
+- public void setBettingMoney()
+- public int getBettingMoneyByIndex(int index)
