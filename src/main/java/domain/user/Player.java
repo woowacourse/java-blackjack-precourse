@@ -17,6 +17,19 @@ public class Player extends User{
         this.bettingMoney = bettingMoney;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
+    public boolean isContinueHit(String input) {
+        return input.equals(YES);
+    }
+
     private void checkCorrectPlayer(String name, double bettingMoney) {
         Validator.checkPlayerName(name);
         Validator.validateBettingMoney(bettingMoney);
