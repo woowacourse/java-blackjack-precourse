@@ -10,6 +10,7 @@ public class GameManager {
     private static final int initialNumOfCards = 2;
     private static final String delimiter = ",";
     private static final Scanner SC = new Scanner(System.in);
+    private static final int maxCardSum = 21;
 
     private List<Player> players;
     private List<Card> cards;
@@ -86,8 +87,47 @@ public class GameManager {
 
 
     public void playGame() {
-        //각 player가 카드를 더 받을지
-        //딜러가 카드를 더 받을
+        checkEachPlayerCardSum();//각 player가 카드를 더 받을지
+        checkDealerCardSum();//딜러가 카드를 더 받을
+    }
+
+    public void checkDealerCardSum(){
+        if(dealer.sumUpCards() <= 16){
+            System.out.println("");
+            cards = dealer.generateCards(1, cards);
+            return;
+        }
+
+    }
+
+    public void checkEachPlayerCardSum(){
+        for(Player each: players){
+            getMoreCardAction(each);
+        }
+    }
+
+    public void getMoreCardAction(Player player){
+        boolean toContinue = true;
+        while(player.sumUpCards() <= maxCardSum && toContinue){
+            System.out.println(player.toString()+"는 한장의 카드를 더 받겠습니까?(예는 y or Y, 아니오는 n 혹은 나머지)");
+            toContinue = checkAnswerToContinue(player);
+            getAddMoreCard(player, toContinue);
+        }
+
+    }
+
+    public boolean checkAnswerToContinue(Player player){
+        Scanner sc = SC;
+        String answer = sc.nextLine();
+        if(answer.equals("y") || answer.equals("Y")){
+            return true;
+        }
+        return false;
+    }
+
+    public void getAddMoreCard(Player player, boolean toContinue){
+        if(!toContinue){ return; }
+        cards = player.generateCards(1, cards);
     }
 
 }

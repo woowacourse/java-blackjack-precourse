@@ -27,6 +27,14 @@ public class Dealer {
         return allCards;
     }
 
+    public int sumUpCards(){
+        int sumOfCards = 0;
+        for(Card each: cards){
+            sumOfCards += each.getNumber();
+        }
+        return sumOfCards;
+    }
+
     public void printNameAndCards(){
         List<String> cardNames = new ArrayList<>();
         for( Card card : this.cards){

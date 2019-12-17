@@ -41,6 +41,14 @@ public class Player {
         System.out.println(String.join(",", cardNames));
     }
 
+    public int sumUpCards(){
+        int sumOfCards = 0;
+        for(Card each: cards){
+            sumOfCards += each.getNumber();
+        }
+        return sumOfCards;
+    }
+
     public String toString(){
         return this.name;
     }
