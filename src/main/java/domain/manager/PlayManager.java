@@ -3,34 +3,39 @@ package domain.manager;
 import domain.card.CardFactory;
 import domain.card.Deck;
 import domain.user.Dealer;
-import domain.user.Gamer;
 import domain.user.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayManager {
-    public final List<Gamer> gamers = new ArrayList<>();
-    private final int dealerIndex = 0;
+    private final List<Player> players = new ArrayList<>();
+    private final Dealer dealer = new Dealer();
     private final Deck deck = new Deck(CardFactory.create());
-
-    boolean blackjackStatus = true;
+    private int dealerIndex;
+    private double[] benefitArray;
+    private List<Integer> blackJackPlayerIndexList;
 
     public PlayManager(List<String> playerNameList, List<Integer> bettingMoneyList) {
-        gamers.add(new Dealer());
         this.getPlayers(playerNameList, bettingMoneyList);
+        this.benefitArray = new double[players.size() + 1];
     }
 
     private void getPlayers(List<String> playerNameList, List<Integer> bettingMoneyList) {
         for (int i = 0; i < playerNameList.size(); i++) {
-            gamers.add(new Player(playerNameList.get(i), bettingMoneyList.get(i)));
+            players.add(new Player(playerNameList.get(i), bettingMoneyList.get(i)));
         }
+        dealerIndex = players.size();
     }
 
     public void playGame() {
         setBasicCards();
         printAllGamersHand();
-        checkMidway();
+        if (isDealerBlackjack()) {
+            return;
+        }
+        progressHitStage();
+        progressEndStage();
     }
 
     private void setBasicCards() {
@@ -41,22 +46,25 @@ public class PlayManager {
     }
 
     private void dealCards() {
-        for (Gamer gamer : gamers) {
-            gamer.addCard(deck.giveRandomCard());
+        for (Player player : players) {
+            player.addCard(deck.giveRandomCard());
         }
+        dealer.addCard(deck.giveRandomCard());
     }
 
     private void printAllGamersHand() {
-        for (Gamer gamer : gamers) {
-            System.out.println(gamer.toString());
+        System.out.println(dealer.toString());
+        for (Player player : players) {
+            System.out.println(player.toString());
         }
     }
 
     private List<Integer> makeScoreList() {
         List<Integer> scoreList = new ArrayList<>();
-        for (Gamer gamer : gamers) {
-            scoreList.add(gamer.calculateScore());
+        for (Player player : players) {
+            scoreList.add(player.calculateScore());
         }
+        scoreList.add(dealer.calculateScore());
         return scoreList;
     }
 
