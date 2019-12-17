@@ -26,6 +26,7 @@ public class Controller {
         hitPhase();
         dealerPhase();
         resultPhase();
+        new Computer(players).calculate();
     }
 
     public void initPhase() {

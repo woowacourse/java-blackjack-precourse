@@ -52,7 +52,7 @@ public class Player {
     public int getCountedScoreWithAceBonus() {
         return Optional.of(getCountedScore() + ACE_CARD_BONUS_SCORE)
                 .filter(x -> isPlayerHaveAce())
-                .filter(this::isBurst)
+                .filter(this::isNotBurst)
                 .orElse(getCountedScore());
     }
 
@@ -60,7 +60,7 @@ public class Player {
         return cards.stream().anyMatch(Card::checkAce);
     }
 
-    public boolean isBurst(int score) {
+    public boolean isNotBurst(int score) {
         return score < BURST;
     }
 
@@ -81,7 +81,7 @@ public class Player {
     }
 
     public void isPlayerWillHit(CardsOnGame gameCards) {
-        if (!isBlackJack() && isBurst(getCountedScoreWithAceBonus())
+        if (!isBlackJack() && isNotBurst(getCountedScoreWithAceBonus())
                 && new Input().pickExtraCard(this.name)) {
             addCard(gameCards.pickUpCard());
             Output.displayPlayerInfo(this);

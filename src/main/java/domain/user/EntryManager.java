@@ -40,7 +40,7 @@ public class EntryManager {
 
     public List<Player> burstPlayers() {
         return players.stream()
-                .filter(x -> x.getCountedScoreWithAceBonus() == FIND_WHO_BURST)
+                .filter(x -> !x.isNotBurst(x.getCountedScoreWithAceBonus()))
                 .collect(Collectors.toList());
     }
 
@@ -62,7 +62,7 @@ public class EntryManager {
     }
 
     public String messageAdder(int score, Player p) {
-        if (!p.isBurst(score)) {
+        if (!p.isNotBurst(score)) {
             return addBurstMessage(FIND_WHO_BURST);
         }
         if (p.isBlackJack()) {
@@ -71,12 +71,16 @@ public class EntryManager {
         return Integer.toString(score);
     }
 
-    public String  addBurstMessage(int score) {
+    public String addBurstMessage(int score) {
         return (Integer.toString(score) + " (버스트)");
     }
 
     public String addBlackJackMessage(int score) {
         return (Integer.toString(score) + " (블랙잭)");
+    }
+
+    public void playerCleanForResult(List<Player> diePlayer) {
+        players.removeAll(diePlayer);
     }
 
     @Override

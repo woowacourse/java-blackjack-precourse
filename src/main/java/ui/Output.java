@@ -4,6 +4,8 @@ import domain.card.CardsOnGame;
 import domain.user.EntryManager;
 import domain.user.Player;
 
+import java.text.DecimalFormat;
+
 public class Output {
     public static void displayForGetPlayerNames() {
         System.out.println("게임에 참여할 사람들의 이름을 입력하세요.(쉼표 기준으로 분리)");
@@ -35,5 +37,11 @@ public class Output {
 
     public static void displayForResultPlayerCard(EntryManager players) {
         System.out.println("\n" + players.getEntryResultScore());
+        System.out.println("\n## 최종수익 ");
     }
+
+    public static void displayResultMoney(String name, double money) {
+        System.out.println(name + " : " + new DecimalFormat("#.##").format(money));
+    }
+
 }
