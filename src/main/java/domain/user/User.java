@@ -44,14 +44,14 @@ public abstract class User {
             sum += ace.getSymbol().getScore();
         }
 
-        for (Card ace : aces) {
-            sum += calculateSurplus(sum, ace);
+        for (int i = 0; i < aces.size(); i++) {
+            sum += calculateSurplus(sum);
         }
         return sum;
     }
 
     //todo: check refac
-    private int calculateSurplus(int sum, Card ace) {
+    private int calculateSurplus(int sum) {
         if ( BlackjackConfig.BLACKJACK < sum + BlackjackConfig.SURPLUS_OF_ACE )  {
             return 0;
         }
