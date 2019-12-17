@@ -16,8 +16,8 @@ public class BlackJackGame {
 		players = new ArrayList<>();
 	}
 
-	private void init() {
-		while (inputPlayer()) {
+	public void init() {
+		while (!inputPlayer()) {
 		}
 	}
 
@@ -28,7 +28,7 @@ public class BlackJackGame {
 			return false;
 		}
 		for (String playerName : playerNames) {
-			while (inputBettingMoney(playerName)) {
+			while (!inputBettingMoney(playerName)) {
 			}
 		}
 		return true;
