@@ -69,11 +69,17 @@ public class Play {
         Card dealerFirstCard = dealer.getFirstCard();
         msg.append("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType() + "\n");
 
+        System.out.println(msg);
+
         for(int p = 0; p < cnt; p++){
             Player pl = players.get(p);
-            msg.append(pl.getName() + " 카드 : " + pl.getCards() + "\n");
+            showOneCardStatus(pl);
         }
-        System.out.println(msg);
+
+    }
+
+    public void showOneCardStatus(Player player){
+        System.out.println(player.getName() + " 카드 : " + player.getCards() + "\n");
     }
 
     public void askAddCard(Dealer dealer, List<Player> players){
