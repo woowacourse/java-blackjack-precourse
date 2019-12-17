@@ -18,8 +18,16 @@ public class Helper {
         return cards;
     }
 
-    public String cardsToString(){
-        String cardList =  cards.stream().map(card -> String.valueOf(card.toString())).collect(Collectors.joining(", "));
-        return "";
+    public String cardsToString() {
+        return cards.stream().map(card -> String.valueOf(card.toString())).collect(Collectors.joining(", "));
     }
+
+    public void cardPush(List<Card> cardDeck) {
+            int cardDeckCount = cardDeck.size() - 1;
+            int selectNumber = (int) (Math.random() * cardDeckCount) + 1;
+            Card selectedCard = cardDeck.get(selectNumber);
+
+            this.addCard(selectedCard);
+            cardDeck.remove(selectedCard);
+        }
 }

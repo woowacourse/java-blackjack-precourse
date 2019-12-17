@@ -18,7 +18,6 @@ public class Player extends Helper {
         return name;
     }
 
-    @Override
     public String cardsToString() {
         return name + "카드 : " + super.cardsToString();
     }
