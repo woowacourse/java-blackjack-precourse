@@ -52,18 +52,29 @@ public class BlackJack {
         List<Integer> moneys = new ArrayList<>();
 
         for(int idx = 0; idx < userCnt; idx++){
-            int betMoney;
+            String betMoney;
             while(true){
                 System.out.println(names.get(idx) + "의 배팅 금액은?");
-                betMoney = Interger.parseInt(sc.nextLine());
+                betMoney = sc.nextLine();
                 if(isValidMoney(betMoney)){
-                    moneys.add(betMoney);
+                    moneys.add(Integer.parseInt(betMoney));
                     break;
                 }else{
                     System.out.println("숫자만 입력하실 수 있습니다.");
                 }
             }
-            registerUser(idx, betMoney);
+            registerUser(idx, Integer.parseInt(betMoney));
         }
+    }
+
+    public boolean isValidMoney(String betMoney){
+        int len = betMoney.length();
+        for(int idx = 0; idx < len; idx++){
+            char digit = betMoney.charAt(idx);
+            if(digit < '0' || digit > '9'){
+                return false;
+            }
+        }
+        return true;
     }
 }
