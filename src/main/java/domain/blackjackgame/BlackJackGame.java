@@ -14,7 +14,9 @@ import domain.user.Player;
 import domain.user.User;
 
 public class BlackJackGame {
-	private static final int TWO = 2;
+	private static final int ACE = 1;
+	private static final int FIRST_TWO = 2;
+	private static final int ACE_DIFFERENCE = 10;
 	private static final int DEALER_CARD_STANDARD = 16;
 	private static final int MAX_SCORE = 21;
 
@@ -37,11 +39,12 @@ public class BlackJackGame {
 		}
 		startGame();
 		printCards();
-		if(playGame()) {
+		if (playGame()) {
 			dealerFail();
 			return;
 		}
 		calculateResult();
+		decideWinner();
 	}
 
 	private boolean inputPlayer() {
@@ -77,13 +80,13 @@ public class BlackJackGame {
 		}
 		System.out.print("딜러와 ");
 		for (Player player : players) {
-			System.out.print(player.getName()+" ");
+			System.out.print(player.getName() + " ");
 		}
 		System.out.println("에게 2장의 카드를 나누어주었습니다.");
 	}
 
 	private void giveFirstTwoCards(User user) {
-		for (int i = 0; i < TWO; i++) {
+		for (int i = 0; i < FIRST_TWO; i++) {
 			giveCard(user);
 		}
 	}
@@ -104,17 +107,21 @@ public class BlackJackGame {
 	}
 
 	private boolean playGame() {
-		if(dealer.getScore() <= DEALER_CARD_STANDARD) {
+		if (dealer.getScore() <= DEALER_CARD_STANDARD) {
 			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
 			giveCard(dealer);
 		}
-		if(isMaxScore(dealer)) {
+		if (isMaxScore(dealer.getScore())) {
 			return true;
 		}
-		for(Player player : players) {
+		for (Player player : players) {
 			getMoreCards(player);
 		}
 		return false;
+	}
+
+	private void decideWinner() {
+
 	}
 	
 	private void dealerFail() {
@@ -130,38 +137,47 @@ public class BlackJackGame {
 
 	private void calculateResult() {
 		calculateUserScore(dealer);
-		for(Player player : players) {
+		for (Player player : players) {
 			calculateUserScore(player);
 		}
 	}
 
 	private void calculateUserScore(User user) {
-		
+		if (!user.hasAce())
+			return;
+		for (Card card : user.getCards()) {
+			if (isMaxScore(user.getScore() + ACE_DIFFERENCE)) {
+				return;
+			}
+			if (card.getSymbol().getScore() == ACE) {
+				user.setScore(user.getScore() + ACE_DIFFERENCE);
+			}
+		}
 	}
-	
+
 	private void getMoreCards(Player player) {
-		while(!isMaxScore(player)) {
-			System.out.println(player.getName()+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+		while (!isMaxScore(player.getScore())) {
+			System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 			String input = scanner.nextLine();
-			if(input.equals("y")) {
+			if (input.equals("y")) {
 				giveCard(player);
 				printCards();
 				continue;
 			}
-			if(input.equals("n")) {
+			if (input.equals("n")) {
 				return;
 			}
 			System.out.println("잘못된 입력을 하셨습니다. 다시 입력해주세요.");
 		}
 	}
-	
-	private boolean isMaxScore(User user) {
-		if(user.getScore() > MAX_SCORE) {
+
+	private boolean isMaxScore(int score) {
+		if (score > MAX_SCORE) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	private void printCards() {
 		System.out.println("====================================");
 		System.out.print("딜러의 카드: ");

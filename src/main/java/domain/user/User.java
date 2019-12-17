@@ -8,7 +8,7 @@ import domain.card.Card;
 
 public class User {
 	private static final int ACE = 1;
-	
+
 	private final List<Card> cards = new ArrayList<>();
 	private int score;
 	private boolean hasAce;
@@ -21,7 +21,11 @@ public class User {
 	public void setFail() {
 		this.fail = true;
 	}
-	
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 	public void addCard(Card card) {
 		if (card.getSymbol().getScore() == ACE) {
 			hasAce = true;
@@ -40,12 +44,12 @@ public class User {
 	public int getScore() {
 		return score;
 	}
-	
+
 	public boolean hasAce() {
 		return hasAce;
 	}
-	
-	public List<Card> getCards(){
+
+	public List<Card> getCards() {
 		return Collections.unmodifiableList(cards);
 	}
 }
