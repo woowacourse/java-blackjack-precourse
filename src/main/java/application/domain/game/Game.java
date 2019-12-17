@@ -11,4 +11,17 @@ public class Game {
         this.users = users;
         this.supplier = cardSupplier;
     }
+
+    public void play() {
+        giveTwoCardsToAllPlayers();
+        checkAddableCardAndAddCard();
+    }
+
+    private void giveTwoCardsToAllPlayers() {
+        users.addTwoCards(supplier);
+    }
+
+    private void checkAddableCardAndAddCard() {
+        users.checkCardsAndAddCard(supplier);
+    }
 }
