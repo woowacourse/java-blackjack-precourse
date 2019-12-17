@@ -14,15 +14,35 @@ public class Input {
             System.out.println("입력 조건 : 1. 영대소문자만 가능 2. 공백 사용 불가");
             playerNamesInput = scanner.nextLine();
             playerNames = playerNamesInput.split(",");
-        } while (!playerNameInputConfirm(playerNames, playerNamesInput));
+        } while (playerNameInputConfirm(playerNames, playerNamesInput));
         return playerNames;
     }
 
     private boolean playerNameInputConfirm(String[] playerNames, String playerNamesInput) {
         if (playerNamesInput.endsWith(",")) {
-            return false;
+            return true;
         }
-        return Arrays.stream(playerNames).allMatch(playerName -> playerName.matches("^[a-zA-Z]*$") &&
+        return !Arrays.stream(playerNames).allMatch(playerName -> playerName.matches("^[a-zA-Z]*$") &&
                 !playerName.isEmpty());
+    }
+
+    public double bettingMoneyInput(String playerName) {
+        String bettingMoneyInput;
+        do {
+            System.out.println(playerName + "의 배팅 금액은?");
+            bettingMoneyInput = scanner.nextLine();
+        } while (bettingMoneyInputConfirm(bettingMoneyInput));
+
+        return Double.parseDouble(bettingMoneyInput);
+    }
+
+    private boolean bettingMoneyInputConfirm(String bettingMoneyInput) {
+        try {
+            Double.parseDouble(bettingMoneyInput);
+        } catch (Exception e) {
+            return true;
+        }
+        
+        return !bettingMoneyInput.matches("^[0-9]*$");
     }
 }
