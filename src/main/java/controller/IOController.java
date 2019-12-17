@@ -4,6 +4,7 @@ import domain.blackjack.Rule;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -90,6 +91,10 @@ public class IOController {
     if (money <= 0) {
       throw new Exception("금액이 올바르지 않습니다.");
     }
+
+    if (money >= 10000000) {
+      throw new Exception("천만 이하로만 가능합니다.");
+    }
   }
 
   private static double inputMoney() {
@@ -101,7 +106,7 @@ public class IOController {
 
       return money;
     } catch (Exception e) {
-      System.out.println("금액이 올바르지 않습니다(베팅 가능 금액 > 0)");
+      System.out.println("금액이 올바르지 않습니다($1 이상, $10,000,000 미만 가능)");
       return inputMoney();
     }
   }
@@ -214,21 +219,16 @@ public class IOController {
     System.out.println();
   }
 
-  private static String parseReward(double score){
-    String stringScore = Double.toString(score);
-    return stringScore.substring(0, stringScore.length()-2);
-  }
-
   private static void printDealerReward(ArrayList<Double> scoreBoard) {
-    int reward = 0;
+    double reward = 0;
     for (int i = 0; i < scoreBoard.size(); i++) {
       reward -= scoreBoard.get(i);
     }
-    System.out.println("딜러 : " + parseReward(reward));
+    System.out.printf("딜러 : %.0f\n", reward);
   }
 
   private static void printPlayerReward(Player player, double score) {
-    System.out.println(player.getName() + " : " + parseReward(score));
+    System.out.printf(player.getName()+" : %.0f\n",score);
   }
 
   public static void printRewardResult(ArrayList<Player> players, ArrayList<Double> scoreBoard) {
