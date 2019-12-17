@@ -30,10 +30,13 @@ public class InitialSetting {
         String[] splitedInput = input.split(",");
         int cnt = splitedInput.length;
 
+        if(cnt == 0){
+            return false;
+        }
         for(int compared = 0; compared < cnt; compared++){
             for(int each = compared+1; each < cnt; each++){
                 if(splitedInput[compared].equals(splitedInput[each])
-                    || splitedInput[compared] == null || splitedInput[each] == null){
+                    || splitedInput[compared].equals("") || splitedInput[each].equals("")){
                     return false;
                 }
             }
