@@ -27,7 +27,7 @@ public class BlackJackGame {
 	getCardFirst();
 	message.showInitCardDistributedMessage(dealer,player);
 	if(checkBlackJack()) {
-	    //showfinalscore;
+	    message.showFinalScore(dealerMoney,playerMoney,player);
 	    return;		//게임종료
 	}
 	for(int i=0;i<player.length;i++) {
@@ -37,7 +37,7 @@ public class BlackJackGame {
 	getDealerMoreCard();
 	message.showAllCardStatus(dealer, player);
 	setFinalMoney();
-	//showfinalscore
+	message.showFinalScore(dealerMoney,playerMoney,player);
     }
     
     public void setFinalMoney() {
