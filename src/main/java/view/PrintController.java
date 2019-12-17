@@ -8,6 +8,8 @@ package view;
 import domain.model.user.Dealer;
 import domain.model.user.Player;
 
+import java.util.HashMap;
+
 /**
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
@@ -37,13 +39,22 @@ public class PrintController {
     private static final String COLON = ": ";
     private static final String LINE_BREAKER = "\n";
 
+    private static HashMap<Integer, String> integerToKoreanNumberHashMap = new HashMap<>();
+
+    public static void makeHashMap() {
+        integerToKoreanNumberHashMap.put(1, "한");
+        integerToKoreanNumberHashMap.put(2, "두");
+        integerToKoreanNumberHashMap.put(3, "세");
+        integerToKoreanNumberHashMap.put(4, "네");
+        integerToKoreanNumberHashMap.put(5, "다섯");
+        integerToKoreanNumberHashMap.put(6, "여섯");
+    }
+
     public static String integerToKoreanNumber(int number) {
-        if (number == 1) { return "한"; }
-        if (number == 2) { return "두"; }
-        if (number == 3) { return "세"; }
-        if (number == 4) { return "네"; }
-        if (number == 5) { return "다섯"; }
-        if (number == 6) { return "여섯"; }
+        makeHashMap();
+        if (number < 7) {
+            return integerToKoreanNumberHashMap.get(number);
+        }
         return "여러"; // 딜러가 추가로 카드를 7장 이상 뽑을 가능성은 무척 낮기에 다 적기보다 여러장으로 표기한다.
     }
 
