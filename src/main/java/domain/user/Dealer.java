@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Dealer extends People {
 
-    final static int MAXIMUM_VALUE = 21;
+    static final int MAXIMUM_VALUE = 21;
 
     public Dealer() {
     }

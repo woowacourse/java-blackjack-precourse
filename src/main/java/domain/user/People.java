@@ -8,12 +8,12 @@ import java.util.stream.Collectors;
 import domain.card.Card;
 
 public class People {
-    final static int ZERO = 0;
-    final static int BLACKJACK_CARDS = 2;
-    final static int ONE = 1;
-    final static int TEN = 10;
-    final static int ELEVEN = 11;
-    final static int BLACKJACK_NUMBER = 21;
+    static final int ZERO = 0;
+    static final int BLACKJACK_CARDS = 2;
+    static final int ONE = 1;
+    static final int TEN = 10;
+    static final int ELEVEN = 11;
+    static final int BLACKJACK_NUMBER = 21;
 
     private final List<Card> cards = new ArrayList<>();
 

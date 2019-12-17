@@ -6,10 +6,13 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
+
+    static final int ACE_NUMBER = 1;
+    static final int TEN_NUMBER = 10;
+
     private final Symbol symbol;
     private final Type type;
-    private final int ACE_NUMBER = 1;
-    private final int TEN_NUMBER = 10;
+
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
@@ -35,7 +38,7 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" + "symbol=" + symbol + ", type=" + type + '}';
-}
+    }
 
     public Symbol getSymbol() {
         return symbol;

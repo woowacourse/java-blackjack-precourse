@@ -13,8 +13,8 @@ import io.OutputSystem;
 
 public class GameController {
 
-    final static int MAXIUM_VALUE = 21;
-    final static int DEALER_MAXIUMM_VALUE = 16;
+    static final int MAXIUM_VALUE = 21;
+    static final int DEALER_MAXIUMM_VALUE = 16;
 
     private CardDeck cardDeck;
     private Dealer dealer;

@@ -1,8 +1,12 @@
 package exception;
 
 public class InputException {
+
+    static final int TWO_MEMBER = 2;
+    static final int EIGHT_MEMBER = 8;
+
     static public boolean nameSplitException(String names) {
-        if (names.split(",").length < 2 || names.split(",").length > 8) {
+        if (names.split(",").length < TWO_MEMBER || names.split(",").length > EIGHT_MEMBER) {
             System.out.println("2~8명의 유저를 입력해주세요.");
             return true;
         }

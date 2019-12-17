@@ -1,8 +1,8 @@
 package domain.user;
 
 public class Result {
-    private String name;
-    private double money;
+    private final String name;
+    private final double money;
 
     public Result(String name, double money) {
         this.name = name;
