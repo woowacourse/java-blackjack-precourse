@@ -76,16 +76,16 @@ public class Play {
     }
 
     public void showOneCardStatus(Player player){
-        System.out.println(player.getName() + " 카드 : " + player.getCards() + "\n");
+        System.out.println(player.getName() + " 카드 : " + player.getCards());
     }
 
     public void showDealerFirstCard(Dealer dealer){
         Card dealerFirstCard = dealer.getFirstCard();
-        System.out.println("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType() + "\n");
+        System.out.println("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType());
     }
 
     public void showDealerCardStatus(Dealer dealer){
-        System.out.println("딜러 카드 : " + dealer.getCards() + "\n");
+        System.out.println("딜러 카드 : " + dealer.getCards());
     }
 
     public void askAddCard(Dealer dealer, List<Player> players){

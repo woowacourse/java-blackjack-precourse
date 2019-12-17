@@ -12,11 +12,12 @@ public class Result {
     public void showResultValue(Dealer dealer, List<Player> players){
         Play play = new Play();
         play.showDealerCardStatus(dealer);
-        System.out.println(calcResultValue(dealer));
+        System.out.println("결과 : " + calcResultValue(dealer));
         for(Player p : players){
             play.showOneCardStatus(p);
-            System.out.println(calcResultValue(p));
+            System.out.println("결과 : " + calcResultValue(p));
         }
+        System.out.println();
     }
 
     /*
@@ -51,7 +52,7 @@ public class Result {
     public int getAceCnt(List<Card> cards){
         int cnt = 0;
         for(Card c : cards){
-            if(c.getSymbol().equals("ACE")){
+            if(c.getSymbol().getScore() == 1){
                 cnt++;
             }
         }
