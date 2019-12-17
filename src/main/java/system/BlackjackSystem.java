@@ -1,36 +1,33 @@
 package system;
 
-import domain.card.Card;
-import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 import view.OutputView;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static util.Numbers.getRandomNumber;
-import static util.Strings.splitPlayerName;
-import static view.InputView.*;
+import static view.InputView.inputChoiceGetCard;
 import static view.OutputView.*;
 
 public class BlackjackSystem {
-    private static int CARD_COUNT = 52;
-    private static int DISTRIBUTE_CARD_COUNT = 2;
     private static int DEALER_GET_CARD_CONDITION = 16;
     private static int PLAYER_GET_CARD_CONDITION = 21;
     private static int BUST_CONDITION = 21;
 
     private List<Player> playerList = new ArrayList<>();
-    private List<Card> cardList = new ArrayList<>();
     private Dealer dealer = new Dealer();
-    private int remainCardMount = CARD_COUNT;
-    private char answer;
-    private int dealerMoney = 0;
+    private SettingSystem settingSystem = new SettingSystem(dealer, playerList);
     private HashMap<String, Integer> resultMoney = new HashMap<>();
 
+    private char answer;
+    private int dealerMoney = 0;
+
     public void run() {
-        setGame();
-        distributeCard();
+        settingSystem.setGame();
+
         printInitStatus();
         for (Player p : playerList) {
             AskPlayerToGetCard(p);
@@ -39,46 +36,6 @@ public class BlackjackSystem {
         printUserStatus();
         setResultMoney();
         printResultMoney();
-    }
-
-    private void setGame() {
-        String names = inputPlayerName();
-        StringTokenizer st = splitPlayerName(names, ",");
-        setPlayer(st);
-    }
-
-    private void setPlayer(StringTokenizer st) {
-        while (st.hasMoreTokens()) {
-            String playerName = st.nextToken();
-            double bettingMoney = inputPlayerMoney(playerName);
-            playerList.add(new Player(playerName, bettingMoney));
-        }
-    }
-
-    private void distributeCard() {
-        cardList.addAll(CardFactory.create());
-        for (int i = 0; i < DISTRIBUTE_CARD_COUNT; i++) {
-            giveCard(dealer);
-            giveCard(playerList);
-        }
-    }
-
-    private void giveCard(Dealer dealer) {
-        int randomNumber = getRandomNumber(remainCardMount--);
-        dealer.addCard(cardList.get(randomNumber));
-        cardList.remove(randomNumber);
-    }
-
-    private void giveCard(Player player) {
-        int randomNumber = getRandomNumber(remainCardMount--);
-        player.addCard(cardList.get(randomNumber));
-        cardList.remove(randomNumber);
-    }
-
-    private void giveCard(List<Player> playerList) {
-        for (Player p : playerList) {
-            giveCard(p);
-        }
     }
 
     private void printInitStatus() {
@@ -92,7 +49,7 @@ public class BlackjackSystem {
 
     private void getCardDealerIfAvailable() {
         while (isAvailableGetCard(dealer)) {
-            giveCard(dealer);
+            settingSystem.giveCard(dealer);
             printDealerGetCardMessage();
         }
     }
@@ -106,7 +63,7 @@ public class BlackjackSystem {
     }
 
     private boolean isAvailableGetCard(Player p) {
-        return p.isSumUnderCondition(PLAYER_GET_CARD_CONDITION) && answer == 'y';
+        return p.isSumUnderCondition(PLAYER_GET_CARD_CONDITION) && isHit();
     }
 
     private boolean isAvailableGetCard(Dealer d) {
@@ -115,9 +72,17 @@ public class BlackjackSystem {
 
     private void choiceGetCard(Player player) {
         answer = inputChoiceGetCard(player);
-        if (answer == 'n') return;
-        giveCard(player);
+        if (isStay()) return;
+        settingSystem.giveCard(player);
         printCardStatus(player);
+    }
+
+    private boolean isHit() {
+        return answer == 'y';
+    }
+
+    private boolean isStay() {
+        return answer == 'n';
     }
 
     private void printUserStatus() {
