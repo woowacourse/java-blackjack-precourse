@@ -24,6 +24,12 @@ public class Dealer {
     }
 
     public int getSumOfCards(){
-        return 0;
+        int sum = 0;
+        int size = cards.size();
+
+        for(Card card : cards){
+            sum += card.getSymbol().getScore();
+        }
+        return sum;
     }
 }
