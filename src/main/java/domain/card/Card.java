@@ -7,7 +7,6 @@ import java.util.Objects;
  */
 public class Card {
     private final Symbol symbol;
-
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
@@ -15,7 +14,9 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public boolean isAce() {
+        return symbol == Symbol.ACE;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -33,9 +34,10 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return symbol.name() + type.getTypeName();
+    }
+
+    public int getScore() {
+        return this.symbol.getScore();
     }
 }
