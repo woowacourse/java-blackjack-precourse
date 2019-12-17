@@ -33,18 +33,31 @@ public class ProfitController {
         return ONE;
     }
 
-    public static double getPlayerResultOnNormalFinishProcedure(Player player, Dealer dealer) {
-        if (player.isBlackJack()) return BLACKJACK_RATE;
+    public static double getPlayerResultForNormalFinishProcedure(Player player, Dealer dealer) {
 
-        if (player.isBurst()) return MINUS_ONE;
+        if (player.isBlackJack()) {
+            return BLACKJACK_RATE;
+        }
 
-        if (player.getCurrentScore() == dealer.getCurrentScore()) return ZERO;
+        if (player.isBurst()) {
+            return MINUS_ONE;
+        }
 
-        if (player.getCurrentScore() < dealer.getCurrentScore()) return MINUS_ONE;
-
-        if (player.getCurrentScore() > dealer.getCurrentScore()) return ONE;
-
-        return 77777; // 위에서 처리 되지 않을 경우 : 그렇지만 모든 경우가 처리되기에 이 return문에 걸릴 일은 없음
+        return getPlayerResultForCompetingWithDealer(player, dealer);
     }
+
+    public static double getPlayerResultForCompetingWithDealer(Player player, Dealer dealer) {
+
+        if (player.getCurrentScore() < dealer.getCurrentScore()) {
+            return MINUS_ONE;
+        }
+
+        if (player.getCurrentScore() > dealer.getCurrentScore()) {
+            return ONE;
+        }
+
+        return ZERO; // 위에서 처리 되지 않을 경우는 플레이어와 딜러가 동률일 때 뿐이기에 0을 리턴
+    }
+
 
 }

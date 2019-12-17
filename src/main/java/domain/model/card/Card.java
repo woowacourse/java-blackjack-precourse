@@ -22,8 +22,6 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
-
     @Override
     public boolean equals(Object o) { // 두 객체의 내용이 같은지 확인하는 equals를 Card에 맞게 오버라이드.
         if (this == o) return true;

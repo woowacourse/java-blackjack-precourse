@@ -25,21 +25,19 @@ public class UserInput {
     private static final String YES = "y";
 
     public List<String> getPlayerName() {
-        List<String> playerNameList;
         String inputString;
+
         do {
             PrintController.askPlayerName();
             inputString = getInputString();
         } while (!InputValidator.inputStringValidator(inputString));
-        playerNameList = separateStringToPlayerNameList(inputString);
-        return playerNameList;
 
+        return separateStringToPlayerNameList(inputString);
     }
 
     public String getInputString() {
         Scanner scan = new Scanner(System.in);
-        String inputString = scan.nextLine();
-        return inputString;
+        return scan.nextLine();
     }
 
     public List<String> separateStringToPlayerNameList(String inputString) {
@@ -50,18 +48,19 @@ public class UserInput {
 
     public double getBettingMoney(String playerName) {
         double bettingMoney;
+
         do {
             PrintController.askBettingMoney(playerName);
             bettingMoney = getInputDouble();
         } while (!InputValidator.inputDoubleValidator(bettingMoney));
+
         return bettingMoney;
     }
 
     public double getInputDouble() {
         try {
             Scanner scan = new Scanner(System.in);
-            double inputDouble = scan.nextDouble();
-            return inputDouble;
+            return scan.nextDouble();
         } catch (InputMismatchException e) {
             return DOUBLE_TYPE_INPUT_WRONG_MARKER;
         }
@@ -69,15 +68,23 @@ public class UserInput {
 
     public boolean getPlayerAnswer(Player player) {
         String inputString;
-        if (player.isBlackJack()) return false;
+
+        if (player.isBlackJack()) {
+            return false;
+        }
+
+        inputString = askRightAnswerLoop(player);
+        return inputString.equals(YES);
+    }
+
+    public String askRightAnswerLoop(Player player) {
+        String inputString;
+
         do {
             PrintController.askDrawMoreCard(player);
             inputString = getInputString();
         } while (!InputValidator.inputAnswerValidator(inputString));
 
-        if (inputString.equals(YES)) return true;
-        return false;
+        return inputString;
     }
-
-
 }

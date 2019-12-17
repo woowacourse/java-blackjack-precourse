@@ -32,17 +32,21 @@ public abstract class BlackJackParticipant {
 
     public String getCardsInformation() { // 카드리스트를 이용해서 출력될 카드 정보를 String으로 만들어서 보내는 메서드
         ArrayList<String> cardInfoArrayList = new ArrayList<>();
+
         for (Card card : cards) {
             cardInfoArrayList.add(card.toString());
         }
+
         return String.join(COMMA, cardInfoArrayList);
     }
 
     public ArrayList<Integer> getAllCardsScore() {
         ArrayList<Integer> scoreList = new ArrayList<>();
+
         for (Card card : this.cards) {
             scoreList.add(card.getSymbolScore());
         }
+
         return scoreList;
     }
 
@@ -58,12 +62,16 @@ public abstract class BlackJackParticipant {
     public int getCurrentScore() {
         ArrayList<Integer> scoreList = getAllCardsScore();
         int currentScore = scoreList.stream().mapToInt(Integer::intValue).sum();
-        if (currentScore > 21) return currentScore - TEN * checkHowManyAceInCards();
+
+        if (currentScore > 21) {
+            return (currentScore - TEN * checkHowManyAceInCards());
+        }
+
         return currentScore;
     }
 
     public int checkHowManyAceInCards() {
-        return getCardsInformation().length() - getCardsInformation().replace(A, NOTHING).length();
+        return (getCardsInformation().length() - getCardsInformation().replace(A, NOTHING).length());
     }
 
     public List<Card> getAllCards() {

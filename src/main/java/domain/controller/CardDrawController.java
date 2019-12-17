@@ -24,6 +24,7 @@ import static util.RandomIntegerGenerator.generateRandomIntegerByInputInteger;
  */
 public class CardDrawController {
     private static ArrayList<Card> entireCards = new ArrayList<>();
+    private static UserInput userInput = new UserInput();
 
     public static void makeEntireCardSet() {
         entireCards = new ArrayList<>(CardFactory.create());
@@ -33,38 +34,43 @@ public class CardDrawController {
         return player.isBlackJack() || player.isBurst();
     }
 
-    public void drawInitialCards(ArrayList<Player> playerList, Dealer dealer) {
+    public static void drawInitialCards(ArrayList<Player> playerList, Dealer dealer) {
         drawInitialPlayersCards(playerList);
         drawInitialDealerCards(dealer);
 
     }
 
-    public Card drawCard() {
+    public static Card drawCard() {
         int cardIndex = generateRandomIntegerByInputInteger(entireCards.size());
         Card drawnCard = entireCards.get(cardIndex);
         entireCards.remove(cardIndex);
         return drawnCard;
     }
 
-    public void drawInitialPlayersCards(ArrayList<Player> playerList) {
+    public static void drawInitialPlayersCards(ArrayList<Player> playerList) {
+
         for (Player player : playerList) {
             player.addCard(drawCard());
             player.addCard(drawCard());
         }
     }
 
-    public void drawInitialDealerCards(Dealer dealer) {
-//        Card card1 = new Card(Symbol.ACE, Type.CLUB);
-//        Card card2 = new Card(Symbol.QUEEN, Type.CLUB);
-//        dealer.addCard(card1);
-//        dealer.addCard(card2);
+    public static void drawInitialDealerCards(Dealer dealer) {
         dealer.addCard(drawCard());
         dealer.addCard(drawCard());
-
     }
 
-    public boolean controlPlayerExtraDrawing(Player player) {
-        UserInput userInput = new UserInput();
+    public static boolean controlPlayerExtraDrawing(Player player) {
+        boolean userAnswer = controlPlayerAnswer(player);
+
+        if (checkCanNotDrawMore(player)) { // 블랙잭상황 혹은 버스트 발생시 false를 리턴
+            return false;
+        }
+
+        return userAnswer;
+    }
+
+    public static boolean controlPlayerAnswer(Player player) {
         boolean userAnswer = userInput.getPlayerAnswer(player);
 
         if (userAnswer) {
@@ -72,15 +78,10 @@ public class CardDrawController {
             PrintController.printPlayerCardInformation(player);
         }
 
-        if (CardDrawController.checkCanNotDrawMore(player)) { // 블랙잭상황 혹은 버스트 발생시 false를 리턴
-            return false;
-        }
-
         return userAnswer;
-
     }
 
-    public void controlDealerExtraDrawing(Dealer dealer) {
+    public static void controlDealerExtraDrawing(Dealer dealer) {
         dealer.addCard(drawCard());
     }
 

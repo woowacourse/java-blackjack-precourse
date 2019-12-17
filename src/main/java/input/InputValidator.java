@@ -33,26 +33,32 @@ public class InputValidator {
     }
 
     public static boolean checkStringIsEmpty() {
+
         if (inputString.isEmpty()) {
             printInputEmptyError();
             return false;
         }
+
         return true;
     }
 
     public static boolean checkNameHasBlank() {
+
         if (inputString.contains(BLANK)) {
             printInputHasBlankError();
             return false;
         }
+
         return true;
     }
 
     public static boolean checkNameIsComma() {
+
         if (inputString.matches(REGEX)) {
             printInputIsCommaError();
             return false;
         }
+
         return true;
     }
 
@@ -62,12 +68,13 @@ public class InputValidator {
     }
 
     public static boolean checkNumberIsBiggerThanZero() {
+
         if (inputDouble < ONE) {
             printInputNumberIsSmallError();
             return false;
         }
-        return true;
 
+        return true;
     }
 
     public static boolean inputAnswerValidator(String userAnswer) {
@@ -76,10 +83,12 @@ public class InputValidator {
     }
 
     public static boolean checkStringIsYesOrNo() {
+
         if (!inputAnswer.equals(YES) && !inputAnswer.equals(NO)) {
             PrintController.printInputIsNotYOrNError();
             return false;
         }
+
         return true;
     }
 }

@@ -96,15 +96,20 @@ public class PrintController {
     }
 
     public static void printDealerExtraCards(int extraCounts) {
-        System.out.println(LINE_BREAKER + DEALER_IS + LOWER_THAN_SIXTEEN + integerToKoreanNumber(extraCounts) + GET_N_NUMBER_CARDS);
+        System.out.println(LINE_BREAKER + DEALER_IS + LOWER_THAN_SIXTEEN
+                + integerToKoreanNumber(extraCounts) + GET_N_NUMBER_CARDS);
     }
 
     public static void printDealerCardFinalInformation(Dealer dealer) {
-        System.out.println(LINE_BREAKER + DEALER_CARD_COLON + dealer.getCardsInformation() + RESULT_COLON + dealer.getCurrentScore());
+        System.out.println(LINE_BREAKER + DEALER_CARD_COLON
+                + dealer.getCardsInformation()
+                + RESULT_COLON + dealer.getCurrentScore());
     }
 
     public static void printPlayerCardFinalInformation(Player player) {
-        System.out.println(player.getName() + CARD_COLON + player.getCardsInformation() + RESULT_COLON + player.getCurrentScore());
+        System.out.println(player.getName() + CARD_COLON
+                + player.getCardsInformation()
+                + RESULT_COLON + player.getCurrentScore());
     }
 
     public static void printFinalProfit() {
@@ -117,6 +122,10 @@ public class PrintController {
 
     public static void printPlayerProfit(double playerProfit, Player player) {
         System.out.println(player.getName() + COLON + (int) playerProfit);
+    }
+
+    public static void printBlankLine() {
+        System.out.print(LINE_BREAKER);
     }
 
 }
