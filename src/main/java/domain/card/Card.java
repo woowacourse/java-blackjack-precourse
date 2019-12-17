@@ -33,10 +33,16 @@ public class Card {
 
     @Override
     public String toString() {
-        return symbol.getScore() +"<"+ type+">";
+        if (symbol.getScore() > 1 && symbol.getScore() < 10) {
+            return symbol.getScore() + "[" + type + "]";
+        }
+        if (symbol.getScore() == 10) {
+            return symbol + "[" + type + "]";
+        }
+        return "A"+ "[" + type + "]";
     }
 
-    public int getSymbol(){
+    public int getSymbol() {
         return symbol.getScore();
     }
 }
