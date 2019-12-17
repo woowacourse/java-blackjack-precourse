@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       1.4 2019.12.17
+ * @(#)BlackJackGame.java       1.5 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -22,7 +22,7 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.4 2019.12.17
+ * @version 1.5 2019.12.17
  */
 public class BlackJackGame {
     /**
@@ -31,14 +31,14 @@ public class BlackJackGame {
     private static final String DEALER_NAME = "Dealer";
 
     /**
-     * Player가 card를 더 받는다는 응답을 했는지 확인하기 위한 상수.
-     */
-    private static final String DRAW_ONE_MORE_CARD_REPLY = "y";
-
-    /**
      * 처음에 deck에서 card를 2장씩 뽑을 때 사용할 상수.
      */
     private static final int NUMBER_OF_FIRST_DRAW = 2;
+
+    /**
+     * Player가 card를 더 받는다는 응답을 했는지 확인하기 위한 상수.
+     */
+    private static final String DRAW_ONE_MORE_CARD_REPLY = "y";
 
     /**
      * 입력과 관련된 기능을 담당할 Input 객체.

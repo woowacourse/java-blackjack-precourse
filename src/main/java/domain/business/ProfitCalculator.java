@@ -1,5 +1,5 @@
 /*
- * @(#)ProfitCalculator.java        0.3 2019.12.17
+ * @(#)ProfitCalculator.java        0.4 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -16,13 +16,18 @@ import java.util.List;
  * User들의 수익을 계산하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.17
+ * @version 0.4 2019.12.17
  */
 public class ProfitCalculator {
     /**
      * Dealer와 관련된 정보를 출력할 때 Dealer의 이름으로 사용할 상수.
      */
     private static final String DEALER_NAME = "Dealer";
+
+    /**
+     * 모든 Player들의 배팅 머니를 합산하기 전에 해당 변수를 초기화 하기 위한 상수.
+     */
+    private static final double INIT_TOTAL_BETTING_MONEY = 0.;
 
     /**
      * Player가 Dealer에게 졌는지 확인하기 위한 상수.
@@ -33,11 +38,6 @@ public class ProfitCalculator {
      * Player가 Dealer에게 이겼는지 확인하기 위한 상수.
      */
     private static final int PLAYER_WIN = 1;
-
-    /**
-     * 모든 Player들의 배팅 머니를 합산하기 전에 해당 변수를 초기화 하기 위한 상수.
-     */
-    private static final double INIT_TOTAL_BETTING_MONEY = 0.;
 
     /**
      * 무승부일 때 수익을 계산하기 위한 상수.

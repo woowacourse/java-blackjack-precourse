@@ -1,5 +1,5 @@
 /*
- * @(#)User.java        0.4 2019.12.17
+ * @(#)User.java        0.5 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -16,7 +16,7 @@ import java.util.List;
  * Dealer와 Player의 중복을 제거하기 위한 상위 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.4 2019.12.17
+ * @version 0.5 2019.12.17
  */
 public class User {
     /**
@@ -55,14 +55,14 @@ public class User {
     protected static final int BUST_SCORE = 22;
 
     /**
-     * 출력과 관련된 기능을 담당할 Output 객체.
-     */
-    protected Output out = new Output();
-
-    /**
      * User가 받은 card를 저장할 Card 객체 List.
      */
     protected final List<Card> cards = new ArrayList<>();
+
+    /**
+     * 출력과 관련된 기능을 담당할 Output 객체.
+     */
+    protected Output out = new Output();
 
     /**
      * 새로 뽑은 card를 cards에 추가하는 메소드.

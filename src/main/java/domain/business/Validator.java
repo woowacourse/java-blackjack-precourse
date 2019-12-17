@@ -1,5 +1,5 @@
 /*
- * @(#)Validator.java       1.1 2019.12.17
+ * @(#)Validator.java       1.2 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,13 +17,18 @@ import java.util.regex.Pattern;
  * 입력의 유효성 검증을 담당하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.1 2019.12.17
+ * @version 1.2 2019.12.17
  */
 public class Validator {
     /**
      * Dealer와 관련된 정보를 출력할 때 Dealer의 이름으로 사용할 상수.
      */
     private static final String DEALER_NAME = "Dealer";
+
+    /**
+     * Player의 이름의 길이가 유효한지 확인하기 위한 상수.
+     */
+    private static final int MIN_PLAYER_NAME_LENGTH = 0;
 
     /**
      * Player의 이름이 영문자로만 이루어져 있는지 확인하기 위한 regex 문자열 상수.
@@ -34,11 +39,6 @@ public class Validator {
      * Player의 배팅 금액으로 가능한 최소 금액을 확인하기 위한 상수.
      */
     private static final double MIN_BETTING_MONEY = 0;
-
-    /**
-     * Player의 이름의 길이가 유효한지 확인하기 위한 상수.
-     */
-    private static final int MIN_PLAYER_NAME_LENGTH = 0;
 
     /**
      * Player가 card를 더 받는 응답을 했는지 확인하기 위한 상수.

@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      1.4 2019.12.17
+ * @(#)Output.java      1.5 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,7 +10,7 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.4 2019.12.17
+ * @version 1.5 2019.12.17
  */
 public class Output {
     /**
@@ -36,7 +36,8 @@ public class Output {
     /**
      * 게임 참여자들의 이름에 Dealer 또는 dealer와 중복이 존재할 경우 출력할 메시지 상수.
      */
-    private static final String PLAYER_NAME_DUPLICATE_DEALER_NAME_EXCEPTION_MESSAGE = "Dealer 또는 dealer라는 이름은 사용하실 수 없습니다.";
+    private static final String PLAYER_NAME_DUPLICATE_DEALER_NAME_EXCEPTION_MESSAGE =
+            "Dealer 또는 dealer라는 이름은 사용하실 수 없습니다.";
 
     /**
      * 사용자에게 재입력을 요청할 때 출력할 메시지 상수.
@@ -76,7 +77,8 @@ public class Output {
     /**
      * Player가 한장의 card를 더 받을지 여부를 입력 요청할 때 출력할 메시지 상수.
      */
-    private static final String PLAYER_DRAW_ONE_MORE_CARD_SELECTED_PLAYER_MESSAGE = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니요는 n)";
+    private static final String PLAYER_DRAW_ONE_MORE_CARD_SELECTED_PLAYER_MESSAGE =
+            "는 한장의 카드를 더 받겠습니까?(예는 y, 아니요는 n)";
 
     /**
      * Player의 card를 더 받을지 여부의 입력 형식이 틀릴 경우 출력할 메시지 상수.

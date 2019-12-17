@@ -1,5 +1,5 @@
 /*
- * @(#)Deck.java        0.7 2019.12.17
+ * @(#)Deck.java        0.8 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -13,7 +13,7 @@ import java.util.List;
  * card 덱을 생성하여 관리하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.17
+ * @version 0.8 2019.12.17
  */
 public class Deck {
     /**
@@ -27,14 +27,14 @@ public class Deck {
     private static final int USED_ALL_CARD_IN_DECK = 52;
 
     /**
-     * 생성한 카드들을 저장할 Card 객체 List.
-     */
-    private List<Card> cards;
-
-    /**
      * 몇번째 card를 뽑아야 하는지 알려주는 iterator.
      */
     private int cardIterator;
+
+    /**
+     * 생성한 카드들을 저장할 Card 객체 List.
+     */
+    private List<Card> cards;
 
     /**
      * deck이 생성될 때 card를 만드는 Deck 기본 생성자.
