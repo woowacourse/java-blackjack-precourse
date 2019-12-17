@@ -18,9 +18,11 @@ import exceptionhandler.ExceptionHandler;
 public class Input {
 	private static final String INPUT_NAMES = "게임에 참여할 사람들의 이름을 입력해주세요.(쉼표를 기준으로 분리)";
 	private static final String INPUT_BATTING_MONEY = "의 베팅 금액은?";	
+	private static final String ASK_RE_DRAW = "은 한장을 더 받으시겠습니까?(예는 y, 아니오는 n)";
 	private static final ExceptionHandler exception = new ExceptionHandler();
 	private String playerNames;
 	private String battingMoney;
+	private String reDraw;
 	static final Scanner sc = new Scanner(System.in);
 
 	public String getPlayerNames() throws IllegalArgumentException {
@@ -47,6 +49,14 @@ public class Input {
 			throw new IllegalArgumentException("베팅 금액을 10의 배수로 입력해주세요.");
 		}
 		return Integer.valueOf(battingMoney);
+	}
+	
+	public String reDraw(String name) {
+		do {
+			System.out.println(name + ASK_RE_DRAW);
+			reDraw = sc.nextLine();
+		} while (reDraw.length() != 1);
+		return reDraw;
 	}
 		
 }

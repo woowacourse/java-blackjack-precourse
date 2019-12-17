@@ -40,6 +40,7 @@ public class BlackJackGame {
 		drawTwoCards();
 		printDrawCards();
 		checkBlackJack();
+		reDraw();
 	}
 
 	private void makePlayers() {
@@ -88,6 +89,15 @@ public class BlackJackGame {
 			((Profit) profit).blackJackPrice(players, dealer, blackJackList);
 			output.blackJack(players, dealer, blackJackList);
 			System.exit(0);
+		}
+	}
+	
+	private void reDraw() {
+		for (Player player : players) {
+			if (input.reDraw(player.getName()) == "y") {
+				player.addCard(deck.drawCard());
+				reDraw();
+			}
 		}
 	}
 	
