@@ -17,6 +17,7 @@ public class Blackjack {
     public List<Player> players = new ArrayList<Player>();
     public Scanner sc = new Scanner(System.in);
     private Stack<Card> cards = new Stack<>();
+    private List<Player> winners = new ArrayList<>();
 
     public Blackjack(List<Card> cards) {
         this.cards.addAll(cards);
@@ -42,9 +43,28 @@ public class Blackjack {
         }
 
         for (Player player : players) {
+            if (isBlackJack(player)) {      // 플레이어 중 블랙잭이 있는지 확인
+                System.out.println(player.getName() + " 블랙잭!");
+                winners.add(player);
+                if (isBlackJack(dealer)) {      //플레이어 중 블랙잭이 있고, 딜러도 블랙잭인 경우 게임 종료
+                    System.out.println("딜러 블랙잭! 게임이 종료됩니다.");
+                    printResult();
+                    return;
+                }
+            }
+        }
+
+        for (Player player : players) {
             giveExtraCard(player);
         }
+
+        if (isBlackJack(dealer)) {      // 딜러가 카드를 더 받기전에 블랙잭인지 확인, 딜러가 블랙잭이면 게임 종료
+            System.out.println("딜러 블랙잭! 게임이 종료됩니다.");
+            printResult();
+            return;
+        }
         giveExtraCard(dealer);
+
         printResult();
     }
 
