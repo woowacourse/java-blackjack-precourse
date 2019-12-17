@@ -2,26 +2,29 @@ package domain.user;
 
 import domain.card.Card;
 import domain.card.CardFactory;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PlayerTest {
+public class PlayerTest {
 
-    private static final String name = "jaeju";
-    private static final double battingmoney = 1000d;
-    Player player;
+    public static Player getPlayerFixture() {
+        return new Player("jaeju", 10000d);
+    }
 
-    @BeforeEach
-    void setUp() {
-        player = new Player(name, battingmoney);
+    public static List<Player> getPlayersFixture() {
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("jaeju", 10000d));
+        players.add(new Player("pobi", 20000d));
+        return players;
     }
 
     @Test
     void addCard_ValidInput_ValidOutput() {
+        Player player = getPlayerFixture();
         List<Card> cards = CardFactory.create();
 
         Card card = cards.get(1);
