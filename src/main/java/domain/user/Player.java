@@ -6,7 +6,7 @@ import domain.card.Symbol;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player extends Dealer {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -16,50 +16,12 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
     public String name() {
     	return name;
     }
     
     public double bettingMoney() {
     	return bettingMoney;
-    }
-    
-    public int howManyCard() {
-    	return cards.size();
-    }
-    
-    
-    public String showCard() {
-    	List<String> cardList = new ArrayList<>();
-    	for (Card card : cards) {
-    		cardList.add(card.showSymbol() + " " + card.showType());
-    	}
-    	return String.join(", ", cardList);
-    }
-    
-    public int showScore() {
-    	int score = 0;
-    	int check = 0;
-    	for (Card card : cards) {
-    		score += Symbol.valueOf(card.showSymbol()).getScore();
-    		check += aceCheck(card);
-    	}
-    	if (score < 12 && check != 0) {
-    		score += 10;
-    	}
-    	return score;
-    }
-    
-    public int aceCheck(Card card) {
-    	int check = 0;
-    	if (card.showSymbol() == "ACE") {
-    		check = 1; 
-    	}
-    	return check;
     }
 
 }
