@@ -43,7 +43,7 @@ public class SelectionWinner {
     }
 
     /**
-     * 딜러와 같이 플레이어가 블렉젝인경우
+     * 시작하자마자 블랙젝이 있는 경우 딜러와 같이 플레이어가 블렉젝인경우
      *
      * @param playerList      플레이어 리스트
      * @param playerMoneyList 플레이어의 최종수익 리스트
@@ -62,7 +62,7 @@ public class SelectionWinner {
     }
 
     /**
-     * 플레이어만 블랙잭인 경우
+     * 시작하자마자 블랙젝이 있는 경우 플레이어만 블랙잭인 경우
      *
      * @param playerList      플레이어 리스트
      * @param playerMoneyList 플레이어의 최종수익 리스트
@@ -82,7 +82,7 @@ public class SelectionWinner {
     }
 
     /**
-     * 최종 수익 리스트를 들어서 출력하는 기능
+     * 시작하자마자 블랙젝이 없을떄 최종 수익 리스트를 만들어서 출력하는 기능
      *
      * @param playerList 플레이어 리스트
      * @param dealer     딜러객체
@@ -96,7 +96,7 @@ public class SelectionWinner {
     }
 
     /**
-     * 딜러의 값이 21을 넘는경우
+     * 시작하자마자 블랙젝이 없을떄 딜러의 값이 21을 넘는경우
      *
      * @param playerList 플레이어 리스트
      */
@@ -106,7 +106,7 @@ public class SelectionWinner {
     }
 
     /**
-     * 결과를 만드는 과정
+     * 시작하자마자 블랙젝이 없을떄의 경우 결과를 만드는 과정
      *
      * @param playerList 플레이어 리스트
      */
@@ -123,7 +123,7 @@ public class SelectionWinner {
     }
 
     /**
-     * 21에 가장가까운 플레이어 뽑는 과정
+     * 시작하자마자 블랙젝이 없을떄 21에 가장가까운 플레이어 뽑는 과정
      *
      * @param playerList 플레이어 리스트
      */
@@ -136,7 +136,7 @@ public class SelectionWinner {
     }
 
     /**
-     * 필터 과정중에 우승자 한명제외하고 나머지는 손해
+     * 시작하자마자 블랙젝이 없을떄 필터 과정중에 우승자 한명제외하고 나머지는 손해
      *
      * @param playerList 플레이어 리스트
      * @param index      인덱스
