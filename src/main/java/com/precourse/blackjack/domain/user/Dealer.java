@@ -12,6 +12,7 @@ public class Dealer {
 	private static final int ACE_SCORE = 11;
 	private static final int MAXIMUM_SCORE = 21;
 	private static final int ACE_TO_ONE = 10;
+	private static final int TWO = 2;
 
 	private final List<Card> cards = new ArrayList<>();
 
@@ -45,5 +46,9 @@ public class Dealer {
 	private boolean hasAce() {
 		return cards.stream()
 			.anyMatch(card -> card.getScore() == ACE_SCORE);
+	}
+
+	public boolean isBlackJack() {
+		return (cards.size() == TWO) && (this.getTotalScore() == MAXIMUM_SCORE);
 	}
 }
