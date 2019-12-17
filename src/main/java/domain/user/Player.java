@@ -66,7 +66,7 @@ public class Player {
     }
 
     public void showMoney(double result) {
-        if (result == Constant.WIN && cards.size() == 2)
+        if (result == Constant.WIN && cards.size() == Constant.BLACKJACK)
             result = Constant.WIN_BLACKJACK;
         System.out.println(name + " : " + (int)(bettingMoney * result));
     }
