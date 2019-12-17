@@ -19,6 +19,6 @@ dependencies {
 
 jar {
 	manifest {
-		attributes 'Main-Class':'{패키지이름}.{클래스이름}'
+		attributes 'Main-Class':'domain.game.Main'
 	}
 }
