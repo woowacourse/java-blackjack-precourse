@@ -41,6 +41,9 @@ public class GameParticipant {
         return false;
     }
 
+    public boolean isBust(){
+        return getSumOfCardScore() > 21;
+    }
 
     private boolean is10BetterThen1(int sum){
         return sum+9<21;
