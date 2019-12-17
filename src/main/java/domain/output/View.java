@@ -45,6 +45,14 @@ public class View {
         System.out.println(player.toStringCard());
     }
 
+    public void viewDealerMoreDraw(boolean moreDraw ){
+        if(moreDraw) {
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+            return;
+        }
+        System.out.println("딜러는 17이상이라 카드를 더 받지 않았습니다.");
+    }
+
     /**
      * 플레이어와 딜러에게 시작과 동시에 카드를 2장 지급했다는 상태메시지
      *

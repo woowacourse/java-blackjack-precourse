@@ -29,8 +29,9 @@ import java.util.Scanner;
  * @version 1.0 2019.12.16
  */
 public class CardDrawing {
+    static final int DEALER_DRAW_STANDARD = 16;
+    static final boolean DEALER_DRAW = true;
     static final List<Card> cards = CardFactory.create();
-    Scanner sc = new Scanner(System.in);
     Random randomIndex = new Random();
     InputDecision decision = new InputDecision();
     View view = new View();
@@ -74,5 +75,20 @@ public class CardDrawing {
             player.addCard(cards.get(randomIndex.nextInt(52)));
             view.viewPlayerCard(player);
         }
+    }
+
+    /**
+     * 딜러에게 카드를 지급하는 기능
+     *
+     * @param score  딜러가 갖고있는 카드 개수
+     * @param dealer 딜러정보
+     */
+    public void drawDealerCard(int score, Dealer dealer) {
+        if (score <= DEALER_DRAW_STANDARD) {
+            dealer.addCard(cards.get(randomIndex.nextInt(52)));
+            view.viewDealerMoreDraw(DEALER_DRAW);
+            return;
+        }
+        view.viewDealerMoreDraw(!DEALER_DRAW);
     }
 }

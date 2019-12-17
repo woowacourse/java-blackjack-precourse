@@ -21,6 +21,7 @@ public class BlackjackGame {
         dealer = construct.constructDealer();
         drawing.startShuffle(playerList,dealer);
         drawing.drawAllPlayer(playerList);
+        drawing.drawDealerCard(dealer.calculateSymbol(),dealer);
     }
 
 }

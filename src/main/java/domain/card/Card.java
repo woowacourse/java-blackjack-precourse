@@ -35,4 +35,8 @@ public class Card {
     public String toString() {
         return symbol.getScore() +"<"+ type+">";
     }
+
+    public int getSymbol(){
+        return symbol.getScore();
+    }
 }
