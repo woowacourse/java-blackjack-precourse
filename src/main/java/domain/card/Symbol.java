@@ -1,7 +1,12 @@
 package domain.card;
 
 public enum Symbol {
-    ACE(1),
+    ACE(1){
+        @Override
+        public String getScoreText() {
+            return "A";
+        }
+    },
     TWO(2),
     THREE(3),
     FOUR(4),
@@ -11,9 +16,24 @@ public enum Symbol {
     EIGHT(8),
     NINE(9),
     TEN(10),
-    JACK(10),
-    QUEEN(10),
-    KING(10);
+    JACK(10){
+        @Override
+        public String getScoreText() {
+            return "J";
+        }
+    },
+    QUEEN(10){
+        @Override
+        public String getScoreText() {
+            return "Q";
+        }
+    },
+    KING(10){
+        @Override
+        public String getScoreText() {
+            return "K";
+        }
+    };
 
     private int score;
 
@@ -23,5 +43,8 @@ public enum Symbol {
 
     public int getScore() {
         return score;
+    }
+    public String getScoreText(){
+        return Integer.toString(score);
     }
 }
