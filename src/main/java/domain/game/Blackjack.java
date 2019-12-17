@@ -9,9 +9,9 @@ import java.util.*;
 public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
     public final int MAX_NAME_LENGTH = 5;
-    public final int BLACKJACK_21 = 21;
-    public final int BLACKJACK_CONDITIONS_NUMBER_OF_CARDS = 2;
-    public final int LESS_THAN_17 = 17;
+    public final int CONDITION_SCORE = 21;
+    public final int CONDITION_NUMBER_OF_CARDS = 2;
+    public final int CONDITION_DEALER_SCORE = 17;
     public final String YES = "y";
     public final String NO = "n";
     public Dealer dealer;
@@ -122,11 +122,11 @@ public class Blackjack {
     }
 
     public boolean isBlackJack(Player player) {
-        return (player.calScore() == BLACKJACK_21) && (player.getNumberOfCards() == BLACKJACK_CONDITIONS_NUMBER_OF_CARDS);
+        return (player.calScore() == CONDITION_SCORE) && (player.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
     }
 
     public boolean isBlackJack(Dealer dealer) {
-        return (dealer.calScore() == BLACKJACK_21) && (dealer.getNumberOfCards() == BLACKJACK_CONDITIONS_NUMBER_OF_CARDS);
+        return (dealer.calScore() == CONDITION_SCORE) && (dealer.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
     }
 
     public void giveExtraCard(Player player) {
@@ -137,7 +137,7 @@ public class Blackjack {
     }
 
     public boolean isBust(Player player) {
-        if (player.calScore() > BLACKJACK_21) {
+        if (player.calScore() > CONDITION_SCORE) {
             System.out.println(player.getName() + " 버스트");
             return true;
         }
@@ -145,7 +145,7 @@ public class Blackjack {
     }
 
     public boolean isBust(Dealer dealer) {
-        if (dealer.calScore() > BLACKJACK_21) {
+        if (dealer.calScore() > CONDITION_SCORE) {
             System.out.println("딜러 버스트");
             return true;
         }
@@ -166,7 +166,7 @@ public class Blackjack {
     }
 
     public void giveExtraCard(Dealer dealer) {
-        while (dealer.calScore() < LESS_THAN_17) {
+        while (dealer.calScore() < CONDITION_DEALER_SCORE) {
             deal(dealer);
             System.out.println("딜러는 카드의 합이 16이하라 한 장의 카드를 더 받았습니다.");
         }
