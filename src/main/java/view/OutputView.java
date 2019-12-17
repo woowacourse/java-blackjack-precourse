@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class OutputView {
     public static void printInitDistributionMessage(List<Player> playerList) {
+        System.out.println("\n[카드 현황]");
         StringBuilder sb = new StringBuilder();
         List<String> playerNameList = playerList.stream()
                 .map(p -> p.getName())
@@ -33,6 +34,7 @@ public class OutputView {
     }
 
     public static void printResultStatus(Dealer dealer) {
+        System.out.println("\n[최종 결과]");
         printCardStatus(dealer);
         printSumScore(dealer);
     }

@@ -92,6 +92,7 @@ public class BlackjackSystem {
         for (Player p : playerList) {
             OutputView.printCardStatus(p);
         }
+        System.out.println();
     }
 
     private void getCardDealerIfAvailable() {
