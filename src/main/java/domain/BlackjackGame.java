@@ -51,5 +51,6 @@ public class BlackjackGame {
         initGame();
         dealFirstRound();
         evaluateRound();
+        GameProcessor.printGameResult(playersArray, dealer);
     }
 }

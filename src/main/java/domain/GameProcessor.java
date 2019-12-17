@@ -111,7 +111,16 @@ public class GameProcessor {
         if (dealerScore >= DEALER_HIT) { // Stop condition
             return true;
         }
+        System.out.println("딜러는 현재 카드의 합이 16 이하라 카드를 한 장 더 받습니다.");
         dealer.addCard(dealCard(cards));
         return false;
+    }
+
+    static void printGameResult(ArrayList<Player> playersArray, Dealer dealer) {
+        int dealerScore = calculateDealerHandValue(dealer);
+        System.out.println("딜러의 카드 : " + dealer.getCards() + "; 결과 : " + dealerScore);
+        for (int i = 0; i < playersArray.size(); i++) {
+            System.out.println(playersArray.get(i).getName() + "의 카드 : " + playersArray.get(i).getCards() + "; 결과 : " + calculateAllPlayersHandValue(playersArray).get(i));
+        }
     }
 }
