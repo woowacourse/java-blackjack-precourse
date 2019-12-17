@@ -1,6 +1,6 @@
-package domain.user;
+package application.domain.user;
 
-import domain.card.Card;
+import application.domain.card.Card;
 
 public abstract class User {
     abstract public void addCard(Card card);

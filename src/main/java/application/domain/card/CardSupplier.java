@@ -1,4 +1,4 @@
-package domain.card;
+package application.domain.card;
 
 import java.io.IOException;
 import java.util.List;

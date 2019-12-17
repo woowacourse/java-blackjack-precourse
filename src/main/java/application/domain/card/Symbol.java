@@ -1,4 +1,4 @@
-package domain.card;
+package application.domain.card;
 
 public enum Symbol {
     ACE(1),

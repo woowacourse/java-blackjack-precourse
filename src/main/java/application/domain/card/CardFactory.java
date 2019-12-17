@@ -1,4 +1,4 @@
-package domain.card;
+package application.domain.card;
 
 import java.util.ArrayList;
 import java.util.Collections;
