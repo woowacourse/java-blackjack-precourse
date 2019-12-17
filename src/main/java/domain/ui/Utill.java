@@ -53,4 +53,11 @@ public class Utill {
         }
     }
 
+    public void printFinalRevenueListOfGameParticipant(ArrayList<GameParticipant> participants,ArrayList<Double> revenue){
+        System.out.println("##최종수익");
+        for(int i =0; i < participants.size(); i++){
+            System.out.println(participants.get(i) +":"+ revenue.get(i));
+        }
+    }
+
 }

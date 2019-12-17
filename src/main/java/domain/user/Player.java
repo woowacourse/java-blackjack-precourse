@@ -3,9 +3,6 @@ package domain.user;
 import domain.card.Card;
 import domain.ui.Utill;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 참여자를 의미하는 객체
  */

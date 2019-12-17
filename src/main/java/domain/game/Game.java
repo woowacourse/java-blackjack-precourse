@@ -36,19 +36,20 @@ public class Game {
         receiveMoreCardOrNotAllParticipants();
     }
 
-    private void finishGame(){
+    private void finishGame() {
         utill.printCardListAndScoreOfGameParticipant(participants);
-
+        RevenueCalculator calculator = new RevenueCalculator(participants, dealer);
+        utill.printFinalRevenueListOfGameParticipant(participants, calculator.calculateFinalRevenueOfPlayer());
     }
 
     private void receiveInitCardAllParticipants() {
         for (GameParticipant p : participants) {
-           receiveInitCardEachParticipant(p);
+            receiveInitCardEachParticipant(p);
         }
     }
 
-    private void receiveInitCardEachParticipant(GameParticipant p){
-        for(int i=0; i<2; i++) {
+    private void receiveInitCardEachParticipant(GameParticipant p) {
+        for (int i = 0; i < 2; i++) {
             p.addCard(dealer.giveCard());
         }
         utill.printCardListOfGameParticipant(p);
@@ -62,15 +63,15 @@ public class Game {
         return blackjack;
     }
 
-    private void receiveMoreCardOrNotAllParticipants(){
-        for(GameParticipant p : participants){
+    private void receiveMoreCardOrNotAllParticipants() {
+        for (GameParticipant p : participants) {
             receiveMoreCardOrNotEachParticipant(p);
         }
 
     }
-    private void receiveMoreCardOrNotEachParticipant(GameParticipant p){
+
+    private void receiveMoreCardOrNotEachParticipant(GameParticipant p) {
         p.addMoreCard(dealer.giveCard());
     }
-
 
 }

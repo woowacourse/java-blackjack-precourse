@@ -4,7 +4,6 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.ui.Utill;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -35,7 +34,7 @@ public class Dealer extends GameParticipant {
     @Override
     public void addMoreCard(Card card) {
         Utill utill = new Utill();
-        if(getSumOfCardScore() < 17) {
+        if (getSumOfCardScore() < 17) {
             utill.printDealerReceiveMoreCard();
             addCard(card);
         }

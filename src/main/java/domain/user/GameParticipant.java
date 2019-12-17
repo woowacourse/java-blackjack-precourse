@@ -18,19 +18,24 @@ public class GameParticipant {
         cards.add(card);
     }
 
-    public List<Card> getCards(){ return  cards;}
+    public List<Card> getCards(){
+        return  cards;
+    }
 
-    public String getName(){return name;}
+    public String getName(){
+        return name;
+    }
 
-    public int getSumOfCardScore(){
-        int sum=0;
+    public double getSumOfCardScore(){
+        double sum=0;
+
         for(Card card : cards){
             sum += card.getSymbol().getScore();
         }
-
         if( haveACECard() && is10BetterThen1(sum)){
             sum += 9;
         }
+
         return sum;
     }
 
@@ -45,7 +50,7 @@ public class GameParticipant {
         return getSumOfCardScore() > 21;
     }
 
-    private boolean is10BetterThen1(int sum){
+    private boolean is10BetterThen1(double sum){
         return sum+9<21;
     }
 
@@ -60,6 +65,5 @@ public class GameParticipant {
     public void addMoreCard(Card card){
         addCard(card);
     }
-
 
 }
