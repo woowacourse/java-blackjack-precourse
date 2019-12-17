@@ -17,6 +17,7 @@ public class CardGame {
     // TODO : 스캐너 리펙토링
     static Scanner sc = new Scanner(System.in);
     static final int FIRST_CARD_COUNT = 2;
+    public static boolean[] isDuplicateCard;
 
     public static List<String> insertPlayerNameStr(){
 
@@ -103,9 +104,9 @@ public class CardGame {
 
         printGiveCards(dealer, playerList);
 
-        dealer.takeCards(FIRST_CARD_COUNT, originalCardList);
+        dealer.takeCards(FIRST_CARD_COUNT, originalCardList, isDuplicateCard);
         playerList.forEach(element -> {
-            element.takeCards(FIRST_CARD_COUNT, originalCardList);
+            element.takeCards(FIRST_CARD_COUNT, originalCardList, isDuplicateCard);
         });
     }
 
@@ -119,7 +120,6 @@ public class CardGame {
 
     public static boolean existAce(List<Card> cardList){
         return cardList.stream().anyMatch(element -> element.getSymbol().getScore() == 1);
-        return cardList.stream().anyMatch(element -> element.getSymbol().getScore() == 1);
     }
 
     public static void calcCardList(List<Card> cardList){
@@ -127,18 +127,18 @@ public class CardGame {
         Stream<Card> aceIsOneCardList = cardList.stream();
 
         aceIsElevenCardList.filter(element -> element.getSymbol().getScore() == 1)
-
-
     }
+
 
 
     public static void run(){
         List<String> playerNameList = insertPlayerNameStr();
 
         System.out.println(playerNameList.toString());
-
         List<Player> playerList = insertPlayerMoneyStr(playerNameList);
         List<Card> originalCardList = CardFactory.create();
+
+        isDuplicateCard = new boolean[originalCardList.size()];
 
         System.out.println(playerList.toString());
 
