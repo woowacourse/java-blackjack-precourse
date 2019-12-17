@@ -21,20 +21,37 @@ import util.BlackjackPrinterImpl;
 
 public class Application {
     public static void main(String[] args) {
+        Blackjack blackjack = setupBlackjack();
 
-        Deck deck = new SingleDeck();
-        BlackjackPrinter blackjackPrinter = new BlackjackPrinterImpl();
+        try {
+            blackjack.play();
+        } catch (RuntimeException e) {
+            System.out.println(String.format("다음과 같은 이유로 프로그램을 종료합니다: %s", e.getMessage()));
+            System.exit(-1);
+        }
+    }
+
+    private static PlayerServiceImpl setupPlayerService(Deck deck, BlackjackPrinter blackjackPrinter) {
         UserInterface userInterface = new Console(new Scanner(System.in), blackjackPrinter);
         PlayerFactory playerFactory = new PlayerFactory();
-        PlayerServiceImpl playerService = new PlayerServiceImpl(deck, blackjackPrinter, userInterface, playerFactory);
+        return new PlayerServiceImpl(deck, blackjackPrinter, userInterface, playerFactory);
+    }
 
-        DealerServiceImpl dealerService = new DealerServiceImpl(deck, blackjackPrinter);
+    private static DealerServiceImpl setupDealerService(Deck deck, BlackjackPrinter blackjackPrinter) {
+        return new DealerServiceImpl(deck, blackjackPrinter);
+    }
+
+    private static UserApi setupUserApi() {
+        Deck deck = new SingleDeck();
+        BlackjackPrinter blackjackPrinter = new BlackjackPrinterImpl();
+        DealerServiceImpl dealerService = setupDealerService(deck, blackjackPrinter);
+        PlayerServiceImpl playerService = setupPlayerService(deck, blackjackPrinter);
+        return new UserApi(dealerService, playerService, blackjackPrinter);
+    }
+
+    private static Blackjack setupBlackjack() {
+        UserApi userApi = setupUserApi();
         Dealer dealer = new Dealer();
-
-        UserApi userApi = new UserApi(dealerService, playerService, blackjackPrinter);
-
-        Blackjack blackjack = new Blackjack(userApi, dealer);
-
-        blackjack.play();
+        return new Blackjack(userApi, dealer);
     }
 }

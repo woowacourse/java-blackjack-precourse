@@ -57,7 +57,6 @@ public abstract class User {
         return sum;
     }
 
-    //todo: check refac
     private int calculateSurplus(int sum) {
         if ( BlackjackConfig.BLACKJACK < sum + BlackjackConfig.SURPLUS_OF_ACE )  {
             return 0;
@@ -66,7 +65,6 @@ public abstract class User {
     }
 
     private Map<Boolean, List<Card>> splitCards(List<Card> cards) {
-
         return cards.stream()
                 .collect(Collectors.partitioningBy(card -> card.getSymbol().equals(Symbol.ACE)));
     }

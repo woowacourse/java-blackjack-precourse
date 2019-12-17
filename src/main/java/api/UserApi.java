@@ -29,7 +29,6 @@ public class UserApi {
         dealerService.receiveDefaultCards(dealer);
         playerService.receiveDefaultCards(players);
         blackjackPrinter.printBreaktime();
-
     }
 
     public void confirmCards(List<Player> players, Dealer dealer) {
@@ -61,7 +60,6 @@ public class UserApi {
         return dealer.isBust() || player.isBust();
     }
 
-    //todo: refac when bust doesn't exist
     private Result checkBust(Dealer dealer, Player player) {
         if (player.isBust()) {
             return Result.PlayerLose;
@@ -72,14 +70,12 @@ public class UserApi {
         }
 
         return Result.PlayerWin;
-
     }
 
     private boolean blackjackExists(Dealer dealer, Player player) {
         return dealer.isBlackjack() || player.isBlackjack();
     }
 
-    //todo: refac when blackjack doesn't exist
     private Result checkBlackjack(Dealer dealer, Player player) {
         if (player.isBlackjack() &&  dealer.isBlackjack()) {
             return Result.Draw;
@@ -87,7 +83,6 @@ public class UserApi {
         if (player.isBlackjack()) {
             return Result.PlayerWinWithBlackjack;
         }
-
         return Result.PlayerLose;
     }
 
@@ -97,32 +92,36 @@ public class UserApi {
         if (scoreOfDealer < scoreOfPlayer) {
             return Result.PlayerWin;
         }
-
         if (scoreOfPlayer < scoreOfDealer) {
             return Result.PlayerLose;
         }
-
         return Result.Draw;
     }
 
     private void settleResult(Result result, Dealer dealer, Player player) {
+        settlePlayerWinWithBlackjack(result, dealer, player);
+        settlePlayerWin(result, dealer, player);
+        settlePlayerLose(result, dealer, player);
+    }
+    private void settlePlayerWinWithBlackjack(Result result, Dealer dealer, Player player) {
         if (result.equals(Result.PlayerWinWithBlackjack)) {
             double profit = player.winWithBlackjack();
             dealer.lose(profit);
-            return;
         }
+    }
 
+    private void settlePlayerWin(Result result, Dealer dealer, Player player) {
         if (result.equals(Result.PlayerWin)) {
             double profit = player.win();
             dealer.lose(profit);
-            return;
         }
+    }
 
+    private void settlePlayerLose(Result result, Dealer dealer, Player player) {
         if (result.equals(Result.PlayerLose)) {
             double losedMoney = player.lose();
             dealer.win(Math.abs(losedMoney));
         }
-
     }
 
     public void analyze(Dealer dealer, List<Player> players) {

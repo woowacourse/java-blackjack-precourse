@@ -42,36 +42,36 @@ public class Console implements UserInterface {
 
     private String[] parseNames(String input) {
         input = input.trim();
-        if (input.startsWith(BlackjackConfig.STANDARD_FOR_PARSE) || input.endsWith(BlackjackConfig.STANDARD_FOR_PARSE)) {
+        if (input.startsWith(BlackjackConfig.STANDARD_FOR_PARSE)
+                || input.endsWith(BlackjackConfig.STANDARD_FOR_PARSE)) {
             throw new InvalidInputException("구분자는 처음이나 마지막에 쓸 수 없습니다.");
         }
         String[] names = input.split(BlackjackConfig.STANDARD_FOR_PARSE);
         if (!isValidNames(names)) {
             throw new InvalidInputException("입력된 이름에 오류가 있습니다.");
         }
-
         return names;
     }
 
     private boolean isValidNames(String[] names) {
-        if (names.length < BlackjackConfig.MIN_PLAYERS || BlackjackConfig.MAX_PLAYERS < names.length) {
-            throw new InvalidInputException(String.format("참가자 수는 %d명 ~ %d명이어야 합니다.", BlackjackConfig.MIN_PLAYERS, BlackjackConfig.MAX_PLAYERS));
+        if (names.length < BlackjackConfig.MIN_PLAYERS
+                || BlackjackConfig.MAX_PLAYERS < names.length) {
+            throw new InvalidInputException(String.format("참가자 수는 %d명 ~ %d명이어야 합니다.",
+                    BlackjackConfig.MIN_PLAYERS, BlackjackConfig.MAX_PLAYERS));
         }
-        for (String name : names) {
-            if (!isValidName(name)) {
-                return false;
-            }
-        }
-        return true;
+
+        return Arrays.stream(names).allMatch(this::isValidName);
     }
 
     private boolean isValidName(String name) {
         if (BlackjackConfig.MAX_NAME_LENGTH < name.length()) {
-            throw new InvalidInputException(String.format("참가자 이름 길이는 %d이하여야 합니다.", BlackjackConfig.MAX_NAME_LENGTH));
+            throw new InvalidInputException(String.format("참가자 이름 길이는 %d이하여야 합니다.",
+                    BlackjackConfig.MAX_NAME_LENGTH));
         }
 
         if (Arrays.stream(BlackjackConfig.NOT_ALLOWED_IN_NAME).parallel().anyMatch(name::contains)) {
-            throw new InvalidInputException(String.format("참가자 이름에 띄어쓰기 및 특수기호(%s)는 금지됩니다.", String.join(",", BlackjackConfig.NOT_ALLOWED_IN_NAME)));
+            throw new InvalidInputException(String.format("참가자 이름에 띄어쓰기 및 특수기호(%s)는 금지됩니다.",
+                    String.join(",", BlackjackConfig.NOT_ALLOWED_IN_NAME)));
         }
 
         return true;
@@ -83,7 +83,7 @@ public class Console implements UserInterface {
         try {
             double bettingMoney = Double.parseDouble(scanner.nextLine());
             validateMoney(bettingMoney);
-            System.out.println();
+            blackjackPrinter.printBreaktime();
             return bettingMoney;
         } catch (RuntimeException e) {
             blackjackPrinter.printError(e);
@@ -93,7 +93,8 @@ public class Console implements UserInterface {
 
     private void validateMoney(double bettingMoney) {
         if (bettingMoney <= BlackjackConfig.MIN_MONEY) {
-            throw new InvalidInputException(String.format("베팅 금액은 %f보다 커야 합니다.", BlackjackConfig.MIN_MONEY));
+            throw new InvalidInputException(String.format("베팅 금액은 %f보다 커야 합니다.",
+                    BlackjackConfig.MIN_MONEY));
         }
     }
 
@@ -120,7 +121,8 @@ public class Console implements UserInterface {
         if (willContainsInput(input)) {
             return input;
         }
-        throw new InvalidInputException(String.format("%s 이외의 값을 입력했습니다.", String.join(",", BlackjackConfig.ALLOWED_WILL)));
+        throw new InvalidInputException(String.format("%s 이외의 값을 입력했습니다.",
+                String.join(",", BlackjackConfig.ALLOWED_WILL)));
     }
 
     private boolean willContainsInput(String input) {

@@ -37,23 +37,21 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
         stringBuilder = buildUserResult(user);
         stringBuilder.append(" - 결과: ");
         int score = user.calculateScore();
-
         if (BlackjackConfig.BLACKJACK < score) {
             stringBuilder.append(String.format("버스트(%d)", score));
             printStringBuilder(stringBuilder);
             return;
         }
-
         stringBuilder.append(score);
         printStringBuilder(stringBuilder);
     }
 
-    //todo: fix bug - when dealer
     private StringBuilder buildUserState(User user) {
         stringBuilder.append(user);
         stringBuilder.append("카드: ");
 
-        List<String> cardNames = user.getCards().stream().map(Card::toString).collect(Collectors.toList());
+        List<String> cardNames = user.getCards().stream()
+                .map(Card::toString).collect(Collectors.toList());
         if (user instanceof Dealer) {
             cardNames.retainAll(Collections.singletonList(cardNames.get(0)));
         }
@@ -77,7 +75,8 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
 
     @Override
     public void printDealerHit(User user) {
-        System.out.println(String.format("%s는 %d이하라 한 장의 카드를 더 받았습니다.", user, BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER));
+        System.out.println(String.format("%s는 %d이하라 한 장의 카드를 더 받았습니다.",
+                user, BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER));
     }
 
     @Override
@@ -88,7 +87,6 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
     @Override
     public void printRequestForMoney(String name) {
         System.out.println(String.format("%s의 배팅 금액은?", name));
-
     }
 
     @Override

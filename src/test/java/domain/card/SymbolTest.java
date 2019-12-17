@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class SymbolTest {
 
-    Symbol symbol;
+    private Symbol symbol;
 
 
     @Test

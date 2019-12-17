@@ -29,7 +29,6 @@ class UserTest {
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.CLUB)
         );
-
         for (Card card : cardsWithoutAce) {
             user.addCard(card);
         }
@@ -45,7 +44,6 @@ class UserTest {
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.ACE, Type.CLUB)
         );
-
         for (Card card : cardsWithAce) {
             user.addCard(card);
         }
@@ -62,7 +60,6 @@ class UserTest {
                 new Card(Symbol.KING, Type.SPADE),
                 new Card(Symbol.ACE, Type.CLUB)
         );
-
         for (Card card : cardsWithAce) {
             user.addCard(card);
         }
@@ -73,16 +70,17 @@ class UserTest {
 
     @Test
     void isBustWhenBust() {
+        //given
         List<Card> cardsWhichBust = Arrays.asList(
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.SPADE),
                 new Card(Symbol.KING, Type.CLUB)
         );
-
         for (Card card : cardsWhichBust) {
             user.addCard(card);
         }
 
+        //when & then
         assertTrue(user.isBust());
     }
 
@@ -93,55 +91,53 @@ class UserTest {
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.CLUB)
         );
-
         for (Card card : cardsWhichNotBust) {
             user.addCard(card);
         }
-
+        //when & then
         assertFalse(user.isBust());
     }
 
-
     @Test
     void isBlackjackWhenBlackjack() {
+        //given
         List<Card> blackjack = Arrays.asList(
                 new Card(Symbol.ACE, Type.SPADE),
                 new Card(Symbol.KING, Type.CLUB)
         );
-
         for (Card card : blackjack) {
             user.addCard(card);
         }
-
+        //when & then
         assertTrue(user.isBlackjack());
     }
 
     @Test
     void isBlackjackWhenNotBlackjackScore() {
+        //given
         List<Card> notBlackjack = Arrays.asList(
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.CLUB)
         );
-
         for (Card card : notBlackjack) {
             user.addCard(card);
         }
-
+        //when & then
         assertFalse(user.isBlackjack());
     }
 
     @Test
     void isBlackjackWhenNotBlackjackSize() {
+        //given
         List<Card> notBlackjack = Arrays.asList(
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.CLUB),
                 new Card(Symbol.THREE, Type.SPADE)
         );
-
         for (Card card : notBlackjack) {
             user.addCard(card);
         }
-
+        //when & then
         assertEquals(21, user.calculateScore());
         assertFalse(user.isBlackjack());
     }
