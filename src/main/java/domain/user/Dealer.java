@@ -45,6 +45,9 @@ public class Dealer {
     }
 
     public boolean getBooleanSumScore() {
+        if (this.isBlackJack()) {
+            return false;
+        }
         int count = 0;
         for (Card card: this.cards) {
             count += card.getSymbolScore();

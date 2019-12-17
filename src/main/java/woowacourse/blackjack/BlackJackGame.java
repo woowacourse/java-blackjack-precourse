@@ -20,6 +20,11 @@ public class BlackJackGame {
         this.inputNameAndBettingMoney();
         this.getFirstCardsAllPeople();
         this.output.printPlayersAndDealerCards(this.dealer, this.players);
+        if (this.output.isBlackJack(this.dealer, this.players)) {
+            this.output.printSumScore(this.dealer, this.players);
+            this.output.printBlackJack(this.dealer, this.players);
+            return;
+        }
         this.checkHit();
         this.output.printSumScore(this.dealer, this.players);
         this.output.printFinalRevenue(this.dealer, this.players);

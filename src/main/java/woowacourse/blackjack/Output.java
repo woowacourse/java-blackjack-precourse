@@ -20,10 +20,11 @@ public class Output {
         this.printAlertGetCards(players);
         this.printDealerCards(dealer);
         this.printPlayersCards(players);
+        System.out.println();
     }
 
     private void printAlertGetCards(List<Player> players) {
-        System.out.print("딜러와");
+        System.out.print("딜러와 ");
         List<String> stringNames = new ArrayList<>();
         for (Player player: players) {
             stringNames.add(player.getName());
@@ -42,7 +43,6 @@ public class Output {
         for (Player player: players) {
             printPlayerCards(player);
         }
-        System.out.println();
     }
 
     public void printPlayerCards(Player player) {
@@ -52,6 +52,37 @@ public class Output {
             stringCards.add(card.getSymbolName() + card.getTypeName());
         }
         System.out.println(String.join(", ", stringCards));
+    }
+
+    public boolean isBlackJack(Dealer dealer, List<Player> players) {
+        if (this.isDealerBlackJack(dealer) && this.isPlayersBlackJack(players)) {
+            return true;
+        }
+        if (this.isDealerBlackJack(dealer)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isDealerBlackJack(Dealer dealer) {
+        return dealer.isBlackJack();
+    }
+
+    private boolean isPlayersBlackJack(List<Player> players) {
+        int amount = players.size();
+        int i = 0;
+        while (i < amount && !players.get(i).isBlackJack()) {
+            i++;
+        }
+        return i < amount;
+    }
+
+    public void printBlackJack(Dealer dealer, List<Player> players) {
+        System.out.println();
+        Calculator calculator = new Calculator();
+        calculator.setWhenBlackJack(dealer, players);
+        this.printDealerAndPlayersRevenue(calculator, players);
+
     }
 
     public void printYesOrNo(Player player) {
@@ -103,6 +134,10 @@ public class Output {
     private void calculatorCardScore(Dealer dealer, List<Player> players) {
         Calculator calculator = new Calculator();
         calculator.setRevenue(dealer, players);
+        this.printDealerAndPlayersRevenue(calculator, players);
+    }
+
+    private void printDealerAndPlayersRevenue(Calculator calculator, List<Player> players) {
         System.out.println("딜러: " + calculator.getDealerRevenue());
         for (Player player: players) {
             System.out.println(player.getName() + ": " + calculator.getPlayerRevenue(player));
