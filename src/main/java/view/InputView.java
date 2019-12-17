@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static util.CustomErrorMessage.INVALID_ANSWER_TYPE;
 import static view.OutputView.showInputPlayerNamesInfo;
 import static view.OutputView.showInputPlyerBettingMoneyInfo;
 
@@ -21,7 +22,7 @@ public class InputView {
     }
 
 
-    public List<Double> getBettingMoneys(List<String> playerNames){
+    public List<Double> getBettingMoneys(List<String> playerNames) {
         return playerNames.stream()
                 .map(name -> {
                     showInputPlyerBettingMoneyInfo(name);
@@ -31,7 +32,21 @@ public class InputView {
 
     }
 
+    public String getYesOrNo() {
+        String next = scanner.next();
+        try {
+            validateAnswer(next.toLowerCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return getYesOrNo();
+        }
+        return next;
+    }
 
+    private void validateAnswer(String answer) throws IllegalArgumentException {
+        if (!answer.equals("y") && !answer.equals("n"))
+            throw new IllegalArgumentException(INVALID_ANSWER_TYPE);
+    }
 
 
 }

@@ -3,6 +3,7 @@ package gameRunner;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.ActiveGamers;
+import domain.user.Gamer;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -33,6 +34,20 @@ public class BlackJackGame {
     private void giveCardToGamers() {
         List<Card> givingCards = cardFactory.popRandomCard(activeGamers.size());
         this.activeGamers.addCardToEveryOne(givingCards);
+    }
+
+    public void giveOneMoreCardToGamers() {
+        for (Gamer gamer : activeGamers.getGamers()) {
+            giveOneMoreCard(gamer);
+        }
+
+    }
+
+    private void giveOneMoreCard(Gamer gamer) {
+//        do{
+//
+//        }while()
+
     }
 
 

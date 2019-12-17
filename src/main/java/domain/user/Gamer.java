@@ -11,7 +11,6 @@ public class Gamer {
     private final int BLACK_JACK_NUMBER = 21;
     private final int ACE_RECOVER_NUMBER = 10;
 
-
     private final List<Card> cards = new ArrayList<>();
 
     public void addCard(Card card) {
@@ -26,6 +25,8 @@ public class Gamer {
         return "";
     }
 
+
+    //게임 스코어 계산
     public int getScoreOfGamer() {
         int scoreOfGamer = getCardScore();
         for (int i = 0; i < getAceCount(); i++) {

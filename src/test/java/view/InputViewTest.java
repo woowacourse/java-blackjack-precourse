@@ -1,5 +1,6 @@
 package view;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -8,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class InputViewTest {
 
@@ -22,10 +22,23 @@ class InputViewTest {
 
     @Test
     void getBettingMoneys() {
-        List<String> playerNames = Arrays.asList("mj","mj2", "mj3");
+        List<String> playerNames = Arrays.asList("mj", "mj2", "mj3");
         String bettingMoneys = "1000\n3000\n4000";
         InputStream purchaseInputStream = new ByteArrayInputStream(bettingMoneys.getBytes());
         InputView inputView = new InputView(purchaseInputStream);
-        assertThat(inputView.getBettingMoneys(playerNames)).containsExactly(1000.0,3000.0,4000.0);
+        assertThat(inputView.getBettingMoneys(playerNames)).containsExactly(1000.0, 3000.0, 4000.0);
     }
+
+
+    @Test
+    @DisplayName("y,n가 아닌 대답을 했을 경우 Exception일어나고 재 입력")
+    void getYesOrNo() {
+
+        String answer = "d\ng\ny";
+        InputStream purchaseInputStream = new ByteArrayInputStream(answer.getBytes());
+        InputView inputView = new InputView(purchaseInputStream);
+        assertThat(inputView.getYesOrNo()).isEqualTo("y");
+    }
+
+
 }
