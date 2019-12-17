@@ -9,7 +9,7 @@ import java.util.*;
 public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
     public final int MAX_NAME_LENGTH = 5;
-    public final int BUST_NUMBER = 21;
+    public final int BLACKJACK_21 = 21;
     public final int LESS_THAN_17 = 17;
     public final String YES = "y";
     public final String NO = "n";
@@ -34,7 +34,7 @@ public class Blackjack {
         Collections.shuffle(cards);
         System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
         deal(dealer);
-        dealer.showCard();
+        dealer.openOneCard();
         for (Player player : players) {
             deal(player);
             deal(player);
@@ -102,11 +102,11 @@ public class Blackjack {
     }
 
     public boolean isBlackJack(Player player) {
-        return (player.calScore() == BUST_NUMBER);
+        return (player.calScore() == BLACKJACK_21);
     }
 
     public boolean isBlackJack(Dealer dealer) {
-        return (dealer.calScore() == BUST_NUMBER);
+        return (dealer.calScore() == BLACKJACK_21);
     }
 
     public void giveExtraCard(Player player) {
@@ -117,7 +117,7 @@ public class Blackjack {
     }
 
     public boolean isBust(Player player) {
-        if (player.calScore() > BUST_NUMBER) {
+        if (player.calScore() > BLACKJACK_21) {
             System.out.println(player.getName() + " 버스트");
             return true;
         }
@@ -145,7 +145,7 @@ public class Blackjack {
     }
 
     public void printResult() {
-        dealer.openCards();
+        dealer.showCards();
         System.out.println("결과: " + dealer.calScore() + "점");
         for (Player player : players) {
             player.showCards();

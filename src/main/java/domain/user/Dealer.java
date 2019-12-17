@@ -18,11 +18,11 @@ public class Dealer {
         cards.add(card);
     }
 
-    public void showCard() {
+    public void openOneCard() {
         System.out.println("딜러: " + cards.get(0));
     }
 
-    public void openCards() {
+    public void showCards() {
         StringBuilder msg = new StringBuilder();
         msg.append("딜러 카드: ");
         for (Card card : cards) {
