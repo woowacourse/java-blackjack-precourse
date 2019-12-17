@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 import domain.main.GamePlay;
 
 import java.util.ArrayList;
@@ -14,11 +15,14 @@ public class Player {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
+    public int playerScore = 0;
+
     public final int NUMBER_OF_START_CARDS = 2;
     public final String ANSWER_YES = "y";
     public final String ANSWER_NO = "n";
     public final int STANDARD_POINT = 21;
     public String playerChoice;
+
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -72,14 +76,26 @@ public class Player {
         }
     }
 
-//    public
-//    public int selectTenOrOne() {
-//        if ()
-//    }
-//
-//    public int calculateScore(){
-//
-//        return 1;
-//    }
+    public boolean checkAceInCardList() {
+        for (Card card : cards){
+            if (card.checkAce()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int calculateScoreWithoutAce(){
+        for (Card card : cards){
+            playerScore += card.getSymbol().getScore();
+        }
+        return playerScore;
+    }
+
+    public int selectTenOrOne() {
+        return 1;
+    }
+
+
 
 }

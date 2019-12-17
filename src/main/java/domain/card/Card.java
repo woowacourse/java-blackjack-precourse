@@ -7,7 +7,6 @@ import java.util.Objects;
  */
 public class Card {
     private final Symbol symbol;
-
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
@@ -41,6 +40,14 @@ public class Card {
 
     public String cardToString() {
         return symbol.getExpression()+""+type.getKoreanType();
+    }
+
+    public boolean checkAce(){
+        return symbol.getExpression().equals("A");
+    }
+
+    public Symbol getSymbol(){
+        return symbol;
     }
 
 }

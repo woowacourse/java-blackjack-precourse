@@ -16,7 +16,7 @@ public class Main {
             player.getStartCard();
             player.printPlayerBettingMoney();
             player.cardDrawOrPass();
-
+            System.out.println(player.calculateScoreWithoutAce());
         }
 
 
