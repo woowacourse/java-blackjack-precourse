@@ -1,37 +1,11 @@
 package domain.user;
 
-
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer{
-	private final List<Card> cards = new ArrayList<>();
-
+public class Dealer extends Player{
 	public Dealer() {
-	}
-
-	public void addCard(Card card) {
-		cards.add(card);
-	}
-
-	private int getSomOfScore() {
-		int sumOfScore = 0;
-		for (Card card : this.cards) {
-			sumOfScore += card.getSymbolScore();
-		}
-		return sumOfScore;
-	}
-
-	public void showHand() {
-		String showHand = "딜러:";
-		for (int i = 1; i < this.cards.size(); i++) {
-			showHand += this.cards.get(i).toString() + ",";
-		}
-		System.out.println(showHand);
+		super("딜러", 0);
 	}
 }
+

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import controller.BlackJackInitializingController;
 import domain.user.Player;
 import utils.UtilityMethods;
 
@@ -21,7 +22,7 @@ public class InitTest {
 		}
 		System.out.println(userInput);
 		System.out.println("Bettings");
-		List<Player> players = BlackJackInitializingService
+		List<Player> players = BlackJackInitializingController
 			.initializePlayers(userInput, bettings);
 		for (Player player : players) {
 			player.inputTest();

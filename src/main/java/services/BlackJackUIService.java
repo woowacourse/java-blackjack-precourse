@@ -32,5 +32,9 @@ public class BlackJackUIService {
 	public static void printWrongInputMessage() {
 		System.out.println("잘못된 입력입니다");
 	}
+
+	public static void printDealerDrawMessage() {
+		System.out.println("\n딜러가 카드를 뽑았습니다\n");
+	}
 }
 

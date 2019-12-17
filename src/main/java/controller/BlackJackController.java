@@ -1,6 +1,5 @@
 package controller;
 
-import domain.card.Card;
 import exceptions.EmptyInputException;
 import exceptions.NumberUnderZeroException;
 import exceptions.WrongInputException;
@@ -11,8 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackController {
-	final static int BUSTED_SCORE = 21;
-
 	public static List<String> getPlayersName() {
 		String names = "";
 
@@ -45,7 +42,7 @@ public class BlackJackController {
 		Scanner scanner = new Scanner(System.in);
 		while (betting <= 0) {
 			betting = scanner.nextDouble();
-			catchUnderZeroInput(betting);
+			betting = catchUnderZeroInput(betting);
 		}
 		return betting;
 	}
@@ -69,8 +66,7 @@ public class BlackJackController {
 		String moreCard = ""; // 한글자가 아닌 입력을 핸들하기 위한 String 선언
 
 		Scanner scanner = new Scanner(System.in);
-		while (!moreCard.equals("Y") || !moreCard.equals("y")
-			|| !moreCard.equals("N") || !moreCard.equals("n")) {
+		while (judgeRightInput(moreCard)) {
 			moreCard = scanner.nextLine();
 			catchWrongInput(moreCard);
 		}
@@ -80,18 +76,29 @@ public class BlackJackController {
 		return false ;
 	}
 
-	private static String catchWrongInput(String moreCard) {
+	private static Boolean judgeRightInput(String input) {
+		if (input.equals("Y")) {
+			return false;
+		} else if (input.equals("y")) {
+			return false;
+		} else if (input.equals("N")) {
+			return false;
+		} else if (input.equals("n")) {
+			return false;
+		}
+		return true;
+	}
+
+	private static void catchWrongInput(String moreCard) {
 		try {
 			validateMoreCard(moreCard);
 		} catch (WrongInputException e) {
 			BlackJackUIService.printWrongInputMessage();
 		}
-		return moreCard;
 	}
 
 	private static void validateMoreCard(String moreCard) throws WrongInputException {
-		if (!moreCard.equals("Y") || !moreCard.equals("y")
-			|| !moreCard.equals("N") || !moreCard.equals("n")) {
+		if (judgeRightInput(moreCard)){
 			throw new WrongInputException();
 		}
 	}
