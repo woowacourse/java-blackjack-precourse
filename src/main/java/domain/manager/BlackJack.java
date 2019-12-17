@@ -7,6 +7,11 @@ import domain.card.*;
 import domain.user.*;
 
 public class BlackJack {
+    private static final int WINNER_PIVOT = 21;
+    private static final int DEALER_PIVOT = 16;
+    private static final int WIN = 1;
+    private static final double WIN_BLACKJACK = 1.5;
+    private static final int LOSE = -1;
 
     private Dealer dealer;
     private List<Player> user;
