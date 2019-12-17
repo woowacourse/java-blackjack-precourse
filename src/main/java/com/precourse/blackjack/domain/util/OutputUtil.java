@@ -90,9 +90,9 @@ public class OutputUtil {
 	public static String getFinalReturn(List<Player> players, Dealer dealer) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(dealer.getName()).append(COLON).append(getDealerReturn(players, dealer)).append(NEW_LINE);
+		builder.append(dealer.getName()).append(COLON).append((int)getDealerReturn(players, dealer)).append(NEW_LINE);
 		players.forEach(player -> builder.append(player.getName())
-			.append(COLON).append(player.getReturn(dealer)).append(NEW_LINE));
+			.append(COLON).append((int)player.getReturn(dealer)).append(NEW_LINE));
 		return builder.toString();
 	}
 
