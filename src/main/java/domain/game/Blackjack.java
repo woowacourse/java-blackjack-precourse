@@ -35,6 +35,7 @@ public class Blackjack {
         Collections.shuffle(cards);
         System.out.println("딜러와 각 플레이어에게 카드를 2장씩 나누었습니다.");
         deal(dealer);
+        deal(dealer);
         dealer.openOneCard();
         for (Player player : players) {
             deal(player);
