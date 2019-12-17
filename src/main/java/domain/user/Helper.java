@@ -1,10 +1,13 @@
 package domain.user;
 
 import domain.card.Card;
+import sun.security.krb5.internal.tools.Klist;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Helper {
 
@@ -23,11 +26,18 @@ public class Helper {
     }
 
     public void cardDraw(List<Card> cardDeck) {
-            int cardDeckCount = cardDeck.size() - 1;
-            int selectNumber = (int) (Math.random() * cardDeckCount) + 1;
-            Card selectedCard = cardDeck.get(selectNumber);
+        int cardDeckCount = cardDeck.size() - 1;
+        int selectNumber = (int) (Math.random() * cardDeckCount) + 1;
+        Card selectedCard = cardDeck.get(selectNumber);
 
-            this.addCard(selectedCard);
-            cardDeck.remove(selectedCard);
-        }
+        this.addCard(selectedCard);
+        cardDeck.remove(selectedCard);
+    }
+
+    public int scoreCalcualtor(){
+        Stream<Integer> cardScore = cards.stream().map(card -> card.getScore());
+        int scoreResult = cardScore.collect(Collectors.summingInt(score -> score));
+        return scoreResult;
+    }
+
 }

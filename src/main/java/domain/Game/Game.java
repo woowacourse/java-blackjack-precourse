@@ -26,6 +26,7 @@ public class Game {
         }
         output.StartCardState(players);
         players.stream().forEach(player -> this.PlayerAddCardDraw(player));
+        players.stream().forEach(player -> System.out.println(player.scoreCalcualtor()));
     }
 
     public void playerObjectCreate() {
@@ -37,11 +38,9 @@ public class Game {
     }
 
     public void PlayerAddCardDraw(Player player) {
-        String answer;
-        do {
-            answer = input.addCardDrawInput(player);
+        while (input.addCardDrawInput(player).equals("y")) {
             player.cardDraw(cardDeck);
             System.out.println(player.cardsToString());
-        } while (answer.equals("y"));
+        }
     }
 }
