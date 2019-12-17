@@ -81,6 +81,7 @@ public class BlackJackGame {
     }
 
     private boolean checkAdditionalDraw(Player player, List<Card> newCards) {
+        printMessage("\n" + player.getCardString());
         if (player.isBlackJack()) {
             ConsoleOutput.printBlackJack();
             return true;
@@ -90,7 +91,6 @@ public class BlackJackGame {
     }
 
     private void askToDraw(Player player, List<Card> newCards) {
-        printMessage("\n" + player.getCardString());
         drawContinuously(player, newCards);
         if (player.isBusted()) {
             ConsoleOutput.printBusted();
