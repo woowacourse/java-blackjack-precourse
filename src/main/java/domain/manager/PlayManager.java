@@ -143,4 +143,11 @@ public class PlayManager {
             System.out.println(players.get(playerIndex).getName() + " : " + benefitArray[playerIndex]);
         }
     }
+
+    private void progressHitStage() {
+        for (Player player : players) {
+            askHit(player);
+        }
+        askHit(dealer);
+    }
 }
