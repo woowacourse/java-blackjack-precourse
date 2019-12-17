@@ -21,6 +21,7 @@ public class OutputPrint {
     private static final int FIRST_CARD_DISTRIBUTE_NUMBER = 2;      // 처음 카드가 모두에게 분배될 때의 분배 갯수.
     private static final int BOUNDARY_DEALER_MUST_MORE_CARD = 16;   // 딜러가 이보다 적은 점수를 가졌다면 카드를 반드시 더 받아야 한다.
     private static final int BLACK_JACK_NUMBER = 21;
+    private static final double HALF = 0.5;
     private static double dealerMoney = 0;
 
     OutputPrint() {
@@ -68,7 +69,7 @@ public class OutputPrint {
         }
         if (!isBlackJackDealer() && isBlackJackPlayer(player)) {
             println("플레이어 " + player + "는 BLACKJACK 입니다.");
-            dealerMoney -= player.getBettingMoney()*0.5;
+            dealerMoney -= player.getBettingMoney() * HALF;
             player.setBettingMoneyMultiple();
         }
     }
@@ -168,7 +169,7 @@ public class OutputPrint {
     private void isBustDealer(Player player) {
         if ((dealer.getScore() > BLACK_JACK_NUMBER)
                 && !isBust(player) && !isBlackJackPlayer(player)) {
-            dealerMoney -= player.getBettingMoney()*0.5;
+            dealerMoney -= player.getBettingMoney() * HALF;
             player.setBettingMoneyMultiple();
         }
     }
