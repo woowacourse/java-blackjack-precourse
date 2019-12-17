@@ -77,4 +77,19 @@ public class GameManager {
 
 	}
 
+	public void printPlayerName() {
+		for (Player player : players) {
+			System.out.print(player.getName() + "Ä«µå: ");
+			printPlayerCard(player);
+		}
+	}
+
+	public void printPlayerCard(Player player) {
+		for (int i = 0; i < player.printCard().size(); i++)
+			System.out.print(player.printCard().get(i).getSymbol().toString()
+					+ player.printCard().get(i).getType().toString() + " ");
+		System.out.println();
+	}
+
+	
 }
