@@ -6,21 +6,21 @@ import domain.user.Player;
 import domain.user.User;
 
 public class BlackJackGame {
-    private List<User> users = new ArrayList<User>();
-    private int step = 1;
 
     public static void main(String[] args) {
+        List<User> users = new ArrayList<User>();
         BlackJackGame blackJackGame = new BlackJackGame();
-        blackJackGame.playGame();
+        blackJackGame.playGame(users);
     }
 
-    private void playGame() {
-        startGame();
-        proceedGame();
-        endGame();
+    private void playGame(List<User> users) {
+        int step = 0;
+        startGame(users);
+        step = proceedGame(users);
+        endGame(users, step);
     }
 
-    private void startGame() {
+    private void startGame(List<User> users) {
         users.add(new Dealer());
         List<String> playerNameList = new PlayersNaming().playerNaming();
         PlayersSetBettingMoney playersSetBettingMoney = new PlayersSetBettingMoney();
@@ -29,16 +29,18 @@ public class BlackJackGame {
         }
     }
 
-    private void proceedGame() {
+    private int proceedGame(List<User> users) {
         System.out.println("\n딜러와 " + new PlayersNaming().getPlayerNamesALine(users) + "에게 2장의 카드를 나누었습니다.");
+        int step = 1;
         new HandOutCard().firstHandOutCards(users, step);
         if (new NextProceedGame().nextProceed(users) == true) {
             step++;
             new HandOutCard().proceedHandOutCards(users, step);
         }
+        return step;
     }
 
-    private void endGame() {
+    private void endGame(List<User> users, int step) {
         ProfitCalculation profitCalculation = new ProfitCalculation();
         UsersTotal usersTotal = new UsersTotal();
         profitCalculation.countProfit(users, step);
