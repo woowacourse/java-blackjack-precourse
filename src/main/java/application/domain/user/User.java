@@ -6,13 +6,14 @@ import application.view.Output;
 
 public abstract class User {
     protected static final int BLACK_JACK = 21;
+    protected static final int PLUS = 10;
     protected static final int BUST = 0;
 
     abstract public void addCard(Card card);
 
-    protected abstract String getFirstShuffleCardInfo();
+    public abstract String getFirstShuffleCardInfo();
 
-    protected abstract String getAllCardsInfo();
+    public abstract String getAllCardsInfo();
 
     public void checkCardAndAddCard(CardSupplier supplier) {
         while (isAbleAddingCard()) {

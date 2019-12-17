@@ -36,7 +36,7 @@ public class Player extends User {
     }
 
     @Override
-    protected String getAllCardsInfo() {
+    public String getAllCardsInfo() {
         StringBuffer sb = new StringBuffer();
         for (Card card : cards) {
             sb.append(card);
@@ -47,7 +47,28 @@ public class Player extends User {
 
     @Override
     protected int getScoreTo(int index) {
-        return 0;
+        int ret = addAllCardValue(index);
+        if (containsA() && ret + PLUS <= BLACK_JACK) {
+            return ret + PLUS;
+        }
+        if (ret > BLACK_JACK) {
+            return 0;
+        }
+        return ret;
+    }
+
+    private boolean containsA() {
+        return cards.stream()
+                .anyMatch(card -> card.getScore() == 1);
+    }
+
+    private int addAllCardValue(int index) {
+        int ret = 0;
+        for (int i = 0; i <= index; i++) {
+            Card card = cards.get(i);
+            ret += card.getScore();
+        }
+        return ret;
     }
 
     @Override
