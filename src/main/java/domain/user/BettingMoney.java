@@ -17,7 +17,10 @@ class BettingMoney {
         throw new IllegalArgumentException("올바르지 않은 베팅 금액입니다.");
     }
 
-    double calcurateBlackJackBenefit(boolean isDealerBlackJack, boolean isPlayerBlackJack) {
+    double calcurateBlackJackBenefit(
+            boolean isDealerBlackJack,
+            boolean isPlayerBlackJack
+    ) {
         return BenefitType
                 .calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack)
                 .getMultipleValue()
@@ -30,6 +33,6 @@ class BettingMoney {
     }
 
     double calcureateDrawBenefit() {
-        return BenefitType.DROW.getMultipleValue() * bettingMoney;
+        return BenefitType.DRAW.getMultipleValue() * bettingMoney;
     }
 }

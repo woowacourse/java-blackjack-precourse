@@ -11,36 +11,36 @@ abstract public class User {
     private static final int LIMIT = 21;
     private static final int ONE = 1;
 
-    public User() {
+    User() {
         this.userCards = new UserCards();
     }
 
-    abstract public void printUserInfo();
+    abstract public void printUserState();
 
     abstract public void printFinalOutput();
 
-    public void addRandomCard() {
+    void addRandomCard() {
         userCards.addRandomCard();
     }
 
-    public void addInitCard() {
+    void addInitCard() {
         userCards.addRandomCard();
         userCards.addRandomCard();
     }
 
-    public void addFixCard(Card card) {
+    void addFixCard(Card card) {
         userCards.addFixCard(card);
     }
 
-    public List<Card> getCards() {
+    List<Card> getCards() {
         return userCards.getCards();
     }
 
-    public String printCards() {
+    String printCards() {
         return userCards.printCards();
     }
 
-    public boolean checkExcess() {
+    boolean checkExcess() {
         return userCards.checkExcess();
     }
 
@@ -67,11 +67,11 @@ abstract public class User {
         return Symbol.ACE.getBonusScore();
     }
 
-    public boolean isPlayer() {
+    boolean isPlayer() {
         return this instanceof Player;
     }
 
-    public boolean isDealer() {
+    boolean isDealer() {
         return this instanceof Dealer;
     }
 }

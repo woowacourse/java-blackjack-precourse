@@ -3,14 +3,14 @@ import domain.user.Users;
 import view.InputUtil;
 import view.OutputUtil;
 
-public class BlackJackGame {
+class BlackJackGame {
     private static boolean gameEndFlag = false;
     private static final Outcomes outcomes = new Outcomes();
 
-    public static void start() {
+    static void start() {
         Users users = initGameSetting();
         checkInitBlackJack(users);
-        if (gameEndFlag == false) {
+        if (!gameEndFlag) {
             startDecideCardAddLoop(users);
         }
         decideOutcome(users);
@@ -28,13 +28,16 @@ public class BlackJackGame {
         }
     }
 
-    private static void calculateInitBlackJackPlayer(Users users, boolean isPlayerBlackJack, boolean isDealerBlackJack) {
+    private static void calculateInitBlackJackPlayer(
+            Users users,
+            boolean isPlayerBlackJack,
+            boolean isDealerBlackJack
+    ) {
         users.getPlayer().filter(player -> player.isBlackJack() == isPlayerBlackJack)
                 .forEach(player ->
                         outcomes.addOutcomes(
                                 player.getName(),
-                                player.calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack),
-                                player.getCards()
+                                player.calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack)
                         ));
     }
 
@@ -47,7 +50,6 @@ public class BlackJackGame {
     private static Users inputUserInfo() {
         OutputUtil.printUsersNameDemand();
         String playerNames = InputUtil.inputName();
-
         return Users.initUsers(playerNames);
     }
 

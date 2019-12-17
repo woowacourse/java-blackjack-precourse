@@ -7,9 +7,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserCards {
+    private static final int LIMIT = 21;
+    private static final int ZERO = 0;
+    private static final String COMMA = ",";
 
     private final List<Card> cards;
-    private static final int LIMIT = 21;
 
     public UserCards() {
         this.cards = new ArrayList<>();
@@ -51,7 +53,7 @@ public class UserCards {
         if (scoreExceptAce.isPresent()) {
             return scoreExceptAce.get();
         }
-        return 0;
+        return ZERO;
     }
 
     public boolean isHaveTen() {
@@ -65,6 +67,6 @@ public class UserCards {
     public String printCards() {
         return cards.stream()
                 .map(Card::toString)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(COMMA));
     }
 }

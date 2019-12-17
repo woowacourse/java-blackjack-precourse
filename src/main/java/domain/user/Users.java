@@ -12,10 +12,11 @@ import java.util.stream.Stream;
 
 public class Users {
     private static List<User> users;
+    private static final int LIMIT = 21;
     private static final int EMPTY = 0;
     private static final char COMMA = ',';
 
-    private Users(List<User> users) {
+    public Users(List<User> users) {
         validAllNameEmpty(users);
         Users.users = users;
     }
@@ -90,7 +91,7 @@ public class Users {
 
     public void decideOutcome(int dealderScore, Outcomes outcomes) {
         decideExcessOutcome(true, false, outcomes);
-        if (dealderScore > 21) {
+        if (dealderScore > LIMIT) {
             decideExcessOutcome(false, true, outcomes);
             return;
         }
@@ -137,7 +138,7 @@ public class Users {
     private void addOutcome(Player player, Outcomes outcomes, Double benefit) {
         outcomes.addOutcomes(
                 player.getName(),
-                benefit, player.getCards());
+                benefit);
     }
 
     public Stream<Player> getPlayer() {
@@ -150,7 +151,7 @@ public class Users {
         return users.stream()
                 .filter(User::isPlayer)
                 .map(user -> ((Player) user).getName())
-                .collect(Collectors.joining(","));
+                .collect(Collectors.joining(String.valueOf(COMMA)));
     }
 
     public Dealer getDealer() {
@@ -171,7 +172,7 @@ public class Users {
     }
 
     public void printBeginningUserCard() {
-        users.forEach(User::printUserInfo);
+        users.forEach(User::printUserState);
     }
 
     public void printFinalOutput() {

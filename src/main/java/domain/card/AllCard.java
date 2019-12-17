@@ -16,7 +16,7 @@ class AllCard {
         return new LinkedList<>(cards);
     }
 
-    public static Card pick() {
+    static Card pick() {
         checkEmpty();
         return shuffledCards.poll();
     }

@@ -5,9 +5,7 @@ import domain.card.Symbol;
 import domain.card.Type;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserTest {
 
@@ -21,7 +19,9 @@ class UserTest {
     void calcurateScore() {
         Dealer dealer = new Dealer();
         dealer.addFixCard(new Card(Symbol.ACE, Type.다이아몬드));
-        dealer.addFixCard(new Card(Symbol.TEN, Type.다이아몬드));
-        assertEquals(21, dealer.calcurateScore());
+        dealer.addFixCard(new Card(Symbol.ACE, Type.다이아몬드));
+        dealer.addFixCard(new Card(Symbol.ACE, Type.다이아몬드));
+        dealer.addFixCard(new Card(Symbol.ACE, Type.다이아몬드));
+        assertEquals(14, dealer.calcurateScore());
     }
 }

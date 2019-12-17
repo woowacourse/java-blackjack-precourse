@@ -7,7 +7,6 @@ import java.util.Objects;
  */
 public class Card {
     private final Symbol symbol;
-
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
@@ -16,12 +15,7 @@ public class Card {
     }
 
     // TODO Card 관련 추가 기능 구현
-
-    public Type getType() {
-        return type;
-    }
-
-    public Symbol getSymbol() {
+    Symbol getSymbol() {
         return symbol;
     }
 

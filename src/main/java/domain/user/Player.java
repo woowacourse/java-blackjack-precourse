@@ -7,6 +7,8 @@ import view.OutputUtil;
  * 게임 참여자를 의미하는 객체
  */
 public class Player extends User {
+    private static final String DOUBLE_COLON = " : ";
+
     private final String name;
     private final BettingMoney bettingMoney;
 
@@ -21,7 +23,7 @@ public class Player extends User {
             boolean addCardFlag = inputAddCardQuestion();
             if (addCardFlag) {
                 addRandomCard();
-                printUserInfo();
+                printUserState();
             }
             if (!addCardFlag) {
                 break;
@@ -64,20 +66,16 @@ public class Player extends User {
 
     @Override
     public String toString() {
-        return name + " : " + bettingMoney;
+        return name + DOUBLE_COLON + bettingMoney;
     }
 
     @Override
-    public void printUserInfo() {
-        System.out.println(name + "카드:" + printCards());
+    public void printUserState() {
+        OutputUtil.printPlayerState(name, printCards());
     }
 
     @Override
     public void printFinalOutput() {
-        System.out.println(name +
-                "카드:"
-                + printCards() +
-                " - 결과: "
-                + calcurateScore());
+        OutputUtil.printPlayerState(name, printCards(), calcurateScore());
     }
 }

@@ -7,10 +7,11 @@ import view.OutputUtil;
  */
 public class Dealer extends User {
     private static final int ADD_CARD_LIMIT = 16;
+    private static final int ZERO = 0;
 
     // TODO 추가 기능 구현
     private String getFirstCard() {
-        return getCards().get(0).getCardInfo();
+        return getCards().get(ZERO).toString();
     }
 
     private boolean checkAddLimitExcess() {
@@ -18,20 +19,20 @@ public class Dealer extends User {
         return sum > ADD_CARD_LIMIT;
     }
 
-    public void hit() {
-        while (checkAddLimitExcess() == false) {
+    void hit() {
+        while (!checkAddLimitExcess()) {
             OutputUtil.printDealerAddCard();
             addRandomCard();
         }
     }
 
     @Override
-    public void printUserInfo() {
-        System.out.println("딜러:" + getFirstCard());
+    public void printUserState() {
+        OutputUtil.printDealerState(getFirstCard());
     }
 
     @Override
     public void printFinalOutput() {
-        System.out.println("딜러:" + printCards() + " - 결과: " + calcurateScore());
+        OutputUtil.printDealerFinalOutput(printCards(), calcurateScore());
     }
 }
