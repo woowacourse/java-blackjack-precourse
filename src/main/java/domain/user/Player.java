@@ -34,20 +34,6 @@ public class Player {
     }
 
     /**
-     * 플레이어가 갖고있는 symbol의 합을 계산
-     *
-     * @return 총 symbol
-     */
-    public int calculateSymbol(){
-        int symbol = 0;
-
-        for(Card card: cards){
-            symbol += card.getSymbol();
-        }
-        return symbol;
-    }
-
-    /**
      * 플레이어가 갖은 카드List를 리턴하는 getter
      *
      * @return 플레이어가 갖은 카드List
@@ -62,5 +48,19 @@ public class Player {
         return this.name +
                 "카드: " +
                 String.join(",", cardInfo);
+    }
+
+    /**
+     * 플레이어가 갖고있는 symbol의 합을 계산
+     *
+     * @return 총 symbol
+     */
+    public int calculateSymbol() {
+        int symbol = 0;
+
+        for (Card card : cards) {
+            symbol += card.getSymbol();
+        }
+        return symbol;
     }
 }

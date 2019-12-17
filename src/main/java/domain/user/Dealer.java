@@ -29,36 +29,39 @@ public class Dealer {
         int symbolSum = 0;
 
         for (Card card : cards) {
-            symbolSum = calculateCase(card,symbolSum);
+            symbolSum = calculateCase(card, symbolSum);
         }
         return symbolSum;
     }
 
     /**
      * Ace일 경우 버스트가 나지않는 이상 11로 계산
-     * @param cards card 객체
+     *
      * @param symbolSum 에이스 나오기 전까지 심볼의 합
-     * @return 버스트되면 1 아니면 11
+     * @return 버스트되면 aceLittleNumber 아니면 aceBigNumber
      */
-    public int calculateAutoAce(Card cards, int symbolSum) {
+    public int calculateAutoAce(int symbolSum) {
         final int blackjack = 21;
+        final int aceBigNumber = 11;
+        final int aceLittleNumber = 1;
 
-        if (cards.getSymbol() + symbolSum > blackjack) {
-            return 1;
+        if (aceBigNumber + symbolSum > blackjack) {
+            return aceLittleNumber;
         }
-        return 11;
+        return aceBigNumber;
     }
 
     /**
      * ace 가 나올경우 나오지 않을경우 케이스를 나누는 메소드
      *
-     * @param cards 카드 정보객체
+     * @param cards     카드 정보객체
      * @param symbolSum 카드의 심볼의 합
      * @return 심볼의 합
      */
     public int calculateCase(Card cards, int symbolSum) {
-        if(cards.getSymbol()==1){
-            symbolSum += calculateAutoAce(cards, symbolSum);
+        final int ace = 1;
+        if (cards.getSymbol() == ace) {
+            symbolSum += calculateAutoAce(symbolSum);
             return symbolSum;
         }
         symbolSum += cards.getSymbol();
@@ -70,7 +73,7 @@ public class Dealer {
      * 딜러가 갖은 카드List를 리턴하는 getter
      * 딜러의 카드는 첫카드를 제외하고 오픈된다.
      *
-     * @return 플레이어가 갖은 카드List
+     * @return 딜러가 갖은 카드List
      */
     public String toStringCard() {
         List<String> cardInfo = new ArrayList<>();
@@ -81,9 +84,5 @@ public class Dealer {
 
         return "딜러: " +
                 String.join(",", cardInfo);
-    }
-
-    public List<Card> getCards() {
-        return cards;
     }
 }
