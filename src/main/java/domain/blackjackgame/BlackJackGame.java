@@ -9,32 +9,41 @@ import domain.user.Player;
 public class BlackJackGame {
 	private final Scanner scanner;
 	private final List<Player> players;
+	private String[] playerNames;
 
 	public BlackJackGame() {
 		scanner = new Scanner(System.in);
 		players = new ArrayList<>();
 	}
 
-	private boolean inputPlayer() {
-		String playerNames = scanner.nextLine();
-		String[] splitedPlayerNames = playerNames.split(",");
-		if (splitedPlayerNames.length == 0) {
-			return false;
-		}
-		for (String playerName : splitedPlayerNames) {
-			inputBettingMoney(playerName);
+	private void init() {
+		while (inputPlayer()) {
 		}
 	}
 
-	private void inputBettingMoney(String playerName) {
+	private boolean inputPlayer() {
+		String playerInput = scanner.nextLine();
+		playerNames = playerInput.split(",");
+		if (playerNames.length == 0) {
+			return false;
+		}
+		for (String playerName : playerNames) {
+			while (inputBettingMoney(playerName)) {
+			}
+		}
+		return true;
+	}
+
+	private boolean inputBettingMoney(String playerName) {
 		double bettingMoney = 0;
 		try {
 			bettingMoney = Double.parseDouble(scanner.nextLine());
 			Player player = new Player(playerName, bettingMoney);
 			players.add(player);
+			return true;
 		} catch (Exception e) {
 			System.out.println("잘못된 입력입니다. 다시 입력해 주세요");
-			inputBettingMoney(playerName);
+			return false;
 		}
 	}
 
