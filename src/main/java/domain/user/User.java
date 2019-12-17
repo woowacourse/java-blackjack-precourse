@@ -21,6 +21,10 @@ public class User {
 	public void setFail() {
 		this.fail = true;
 	}
+	
+	public boolean getFail() {
+		return this.fail;
+	}
 
 	public void setScore(int score) {
 		this.score = score;

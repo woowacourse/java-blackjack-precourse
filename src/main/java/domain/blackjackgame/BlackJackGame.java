@@ -15,10 +15,11 @@ import domain.user.User;
 
 public class BlackJackGame {
 	private static final int ACE = 1;
+	private static final int ONE_WINNER = 1;
 	private static final int FIRST_TWO = 2;
 	private static final int ACE_DIFFERENCE = 10;
 	private static final int DEALER_CARD_STANDARD = 16;
-	private static final int MAX_SCORE = 21;
+	private static final int BLACKJACK = 21;
 
 	private final Scanner scanner;
 	private final List<Player> players;
@@ -111,7 +112,7 @@ public class BlackJackGame {
 			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
 			giveCard(dealer);
 		}
-		if (isMaxScore(dealer.getScore())) {
+		if (isFailScore(dealer.getScore())) {
 			return true;
 		}
 		for (Player player : players) {
@@ -121,9 +122,71 @@ public class BlackJackGame {
 	}
 
 	private void decideWinner() {
-
+		List<User> blackJackList = getBlackJackWinnerList();
+		if (blackJackList.size() == 0) { // 블랙잭이 없을 경우
+			blackJackList = findWinner();
+			if (blackJackList.size() == 0) {
+				playerFail();
+				return;
+			}
+		}
+		if (blackJackList.contains(dealer) && blackJackList.size() == ONE_WINNER) {// 딜러만 블랙잭일 경우
+			playerFail();
+			return;
+		}
+		playerWin(blackJackList);
+		return;
 	}
-	
+
+	private void playerWin(List<User> blackJackList) {
+		System.out.println("### 최종 수익 ###");
+		double dealerMoney = 0;
+		for (Player player : players) {
+			if(blackJackList.contains(player)) {
+				dealerMoney -= player.getBettingMoney();
+				System.out.println(player.getName() + ": " + player.getBettingMoney());
+				continue;
+			}
+			dealerMoney += player.getBettingMoney();
+			System.out.println(player.getName() + ": " + player.getBettingMoney() * -1);
+		}
+		System.out.println("딜러: " + dealerMoney);
+	}
+
+	private List<User> findWinner() {
+		List<User> winnerList = new ArrayList<>();
+		for (Player player : players) {
+			if (!player.getFail() && dealer.getScore() <= player.getScore()) {
+				winnerList.add(player);
+			}
+		}
+		return winnerList;
+	}
+
+	private List<User> getBlackJackWinnerList() {
+		List<User> winnerList = new ArrayList<>();
+		for (Player player : players) {
+			if (player.getScore() == BLACKJACK) {
+				winnerList.add(player);
+			}
+		}
+		if (dealer.getScore() == BLACKJACK) {
+			winnerList.add(dealer);
+		}
+		return winnerList;
+	}
+
+	private void playerFail() {
+		System.out.println("딜러가 블랙잭입니다!!");
+		System.out.println("### 최종 수익 ###");
+		double dealerMoney = 0;
+		for (Player player : players) {
+			System.out.println(player.getName() + ": " + player.getBettingMoney() * -1);
+			dealerMoney += player.getBettingMoney();
+		}
+		System.out.println("딜러: " + dealerMoney);
+	}
+
 	private void dealerFail() {
 		System.out.println("딜러가 21을 초과했습니다.");
 		System.out.println("### 최종 수익 ###");
@@ -146,7 +209,7 @@ public class BlackJackGame {
 		if (!user.hasAce())
 			return;
 		for (Card card : user.getCards()) {
-			if (isMaxScore(user.getScore() + ACE_DIFFERENCE)) {
+			if (isFailScore(user.getScore() + ACE_DIFFERENCE)) {
 				return;
 			}
 			if (card.getSymbol().getScore() == ACE) {
@@ -156,7 +219,7 @@ public class BlackJackGame {
 	}
 
 	private void getMoreCards(Player player) {
-		while (!isMaxScore(player.getScore())) {
+		while (!isFailScore(player.getScore())) {
 			System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 			String input = scanner.nextLine();
 			if (input.equals("y")) {
@@ -169,23 +232,25 @@ public class BlackJackGame {
 			}
 			System.out.println("잘못된 입력을 하셨습니다. 다시 입력해주세요.");
 		}
+		System.out.println("플레이어 " + player.getName() + "은 21을 초과하였습니다.");
+		player.setFail();
 	}
 
-	private boolean isMaxScore(int score) {
-		if (score > MAX_SCORE) {
+	private boolean isFailScore(int score) {
+		if (score > BLACKJACK) {
 			return true;
 		}
 		return false;
 	}
 
 	private void printCards() {
-		System.out.println("====================================");
+		System.out.println("========================================================================");
 		System.out.print("딜러의 카드: ");
 		dealer.printCards();
 		for (Player player : players) {
 			System.out.print(player.getName() + "의 카드: ");
 			player.printCards();
 		}
-		System.out.println("====================================");
+		System.out.println("========================================================================");
 	}
 }
