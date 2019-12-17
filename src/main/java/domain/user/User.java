@@ -69,7 +69,7 @@ public abstract class User {
 				.stream()
 				.collect(Collectors.summingInt(card -> card.getScore()));
 		
-		if (score < criteria) {
+		if (getRealScore(score) < criteria) {
 			return true;
 		}
 		return false;
