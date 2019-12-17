@@ -13,6 +13,8 @@
 
 package util;
 
+import view.InputView;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -96,5 +98,13 @@ public class InputExceptionController {
 
     private boolean isRangeOfBettingMoney(int money) {
         return money > 0;
+    }
+
+    public boolean isValidMoreCard(String answer) {
+        if (answer.equals(InputView.YES) || answer.equals(InputView.NO)) {
+            return true;
+        }
+        System.out.println(Message.ERROR_MORE_CARD_ANSWER_FORMAT.getMessage());
+        return false;
     }
 }

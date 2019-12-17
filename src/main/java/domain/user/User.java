@@ -17,13 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import domain.card.Card;
 import domain.card.Deck;
+import util.GameRule;
 
-public class User {
+abstract public class User {
     private List<Card> cards = new ArrayList<>();
 
     public void addCard(Deck deck){
         cards.add(deck.getCard());
     }
+    public abstract void addCardIfWant(Deck deck);
 
     public String toStringCards() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -33,4 +35,26 @@ public class User {
         return stringBuilder.toString();
     }
 
+    public int getScore() {
+        int score = 0;
+        boolean hasAce = false;
+        for (Card card : cards) {
+            if(card.getCardNumber() == GameRule.ACE) {
+                hasAce = true;
+                continue;
+            }
+            score += card.getCardNumber();
+        }
+        if(hasAce) {
+            score += determineAceValue(score);
+        }
+        return score;
+    }
+
+    private int determineAceValue(int score) {
+        if((score + GameRule.ACE_VALUE_ELEVEN) < GameRule.BUST) {
+            return GameRule.ACE_VALUE_ELEVEN;
+        }
+        return GameRule.ACE_VALUE_ONE;
+    }
 }

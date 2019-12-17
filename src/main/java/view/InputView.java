@@ -20,8 +20,10 @@ import util.InputExceptionController;
 
 public class InputView {
     private final String SEPARATOR = ",";
-    OutputView outputView = new OutputView();
-    Scanner scanner = new Scanner(System.in);
+    public static final String YES = "y";
+    public static final String NO = "n";
+    private OutputView outputView = new OutputView();
+    private Scanner scanner = new Scanner(System.in);
 
     public List<String> getPlayerName() {
         List<String> playerNameList;
@@ -39,5 +41,17 @@ public class InputView {
             money = scanner.nextLine();
         } while (!InputExceptionController.getInstance().isValidBettingMoney(money));
         return Integer.parseInt(money);
+    }
+
+    public boolean getMoreCard(String playerName) {
+        String answer;
+        do {
+            outputView.wantMoreCard(playerName);
+            answer = scanner.nextLine();
+        } while (!InputExceptionController.getInstance().isValidMoreCard(answer));
+        if (answer.equals(YES)) {
+            return true;
+        }
+        return false;
     }
 }

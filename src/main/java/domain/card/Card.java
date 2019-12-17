@@ -24,6 +24,10 @@ public class Card {
         this.type = type;
     }
 
+    public int getCardNumber() {
+        return symbol.getScore();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

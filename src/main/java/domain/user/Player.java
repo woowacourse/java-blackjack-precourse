@@ -13,6 +13,9 @@
 
 package domain.user;
 
+import domain.card.Deck;
+import game.GameManager;
+
 public class Player extends User {
     private final String name;
     private final double bettingMoney;
@@ -20,6 +23,14 @@ public class Player extends User {
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+    }
+
+    @Override
+    public void addCardIfWant(Deck deck) {
+        while (GameManager.inputView.getMoreCard(name)) {
+            addCard(deck);
+            System.out.println(toStringCards());
+        }
     }
 
     @Override

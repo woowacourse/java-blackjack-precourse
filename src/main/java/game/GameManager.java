@@ -1,8 +1,8 @@
-/*
+package game;/*
  * Copyright (c) 2019 by SorinJin
  * All rights reserved.
  *
- * GameManager.java
+ * game.GameManager.java
  * 게임을 진행하기 위한 클래스
  *
  * @author      Sorin Jin
@@ -21,13 +21,13 @@ import view.InputView;
 import view.OutputView;
 
 public class GameManager {
-    private static final InputView inputView = new InputView();
-    private static final OutputView outputView = new OutputView();
-    private List<User> playerList;
+    public static final InputView inputView = new InputView();
+    public static final OutputView outputView = new OutputView();
+    private List<User> userList;
     private Deck deck;
 
     public GameManager() {
-        playerList = new ArrayList<>();
+        userList = new ArrayList<>();
         deck = new Deck();
     }
 
@@ -35,28 +35,35 @@ public class GameManager {
         initPlayer();
         giveCardAtFirst();
         showCards();
+        giveMoreCard();
     }
 
     private void initPlayer() {
         List<String> playerName = inputView.getPlayerName();
         for (String name : playerName) {
             int money = inputView.getBettingMoney(name);
-            playerList.add(new Player(name,money));
+            userList.add(new Player(name,money));
         }
         Dealer dealer = new Dealer();
-        playerList.add(dealer);
+        userList.add(dealer);
     }
 
     private void giveCardAtFirst() {
-        for (User player : playerList) {
-            player.addCard(deck);
-            player.addCard(deck);
+        for (User user : userList) {
+            user.addCard(deck);
+            user.addCard(deck);
         }
     }
 
     private void showCards() {
-        for (User player : playerList) {
-            outputView.printCards(player);
+        for (User user : userList) {
+            outputView.printCards(user);
+        }
+    }
+
+    private void giveMoreCard(){
+        for (User user : userList) {
+            user.addCardIfWant(deck);
         }
     }
 }

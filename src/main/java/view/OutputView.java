@@ -28,4 +28,8 @@ public class OutputView {
     public void printCards(User player) {
         System.out.println(player.toStringCards());
     }
+
+    public void wantMoreCard(String name) {
+        System.out.println(name + Message.INPUT_WANT_MORE_CARD.getMessage());
+    }
 }
