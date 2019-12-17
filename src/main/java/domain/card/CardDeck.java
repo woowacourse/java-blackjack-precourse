@@ -28,7 +28,7 @@ public class CardDeck {
 
         do {
             randomCard = cards.get(getRandomIndex());
-        } while (!isUsed(randomCard));
+        } while (isUsed(randomCard));
 
         usedCards.add(randomCard);
         return randomCard;
