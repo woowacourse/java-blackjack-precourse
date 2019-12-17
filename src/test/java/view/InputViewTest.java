@@ -1,5 +1,6 @@
 package view;
 
+import domain.user.Player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -33,11 +34,11 @@ class InputViewTest {
     @Test
     @DisplayName("y,n가 아닌 대답을 했을 경우 Exception일어나고 재 입력")
     void getYesOrNo() {
-
+        Player player = new Player("mj", 1000);
         String answer = "d\ng\ny";
         InputStream purchaseInputStream = new ByteArrayInputStream(answer.getBytes());
         InputView inputView = new InputView(purchaseInputStream);
-        assertThat(inputView.getYesOrNo()).isEqualTo("y");
+        assertThat(inputView.getYesOrNo(player)).isEqualTo("y");
     }
 
 

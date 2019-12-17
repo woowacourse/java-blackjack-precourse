@@ -9,6 +9,7 @@ package domain.user;
 public class Dealer extends Gamer {
 
     final private String DEALER_NAME = "dealer";
+    final private int LIMIT_NUMBER = 16;
 
     public Dealer() {
     }
@@ -16,5 +17,10 @@ public class Dealer extends Gamer {
     public String getName() {
         return DEALER_NAME;
     }
+
+    public boolean isDealerGetMoreCard() {
+        return getScoreOfGamer() <= LIMIT_NUMBER;
+    }
+
 
 }

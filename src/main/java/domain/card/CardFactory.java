@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  */
 public class CardFactory {
 
-    List<Card> cards = create();
+    private List<Card> cards = create();
 
     public static List<Card> create() {
         List<Card> cards = new ArrayList<>();
@@ -27,6 +27,10 @@ public class CardFactory {
         for (Type type : types) {
             cards.add(new Card(symbol, type));
         }
+    }
+
+    public int size() {
+        return cards.size();
     }
 
     public List<Card> popRandomCard(int size) {

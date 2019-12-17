@@ -17,9 +17,8 @@ public class CardFactoryTest {
     @Test
     void popRandomCard() {
         CardFactory cardFactory = new CardFactory();
-        assertThat(cardFactory.cards).hasSize(52);
+        assertThat(cardFactory.size()).isEqualTo(52);
         Card card = cardFactory.popRandomCard();
-        assertThat(cardFactory.cards).hasSize(51);
-        assertThat(cardFactory.cards).doesNotContain(card);
+        assertThat(cardFactory.size()).isEqualTo(51);
     }
 }

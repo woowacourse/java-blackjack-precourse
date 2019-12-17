@@ -26,11 +26,21 @@ public class OutputView {
 
     public static void showGamersCard(ActiveGamers activeGamers) {
         for (Gamer gamer : activeGamers.getGamers()) {
-            System.out.println(showOneGamersCard(gamer));
+            System.out.println(makePrintfFormatOfGamer(gamer));
         }
     }
 
-    private static String showOneGamersCard(Gamer gamer) {
+    public static void showOneGamerCard(Gamer gamer) {
+        System.out.println(makePrintfFormatOfGamer(gamer));
+    }
+
+    public static void showGamersCardWithScore(ActiveGamers activeGamers) {
+        for (Gamer gamer : activeGamers.getGamers()) {
+            System.out.printf("%s - 결과 : %d\n", makePrintfFormatOfGamer(gamer), gamer.getScoreOfGamer());
+        }
+    }
+
+    public static String makePrintfFormatOfGamer(Gamer gamer) {
         String gamerName = gamer.getName();
 
         String cardInfo = gamer.getCards().stream()
@@ -44,10 +54,13 @@ public class OutputView {
         return card.getSymbol().getName() + card.getType().getName();
     }
 
-    public static void showGetOneMoreCard(Gamer gamer) {
+    public static void showGetOneMoreCardInfo(Gamer gamer) {
         String gamerName = gamer.getName();
-
         System.out.printf("%s는 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)", gamerName);
+    }
+
+    public static void showGetMoreCardForDealer() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 
 }

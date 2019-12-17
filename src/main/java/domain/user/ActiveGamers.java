@@ -22,13 +22,21 @@ public class ActiveGamers {
         }
     }
 
-    public void addCardToEveryOne(List<Card> cards) {
-        sizeEqualValidate(cards.size(), size());
-        int index;
-        for (index = 0; index < players.size(); index++) {
-            players.get(index).addCard(cards.get(index));
-        }
-        dealer.addCard(cards.get(index));
+    public List<Gamer> getGamers() {
+        List<Gamer> gamers = players.stream()
+                .map(x -> (Gamer) x)
+                .collect(Collectors.toList());
+        gamers.add(dealer);
+
+        return gamers;
+    }
+
+    public List<Player> getPlayers() {
+        return this.players;
+    }
+
+    public Dealer getDealer() {
+        return dealer;
     }
 
     public int size() {
@@ -41,16 +49,13 @@ public class ActiveGamers {
                 .collect(Collectors.toList());
     }
 
-    public List<Gamer> getGamers() {
-        List<Gamer> gamers = players.stream()
-                .map(x -> (Gamer) x)
-                .collect(Collectors.toList());
-        gamers.add(dealer);
-
-        return gamers;
+    public void addCardToEveryOne(List<Card> cards) {
+        sizeEqualValidate(cards.size(), size());
+        int index;
+        for (index = 0; index < players.size(); index++) {
+            players.get(index).addCard(cards.get(index));
+        }
+        dealer.addCard(cards.get(index));
     }
 
-    public Dealer getDealer() {
-        return dealer;
-    }
 }

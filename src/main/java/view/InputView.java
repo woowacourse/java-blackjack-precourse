@@ -1,13 +1,14 @@
 package view;
 
+import domain.user.Player;
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import static util.CustomErrorMessage.INVALID_ANSWER_TYPE;
-import static view.OutputView.showInputPlayerNamesInfo;
-import static view.OutputView.showInputPlyerBettingMoneyInfo;
+import static view.OutputView.*;
 
 public class InputView {
     private static Scanner scanner;
@@ -21,7 +22,6 @@ public class InputView {
         return scanner.nextLine();
     }
 
-
     public List<Double> getBettingMoneys(List<String> playerNames) {
         return playerNames.stream()
                 .map(name -> {
@@ -29,16 +29,16 @@ public class InputView {
                     return scanner.nextDouble();
                 })
                 .collect(Collectors.toList());
-
     }
 
-    public String getYesOrNo() {
+    public String getYesOrNo(Player player) {
+        showGetOneMoreCardInfo(player);
         String next = scanner.next();
         try {
             validateAnswer(next.toLowerCase());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getYesOrNo();
+            return getYesOrNo(player);
         }
         return next;
     }
