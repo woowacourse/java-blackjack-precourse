@@ -20,8 +20,11 @@ public class BlackjackGame {
   // TODO : 게임 종료 및 계산하고 결과출력 그리고 테스트코드
   public void gameStart() {
     blackjackRule.dealInitialCards(dealer, players);
-    if (isThereBlackjack()) {
+    if (dealer.isBlackjack()) {
+      blackjackRule.whenDealerIsBlackjack(players);
+      return;
     }
+    checkPlayersBlackjack();
     blackjackRule.askHitOrStay(dealer, players);
     if (isDealerBust()) {
       blackjackRule.dealerLose(dealer, players);
@@ -34,12 +37,12 @@ public class BlackjackGame {
     return dealer.isBust();
   }
 
-  private boolean isThereBlackjack() {
+  private void checkPlayersBlackjack() {
     for (Player player : players) {
       if (player.isBlackjack()) {
-        return true;
+        blackjackRule.whenPlayerIsBlackjack(player);
+        players.remove(player);
       }
     }
-    return dealer.isBlackjack();
   }
 }
