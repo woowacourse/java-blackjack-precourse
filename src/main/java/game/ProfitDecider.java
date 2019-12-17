@@ -35,7 +35,8 @@ public class ProfitDecider {
     }
 
     public static double calculateDealerProfit(Dealer dealer, List<Player> players) {
-        return players.stream().mapToDouble(player -> calculatePlayerProfit(dealer, player)).map(ProfitDecider::changeNegativePositive).sum();
+        return players.stream().mapToDouble(player ->
+                calculatePlayerProfit(dealer, player)).map(ProfitDecider::changeNegativePositive).sum();
     }
 
     private static double changeNegativePositive(double money) {
