@@ -18,6 +18,7 @@ public class BlackJack {
     private Dealer dealer;
     private List<Player> user;
     private Deck deck;
+    private List<Player> winner;
 
     public BlackJack() {
         user = new ArrayList<>();
@@ -35,6 +36,7 @@ public class BlackJack {
             player.showCards();
         }
         checkBlackJack();
+        askDraw();
     }
 
     public String getPlayerNameList() {
@@ -48,22 +50,21 @@ public class BlackJack {
         return String.join(",", playerNameList);
     }
 
-    public List<Player> isBlackJack() {
-        return 
-        user.stream()
-            .filter(p -> p.getScore() == WINNER_PIVOT)
-            .collect(Collectors.toList());
+    public void isBlackJack() {
+        winner = user.stream()
+                .filter(p -> p.getScore() == WINNER_PIVOT)
+                .collect(Collectors.toList());
     }
 
     public List<Player> getLoserList() {
         return 
         user.stream()
-            .filter(p -> p.getScore() != WINNER_PIVOT)
+            .filter(p -> winner.contains(p))
             .collect(Collectors.toList());
     }
 
     public void checkBlackJack() {
-        List<Player> winner = isBlackJack();
+        isBlackJack();
         if (winner.contains(dealer) && winner.size() == 1)
             showOnlyDealerBlackJack();
         if (winner.contains(dealer))
@@ -111,6 +112,20 @@ public class BlackJack {
         }
 
         System.exit(0);
+    }
+
+    public void askDraw() {
+        for (Player player : user) {
+            playerDraw(player);
+        }
+    }
+
+    public void playerDraw(Player player) {
+        while (Input.askDraw(player).equals("y") && player.getScore() < WINNER_PIVOT) {
+            player.addCard(deck.draw());
+            player.showCards();
+        }
+        player.showCards();
     }
 
     public static void main(String[] args) {
