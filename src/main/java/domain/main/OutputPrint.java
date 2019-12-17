@@ -2,17 +2,31 @@ package domain.main;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.PlayerList;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class OutputPrint {
 
-    private static InputScanner inputScanner = new InputScanner();
-    private static PlayerList playerList = new PlayerList();
-    private static CardFactory cardFactory = new CardFactory();
+    private static InputScanner inputScanner;
+    private static PlayerList playerList;
+    private static CardFactory cardFactory;
+    private static Dealer dealer;
+    List<Card> cardsList;
+    private static int theTopCardNumber = 0;        // 카드 덱의 가장 위에 있는 카드의 인덱스 번호.
+
+    OutputPrint() {
+        this.inputScanner = new InputScanner();
+        this.playerList = new PlayerList();
+        this.cardFactory = new CardFactory();
+        this.dealer = new Dealer();
+        this.cardsList = new ArrayList<>(cardFactory.create());
+        Collections.shuffle(cardsList);
+    }
 
     public PlayerList getPlayerNames() {
         println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
@@ -30,8 +44,11 @@ public class OutputPrint {
 
     public void giveCardsFirstToPlayers() {
         println("딜러와 " + playerList.toStringNames() + "에게 2장의 카드를 나누어주었습니다.");
-        List<Card> cardsList = cardFactory.create();
-        Collections.shuffle(cardsList);
+        dealer.addCard(getCard());
+    }
+
+    public Card getCard() {
+        return cardsList.get(theTopCardNumber++);
     }
 
     public void wantMoreCards(String playerName) {
