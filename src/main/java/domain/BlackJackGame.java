@@ -21,6 +21,12 @@ public class BlackJackGame {
         Scanner sc = new Scanner(System.in);
         gameSetting(sc);
         defaultTurn();
+        if (blackJackHappend) {
+            calculatingRevenueFinal();
+            finalResult();
+            finalRevenue();
+            return;
+        }
 
 
     }
