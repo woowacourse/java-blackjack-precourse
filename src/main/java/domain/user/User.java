@@ -16,6 +16,14 @@ public class User {
         cards.add(card);
     }
 
+    public boolean hasDistanceEqualTo(int minDistance) {
+        return getDistanceToTarget() == minDistance;
+    }
+
+    public int getDistanceToTarget() {
+        return Constant.TARGET.getScore() - getScore();
+    }
+
     public int getScore() {
         int sumOfScores = sumCardScores();
         if (hasAce()) {

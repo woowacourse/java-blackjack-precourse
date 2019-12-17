@@ -22,10 +22,10 @@ public class BlackJack {
         Deck deck = new Deck();
         deck.shuffle();
 
-        dealCards(dealer, players, deck);
-        BookKeeper bookKeeper = new BookKeeper(dealer, players.getPlayers());
-        System.out.println(bookKeeper.getDealerBalance());
-        System.out.println(bookKeeper.getPlayersBalance());
+        deal(dealer, players, deck);
+        BookKeeper bookKeeper = new BookKeeper(players);
+        System.out.println(bookKeeper.getDealerCashFlow());
+        System.out.println(bookKeeper.getPlayerCashFlows());
 
 
         // checkpoint 1. 중간점검
@@ -36,7 +36,7 @@ public class BlackJack {
         // 결과 출력
         printCards(dealer, players);
 
-        players = hit(players, deck);
+        players.hit(deck);
         hit(dealer, deck);
 
         // checkpoint 2. 여기까지 오면 게임 종료 조건 만족함
@@ -48,6 +48,13 @@ public class BlackJack {
         printCards(dealer, players);
     }
 
+    private static void deal(Dealer dealer, Players players, Deck deck) {
+        dealer.addCard(deck.pop());
+        dealer.addCard(deck.pop());
+        players.addCards(deck);
+        players.addCards(deck);
+    }
+
     private static void hit(Dealer dealer, Deck deck) {
         if (!isAboveThreshold(dealer.getScore())) {
             dealer.addCard(deck.pop());
@@ -55,16 +62,7 @@ public class BlackJack {
         }
     }
 
-    private static Players hit(Players players, Deck deck) {
-        List<Player> modifiedPlayers = new ArrayList<>();
-        for (Player player : players.getPlayers()) {
-            hit(player, deck);
-            modifiedPlayers.add(player);
-        }
-        return new Players(modifiedPlayers);
-    }
-
-    private static void hit(Player player, Deck deck) {
+    public static void hit(Player player, Deck deck) {
         while(shouldHit(player)) {
             player.addCard(deck.pop());
             System.out.println(player.getCardInfo());
@@ -102,13 +100,6 @@ public class BlackJack {
     private static void printCards(Dealer dealer, Players players) {
         System.out.println(dealer.getCardInfo());
         players.getCardInfo().forEach(System.out::println);
-    }
-
-    private static void dealCards(Dealer dealer, Players players, Deck deck) {
-        dealer.addCard(deck.pop());
-        dealer.addCard(deck.pop());
-        players.addCards(deck);
-        players.addCards(deck);
     }
 
     private static List<Player> createPlayers(String playerNames) {
