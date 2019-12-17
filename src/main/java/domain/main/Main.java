@@ -1,6 +1,7 @@
 package domain.main;
 
 import domain.card.Card;
+import domain.user.Dealer;
 import domain.user.Player;
 
 public class Main {
@@ -15,10 +16,19 @@ public class Main {
         for (Player player : GameUser.playerList){
             player.getStartCard();
             player.printPlayerBettingMoney();
+            player.printHaveCardList();
             player.cardDrawOrPass();
             player.checkAceInCardList();
             System.out.println(player.chooseCalculateMethod());
         }
+
+        Dealer dealer = new Dealer("딜러",0);
+        dealer.getStartCard();
+        dealer.printPlayerBettingMoney();
+        dealer.cardDrawOrPass();
+        dealer.checkAceInCardList();
+        dealer.printHaveCardList();
+        System.out.println(dealer.chooseCalculateMethod());
 
 
     }
