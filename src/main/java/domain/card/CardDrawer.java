@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 트럼프 카드 덱에서 한 장을 뽑아주는 객체
+ */
 public class CardDrawer {
     private static final int TOTAL_CARD_NUMBER = 52;
     private static Random random = new Random();

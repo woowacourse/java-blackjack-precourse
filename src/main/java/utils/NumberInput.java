@@ -1,12 +1,18 @@
 package utils;
 
+/**
+ * 플레이어의 배팅 금액을 받는 객체
+ */
 public class NumberInput {
-    private static final double MIN_NUMBER = 0;
     private double number = 0;
 
     public NumberInput(String string) {
         System.out.println("\n" + string + "의 배팅 금액은?");
         input();
+    }
+
+    public double getNumber() {
+        return this.number;
     }
 
     private void input() {
@@ -23,12 +29,12 @@ public class NumberInput {
     }
 
     private void validate(double num) {
-        if (num <= MIN_NUMBER) {
+        if (isNagative(num)) {
             throw new IllegalArgumentException();
         }
     }
-
-    public double getNumber() {
-        return this.number;
+    
+    private boolean isNagative(double num) {
+        return num <= 0;
     }
 }

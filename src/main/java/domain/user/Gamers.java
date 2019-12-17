@@ -6,6 +6,9 @@ import java.util.List;
 import utils.NameInput;
 import utils.NumberInput;
 
+/**
+ * 게임 참여자 전체를 의미하는 객체
+ */
 public class Gamers {
     private static final int INIT_DRAW_NUMBER = 2;
     private Dealer dealer = new Dealer();

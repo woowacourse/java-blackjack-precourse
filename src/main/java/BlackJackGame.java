@@ -5,6 +5,9 @@ import utils.CardsPrinter;
 import utils.EarningCalculator;
 import utils.StatePrinter;
 
+/**
+ * 블랙잭 게임을 진행하는 객체
+ */
 public class BlackJackGame {
     private static final String TEMP_DEALER_NAME = "딜러";
     Gamers gamers = new Gamers();
@@ -13,12 +16,17 @@ public class BlackJackGame {
         gamers.drawInit();
         StatePrinter.printInitDrawMessage(gamers.getPlayerNames());
         printTable();
+        play();
+        printResult();
+    }
+    
+    private void play() {
         if (gamers.getDealer().isBlackJack()) {
-            printResult();
+            StatePrinter.printDealerBlackJack();
             return;
         }
+        
         drawGamersCard();
-        printResult();
     }
 
     private void drawPlayersCard() {
@@ -64,9 +72,12 @@ public class BlackJackGame {
 
     private void printFinalEarning() {
         StatePrinter.printEarningMessage();
-        StatePrinter.printEarning(TEMP_DEALER_NAME, -EarningCalculator.calculateTotalEarning(gamers));
+        StatePrinter.printEarning(TEMP_DEALER_NAME, 
+                -EarningCalculator.calculateTotalEarning(gamers));
+        
         for (Player player : gamers.getPlayers()) {
-            StatePrinter.printEarning(player.getName(), EarningCalculator.calculateEarning(player, gamers.getDealer()));
+            StatePrinter.printEarning(player.getName(), 
+                    EarningCalculator.calculateEarning(player, gamers.getDealer()));
         }
     }
 

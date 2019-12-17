@@ -4,6 +4,9 @@ import domain.user.Dealer;
 import domain.user.Gamers;
 import domain.user.Player;
 
+/**
+ * 게임 결과에 따른 배당률을 계산하는 객체
+ */
 public class EarningCalculator {
     private static final double BLACKJACK_RATE = 1.5;
     private static final double NON_BLACKJACK_RATE = 1;
@@ -41,7 +44,8 @@ public class EarningCalculator {
         double totalEarning = 0;
 
         for (Player player : gamers.getPlayers()) {
-            totalEarning += EarningCalculator.calculateEarning(player, gamers.getDealer());
+            totalEarning += EarningCalculator
+                    .calculateEarning(player, gamers.getDealer());
         }
 
         return totalEarning;

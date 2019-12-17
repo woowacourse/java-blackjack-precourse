@@ -7,6 +7,9 @@ import domain.card.Card;
 import domain.card.CardDrawer;
 import domain.card.Symbol;
 
+/**
+ * 딜러와 플레이어가 상속하는 객체
+ */
 public class Gamer {
     private static final int BLACKJACK_NUMBER = 21;
     private static final int ACE_BONUS = 10;
@@ -46,7 +49,8 @@ public class Gamer {
     }
 
     private int adjustAceScore(int score, Card card) {
-        if (score <= BLACKJACK_NUMBER - ACE_BONUS && card.isTheSymbol(Symbol.ACE)) {
+        if (score <= BLACKJACK_NUMBER - ACE_BONUS 
+                && card.isTheSymbol(Symbol.ACE)) {
             return ACE_BONUS;
         }
 
@@ -54,7 +58,8 @@ public class Gamer {
     }
 
     public boolean isBlackJack() {
-        return calculateFinalScore() == BLACKJACK_NUMBER && cards.size() == INITIAL_NUMBER_OF_CARDS;
+        return calculateFinalScore() == BLACKJACK_NUMBER 
+                && cards.size() == INITIAL_NUMBER_OF_CARDS;
     }
 
     public boolean isBust() {

@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * 플레이어의 히트 스탠드 여부를 결정받는 객체
+ */
 public class BooleanInput {
     private static final String AGREE_CHAR = "y";
     private static final String DISAGREE_CHAR = "n";
@@ -10,6 +13,10 @@ public class BooleanInput {
         input();
     }
 
+    public boolean getAgree() {
+        return this.agree;
+    }
+    
     private void input() {
         String agreeString = UserInput.input();
 
@@ -27,12 +34,9 @@ public class BooleanInput {
     }
 
     private void validate(String agreeString) {
-        if (!agreeString.equals(AGREE_CHAR) && !agreeString.equals(DISAGREE_CHAR)) {
+        if (!agreeString.equals(AGREE_CHAR) 
+                && !agreeString.equals(DISAGREE_CHAR)) {
             throw new IllegalArgumentException();
         }
-    }
-
-    public boolean getAgree() {
-        return this.agree;
     }
 }

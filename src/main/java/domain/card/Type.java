@@ -1,7 +1,10 @@
 package domain.card;
 
 public enum Type {
-    SPADE("스페이드"), DIAMOND("다이아몬드"), HEART("클로버"), CLUB("클럽");
+    SPADE("스페이드"), 
+    DIAMOND("다이아몬드"), 
+    HEART("클로버"), 
+    CLUB("클럽");
 
     private String suit;
 

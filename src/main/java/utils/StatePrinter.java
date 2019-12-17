@@ -2,9 +2,14 @@ package utils;
 
 import java.util.List;
 
+/**
+ * 게임 진행 상황을 출력하는 객체
+ */
 public class StatePrinter {
     public static void printInitDrawMessage(List<String> strings) {
-        System.out.println("\n딜러와 " + String.join(", ", strings + "에게 각 2장의 카드를 나누어 주었습니다."));
+        System.out.println("\n딜러와 " 
+                + String.join(", ", strings 
+                + "에게 각 2장의 카드를 나누어 주었습니다."));
     }
 
     public static void printDealerBlackJack() {
