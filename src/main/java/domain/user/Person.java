@@ -8,21 +8,23 @@ import domain.card.Card;
 import domain.game.GameUI;
 
 public class Person {
-	private final static int END_WORD = 2;
-	private final static int ARR_NUM = 2;
-	private final static int ACE = 1;
-	private final List<Card> cards = new ArrayList<>();
-	private final String name;
-	private int cardSum;
-	private ArrayList<Integer> cardSumList;
-	private ArrayList<ArrayList<Integer>> aceSumList;
-	private boolean blackJack;
-	private int aceCardNum;
+	protected final static int END_WORD = 2;
+	protected final static int ARR_NUM = 2;
+	protected final static int BLACK_JACK = 21;
+	protected final static int ACE = 1;
+	protected final List<Card> cards = new ArrayList<>();
+	protected final String name;
+	protected int cardSum;
+	protected ArrayList<Integer> cardSumList;
+	protected ArrayList<ArrayList<Integer>> aceSumList;
+	protected boolean blackJack;
+	protected int aceCardNum;
 
 	public Person(String name) {
 		this.name = name;
 		this.cardSum = 0;
 		this.blackJack = false;
+		this.cardSumList = new ArrayList<Integer>();
 		this.aceSumList = AceCardSum.createAceSumList();
 	}
 
@@ -64,12 +66,15 @@ public class Person {
 		existAceCardCal();
 	}
 
-	private void existAceCardCal(){
+	private void existAceCardCal() {
 		for (int i = 0; i < ARR_NUM; i++) {
+			checkBlackJack(cardSum + aceSumList.get(aceCardNum - 1).get(i));
 			cardSumList.add(cardSum + aceSumList.get(aceCardNum - 1).get(i));
 		}
 	}
+
 	private void noneAceCardCal() {
+		checkBlackJack(cardSum);
 		cardSumList.add(cardSum);
 	}
 
@@ -77,5 +82,15 @@ public class Person {
 		if (card.getSymbol() != ACE) {
 			cardSum += card.getSymbol();
 		}
+	}
+
+	private void checkBlackJack(int sum) {
+		if (sum == BLACK_JACK) {
+			blackJack = true;
+		}
+	}
+
+	public boolean getBlackJack() {
+		return blackJack;
 	}
 }

@@ -8,6 +8,7 @@ public class Main {
 		playGame = new Play();
 		playGame.requestUser();
 		playGame.giveCard();
-		playGame.playerAddCard();
+		playGame.allPlayerAddCard();
+		playGame.dealerAddCard();
 	}
 }

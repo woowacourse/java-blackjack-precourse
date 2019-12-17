@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import domain.card.CardPay;
 import domain.user.Dealer;
+import domain.user.Person;
 import domain.user.Player;
 
 /**
@@ -44,12 +45,20 @@ public class Play {
 	}
 
 	public void dealerAddCard() {
-
+		if (dealer.checkDealerScore()) {
+			gameRequest.requestDealerAddCard(cardPay, dealer);
+		}
 	}
 
-	public void playerAddCard() {
+	public void allPlayerAddCard() {
 		for (int i = 0; i < playerList.size(); i++) {
-			gameRequest.requestAddCard(cardPay, playerList.get(i));
+			playerAddCard(playerList.get(i));
+		}
+	}
+
+	private void playerAddCard(Player player) {
+		while (player.checkPlayerScore() && player.checkAddCard()) {
+			gameRequest.requestPlayerAddCard(cardPay, player);
 		}
 	}
 }

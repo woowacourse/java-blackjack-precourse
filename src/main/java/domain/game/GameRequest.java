@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import domain.card.CardPay;
+import domain.user.Dealer;
 import domain.user.Person;
 import domain.user.Player;
 
@@ -64,17 +65,19 @@ public class GameRequest {
 			requestBettingMoney(name);
 		}
 	}
+	public void requestDealerAddCard(CardPay cardPay, Dealer dealer){
 
-	public void requestAddCard(CardPay cardPay, Person player) {
+	}
+	public void requestPlayerAddCard(CardPay cardPay, Player player) {
 		String req;
 		try {
 			GameUI.printRequestAddCard(player.getName());
-			requestException.exceptionAddCard(req = scan.nextLine());
+			requestException.exceptionAddCard(req = scan.nextLine(), player);
 			cardPay.giveUserCard(req, player);
 		} catch (Exception e) {
 			System.out.println("제대로 된 문자를 입력하세요");
 			scan = new Scanner(System.in);
-			requestAddCard(cardPay, player);
+			requestPlayerAddCard(cardPay, player);
 		}
 	}
 }

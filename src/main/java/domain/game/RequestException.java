@@ -1,5 +1,7 @@
 package domain.game;
 
+import domain.user.Player;
+
 public class RequestException {
 	private final static int NAME_LENGTH = 5;
 	private final static int MONEY_VALUE = 0;
@@ -19,9 +21,11 @@ public class RequestException {
 		}
 	}
 
-	public void exceptionAddCard(String req) throws Exception {
+	public void exceptionAddCard(String req, Player player) throws Exception {
 		if(!req.equals("y") && !req.equals("n")){
+			player.setAddCardCheck(false);
 			throw new Exception();
 		}
+		player.setAddCardCheck(true);
 	}
 }
