@@ -2,7 +2,6 @@ package domain.user;
 
 import domain.card.Card;
 import domain.card.CardFactory;
-import domain.card.Symbol;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +28,6 @@ class PlayerTest {
 
         player.addCard(card);
 
-        assertEquals(false, player.isFirstTwoBlackJack());
+        assertEquals(false, player.isBlackJack());
     }
 }

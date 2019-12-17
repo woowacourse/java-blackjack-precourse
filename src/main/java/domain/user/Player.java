@@ -2,21 +2,16 @@ package domain.user;
 
 import com.sun.deploy.util.StringUtils;
 import domain.card.Card;
-import domain.card.CardFactory;
-import domain.card.Symbol;
-import domain.card.Type;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
-    private static final String FORMATTED_STRING = "%s카드: %s - 결과: %d";
-    private static final int BLACK_JACK = 21;
+public class Player extends User {
+
     private static final int MULTIPLIED_LIST_SIZE_BASIS = 2;
 
     private final String name;
@@ -36,13 +31,27 @@ public class Player {
         return cards.stream().mapToInt(Card::getNumber).sum();
     }
 
-    public String makeStatusStatement() {
-        List<String> cardNames = cards.stream().map(Card::getName).collect(Collectors.toList());
-        String cardsName = StringUtils.join(cardNames, ", ");
-        return String.format(FORMATTED_STRING, name, cardsName, calculateSum());
+    public boolean isBlackJack() {
+        return isBlackJack(cards);
     }
 
-    public boolean isFirstTwoBlackJack() {
-        return cards.size() == MULTIPLIED_LIST_SIZE_BASIS && calculateSum() == BLACK_JACK;
+    public boolean isSameScore(int score) {
+        return calculateSum() == score;
+    }
+
+    public boolean isBursted() {
+        return isBursted(cards);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
     }
 }
