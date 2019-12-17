@@ -66,7 +66,7 @@ public class Result {
         if(dealerValue == 22){
             totalBetMoney = isPush(players, totalBetMoney);
         }else{
-            totalBetMoney = doesWin(players, totalBetMoney);
+            totalBetMoney = doesWin(players, totalBetMoney, dealerValue);
         }
 
         System.out.println("딜러 : " + totalBetMoney);
@@ -90,6 +90,22 @@ public class Result {
             if(value == 22){
                 totalBetMoney -= p.getBettingMoney();
                 p.setResultMoney(0);
+            }else{
+                p.setResultMoney(-1 * p.getBettingMoney());
+            }
+        }
+        return totalBetMoney;
+    }
+
+    public double doesWin(List<Player> players, double totalBetMoney, int dealerValue){
+        for(Player p : players){
+            int value = calcResultValue(p);
+            if(value == 22){
+                totalBetMoney -= 2.5 * p.getBettingMoney();
+                p.setResultMoney(1.5 * p.getBettingMoney());
+            }else if(value > dealerValue){
+                totalBetMoney -= 2 * p.getBettingMoney();
+                p.setResultMoney(p.getBettingMoney());
             }else{
                 p.setResultMoney(-1 * p.getBettingMoney());
             }
