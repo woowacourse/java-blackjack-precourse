@@ -48,7 +48,7 @@ public class Blackjack {
                 winners.add(player);
                 if (isBlackJack(dealer)) {      //플레이어 중 블랙잭이 있고, 딜러도 블랙잭인 경우 게임 종료
                     System.out.println("딜러 블랙잭! 게임이 종료됩니다.");
-                    printResult();
+                    showResult();
                     return;
                 }
             }
@@ -60,12 +60,12 @@ public class Blackjack {
 
         if (isBlackJack(dealer)) {      // 딜러가 카드를 더 받기전에 블랙잭인지 확인, 딜러가 블랙잭이면 게임 종료
             System.out.println("딜러 블랙잭! 게임이 종료됩니다.");
-            printResult();
+            showResult();
             return;
         }
         giveExtraCard(dealer);
 
-        printResult();
+        showResult();
     }
 
     public String[] getNames() {
@@ -164,7 +164,7 @@ public class Blackjack {
         }
     }
 
-    public void printResult() {
+    public void showResult() {
         dealer.showCards();
         System.out.println("결과: " + dealer.calScore() + "점");
         for (Player player : players) {
