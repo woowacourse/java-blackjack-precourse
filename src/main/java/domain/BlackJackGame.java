@@ -121,5 +121,48 @@ public class BlackJackGame {
 
 
 
+    public static void finalResult() {
+        System.out.println("딜러: " + dealer.cardListing() + " - 결과: " + dealer.getTotal());
+        for (int i = 0; i < player.size(); i++) {
+            System.out.println(player.get(i).getName() + "카드: " + player.get(i).cardListing() + " - 결과: " + player.get(i).getTotal());
+        }
+        System.out.println();
+    }
+
+    public static void finalRevenue() {
+        System.out.println("## 최종 수익");
+        System.out.println("딜러: " + dealer.revenue);
+        for (int i = 0; i < player.size(); i++) {
+            System.out.println(player.get(i).getName() + ": " + player.get(i).revenue);
+        }
+    }
+
+
+
+
+    public static void calculatingRevenueFinal() {
+        moneyTaken = 0;
+        for (int i = 0; i < player.size(); i++) {
+            individualCalculate(player.get(i));
+        }
+        dealer.revenue = moneyTaken;
+    }
+
+    public static void individualCalculate(Player individualPlayer) {
+        if (individualPlayer.hasBeatDealer() == 1) {
+            individualPlayer.revenue = (int) individualPlayer.getBettingMoney();
+            moneyTaken -= individualPlayer.getBettingMoney();
+            return;
+        }
+        if (individualPlayer.hasBeatDealer() == 0) {
+            individualPlayer.revenue = 0;
+            return;
+        }
+        if (individualPlayer.hasBeatDealer() == -1) {
+            individualPlayer.revenue = -(int) individualPlayer.getBettingMoney();
+            moneyTaken += individualPlayer.getBettingMoney();
+        }
+    }
+
 
 }
