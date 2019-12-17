@@ -1,10 +1,10 @@
 package domain;
 
-import domain.game.BlackjackGame;
+import domain.game.Game;
 
 public class Main {
     public static void main(String[] args){
-        BlackjackGame game = new BlackjackGame();
+        Game game = new Game();
         game.playGame();
     }
 }

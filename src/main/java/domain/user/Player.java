@@ -20,8 +20,9 @@ public class Player extends GameParticipant{
     @Override
     public void addMoreCard(Card card) {
         Utill utill = new Utill();
-        while(utill.askNeedMoreCard(this)){
+        while(!this.isBust() && utill.askNeedMoreCard(this)){
             addCard(card);
+            utill.printCardListOfGameParticipant(this);
         }
     }
 }

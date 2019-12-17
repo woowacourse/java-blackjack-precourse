@@ -5,11 +5,12 @@ import domain.ui.Utill;
 
 import java.util.ArrayList;
 
-public class BlackjackGame {
+public class Game {
 
     private ArrayList<GameParticipant> participants = new ArrayList<GameParticipant>();
     private Dealer dealer = new Dealer();
     private Utill utill = new Utill();
+
 
     public void playGame() {
         initGame();
@@ -29,13 +30,14 @@ public class BlackjackGame {
 
     private void runGame() {
         receiveInitCardAllParticipants();
-        if (isThereBlackjack()) {
+        if (isThereBlackjack(participants)) {
             return;
         }
         receiveMoreCardOrNotAllParticipants();
     }
 
     private void finishGame(){
+        utill.printCardListAndScoreOfGameParticipant(participants);
 
     }
 
@@ -48,11 +50,11 @@ public class BlackjackGame {
     private void receiveInitCardEachParticipant(GameParticipant p){
         for(int i=0; i<2; i++) {
             p.addCard(dealer.giveCard());
-            utill.printCardListOfGameParticipant(p);
         }
+        utill.printCardListOfGameParticipant(p);
     }
 
-    private boolean isThereBlackjack() {
+    private boolean isThereBlackjack(ArrayList<GameParticipant> participants) {
         boolean blackjack = false;
         for (GameParticipant p : participants) {
             blackjack = (blackjack || p.isBlackjack());
@@ -69,5 +71,6 @@ public class BlackjackGame {
     private void receiveMoreCardOrNotEachParticipant(GameParticipant p){
         p.addMoreCard(dealer.giveCard());
     }
+
 
 }

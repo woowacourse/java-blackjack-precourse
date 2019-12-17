@@ -33,15 +33,24 @@ public class Utill {
     }
 
     public boolean askNeedMoreCard(GameParticipant p){
-        if(p.isBust()){
-            return false;
-        }
-
         Scanner sc = new Scanner(System.in);
-        System.out.println("카드를 더 받으시겠습니까?");
-        return sc.next() == "y";
+        System.out.println(p.getName()+"카드를 더 받으시겠습니까?");
+        return sc.next().equals("y");
     }
 
+    public void printScoreOfGameParticipant(GameParticipant p){
+        System.out.println("결과값 :" + p.getSumOfCardScore());
+    }
 
+    public void printDealerReceiveMoreCard(){
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+    }
+
+    public void printCardListAndScoreOfGameParticipant(ArrayList<GameParticipant> participants) {
+        for (GameParticipant p : participants) {
+            printCardListOfGameParticipant(p);
+            printScoreOfGameParticipant(p);
+        }
+    }
 
 }
