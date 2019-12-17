@@ -35,7 +35,7 @@ public class TurnManager {
         if (scoreManager.isLessThanSixTeen(
                 scoreManager.getSumScore(dealer))) {
             cardManager.giveCard(dealer, MAKE_ONE_CARD);
-            announcer.announceCardStatus(dealer);
+            announcer.announceDoneGiveCard(dealer);
         }
 
     }

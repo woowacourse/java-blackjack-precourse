@@ -21,7 +21,6 @@ public class UserCreateManager {
     Dealer dealer;
 
     final static int MAKE_TWO_CARD = 2;
-    final static int MAKE_ONE_CARD = 1;
 
     public UserCreateManager(Dealer dealer) {
         cardManager = new CardManager();
@@ -52,7 +51,7 @@ public class UserCreateManager {
     }
 
     private void createDealer() {
-        cardManager.giveCard(dealer, MAKE_ONE_CARD);
+        cardManager.giveCard(dealer, MAKE_TWO_CARD);
     }
 
     private List<String> createPlayerName() {

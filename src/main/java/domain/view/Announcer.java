@@ -15,6 +15,7 @@ public class Announcer {
     public static final String DONE_GIVE_CARD_TO_USER = "%s에게 한 장의 카드를 나눠줬습니다.\n\n";
     public static final String ASK_ONE_MORE_CARD = "%s는 카드를 더 받으시겠습니까? [Y/N]: ";
     public static final String BLACKJACK = "%s이 블랙잭을 달성 했습니다!";
+    public static final int FIRST_INDEX = 1;
 
     public Announcer() {
         tool = new ToolBox();
@@ -50,10 +51,11 @@ public class Announcer {
         }
     }
 
+
+
     public void announceCardStatus(User user) {
         System.out.print(user.getName() + ": ");
-        System.out.println(
-                tool.joinString(user.getCards()));
+        System.out.println(user.getCards().get(FIRST_INDEX));
     }
 
     public void announceOneMoreCard(User user) {
