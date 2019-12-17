@@ -70,6 +70,10 @@ public class InitialSetting {
         }
     }
 
+    /*
+     * 유효한 배팅금액이 들어왔는지 확인
+     * 0보다 큰 숫자라면 유효하다
+     */
     public boolean isValidMoney(String betMoney){
         int len = betMoney.length();
 
