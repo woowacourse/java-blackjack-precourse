@@ -13,10 +13,10 @@
 
 package domain.user;
 
-import domain.card.Card;
-import domain.card.Deck;
 import java.util.ArrayList;
 import java.util.List;
+import domain.card.Card;
+import domain.card.Deck;
 
 public class User {
     private List<Card> cards = new ArrayList<>();

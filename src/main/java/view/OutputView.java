@@ -13,6 +13,8 @@
 
 package view;
 
+import util.Message;
+
 public class OutputView {
     public void whatIsPlayerName() {
         System.out.println(Message.INPUT_PLAYER_NAME.getMessage());

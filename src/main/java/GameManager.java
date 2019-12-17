@@ -2,7 +2,7 @@
  * Copyright (c) 2019 by SorinJin
  * All rights reserved.
  *
- * GameController.java
+ * GameManager.java
  * 게임을 진행하기 위한 클래스
  *
  * @author      Sorin Jin
@@ -10,8 +10,6 @@
  * @date        16 Dec 2019
  *
  */
-
-package controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import domain.user.Player;
 import domain.user.User;
 import view.InputView;
 
-public class GameController {
+public class GameManager {
     private static final InputView inputView = new InputView();
 
     private List<User> initPlayer() {
