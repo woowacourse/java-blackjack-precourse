@@ -19,7 +19,7 @@ public class BlackjackGame {
 
     private void initGame() {
         ArrayList<String> playerNameList = utill.inputPlayerNameList();
-        ArrayList<Double> playerBattingMoneyList = utill.inputPlayerBattingList();
+        ArrayList<Double> playerBattingMoneyList = utill.inputPlayerBattingList(playerNameList);
 
         for (int i = 0; i < playerNameList.size(); i++) {
             participants.add(new Player(playerNameList.get(i), playerBattingMoneyList.get(i)));
@@ -36,7 +36,7 @@ public class BlackjackGame {
     }
 
     private void finishGame(){
-        calculationFinalRevence();
+
     }
 
     private void receiveInitCardAllParticipants() {
@@ -47,7 +47,6 @@ public class BlackjackGame {
 
     private void receiveInitCardEachParticipant(GameParticipant p){
         for(int i=0; i<2; i++) {
-            p.addCard(dealer.giveCard());
             p.addCard(dealer.giveCard());
             utill.printCardListOfGameParticipant(p);
         }
@@ -68,14 +67,7 @@ public class BlackjackGame {
 
     }
     private void receiveMoreCardOrNotEachParticipant(GameParticipant p){
-        while(utill.askNeedMoreCard(p)){
-            p.addCard(dealer.giveCard());
-        }
+        p.addMoreCard(dealer.giveCard());
     }
-
-    private void calculationFinalRevence(){
-
-    }
-
 
 }

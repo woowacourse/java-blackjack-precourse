@@ -31,9 +31,11 @@ public class Dealer extends GameParticipant {
         return pickedCard;
     }
 
-
     @Override
-    public void addCard(Card card) {
-        if(getSumOfCardScore() < 17) super.addCard(card);
+    public void addMoreCard(Card card) {
+        if(getSumOfCardScore() <17) {
+            addCard(card);
+        }
     }
+
 }

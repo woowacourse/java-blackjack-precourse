@@ -57,4 +57,9 @@ public class GameParticipant {
         return haveACE;
     }
 
+    public void addMoreCard(Card card){
+        addCard(card);
+    }
+
+
 }

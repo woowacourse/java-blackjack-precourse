@@ -1,6 +1,8 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.ui.Utill;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,11 @@ public class Player extends GameParticipant{
         this.bettingMoney = bettingMoney;
     }
 
-
-    // TODO 추가 기능 구현
-
+    @Override
+    public void addMoreCard(Card card) {
+        Utill utill = new Utill();
+        while(utill.askNeedMoreCard(this)){
+            addCard(card);
+        }
+    }
 }
