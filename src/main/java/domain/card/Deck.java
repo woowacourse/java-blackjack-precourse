@@ -1,5 +1,5 @@
 /*
- * @(#)Deck.java        0.5 2019.12.17
+ * @(#)Deck.java        0.6 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 카드 덱을 생성하고 관리하는 클래스.
+ * card 덱을 생성하여 관리하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.17
+ * @version 0.6 2019.12.17
  */
 public class Deck {
     /**
-     * 처음 deck이 생성되었을 때 iterator가 첫 card를 가리키도록 설정할 상수.
+     * 처음 deck이 생성되었을 때 iterator가 deck의 첫 card를 가리키도록 설정할 상수.
      */
     private static final int FIRST_CARD = 0;
 
@@ -32,22 +32,23 @@ public class Deck {
     private List<Card> cards;
 
     /**
-     * 몇 번째 card를 뽑아야 하는지 알려주는 iterator.
+     * 몇번째 card를 뽑아야 하는지 알려주는 iterator.
      */
     private int cardIterator;
 
     /**
-     * 처음 deck이 생성될 때 card를 만드는 Deck 기본 생성자.
+     * deck이 생성될 때 card를 만드는 Deck 기본 생성자.
      */
     public Deck() {
         generateCardDeck();
     }
 
     /**
-     * card를 생성하는 메소드.
+     * card를 생성하여 deck에 저장하는 메소드.
      */
     private void generateCardDeck() {
         cards = new ArrayList<>(CardFactory.create());
+
         cardIterator = FIRST_CARD;
     }
 
@@ -62,12 +63,11 @@ public class Deck {
     }
 
     /**
-     * deck의 모든 card가 사용되었을 시 새로 deck을 생성하는 메소드.
+     * deck의 card가 모드 사용되었을 시 새로 deck을 생성하는 메소드.
      */
     private void isAllCardUsedInDeck() {
         if (cardIterator == USED_ALL_CARD_IN_DECK) {
             generateCardDeck();
-            cardIterator = FIRST_CARD;
         }
     }
 }

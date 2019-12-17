@@ -1,5 +1,5 @@
 /*
- * @(#)Symbol.java      0.3 2019.12.16
+ * @(#)Symbol.java      0.4 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,7 +10,7 @@ package domain.card;
  * card의 번호를 열거형으로 저장한 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.16
+ * @version 0.4 2019.12.17
  */
 public enum Symbol {
     ACE(1, "A"),
@@ -33,7 +33,7 @@ public enum Symbol {
     private int score;
 
     /**
-     * Symbol의 이니셜을 가지는 변수.
+     * Symbol의 이니셜 문자를 가지는 변수.
      */
     private String initial;
 

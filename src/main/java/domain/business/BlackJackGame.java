@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       1.2 2019.12.17
+ * @(#)BlackJackGame.java       1.3 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -22,21 +22,21 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.2 2019.12.17
+ * @version 1.3 2019.12.17
  */
 public class BlackJackGame {
     /**
-     * Dealer와 관련된 정보를 출력할 때 이름으로 사용할 상수.
+     * Dealer와 관련된 정보를 출력할 때 Dealer의 이름으로 사용할 상수.
      */
     private static final String DEALER_NAME = "Dealer";
 
     /**
-     * Player가 card를 더 받는 응답임을 확인하기 위한 상수.
+     * Player가 card를 더 받는다는 응답을 했는지 확인하기 위한 상수.
      */
     private static final String DRAW_MORE_CARD_REPLY = "y";
 
     /**
-     * 처음에 deck에서 card를 2개씩 뽑을 때 사용할 상수.
+     * 처음에 deck에서 card를 2장씩 뽑을 때 사용할 상수.
      */
     private static final int FIRST_TWO_DRAW = 2;
 
@@ -53,36 +53,25 @@ public class BlackJackGame {
     /**
      * 게임에 참여하는 Dealer 객체.
      */
-    private Dealer dealer;
+    private Dealer dealer = new Dealer();
 
     /**
-     * 생성된 Player들을 저장할 Player List.
+     * 생성된 Player들을 저장할 Player 객체 List.
      */
-    private List<Player> players;
+    private List<Player> players = new ArrayList<>();
 
     /**
-     * Dealer와 Player를 User로 함께 접근하기 위한 User List.
+     * Dealer와 Player를 상위 클래스인 User로 함께 접근하기 위한 User 객체 List.
      */
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
     /**
-     * card를 생성하고 담당할 Deck 객체.
+     * 게임을 진행하는 동안 사용할 card들을 생성하고 관리하는 Deck 객체.
      */
-    private Deck deck;
-
-    /**
-     * 블랙잭 게임을 생성하는 생성자.
-     */
-    public BlackJackGame() {
-        dealer = new Dealer();
-        players = new ArrayList<>();
-        users = new ArrayList<>();
-        deck = new Deck();
-    }
+    private Deck deck = new Deck();
 
     /**
      * Player의 이름과 배팅 머니로 Player를 생성하여 Player List에 추가하는 메소드.
-     * Player가 배팅한 배팅 머니는 Dealer에겐 수익으로 추가가 되고, Player는 배팅을 했으므로 수익에서 감소가 되도록 구현.
      *
      * @param userName     Player의 이름.
      * @param bettingMoney Player의 배팅 머니.
@@ -100,7 +89,7 @@ public class BlackJackGame {
     }
 
     /**
-     * Dealer와 Player들을 한번에 관리하기 위한 User List를 생성하는 메소드.
+     * Dealer와 Player들을 한번에 관리하기 위해 User 객체 List에 추가하는 메소드.
      */
     private void integrateDealerAndPlayersIntoUsers() {
         users.add(dealer);
@@ -108,7 +97,7 @@ public class BlackJackGame {
     }
 
     /**
-     * User(Dealer와 Player)들이 처음 2장의 card를 뽑는 메소드.
+     * User(Dealer 또는 Player)들이 처음 2장의 card를 뽑는 메소드.
      */
     private void drawTwoCardsEachUsers() {
         out.printFirstDrawTwoCards(StringUtil.joinPlayersName(players));
@@ -118,7 +107,7 @@ public class BlackJackGame {
     }
 
     /**
-     * User(Dealer 또는 Player)에게 2장의 card를 뽑도록 하는 메소드.
+     * User에게 2장의 card를 뽑도록 하는 메소드.
      */
     private void drawTwoCardsUser(User user) {
         for (int i = 0; i < FIRST_TWO_DRAW; i++) {
@@ -127,7 +116,7 @@ public class BlackJackGame {
     }
 
     /**
-     * Dealer가 블랙잭인지 확인하고 블랙잭이면 Dealer가 블랙잭이라는 출력문을 출력하는 메소드.
+     * Dealer가 블랙잭(처음 2장의 care의 총점이 21)인지 확인하고, 블랙잭이면 Dealer가 블랙잭이라는 출력문도 함께 출력하는 메소드.
      *
      * @return Dealer가 블랙잭이면 true 반환.
      */
@@ -141,7 +130,7 @@ public class BlackJackGame {
     }
 
     /**
-     * Dealer가 블랙잭이 아닌 경우, 규칙에 따라 게임을 계속 진행하는 메소드.
+     * Dealer가 블랙잭이 아닌 경우, 현재까지의 card들을 출력하고 지정된 규칙에 따라 게임을 계속 진행하는 메소드.
      */
     public void restartGameAccordingToRules() {
         printUsersCurrentCardsStatus();
@@ -151,7 +140,7 @@ public class BlackJackGame {
     }
 
     /**
-     * Dealer가 BlackJack이 아니라서 게임을 다시 진행할 경우, 현재 User들의 card를 출력하는 메소드.
+     * Dealer가 BlackJack이 아니라서 게임을 다시 진행할 경우, User들의 현재 card들을 출력하는 메소드.
      */
     private void printUsersCurrentCardsStatus() {
         for (User user : users) {
@@ -171,7 +160,7 @@ public class BlackJackGame {
     }
 
     /**
-     * Player가 버스트(총합이 21을 초과)가 되면 버스트가 되었다는 메시지를 출력하고 더 이상 뽑지 못하도록 하는 메소드.
+     * Player가 버스트(총점이 21을 초과)가 되면 버스트가 되었다는 메시지를 출력하고 더 이상 뽑지 못하도록 하는 메소드.
      *
      * @param player 카드를 뽑을 수 있는 지 확인할 Player.
      */
@@ -215,7 +204,7 @@ public class BlackJackGame {
     }
 
     /**
-     * Dealer의 총점이 17이 안될경우 규칙에 따라 계속 card를 뽑도록 하는 메소드.
+     * Dealer의 총점이 17이 안될 경우 규칙에 따라 계속 card를 뽑도록 하는 메소드.
      */
     private void drawMoreCardDealerAccordingRule() {
         if (dealer.isDrawContinue()) {
@@ -226,7 +215,7 @@ public class BlackJackGame {
     }
 
     /**
-     * User(Dealer와 Player)들의 카드의 최종 결과를 출력하는 메소드.
+     * User들의 최종 card들을 출력하는 메소드.
      */
     public void printUsersFinalCardStatus() {
         for (User user : users) {
@@ -235,7 +224,7 @@ public class BlackJackGame {
     }
 
     /**
-     * 블랙잭 게임 전체의 수익 결과를 계산하여 출력하는 메소드.
+     * 블랙잭 게임 전체 User들의 수익 결과를 계산하여 출력하는 메소드.
      */
     public void printUsersFinalProfitResult() {
         ProfitCalculator profitCalculator = new ProfitCalculator(dealer, players);

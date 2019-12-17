@@ -1,5 +1,5 @@
 /*
- * @(#)StringUtil.java      0.8 2019.12.17
+ * @(#)StringUtil.java      0.９ 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -14,10 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 문자열을 처리하는 기능을 담당하는 클래스.
+ * 문자열　처리를 담당하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.8 2019.12.17
+ * @version 0.９ 2019.12.17
  */
 public class StringUtil {
     /**
@@ -26,22 +26,18 @@ public class StringUtil {
     private static final String SPLIT_COMMA_DELIMITER = ",";
 
     /**
-     * Player의 이름을 합칠 때 사용할 쉼표(,) + 공백 구분자 상수.
+     * Player의 이름과　카드의　정보를 문자열로　합칠 때 사용할 쉼표＋공백(,　) 구분자 상수.
      */
     private static final String JOIN_COMMA_DELIMITER = ", ";
 
     /**
-     * 게임 참여자 이름을 쉼표(,)를 기준으로 자르고, 공백을 제거하는 메소드.
+     * 게임 참여자 이름을 쉼표(,)를 기준으로 자르고, 공백을 제거하는　입력　처리 메소드.
      *
      * @param userInput 입력받은 게임 참여자 이름 문자열.
      * @return 쉼표(,)를 기준으로 자르고, 공백을 제거하는 모든 처리가 완료된 Player들의 이름.
      */
     public static List<String> processPlayerName(String userInput) {
-        List<String> playerNames;
-
-        playerNames = splitToPlayersName(userInput);
-        trimPlayersName(playerNames);
-        return playerNames;
+        return trimPlayersName(splitToPlayersName(userInput));
     }
 
     /**
@@ -58,11 +54,13 @@ public class StringUtil {
      * Player들의 이름 앞, 뒤에 불필요한 공백을 제거하는 메소드.
      *
      * @param playerNames 불필요한 공백이 제거된 Player들의 이름.
+     * @return 불필요한 공백이 제거된 Player들의 이름.
      */
-    private static void trimPlayersName(List<String> playerNames) {
+    private static List<String> trimPlayersName(List<String> playerNames) {
         for (int i = 0; i < playerNames.size(); i++) {
             playerNames.set(i, playerNames.get(i).trim());
         }
+        return playerNames;
     }
 
     /**

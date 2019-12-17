@@ -1,5 +1,5 @@
 /*
- * @(#)Card.java        0.6 2019.12.17
+ * @(#)Card.java        0.7 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import java.util.Objects;
  * card 한장을 의미하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.6 2019.12.17
+ * @version 0.7 2019.12.17
  */
 public class Card {
     /**
@@ -62,7 +62,7 @@ public class Card {
     }
 
     /**
-     * card의 symbol의 숫자와 type을 문자열로 만들어 반환하는 메소드.
+     * card의 symbol의 이니셜 문자와 type을 문자열로 만들어 반환하는 메소드.
      * 기존에 제공한 코드에서 해당 프로그램에 출력하여 사용하기 편하도록 리펙토링.
      *
      * @return card의 symbol의 숫자와 type을 합친 문자열.

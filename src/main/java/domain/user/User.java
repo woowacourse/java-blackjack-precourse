@@ -1,5 +1,5 @@
 /*
- * @(#)User.java        0.2 2019.12.17
+ * @(#)User.java        0.3 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -7,6 +7,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.ui.Output;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,11 @@ import java.util.List;
  * Dealer와 Player의 중복을 제거하기 위한 상위 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.17
+ * @version 0.3 2019.12.17
  */
 public class User {
     /**
-     * 처음 Player의 score를 0으로 초기화 하기 위한 상수.
+     * 처음 Player의 점수를 저장할 변수를 0으로 초기화 하기 위한 상수.
      */
     protected static final int INIT_SCORE_TO_ZERO = 0;
 
@@ -44,7 +45,7 @@ public class User {
     protected static final int BLACK_JACK_CARD_SIZE = 2;
 
     /**
-     * 블랙잭(처음 2장의 care의 총합이 21)인지 확인하기 위해 사용할 상수.
+     * 블랙잭인지 확인하기 위해 사용할 상수.
      */
     protected static final int BLACK_JACK = 21;
 
@@ -54,34 +55,39 @@ public class User {
     protected static final int BUST_NUMBER = 22;
 
     /**
-     * User가 받은 card를 저장할 card List.
+     * 출력과 관련된 기능을 담당할 Output 객체.
+     */
+    protected Output out = new Output();
+
+    /**
+     * User가 받은 card를 저장할 Card 객체 List.
      */
     protected final List<Card> cards = new ArrayList<>();
 
     /**
-     * cards에 새로 받은 card를 추가하는 메소드.
+     * 새로 뽑은 card를 cards에 추가하는 메소드.
      *
-     * @param card 새로 받은 card.
+     * @param card 새로 뽑은 card.
      */
     public void addCard(Card card) {
         cards.add(card);
     }
 
     /**
-     * 처음 2장의 card를 받았을 때 첫번째 card만 출력하는 메소드.
+     * 처음 2장의 card를 받고 Dealer가 블랙잭이 아니면 현재 card를 출력하는 메소드.
      */
     public void printCurrentCardStatus() {}
 
     /**
-     * User의 최종 카드 결과를 출력하는 메소드.
+     * User의 최종 card와 총점을 출력하는 메소드.
      */
     public void printFinalCardStatus() {}
 
     /**
-     * User가 가지고 있는 모든 card의 숫자 합(총점)을 구하는 메소드.
+     * User가 가지고 있는 모든 card들의 숫자의 합(총점)을 구하는 메소드.
      * ACE card가 존재할 경우를 확인하여 추가 연산 진행.
      *
-     * @return 가지고 있는 모든 card의 숫자 총합을 반환(총점).
+     * @return 가지고 있는 모든 card의 숫자 총합(총점)을 반환.
      */
     public int getScore() {
         int score = INIT_SCORE_TO_ZERO;
@@ -106,7 +112,7 @@ public class User {
     }
 
     /**
-     * ACE card이면 더해야할 추가 점수를, 일반 카드면 0을 반환하는 메소드.
+     * ACE card이면 더해야 할 추가 점수를, 나머지 카드라면 0을 반환하는 메소드.
      *
      * @param totalScore 현재까지의 총합.
      * @param card       ACE card인지 확인할 card.
@@ -120,7 +126,7 @@ public class User {
     }
 
     /**
-     * ACE card를 11로 사용했을 떄 버스트(총점이 21초과)가 발생하는지 확인하여 연산하는 메소드.
+     * ACE card를 11로 사용했을 떄 버스트가 발생하는지 확인하여 추가 점수를 반환하는 메소드.
      *
      * @param totalScore ACE card가 1로 연산된 총합.
      * @return ACE card를 1 또는 11로 사용할 지에 대한 추가 점수(1로 쓰면 0, 11로 쓰면 10).
@@ -133,16 +139,16 @@ public class User {
     }
 
     /**
-     * User의 처음 뽑은 2장의 card가 블랙잭(처음 2장의 care의 총합이 21)인지 확인하는 메소드.
+     * User의 cards에 처음 뽑은 2장의 카드만 존재하고, 총점이 블랙잭 점수와 같은지 확인하는 메소드.
      *
-     * @return 카드가 2장이고 블랙잭(처음 2장의 care의 총합이 21)인 경우 true 반환.
+     * @return cards에 2장의 카드만 존재하고 블랙잭인 경우 true 반환.
      */
     public boolean isBlackJack() {
         return ((cards.size() == BLACK_JACK_CARD_SIZE) && (getScore() == BLACK_JACK));
     }
 
     /**
-     * 총점이 버스트(총점이 21초과)인지 확인하는 메소드.
+     * 총점이 버스트인지 확인하는 메소드.
      *
      * @return 버스트이면 true 반환.
      */
