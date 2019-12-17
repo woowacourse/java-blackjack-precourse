@@ -4,6 +4,7 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -23,5 +24,9 @@ public class Player {
     }
 
     // TODO 추가 기능 구현
+
+    public String getName() {
+        return this.name;
+    }
 
 }

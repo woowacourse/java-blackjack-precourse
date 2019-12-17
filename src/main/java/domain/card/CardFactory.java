@@ -17,6 +17,7 @@ public class CardFactory {
         return Collections.unmodifiableList(cards);
     }
 
+
     private static void createByType(List<Card> cards, Symbol symbol) {
         Type[] types = Type.values();
         for (Type type : types) {
