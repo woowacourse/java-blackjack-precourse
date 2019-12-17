@@ -146,5 +146,18 @@ public class GameManager {
 		return Integer.parseInt(player.printCard().get(i).getSymbol().toString());
 	}
 
-	
+	private void checkWinnerScore() {
+		for (int i = 0; i < scoreResult.length - 1; i++) {
+			compareScore(scoreResult[i], scoreResult[i + 1], i);
+		}
+	}
+
+	private void compareScore(Integer num1, Integer num2, int index) {
+		if (maxScore <= Math.max(num1, num2) && Math.max(num1, num2) < 22) {
+			maxScore = Math.max(num1, num2);
+			winner=index;
+		}
+	}
+
+
 }
