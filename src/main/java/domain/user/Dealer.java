@@ -1,6 +1,8 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
+import domain.game.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +24,27 @@ public class Dealer {
                 .anyMatch(Card::isAce);
     }
 
-    public List<Card> getCards() {
-        return this.cards;
+    public int getScore() {
+        int sumOfScores = sumCardScores();
+        if (hasAce()) {
+            return adjustAceScore(sumOfScores);
+        }
+        return sumOfScores;
+    }
+
+    private int sumCardScores() {
+        return this.cards.stream()
+                .map(Card::getSymbol)
+                .mapToInt(Symbol::getScore)
+                .sum();
+    }
+
+    private int adjustAceScore(int sumOfScores) {
+        int adjustment =  Constant.ALTERNATIVE_ACE.getScore() - Symbol.ACE.getScore();
+        if (sumOfScores + adjustment <=  Constant.TARGET.getScore()) {
+            return sumOfScores + adjustment;
+        }
+        return sumOfScores;
     }
 
     public String getCardInfo() {
