@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static io.BlackJackGame.ZERO;
-
 public class InputView {
 
     public static final String DELIMITER = ",";
@@ -34,19 +32,8 @@ public class InputView {
 
     public static Double inputBettingMoney( String name ) {
         System.out.println(name + "의 베팅 금액은?");
-        try {
-            Double bettingMoney = Double.parseDouble(SCANNER.nextLine());
-            validateBettingMoney(bettingMoney);
-            return bettingMoney;
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자가 아닙니다.");
-        }
-    }
-
-    private static void validateBettingMoney( Double bettingMoney ) {
-        if (bettingMoney <= ZERO) {
-            throw new IllegalArgumentException("베팅 금액은 0 보다 큰 금액 입니다.");
-        }
+        Double bettingMoney = Double.parseDouble(SCANNER.nextLine());
+        return bettingMoney;
     }
 
     public static boolean inputHitAndStay( String name ) {
