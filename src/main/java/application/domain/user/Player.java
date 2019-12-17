@@ -83,7 +83,11 @@ public class Player extends User {
 
     @Override
     protected boolean isSatisfiedAddingCardCondition() {
-        return Input.isAddingCardFlag();
+        return Input.isAddingCardFlag(this);
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
