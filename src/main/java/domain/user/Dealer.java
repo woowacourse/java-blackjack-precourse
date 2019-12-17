@@ -58,8 +58,8 @@ public class Dealer implements Participant {
     }
 
     @Override
-    public double doBalancing(double result) {
-        double settlement = result;
+    public double doBalancing(double totalSettlement) {
+        double settlement = totalSettlement;
         System.out.println("딜러: " + settlement);
         return settlement;
     }

@@ -14,5 +14,5 @@ public interface Participant {
 
     void showOutcome();
 
-    double doBalancing(double result);
+    double doBalancing(double amount);
 }

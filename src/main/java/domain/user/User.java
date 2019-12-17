@@ -68,8 +68,8 @@ public class User implements Participant {
     }
 
     @Override
-    public double doBalancing(double result) {
-        double settlement = result * bettingMoney;
+    public double doBalancing(double profitPercent) {
+        double settlement = profitPercent * bettingMoney;
         System.out.println(name + ": " + settlement);
         return settlement;
     }

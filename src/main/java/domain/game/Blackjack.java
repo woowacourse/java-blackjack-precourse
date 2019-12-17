@@ -159,15 +159,20 @@ public class Blackjack {
         for (User user : users) {
             user.showOutcome();
         }
-        double dealerSettlement = 0;
-        for (User user : users) {
-            double result = getResult(user);
-            dealerSettlement -= user.doBalancing(result);
-        }
-        dealer.doBalancing(dealerSettlement);
+        distributeMoney();
     }
 
-    public double getResult(User user) {
+    public void distributeMoney() {
+        System.out.println("\n\n##최종 수익");
+        double totalSettlement = 0;
+        for (User user : users) {
+            double profitPercent = winOrLose(user);
+            totalSettlement -= user.doBalancing(profitPercent);
+        }
+        dealer.doBalancing(totalSettlement);
+    }
+
+    public double winOrLose(User user) {
         final double BLACKJACK_WIN = 1.5;
         final double WIN = 1;
         final double DRAW = 0;
