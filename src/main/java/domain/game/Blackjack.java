@@ -2,7 +2,8 @@ package domain.game;
 
 import domain.card.Card;
 import domain.user.Dealer;
-import domain.user.Player;
+import domain.user.Participant;
+import domain.user.User;
 
 import java.util.*;
 
@@ -15,7 +16,7 @@ public class Blackjack {
     public final String YES = "y";
     public final String NO = "n";
     public Dealer dealer;
-    public List<Player> players = new ArrayList<Player>();
+    public List<User> users = new ArrayList<User>();
     public Scanner sc = new Scanner(System.in);
     private Stack<Card> cards = new Stack<>();
 
@@ -38,7 +39,7 @@ public class Blackjack {
         for (String name : nameArr) {
             System.out.println(name + "의 배팅 금액을 입력해주세요.");
             double bettingMoney = getBettingMoney();
-            players.add(new Player(name, bettingMoney));
+            users.add(new User(name, bettingMoney));
         }
     }
 
@@ -91,64 +92,45 @@ public class Blackjack {
         deal(dealer);
         deal(dealer);
         dealer.openOneCard();
-        for (Player player : players) {
-            deal(player);
-            deal(player);
-            player.showCards();
+        for (User user : users) {
+            deal(user);
+            deal(user);
+            user.showCards();
         }
     }
 
-    public void deal(Player player) {
+    public void deal(Participant participant) {
         Card card = cards.pop();
-        player.addCard(card);
+        participant.addCard(card);
     }
 
-    public void deal(Dealer dealer) {
-        Card card = cards.pop();
-        dealer.addCard(card);
+    public boolean isBlackJack(Participant participant) {
+        return (participant.calScore() == CONDITION_SCORE) && (participant.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
     }
 
-
-    public boolean isBlackJack(Player player) {
-        return (player.calScore() == CONDITION_SCORE) && (player.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
-    }
-
-    public boolean isBlackJack(Dealer dealer) {
-        return (dealer.calScore() == CONDITION_SCORE) && (dealer.getNumberOfCards() == CONDITION_NUMBER_OF_CARDS);
-    }
-
-    public boolean isBust(Player player) {
-        if (player.calScore() > CONDITION_SCORE) {
-            System.out.println(player.getName() + " 버스트");
+    public boolean isBust(Participant participant) {
+        if (participant.calScore() > CONDITION_SCORE) {
+            System.out.println("버스트");
             return true;
         }
         return false;
     }
-
-    public boolean isBust(Dealer dealer) {
-        if (dealer.calScore() > CONDITION_SCORE) {
-            System.out.println("딜러 버스트");
-            return true;
-        }
-        return false;
-    }
-
 
     public void dealCardsAgain() {
-        for (Player player : players) {
-            giveExtraCard(player);
+        for (User user : users) {
+            giveExtraCard(user);
         }
         giveExtraCard(dealer);
     }
 
-    public void giveExtraCard(Player player) {
-        if (isBlackJack(player)) {
-            System.out.println(player.getName() + " 블랙잭!!\n");
+    public void giveExtraCard(User user) {
+        if (isBlackJack(user)) {
+            System.out.println(user.getName() + " 블랙잭!!\n");
             return;
         }
-        while ((!isBust(player)) && (isReceivingCard(player))) {
-            deal(player);
-            player.showCards();
+        while ((!isBust(user)) && (isReceivingCard(user))) {
+            deal(user);
+            user.showCards();
         }
     }
 
@@ -159,8 +141,8 @@ public class Blackjack {
         }
     }
 
-    public boolean isReceivingCard(Player player) {
-        String decision = player.needMoreCard(sc);
+    public boolean isReceivingCard(User user) {
+        String decision = user.needMoreCard(sc);
         while (!isValidAnswer(decision)) {
             System.out.println("입력이 잘못되었습니다. 한 장의 카드를 더 받으시겠습니까? (예: y, 아니오: n)");
             decision = sc.nextLine();
@@ -176,26 +158,26 @@ public class Blackjack {
     public void showResult() {
         dealer.showCards();
         System.out.println("결과: " + dealer.calScore() + "점");
-        for (Player player : players) {
-            player.showCards();
-            System.out.println("결과: " + player.calScore() + "점");
+        for (User user : users) {
+            user.showCards();
+            System.out.println("결과: " + user.calScore() + "점");
         }
 
         double dealerSettlement = 0;
-        for (Player player : players) {
-            double result = getResult(player);
-            dealerSettlement -= player.doBalancing(result);
+        for (User user : users) {
+            double result = getResult(user);
+            dealerSettlement -= user.doBalancing(result);
         }
         dealer.doBalancing(dealerSettlement);
     }
 
-    public double getResult(Player player) {
+    public double getResult(User user) {
         final double BLACKJACK_WIN = 1.5;
         final double WIN = 1;
         final double DRAW = 0;
         final double LOSE = -1;
 
-        if (isBlackJack(player)) {
+        if (isBlackJack(user)) {
             if (isBlackJack(dealer)) {
                 return DRAW;
             } else {
@@ -203,7 +185,7 @@ public class Blackjack {
             }
         }
 
-        if (isBust(player)) {
+        if (isBust(user)) {
             return LOSE;
         }
 
@@ -212,9 +194,9 @@ public class Blackjack {
         } else if (isBust(dealer)) {
             return WIN;
         } else {
-            if (player.calScore() > dealer.calScore()) {
+            if (user.calScore() > dealer.calScore()) {
                 return WIN;
-            } else if (player.calScore() == dealer.calScore()) {
+            } else if (user.calScore() == dealer.calScore()) {
                 return DRAW;
             } else {
                 return LOSE;
