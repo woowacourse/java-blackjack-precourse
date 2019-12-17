@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 
 public class Game {
 
-    private GameInputScanner gameInputScanner = new GameInputScanner();
-
     public static void main(String[] args) {
         Game game = new Game();
         game.play();
@@ -26,6 +24,7 @@ public class Game {
         List<Player> players = initPlayers();
         runGame(dealer, players, deck);
         makeResult(dealer, players);
+        printProfit(dealer, players);
     }
 
     private void initDeck(Deck deck) {
@@ -123,5 +122,9 @@ public class Game {
 
     private void makeResult(Dealer dealer, List<Player> players) {
         GamePrinter.printResult(dealer, players);
+    }
+
+    private void printProfit(Dealer dealer, List<Player> players) {
+        GamePrinter.printProfitResult(dealer, players);
     }
 }
