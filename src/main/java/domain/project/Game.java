@@ -6,6 +6,7 @@ import domain.card.Symbol;
 import domain.card.Type;
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.Person;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class Game {
 		getCardPerPlayer();
 		getCardDealer();
 		printResult();
+		printWinner();
 	}
 
 	private void initialSet() {
@@ -248,7 +250,7 @@ public class Game {
 	}
 
 	private void printPlayerCard(Player player) {
-		myPrinter.printPlayerName(player.getName());
+		myPrinter.printPlayerNameWithCard(player.getName());
 		myPrinter.printCard(player.getCardString());
 	}
 
@@ -301,15 +303,15 @@ public class Game {
 		myPrinter.printStopGetCard(player.getName());
 		return false;
 	}
-	
+
 	private void getCardDealer() {
 		if (dealer.isContainAce() == true) {
 			checkDealerSumWithAce();
-			return ;
+			return;
 		}
 		checkDealerSum();
 	}
-	
+
 	private void checkDealerSumWithAce() {
 		if (dealer.getCardSumWithAce() == Constant.BLACKJACK) {
 			myPrinter.printDealerStopGetCard();
@@ -317,7 +319,7 @@ public class Game {
 		}
 		checkDealerSum();
 	}
-	
+
 	private void checkDealerSum() {
 		if (dealer.getCardSum() <= Constant.DEALER_PICK) {
 			myPrinter.printDealerGetCard();
@@ -326,27 +328,153 @@ public class Game {
 		}
 		myPrinter.printDealerStopGetCard();
 	}
-	
+
 	private void printResult() {
 		myPrinter.printNewLine();
 		printDealerResult();
 		printPlayerSetResult();
 	}
-	
+
 	private void printDealerResult() {
 		myPrinter.printDealer();
 		myPrinter.printCard(dealer.getResultString());
 	}
-	
+
 	private void printPlayerSetResult() {
 		for (Player p : playerSet) {
 			printPlayerResult(p);
 		}
 	}
-	
+
 	private void printPlayerResult(Player player) {
-		myPrinter.printPlayerName(player.getName());
+		myPrinter.printPlayerNameWithCard(player.getName());
 		myPrinter.printCard(player.getResultString());
+	}
+
+	private void printWinner() {
+		myPrinter.printPrizeResult();
+		if (dealer.determineScore() > Constant.BLACKJACK) {
+			allPlayerWin();
+		}
+		if (dealer.determineScore() == Constant.BLACKJACK) {
+			dealerWin();
+		}
+		if (dealer.determineScore() < Constant.BLACKJACK) {
+			checkWinPerson();
+		}
+	}
+
+	private void allPlayerWin() {
+		myPrinter.printDealer();
+		myPrinter.printZeroPrize();
+		for (Player p : playerSet) {
+			myPrinter.printPlayerName(p.getName());
+			myPrinter.printBettingMoney(p.getBettingMoney());
+		}
+	}
+
+	private void dealerWin() {
+		double dealerMoney = 0d;
+
+		for (Player p : playerSet) {
+			dealerMoney = dealerMoney + checkBlackJack(p);
+		}
+		printDealerWin(dealerMoney);
+	}
+
+	private void printDealerWin(double dealerMoney) {
+		myPrinter.printDealer();
+		myPrinter.printBettingMoney(dealerMoney);
+		printBlackJackPlayer();
+	}
+
+	private void printBlackJackPlayer() {
+		for (Player p : playerSet) {
+			myPrinter.printPlayerName(p.getName());
+			myPrinter.printBettingMoney(p.getBettingMoney() * p.getRate());
+		}
+	}
+
+	private double checkBlackJack(Player player) {
+		if (player.determineScore() == dealer.determineScore()) {
+			player.setRate(Constant.WIN_RATE);
+			return player.getBettingMoney();
+		}
+		player.setRate(Constant.LOOSE_RATE);
+		if (player.determineScore() > dealer.determineScore()) {
+			return player.getBettingMoney();
+		}
+		return 0d;
+	}
+
+	private void checkWinPerson() {
+		int minScore = getMinScore();
+		
+		if (minScore == dealer.calculateMin()) {
+			dealerWin();
+			return;
+		}
+		calculateMoney(minScore);
+	}
+
+	private int getMinScore() {
+		int min = 100;
+		
+		min = isMin(dealer.calculateMin(), min);
+		for (Player p : playerSet) {
+			min = isMin(p.calculateMin(), min);
+		}
+		return min;
+	}
+	
+	private int isMin(int num1, int num2) {
+		if (num1 <= num2)
+			return num1;
+		return num2;
+	}
+	
+	private void calculateMoney(int min) {
+		double dealerMoney = 0;
+		
+		for (Player p : playerSet) {
+			setPlayerRate(p, min);
+			dealerMoney = dealerMoney + addDealerMoney(p);
+		}
+		printDealerAndPlayer(dealerMoney);
+	}
+	
+	private void setPlayerRate(Player player, int min) {
+		if (player.calculateMin() > min) {
+			player.setRate(Constant.LOOSE_RATE);
+			return;
+		}
+		if (player.calculateMin() == min) {
+			checkCardSetSize(player, min);
+		}
+	}
+	
+	private void checkCardSetSize(Player player, int min) {
+		if (player.getCardSize() == Constant.TWO) {
+			player.setRate(Constant.BONUS_RATE);
+			return;
+		}
+		player.setRate(Constant.WIN_RATE);
+	}
+	
+	private double addDealerMoney(Player p) {
+		if (p.getRate() == Constant.LOOSE_RATE) {
+			return 0d;
+		}
+		return p.getBettingMoney() * p.getRate();
+	}
+	
+	private void printDealerAndPlayer(double dealerMoney) {
+		myPrinter.printDealer();
+		myPrinter.printBettingMoney(dealerMoney);
+		for (Player p : playerSet) {
+			myPrinter.printPlayerName(p.getName());
+			myPrinter.printBettingMoney(p.getBettingMoney() * p.getRate());
+		}
 	}
 
 	public static void main(String[] args) {

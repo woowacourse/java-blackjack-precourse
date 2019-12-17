@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Person {
 	private final List<Card> cards = new ArrayList<>();
+	private double rate;
 
 	public Person() {
 	}
@@ -18,6 +19,7 @@ public class Person {
 
 	public String getCardString() {
 		String cardString = "";
+
 		ArrayList<String> cardStringSet = new ArrayList<String>();
 
 		for (Card c : cards) {
@@ -28,17 +30,17 @@ public class Person {
 	}
 
 	public String getResultString() {
-		return getCardString() + Constant.RESULT + makeResult();
+		return getCardString() + Constant.RESULT + Integer.toString(determineScore());
 	}
 
-	private String makeResult() {
+	public int determineScore() {
 		if (isContainAce() == true && getCardSumWithAce() == Constant.BLACKJACK) {
-			return Integer.toString(getCardSumWithAce());
+			return getCardSumWithAce();
 		}
 		if (isContainAce() == true && getCardSumWithAce() <= 21 && getCardSumWithAce() >= getCardSum()) {
-			return Integer.toString(getCardSumWithAce());
+			return getCardSumWithAce();
 		}
-		return Integer.toString(getCardSum());
+		return getCardSum();
 	}
 
 	public boolean isContainAce() {
@@ -71,5 +73,24 @@ public class Person {
 
 	public int getCardSumWithAce() {
 		return getCardSum() + Constant.PLUS_ACE;
+	}
+
+	public int getCardSize() {
+		return this.cards.size();
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+
+	public double getRate() {
+		return this.rate;
+	}
+
+	public int calculateMin() {
+		if (determineScore() > Constant.BLACKJACK) {
+			return Constant.MAX;
+		}
+		return Constant.BLACKJACK - determineScore();
 	}
 }
