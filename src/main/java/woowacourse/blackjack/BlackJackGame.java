@@ -34,15 +34,10 @@ public class BlackJackGame {
     }
 
     private void getBettingMoney(List<String> playerNames) {
-        System.out.println();
         for (String playerName : playerNames) {
-            this.players.add(this.setPlayer(playerName, this.input.getPlayerBettingMoney(playerName)));
+            this.players.add(new Player(playerName, this.input.getPlayerBettingMoney(playerName)));
             System.out.println();
         }
-    }
-
-    private Player setPlayer(String playerName, double bettingMoney) {
-        return new Player(playerName, bettingMoney);
     }
 
     private void getFirstCardsAllPeople() {

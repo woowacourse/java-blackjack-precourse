@@ -63,6 +63,14 @@ public class Dealer {
         return this.getSumScore() > 21;
     }
 
+    private int sumWhenAisOne() {
+        int score = 0;
+        for (Card card: this.cards) {
+            score += card.getSymbolScore();
+        }
+        return score;
+    }
+
     private int sumWhenAisEleven() {
         int score = 0;
         for (Card card: this.cards) {
@@ -74,14 +82,6 @@ public class Dealer {
     private int checkOneOrEleven(int score) {
         if (score == 1) {
             return 11;
-        }
-        return score;
-    }
-
-    private int sumWhenAisOne() {
-        int score = 0;
-        for (Card card: this.cards) {
-            score += card.getSymbolScore();
         }
         return score;
     }
