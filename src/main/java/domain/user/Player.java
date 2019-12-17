@@ -50,9 +50,6 @@ public class Player {
     }
 
     public int getCountedScoreWithAceBonus() {
-        if (getCountedScore() == AFTER_BURST_SCORE) {
-            return AFTER_BURST_SCORE;
-        }
         return Optional.of(getCountedScore() + ACE_CARD_BONUS_SCORE)
                 .filter(x -> isPlayerHaveAce())
                 .filter(this::isBurst)

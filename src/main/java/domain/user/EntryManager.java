@@ -56,8 +56,27 @@ public class EntryManager {
 
     public String getEntryResultScore() {
         return players.stream()
-                .map(x -> x.toString() + " - 결과: " + x.getCountedScoreWithAceBonus())
+                .map(x -> x.toString() + " - 결과: "
+                        + messageAdder(x.getCountedScoreWithAceBonus(), x))
                 .collect(Collectors.joining("\n"));
+    }
+
+    public String messageAdder(int score, Player p) {
+        if (!p.isBurst(score)) {
+            return addBurstMessage(FIND_WHO_BURST);
+        }
+        if (p.isBlackJack()) {
+            return addBlackJackMessage(score);
+        }
+        return Integer.toString(score);
+    }
+
+    public String  addBurstMessage(int score) {
+        return (Integer.toString(score) + " (버스트)");
+    }
+
+    public String addBlackJackMessage(int score) {
+        return (Integer.toString(score) + " (블랙잭)");
     }
 
     @Override

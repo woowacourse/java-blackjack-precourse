@@ -1,5 +1,6 @@
 package ui;
 
+import domain.card.CardsOnGame;
 import domain.user.EntryManager;
 import domain.user.Player;
 
@@ -30,5 +31,9 @@ public class Output {
 
     public static void displayPlayerInfo(Player player) {
         System.out.println(player);
+    }
+
+    public static void displayForResultPlayerCard(EntryManager players) {
+        System.out.println("\n" + players.getEntryResultScore());
     }
 }

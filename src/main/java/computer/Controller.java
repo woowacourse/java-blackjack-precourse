@@ -25,6 +25,7 @@ public class Controller {
         initPhase();
         hitPhase();
         dealerPhase();
+        resultPhase();
     }
 
     public void initPhase() {
@@ -44,5 +45,9 @@ public class Controller {
         if (!players.getDealer().isBlackJack()) {
             players.getDealer().hitUntilStay(gameCards);
         }
+    }
+
+    public void resultPhase() {
+        Output.displayForResultPlayerCard(players);
     }
 }
