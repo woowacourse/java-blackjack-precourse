@@ -70,4 +70,8 @@ public class Player {
     public void showMoney(double result) {
         System.out.println(name + " : " + (int)(bettingMoney * result));
     }
+
+    public void showResult() {
+        System.out.println(name + " : " + cards + " - 결과 : " + getScore());
+    }
 }
