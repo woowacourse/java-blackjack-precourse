@@ -10,13 +10,13 @@ import java.util.Collections;
 
 public class BlackjackGame {
 
-    private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<GameParticipant> participants = new ArrayList<GameParticipant>();
     private Dealer dealer = new Dealer();
     private Utill utill = new Utill();
 
     public void startGame() {
         initGame();
-        runGame(players,dealer);
+        runGame();
     }
 
     private void initGame() {
@@ -24,17 +24,16 @@ public class BlackjackGame {
         ArrayList<Double> playerBattingMoneyList = utill.inputPlayerBattingList();
 
         for (int i = 0; i < playerNameList.size(); i++) {
-            players.add(new Player(playerNameList.get(i), playerBattingMoneyList.get(i)));
+            participants.add(new Player(playerNameList.get(i), playerBattingMoneyList.get(i)));
         }
-
+        participants.add(dealer);
     }
 
-    private void runGame(ArrayList<Player> players, Dealer dealer) {
-        ArrayList<GameParticipant> participants = new ArrayList<GameParticipant>(players);
-        participants.add(dealer);
+    private void runGame() {
 
         for (GameParticipant p : participants) {
             dealer.giveInitCard(p);
+            utill.printCardListOfGameParticipant(p);
         }
 
     }

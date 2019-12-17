@@ -16,7 +16,7 @@ public class Dealer extends GameParticipant{
     private final List<Card> cardpack = new CardFactory().create();
 
     public Dealer() {
-
+        super("dealer");
     }
 
     public void giveInitCard(GameParticipant participant){

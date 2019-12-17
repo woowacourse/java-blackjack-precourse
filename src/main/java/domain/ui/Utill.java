@@ -1,5 +1,7 @@
 package domain.ui;
 
+import domain.user.GameParticipant;
+
 import java.util.*;
 
 public class Utill {
@@ -30,6 +32,10 @@ public class Utill {
         }
 
         return playerBattingMoneyList;
+    }
+
+    public void printCardListOfGameParticipant(GameParticipant participant){
+        System.out.println(participant.getName() + participant.getCards().toString());
     }
 
 }
