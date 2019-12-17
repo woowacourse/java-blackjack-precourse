@@ -9,16 +9,16 @@ import domain.card.Card;
 import domain.card.Symbol;
 
 public class BlackjackMember {
-	private final List<Card> cards = new ArrayList<>();
+	private final List<Card> deck = new ArrayList<>();
 
 	public void addCard(Card card) {
-		cards.add(card);
+		deck.add(card);
 	}
 
 	public int getScoreSum() {
 		int scoreSum = ZERO;
 
-		for (Card card : cards) {
+		for (Card card : deck) {
 			scoreSum += card.getScore();
 		}
 
@@ -26,7 +26,7 @@ public class BlackjackMember {
 	}
 
 	private int checkAce(int scoreSum) {
-		for (Card card : cards) {
+		for (Card card : deck) {
 			scoreSum = addAceScore(scoreSum, card);
 		}
 
