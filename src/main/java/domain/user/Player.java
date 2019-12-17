@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player implements User {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -41,5 +41,15 @@ public class Player {
 
     public List<Card> getCardsList(){
         return cards;
+    }
+
+    public int getSumOfCards(){
+        int sum = 0;
+        int size = cards.size();
+
+        for(Card card : cards){
+            sum += card.getSymbol().getScore();
+        }
+        return sum;
     }
 }
