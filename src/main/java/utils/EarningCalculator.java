@@ -15,7 +15,8 @@ public class EarningCalculator {
         if (player.isBust() || dealer.isBust()) {
             return calculateBustEarning(player, dealer);
         }
-        if (player.calculateFinalScore() == dealer.calculateFinalScore()) {
+        if (player.calculateFinalScore() == dealer.calculateFinalScore()
+                && !player.isBlackJack()) {
             return 0;
         }
         if (player.calculateFinalScore() < dealer.calculateFinalScore()) {
