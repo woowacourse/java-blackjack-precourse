@@ -38,27 +38,6 @@ public class UserApi {
         }
     }
 
-    private void settleResult(Result result, Dealer dealer, Player player) {
-        if (result.equals(Result.PlayerWinWithBlackjack)) {
-            double profit = player.winWithBlackjack();
-            dealer.lose(profit);
-            return;
-        }
-
-        if (result.equals(Result.PlayerWin)) {
-            double profit = player.win();
-            dealer.lose(profit);
-            return;
-        }
-
-        if (result.equals(Result.PlayerLose)) {
-            double losedMoney = player.lose();
-            dealer.win(Math.abs(losedMoney));
-        }
-
-    }
-
-    //todo: refac: 버그 수정 - 버스트 블랙잭일 때 고려 다시 필요. 딜러가 버스트면, 플레이어가 블랙잭이어도 안쳐줌.
     private Result match(Dealer dealer, Player player) {
         if (bustExists(dealer, player)) {
             return checkBust(dealer, player);
@@ -71,12 +50,26 @@ public class UserApi {
         return distinguishWinner(dealer, player);
     }
 
-    private boolean blackjackExists(Dealer dealer, Player player) {
-        return dealer.isBlackjack() || player.isBlackjack();
-    }
-
     private boolean bustExists(Dealer dealer, Player player) {
         return dealer.isBust() || player.isBust();
+    }
+
+    //todo: refac when bust doesn't exist
+    private Result checkBust(Dealer dealer, Player player) {
+        if (player.isBust()) {
+            return Result.PlayerLose;
+        }
+
+        if (dealer.isBust() && player.isBlackjack()) {
+            return Result.PlayerWinWithBlackjack;
+        }
+
+        return Result.PlayerWin;
+
+    }
+
+    private boolean blackjackExists(Dealer dealer, Player player) {
+        return dealer.isBlackjack() || player.isBlackjack();
     }
 
     //todo: refac when blackjack doesn't exist
@@ -105,13 +98,23 @@ public class UserApi {
         return Result.Draw;
     }
 
-    //todo: refac when bust doesn't exist
-    private Result checkBust(Dealer dealer, Player player) {
-        if (player.isBust()) {
-            return Result.PlayerLose;
+    private void settleResult(Result result, Dealer dealer, Player player) {
+        if (result.equals(Result.PlayerWinWithBlackjack)) {
+            double profit = player.winWithBlackjack();
+            dealer.lose(profit);
+            return;
         }
 
-        return Result.PlayerWin;
+        if (result.equals(Result.PlayerWin)) {
+            double profit = player.win();
+            dealer.lose(profit);
+            return;
+        }
+
+        if (result.equals(Result.PlayerLose)) {
+            double losedMoney = player.lose();
+            dealer.win(Math.abs(losedMoney));
+        }
 
     }
 
