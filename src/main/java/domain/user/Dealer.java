@@ -18,4 +18,24 @@ public class Dealer {
     }
 
     // TODO 추가 기능 구현
+
+    public int calculate_score(){
+        int score = 0;
+        for(Card card : cards){
+            score += card.getSymbol().getScore();
+        }
+        return score;
+    }
+
+    public void print_player_cards(){
+        String buffer = new String("");
+        for(Card card : cards){
+            buffer = buffer.concat(card.toString() + ",");
+        }
+
+        if(buffer.length() != 0){
+            System.out.println(buffer.substring(0,buffer.length()-1));
+        }
+
+    }
 }

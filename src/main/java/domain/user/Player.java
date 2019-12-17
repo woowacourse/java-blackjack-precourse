@@ -22,6 +22,32 @@ public class Player {
         cards.add(card);
     }
 
+    public double getBettingMoney(){
+        return bettingMoney;
+    }
+    public String getName(){
+        return name;
+    }
+
+    public int calculate_score(){
+        int score = 0;
+        for(Card card : cards){
+            score += card.getSymbol().getScore();
+        }
+        return score;
+    }
+
+    public void print_player_cards(){
+        String buffer = new String("");
+        for(Card card : cards){
+            buffer = buffer.concat(card.toString() + ",");
+        }
+
+        System.out.println(buffer.substring(0,buffer.length()-1));
+
+    }
+
+
     // TODO 추가 기능 구현
 
 }
