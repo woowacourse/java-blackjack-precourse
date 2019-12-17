@@ -13,7 +13,7 @@ import domain.user.User;
 
 public class BlackJackGame {
 	private static final int TWO = 2;
-	
+
 	private final Scanner scanner;
 	private final List<Player> players;
 	private final List<Card> cards;
@@ -30,6 +30,8 @@ public class BlackJackGame {
 	public void init() {
 		while (!inputPlayer()) {
 		}
+		startGame();
+		playGame();
 	}
 
 	private boolean inputPlayer() {
@@ -46,7 +48,7 @@ public class BlackJackGame {
 	}
 
 	private boolean inputBettingMoney(String playerName) {
-		System.out.println(playerName+"의 배팅 금액은?");
+		System.out.println(playerName + "의 배팅 금액은?");
 		try {
 			double bettingMoney = Double.parseDouble(scanner.nextLine());
 			Player player = new Player(playerName, bettingMoney);
@@ -57,8 +59,21 @@ public class BlackJackGame {
 			return false;
 		}
 	}
-	
-	private void giveCards(User user) {
+
+	private void startGame() {
+		for (Player player : players) {
+			giveFirstTwoCards(player);
+		}
+		giveFirstTwoCards(dealer);
+	}
+
+	private void giveFirstTwoCards(User user) {
+		for (int i = 0; i < TWO; i++) {
+			giveCard(user);
+		}
+	}
+
+	private void giveCard(User user) {
 		Card randomCard = randomizeCard();
 		user.addCard(randomCard);
 	}
@@ -69,5 +84,9 @@ public class BlackJackGame {
 		Card randomCard = cards.get(randomIndex);
 		cards.remove(randomIndex);
 		return randomCard;
+	}
+	
+	private void playGame() {
+		
 	}
 }
