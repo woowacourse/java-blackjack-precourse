@@ -2,7 +2,7 @@
 
 | 작성자 | version |git ID| 작성일시 | 변경사유 |
 |---|---|---|---|---|
-| 정은석 | 1.0v |joseph415 |2019.12.17 | Card toString 변경 |
+| 정은석 | 1.0v |joseph415 |2019.12.17 | drawDealerCard 수정 |
 
 ___
 

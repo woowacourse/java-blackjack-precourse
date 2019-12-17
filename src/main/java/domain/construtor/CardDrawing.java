@@ -78,13 +78,13 @@ public class CardDrawing {
     }
 
     /**
-     * 딜러에게 카드를 지급하는 기능
+     * 딜러에게 카드를 지급하는 기능 16이상일떄까지 받는다.
      *
      * @param score  딜러가 갖고있는 카드 개수
      * @param dealer 딜러정보
      */
     public void drawDealerCard(int score, Dealer dealer) {
-        if (score <= DEALER_DRAW_STANDARD) {
+        while (score <= DEALER_DRAW_STANDARD) {
             dealer.addCard(cards.get(randomIndex.nextInt(52)));
             view.viewDealerMoreDraw(DEALER_DRAW);
             return;
