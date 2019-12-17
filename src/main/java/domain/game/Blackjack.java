@@ -110,7 +110,6 @@ public class Blackjack {
 
     public boolean isBust(Participant participant) {
         if (participant.calScore() > CONDITION_SCORE) {
-//            System.out.println("버스트");
             return true;
         }
         return false;
@@ -130,6 +129,9 @@ public class Blackjack {
         }
         while ((!isBust(user)) && (isReceivingCard(user))) {
             deal(user);
+        }
+        if (isBust(user)) {
+            System.out.println(" - 버스트");
         }
     }
 
