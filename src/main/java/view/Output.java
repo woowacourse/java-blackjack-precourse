@@ -14,7 +14,7 @@ public class Output {
 		System.out.println("딜러" + HAVING_CARDS + dealer.getDealerSymbolAndType());
 		for (Player player : players) {
 			playerCards.clear();
-			player.getPlayerSymbolAndType(playerCards);
+			playerCards = player.getPlayerSymbolAndType();
 			System.out.println(player.getName() + HAVING_CARDS + String.join(",", playerCards));
 		}
 	}

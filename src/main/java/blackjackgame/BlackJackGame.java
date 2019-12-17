@@ -23,6 +23,7 @@ public class BlackJackGame {
 	private static final int DRAW_TWO_CARDS = 2;
 
 	private List<Player> players = new ArrayList<>();
+	private List<String> blackJackList = new ArrayList<>();
 	private Dealer dealer = new Dealer();
 	private Input input = new Input();
 	private Output output = new Output();
@@ -36,11 +37,12 @@ public class BlackJackGame {
 		shuffleCards();
 		drawTwoCards();
 		printDrawCards();
+		checkBlackJack();
 	}
 
 	private void makePlayers() {
 		for (String name : playerNames) {
-			players.add(new Player(name, input.getBattingMoney(name)));
+			players.add(new Player(name, input.getBettingMoney(name)));
 		}
 	}
 
@@ -68,5 +70,16 @@ public class BlackJackGame {
 	private void printDrawCards() {
 		output.printDrawCards(dealer, players, playerNames);
 	}
-
+	
+	private void checkBlackJack() {
+		for (Player player : players) {
+			if (player.findBlackJack()) {
+				blackJackList.add(player.getName());
+			}
+		}
+		if (dealer.findBlackJack()) {
+			blackJackList.add("딜러");
+		}
+	}
+	
 }

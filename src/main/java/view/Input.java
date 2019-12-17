@@ -36,7 +36,7 @@ public class Input {
 		return playerNames;
 	}
 	
-	public int getBattingMoney(String name) {
+	public int getBettingMoney(String name) {
 		System.out.println(name + INPUT_BATTING_MONEY);
 		battingMoney = sc.nextLine();
 		if (exception.isPositiveNum(battingMoney)) {

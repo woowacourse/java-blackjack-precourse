@@ -18,6 +18,14 @@ public class Card {
     public String getCardSymbolType() {
     	return " " + symbol.getScore() + type.getType();
     }
+    
+    public double getScore() {
+    	return this.symbol.getScore();
+    }
+    
+    public Symbol getSymbol() {
+    	return this.symbol;
+    }
 
     @Override
     public boolean equals(Object o) {
