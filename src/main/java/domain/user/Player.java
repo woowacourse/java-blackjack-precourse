@@ -24,11 +24,6 @@ public class Player {
 
     // TODO 추가 기능 구현
 
-    @Override
-    public String toString() {
-        return name + " : " + bettingMoney;
-    }
-
     public String getName() {
         return name;
     }
@@ -51,7 +46,7 @@ public class Player {
         System.out.println(name + "카드 " + cards);
     }
 
-    public void showMoney(int result) {
-        System.out.println(name + " : " + bettingMoney * result);
+    public void showMoney(double result) {
+        System.out.println(name + " : " + (int)(bettingMoney * result));
     }
 }
