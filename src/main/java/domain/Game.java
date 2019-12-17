@@ -5,12 +5,15 @@ import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Game {
     private static ArrayList<Player> players = new ArrayList<>();
     private static Dealer dealer = new Dealer();
     private static Queue<Card> deck = new LinkedList<>();
+    private static HashMap<User, Double> prize = new HashMap<>();
+    private static HashMap<User, Boolean> gameEndFlag = new HashMap<>();
 
     public static final int NUM_OF_SYMBOL = 13;
     public static final int NUM_OF_TYPE = 4;
@@ -25,37 +28,50 @@ public class Game {
         drawMoreCard();
         dealer.firstDecision();
         printFinalResult();
-        calculatePrize()
-        printPrize();
+        //printPrize();
     }
-    public static void printPrize(){
+
+    /*public static void printPrize(){
         System.out.println("## 최종 수익");
         dealer.printPrize();
         for(Player player:players){
             player.printPrize();
         }
-    }
-    public static void printFinalResult(){
+    }*/
+
+
+    public static void printFinalResult() {
         dealer.printNameAndCardsAndSum();
-        for(Player player:players){
+        for (Player player : players) {
             player.printNameAndCardsAndSum();
         }
     }
+
     public static void drawMoreCard() {
         for (Player player : players) {
             makePlayersChoice(player);
         }
     }
-    public static void makePlayersChoice(Player player) {
-        boolean choiceFlag=false;
 
-        while(player.getMinimumSum()<BLACK_JACK && !choiceFlag){
+    public static void makePlayersChoice(Player player) {
+        boolean choiceFlag = false;
+        double sum = player.getMinimumSum();
+        while (sum < BLACK_JACK && !choiceFlag) {
             boolean answer = printDrawQuestion(player);
             choiceFlag = drawSelection(player, answer);
+            sum = player.getMinimumSum();
+        }
+        playerLose(player);
+    }
+
+    public static void playerLose(Player player) {
+        if (player.getMinimumSum() > 21) {
+            gameEndFlag.put(player, true);
         }
     }
-    public static boolean drawSelection(Player player, boolean answer){
-        if(answer){
+
+    public static boolean drawSelection(Player player, boolean answer) {
+        if (answer) {
             drawFromDeck(player, 1);
             player.printNameAndCards();
             return false;
@@ -63,6 +79,7 @@ public class Game {
         player.printNameAndCards();
         return true;
     }
+
     public static boolean printDrawQuestion(Player player) {
         Scanner s = new Scanner(System.in);
         String answer;
@@ -81,13 +98,46 @@ public class Game {
         return answer.equals("y");
     }
 
+    public static void twoCardsBlackJack(Player player) {
+        if (dealer.isBlackJack()) {
+            twoCardsBlackJackTogether(player);
+            return;
+        }
+        if (player.isBlackJack()) {
+            twoCardsBlackJackSolo(player);
+            return;
+        }
+    }
 
+    public static void twoCardsBlackJackTogether(Player player) {
+        double playerBettingMoney = player.getBettingMoney();
+        double dealerPrize = prize.get(dealer);
+
+        dealerPrize -= playerBettingMoney;
+        playerBettingMoney -= playerBettingMoney;
+        prize.put(dealer, dealerPrize);
+        prize.put(player, playerBettingMoney);
+        gameEndFlag.put(dealer, true);
+        gameEndFlag.put(player, true);
+    }
+
+    public static void twoCardsBlackJackSolo(Player player) {
+        double playerBettingMoney = player.getBettingMoney();
+        double dealerPrize = prize.get(dealer);
+
+        dealerPrize -= 1.5 * playerBettingMoney;
+        playerBettingMoney *= 0.5;
+        prize.put(dealer, dealerPrize);
+        prize.put(player, playerBettingMoney);
+        gameEndFlag.put(player, true);
+    }
 
     public static void drawFirstTwoCards(ArrayList<String> names) {
+        drawFromDeck(dealer, NUM_OF_FIRST_CARD);
         for (Player player : players) {
             drawFromDeck(player, NUM_OF_FIRST_CARD);
+            twoCardsBlackJack(player);
         }
-        drawFromDeck(dealer, NUM_OF_FIRST_CARD);
         printFirstDrawResult(names);
     }
 
@@ -105,12 +155,12 @@ public class Game {
     public static void drawFromDeck(User user, int numOfCards) {
         for (int i = 0; i < numOfCards; i++) {
             Card card = deck.poll();
-            checkCard(card);
+            checkDeckEmpty(card);
             user.addCard(card);
         }
     }
 
-    public static void checkCard(Card card) {
+    public static void checkDeckEmpty(Card card) {
         if (card == null) {
             System.out.println("더이상 card 가 남아있지 않습니다.");
             System.exit(1);
@@ -132,12 +182,32 @@ public class Game {
     public static ArrayList<String> makePlayers() {
         ArrayList<String> names = takePlayerName();
         ArrayList<Double> betting = takePlayerBetting(names);
-
         checkInput(names, betting);
         for (int i = 0; i < names.size(); i++) {
             players.add(new Player(names.get(i), betting.get(i)));
         }
+        setPrize();
+        setGameEndFlag();
         return names;
+    }
+
+    public static void setGameEndFlag() {
+        gameEndFlag.put(dealer, false);
+        for (Player player : players) {
+            gameEndFlag.put(player, false);
+        }
+    }
+
+    public static void setPrize() {
+        double sum = 0.0;
+
+        prize.put(dealer, sum);
+        for (Player player : players) {
+            double bet = player.getBettingMoney();
+            sum += bet;
+            prize.put(player, bet);
+        }
+        prize.put(dealer, sum);
     }
 
     public static ArrayList<Double> takePlayerBetting(ArrayList<String> names) {
