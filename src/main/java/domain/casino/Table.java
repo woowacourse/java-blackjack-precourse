@@ -18,6 +18,9 @@ public class Table {
 	private Dealer dealer = new Dealer();
 	private CardSupplier cardSupplier = new CardSupplier(cards);
 
+	/**
+	 * 블랙잭 게임 실행
+	 */
 	public void playBlackjack() {
 		getPlayers();
 		distributeCards();
@@ -25,7 +28,9 @@ public class Table {
 		printGameResult();
 	}
 
-	// 플레이어 객체 생성 : 배팅 금액, 이름 등록
+	/**
+	 * 플레이어 객체 생성 : 배팅 금액, 이름 등록
+	 */
 	private void getPlayers() {
 		List<String> playerNames = InputView.inputPlayerNames();
 		playerList = new ArrayList<>(playerNames.size());
@@ -36,7 +41,9 @@ public class Table {
 		}
 	}
 
-	// 카드 지급 : 딜러, 플레이어
+	/**
+	 * 카드 지급 : 딜러, 플레이어
+	 */
 	private void distributeCards() {
 		for (int i = 0; i < INIT_CARD_SIZE; i++) {
 			distributeCardsToDealer();
@@ -54,10 +61,12 @@ public class Table {
 		}
 	}
 
-	// 딜러 블랙잭 여부 확인 : 딜러가 블랙잭이면 바로 최종 결과로 이동
+	/**
+	 * 딜러 블랙잭 여부 확인 : 딜러가 블랙잭이면 바로 최종 결과로 이동
+	 */
 	private void goHitOrStand() {
 		if (dealer.isBlackJack()) {
-			System.out.println("딜러가 블랙잭 입니다!!");
+			OutputView.printBlackjackMessage(Dealer.getNAME());
 			return;
 		}
 		openDealerInitialCard();       // 딜러 카드 한 장 오픈
@@ -79,18 +88,48 @@ public class Table {
 
 	private void checkPlayersWantMoreCard() {
 		for (Player player : playerList) {
-			player.checkCardNumber(cardSupplier);
+			checkPlayerCardNumber(player);
 		}
 	}
 
 	private void checkDealerNeedMoreCard() {
-		dealer.checkCardNumber(cardSupplier);
-		System.out.println();
+		if (dealer.bust()) {
+			OutputView.printCardBustMessage();
+			return;
+		}
+		OutputView.printDealerCards(dealer);
+		if (dealer.isLessThanSeventeen()) {
+			OutputView.printDealerHit();
+			dealer.addCard(cardSupplier.getDeal());
+			checkDealerNeedMoreCard();
+			return;
+		}
+		OutputView.printDealerStand();
 	}
 
-	// 최종 결과 출력
+	private void checkPlayerCardNumber(Player player) {
+		if (player.isBlackJack()) {
+			OutputView.printBlackjackMessage(player.getName());
+			return;
+		}
+		if (player.bust()) {
+			OutputView.printCardBustMessage();
+			return;
+		}
+		OutputView.printPlayerCards(player);
+		if (InputView.getMoreCard(player)) {
+			player.addCard(cardSupplier.getDeal());
+			checkPlayerCardNumber(player);
+			return;
+		}
+	}
+
+	/**
+	 * 최종 결과 출력
+	 */
 	private void printGameResult() {
 		OutputView.printFinalScore(dealer, playerList); // 최종 점수 출력
 		OutputView.printFinalEarning(dealer, playerList); // 최종 수익 출력
 	}
+
 }

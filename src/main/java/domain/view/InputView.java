@@ -12,10 +12,10 @@ public class InputView {
 	private static final String GET_PLAYERS_NAME = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";
 	private static final String GET_BETTING_MONEY = "의 배팅 금액은?";
 	private static final String ASK_GET_MORE_CARD = ", 한장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)";
-	private static final String INVALID_INPUT_ERROR_MSG = "입력값 형식이 잘못 되었습니다.";
-	private static final String INVALID_NUMBER_ERROR_MSG = "숫자가 아닙니다. 배팅금액을 올바른 형식으로 입력해주세요(ex. 1000, 150.2 등)";
-	private static final String NEGATIVE_NUMBER_ERROR_MSG = "0 또는 음수는 입력할 수 없습니다.";
-	private static final String DUPLICATED_NAME_ERROR_MSG = "이름은 중복될 수 없습니다.";
+	private static final String INVALID_INPUT_ERROR_MESSAGE = "입력값 형식이 잘못 되었습니다.";
+	private static final String INVALID_NUMBER_ERROR_MESSAGE = "숫자가 아닙니다. 배팅금액을 올바른 형식으로 입력해주세요(ex. 1000, 150.2 등)";
+	private static final String NEGATIVE_NUMBER_ERROR_MESSAGE = "0 또는 음수는 입력할 수 없습니다.";
+	private static final String DUPLICATED_NAME_ERROR_MESSAGE = "이름은 중복될 수 없습니다.";
 	private static final String COMMA = ",";
 	private static final String DOUBLE_COMMA = ",,";
 	private static final String GET_MORE_CARD = "y";
@@ -45,7 +45,7 @@ public class InputView {
 
 	private static void isInvalidInput(String input) {
 		if (input.isEmpty() || input.contains(DOUBLE_COMMA) || input.endsWith(COMMA)) {
-			throw new InputMismatchException(INVALID_INPUT_ERROR_MSG);
+			throw new InputMismatchException(INVALID_INPUT_ERROR_MESSAGE);
 		}
 	}
 
@@ -56,8 +56,8 @@ public class InputView {
 	}
 
 	private static void isDuplicatedPlayerName(List<String> players) {
-		if (players.size() != new HashSet<String>(players).size()) {
-			throw new InputMismatchException(DUPLICATED_NAME_ERROR_MSG);
+		if (players.size() != new HashSet<>(players).size()) {
+			throw new InputMismatchException(DUPLICATED_NAME_ERROR_MESSAGE);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class InputView {
 		if (number > ZERO) {
 			return true;
 		}
-		System.out.println(NEGATIVE_NUMBER_ERROR_MSG);
+		System.out.println(NEGATIVE_NUMBER_ERROR_MESSAGE);
 		return false;
 	}
 
@@ -78,7 +78,7 @@ public class InputView {
 			}
 			return bettingMoney;
 		} catch (IllegalArgumentException e) {
-			System.out.println(INVALID_NUMBER_ERROR_MSG);
+			System.out.println(INVALID_NUMBER_ERROR_MESSAGE);
 			return getBettingMoney(player);
 		}
 	}

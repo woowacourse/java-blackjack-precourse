@@ -2,6 +2,8 @@ package domain.view;
 
 import java.util.List;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import domain.casino.Money;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -12,20 +14,24 @@ public class OutputView {
 	private static final String RESULT = " - 결과: ";
 	private static final String COLON = ": ";
 	private static final String BURST = "BURST";
+	private static final String BURST_MESSAGE = "BURST! 21 초과\n";
 	private static final String FINAL_SCORE = "\n## 최종 점수";
+	private static final String BLACKJACK = "가 블랙잭 입니다!!";
+	private static final String DEALER_HIT = "딜러는 16이하라 한장의 카드를 더 받았습니다.";
+	private static final String DEALER_STAND = "딜러는 17이상이라 카드를 받지 않습니다.\n";
 
 	public static void printPlayerCards(Player player) {
-		String result = player.getPlayerCards();
+		String result = player.getCardsWithName();
 		System.out.println(result);
 	}
 
 	public static void printDealerInitialCards(Dealer dealer) {
-		String result = dealer.getDealerCards().split(COMMA)[FIRST_CARD];
+		String result = Dealer.getNAME() + COLON + dealer.getCards().split(COMMA)[FIRST_CARD];
 		System.out.println(result);
 	}
 
 	public static void printDealerCards(Dealer dealer) {
-		String result = dealer.getDealerCards();
+		String result = dealer.getCardsWithName();
 		System.out.println(result);
 	}
 
@@ -38,13 +44,13 @@ public class OutputView {
 
 	private static void printDealerScore(Dealer dealer) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(dealer.getDealerCards());
+		sb.append(dealer.getCardsWithName());
 		printScore(sb, dealer.bust(), dealer.sumCardScore());
 	}
 
 	private static void printPlayerScore(Player player) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(player.getPlayerCards());
+		sb.append(player.getCardsWithName());
 		printScore(sb, player.bust(), player.sumCardScore());
 	}
 
@@ -71,6 +77,22 @@ public class OutputView {
 
 		money.printPlayersEarning(playerList);
 		money.printDealerEarning();
+	}
+
+	public static void printCardBustMessage() {
+		System.out.println(BURST_MESSAGE);
+	}
+
+	public static void printBlackjackMessage(String name) {
+		System.out.println(name + BLACKJACK);
+	}
+
+	public static void printDealerHit() {
+		System.out.println(DEALER_HIT);
+	}
+
+	public static void printDealerStand() {
+		System.out.println(DEALER_STAND);
 	}
 
 }
