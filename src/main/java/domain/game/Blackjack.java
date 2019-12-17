@@ -10,14 +10,13 @@ import java.util.*;
 public class Blackjack {
     public static final int MAX_PLAYER_NUMBER = 5;
     public static final int MAX_NAME_LENGTH = 5;
-    public static final int CONDITION_SCORE = 21;
-    public static final int CONDITION_INIT_CARDS = 2;
-    public static final int CONDITION_DEALER_SCORE = 17;
-    public final String YES = "y";
-    public final String NO = "n";
+    public static final String YES = "y";
+    public static final String NO = "n";
+
+    public Judgement judgement = new Judgement();
     public Dealer dealer;
-    public List<Player> players = new ArrayList<Player>();
     public Scanner sc = new Scanner(System.in);
+    public List<Player> players = new ArrayList<Player>();
     private Stack<Card> cards = new Stack<>();
 
     public Blackjack(List<Card> cards) {
@@ -88,10 +87,10 @@ public class Blackjack {
 
 
     public void dealCards() {
-        for (int i = 0; i < CONDITION_INIT_CARDS; i++) {
+        for (int i = 0; i < Judgement.CONDITION_INIT_CARDS; i++) {
             deal(dealer);
         }
-        for (int i = 0; i < CONDITION_INIT_CARDS; i++) {
+        for (int i = 0; i < Judgement.CONDITION_INIT_CARDS; i++) {
             for (Player player : players) {
                 deal(player);
             }
@@ -104,16 +103,6 @@ public class Blackjack {
         participant.addCard(card);
     }
 
-    public boolean isBlackJack(Participant participant) {
-        return (participant.calScore() == CONDITION_SCORE) && participant.withInitCards();
-    }
-
-    public boolean isBust(Participant participant) {
-        if (participant.calScore() > CONDITION_SCORE) {
-            return true;
-        }
-        return false;
-    }
 
     public void dealCardsAgain() {
         for (Player player : players) {
@@ -123,20 +112,20 @@ public class Blackjack {
     }
 
     public void giveExtraCard(Player player) {
-        if (isBlackJack(player)) {
+        if (judgement.isBlackJack(player)) {
             System.out.println(player.getName() + " 블랙잭!!\n");
             return;
         }
-        while ((!isBust(player)) && (isReceivingCard(player))) {
+        while ((!judgement.isBust(player)) && (isReceivingCard(player))) {
             deal(player);
         }
-        if (isBust(player)) {
+        if (judgement.isBust(player)) {
             System.out.println(" - 버스트");
         }
     }
 
     public void giveExtraCard(Dealer dealer) {
-        while (dealer.calScore() < CONDITION_DEALER_SCORE) {
+        while (dealer.calScore() < Judgement.CONDITION_DEALER_SCORE) {
             deal(dealer);
             System.out.println("딜러는 카드의 합이 16이하라 한 장의 카드를 더 받았습니다.");
         }
@@ -168,44 +157,9 @@ public class Blackjack {
         System.out.println("\n\n##최종 수익");
         double totalSettlement = 0;
         for (Player player : players) {
-            double profitPercent = winOrLose(player);
+            double profitPercent = judgement.winOrLose(player, dealer);
             totalSettlement -= player.doBalancing(profitPercent);
         }
         dealer.doBalancing(totalSettlement);
-    }
-
-    public double winOrLose(Player player) {
-        final double BLACKJACK_WIN = 1.5;
-        final double WIN = 1;
-        final double DRAW = 0;
-        final double LOSE = -1;
-
-        /* user가 버스트인 경우 승패 판단 */
-        if (isBust(player)) {
-            return LOSE;
-        }
-
-        /* player가 블랙잭인 경우 승패 판단 */
-        if (isBlackJack(player)) {
-            if (isBlackJack(dealer)) {
-                return DRAW;
-            }
-            return BLACKJACK_WIN;
-        }
-
-        /* player가 버스트도 블랙잭도 아닌 경우 승패 판단 */
-        if (isBlackJack(dealer)) {
-            return LOSE;
-        }
-        if (isBust(dealer)) {
-            return WIN;
-        }
-        if (player.calScore() > dealer.calScore()) {
-            return WIN;
-        }
-        if (player.calScore() == dealer.calScore()) {
-            return DRAW;
-        }
-        return LOSE;
     }
 }

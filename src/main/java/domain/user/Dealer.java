@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.card.Card;
 import domain.game.Blackjack;
+import domain.game.Judgement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +22,13 @@ public class Dealer implements Participant {
 
     @Override
     public boolean withInitCards() {
-        return cards.size() == Blackjack.CONDITION_INIT_CARDS;
+        return cards.size() == Judgement.CONDITION_INIT_CARDS;
     }
 
     @Override
     public void addCard(Card card) {
         cards.add(card);
-        if (cards.size() == Blackjack.CONDITION_INIT_CARDS) {
+        if (cards.size() == Judgement.CONDITION_INIT_CARDS) {
             openOneCard();
         }
     }
