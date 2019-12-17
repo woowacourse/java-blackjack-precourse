@@ -32,6 +32,10 @@ public class Main {
 		MoneyCalculator.calculate(playerList, dealer);
 	}
 	
+	public static int maxPlayerNumber() {
+    	return 8;
+    }
+	
 	public static void basicRation(List<Player> playerList, Dealer dealer) {
 		giveOneCardToDealer(dealer);
 		giveOneCardToDealer(dealer);
@@ -41,8 +45,12 @@ public class Main {
 		}
 	}
 	
+	public static int dealerMoreCardOrNotNumber() {
+		return 16;
+	}
+	
 	public static void dealerMoreCard(Dealer dealer) {
-		if (dealer.showScore() <= 16) {
+		if (dealer.showScore() <= dealerMoreCardOrNotNumber()) {
 			Template.dealerOneMoreCard();
 			giveOneCardToDealer(dealer);
 			dealerMoreCard(dealer);

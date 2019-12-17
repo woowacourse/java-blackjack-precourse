@@ -10,7 +10,7 @@ public class InputHandler {
 	
 	static List<String> nameStringList = new ArrayList<>();
 	static List<Double> bettingMoneyDoubleList = new ArrayList<>();
-	
+
 	
 	public static void nameHandler() {
 		String names = Template.nameRequest();
@@ -26,7 +26,7 @@ public class InputHandler {
 	public static int nameHandlerException(List<String> nameList) {
 		int error = 0;
 		if (nameList.size() > 8) {
-			System.out.println("게임 인원이 8명을 초과했습니다."); error = 1;
+			System.out.println("게임 인원이 " + Main.maxPlayerNumber() + "명을 초과했습니다."); error = 1;
 		}
 		if (nameList.contains("")) {
 			System.out.println("빈칸은 입력할 수 없습니다."); error = 2;

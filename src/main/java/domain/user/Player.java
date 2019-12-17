@@ -23,5 +23,4 @@ public class Player extends Dealer {
     public double bettingMoney() {
     	return bettingMoney;
     }
-
 }

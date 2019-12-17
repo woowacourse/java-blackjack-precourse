@@ -34,10 +34,12 @@ public class MoneyCalculator {
 	
 	public static double blackjackCheck(Player player, Dealer dealer, double playerBettingMoney) {
 		double money = 0;
-		if (player.showScore() == 21 && player.howManyCard() == 2 && (dealer.showScore() != 21 || dealer.howManyCard() != 2)) {
+		if (player.showScore() == blackjackNumber() && player.howManyCard() == blackjackHowManyCard() && 
+		(dealer.showScore() != blackjackNumber() || dealer.howManyCard() != blackjackHowManyCard())) {
 			money = playerBettingMoney*1.5;
 		}
-		if (player.showScore() == 21 && player.howManyCard() == 2 && dealer.showScore() == 21 && dealer.howManyCard() == 2) {
+		if (player.showScore() == blackjackNumber() && player.howManyCard() == blackjackHowManyCard() && 
+		dealer.showScore() == blackjackNumber() && dealer.howManyCard() == blackjackHowManyCard()) {
 			money = playerBettingMoney;
 		}
 		return money;
@@ -45,7 +47,7 @@ public class MoneyCalculator {
 	
 	public static double dealerOutCheck(Dealer dealer, double playerBettingMoney) {
 		double money = 0;
-		if (dealer.showScore() > 21) {
+		if (dealer.showScore() > blackjackNumber()) {
 			money = playerBettingMoney;
 		}
 		return money;
@@ -53,7 +55,7 @@ public class MoneyCalculator {
 	
 	public static double playerOutCheck(Player player, double playerBettingMoney) {
 		double money = 0;
-		if (player.showScore() > 21) {
+		if (player.showScore() > blackjackNumber()) {
 			money = -playerBettingMoney;
 		}
 		return money;
@@ -68,6 +70,14 @@ public class MoneyCalculator {
 			money = -playerBettingMoney;
 		}
 		return money;
+	}
+	
+	public static int blackjackNumber() {
+		return 21;
+	}
+	
+	public static int blackjackHowManyCard() {
+		return 2;
 	}
 
 }

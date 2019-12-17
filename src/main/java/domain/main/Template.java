@@ -3,14 +3,13 @@ package domain.main;
 import java.util.List;
 import java.util.Scanner;
 import domain.user.Player;
-import domain.card.Symbol;
 import domain.user.Dealer;
 
 public class Template {
 	
 	public static String nameRequest() {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리하며 8명까지 참여 가능합니다.)");
+		System.out.println("게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리하며 " + Main.maxPlayerNumber() + "명까지 참여 가능합니다.)");
 		String inputName = scanner.nextLine();
 		return inputName;
 	}
@@ -50,6 +49,6 @@ public class Template {
 	}
 	
 	public static void dealerOneMoreCard() {
-		System.out.println("딜러는 16 이하라 한장의 카드를 더 받았습니다.\n");
+		System.out.println("딜러는 " + Main.dealerMoreCardOrNotNumber() + " 이하라 한장의 카드를 더 받았습니다.\n");
 	}
 }
