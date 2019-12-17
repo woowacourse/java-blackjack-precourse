@@ -46,33 +46,6 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
         printStringBuilder(stringBuilder);
     }
 
-    private StringBuilder buildUserState(User user) {
-        stringBuilder.append(user);
-        stringBuilder.append("카드: ");
-
-        List<String> cardNames = user.getCards().stream()
-                .map(Card::toString).collect(Collectors.toList());
-        if (user instanceof Dealer) {
-            cardNames.retainAll(Collections.singletonList(cardNames.get(0)));
-        }
-        stringBuilder.append(String.join(", ", cardNames));
-        return stringBuilder;
-    }
-
-    private StringBuilder buildUserResult(User user) {
-        stringBuilder.append(user);
-        stringBuilder.append("카드: ");
-        List<String> cardNames = user.getCards().stream().map(Card::toString).collect(Collectors.toList());
-        stringBuilder.append(String.join(", ", cardNames));
-        return stringBuilder;
-    }
-
-    private void printStringBuilder(StringBuilder stringBuilder) {
-        System.out.println(stringBuilder);
-        stringBuilder.setLength(0);
-        stringBuilder.trimToSize();
-    }
-
     @Override
     public void printDealerHit(User user) {
         System.out.println(String.format("%s는 %d이하라 한 장의 카드를 더 받았습니다.",
@@ -97,7 +70,7 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
     @Override
     public void printStart(Dealer dealer, List<Player> players) {
         List<String> playerNames = players.stream().map(Player::toString).collect(Collectors.toList());
-        System.out.println(String.format("%s와 %s에게 %d장의 카드를 나누었습니다.", dealer, String.join(",", playerNames),BlackjackConfig.DEFAULT_CARD_NUMBER));
+        System.out.println(String.format("%s와 %s에게 %d장의 카드를 나누었습니다.", dealer, String.join(",", playerNames), BlackjackConfig.DEFAULT_CARD_NUMBER));
     }
 
     @Override
@@ -123,5 +96,32 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
     @Override
     public void printProfitGuide() {
         System.out.println("## 최종수익");
+    }
+
+    private StringBuilder buildUserState(User user) {
+        stringBuilder.append(user);
+        stringBuilder.append("카드: ");
+
+        List<String> cardNames = user.getCards().stream()
+                .map(Card::toString).collect(Collectors.toList());
+        if (user instanceof Dealer) {
+            cardNames.retainAll(Collections.singletonList(cardNames.get(0)));
+        }
+        stringBuilder.append(String.join(", ", cardNames));
+        return stringBuilder;
+    }
+
+    private StringBuilder buildUserResult(User user) {
+        stringBuilder.append(user);
+        stringBuilder.append("카드: ");
+        List<String> cardNames = user.getCards().stream().map(Card::toString).collect(Collectors.toList());
+        stringBuilder.append(String.join(", ", cardNames));
+        return stringBuilder;
+    }
+
+    private void printStringBuilder(StringBuilder stringBuilder) {
+        System.out.println(stringBuilder);
+        stringBuilder.setLength(0);
+        stringBuilder.trimToSize();
     }
 }

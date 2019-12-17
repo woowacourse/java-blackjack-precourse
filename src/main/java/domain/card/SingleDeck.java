@@ -28,15 +28,14 @@ public class SingleDeck implements Deck {
         if (isBlank()) {
             shuffle();
         }
-
         return cards.remove(BlackjackConfig.PICK_INDEX);
-    }
-
-    private boolean isBlank() {
-        return cards.size() == 0;
     }
 
     List<Card> getAll() {
         return cards;
+    }
+
+    private boolean isBlank() {
+        return cards.size() == 0;
     }
 }

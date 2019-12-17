@@ -35,7 +35,6 @@ class UserTest {
         for (Card card : cardsWithoutAce) {
             user.addCard(card);
         }
-
         //when & then
         assertEquals(8 + 10, user.calculateScore());
     }
@@ -51,7 +50,6 @@ class UserTest {
         for (Card card : cardsWithAce) {
             user.addCard(card);
         }
-
         //when & then
         assertEquals(8 + 11, user.calculateScore());
     }
@@ -59,7 +57,6 @@ class UserTest {
     @Test
     @DisplayName("#calculateScore: Ace가 있고, 11점으로 계산하면 버스터여서 1로 계산")
     void calculateScoreWithAceWhenExceedsBlackjack() {
-        //given
         List<Card> cardsWithAce = Arrays.asList(
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.SPADE),
@@ -68,7 +65,6 @@ class UserTest {
         for (Card card : cardsWithAce) {
             user.addCard(card);
         }
-
         //when & then
         assertEquals(8 + 10 + 1, user.calculateScore());
     }
@@ -76,7 +72,6 @@ class UserTest {
     @Test
     @DisplayName("#isBust: 점수가 21점을 넘을 때")
     void isBustWhenBust() {
-        //given
         List<Card> cardsWhichBust = Arrays.asList(
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.SPADE),
@@ -85,7 +80,6 @@ class UserTest {
         for (Card card : cardsWhichBust) {
             user.addCard(card);
         }
-
         //when & then
         assertTrue(user.isBust());
     }
@@ -138,7 +132,6 @@ class UserTest {
     @Test
     @DisplayName("#isBlackjack: 점수가 21점이기는 해도, 개수가 2개일 때.")
     void isBlackjackWhenNotBlackjackSize() {
-        //given
         List<Card> notBlackjack = Arrays.asList(
                 new Card(Symbol.EIGHT, Type.SPADE),
                 new Card(Symbol.KING, Type.CLUB),
@@ -147,7 +140,6 @@ class UserTest {
         for (Card card : notBlackjack) {
             user.addCard(card);
         }
-        //when & then
         assertEquals(21, user.calculateScore());
         assertFalse(user.isBlackjack());
     }

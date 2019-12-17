@@ -5,8 +5,6 @@ import java.util.List;
 import domain.user.Dealer;
 import domain.user.Player;
 
-
-
 public interface BlackjackApi {
     List<Player> join();
     void shuffle();

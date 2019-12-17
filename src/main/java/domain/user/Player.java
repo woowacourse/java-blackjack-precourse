@@ -21,11 +21,6 @@ public class Player extends User {
         this.bettingMoney = bettingMoney;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public double win() {
         profit += bettingMoney;
         return profit;
@@ -39,5 +34,10 @@ public class Player extends User {
     public double lose() {
         profit -= bettingMoney;
         return profit;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

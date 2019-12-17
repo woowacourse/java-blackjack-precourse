@@ -9,7 +9,6 @@ class SymbolTest {
 
     private Symbol symbol;
 
-
     @Test
     @DisplayName("#toString: 무늬가 문자(예: A)일 때")
     void toStringOfAce() {

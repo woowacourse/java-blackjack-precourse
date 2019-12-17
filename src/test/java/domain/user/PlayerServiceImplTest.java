@@ -28,7 +28,6 @@ class PlayerServiceImplTest {
         playerService = new PlayerServiceImpl(mockDeck, mockBlackjackPrinter, mockUserInterface, mockPlayerFactory);
     }
 
-
     @Test
     @DisplayName("#confirmCards: 이미 버스트일 때")
     void confirmCardsWhenBust() {

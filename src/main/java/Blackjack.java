@@ -15,12 +15,10 @@ class Blackjack {
 
     private Dealer dealer;
 
-
     Blackjack(BlackjackApi blackjackApi, Dealer dealer) {
         this.blackjackApi = blackjackApi;
         this.dealer = dealer;
     }
-
 
     void play() {
         List<Player> players = blackjackApi.join();

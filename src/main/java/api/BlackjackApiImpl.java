@@ -23,18 +23,26 @@ public class BlackjackApiImpl implements BlackjackApi {
         this.playerService = playerService;
         this.blackjackPrinter = blackjackPrinter;
     }
-    /** 플레이어들이 게임에 참여하도록 하는 함수입니다. */
+
+    /**
+     * 플레이어들이 게임에 참여하도록 하는 함수입니다.
+     */
     @Override
     public List<Player> join() {
         return playerService.join();
     }
 
+    /**
+     * 카드를 섞어주는 함수입니다.
+     */
     @Override
     public void shuffle() {
         dealerService.shuffle();
     }
 
-    /** 게임 시작 후, 딜러 및 모든 플레이어들이 기본 카드를 지급받는 함수입니다. */
+    /**
+     * 게임 시작 후, 딜러 및 모든 플레이어들이 기본 카드를 지급받는 함수입니다.
+     */
     @Override
     public void receiveDefaultCards(Dealer dealer, List<Player> players) {
         blackjackPrinter.printStart(dealer, players);
@@ -43,7 +51,9 @@ public class BlackjackApiImpl implements BlackjackApi {
         blackjackPrinter.printBreaktime();
     }
 
-    /** 딜러는 규칙에 따라 카드를 더 받거나 받지 않고, 플레이어들은 판단에 따라 더 받거나 받지 않아 카드를 확정합니다. */
+    /**
+     * 딜러는 규칙에 따라 카드를 더 받거나 받지 않고, 플레이어들은 판단에 따라 더 받거나 받지 않아 카드를 확정합니다.
+     */
     @Override
     public void confirmCards(List<Player> players, Dealer dealer) {
         playerService.confirmCards(players);
@@ -51,7 +61,9 @@ public class BlackjackApiImpl implements BlackjackApi {
         blackjackPrinter.printBreaktime();
     }
 
-    /** 확정된 카드로 딜러 vs 각 플레이어가 경합하는 함수입니다. */
+    /**
+     * 확정된 카드로 딜러 vs 각 플레이어가 경합하는 함수입니다.
+     */
     @Override
     public void match(Dealer dealer, List<Player> players) {
         for (Player player : players) {
@@ -60,13 +72,22 @@ public class BlackjackApiImpl implements BlackjackApi {
         }
     }
 
+    /**
+     * 결과 및 최종 수익을 출력하는 함수입니다.
+     */
+    @Override
+    public void analyze(Dealer dealer, List<Player> players) {
+        printResult(dealer, players);
+        printProfit(dealer, players);
+    }
+
     private Result match(Dealer dealer, Player player) {
         if (bustExists(dealer, player)) {
-            return checkBust(dealer, player);
+            return matchWithBust(dealer, player);
         }
 
         if (blackjackExists(dealer, player)) {
-            return checkBlackjack(dealer, player);
+            return matchWithBlackjack(dealer, player);
         }
 
         return distinguishWinner(dealer, player);
@@ -76,7 +97,7 @@ public class BlackjackApiImpl implements BlackjackApi {
         return dealer.isBust() || player.isBust();
     }
 
-    private Result checkBust(Dealer dealer, Player player) {
+    private Result matchWithBust(Dealer dealer, Player player) {
         if (player.isBust()) {
             return Result.PlayerLose;
         }
@@ -92,7 +113,7 @@ public class BlackjackApiImpl implements BlackjackApi {
         return dealer.isBlackjack() || player.isBlackjack();
     }
 
-    private Result checkBlackjack(Dealer dealer, Player player) {
+    private Result matchWithBlackjack(Dealer dealer, Player player) {
         if (player.isBlackjack() && dealer.isBlackjack()) {
             return Result.Draw;
         }
@@ -114,6 +135,9 @@ public class BlackjackApiImpl implements BlackjackApi {
         return Result.Draw;
     }
 
+    /**
+     * 딜러, 플레이어의 경합 결과에 따라 수익을 정산하는 함수입니다.
+     */
     private void settleResult(Result result, Dealer dealer, Player player) {
         settlePlayerWinWithBlackjack(result, dealer, player);
         settlePlayerWin(result, dealer, player);
@@ -139,13 +163,6 @@ public class BlackjackApiImpl implements BlackjackApi {
             double losedMoney = player.lose();
             dealer.win(Math.abs(losedMoney));
         }
-    }
-
-    /** 결과 및 최종 수익을 출력하는 함수입니다. */
-    @Override
-    public void analyze(Dealer dealer, List<Player> players) {
-        printResult(dealer, players);
-        printProfit(dealer, players);
     }
 
     private void printResult(Dealer dealer, List<Player> players) {

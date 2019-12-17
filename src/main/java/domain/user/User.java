@@ -24,6 +24,22 @@ public abstract class User {
         return cards;
     }
 
+    public boolean isBust() {
+        int score = calculateScore();
+        return BlackjackConfig.BLACKJACK < score;
+    }
+
+    ;
+
+    public boolean isBlackjack() {
+        int score = calculateScore();
+        return cards.size() == BlackjackConfig.DEFAULT_CARD_NUMBER && score == BlackjackConfig.BLACKJACK;
+    }
+
+    public double getProfit() {
+        return profit;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }
@@ -72,21 +88,5 @@ public abstract class User {
 
     private boolean matchesA() {
         return true;
-    }
-
-    public boolean isBust() {
-        int score = calculateScore();
-        return BlackjackConfig.BLACKJACK < score;
-    }
-
-    ;
-
-    public boolean isBlackjack() {
-        int score = calculateScore();
-        return cards.size() == BlackjackConfig.DEFAULT_CARD_NUMBER && score == BlackjackConfig.BLACKJACK;
-    }
-
-    public double getProfit() {
-        return profit;
     }
 }

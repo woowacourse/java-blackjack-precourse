@@ -16,11 +16,6 @@ public class Dealer extends User {
     public Dealer() {
     }
 
-    @Override
-    public String toString() {
-        return BlackjackConfig.DEALER_NAME;
-    }
-
     public void win(double money) {
         profit += money;
     }
@@ -28,4 +23,11 @@ public class Dealer extends User {
     public void lose(double money) {
         profit -= money;
     }
+
+    @Override
+    public String toString() {
+        return BlackjackConfig.DEALER_NAME;
+    }
+
+
 }

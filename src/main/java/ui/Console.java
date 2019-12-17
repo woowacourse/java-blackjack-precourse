@@ -40,6 +40,32 @@ public class Console implements UserInterface {
         }
     }
 
+    @Override
+    public double getBettingMoney(String name) {
+        blackjackPrinter.printRequestForMoney(name);
+        try {
+            double bettingMoney = Double.parseDouble(scanner.nextLine());
+            validateMoney(bettingMoney);
+            blackjackPrinter.printBreaktime();
+            return bettingMoney;
+        } catch (RuntimeException e) {
+            blackjackPrinter.printError(e);
+            return getBettingMoney(name);
+        }
+    }
+
+    @Override
+    public String getWillForMoreCard(User user) {
+        blackjackPrinter.printRequestForHit(user);
+        try {
+            String input = getInputOfWill(user);
+            return parseWill(input);
+        } catch (RuntimeException e) {
+            blackjackPrinter.printError(e);
+            return getWillForMoreCard(user);
+        }
+    }
+
     private String[] parseNames(String input) {
         input = input.trim();
         if (input.startsWith(BlackjackConfig.STANDARD_FOR_PARSE)
@@ -77,36 +103,10 @@ public class Console implements UserInterface {
         return true;
     }
 
-    @Override
-    public double getBettingMoney(String name) {
-        blackjackPrinter.printRequestForMoney(name);
-        try {
-            double bettingMoney = Double.parseDouble(scanner.nextLine());
-            validateMoney(bettingMoney);
-            blackjackPrinter.printBreaktime();
-            return bettingMoney;
-        } catch (RuntimeException e) {
-            blackjackPrinter.printError(e);
-            return getBettingMoney(name);
-        }
-    }
-
     private void validateMoney(double bettingMoney) {
         if (bettingMoney <= BlackjackConfig.MIN_MONEY) {
             throw new InvalidInputException(String.format("베팅 금액은 %.0f보다 커야 합니다.",
                     BlackjackConfig.MIN_MONEY));
-        }
-    }
-
-    @Override
-    public String getWillForMoreCard(User user) {
-        blackjackPrinter.printRequestForHit(user);
-        try {
-            String input = getInputOfWill(user);
-            return parseWill(input);
-        } catch (RuntimeException e) {
-            blackjackPrinter.printError(e);
-            return getWillForMoreCard(user);
         }
     }
 

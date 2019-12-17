@@ -43,6 +43,9 @@ public class PlayerServiceImpl extends UserService implements PlayerService {
         }
     }
 
+    /**
+     * 플레이어가 버스트하거나 스테이하기 전까지 반복합니다.
+     */
     @Override
     public void confirmCards(User user) {
         if (user.isBust()) {
@@ -56,12 +59,6 @@ public class PlayerServiceImpl extends UserService implements PlayerService {
         }
 
         hit(user);
-    }
-
-    private void hit(User user) {
-        user.addCard(deck.pick());
-        blackjackPrinter.printUserState(user);
-        confirmCards(user);
     }
 
     @Override
@@ -83,5 +80,11 @@ public class PlayerServiceImpl extends UserService implements PlayerService {
         for (Player player : players) {
             printProfit(player);
         }
+    }
+
+    private void hit(User user) {
+        user.addCard(deck.pick());
+        blackjackPrinter.printUserState(user);
+        confirmCards(user);
     }
 }
