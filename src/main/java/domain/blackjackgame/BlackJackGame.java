@@ -20,6 +20,7 @@ public class BlackJackGame {
 	private static final int ACE_DIFFERENCE = 10;
 	private static final int DEALER_CARD_STANDARD = 16;
 	private static final int BLACKJACK = 21;
+	private static final double FIRST_WIN = 1.5;
 
 	private final Scanner scanner;
 	private final List<Player> players;
@@ -38,7 +39,10 @@ public class BlackJackGame {
 	public void init() {
 		while (!inputPlayer()) {
 		}
-		startGame();
+		if (startGame()) {
+			twoCardPlayerWin();
+			return;
+		}
 		printCards();
 		if (playGame()) {
 			dealerFail();
@@ -74,7 +78,7 @@ public class BlackJackGame {
 		}
 	}
 
-	private void startGame() {
+	private boolean startGame() {
 		giveFirstTwoCards(dealer);
 		for (Player player : players) {
 			giveFirstTwoCards(player);
@@ -84,6 +88,13 @@ public class BlackJackGame {
 			System.out.print(player.getName() + " ");
 		}
 		System.out.println("에게 2장의 카드를 나누어주었습니다.");
+		calculateResult();
+		List<User> blackJackList = getBlackJackWinnerList();
+		if (blackJackList.size() > 0) {
+			return true;
+		}
+		calculateOringinalScore();
+		return false;
 	}
 
 	private void giveFirstTwoCards(User user) {
@@ -138,11 +149,27 @@ public class BlackJackGame {
 		return;
 	}
 
+	private void twoCardPlayerWin() {
+		List<User> blackJackList = getBlackJackWinnerList();
+		System.out.println("### 최종 수익 ###");
+		double dealerMoney = 0;
+		for (Player player : players) {
+			if (blackJackList.contains(player)) {
+				dealerMoney -= player.getBettingMoney() * FIRST_WIN;
+				System.out.println(player.getName() + ": " + player.getBettingMoney() * FIRST_WIN);
+				continue;
+			}
+			dealerMoney += player.getBettingMoney();
+			System.out.println(player.getName() + ": " + player.getBettingMoney() * -1);
+		}
+		System.out.println("딜러: " + dealerMoney);
+	}
+
 	private void playerWin(List<User> blackJackList) {
 		System.out.println("### 최종 수익 ###");
 		double dealerMoney = 0;
 		for (Player player : players) {
-			if(blackJackList.contains(player)) {
+			if (blackJackList.contains(player)) {
 				dealerMoney -= player.getBettingMoney();
 				System.out.println(player.getName() + ": " + player.getBettingMoney());
 				continue;
@@ -177,7 +204,6 @@ public class BlackJackGame {
 	}
 
 	private void playerFail() {
-		System.out.println("딜러가 블랙잭입니다!!");
 		System.out.println("### 최종 수익 ###");
 		double dealerMoney = 0;
 		for (Player player : players) {
@@ -196,6 +222,26 @@ public class BlackJackGame {
 			dealerMoney -= player.getBettingMoney();
 		}
 		System.out.println("딜러: " + dealerMoney);
+	}
+
+	private void calculateOringinalScore() {
+		calculateOriginalUserScore(dealer);
+		for (Player player : players) {
+			calculateOriginalUserScore(player);
+		}
+	}
+
+	private void calculateOriginalUserScore(User user) {
+		if (!user.hasAce())
+			return;
+		for (Card card : user.getCards()) {
+			if (isFailScore(user.getScore() + ACE_DIFFERENCE)) {
+				return;
+			}
+			if (card.getSymbol().getScore() == ACE) {
+				user.setScore(user.getScore() - ACE_DIFFERENCE);
+			}
+		}
 	}
 
 	private void calculateResult() {
