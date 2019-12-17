@@ -23,14 +23,14 @@ public class CardFactory {
         }
     }
 
-    public Set shuffleCard() {
+    public List<Card> shuffleCard() {
         List<Card> cardList = create();
         Set<Card> shuffledCardList = new LinkedHashSet<>();
         RandomNumberGenerator prng = new RandomNumberGenerator(symbols.length, types.length);
         while (shuffledCardList.size() != symbols.length * types.length) {
             shuffledCardList.add(cardList.get(prng.generate()));
         }
-        return shuffledCardList;
+        return (List<Card>) shuffledCardList;
     }
 
 }
