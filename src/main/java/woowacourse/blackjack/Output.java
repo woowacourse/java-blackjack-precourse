@@ -16,6 +16,10 @@ public class Output {
         System.out.println(playerName + "의 배팅 금액은?");
     }
 
+    public void printBettingMoneyInputAgain() {
+        System.out.println("1 이상의 숫자만 가능합니다.");
+    }
+
     public void printPlayersAndDealerCards(Dealer dealer, List<Player> players) {
         this.printAlertGetCards(players);
         this.printDealerCards(dealer);

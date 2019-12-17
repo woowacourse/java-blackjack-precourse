@@ -17,9 +17,22 @@ public class Input {
 
     public double getPlayerBettingMoney(String playerName) {
         this.output.printBettingMoneyInput(playerName);
-        double bettingMoney = sc.nextDouble();
-        sc.nextLine();
-        return bettingMoney;
+        String bettingMoney = sc.nextLine();
+        while (!isGetPlayerBettingMoneyValidator(bettingMoney) || !(Double.parseDouble(bettingMoney) >= 1)) {
+            this.output.printBettingMoneyInputAgain();
+            this.output.printBettingMoneyInput(playerName);
+            bettingMoney = sc.nextLine();
+        }
+        return Double.parseDouble(bettingMoney);
+    }
+
+    private boolean isGetPlayerBettingMoneyValidator(String bettingMoney) {
+        try {
+            Double.parseDouble(bettingMoney);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public String getYesOrNo(Player player) {
