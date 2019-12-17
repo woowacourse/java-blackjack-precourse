@@ -7,6 +7,9 @@ import java.util.Queue;
 
 public class CardShuffler {
 
+  private static final int SHUFFLE_TIMES = 10000;
+  private static final int RANDOM_DIGIT = 1000;
+
   private Queue<Card> shuffledCards;
 
   public CardShuffler(List<Card> cards) {
@@ -14,14 +17,18 @@ public class CardShuffler {
     this.shuffledCards = shuffleCards(newCards);
   }
 
+  public Queue<Card> getShuffledCards() {
+    return shuffledCards;
+  }
+
   public Card pickCard() {
     return shuffledCards.poll();
   }
 
   private Queue<Card> shuffleCards(List<Card> cards) {
-    for (int i = 0; i < 10000; ++i) {
-      int index1 = (int) (Math.random() * 1000) % cards.size();
-      int index2 = (int) (Math.random() * 1000) % cards.size();
+    for (int i = 0; i < SHUFFLE_TIMES; ++i) {
+      int index1 = (int) (Math.random() * RANDOM_DIGIT) % cards.size();
+      int index2 = (int) (Math.random() * RANDOM_DIGIT) % cards.size();
 
       swapCards(cards, index1, index2);
     }
