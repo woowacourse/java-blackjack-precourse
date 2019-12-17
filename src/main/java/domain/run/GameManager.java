@@ -58,5 +58,15 @@ public class GameManager {
 		printDealer();
 	}
 
+	private void drawCard() {
+		for (Player player : players) {
+			player.addCard(randomCard());
+			player.addCard(randomCard());
+		}
+		printDealerCard();
+		printPlayerName();
+		addCardPlayer();
+	}
 
+	
 }
