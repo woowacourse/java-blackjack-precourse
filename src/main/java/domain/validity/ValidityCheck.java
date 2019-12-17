@@ -5,7 +5,7 @@ import java.util.List;
 import domain.card.CardFactory;
 
 public class ValidityCheck {
-	private static boolean[] cardUsed = new boolean[CardFactory.cardSize];
+	private static boolean[] usedCard = new boolean[CardFactory.cardSize];
 	
 	public String nameIsValid(String name) throws IllegalArgumentException {
 		if (name.equals("")) {
@@ -44,11 +44,11 @@ public class ValidityCheck {
 	}
 	
 	public int cardIsUsed(int inx) throws Exception {
-		if (cardUsed[inx]) {
+		if (usedCard[inx]) {
 			throw new Exception();
 		}
 		
-		cardUsed[inx] = true;
+		usedCard[inx] = true;
 		return inx;
 	}
 }

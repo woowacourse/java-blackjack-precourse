@@ -61,7 +61,7 @@ public class Game {
 	
 	public int getCardIndex() {
 		try {
-			return validity.cardIsUsed(selectCard(CardFactory.cardSize));
+			return validity.cardIsUsed(selectCard(CardFactory.getDeck().size()));
 		} catch (Exception e) {
 			return getCardIndex();
 		}
@@ -105,14 +105,14 @@ public class Game {
 	}
 	
 	public void compareScore(int playerInx, int criteria) {		
-		if (isPlayerBust(playerInx) || !isDraw(playerInx, criteria) || playerAlwaysWin(playerInx)) {
+		if (isBust(playerInx) || !isDraw(playerInx, criteria) || playerAlwaysWin(playerInx)) {
 			modifyProfit(getWinnerInx(playerInx, criteria), 
 					getLoserInx(getWinnerInx(playerInx, criteria), playerInx), 
 					((Player)userRepository.getUserList().get(playerInx)).getBettingMoney());
 		}
 	}
 	
-	public boolean isPlayerBust(int playerInx) {
+	public boolean isBust(int playerInx) {
 		if (userRepository.getUserList().get(playerInx).isBelow(bustCriteria)) {
 			return false;
 		}

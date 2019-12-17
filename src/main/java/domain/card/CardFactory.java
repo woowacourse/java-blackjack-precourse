@@ -8,8 +8,8 @@ import java.util.List;
  * 트럼프 카드 전체 생성을 담당하는 객체
  */
 public class CardFactory {
-	public static int cardSize;
 	private static List<Card> deck = CardFactory.create();
+	public static int cardSize = deck.size();
 	
     public static List<Card> create() {
         List<Card> cards = new ArrayList<>();
@@ -17,7 +17,6 @@ public class CardFactory {
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);
         }
-        cardSize = cards.size();
         return Collections.unmodifiableList(cards);
     }
 

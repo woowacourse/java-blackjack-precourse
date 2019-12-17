@@ -57,8 +57,8 @@ public abstract class User {
 		return hasAce;
 	}
 	
-	public boolean isAce(Card card, boolean ace) {
-		if (card.isAce() || ace) {
+	public boolean isAce(Card card, boolean hasAce) {
+		if (card.isAce() || hasAce) {
 			return true;
 		}
 		return false;
