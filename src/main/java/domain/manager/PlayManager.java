@@ -150,4 +150,12 @@ public class PlayManager {
         }
         askHit(dealer);
     }
+
+    private void askHit(Player player) {
+        int scoreLimit = 21;
+        while (player.calculateScore() < scoreLimit && player.isHit()) {
+            player.addCard(deck.giveRandomCard());
+            System.out.println(player.toString());
+        }
+    }
 }
