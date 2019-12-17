@@ -20,7 +20,7 @@ public class Play {
         cards = CardFactory.create();
 
         getCardForDealer(INITIAL_CARDS, dealer);
-        for(Player p : player){
+        for(Player p : players){
             getCardForPlayer(INITIAL_CARDS, p);
         }
     }
@@ -30,7 +30,7 @@ public class Play {
             int card;
             while(true){
                 card = (int)(Math.random() * TOTAL_CARDS_AMOUNT);
-                if(!alreadyUsedCards.contains(card)){
+                if(!isAlreadyUsed(card)){
                     alreadyUsedCards.add(card);
                     break;
                 }
@@ -44,12 +44,16 @@ public class Play {
             int card;
             while(true){
                 card = (int)(Math.random() * TOTAL_CARDS_AMOUNT);
-                if(!alreadyUsedCards.contains(card)){
+                if(!isAlreadyUsed(card)){
                     alreadyUsedCards.add(card);
                     break;
                 }
             }
             player.addCard(cards.get(card));
         }
+    }
+
+    public boolean isAlreadyUsed(int card){
+        return alreadyUsedCards.contains(card);
     }
 }
