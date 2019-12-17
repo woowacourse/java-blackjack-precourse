@@ -34,7 +34,6 @@ public class GameResult {
 
     public boolean hasBlackjack() {
         List<User> blackjackPlayers = getBlackjackPlayers();
-
         if (blackjackPlayers.isEmpty()) {
             return false;
         }
