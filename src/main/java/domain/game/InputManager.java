@@ -30,7 +30,7 @@ public class InputManager {
             print(Message.makeMessageAskPlayerNames());
             nameArray = scanner.nextLine().split(",");
             trimWhiteSpace(nameArray);
-        } while (checkNamesValid(nameArray));
+        } while (!checkNamesValid(nameArray));
 
         return makeArrayToArrayList(nameArray);
     }
@@ -83,9 +83,11 @@ public class InputManager {
 
     private boolean checkNamesDuplicated(ArrayList<String> names) {
         boolean isDuplicated = false;
+        ArrayList<String> newList = new ArrayList<>();
 
         for (String name : names) {
-            isDuplicated |= listContainsString(names, name);
+            isDuplicated |= listContainsString(newList, name);
+            newList.add(name);
         }
         if (isDuplicated) {
             print(ErrorMessage.PLAYER_NAME_IS_DUPLICATED);
