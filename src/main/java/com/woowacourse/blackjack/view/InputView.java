@@ -24,6 +24,9 @@ public class InputView {
 			"%s는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
 	private static final Scanner SCANNER = new Scanner(System.in);
 
+	// 인스턴스가 생성되는 것을 방지
+	private InputView() {}
+
 	public static List<Name> getNames() {
 		try {
 			System.out.println(USER_NAME_INPUT_GUIDE_MESSAGE);

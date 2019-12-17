@@ -30,6 +30,9 @@ public class OutputView {
 	private static final String DEALER_DRAW_MESSAGE = "딜러는 16 이하라서 한 장의 카드를 더 받았습니다.";
 	private static final String COMMA = ", ";
 
+	// 인스턴스가 생성되는 것을 방지
+	private OutputView() {}
+
 	public static void showFirstDrawMessage(List<Player> players) {
 		showNewLine();
 		String names = players.stream()
