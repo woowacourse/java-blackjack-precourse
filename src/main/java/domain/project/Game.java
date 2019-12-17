@@ -295,7 +295,7 @@ public class Game {
 	}
 
 	private boolean checkPlayerCardSum(Player player) {
-		if (player.getCardSum() <= 21) {
+		if (player.getCardSum() <= Constant.BLACKJACK) {
 			return true;
 		}
 		myPrinter.printStopGetCard(player.getName());
@@ -303,7 +303,7 @@ public class Game {
 	}
 	
 	private void getCardDealer() {
-		if (dealer.getIsContainAce() == true) {
+		if (dealer.isContainAce() == true) {
 			checkDealerSumWithAce();
 			return ;
 		}
@@ -315,6 +315,7 @@ public class Game {
 			myPrinter.printDealerStopGetCard();
 			return;
 		}
+		checkDealerSum();
 	}
 	
 	private void checkDealerSum() {

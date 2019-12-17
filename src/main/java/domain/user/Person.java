@@ -8,15 +8,12 @@ import java.util.List;
 
 public class Person {
 	private final List<Card> cards = new ArrayList<>();
-	private int cardSum;
-	private int cardSumWithAce;
-	private boolean isContainAce;
 
-	public Person() {}
+	public Person() {
+	}
 
 	public void addCard(Card card) {
 		cards.add(card);
-		calculateCard();
 	}
 
 	public String getCardString() {
@@ -29,63 +26,50 @@ public class Person {
 		cardString = String.join(", ", cardStringSet);
 		return cardString;
 	}
-	
+
 	public String getResultString() {
 		return getCardString() + Constant.RESULT + makeResult();
 	}
-	
+
 	private String makeResult() {
-		if (isContainAce == true && cardSumWithAce == Constant.BLACKJACK) {
-			return Integer.toString(cardSumWithAce);
+		if (isContainAce() == true && getCardSumWithAce() == Constant.BLACKJACK) {
+			return Integer.toString(getCardSumWithAce());
 		}
-		if (isContainAce == true && cardSumWithAce >= cardSum) {
-			return Integer.toString(cardSumWithAce);
+		if (isContainAce() == true && getCardSumWithAce() <= 21 && getCardSumWithAce() >= getCardSum()) {
+			return Integer.toString(getCardSumWithAce());
 		}
-		return Integer.toString(cardSum);
+		return Integer.toString(getCardSum());
 	}
 
-	private void addCardNumber() {
+	public boolean isContainAce() {
+		boolean ace = false;
+
+		for (Card c : cards) {
+			ace = checkAce(c, ace);
+		}
+		return ace;
+	}
+
+	private boolean checkAce(Card card, boolean ace) {
+		if (ace == true) {
+			return true;
+		}
+		if (card.getSymbolName().equals(Constant.ACE)) {
+			return true;
+		}
+		return false;
+	}
+
+	public int getCardSum() {
+		int cardSum = 0;
+
 		for (Card c : cards) {
 			cardSum = cardSum + c.getSymbolScore();
 		}
-		addAce();
-	}
-	
-	private void addAce() {
-		if (isContainAce == true) {
-			cardSumWithAce = cardSum + 10;
-		}
+		return cardSum;
 	}
 
-	private void checkContainAce() {
-		for (Card c : cards) {
-			checkCardSet(c);
-		}
-	}
-
-	private void checkCardSet(Card card) {
-		if (card.getSymbolName().equals(Constant.ACE)) {
-			isContainAce = true;
-			cardSumWithAce = 0;
-		}
-	}
-
-	private void calculateCard() {
-		cardSum = 0;
-		isContainAce = false;
-		checkContainAce();
-		addCardNumber();
-	}
-	
-	public boolean getIsContainAce() {
-		return this.isContainAce;
-	}
-	
-	public int getCardSum() {
-		return this.cardSum;
-	}
-	
 	public int getCardSumWithAce() {
-		return this.cardSumWithAce;
+		return getCardSum() + Constant.PLUS_ACE;
 	}
 }
