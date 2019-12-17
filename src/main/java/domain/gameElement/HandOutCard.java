@@ -29,8 +29,9 @@ public class HandOutCard {
             playerHandOutCards((Player) users.get(i));
         }
         if (users.get(0).getSumNumbers() <= 16) {
-            System.out.println("딜러는 16이하라 카드 한 장을 더 받았습니다.");
+            System.out.println("\n딜러는 16이하라 카드 한 장을 더 받았습니다.");
             handOutCards((Dealer) users.get(0));
+            new UsersSumNumbers().usersSumNumbers((Dealer) users.get(0));
         }
     }
 

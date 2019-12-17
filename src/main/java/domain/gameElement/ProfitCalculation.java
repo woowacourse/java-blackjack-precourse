@@ -17,14 +17,20 @@ public class ProfitCalculation {
             countProfitBlackJack(dealer, player);
             return;
         }
-        countProfitTwentyOne(dealer, player);
+        if (!countProfitBust(dealer, player)) {
+            countProfitTwentyOne(dealer, player);
+        }
     }
 
     private void countProfitBlackJack(Dealer dealer, Player player) {
         if (dealer.getSumNumbers() == 21 && player.getSumNumbers() != 21) {
+            System.out.println("딜러의 블랙잭!!");
             dealerWinPlayerProfit(dealer, player);
         } else if (dealer.getSumNumbers() != 21 && player.getSumNumbers() == 21) {
+            System.out.println(player.getName() + "님의 블랙잭!!");
             playerBlackJackProfit(dealer, player);
+        } else if (dealer.getSumNumbers() != 21 && player.getSumNumbers() != 21) {
+            countProfit(dealer, player, 2);
         }
     }
 
@@ -34,6 +40,19 @@ public class ProfitCalculation {
         } else if (Math.abs(21 - dealer.getSumNumbers()) > Math.abs(21 - player.getSumNumbers())) {
             dealerLosePlayerProfit(dealer, player);
         }
+    }
+
+    private boolean countProfitBust(Dealer dealer, Player player) {
+        if (dealer.getSumNumbers() > 21 && player.getSumNumbers() <= 21) {
+            dealerLosePlayerProfit(dealer, player);
+            return true;
+        } else if (player.getSumNumbers() > 21 && dealer.getSumNumbers() <= 21) {
+            dealerWinPlayerProfit(dealer, player);
+            return true;
+        } else if (dealer.getSumNumbers() > 21 && player.getSumNumbers() > 21) {
+            return true;
+        }
+        return false;
     }
 
     private void dealerWinPlayerProfit(Dealer dealer, Player player) {

@@ -20,9 +20,9 @@ public class Card {
 
     public int getCardNumber(String user) {
         int cardNumber = symbol.getScore();
-        if (cardNumber == 1 && user.equals("Player")) {
+        if (cardNumber == 0 && user.equals("Player")) {
             selectAceNumberPlayer();
-        } else if (cardNumber == 1 && user.equals("Dealer")) {
+        } else if (cardNumber == 0 && user.equals("Dealer")) {
             selectAceNumberDealer(Dealer_ACE_NUMBER_BASE);
         }
         cardNumber = symbol.getScore();

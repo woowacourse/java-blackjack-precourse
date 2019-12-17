@@ -19,7 +19,7 @@ public class UsersSumNumbers {
         return player.getSumNumbers();
     }
 
-    private int usersSumNumbers(Dealer dealer) {
+    public int usersSumNumbers(Dealer dealer) {
         dealerSumNumbers(dealer);
         return dealer.getSumNumbers();
     }
