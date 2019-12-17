@@ -16,13 +16,15 @@ public class Player {
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
     public int playerScore = 0;
+    public List<Boolean> aceList = new ArrayList<Boolean>();
 
     public final int NUMBER_OF_START_CARDS = 2;
     public final String ANSWER_YES = "y";
     public final String ANSWER_NO = "n";
     public final int STANDARD_POINT = 21;
+    public final int ACE_POINT = 10;
     public String playerChoice;
-
+    public int NumberOfAce = 0;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -70,32 +72,57 @@ public class Player {
     }
 
     public void cardDrawOrPass() {
-        while(checkPlayerChoice()) {
+        while (checkPlayerChoice()) {
             addCard(GamePlay.addNewCard());
             printHaveCardList();
         }
     }
 
-    public boolean checkAceInCardList() {
-        for (Card card : cards){
-            if (card.checkAce()){
-                return true;
-            }
-        }
-        return false;
+    public void checkAceCard(Card card) {
+        aceList.add(card.getSymbol().getExpression().equals("A"));
     }
 
-    public int calculateScoreWithoutAce(){
-        for (Card card : cards){
+    public void getNumberOfAceCard(Card card) {
+        if (card.getSymbol().getExpression().equals("A")) {
+            NumberOfAce++;
+        }
+    }
+
+    public void checkAceInCardList() {
+        for (Card card : cards) {
+            checkAceCard(card);
+            getNumberOfAceCard(card);
+        }
+    }
+
+    public int chooseCalculateMethod() {
+        if (aceList.contains(true)) {
+            return calculateScoreWithAce();
+        }
+        return calculateScoreWithoutAce();
+    }
+
+    public int calculateScoreWithoutAce() {
+        for (Card card : cards) {
             playerScore += card.getSymbol().getScore();
         }
         return playerScore;
     }
 
-    public int selectTenOrOne() {
-        return 1;
+    public int calculateScoreWithAce() {
+        playerScore = calculateScoreWithoutAce();
+        for (int i = 0; i < NumberOfAce; i++) {
+            playerScore = selectElevenOrOne(playerScore);
+        }
+        return playerScore;
     }
 
-
+    public int selectElevenOrOne(int playerScore) {
+        if ((Math.abs(STANDARD_POINT - (playerScore+ACE_POINT)) < Math.abs(STANDARD_POINT - playerScore)) &&
+            (playerScore+ACE_POINT <= STANDARD_POINT)){
+            return playerScore + ACE_POINT;
+        }
+        return playerScore;
+    }
 
 }

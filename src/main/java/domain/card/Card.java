@@ -39,14 +39,10 @@ public class Card {
     }
 
     public String cardToString() {
-        return symbol.getExpression()+""+type.getKoreanType();
+        return symbol.getExpression() + "" + type.getKoreanType();
     }
 
-    public boolean checkAce(){
-        return symbol.getExpression().equals("A");
-    }
-
-    public Symbol getSymbol(){
+    public Symbol getSymbol() {
         return symbol;
     }
 
