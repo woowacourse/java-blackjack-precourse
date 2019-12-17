@@ -80,5 +80,16 @@ public class Result {
         return sum;
     }
 
-
+    public double isPush(List<Player> players, double totalBetMoney){
+        for(Player p : players){
+            int value = calcResultValue(p);
+            if(value == 22){
+                totalBetMoney -= p.getBettingMoney();
+                p.setResultMoney(0);
+            }else{
+                p.setResultMoney(-1 * p.getBettingMoney());
+            }
+        }
+        return totalBetMoney;
+    }
 }
