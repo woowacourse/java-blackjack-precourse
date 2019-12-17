@@ -11,10 +11,12 @@ public class BlackJackRound extends Round {
 	public void run(Table table) {
 		distribute(table);
 		table.setWinners(Rule.BLACKJACK_POINT);
+		table.setDraws();
 		printStatus(table);
 		if (table.hasWinner()) {
 			super.printStatus(table);
 			doSettlement(table);
+			printEarnings(table);
 		}
 	}
 

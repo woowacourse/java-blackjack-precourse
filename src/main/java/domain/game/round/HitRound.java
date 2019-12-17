@@ -13,9 +13,11 @@ public class HitRound extends Round {
 	public void run(Table table) {
 		doPlayersPhase(table);
 		doDealerPhase(table);
-		table.setWinners(table.getDealer().sumCardsMax());
+		table.setWinners(table.getDealer().sumMax());
+		table.setDraws();
 		printStatus(table);
 		doSettlement(table);
+		printEarnings(table);
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class HitRound extends Round {
 	}
 
 	private boolean checkPlayerCondition(Player player) {
-		if (player.isBust(Rule.BLACKJACK_POINT)) {
+		if (player.isBust()) {
 			return true;
 		}
 		InputController inputController = InputController.getInputController();
@@ -69,8 +71,8 @@ public class HitRound extends Round {
 	}
 
 	private boolean checkDealerCondition(Gambler dealer) {
-		return (dealer.sumCardsMax() > Rule.DEALER_DRAW_POINT
-			|| dealer.isBust(Rule.BLACKJACK_POINT));
+		return (dealer.sumMax() > Rule.DEALER_DRAW_POINT
+			|| dealer.isBust());
 	}
 
 	private void printDealerDrawText() {
