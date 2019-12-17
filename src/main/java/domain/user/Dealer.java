@@ -21,4 +21,26 @@ public class Dealer {
     public List<Card> getCards() {
     	return this.cards;
     }
+    
+	public int getScore() {
+		int sum = 0;
+		for (Card card : cards) {
+			sum += calculate(sum, card.getSymbol().getScore());
+		}
+		return sum;
+	}
+
+	private int calculate(int sum, int score) {
+		if (score == 1) {
+			return oneOrEleven(sum);
+		}
+		return score;
+	}
+
+	private int oneOrEleven(int sum) {
+		if (sum <= 10) {
+			return 11;
+		}
+		return 1;
+	}
 }

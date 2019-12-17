@@ -24,18 +24,19 @@ public class BlackJackGame {
 
 	public void allPlay() {
 		initiate();
-		for(int i = 0; i<players.size(); i++) {
+		for (int i = 0; i < players.size(); i++) {
 			play(players.get(i));
 		}
-
+//		dealerPlay();
+//		printResult();
 	}
 
 	public void initiate() {
 		inputUserInfo();
 		distributeCards();
 	}
-	
-	//유저 정보 입력받고 생성
+
+	// 유저 정보 입력받고 생성
 	public void inputUserInfo() {
 		List<String> playerNames = inputNames();
 		for (int playerIndex = 0; playerIndex < playerNames.size(); playerIndex++) {
@@ -43,7 +44,7 @@ public class BlackJackGame {
 			players.add(new Player(playerNames.get(playerIndex), bettingMoney));
 		}
 	}
-	
+
 	public void distributeCards() {
 		Collections.shuffle(cards);
 		dealer.addCard(cards.get(cardsIndex++));
@@ -54,11 +55,11 @@ public class BlackJackGame {
 		}
 		UI.printDistributeResult(dealer, players);
 	}
-	
+
 	public List<String> inputNames() {
 		Scanner scan = new Scanner(System.in);
 		UI.requestUserNameUI();
-		String input = scan.nextLine();//1명 미만, 이상한입력 예외처리 필요
+		String input = scan.nextLine();// 1명 미만, 이상한입력 예외처리 필요
 		return Arrays.asList(input.split(","));
 	}
 
@@ -68,11 +69,14 @@ public class BlackJackGame {
 		double bettingMoney = scan.nextDouble();
 		return bettingMoney;
 	}
-	
+
 	public void play(Player player) {
-		while(UI.isOneMoreCard(player)) {
-//			receiveOneMoreCard();
-//			UI.printCards(player);
+		if(player.getScore() >= 22) {
+			return;
+		}
+		while (UI.isOneMoreCard(player)) {
+			player.addCard(cards.get(cardsIndex++));
+			UI.printCards(player);
 		}
 	}
 }
