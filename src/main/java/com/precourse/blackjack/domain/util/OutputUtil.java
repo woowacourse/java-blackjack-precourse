@@ -85,4 +85,12 @@ public class OutputUtil {
 					Collectors.joining(COMMA))).append(RESULT).append(player.getTotalScore()).append(NEW_LINE));
 		return builder.toString();
 	}
+
+	public static String getFinalReturn(List<Player> players, Dealer dealer) {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(dealer.getName()).append(COLON).append("딜러수익").append(NEW_LINE);
+		players.forEach(player -> builder.append(player.getName()).append(COLON).append("플레이어수익").append(NEW_LINE));
+		return builder.toString();
+	}
 }

@@ -109,4 +109,8 @@ public class GameController {
 	public static void showGameResult(String gameResult) {
 		OutputView.printGameResult(gameResult);
 	}
+
+	public static void showFinalReturn(String finalReturn) {
+		OutputView.printFinalReturn(finalReturn);
+	}
 }
