@@ -1,4 +1,4 @@
-package domain.card;
+package com.woowacourse.blackjack.domain.card;
 
 import org.junit.jupiter.api.Test;
 
