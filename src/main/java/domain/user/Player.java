@@ -27,6 +27,10 @@ public class Player {
 		return this.name;
 	}
 
+	public double getBettingMoney() {
+		return this.bettingMoney;
+	}
+	
 	public List<Card> getCards() {
 		return this.cards;
 	}
