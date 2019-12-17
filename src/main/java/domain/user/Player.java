@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.main.GamePlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Player {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
+    public final int NUMBER_OF_START_CARDS = 2;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -23,7 +25,23 @@ public class Player {
     }
 
     // TODO 추가 기능 구현
-    public void printPlayer(){
-        System.out.println(name+"의 배팅금액" +bettingMoney);
+    public void printPlayerBettingMoney() {
+        System.out.println(name + "의 배팅금액 : " + bettingMoney);
     }
+    public void printPlayer() {
+        System.out.println(name + "의 배팅금액 : " + bettingMoney);
+    }
+    public void getStartCard() {
+        for (int i = 0; i < NUMBER_OF_START_CARDS; i++) {
+            cards.add(GamePlay.addNewCard());
+        }
+    }
+    public void haveCardList(){
+        System.out.print(name+"님의 카드 : ");
+        for (Card card : cards){
+            System.out.print(card.cardToString()+"\t");
+        }
+        System.out.println();
+    }
+
 }
