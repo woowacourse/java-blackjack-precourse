@@ -7,8 +7,6 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-import org.assertj.core.util.CheckReturnValue;
-
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
@@ -39,7 +37,11 @@ public class BlackJackGame {
 		}
 		startGame();
 		printCards();
-		playGame();
+		if(playGame()) {
+			dealerFail();
+			return;
+		}
+		calculateResult();
 	}
 
 	private boolean inputPlayer() {
@@ -101,12 +103,42 @@ public class BlackJackGame {
 		return randomCard;
 	}
 
-	private void playGame() {
+	private boolean playGame() {
+		if(dealer.getScore() <= DEALER_CARD_STANDARD) {
+			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+			giveCard(dealer);
+		}
+		if(isMaxScore(dealer)) {
+			return true;
+		}
 		for(Player player : players) {
 			getMoreCards(player);
 		}
+		return false;
+	}
+	
+	private void dealerFail() {
+		System.out.println("딜러가 21을 초과했습니다.");
+		System.out.println("### 최종 수익 ###");
+		double dealerMoney = 0;
+		for (Player player : players) {
+			System.out.println(player.getName() + ": " + player.getBettingMoney());
+			dealerMoney -= player.getBettingMoney();
+		}
+		System.out.println("딜러: " + dealerMoney);
 	}
 
+	private void calculateResult() {
+		calculateUserScore(dealer);
+		for(Player player : players) {
+			calculateUserScore(player);
+		}
+	}
+
+	private void calculateUserScore(User user) {
+		
+	}
+	
 	private void getMoreCards(Player player) {
 		while(!isMaxScore(player)) {
 			System.out.println(player.getName()+"는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
@@ -124,7 +156,7 @@ public class BlackJackGame {
 	}
 	
 	private boolean isMaxScore(User user) {
-		if(user.getScore() >= MAX_SCORE) {
+		if(user.getScore() > MAX_SCORE) {
 			return true;
 		}
 		return false;

@@ -1,6 +1,7 @@
 package domain.user;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import domain.card.Card;
@@ -11,11 +12,16 @@ public class User {
 	private final List<Card> cards = new ArrayList<>();
 	private int score;
 	private boolean hasAce;
+	private boolean fail;
 
 	public User() {
-
+		this.fail = false;
 	}
 
+	public void setFail() {
+		this.fail = true;
+	}
+	
 	public void addCard(Card card) {
 		if (card.getSymbol().getScore() == ACE) {
 			hasAce = true;
@@ -28,7 +34,7 @@ public class User {
 		for (Card card : cards) {
 			System.out.print(card.toString() + " ");
 		}
-		System.out.println();
+		System.out.println(" - 결과: " + score);
 	}
 
 	public int getScore() {
@@ -37,5 +43,9 @@ public class User {
 	
 	public boolean hasAce() {
 		return hasAce;
+	}
+	
+	public List<Card> getCards(){
+		return Collections.unmodifiableList(cards);
 	}
 }
