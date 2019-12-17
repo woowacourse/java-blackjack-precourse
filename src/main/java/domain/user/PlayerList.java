@@ -31,6 +31,14 @@ public class PlayerList {
         return String.join(",", players);
     }
 
+    public String toLog() {
+        String printPlayerList = "";
+        for (Player player : playerList) {
+            printPlayerList += player.toLog() + "\n";
+        }
+        return printPlayerList;
+    }
+
     @Override
     public String toString() {
         String printPlayerList = "";

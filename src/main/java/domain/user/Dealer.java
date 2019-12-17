@@ -25,6 +25,11 @@ public class Dealer {
         return resultScore;
     }
 
+    public String toLog() {
+        int publicDealerCardNumber = 1;
+        return "딜러 카드: " + cards.get(publicDealerCardNumber);
+    }
+
     @Override
     public String toString() {
         return "딜러 카드: " + cards

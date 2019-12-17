@@ -38,6 +38,11 @@ public class Player {
         return resultScore;
     }
 
+    public String toLog() {
+        return this.name +
+                " 카드:" + cards;
+    }
+
     @Override
     public String toString() {
         return this.name +
