@@ -1,9 +1,13 @@
 package domain.blackjackgame;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
+
+import org.assertj.core.util.CheckReturnValue;
 
 import domain.card.Card;
 import domain.card.CardFactory;
@@ -17,6 +21,7 @@ public class BlackJackGame {
 	private final Scanner scanner;
 	private final List<Player> players;
 	private final List<Card> cards;
+	private final Set<Integer> checkSameCard;
 	private final Dealer dealer;
 	private String[] playerNames;
 
@@ -25,6 +30,7 @@ public class BlackJackGame {
 		players = new ArrayList<>();
 		dealer = new Dealer();
 		cards = CardFactory.create();
+		checkSameCard = new HashSet<>();
 	}
 
 	public void init() {
@@ -80,13 +86,24 @@ public class BlackJackGame {
 
 	private Card randomizeCard() {
 		Random generator = new Random();
-		int randomIndex = generator.nextInt(cards.size());
-		Card randomCard = cards.get(randomIndex);
-		cards.remove(randomIndex);
+		int randomIndex = 0;
+		Card randomCard = null;
+		while(!checkSameCard.contains(randomIndex = generator.nextInt(cards.size()))) {
+			randomCard = cards.get(randomIndex);
+			checkSameCard.add(randomIndex);
+			break;
+		}
 		return randomCard;
 	}
 	
 	private void playGame() {
-		
+		printCards();
+	}
+
+	private void printCards() {
+		dealer.printCards();
+		for (Player player : players) {
+			player.printCards();
+		}
 	}
 }

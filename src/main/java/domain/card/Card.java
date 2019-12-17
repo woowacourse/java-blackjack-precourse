@@ -31,11 +31,8 @@ public class Card {
         return Objects.hash(symbol, type);
     }
 
-    @Override
-    public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "[" + symbol + "|" + type + "]";
+	}
 }
