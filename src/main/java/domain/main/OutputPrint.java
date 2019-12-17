@@ -76,15 +76,16 @@ public class OutputPrint {
     public void choiceMoreCard() {
         for (int i = 0; i < playerList.getSize() ; i ++) {
             Player currentPlayer = playerList.getPlayer(i);
-            getMoreCard(i, currentPlayer.getName());
-            System.out.println(currentPlayer);
+            getMoreCard(i, currentPlayer);
         }
     }
 
-    public void getMoreCard(int playerNumber, String playerName) {
-        println(playerName+"(은)는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+    public void getMoreCard(int playerNumber, Player player) {
+        println(player.getName()+"(은)는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
         if (inputScanner.getString().equals("y")) {
             distributeCardToPlayer(playerNumber);
+            System.out.println(player);
+            getMoreCard(playerNumber, player);
         }
     }
 
