@@ -5,7 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 트럼프 카드 전체 생성을 담당하는 객체
+ * @ClassName : CardFactory
+ * @ClassExplanation : 트럼프 카드 전체를 의미하는 것
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
  */
 public class CardFactory {
     public static List<Card> create() {

@@ -1,7 +1,11 @@
 package domain.user;
 
 /**
- * 게임 참여자를 의미하는 객체
+ * @ClassName : Player
+ * @ClassExplanation : 플레이어를 의미하는 클래스
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
  */
 public class Player extends Helper {
     private final String name;

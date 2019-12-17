@@ -1,7 +1,11 @@
 package domain.user;
 
 /**
- * 게임 딜러를 의미하는 객체
+ * @ClassName : Dealer
+ * @ClassExplanation : 게임 딜러를 의미하는 클래스
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
  */
 public class Dealer extends Helper {
 

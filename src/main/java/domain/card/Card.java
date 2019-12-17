@@ -3,7 +3,11 @@ package domain.card;
 import java.util.Objects;
 
 /**
- * 카드 한장을 의미하는 객체
+ * @ClassName : Card
+ * @ClassExplanation : 카드한장을 의미하는 것
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
  */
 public class Card {
     private final Symbol symbol;

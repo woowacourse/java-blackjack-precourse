@@ -11,6 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * @ClassName : Game
+ * @ClassExplanation : 실질적인 게임을 진행하는 곳
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
+ */
 public class Game {
 
     private final Input input = new Input();
@@ -102,14 +109,13 @@ public class Game {
     }
 
     public boolean finalResultBlackJack() {
-        winners = players.stream().filter(player -> player.blackJack() == true).collect(Collectors.toList());
+        winners = players.stream().filter(player -> player.blackJack()).collect(Collectors.toList());
         if (!winners.isEmpty()) {
-            losers = players.stream().filter(player -> player.blackJack() == false).collect(Collectors.toList());
+            losers = players.stream().filter(player -> !player.blackJack()).collect(Collectors.toList());
             this.playerWinBettingMoney();
             this.loserBettingMoney();
             return true;
         }
-
         return false;
     }
 
@@ -117,9 +123,9 @@ public class Game {
         if (!dealer.scoreExcess()) {
             bettingMoneyMap.put(DEALER_NAME, 0.0);
             players.stream().map(player -> bettingMoneyMap.put(player.getName(), player.getBettingMoney()));
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void playerWinBettingMoney() {
@@ -142,19 +148,19 @@ public class Game {
         }
         players.stream().forEach(player -> this.maxScore(player));
         players.stream().forEach(player -> this.winnerFind(player));
-        System.out.println(winnerScore);
+        winners.stream().forEach(winner -> System.out.println(winner.getName()));
         this.playerWinBettingMoney();
         this.loserBettingMoney();
     }
 
     public void maxScore(Player player) {
-        if (this.winnerScore < player.scoreCalculator()) {
+        if (this.winnerScore < player.scoreCalculator() && player.scoreExcess()) {
             this.winnerScore = player.scoreCalculator();
         }
     }
 
     public void winnerFind(Player player) {
-        if (this.winnerScore == player.scoreCalculator()) {
+        if (winnerScore == player.scoreCalculator()) {
             this.winners.add(player);
         }
         this.losers.add(player);

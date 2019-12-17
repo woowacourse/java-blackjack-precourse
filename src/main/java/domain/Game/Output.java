@@ -8,6 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * @ClassName : Output
+ * @ClassExplanation : 출력 UI 담당 클래스
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
+ */
 public class Output {
     private final Dealer dealer;
 

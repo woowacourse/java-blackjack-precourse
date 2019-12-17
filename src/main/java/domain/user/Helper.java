@@ -7,6 +7,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @ClassName : Helper
+ * @ClassExplanation : Dealer, Player 동시 기능 클래스
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
+ */
 public class Helper {
 
     private final List<Card> cards = new ArrayList<>();

@@ -5,6 +5,13 @@ import domain.user.Player;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * @ClassName : Input
+ * @ClassExplanation : 입력 UI 관련 클래스
+ * @author : Kim SeYun
+ * @Date : 2019. 12. 17
+ * @Copyright (c) 2019 SeYun Kim
+ */
 public class Input {
     Scanner scanner = new Scanner(System.in);
 
