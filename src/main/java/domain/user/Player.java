@@ -19,6 +19,10 @@ public class Player {
         this.bettingMoney = bettingMoney;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addCard(Card card) {
         cards.add(card);
     }
@@ -35,14 +39,6 @@ public class Player {
             msg.append(card + ", ");
         }
         System.out.println(msg.substring(0, msg.length() - 2));
-    }
-
-    public boolean isBust() {
-        if (calScore() > 21) {
-            System.out.println(name + " 버스트");
-            return true;
-        }
-        return false;
     }
 
     public int calScore() {

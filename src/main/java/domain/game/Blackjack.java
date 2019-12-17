@@ -9,6 +9,7 @@ import java.util.*;
 public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
     public final int MAX_NAME_LENGTH = 5;
+    public final int BUST_NUMBER = 21;
     public final String YES = "y";
     public final String NO = "n";
     public Dealer dealer;
@@ -98,10 +99,18 @@ public class Blackjack {
     }
 
     public void giveExtraCard(Player player) {
-        while (!player.isBust() && isReceivingCard(player)) {
+        while (!isBust(player) && isReceivingCard(player)) {
             deal(player);
             player.showCards();
         }
+    }
+
+    public boolean isBust(Player player) {
+        if (player.calScore() > BUST_NUMBER) {
+            System.out.println(player.getName() + " 버스트");
+            return true;
+        }
+        return false;
     }
 
     public boolean isReceivingCard(Player player) {
