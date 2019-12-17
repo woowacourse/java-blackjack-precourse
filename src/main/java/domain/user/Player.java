@@ -78,16 +78,16 @@ public class Player {
         return false;
     }
 
-    public double getEarnMoney(int maxValue) {
+    public int getEarnMoney(int maxValue) {
         double battingRatio = 1.0;
 
         if ((cards.size() == 2) && (getCardsPoint() == 21)) {
             battingRatio = 1.5;
         }
         if (isWinner(maxValue)) {
-            return bettingMoney * battingRatio;
+            return (int) (bettingMoney * battingRatio);
         }
-        return (-1) * bettingMoney * battingRatio;
+        return (int) ((-1) * bettingMoney * battingRatio);
     }
 
     public String getName() {

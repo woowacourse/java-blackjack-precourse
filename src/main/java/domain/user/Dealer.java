@@ -86,12 +86,12 @@ public class Dealer {
         return smallestCard;
     }
 
-    public double getEarnMoney(ArrayList<Player> players, int maxValue) {
+    public int getEarnMoney(ArrayList<Player> players, int maxValue) {
         double dealerMoney = 0;
 
         for (Player player : players) {
             dealerMoney -= player.getEarnMoney(maxValue);
         }
-        return dealerMoney;
+        return (int) dealerMoney;
     }
 }
