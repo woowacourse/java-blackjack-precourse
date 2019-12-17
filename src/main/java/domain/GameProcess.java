@@ -5,10 +5,10 @@ import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameProcess {
     private Scanner sc = new Scanner(System.in);
@@ -102,7 +102,7 @@ public class GameProcess {
                     && players.get(i).getCardSum() == BLACKJACK){
                 win_or_lose[i] = DRAW;
             }else if(players.get(i).getCardSum() == BLACKJACK
-                        && players.get(DEALER_INDEX).getCardSum() != BLACKJACK){
+                    && players.get(DEALER_INDEX).getCardSum() != BLACKJACK){
                 win_or_lose[i] = WIN;
             }
         }
@@ -112,7 +112,7 @@ public class GameProcess {
         char answer = 'y';
         while(answer == 'y' && player.getCardSum() < 21){
             System.out.println(player.getName() + "는 카드를 받으시겠습니까?"
-                                + "(예는 y, 아니요는 n)");
+                    + "(예는 y, 아니요는 n)");
             answer = sc.next().charAt(0);
             if(answer == 'n'){
                 System.out.println(player);

@@ -48,6 +48,4 @@ public class Dealer {
         card = String.join(",", cards.toString());
         return getName() + " : " + card;
     }
-
-
 }
