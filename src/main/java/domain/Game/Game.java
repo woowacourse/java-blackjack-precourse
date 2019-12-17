@@ -20,6 +20,7 @@ public class Game {
     private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
     private Map<String, Double> bettingMoneyMap = new LinkedHashMap<>();
     private List<Player> winners = new ArrayList<>();
+    private List<Player> losers = new ArrayList<>();
 
     public void Play() {
         this.playerObjectCreate();
@@ -28,8 +29,8 @@ public class Game {
             this.addCardDraw();
             output.startCardState(players);
             output.finalCardResult(players);
+            this.finalResult();
         }
-        this.finalResult();
         output.bettingMoneyResult(bettingMoneyMap);
     }
 
@@ -104,8 +105,10 @@ public class Game {
 
     public boolean finalResultBlackJack() {
         winners = players.stream().filter(player -> player.blackJack() == true).collect(Collectors.toList());
+        losers = players.stream().filter(player -> player.blackJack() == false).collect(Collectors.toList());
         if (!winners.isEmpty()) {
             this.playerWinBettingMoney();
+            this.loserBettingMoney();
             return true;
         }
         if (dealer.blackJack()) {
@@ -113,4 +116,11 @@ public class Game {
         }
         return false;
     }
+
+    public void loserBettingMoney() {
+        for (Player loser : losers) {
+            bettingMoneyMap.put(loser.getName(), -loser.getBettingMoney());
+        }
+    }
+
 }

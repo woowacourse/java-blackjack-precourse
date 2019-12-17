@@ -24,19 +24,19 @@ public class Output {
 
     public boolean dealerAddCardDraw() {
         if (dealer.addCardDraw()) {
-            System.out.println("딜러는 16이하라 카드를 더 받았습니다.");
+            System.out.println("\n딜러는 16이하라 카드를 더 받았습니다.");
             return true;
         }
         return false;
     }
 
     public void finalCardResult(List<Player> players) {
-        System.out.println(dealer.cardsToString() + " - 결과 : " + dealer.scoreCalculator());
+        System.out.println("\n" + dealer.cardsToString() + " - 결과 : " + dealer.scoreCalculator());
         players.stream().forEach(player -> System.out.println(player.cardsToString() + "- 결과 : " + player.scoreCalculator()));
     }
 
     public void bettingMoneyResult(Map<String, Double> bettingMoneyMap) {
-        System.out.println("##최종수익");
+        System.out.println("\n##최종수익");
         Iterator<String> bettingMoneyMapKeys = bettingMoneyMap.keySet().iterator();
         while (bettingMoneyMapKeys.hasNext()){
             String bettingMoneyMapKey = bettingMoneyMapKeys.next();
