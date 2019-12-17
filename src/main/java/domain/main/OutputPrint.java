@@ -19,6 +19,7 @@ public class OutputPrint {
     List<Card> cardsList;
     private static int theTopCardNumber = 0;                        // 카드 덱의 가장 위에 있는 카드의 인덱스 번호.
     private static final int FIRST_CARD_DISTRIBUTE_NUMBER = 2;      // 처음 카드가 모두에게 분배될 때의 분배 갯수.
+    private static final int BOUNDARY_DEALER_MUST_MORE_CARD = 16;   // 딜러가 이보다 적은 점수를 가졌다면 카드를 반드시 더 받아야 한다.
 
     OutputPrint() {
         this.inputScanner = new InputScanner();
@@ -29,13 +30,12 @@ public class OutputPrint {
         Collections.shuffle(cardsList);
     }
 
-    public PlayerList getPlayerNames() {
+    public void getPlayerNames() {
         println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
         String[] playerNames = inputScanner.getStringLine().split(",");
         for (String name : playerNames) {
             playerList.addPlayer(new Player(name, getBettingMoney(name)));
         }
-        return playerList;
     }
 
     private Double getBettingMoney(String playerName) {
@@ -90,7 +90,11 @@ public class OutputPrint {
     }
 
     public void dealerLessThan16() {
-        println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+        if (dealer.getScore() <= BOUNDARY_DEALER_MUST_MORE_CARD) {
+            println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+            dealer.addCard(getCard());
+            dealerLessThan16();
+        }
     }
 
     public void finalReturn() {
@@ -102,7 +106,6 @@ public class OutputPrint {
     }
 
     private void println(String message) {
-        System.out.println(message);
+        System.out.println("\n" + message);
     }
-
 }
