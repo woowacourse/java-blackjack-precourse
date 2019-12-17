@@ -127,4 +127,12 @@ public class PlayManager {
             benefitArray[dealerIndex] = -benefit;
         }
     }
+
+    private void printFinalResult() {
+        System.out.println();
+        System.out.println(dealer.toString() + "(히든)" + dealer.getHiddenCard() + " - 결과 : " + dealer.calculateScore());
+        for (Player player : players) {
+            System.out.println(player.toString() + " - 결과 : " + player.calculateScore());
+        }
+    }
 }
