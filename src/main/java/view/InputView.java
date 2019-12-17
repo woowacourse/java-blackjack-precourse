@@ -18,19 +18,15 @@ public class InputView {
 
     public static int bettingMoney(String playerName) {
         System.out.println(playerName + GET_BETTING_MONEY_MESSAGE);
-        int inputMoney = Integer.parseInt(scanner.nextLine());
-        if (!InputValidator.isValidNumber(inputMoney)) {
-            throw new IllegalArgumentException("잘못된 배팅 금액 입력입니다.");
-        }
-        return inputMoney;
+        int money = Integer.parseInt(scanner.nextLine());
+        InputValidator.checkMoneyValidity(money);
+        return money;
     }
 
     public static String playerIntent(Player player) {
         System.out.println(player.getName() + GET_PLAYER_INTENT_MESSAGE);
-        String inputIntent = scanner.nextLine();
-        if (!InputValidator.isValidIntent(inputIntent)) {
-            throw new IllegalArgumentException("y 또는 n 이외의 입력입니다.");
-        }
-        return inputIntent;
+        String intent = scanner.nextLine();
+        InputValidator.checkIntentValidity(intent);
+        return intent;
     }
 }
