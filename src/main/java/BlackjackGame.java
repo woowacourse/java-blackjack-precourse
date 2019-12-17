@@ -20,6 +20,7 @@ public class BlackjackGame {
         playerList = construct.constructPlayer();
         dealer = construct.constructDealer();
         drawing.startShuffle(playerList,dealer);
+        drawing.drawAllPlayer(playerList);
     }
 
 }

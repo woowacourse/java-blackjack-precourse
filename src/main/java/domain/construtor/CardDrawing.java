@@ -53,6 +53,28 @@ public class CardDrawing {
     }
 
     /**
+     * 플레이어모두가 카드를 뽑는 기능
+     *
+     * @param playerList 플레이어 리스트
+     */
+    public void drawAllPlayer(List<Player> playerList) {
+        for (Player player : playerList) {
+            drawPlayerCard(player);
+        }
+    }
+
+    /**
+     * 플레이어가 카드를 뽑을지 결정하는 기능
+     *
+     * @param player 플레이어 정보
+     */
+    public void drawPlayerCard(Player player) {
+        while (decision.decideDraw(player)) {
+            player.addCard(cards.get(randomIndex.nextInt(52)));
+        }
+    }
+
+    /**
      * 플레이어와 딜러에게 시작과 동시에 카드를 2장 지급했다는 상태메시지
      *
      * @param playerList 플레이어정보를 갖고있는 List
