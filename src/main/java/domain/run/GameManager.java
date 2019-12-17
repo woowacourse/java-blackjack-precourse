@@ -21,7 +21,7 @@ public class GameManager {
 	ArrayList<Player> players = new ArrayList<Player>();
 	ArrayList<Card> playerCard = new ArrayList<Card>();
 	Integer[] scoreResult;
-	int maxScore=0;
+	int maxScore = 0;
 	int winner = 0;
 	Random random = new Random();
 
@@ -34,13 +34,13 @@ public class GameManager {
 	}
 
 	private void splitName(String names) {
-		int count=0;
+		int count = 0;
 		for (String name : names.split(",")) {
 			System.out.println(name + "의 배팅금액은?");
 			players.add(new Player(name, sc.nextDouble()));
 			count++;
 		}
-		 scoreResult= new Integer[count+1];
+		scoreResult = new Integer[count + 1];
 		drawCard();
 		printResult();
 	}
@@ -121,5 +121,14 @@ public class GameManager {
 		System.out.println();
 	}
 
+	private void checkDealerCardResult() {
+		if (printCardResult(dealer, players.size()) <= 16) {
+			System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다");
+			dealer.addCard(randomCard());
+		}
+		System.out.print("딜러:");
+		printPlayerCard(dealer);
+		System.out.println("-결과:" + printCardResult(dealer, players.size()));
+	}
 
 }
