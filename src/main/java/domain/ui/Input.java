@@ -1,5 +1,5 @@
 /*
- * @(#)Input.java       0.5 2019.12.16
+ * @(#)Input.java       0.6 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import java.util.Scanner;
  * 입력과 관련된 기능을 담당할 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.16
+ * @version 0.6 2019.12.17
  */
 public class Input {
     /**
@@ -35,7 +35,7 @@ public class Input {
      *
      * @return 사용자가 입력한 배팅 금액.
      */
-    public double receivePlayerBettingMoneyInput() {
+    public double receiveBettingMoneyInput() {
         scanner = new Scanner(System.in);
         return scanner.nextDouble();
     }

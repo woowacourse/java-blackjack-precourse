@@ -1,5 +1,5 @@
 /*
- * @(#)StringUtil.java      0.7 2019.12.16
+ * @(#)StringUtil.java      0.8 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,7 +17,7 @@ import java.util.List;
  * 문자열을 처리하는 기능을 담당하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.16
+ * @version 0.8 2019.12.17
  */
 public class StringUtil {
     /**
@@ -39,8 +39,8 @@ public class StringUtil {
     public static List<String> processPlayerName(String userInput) {
         List<String> playerNames;
 
-        playerNames = splitPlayerName(userInput);
-        trimPlayerName(playerNames);
+        playerNames = splitToPlayersName(userInput);
+        trimPlayersName(playerNames);
         return playerNames;
     }
 
@@ -50,7 +50,7 @@ public class StringUtil {
      * @param userInput 입력받은 게임 참여자 이름 문자열.
      * @return 쉼표(,)를 기준으로 잘려진 Player들의 이름.
      */
-    private static List<String> splitPlayerName(String userInput) {
+    private static List<String> splitToPlayersName(String userInput) {
         return Arrays.asList(userInput.split(SPLIT_COMMA_DELIMITER));
     }
 
@@ -59,7 +59,7 @@ public class StringUtil {
      *
      * @param playerNames 불필요한 공백이 제거된 Player들의 이름.
      */
-    private static void trimPlayerName(List<String> playerNames) {
+    private static void trimPlayersName(List<String> playerNames) {
         for (int i = 0; i < playerNames.size(); i++) {
             playerNames.set(i, playerNames.get(i).trim());
         }
@@ -71,7 +71,7 @@ public class StringUtil {
      * @param players Player들의 이름.
      * @return Player들의 이름을 합친 문자열.
      */
-    public static String joinPlayerName(List<Player> players) {
+    public static String joinPlayersName(List<Player> players) {
         List<String> playerNames = new ArrayList<>();
 
         for (Player player : players) {
@@ -86,7 +86,7 @@ public class StringUtil {
      * @param cards card List.
      * @return card List를 합친 문자열.
      */
-    public static String joinCardName(List<Card> cards) {
+    public static String joinCardsName(List<Card> cards) {
         List<String> cardNames = new ArrayList<>();
 
         for (Card card : cards) {

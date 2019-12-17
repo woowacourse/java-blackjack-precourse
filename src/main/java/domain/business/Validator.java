@@ -1,5 +1,5 @@
 /*
- * @(#)Validator.java       0.8 2019.12.16
+ * @(#)Validator.java       0.9 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,9 +17,14 @@ import java.util.regex.Pattern;
  * 입력의 유효성 검증을 담당하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.8 2019.12.16
+ * @version 0.9 2019.12.17
  */
 public class Validator {
+    /**
+     * Dealer와 관련된 정보를 출력할 때 이름으로 사용할 상수.
+     */
+    private static final String DEALER_NAME = "Dealer";
+
     /**
      * Player 이름이 영문자로만 이루어져 있는지 확인하기 위한 regex 문자열 상수.
      */
@@ -87,7 +92,7 @@ public class Validator {
      */
     private static void isValidOnePlayerNameLength(String playerName) throws InputMismatchException {
         if (playerName.length() == MIN_PLAYER_NAME_LENGTH) {
-            out.printPlayerNameLengthError();
+            out.printPlayerNameLengthException();
             throw new InputMismatchException();
         }
     }
@@ -112,23 +117,38 @@ public class Validator {
      */
     private static void isValidOnePlayerNameFormat(String playerName) throws InputMismatchException {
         if (!Pattern.matches(PLAYER_NAME_FORMAT, playerName)) {
-            out.printPlayerNameFormatError();
+            out.printPlayerNameFormatException();
             throw new InputMismatchException();
         }
     }
 
     /**
-     * Player들의 이름 중에 중복이 존재하는지 확인하고 메시지를 출력하는 메소드.
+     * Player들의 이름 중에 중복이 존재하는지, Dealer 또는 dealer라는 이름을 사용하는지 확인하고 메시지를 출력하는 메소드.
      *
      * @param playerNames Player들의 이름.
-     * @throws InputMismatchException Player들의 이름 중에 중복이 존재할 경우 발생하는 예외.
+     * @throws InputMismatchException Player들의 이름 중에 중복 또는 Dealer 또는 dealer라는 이름이 존재할 경우 발생하는 예외.
      */
     private static void isNoDuplicatePlayerName(List<String> playerNames) throws InputMismatchException {
         HashSet<String> noDuplicatePlayerNames = new HashSet<>(playerNames);
         if (noDuplicatePlayerNames.size() != playerNames.size()) {
-            out.printPlayerNameDuplicateError();
+            out.printPlayerNameDuplicateException();
             throw new InputMismatchException();
         }
+        if (isDealerNameIncluded(playerNames)) {
+            out.printPlayerNameDuplicateWithDealerException();
+            throw new InputMismatchException();
+        }
+    }
+
+    /**
+     * Player들의 이름중에 Dealer 또는 dealer라는 이름이 존재하는 지 확인하는 메소드.
+     *
+     * @param playerNames Player들의 이름.
+     * @return Dealer 또는 dealer라는 이름이 존재하면 true 반환.
+     * @throws InputMismatchException Player들의 이름중에 Dealer 또는 dealer라는 이름이 존재하면 발생하는 예외.
+     */
+    private static boolean isDealerNameIncluded(List<String> playerNames) throws InputMismatchException {
+        return (playerNames.contains(DEALER_NAME) || playerNames.contains(DEALER_NAME.toLowerCase()));
     }
 
     /**
@@ -137,9 +157,9 @@ public class Validator {
      * @param bettingMoney Player의 배팅 금액.
      * @throws InputMismatchException 배팅 금액이 유효하지 않은 경우 발생하는 예외.
      */
-    public static void isValidPlayerBettingMoney(double bettingMoney) throws InputMismatchException {
+    public static void isValidBettingMoney(double bettingMoney) throws InputMismatchException {
         try {
-            isValidBettingMoney(bettingMoney);
+            isValidBettingMoneyAmount(bettingMoney);
         } catch (InputMismatchException e) {
             throw new InputMismatchException();
         }
@@ -151,7 +171,7 @@ public class Validator {
      * @param bettingMoney Player의 배팅 금액.
      * @throws InputMismatchException 배팅 금액이 최소 금액보다 작다면 발생하는 예외.
      */
-    private static void isValidBettingMoney(double bettingMoney) throws InputMismatchException {
+    private static void isValidBettingMoneyAmount(double bettingMoney) throws InputMismatchException {
         if (!(bettingMoney > MIN_BETTING_MONEY)) {
             throw new InputMismatchException();
         }
@@ -165,7 +185,7 @@ public class Validator {
      */
     public static void isValidGetMoreCardReply(String userInput) throws InputMismatchException {
         if (!((userInput.equals(GET_MORE_CARD)) || (userInput.equals(STOP_GET_MORE_CARD)))) {
-            out.printPlayerGetMoreCardReplyError();
+            out.printPlayerGetMoreCardReplyException();
             throw new InputMismatchException();
         }
     }

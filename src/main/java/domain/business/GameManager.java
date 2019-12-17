@@ -1,5 +1,5 @@
 /*
- * @(#)GameManager.java     0.3 2019.12.16
+ * @(#)GameManager.java     0.4 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -16,7 +16,7 @@ import java.util.List;
  * 게임의 진행을 관리하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.3 2019.12.16
+ * @version 0.4 2019.12.17
  */
 public class GameManager {
     /**
@@ -30,17 +30,23 @@ public class GameManager {
     private Output out = new Output();
 
     /**
-     * BlackJackGame을 진행할 객체.
+     * 블랙잭 게임을 진행할 BlackJackGame 객체.
      */
     private BlackJackGame blackJackGame;
 
     /**
-     * 블랙잭 게임을 진행할 BlackJackGame 인스턴스를 생성하고 Player 객체를 게임 안에 생성하고 게임을 시작하는 메소드.
+     * 블랙잭 게임을 진행할 BlackJackGame 객체를 생성하고 Player 객체를 게임 안에 생성하고 게임을 시작하는 메소드.
      */
     public void run() {
         blackJackGame = new BlackJackGame();
-        putPlayerInBlackJackGame(receivePlayerName());
-        blackJackGame.playBlackJackGame();
+        generatePlayerInBlackJackGame(receivePlayerName());
+        blackJackGame.progressFirstDrawTwoCardsEachUsers();
+        if (!blackJackGame.isDealerBlackJack()) {
+            blackJackGame.restartGameAccordingToRules();
+        }
+        blackJackGame.printUsersFinalCardStatus();
+        blackJackGame.printUsersFinalProfitResult();
+
     }
 
     /**
@@ -49,16 +55,15 @@ public class GameManager {
      * @return Player들의 이름.
      */
     private List<String> receivePlayerName() {
-        List<String> playerNames;
-
         try {
             out.printPlayerNameInputRequest();
-            playerNames = StringUtil.processPlayerName(in.receivePlayerNameInput());
+            List<String> playerNames = StringUtil.processPlayerName(in.receivePlayerNameInput());
+
             Validator.isValidPlayerName(playerNames);
+            return playerNames;
         } catch (InputMismatchException e) {
             return receivePlayerName();
         }
-        return playerNames;
     }
 
     /**
@@ -67,27 +72,27 @@ public class GameManager {
      * @param playerName Player들의 이름.
      * @return Player의 배팅 금액.
      */
-    private double receivePlayerBettingMoney(String playerName) {
+    private double receiveBettingMoney(String playerName) {
         try {
-            out.printPlayerBettingMoneyRequest(playerName);
-            double playerBettingMoney = in.receivePlayerBettingMoneyInput();
-            Validator.isValidPlayerBettingMoney(playerBettingMoney);
-            return playerBettingMoney;
+            out.printBettingMoneyInputRequest(playerName);
+            double bettingMoney = in.receiveBettingMoneyInput();
+
+            Validator.isValidBettingMoney(bettingMoney);
+            return bettingMoney;
         } catch (InputMismatchException e) {
-            out.printBettingMoneyUnderMinNumberError();
-            out.printInputRequestAgain();
-            return receivePlayerBettingMoney(playerName);
+            out.printBettingMoneyInputError();
+            return receiveBettingMoney(playerName);
         }
     }
 
     /**
-     * Player 각각 배팅 금액을 입력받아 해당 플레이어를 BlackJackGame에 참가시키는 메소드.
+     * Player들의 배팅 금액을 각각 입력받아 해당 플레이어를 BlackJackGame에 참가시키는 메소드.
      *
      * @param playerNames Player 이름.
      */
-    private void putPlayerInBlackJackGame(List<String> playerNames) {
+    private void generatePlayerInBlackJackGame(List<String> playerNames) {
         for (String playerName : playerNames) {
-            blackJackGame.generatePlayerInstance(playerName, receivePlayerBettingMoney(playerName));
+            blackJackGame.generatePlayer(playerName, receiveBettingMoney(playerName));
         }
     }
 }

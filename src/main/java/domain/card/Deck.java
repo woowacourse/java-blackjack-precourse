@@ -1,5 +1,5 @@
 /*
- * @(#)Deck.java        0.4 2019.12.16
+ * @(#)Deck.java        0.5 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -13,7 +13,7 @@ import java.util.List;
  * 카드 덱을 생성하고 관리하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.4 2019.12.16
+ * @version 0.5 2019.12.17
  */
 public class Deck {
     /**

@@ -1,5 +1,5 @@
 /*
- * @(#)User.java        0.1 2019.12.16
+ * @(#)User.java        0.2 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -15,7 +15,7 @@ import java.util.List;
  * Dealer와 Player의 중복을 제거하기 위한 상위 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.1 2019.12.16
+ * @version 0.2 2019.12.17
  */
 public class User {
     /**
@@ -39,9 +39,9 @@ public class User {
     protected static final int ACE_USED_ELEVEN = 10;
 
     /**
-     * 블랙잭(처음 2장의 care의 총합이 21)인지 확인하기 위한 card List를 만들 때(처음 2장의 card) 사용할 상수.
+     * 블랙잭(처음 2장의 care의 총합이 21)인지 확인할 때 카드의 장수를 확인하기 위해 사용할 상수.
      */
-    protected static final int BLACK_JACK_CHECK_CARD_RANGE = 2;
+    protected static final int BLACK_JACK_CARD_SIZE = 2;
 
     /**
      * 블랙잭(처음 2장의 care의 총합이 21)인지 확인하기 위해 사용할 상수.
@@ -133,45 +133,12 @@ public class User {
     }
 
     /**
-     * User의 첫 2장의 card가 블랙잭(처음 2장의 care의 총합이 21)인지 확인하는 메소드.
+     * User의 처음 뽑은 2장의 card가 블랙잭(처음 2장의 care의 총합이 21)인지 확인하는 메소드.
      *
-     * @return 블랙잭(처음 2장의 care의 총합이 21)인 경우 true 반환.
+     * @return 카드가 2장이고 블랙잭(처음 2장의 care의 총합이 21)인 경우 true 반환.
      */
     public boolean isBlackJack() {
-        int score = INIT_SCORE_TO_ZERO;
-        List<Card> blackJackCheckDeck = makeBlackJackCheckDeck();
-
-        for (Card card : blackJackCheckDeck) {
-            score += checkAceAndGetSymbolScore(card);
-        }
-        return (score == BLACK_JACK);
-    }
-
-    /**
-     * 블랙잭(처음 2장의 care의 총합이 21)인지 확인하기 위한 deck을 생성하는 메소드.
-     *
-     * @return 처음 2장의 카드만 저장된 card List.
-     */
-    protected List<Card> makeBlackJackCheckDeck() {
-        List<Card> blackJackCheckDeck = new ArrayList<>();
-
-        for (int i = 0; i < BLACK_JACK_CHECK_CARD_RANGE; i++) {
-            blackJackCheckDeck.add(cards.get(i));
-        }
-        return blackJackCheckDeck;
-    }
-
-    /**
-     * 블랙잭(처음 2장의 care의 총합이 21)인지 확인할 경우에 사용되며, ACE card이면 무조건 11을, 아닌 경우는 원래의 값을 반환하는 메소드.
-     *
-     * @param card ACE card인지 확인할 카드.
-     * @return ACE card일 경우엔 11을, 아니면 원래 카드의 숫자를 반환.
-     */
-    protected int checkAceAndGetSymbolScore(Card card) {
-        if (card.isAceCard()) {
-            return card.getSymbolScore() + ACE_USED_ELEVEN;
-        }
-        return card.getSymbolScore();
+        return ((cards.size() == BLACK_JACK_CARD_SIZE) && (getScore() == BLACK_JACK));
     }
 
     /**
