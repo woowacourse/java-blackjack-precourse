@@ -13,9 +13,9 @@ public class InputView {
         return sc.nextLine();
     }
 
-    public static int inputPlayerMoney(String name) {
+    public static double inputPlayerMoney(String name) {
         System.out.println(name + "의 배팅 금액은?");
-        return sc.nextInt();
+        return sc.nextDouble();
     }
 
     public static Character inputChoiceGetCard(Player player) {

@@ -12,7 +12,7 @@ import static view.OutputView.printDealerGetCardMessage;
 
 public class InGameSystem {
     private static int DEALER_GET_CARD_CONDITION = 16;
-    private static int PLAYER_GET_CARD_CONDITION = 21;
+    private static int PLAYER_GET_CARD_CONDITION = 20;
 
     private Dealer dealer;
     private List<Player> playerList;

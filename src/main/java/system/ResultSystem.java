@@ -12,12 +12,12 @@ import java.util.Map;
 import static view.OutputView.printResultStatus;
 
 public class ResultSystem {
-    private static int BUST_CONDITION = 21;
+    public static int BUST_CONDITION = 21;
 
     private Dealer dealer;
     private List<Player> playerList;
-    private HashMap<String, Integer> playersMoney = new HashMap<>();
-    private int dealerMoney = 0;
+    private HashMap<String, Double> playersMoney = new HashMap<>();
+    private double dealerMoney = 0;
 
     public ResultSystem(Dealer dealer, List<Player> playerList) {
         this.dealer = dealer;
@@ -38,50 +38,58 @@ public class ResultSystem {
     }
 
     private void setResultMoney() {
-        if (isDealerBust()) {
-            rewardAllPlayer();
-            return;
-        }
         for (Player player : playerList) {
-            rewardDealerIfWin(player);
-            rewardPlayerIfWin(player);
-            rewardNothingIfDraw(player);
+            winDealerCase(player);
+            winPlayerCase(player);
+            winBiggerUserCase(player);
         }
     }
 
-    private boolean isDealerBust() {
-        return dealer.getSumScore() > BUST_CONDITION;
-    }
-
-    private void rewardAllPlayer() {
-        for (Player player : playerList) {
-            playersMoney.put(player.getName(), (int) player.getBettingMoney());
-        }
-    }
-
-    private void rewardDealerIfWin(Player player) {
-        if (player.getSumScore() < dealer.getSumScore()) {
-            playersMoney.put(player.getName(), (int) -player.getBettingMoney());
+    private void winDealerCase(Player player) {
+        if (player.isBust()) {
+            playersMoney.put(player.getName(), -player.getBettingMoney());
             dealerMoney += player.getBettingMoney();
         }
     }
 
-    private void rewardPlayerIfWin(Player player) {
-        if (player.getSumScore() > dealer.getSumScore()) {
-            playersMoney.put(player.getName(), (int) player.getBettingMoney());
+    private void winPlayerCase(Player player) {
+        if (dealer.isBust() && !player.isBust()) {
+            playersMoney.put(player.getName(), player.getBettingMoney());
             dealerMoney -= player.getBettingMoney();
         }
     }
 
-    private void rewardNothingIfDraw(Player player) {
+    private void winBiggerUserCase(Player player) {
+        if (!dealer.isBust() && !player.isBust()) {
+            winDealerIfBigger(player);
+            winPlayerIfBigger(player);
+            noWinnerIfSame(player);
+        }
+    }
+
+    private void winDealerIfBigger(Player player) {
+        if (player.getSumScore() < dealer.getSumScore()) {
+            playersMoney.put(player.getName(), -player.getBettingMoney());
+            dealerMoney += player.getBettingMoney();
+        }
+    }
+
+    private void winPlayerIfBigger(Player player) {
+        if (player.getSumScore() > dealer.getSumScore()) {
+            playersMoney.put(player.getName(), player.getBettingMoney());
+            dealerMoney -= player.getBettingMoney();
+        }
+    }
+
+    private void noWinnerIfSame(Player player) {
         if (player.getSumScore() == dealer.getSumScore()) {
-            playersMoney.put(player.getName(), 0);
+            playersMoney.put(player.getName(), 0.0);
         }
     }
 
     private void printResultMoney() {
         OutputView.printResultMoney(dealerMoney);
-        for (Map.Entry<String, Integer> e : playersMoney.entrySet()) {
+        for (Map.Entry<String, Double> e : playersMoney.entrySet()) {
             OutputView.printResultMoney(e.getKey(), e.getValue());
         }
     }

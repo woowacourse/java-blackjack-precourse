@@ -21,6 +21,10 @@ public class OutputView {
         System.out.println(sb);
     }
 
+    public static void printCardStatusExceptFirst(Dealer dealer) {
+        System.out.println("딜러 : " + dealer.hideFirstCard());
+    }
+
     public static void printCardStatus(Dealer dealer) {
         System.out.println("딜러 : " + dealer.toString());
     }
@@ -48,12 +52,12 @@ public class OutputView {
         System.out.println("결과 : " + user.getSumScore());
     }
 
-    public static void printResultMoney(int money) {
+    public static void printResultMoney(double money) {
         System.out.println("\n[최종 수익]");
         System.out.println("딜러 : " + money);
     }
 
-    public static void printResultMoney(String playerName, int money) {
+    public static void printResultMoney(String playerName, double money) {
         System.out.println(playerName + " : " + money);
     }
 }
