@@ -13,4 +13,7 @@ public class Helper {
         cards.add(card);
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
 }
