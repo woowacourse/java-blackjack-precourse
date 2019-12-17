@@ -12,4 +12,9 @@ public class Dealer extends Member {
     public Dealer() {}
 
     // TODO 추가 기능 구현
+
+    @Override
+    public String cardInfo() {
+        return "Dealer:\n" + toStringCards();
+    }
 }

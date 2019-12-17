@@ -59,4 +59,13 @@ public class GameManager {
         }
         return stringBuilder.toString();
     }
+
+    public String cardInfosOfAllMemberNotHidden() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(dealer.cardInfo());
+        for (Player player: players) {
+            stringBuilder.append(player.cardInfo());
+        }
+        return stringBuilder.toString();
+    }
 }

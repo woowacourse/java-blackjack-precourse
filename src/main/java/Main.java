@@ -15,7 +15,6 @@ public class Main {
         Dealer dealer = new Dealer();
 
         gameManager = new GameManager(players, dealer, cards);
-        gameManager.offerCardToAll();
 
         /* Debug */
         for (Card card: cards) {
@@ -23,6 +22,12 @@ public class Main {
         }
 
         System.out.println(gameManager.bettingInfos());
+
+        gameManager.offerCardToAll();
+        System.out.println(gameManager.cardInfosOfAllMemberNotHidden());
+
+        gameManager.offerCardToAll();
+        System.out.println(gameManager.cardInfosOfAllMemberNotHidden());
     }
 
     public static ArrayList<Player> initPlayersWithInput(Scanner scanner) {

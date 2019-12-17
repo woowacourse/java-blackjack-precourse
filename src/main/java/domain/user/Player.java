@@ -21,6 +21,12 @@ public class Player extends Member {
     public String bettingInfo() {
         return name + ": " + Double.toString(bettingMoney);
     }
+
+    public String cardInfo() {
+        return name +
+                ":\n" +
+                toStringCards();
+    }
 }
 
 
