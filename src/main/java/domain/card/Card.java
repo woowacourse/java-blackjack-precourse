@@ -39,4 +39,8 @@ public class Card {
     public Symbol getSymbol() {
         return symbol;
     }
+
+    public boolean isACE() {
+        return this.symbol.getSymbol() == "A";
+    }
 }
