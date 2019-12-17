@@ -43,7 +43,7 @@ public class BlackJack {
         if (dealer.isDead()) {
             bookKeeper.updateCashFlows(players.getSurvivors(), false);
         }
-        if (!players.BeatenBy(dealer)) {
+        if (!players.isBeatenBy(dealer)) {
             bookKeeper.updateCashFlows(winners, false);
         }
         endGame(dealer, players, bookKeeper);

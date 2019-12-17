@@ -19,16 +19,8 @@ public class Card {
         return this.symbol;
     }
 
-    public Type getType() {
-        return this.type;
-    }
-
     public String getCardInfo() {
         return this.symbol.getDisplay() + this.type.getDisplay();
-    }
-
-    public int getScore() {
-        return this.symbol.getScore();
     }
 
     public boolean isAce() {

@@ -37,7 +37,7 @@ public class Players {
         }
     }
 
-    public boolean BeatenBy(Dealer dealer) {
+    public boolean isBeatenBy(Dealer dealer) {
         return dealer.getDistanceToTarget() < getMinDistance();
     }
 
