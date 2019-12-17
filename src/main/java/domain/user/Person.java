@@ -10,32 +10,72 @@ public class Person {
 	private final List<Card> cards = new ArrayList<>();
 	private String cardString;
 	private int cardSum;
-	
+	private int cardSumWithAce;
+	private boolean isContainAce;
+
 	public Person() {}
-	
+
 	public void addCard(Card card) {
-        cards.add(card);
-    }
-	
+		cards.add(card);
+		calculateCard();
+	}
+
 	public void setCardString() {
 		cardString = "";
 		ArrayList<String> cardStringSet = new ArrayList<String>();
-		
+
 		for (Card c : cards) {
 			cardStringSet.add(c.makeCardString());
 		}
 		cardString = String.join(", ", cardStringSet);
 	}
-	
+
 	public String getCardString() {
 		return this.cardString;
 	}
-	
-	public void calculateCardSum() {
-		cardSum = 0;
-		
+
+	private void addCardNumber() {
 		for (Card c : cards) {
 			cardSum = cardSum + c.getSymbolScore();
 		}
+		addAce();
+	}
+	
+	private void addAce() {
+		if (isContainAce == true) {
+			cardSumWithAce = cardSum + 10;
+		}
+	}
+
+	private void checkContainAce() {
+		for (Card c : cards) {
+			checkCardSet(c);
+		}
+	}
+
+	private void checkCardSet(Card card) {
+		if (card.getSymbolName().equals(Constant.ACE)) {
+			isContainAce = true;
+			cardSumWithAce = 0;
+		}
+	}
+
+	private void calculateCard() {
+		cardSum = 0;
+		isContainAce = false;
+		checkContainAce();
+		addCardNumber();
+	}
+	
+	public boolean getIsContainAce() {
+		return this.isContainAce;
+	}
+	
+	public int getCardSum() {
+		return this.cardSum;
+	}
+	
+	public int getCardSumWithAce() {
+		return this.cardSumWithAce;
 	}
 }

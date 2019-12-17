@@ -62,6 +62,10 @@ public class Printer {
 		System.out.println("y 또는 n을 입력해 주세요.");
 	}
 	
+	public void printStopGetCard(String name) {
+		System.out.println(name + "의 카드의 합이 21을 넘었습니다. 더 이상 카드를 뽑을 수 없습니다.");
+	}
+	
 	public void printInitialCard(String nameString) {
 		System.out.println("\r\n딜러와 " + nameString + "에게 2장의 카드를 나누었습니다.");
 	}

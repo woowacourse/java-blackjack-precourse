@@ -35,7 +35,6 @@ public class Game {
 		initialSet();
 		giveInitialCard();
 		getCardPerPlayer();
-//		getCardDealer();
 	}
 
 	private void initialSet() {
@@ -246,7 +245,7 @@ public class Game {
 			printPlayerCard(p);
 		}
 	}
-	
+
 	private void printPlayerCard(Player player) {
 		player.setCardString();
 		myPrinter.printPlayerName(player.getName());
@@ -266,7 +265,7 @@ public class Game {
 		do {
 			myPrinter.printChooseCard(player.getName());
 			answer = in.next();
-		} while (!isGetAnotherCard(player, answer));
+		} while (isGetAnotherCard(player, answer) && checkPlayerCardSum(player));
 		myPrinter.printNewLine();
 	}
 
@@ -275,7 +274,7 @@ public class Game {
 			checkAnswerValidation(answer);
 			return returnByAnswer(player, answer);
 		} catch (GameException e) {
-			return false;
+			return true;
 		}
 	}
 
@@ -285,14 +284,22 @@ public class Game {
 			throw new GameException();
 		}
 	}
-	
+
 	private boolean returnByAnswer(Player player, String answer) {
 		if (answer.equals(Constant.YES)) {
 			player.addCard(makeRandomCard());
 			printPlayerCard(player);
-			return false;
+			return true;
 		}
-		return true;
+		return false;
+	}
+
+	private boolean checkPlayerCardSum(Player player) {
+		if (player.getCardSum() <= 21) {
+			return true;
+		}
+		myPrinter.printStopGetCard(player.getName());
+		return false;
 	}
 
 	public static void main(String[] args) {
