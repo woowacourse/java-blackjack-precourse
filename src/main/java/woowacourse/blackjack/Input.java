@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Input {
+    private static final int MAX_NAME_LENGTH = 16;
+    private static final int MAX_MEMBER = 8;
+    private static final int MIN_BETTING_MONEY = 1;
+
     private final Scanner sc = new Scanner(System.in);
     private final Output output = new Output();
 
@@ -30,7 +34,7 @@ public class Input {
     }
 
     private boolean isNameLengthValidator(List<String> playerNames) {
-        long count = playerNames.stream().filter(x -> x.length() > 16).count();
+        long count = playerNames.stream().filter(x -> x.length() > MAX_NAME_LENGTH).count();
         if (count == 0) {
             return this.isNameListLengthValidator(playerNames);
         }
@@ -39,17 +43,17 @@ public class Input {
     }
 
     private boolean isNameListLengthValidator(List<String> playerNames) {
-        if (playerNames.size() < 9) {
-            return true;
+        if (playerNames.size() > MAX_MEMBER) {
+            this.output.printNameListLengthInputAgain();
+            return false;
         }
-        this.output.printNameListLengthInputAgain();
-        return false;
+        return true;
     }
 
     public double getPlayerBettingMoney(String playerName) {
         this.output.printBettingMoneyInput(playerName);
         String bettingMoney = sc.nextLine();
-        while (!isPlayerBettingMoneyValidator(bettingMoney) || !(Double.parseDouble(bettingMoney) >= 1)) {
+        while (!isPlayerBettingMoneyValidator(bettingMoney) || !(Double.parseDouble(bettingMoney) >= MIN_BETTING_MONEY)) {
             this.output.printBettingMoneyInputAgain();
             this.output.printBettingMoneyInput(playerName);
             bettingMoney = sc.nextLine();
