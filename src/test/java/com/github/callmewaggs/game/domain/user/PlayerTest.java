@@ -59,25 +59,6 @@ public class PlayerTest {
     assertEquals("배팅 금액이 잘못되었습니다. 다시 입력해주세요.", actual.getMessage());
   }
 
-  // TODO : "플레이어의 베팅 금액이 범위를 초과하는 경우 예외를 던진다." << double 형이기 때문에 발생하는 문제점을 어떻게 잡아내야 할지
-//  @DisplayName("플레이어의 베팅 금액이 범위를 초과하는 경우 예외를 던진다.")
-//  @Test
-//  public void throw_exception_when_betting_money_of_player_over_range() {
-//    // Arrange
-//    String name = "good";
-//    double maxValue = Double.MAX_VALUE;
-//    String bettingMoney = Double.toString(maxValue + 1);
-//
-//    // Act
-//    IllegalArgumentException actual =
-//        assertThrows(
-//            IllegalArgumentException.class,
-//            () -> Player.createPlayerIfValidate(name, bettingMoney));
-//
-//    // Assert
-//    assertEquals("배팅 금액이 잘못되었습니다. 다시 입력해주세요.", actual.getMessage());
-//  }
-
   @DisplayName("이름과 배팅 금액에 예외가 없을 경우 플레이어를 생성한다.")
   @Test
   public void create_player_when_there_is_no_exception() {

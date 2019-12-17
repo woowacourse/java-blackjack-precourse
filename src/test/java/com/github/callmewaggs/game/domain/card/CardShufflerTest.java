@@ -24,5 +24,4 @@ class CardShufflerTest {
     int expected = initialCardsCount - 1;
     assertEquals(expected, actual);
   }
-
 }

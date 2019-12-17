@@ -19,7 +19,6 @@ class BlackjackGameTest {
   private Dealer dealer;
   private List<Player> players;
   private BlackjackRule blackjackRule;
-
   private BlackjackGame blackjackGame;
 
   @BeforeEach
