@@ -10,7 +10,6 @@ public class InitialSetting {
 
     private List<String> names = new ArrayList<>();
     private int userCnt;
-    private List<Player> players = new ArrayList<>();
 
     public void askUserName(){
         Scanner sc = new Scanner(System.in);
@@ -50,7 +49,7 @@ public class InitialSetting {
         }
     }
 
-    public void askBetMoney(){
+    public void askBetMoney(List<Player> players){
         Scanner sc = new Scanner(System.in);
         List<Integer> moneys = new ArrayList<>();
 
@@ -66,7 +65,7 @@ public class InitialSetting {
                     System.out.println("숫자만 입력하실 수 있습니다.");
                 }
             }
-            registerUser(idx, Integer.parseInt(betMoney));
+            registerUser(idx, Integer.parseInt(betMoney), players);
         }
     }
 
@@ -81,12 +80,7 @@ public class InitialSetting {
         return true;
     }
 
-    public void registerUser(int idx, int betMoney){
+    public void registerUser(int idx, int betMoney, List<Player> players){
         players.add(new Player(names.get(idx), betMoney));
     }
-
-    public List<Player> getPlayers(){
-        return players;
-    }
-
 }

@@ -1,22 +1,28 @@
 package com.jenny.blackjack;
 
 import domain.user.Dealer;
+import domain.user.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
         InitialSetting init = new InitialSetting();
-        init.askUserName();
-        init.askBetMoney();
-
         Play play = new Play();
-        Dealer dealer = new Dealer();
-        play.distributeInitialCards(dealer, init.getPlayers());
-        play.showAllCardStatus(dealer, init.getPlayers());
-        play.askAddCard(dealer, init.getPlayers());
-
         Result result = new Result();
-        result.showResultValue(dealer, init.getPlayers());
-        result.showResultMoney(dealer, init.getPlayers());
+        List<Player> players = new ArrayList<>();
+        Dealer dealer = new Dealer();
+
+        init.askUserName();
+        init.askBetMoney(players);
+
+        play.distributeInitialCards(dealer, players);
+        play.showAllCardStatus(dealer, players);
+        play.askAddCard(dealer, players);
+
+        result.showResultValue(dealer, players);
+        result.showResultMoney(dealer, players);
     }
 }
