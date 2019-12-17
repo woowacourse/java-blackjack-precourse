@@ -9,7 +9,7 @@ package domain.model.card;
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
  * @apiNote Card 객체에 사용될 Type enum입니다.
- * @since : 2019.12.13 금요일
+ * @since : 2019.12.17 화요일
  */
 public enum Type {
     SPADE("스페이드"),
@@ -23,5 +23,7 @@ public enum Type {
         this.koreanType = koreanType;
     }
 
-    public String getType() { return koreanType; }
+    public String getType() {
+        return koreanType;
+    }
 }

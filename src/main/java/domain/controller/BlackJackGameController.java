@@ -19,7 +19,7 @@ import static view.PrintController.*;
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
  * @apiNote 블랙잭 게임의 전체적인 진행 로직을 담당하는 클래스입니다.
- * @since : 2019.12.12 목요일
+ * @since : 2019.12.17 화요일
  */
 public class BlackJackGameController {
     private static final String COMMA = ", ";

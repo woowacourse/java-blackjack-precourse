@@ -12,7 +12,7 @@ import domain.model.user.Player;
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
  * @apiNote 모든 출력을 담당하는 클래스입니다.
- * @since : 2019.12.12 목요일
+ * @since : 2019.12.17 화요일
  */
 public class PrintController {
     private static final String ASKING_PLAYER_NAME = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)";

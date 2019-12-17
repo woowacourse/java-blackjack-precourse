@@ -20,7 +20,7 @@ import static util.RandomIntegerGenerator.generateRandomIntegerByInputInteger;
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
  * @apiNote 카드 뽑는 기능을 담당하는 클래스입니다.
- * @since : 2019.12.13 금요일
+ * @since : 2019.12.17 화요일
  */
 public class CardDrawController {
     private static ArrayList<Card> entireCards = new ArrayList<>();

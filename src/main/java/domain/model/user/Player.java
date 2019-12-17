@@ -6,7 +6,10 @@
 package domain.model.user;
 
 /**
- * 게임 참여자를 의미하는 객체
+ * @author Seungwan Park, github.com/toneyparky
+ * @version 1.0
+ * @apiNote 게임 참여자를 의미하는 객체입니다.
+ * @since : %G%
  */
 public class Player extends BlackJackParticipant {
     private final String name;

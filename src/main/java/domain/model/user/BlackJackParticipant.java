@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
- * @apiNote Dealer와 Player 클래스의 상위개념인 BlackJackParticipant 추상 클래스 입니다.
- * @since : 2019.12.14 토요일
+ * @apiNote Dealer와 Player 클래스의 상위개념인 BlackJackParticipant 추상 클래스입니다.
+ * @since : 2019.12.17 화요일
  */
 public abstract class BlackJackParticipant {
     private static final String COMMA = ", ";

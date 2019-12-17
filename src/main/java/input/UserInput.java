@@ -17,7 +17,7 @@ import java.util.Scanner;
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
  * @apiNote 사용자로부터 입력을 받는 기능을 담당하는 클래스입니다.
- * @since : 2019.12.12 목요일
+ * @since : 2019.12.17 화요일
  */
 public class UserInput {
     private static final int DOUBLE_TYPE_INPUT_WRONG_MARKER = 0;

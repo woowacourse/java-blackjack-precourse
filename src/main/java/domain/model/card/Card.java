@@ -8,7 +8,10 @@ package domain.model.card;
 import java.util.Objects;
 
 /**
- * 카드 한장을 의미하는 객체
+ * @author Seungwan Park, github.com/toneyparky
+ * @version 1.0
+ * @apiNote 카드 한장을 의미하는 객체입니다.
+ * @since : 2019.12.17 화요일
  */
 public class Card {
     private final Symbol symbol;

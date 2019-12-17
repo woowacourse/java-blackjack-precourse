@@ -10,7 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 트럼프 카드 전체 생성을 담당하는 객체
+ * @author Seungwan Park, github.com/toneyparky
+ * @version 1.0
+ * @apiNote 트럼프카드 전체 생성을 담당하는 객체입니다.
+ * @since : 2019.12.17 화요일
  */
 public class CardFactory {
     public static List<Card> create() {

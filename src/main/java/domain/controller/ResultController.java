@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author Seungwan Park, github.com/toneyparky
  * @version 1.0
  * @apiNote 플레이어와 딜러의 점수를 계산하고 버스트, 블랙잭, 최종결과를 계산하고 처리하는 클래스입니다.
- * @since : 2019.12.14 토요일
+ * @since : 2019.12.17 화요일
  */
 public class ResultController {
 
