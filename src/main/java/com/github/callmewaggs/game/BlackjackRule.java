@@ -13,9 +13,11 @@ public class BlackjackRule {
   private static final int INITIAL_CARDS_COUNT = 2;
   public static final int BLACKJACK_NUMBER = 21;
 
+  private BlackjackGameResult gameResult;
   private CardShuffler cardShuffler;
 
-  public BlackjackRule(List<Card> cards) {
+  public BlackjackRule(Dealer dealer, List<Player> players, List<Card> cards) {
+    this.gameResult = new BlackjackGameResult(dealer, players);
     this.cardShuffler = new CardShuffler(cards);
   }
 
@@ -41,6 +43,26 @@ public class BlackjackRule {
       dealer.takeCard(cardShuffler.pickCard());
     }
     IOHelper.printCardsWithScore(getAllParticipants(dealer, players));
+  }
+
+  public void dealerLose(Dealer dealer, List<Player> players) {
+    IOHelper.printFinalResultMessage();
+    for (Player player : players) {
+      gameResult.playerWin(dealer, player);
+    }
+    gameResult.printIncomes();
+  }
+
+  public void judgeWinOrLose(Dealer dealer, List<Player> players) {
+    for (Player player : players) {
+      if (dealer.getCurrentScore() < player.getCurrentScore()) {
+        gameResult.playerWin(dealer, player);
+      }
+      if (dealer.getCurrentScore() == player.getCurrentScore()) {
+        gameResult.push(dealer, player);
+      }
+    }
+    gameResult.printIncomes();
   }
 
   // TODO : 2depth

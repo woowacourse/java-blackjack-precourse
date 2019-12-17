@@ -10,33 +10,24 @@ public class BlackjackGame {
   private Dealer dealer;
   private List<Player> players;
   private BlackjackRule blackjackRule;
-  private BlackjackGameResult gameResult;
 
   public BlackjackGame(Dealer dealer, List<Player> players, List<Card> cards) {
     this.dealer = dealer;
     this.players = players;
-    this.blackjackRule = new BlackjackRule(cards);
-    this.gameResult = new BlackjackGameResult(dealer, players);
+    this.blackjackRule = new BlackjackRule(dealer, players, cards);
   }
 
+  // TODO : 게임 종료 및 계산하고 결과출력 그리고 테스트코드
   public void gameStart() {
     blackjackRule.dealInitialCards(dealer, players);
     if (isThereBlackjack()) {
     }
     blackjackRule.askHitOrStay(dealer, players);
     if (isDealerBust()) {
-      dealerLose();
+      blackjackRule.dealerLose(dealer, players);
       return;
     }
-    judgeWinOrLose();
-  }
-
-  private void dealerLose() {
-    IOHelper.printFinalResultMessage();
-    for (Player player : players) {
-      gameResult.playerWin(dealer, player);
-    }
-    gameResult.printIncomes();
+    blackjackRule.judgeWinOrLose(dealer, players);
   }
 
   private boolean isDealerBust() {
@@ -50,8 +41,5 @@ public class BlackjackGame {
       }
     }
     return dealer.isBlackjack();
-  }
-
-  private void judgeWinOrLose() {
   }
 }

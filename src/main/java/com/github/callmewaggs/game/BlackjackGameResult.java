@@ -28,7 +28,15 @@ public class BlackjackGameResult {
         participantsIncome.get(dealer.getName()) - player.getBettingMoney() * 2);
   }
 
+  public void push(Dealer dealer, Player player) {
+    participantsIncome.put(player.getName(),
+        participantsIncome.get(player.getName()) + player.getBettingMoney());
+    participantsIncome.put(dealer.getName(),
+        participantsIncome.get(dealer.getName()) - player.getBettingMoney());
+  }
+
   public void printIncomes() {
+    IOHelper.printFinalResultMessage();
     IOHelper.printNameAndIncome(participantsIncome);
   }
 }
