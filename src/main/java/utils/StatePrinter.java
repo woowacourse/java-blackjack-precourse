@@ -8,8 +8,8 @@ import java.util.List;
 public class StatePrinter {
     public static void printInitDrawMessage(List<String> strings) {
         System.out.println("\n딜러와 " 
-                + String.join(", ", strings 
-                + "에게 각 2장의 카드를 나누어 주었습니다."));
+                + String.join(", ", strings) 
+                + "에게 각 2장의 카드를 나누어 주었습니다.");
     }
 
     public static void printDealerBlackJack() {
