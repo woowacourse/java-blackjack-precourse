@@ -13,7 +13,7 @@ public class Output {
     }
 
     public void printNamesInputAgain() {
-        System.out.println("이름은 공백없이 쉽표로 분리되며 공백이 필료한 경우는 _ 나 - 를 사용하십시오.");
+        System.out.println("영어, 숫자만 가능하며 공백없이 쉽표로 분리되고 공백이 필료한 경우는 _ 나 - 를 사용하십시오.");
     }
 
     public void printNamesLengthInputAgain() {
@@ -71,10 +71,9 @@ public class Output {
     }
 
     public boolean isBlackJack(Dealer dealer, List<Player> players) {
-        if (this.isDealerBlackJack(dealer) && this.isPlayersBlackJack(players)) {
-            return true;
-        }
         if (this.isDealerBlackJack(dealer)) {
+            System.out.println("딜러 블랙잭!");
+            System.out.println();
             return true;
         }
         return false;
@@ -94,11 +93,10 @@ public class Output {
     }
 
     public void printBlackJack(Dealer dealer, List<Player> players) {
-        System.out.println();
+        System.out.println("## 최종 수익");
         Calculator calculator = new Calculator();
         calculator.setWhenBlackJack(dealer, players);
         this.printDealerAndPlayersRevenue(calculator, players);
-
     }
 
     public void printYesOrNo(Player player) {

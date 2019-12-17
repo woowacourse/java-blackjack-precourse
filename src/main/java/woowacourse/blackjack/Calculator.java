@@ -76,20 +76,40 @@ public class Calculator {
     }
 
     private void setWhenNotDealerBustMoney(Dealer dealer, Player player) {
-        double money = player.getBettingMoney();
-        if (player.getCards().size() == 2 && player.isBlackJack()) {
-            this.setMoney(player, money * 2.5);
+        if (this.isPlayerBlackJack(player, player.getBettingMoney())) {
             return;
         }
-        if (dealer.getSumScore() < player.getSumScore() && !player.isSumScoreBust()) {
-            this.setMoney(player, money);
+        if (this.isWinPlayer(dealer, player, player.getBettingMoney())) {
             return;
         }
-        if (dealer.getSumScore() > player.getSumScore() || player.isSumScoreBust()) {
-            this.setMoney(player, -money);
+        if (this.isLosePlayer(dealer, player, player.getBettingMoney())) {
             return;
         }
         this.setMoney(player, 0.0);
+    }
+
+    private boolean isPlayerBlackJack(Player player, double money) {
+        if (player.getCards().size() == 2 && player.isBlackJack()) {
+            this.setMoney(player, money * 2.5);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isWinPlayer(Dealer dealer, Player player, double money) {
+        if (dealer.getSumScore() < player.getSumScore() && !player.isSumScoreBust()) {
+            this.setMoney(player, money);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isLosePlayer(Dealer dealer, Player player, double money) {
+        if (dealer.getSumScore() > player.getSumScore() || player.isSumScoreBust()) {
+            this.setMoney(player, -money);
+            return true;
+        }
+        return false;
     }
 
     private void setMoney(Player player, double money) {

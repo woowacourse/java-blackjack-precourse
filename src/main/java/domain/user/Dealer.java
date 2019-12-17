@@ -44,17 +44,6 @@ public class Dealer {
         return getCardsList.contains(getCard);
     }
 
-    public boolean getBooleanSumScore() {
-        if (this.isBlackJack()) {
-            return false;
-        }
-        int count = 0;
-        for (Card card: this.cards) {
-            count += card.getSymbolScore();
-        }
-        return count < 21;
-    }
-
     public boolean isBlackJack() {
         return this.getSumScore() == 21;
     }
@@ -101,7 +90,7 @@ public class Dealer {
         return this.sumWhenAisEleven() > 21;
     }
 
-    public boolean isWhenAisOneBust() {
-        return this.sumWhenAisOne() > 21;
+    public boolean isAbleHitPlayer() {
+        return this.sumWhenAisOne() < 21 && !this.isBlackJack();
     }
 }

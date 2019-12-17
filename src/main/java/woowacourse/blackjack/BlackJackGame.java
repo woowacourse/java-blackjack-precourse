@@ -20,9 +20,7 @@ public class BlackJackGame {
         this.inputNameAndBettingMoney();
         this.getFirstCardsAllPeople();
         this.output.printPlayersAndDealerCards(this.dealer, this.players);
-        if (this.output.isBlackJack(this.dealer, this.players)) {
-            this.output.printSumScore(this.dealer, this.players);
-            this.output.printBlackJack(this.dealer, this.players);
+        if (this.isBlackJack()) {
             return;
         }
         this.checkHit();
@@ -54,27 +52,35 @@ public class BlackJackGame {
         this.dealer.getFirstCards(this.cards, this.getCardsList);
     }
 
+    private boolean isBlackJack() {
+        if (this.output.isBlackJack(this.dealer, this.players)) {
+            this.output.printSumScore(this.dealer, this.players);
+            this.output.printBlackJack(this.dealer, this.players);
+            return true;
+        }
+        return false;
+    }
+
     private void checkHit() {
         for (Player player: this.players) {
-            this.checkHitPlayers(player);
+            this.checkHitPlayer(player);
         }
         this.checkHitDealer();
     }
 
-    private void checkHitPlayers(Player player) {
-        boolean booleanChoice = true;
-        boolean booleanScore = player.getBooleanSumScore();
-        while (booleanScore && booleanChoice){
-            booleanChoice = choiceCardYesOrNo(player);
-            booleanScore = player.getBooleanSumScore();
+    private void checkHitPlayer(Player player) {
+        while (this.isHitPlayer(player)){
             this.output.printPlayerCards(player);
         }
         System.out.println();
     }
 
+    private boolean isHitPlayer(Player player) {
+        return player.isAbleHitPlayer() && this.choiceCardYesOrNo(player);
+    }
+
     private boolean choiceCardYesOrNo(Player player) {
-        String choice = this.input.getYesOrNo(player);
-        if (choice.equals("y")) {
+        if (this.input.isYesOrNo(player)) {
             player.addCard(player.getRandomCard(this.cards, this.getCardsList));
             return true;
         }

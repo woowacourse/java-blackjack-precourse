@@ -66,7 +66,7 @@ public class Input {
         }
     }
 
-    public String getYesOrNo(Player player) {
+    public boolean isYesOrNo(Player player) {
         this.output.printYesOrNo(player);
         String answer = sc.nextLine();
         while (!this.isYesOrNoValidator(answer)) {
@@ -74,7 +74,7 @@ public class Input {
             this.output.printYesOrNo(player);
             answer = sc.nextLine();
         }
-        return answer;
+        return answer.equals("Y") || answer.equals("y");
     }
 
     private boolean isYesOrNoValidator(String answer) {
