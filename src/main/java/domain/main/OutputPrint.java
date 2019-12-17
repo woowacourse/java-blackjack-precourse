@@ -49,8 +49,7 @@ public class OutputPrint {
             dealer.addCard(getCard());
             distributeCardsToPlayers();
         }
-        System.out.println(dealer);
-        System.out.println(playerList);
+        printFinalLog();
     }
 
     /*
@@ -99,6 +98,11 @@ public class OutputPrint {
 
     public void finalReturn() {
         println("## 최종 수익");
+    }
+
+    public void printFinalLog() {
+        System.out.println(dealer);
+        System.out.println(playerList);
     }
 
     private void print(String message) {

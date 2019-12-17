@@ -9,6 +9,7 @@ public class Main {
         outputPrint.giveCardsFirstToPlayers();
         outputPrint.choiceMoreCard();
         outputPrint.dealerLessThan16();
+        outputPrint.printFinalLog();
 
     }
 
