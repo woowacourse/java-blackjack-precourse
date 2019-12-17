@@ -84,8 +84,9 @@ public class GameProcessor {
         return playerScoreArray;
     }
 
-    static final int BLACKJACK = 11;
+    static final int ACE_TO_ONE_LIMIT = 11;
     static final int DEALER_HIT = 17;
+    static final int BLACKJACK = 21;
 
     static int calculateDealerHandValue(Dealer dealer) {
         int dealerScore = 0;
@@ -98,10 +99,17 @@ public class GameProcessor {
 
     static boolean checkDealerBlackjack(int dealerScore, Dealer dealer) {
         List<Card> dealerCards = dealer.getCards();
-        if (dealerScore == BLACKJACK && dealerCards.contains(Symbol.ACE)) {
+        if (dealerScore == ACE_TO_ONE_LIMIT && dealerCards.contains(Symbol.ACE)) {
             return true;
         }
         return false;
+    }
+
+    static List<Card> checkOverTwentyOne(int score, List<Card> cardArray) {
+        if (score > BLACKJACK && cardArray.contains(Symbol.ACE)) {
+            // 카드의 총합이 21을 넘을 경우 ACE의 symbol 값을 1로 바꿔주는 로직
+        }
+        return cardArray;
     }
 
     static boolean evaluateDealerHandValue(int dealerScore, Dealer dealer, List<Card> cards) {
