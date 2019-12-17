@@ -1,6 +1,5 @@
 package domain.user;
 
-import domain.outcome.BenefitType;
 import view.InputUtil;
 import view.OutputUtil;
 
@@ -9,22 +8,22 @@ import view.OutputUtil;
  */
 public class Player extends User {
     private final String name;
-    private final double bettingMoney;
+    private final BettingMoney bettingMoney;
 
-    public Player(String name, double bettingMoney) {
+    Player(String name, double bettingMoney) {
         this.name = name;
-        this.bettingMoney = bettingMoney;
+        this.bettingMoney = new BettingMoney(bettingMoney);
     }
 
     // TODO 추가 기능 구현
-    public void startAddCardLoop() {
-        while (checkExcess() == false) {
+    void startAddCardLoop() {
+        while (!checkExcess()) {
             boolean addCardFlag = inputAddCardQuestion();
             if (addCardFlag) {
                 addRandomCard();
                 printUserInfo();
             }
-            if (addCardFlag == false) {
+            if (!addCardFlag) {
                 break;
             }
         }
@@ -35,28 +34,32 @@ public class Player extends User {
         return InputUtil.inputAddCardQuestion();
     }
 
-    public boolean isWinBy(int dealerScore) {
+    boolean isWinBy(int dealerScore) {
         return dealerScore < calcurateScore();
+    }
+
+    boolean isDraw(int dealerScore) {
+        return dealerScore == calcurateScore();
     }
 
     public String getName() {
         return name;
     }
 
-    public double calcurateBenefit(BenefitType benefitType) {
-        return bettingMoney * benefitType.getMultipleValue();
+    public double calcurateBlackJackBenefit(
+            boolean isDealerBlackJack,
+            boolean isPlayerBlackJack
+    ) {
+        return bettingMoney
+                .calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack);
     }
 
-    public double calcurateBlackJackBenefit(boolean isDealerBlackJack, boolean isPlayerBlackJack) {
-        return BenefitType
-                .calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack)
-                .getMultipleValue()
-                * bettingMoney;
+    double calcureateBenefit(boolean isWin) {
+        return bettingMoney.calcureateBenefit(isWin);
     }
 
-    public double calcureateBenefit(boolean isWin) {
-        return BenefitType.calcureateWinnerBenefit(isWin).getMultipleValue()
-                * bettingMoney;
+    double calcureateDrawBenefit() {
+        return bettingMoney.calcureateDrawBenefit();
     }
 
     @Override
