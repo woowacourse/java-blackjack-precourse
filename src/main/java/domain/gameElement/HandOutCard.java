@@ -12,7 +12,7 @@ public class HandOutCard {
     private CardDeck cardDeck = new CardDeck();
     private Scanner scanner = new Scanner(System.in);
 
-    public void firstHandOutCards(List<User> users) {
+    public void firstHandOutCards(List<User> users, int step) {
         handOutCards((Dealer) users.get(0));
         handOutCards((Dealer) users.get(0));
         ((Dealer) users.get(0)).userCardsInfo(((Dealer) users.get(0)).getCards());
@@ -21,32 +21,32 @@ public class HandOutCard {
             handOutCards((Player) users.get(i));
             users.get(i).userCardsInfo(((Player) users.get(i)).getCards(), ((Player) users.get(i)).getName());
         }
-        new UsersSumNumbers().usersSumNumbers(users);
+        new UsersSumNumbers().usersSumNumbers(users, step);
     }
 
     public void proceedHandOutCards(List<User> users, int step) {
         for (int i = 1; i < users.size(); i++) {
-            playerHandOutCards((Player) users.get(i));
+            playerHandOutCards((Player) users.get(i), step);
         }
         if (users.get(0).getSumNumbers() <= 16) {
             System.out.println("\n딜러는 16이하라 카드 한 장을 더 받았습니다.");
             handOutCards((Dealer) users.get(0));
-            new UsersSumNumbers().usersSumNumbers((Dealer) users.get(0));
+            new UsersSumNumbers().usersSumNumbers((Dealer) users.get(0), step);
         }
     }
 
-    private void playerHandOutCards(Player player) {
+    private void playerHandOutCards(Player player, int step) {
         while (player.getSumNumbers() < 21 && askHandOutCards(player)) {
             handOutCards(player);
             player.userCardsInfo(player.getCards(), player.getName());
-            new UsersSumNumbers().usersSumNumbers(player);
+            new UsersSumNumbers().usersSumNumbers(player, step);
         }
     }
 
     private boolean askHandOutCards(Player player) {
-        System.out.println("\n" + player.getName() + "(은)는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
         String cardHandOut = "";
         do {
+            System.out.println("\n" + player.getName() + "(은)는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)");
             cardHandOut = scanner.nextLine();
         } while (!cardHandOut.equals("y") && !cardHandOut.equals("n"));
         if (cardHandOut.equals("y")) {
