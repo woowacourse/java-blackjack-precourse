@@ -35,10 +35,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return symbol.toString()+type.toString();
     }
     public int getSymbolValue(){
         return symbol.getScore();
@@ -49,8 +46,11 @@ public class Card {
         }
         return 0;
     }
+    public static Card makeRandomCard(){
+        return new Card(makeRandomSymbol(), makeRandomType());
+    }
     public static Symbol makeRandomSymbol() {
-        int symbol = (int) (Math.random() * Game.NUM_OF_SYMBOL + 1);
+        int symbol = (int) (Math.random() * Game.NUM_OF_SYMBOL);
         return Symbol.values()[symbol];
     }
 

@@ -18,69 +18,54 @@ public class Dealer extends User {
 
     // TODO 추가 기능 구현
 
+    public void firstDecision() {
+        int sum = getMinimumSum();
 
-    public void drawCard(int numberOfCard) {
-        HashSet<Card> cards = new HashSet<>();
-
-        while (cards.size() != numberOfCard) {
-            Card card = new Card(Card.makeRandomSymbol(),
-                    Card.makeRandomType());
-            cards.add(card);
-        }
-        for (Card card : cards) {
-            this.addCard(card);
+        printDecision(sum);
+        if (sum <= Game.DRAW_FLAG) {
+            Game.drawFromDeck(this, 1);
         }
     }
-    public int getSum(){
-        int sum = 0;
 
+    public void printDecision(int sum){
+        if(sum<= Game.DRAW_FLAG){
+            System.out.println("\n딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+            return;
+        }
+        System.out.println("\n딜러는 17이상이라 카드를 받지 않았습니다.\n");
+    }
+
+    public int getMinimumSum(){
+        int sum = 0;
         for(Card card : cards){
             sum += card.getSymbolValue();
         }
         return sum;
     }
-    public int getAceCounter(){
-        int aceCounter = 0;
 
-        for(Card card : cards){
-            aceCounter = card.isAce();
-        }
-        return aceCounter;
-    }
-    public ArrayList<Integer> getPossibleSum(){
-        ArrayList<Integer> list = new ArrayList<>();
 
-        for(int i=0;i<getAceCounter();i++){
-            list.add(getSum() + i* 10);
-        }
-        return list;
-    }
     public void addCard(Card card) {
         cards.add(card);
     }
-    public ArrayList<Integer> draw(){
-        ArrayList<Integer> possibleSum = getPossibleSum();
-        if(possibleSum.get(0)<= Game.DRAW_FLAG){
-            drawCard( 1);
-            return getPossibleSum();
-        }
-        return getPossibleSum();
-    }
 
+    public void printNameAndCards() {
+        List<String> list = new ArrayList<>();
+        String result;
 
-    public ArrayList<Integer> Draw(){
-        ArrayList<Integer> possibleSum = getPossibleSum();
-        if(possibleSum.get(0)<=Game.DRAW_FLAG){
-            drawCard(1);
-            return getPossibleSum();
+        for(Card card : cards){
+            list.add(card.toString());
         }
-        return getPossibleSum();
+        result = String.join(",", list);
+        System.out.println("딜러카드: "+ result);
     }
-    public boolean isBlackJack(){
-        if(Draw().contains(Game.BLACK_JACK)){
-            return true;
-        }
-        return false;
-    }
+    public void printNameAndCardsAndSum(){
+        List<String> list = new ArrayList<>();
+        String result;
 
+        for(Card card : cards){
+            list.add(card.toString());
+        }
+        result = String.join(",", list);
+        System.out.println("딜러카드: "+ result+" - 결과: "+getMinimumSum());
+    }
 }
