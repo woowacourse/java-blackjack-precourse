@@ -5,23 +5,38 @@ import domain.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 게임 참여자를 의미하는 객체
- */
-public class Player {
+
+public class Player extends Gamer{
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
+    private double stat;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+        this.stat = 0;
+    }
+    public double getStat(){
+        return stat;
+    }
+    public void win(){
+        stat += bettingMoney;
+    }
+    public void draw(){
+        stat = stat;
+    }
+    public void blackjack(){
+        stat = 1.5 * bettingMoney;
+    }
+    public String getName(){
+        return name;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    @Override
+    public String toString(){
+        return "Player{"+ "name=" + name + ", betting = " + bettingMoney + '}';
     }
 
-    // TODO 추가 기능 구현
+    // TODO
 
 }
