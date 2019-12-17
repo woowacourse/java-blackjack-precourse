@@ -21,6 +21,7 @@ public class OutputPrint {
     private static final int FIRST_CARD_DISTRIBUTE_NUMBER = 2;      // 처음 카드가 모두에게 분배될 때의 분배 갯수.
     private static final int BOUNDARY_DEALER_MUST_MORE_CARD = 16;   // 딜러가 이보다 적은 점수를 가졌다면 카드를 반드시 더 받아야 한다.
     private static final int BUST_NUMBER = 21;
+    private static double dealerMoney = 0;
 
     OutputPrint() {
         this.inputScanner = new InputScanner();
@@ -85,14 +86,16 @@ public class OutputPrint {
         if (inputScanner.getString().equals("y")) {
             distributeCardToPlayer(playerNumber);
             System.out.println(player);
-            isBust(player);
+            printBust(player);
             isNotBust(playerNumber, player);
         }
     }
 
-    private void isBust(Player player) {
-        if (player.getScore() > BUST_NUMBER) {
+    private void printBust(Player player) {
+        if (isBust(player)) {
             println("플레이어 " + player.getName() + "(은)는 BUST 로 패배하였습니다.");
+            dealerMoney += player.getBettingMoney();
+            player.setBettingMoney(- player.getBettingMoney());
         }
     }
 
@@ -100,6 +103,10 @@ public class OutputPrint {
         if (player.getScore() <= BUST_NUMBER) {
             getMoreCard(playerNumber, player);
         }
+    }
+
+    private boolean isBust(Player player) {
+        return player.getScore() > BUST_NUMBER;
     }
 
     public void dealerLessThan16() {
@@ -110,8 +117,17 @@ public class OutputPrint {
         }
     }
 
+    private boolean isBustDealer() {
+        return dealer.getScore() > BUST_NUMBER;
+    }
+
     public void finalReturn() {
         println("## 최종 수익");
+        println("딜러: " + dealerMoney);
+        for (int i = 0; i < playerList.getSize(); i ++) {
+            Player currentPlayer = playerList.getPlayer(i);
+            println(currentPlayer.getName() + ": " +currentPlayer.getBettingMoney());
+        }
     }
 
     private void printLog() {
@@ -122,10 +138,6 @@ public class OutputPrint {
     public void printFinalLog() {
         System.out.println(dealer);
         System.out.println(playerList);
-    }
-
-    private void print(String message) {
-        System.out.print(message);
     }
 
     private void println(String message) {

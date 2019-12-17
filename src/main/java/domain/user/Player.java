@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Player {
     private final String name;
-    private final double bettingMoney;
+    private double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
@@ -24,6 +24,10 @@ public class Player {
 
     public String getName() {
         return this.name;
+    }
+
+    public void setBettingMoney(Double money) {
+        this.bettingMoney = money;
     }
 
     public Double getBettingMoney() {

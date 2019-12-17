@@ -10,7 +10,7 @@ public class Main {
         outputPrint.choiceMoreCard();
         outputPrint.dealerLessThan16();
         outputPrint.printFinalLog();
-
+        outputPrint.finalReturn();
     }
 
 }
