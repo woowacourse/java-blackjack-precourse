@@ -7,6 +7,7 @@ import domain.user.Player;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Play {
@@ -57,7 +58,7 @@ public class Play {
         return alreadyUsedCards.contains(card);
     }
 
-    public void showCardStatus(Dealer dealer, List<Player> players){
+    public void showAllCardStatus(Dealer dealer, List<Player> players){
         StringBuilder msg = new StringBuilder("딜러와 ");
         int cnt = players.size();
 
@@ -75,5 +76,29 @@ public class Play {
         System.out.println(msg);
     }
 
+    public void askAddCard(Dealer dealer, List<Player> players){
+        Scanner sc = new Scanner(System.in);
+        for(Player p : players){
+            while(true){
+                System.out.println(p.getName() + "는 한 장의 카드를 더 받겠습니까?(y/n)");
+                String input;
+                while(true){
+                    input = sc.nextLine();
+                    if(isValidYN(input)){
+                        break;
+                    }else{
+                        System.out.println("y혹은 n으로만 응답해주십시오.");
+                    }
+                }
+                if(input.toLowerCase().equals("n")){
+                    break;
+                }else{
+                    addCardForPlayer(p);
+                    showOneCardStatus(p);
+                }
+            }
+        }
+        addCardForDealer(dealer);
+    }
 
 }

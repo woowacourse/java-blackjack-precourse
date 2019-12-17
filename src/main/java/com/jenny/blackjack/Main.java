@@ -12,6 +12,6 @@ public class Main {
         Play play = new Play();
         Dealer dealer = new Dealer();
         play.distributeInitialCards(dealer, init.getPlayers());
-        play.showCardStatus(dealer, init.getPlayers());
+        play.showAllCardStatus(dealer, init.getPlayers());
     }
 }
