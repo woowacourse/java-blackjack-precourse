@@ -26,6 +26,7 @@ public class Input {
     }
 
     private static String checkInputNamesAndReturn() throws IOException {
+        System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
         String value = SC.nextLine();
         String[] nameArray = value.split(",");
         boolean res = Arrays.stream(nameArray)
