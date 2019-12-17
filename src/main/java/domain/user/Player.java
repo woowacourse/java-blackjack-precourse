@@ -48,4 +48,10 @@ public class Player {
         }
         return score;
     }
+
+    public double doBalancing(double result) {
+        double settlement = result * bettingMoney;
+        System.out.println(name + ": " + settlement);
+        return settlement;
+    }
 }

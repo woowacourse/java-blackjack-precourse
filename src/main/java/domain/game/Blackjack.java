@@ -145,6 +145,14 @@ public class Blackjack {
         return false;
     }
 
+    public boolean isBust(Dealer dealer) {
+        if (dealer.calScore() > BLACKJACK_21) {
+            System.out.println("딜러 버스트");
+            return true;
+        }
+        return false;
+    }
+
     public boolean isReceivingCard(Player player) {
         String decision = player.needMoreCard(sc);
         while (!isValidAnswer(decision)) {
@@ -171,6 +179,46 @@ public class Blackjack {
         for (Player player : players) {
             player.showCards();
             System.out.println("결과: " + player.calScore() + "점");
+        }
+
+        double dealerSettlement = 0;
+        for (Player player : players) {
+            double result = getResult(player);
+            dealerSettlement -= player.doBalancing(result);
+        }
+        dealer.doBalancing(dealerSettlement);
+    }
+
+    public double getResult(Player player) {
+        final double BLACKJACK_WIN = 1.5;
+        final double WIN = 1;
+        final double DRAW = 0;
+        final double LOSE = -1;
+
+        if (isBlackJack(player)) {
+            if (isBlackJack(dealer)) {
+                return DRAW;
+            } else {
+                return BLACKJACK_WIN;
+            }
+        }
+
+        if (isBust(player)) {
+            return LOSE;
+        }
+
+        if (isBlackJack(dealer)) {
+            return LOSE;
+        } else if (isBust(dealer)) {
+            return WIN;
+        } else {
+            if (player.calScore() > dealer.calScore()) {
+                return WIN;
+            } else if(player.calScore() == dealer.calScore()) {
+                return DRAW;
+            } else {
+                return LOSE;
+            }
         }
     }
 }

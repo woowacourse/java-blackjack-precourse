@@ -38,4 +38,10 @@ public class Dealer {
         }
         return score;
     }
+
+    public double doBalancing(double result) {
+        double settlement = result;
+        System.out.println("딜러: " + settlement);
+        return settlement;
+    }
 }
