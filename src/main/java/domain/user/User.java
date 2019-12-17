@@ -22,4 +22,12 @@ public class User {
 		}
 		System.out.println();
 	}
+	
+	public int getScore() {
+		int score = 0;
+		for (Card card : cards) {
+			score += card.getSymbol().getScore();
+		}
+		return score;
+	}
 }
