@@ -1,43 +1,30 @@
 package domain;
 
-import domain.user.Dealer;
-import domain.user.Player;
-import domain.user.PlayerFactory;
-import ui.UserInterface;
-import util.BlackjackPrinter;
-
+import api.UserApi;
+import domain.user.*;
 import java.util.List;
 
 public class Blackjack {
+    private UserApi userApi;
 
-    private UserInterface userInterface;
-    private PlayerFactory playerFactory;
     private Dealer dealer;
-    private BlackjackPrinter blackjackPrinter;
+
+
+    public Blackjack(UserApi userApi, Dealer dealer) {
+        this.userApi = userApi;
+        this.dealer = dealer;
+    }
+
 
     public void play() {
-        String[] names = userInterface.extractNames();
-        List<Player> players = playerFactory.create(names);
-        for (Player player : players) {
-            player.bet();
-        }
+        List<Player> players = userApi.join();
 
-        for (int i = 0; i < 2; i++ ) {
-            dealer.giveCard(dealer);
-            for (Player player : players) {
-                dealer.giveCard(player);
-            }
-        }
+        userApi.receiveDefaultCards(dealer, players);
 
-        for (Player player : players) {
-            player.confirmCards();
-        }
-        dealer.addAdditionalCard();
-        blackjackPrinter.printUser(dealer);
-        for (Player player : players) {
-            blackjackPrinter.printUser(player);
-        }
+        userApi.confirmCards(players, dealer);
 
-        blackjackPrinter.printResult(dealer, players);
+        userApi.match(dealer, players);
+
+        userApi.analyze(dealer, players);
     }
 }
