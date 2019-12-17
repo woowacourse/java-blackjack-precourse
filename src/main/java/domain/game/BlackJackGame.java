@@ -10,6 +10,7 @@ import domain.card.*;
 import domain.user.*;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class BlackJackGame {
 
 	Dealer dealer = new Dealer();
-	List<Player> players;
+	List<Player> players = new ArrayList<Player>();;
 	List<Card> cards = CardFactory.create();
 	int cardsIndex = 0;
 

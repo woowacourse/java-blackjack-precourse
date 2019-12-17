@@ -26,4 +26,8 @@ public class Player {
     public String getName() {
     	return this.name;
     }
+    
+    public List<Card> getCards(){
+    	return this.cards;
+    }
 }

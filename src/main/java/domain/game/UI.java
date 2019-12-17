@@ -2,6 +2,7 @@ package domain.game;
 
 import java.util.List;
 
+import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -18,7 +19,9 @@ public class UI {
 		for(int i = 1; i<players.size(); i++) {
 			System.out.print(", " + players.get(i).getName());
 		}
-		System.out.println("에게 2장의 카드를 나누었습니다.\n딜러: " + dealer.getCards().get(0));
+		System.out.print("에게 2장의 카드를 나누었습니다.\n딜러: ");
+		printCard(dealer.getCards().get(0));
+		System.out.println();
 		for(int i = 0; i<players.size(); i++) {
 			printCards(players.get(i));
 		}
@@ -26,8 +29,19 @@ public class UI {
 	
 	public static void printCards(Player player) {
 		System.out.print(player.getName()+"카드: ");
-		for(int i = 0; i<)
+		List<Card> cards = player.getCards();
+		printCard(cards.get(0));
+		for(int i = 1; i<cards.size(); i++) {
+			System.out.print(", ");
+			printCard(cards.get(i));
+		}
+		System.out.println();
 	}
+	
+	public static void printCard(Card card) {
+		System.out.print(card.getSymbol().getAlphabet()+card.getType().getName());
+	}
+	
 	public static void printPlayerName(String playerName) {
 		System.out.print(playerName);
 	}
