@@ -19,6 +19,7 @@ public class OutputView {
 	private static final String INITIAL_CARD_DEALING_END = "에게 2장의 카드를 나누었습니다.";
 	private static final String WRONG_HIT_CARD_INPUT = "잘못 입력하셨습니다.";
 	private static final String DEALER_BLACKJACK = "딜러가 블랙잭입니다.";
+	private static final String DEALER_NO_HIT = "딜러는 17이상이라 카드를 받지 않습니다.";
 
 	public static void printWrongPlayerNameInput() {
 		System.out.println(WRONG_PLAYER_NAME_INPUT);
@@ -42,5 +43,9 @@ public class OutputView {
 
 	public static void printDealerBlackjack() {
 		System.out.println(DEALER_BLACKJACK);
+	}
+
+	public static void printDealerNoHit() {
+		System.out.println(DEALER_NO_HIT);
 	}
 }

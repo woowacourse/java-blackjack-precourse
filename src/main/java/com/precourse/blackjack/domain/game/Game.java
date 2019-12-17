@@ -69,6 +69,9 @@ public class Game {
 			return;
 		}
 		players.forEach(player -> drawCard(player));
+		if (!dealer.canHit()) {
+			GameController.showDealerNoHit();
+		}
 	}
 
 	private void drawCard(Player player) {

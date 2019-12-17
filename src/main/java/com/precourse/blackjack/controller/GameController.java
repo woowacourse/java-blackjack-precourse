@@ -97,4 +97,8 @@ public class GameController {
 	public static void showDealerBlackjack() {
 		OutputView.printDealerBlackjack();
 	}
+
+	public static void showDealerNoHit() {
+		OutputView.printDealerNoHit();
+	}
 }
