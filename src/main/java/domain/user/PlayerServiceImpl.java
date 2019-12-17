@@ -49,7 +49,6 @@ public class PlayerServiceImpl extends UserService {
         String[] names = userInterface.extractNames();
 
         for (String name : names) {
-
             double bettingMoney = userInterface.getBettingMoney(name);
             players.add(playerFactory.create(name, bettingMoney));
         }
