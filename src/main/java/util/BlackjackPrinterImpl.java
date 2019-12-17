@@ -27,7 +27,7 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
 
     @Override
     public void printUserResult(User user) {
-        stringBuilder = buildUserState(user);
+        stringBuilder = buildUserResult(user);
         stringBuilder.append(" - 결과: ");
         stringBuilder.append(user.calculateScore());
 
@@ -46,6 +46,15 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
         stringBuilder.append(String.join(", ", cardNames));
         return stringBuilder;
     }
+
+    private StringBuilder buildUserResult(User user) {
+        stringBuilder.append(user);
+        stringBuilder.append("카드: ");
+        List<String> cardNames = user.getCards().stream().map(Card::toString).collect(Collectors.toList());
+        stringBuilder.append(String.join(", ", cardNames));
+        return stringBuilder;
+    }
+
     private void printStringBuilder(StringBuilder stringBuilder) {
         System.out.println(stringBuilder);
         stringBuilder.setLength(0);
