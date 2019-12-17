@@ -9,6 +9,7 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer {
+	private static final int STAND_THRESHOLD = 17;
 	private static final int ACE_SCORE = 11;
 	private static final int MAXIMUM_SCORE = 21;
 	private static final int ACE_TO_ONE = 10;
@@ -57,6 +58,6 @@ public class Dealer {
 	}
 
 	public boolean canHit() {
-		return getTotalScore() < MAXIMUM_SCORE;
+		return getTotalScore() < STAND_THRESHOLD;
 	}
 }
