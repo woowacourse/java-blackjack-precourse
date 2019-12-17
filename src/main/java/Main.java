@@ -23,11 +23,8 @@ public class Main {
 
         System.out.println(gameManager.bettingInfos());
 
-        gameManager.offerCardToAll();
-        System.out.println(gameManager.cardInfosOfAllMemberNotHidden());
+        gameManager.playGame(scanner);
 
-        gameManager.offerCardToAll();
-        System.out.println(gameManager.cardInfosOfAllMemberNotHidden());
     }
 
     public static ArrayList<Player> initPlayersWithInput(Scanner scanner) {

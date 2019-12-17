@@ -8,6 +8,11 @@ import java.util.List;
 public abstract class Member {
     private final List<Card> cards = new ArrayList<>();
 
+    public boolean isSurvive() {
+        final int MAX_SCORE = 21;
+        return getOptimizedSum() <= MAX_SCORE;
+    }
+
     public int getOptimizedSum() {
         int sum = getSum();
         if (hasAce()) {
@@ -38,6 +43,10 @@ public abstract class Member {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public String toStringOneCard() {
+        return cards.get(0).toString() + '\n';
     }
 
     public String toStringCards() {

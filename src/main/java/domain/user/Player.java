@@ -18,6 +18,10 @@ public class Player extends Member {
     }
 
     // TODO 추가 기능 구현
+    public String getName() {
+        return name;
+    }
+
     public String bettingInfo() {
         return name + ": " + Double.toString(bettingMoney);
     }

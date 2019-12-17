@@ -17,4 +17,8 @@ public class Dealer extends Member {
     public String cardInfo() {
         return "Dealer:\n" + toStringCards();
     }
+
+    public String oneCardInfo() {
+        return "Dealer:\n" + toStringOneCard() + "??????\n";
+    }
 }
