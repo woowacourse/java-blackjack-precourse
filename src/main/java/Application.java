@@ -1,3 +1,12 @@
+/*
+ * @(#)Application.java 2019/12/17
+ *
+ * Copyright (c) 2019 Geunwon Lim
+ * All rights reserved.
+ */
+
+import java.util.Scanner;
+
 import api.UserApi;
 import domain.Blackjack;
 import domain.BlackjackPrinter;
@@ -8,7 +17,7 @@ import domain.user.*;
 import ui.Console;
 import util.BlackjackPrinterImpl;
 
-import java.util.Scanner;
+
 
 public class Application {
     public static void main(String[] args) {

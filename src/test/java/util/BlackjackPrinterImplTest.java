@@ -1,5 +1,12 @@
 package util;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import common.BlackjackConfig;
 import domain.card.Card;
 import domain.card.Symbol;
@@ -7,12 +14,6 @@ import domain.card.Type;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BlackjackPrinterImplTest {
 

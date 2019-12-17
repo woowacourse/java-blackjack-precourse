@@ -1,11 +1,18 @@
+/*
+ * @(#)PlayerServiceImpl.java 2019/12/17
+ *
+ * Copyright (c) 2019 Geunwon Lim
+ * All rights reserved.
+ */
+
 package domain.user;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import domain.BlackjackPrinter;
 import domain.UserInterface;
 import domain.card.Deck;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerServiceImpl extends UserService {
     private UserInterface userInterface;

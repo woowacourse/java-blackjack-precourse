@@ -1,4 +1,14 @@
+/*
+ * @(#)Console.java 2019/12/17
+ *
+ * Copyright (c) 2019 Geunwon Lim
+ * All rights reserved.
+ */
+
 package ui;
+
+import java.util.Arrays;
+import java.util.Scanner;
 
 import common.BlackjackConfig;
 import domain.BlackjackPrinter;
@@ -6,9 +16,6 @@ import domain.UserInterface;
 import domain.errors.InvalidInputException;
 import domain.user.User;
 import domain.user.Will;
-
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Console implements UserInterface {
 

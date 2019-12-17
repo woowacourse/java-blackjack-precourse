@@ -1,13 +1,20 @@
-package domain.user;
+/*
+ * @(#)User.java 2019/12/17
+ *
+ * Copyright (c) 2019 Geunwon Lim
+ * All rights reserved.
+ */
 
-import common.BlackjackConfig;
-import domain.card.Card;
-import domain.card.Symbol;
+package domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import common.BlackjackConfig;
+import domain.card.Card;
+import domain.card.Symbol;
 
 public abstract class User {
     protected final List<Card> cards = new ArrayList<>();

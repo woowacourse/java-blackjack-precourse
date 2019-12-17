@@ -1,4 +1,15 @@
+/*
+ * @(#)BlackjackPrinterImpl.java 2019/12/17
+ *
+ * Copyright (c) 2019 Geunwon Lim
+ * All rights reserved.
+ */
+
 package util;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import common.BlackjackConfig;
 import domain.BlackjackPrinter;
@@ -6,10 +17,6 @@ import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class BlackjackPrinterImpl implements BlackjackPrinter {
 

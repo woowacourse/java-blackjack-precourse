@@ -1,19 +1,20 @@
 package api;
 
-import common.BlackjackConfig;
-import domain.BlackjackPrinter;
-import domain.UserInterface;
-import domain.card.*;
-import domain.user.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import common.BlackjackConfig;
+import domain.BlackjackPrinter;
+import domain.UserInterface;
+import domain.card.*;
+import domain.user.*;
 
 class UserApiTest {
 

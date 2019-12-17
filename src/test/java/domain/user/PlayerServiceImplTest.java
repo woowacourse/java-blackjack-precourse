@@ -2,17 +2,14 @@ package domain.user;
 
 import static org.mockito.Mockito.*;
 
-import domain.BlackjackPrinter;
-import domain.UserInterface;
-import domain.card.Card;
-import domain.card.Deck;
-import domain.card.Symbol;
-import domain.card.Type;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import domain.BlackjackPrinter;
+import domain.UserInterface;
+import domain.card.Deck;
 
 import static org.junit.jupiter.api.Assertions.*;
 

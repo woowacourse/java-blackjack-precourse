@@ -1,12 +1,12 @@
 package domain.user;
 
-import common.BlackjackConfig;
-import domain.BlackjackPrinter;
-import domain.card.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import common.BlackjackConfig;
+import domain.BlackjackPrinter;
+import domain.card.Deck;
+
 import static org.mockito.Mockito.*;
 
 class DealerServiceImplTest {

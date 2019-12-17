@@ -1,10 +1,13 @@
+/*
+ * @(#)Dealer.java 2019/12/17
+ *
+ * Copyright (c) 2019 Geunwon Lim
+ * All rights reserved.
+ */
+
 package domain.user;
 
 import common.BlackjackConfig;
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 게임 딜러를 의미하는 객체

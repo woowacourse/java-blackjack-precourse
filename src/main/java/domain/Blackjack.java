@@ -1,8 +1,16 @@
+/*
+ * @(#)Blackjack.java 2019/12/17
+ *
+ * Copyright (c) 2019 Geunwon Lim
+ * All rights reserved.
+ */
+
 package domain;
+
+import java.util.List;
 
 import api.UserApi;
 import domain.user.*;
-import java.util.List;
 
 public class Blackjack {
     private UserApi userApi;
