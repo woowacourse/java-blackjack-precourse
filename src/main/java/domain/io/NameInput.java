@@ -3,8 +3,10 @@ package domain.io;
 import domain.io.Message;
 
 import java.util.Scanner;
-import java.util.Arrays;
 
+/**
+ * 플레이어의 이름을 입력받는 기능을 하는 클래스
+ */
 public class NameInput {
     Message message = new Message();
 
@@ -12,12 +14,8 @@ public class NameInput {
 	String tmpname;
 	Scanner sc = new Scanner(System.in);
 	message.showNameInputMessage();
-	tmpname = sc.nextLine();
-	tmpname=tmpname.replaceAll(" ", "");
-	while (!checkName(tmpname)) {
+	while (!checkName(tmpname=sc.nextLine().replaceAll(" ", ""))) {
 	    message.showNameInputErrorMessage();
-	    tmpname=tmpname.replaceAll(" ", "");
-	    tmpname = sc.nextLine();
 	}
 	return splitName(tmpname);
     }

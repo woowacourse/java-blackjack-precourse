@@ -4,6 +4,10 @@ import domain.io.Message;
 
 import java.util.Scanner;
 
+
+/**
+ * 추가 카드를 받을지 안 받을지 판단하는 역할을 하는 클래스
+ */
 public class MoreCardInput {
     Message message = new Message();
     Scanner sc = new Scanner(System.in);
@@ -15,10 +19,8 @@ public class MoreCardInput {
     public boolean getMoreCardOrNot(String name) {
 	String ans;
 	message.showGettingCardQuestion(name);
-	ans = sc.nextLine();
-	while (checkAns(ans)==false) {
+	while (checkAns(ans=sc.nextLine())==false) {
 	    message.showGettingCardErrorMessage();
-	    ans=sc.nextLine();
 	}
 	if(ans.equals(CAPITALYES)||(ans.equals(SMALLYES))) {
 	    return true;

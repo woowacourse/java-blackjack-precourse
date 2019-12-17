@@ -3,6 +3,10 @@ package domain.io;
 import domain.io.Message;
 import java.util.Scanner;
 
+
+/**
+ * 배팅금액을 입력받는 기능을 하는 클래스
+ */
 public class MoneyInput {
     Message message = new Message();
 

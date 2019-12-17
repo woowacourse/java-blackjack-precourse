@@ -1,13 +1,11 @@
 package domain.io;
 
-import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+/**
+ * 프로그램 이용자가 보는 view message 부분을 담당하는 클래스
+ */
 public class Message {
     public void showNameInputMessage() {
 	System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 ',' 기준으로 분리)");
