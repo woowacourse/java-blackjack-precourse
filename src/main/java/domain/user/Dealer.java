@@ -1,9 +1,9 @@
 package domain.user;
 
-import domain.card.Card;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import domain.card.Card;
 
 /**
  * 게임 딜러를 의미하는 객체
@@ -13,9 +13,9 @@ public class Dealer {
 
     public Dealer() {}
 
+ 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
 }

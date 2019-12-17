@@ -15,4 +15,9 @@ public class Deck {
 	public void shuffleCards() {
 		Collections.shuffle(deck);
 	}
+	
+	public Card drawCard() {
+		return deck.remove(0);
+	}
+
 }
