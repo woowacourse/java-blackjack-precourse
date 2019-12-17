@@ -1,7 +1,13 @@
 /*
- * test
- * */
-
+ * class: BlackjackGame
+ *
+ * version: 1.0v
+ *
+ * date: 2019.12.17
+ *
+ * 이 프로그램의 저작권은 정은석에게 있습니다.
+ * Copyright 2019.12.17
+ */
 
 import domain.construtor.CardDrawing;
 import domain.construtor.ConstructionPlayerAndDealer;
@@ -12,6 +18,9 @@ import domain.user.Player;
 
 import java.util.List;
 
+/**
+ * 게임시작
+ */
 public class BlackjackGame {
     static final int BLACKJACK = 21;
     static SelectionWinner winner = new SelectionWinner();
