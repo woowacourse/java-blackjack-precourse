@@ -22,5 +22,13 @@ public class Dealer extends Participants {
 //    public List<Card> getCards() {return this.cards;}
 
 
-
+    public void additionalPick() {
+        if (this.getTotal() > 17) {
+            System.out.println("딜러는 17이상이라 카드를 받지 않습니다.");
+        }
+        while (this.getTotal() <= 16) {
+            this.cardDistribution();
+            System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
+        }
+    }
 }

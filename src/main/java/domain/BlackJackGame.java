@@ -13,11 +13,14 @@ public class BlackJackGame {
     public static CardFactory cardFactory;
     public static List<Card> cardList;
     public static boolean[] isTaken;
+    public static int moneyTaken;
+    public static boolean blackJackHappend;
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         gameSetting(sc);
+        defaultTurn();
 
 
     }
@@ -56,5 +59,67 @@ public class BlackJackGame {
         isTaken = new boolean[52];
         cardList = cardFactory.create();
     }
+
+    public static void defaultTurn() {
+        defaultInstruction();
+        defaultDistributionPrint();
+        calculatingRevenueFirstTurn();
+        System.out.println();
+    }
+
+    public static void defaultInstruction() {
+        StringBuilder sb = new StringBuilder(player.get(0).getName());
+        for (int i = 1; i < player.size(); i++) {
+            sb.append(", " + player.get(i).getName());
+        }
+        System.out.println("딜러와 " + sb + "에게 2장의 카드를 나누었습니다.");
+    }
+
+    public static void defaultDistributionPrint() {
+        defaultDistribution();
+        System.out.println("딜러: " + dealer.getCards().get(1).toString());
+        for (int i = 0; i < player.size(); i++) {
+            System.out.println(player.get(i).getName() + "카드: " + player.get(i).cardListing());
+        }
+    }
+
+    public static void defaultDistribution() {
+        dealer.cardDistribution();
+        dealer.cardDistribution();
+        for (int i = 0; i < player.size(); i++) {
+            player.get(i).cardDistribution();
+            player.get(i).cardDistribution();
+        }
+    }
+
+    public static void calculatingRevenueFirstTurn() {
+        blackJackHappend = false;
+        for (int i = 0; i < player.size(); i++) {
+            individualBlackJack(player.get(i));
+        }
+    }
+
+    public static void individualBlackJack(Player individualPlayer) {
+        if (individualPlayer.isFirstBlackJack() && dealer.isFirstBlackJack()) {
+            blackJackHappend = true;
+            return;
+        }
+        if (dealer.isFirstBlackJack()) {
+            individualPlayer.revenue -= (int) individualPlayer.getBettingMoney();
+            moneyTaken += individualPlayer.revenue;
+            blackJackHappend = true;
+            return;
+        }
+        if (individualPlayer.isFirstBlackJack()) {
+            individualPlayer.revenue = (int) (individualPlayer.getBettingMoney()*1.5);
+            moneyTaken -= individualPlayer.revenue;
+            blackJackHappend = true;
+            return;
+        }
+    }
+
+
+
+
 
 }
