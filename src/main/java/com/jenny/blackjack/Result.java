@@ -12,10 +12,17 @@ public class Result {
     public void showResultValue(Dealer dealer, List<Player> players){
         Play play = new Play();
         play.showDealerCardStatus(dealer);
-        System.out.println("결과 : " + calcResultValue(dealer));
+        int dealerValue = calcResultValue(dealer);
+        System.out.println("결과 : " + dealerValue);
         for(Player p : players){
+            int value = calcResultValue(p);
             play.showOneCardStatus(p);
-            System.out.println("결과 : " + calcResultValue(p));
+            System.out.print("결과 : " + value + "로 딜러보다 ");
+            if(value > dealerValue){
+                System.out.println("큽니다.");
+            }else{
+                System.out.println("작습니다.");
+            }
         }
         System.out.println();
     }
@@ -40,11 +47,11 @@ public class Result {
                 break;
             }
         }
-        if(sum == 21 && cards.size() == 2){
-            sum++;
-        }
         if(sum > 21){
             sum = 0;
+        }
+        if(sum == 21 && cards.size() == 2){
+            sum++;
         }
         return sum;
     }
@@ -113,5 +120,4 @@ public class Result {
         }
         return totalBetMoney;
     }
-
 }

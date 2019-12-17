@@ -90,9 +90,15 @@ public class Play {
 
     public void askAddCard(Dealer dealer, List<Player> players){
         Scanner sc = new Scanner(System.in);
+        Result result = new Result();
         for(Player p : players){
             while(true){
-                System.out.println(p.getName() + "는 한 장의 카드를 더 받겠습니까?(y/n)");
+                System.out.println("현재 " + p.getName() + "님의 총합은 " + p.getSumOfCards() + "입니다.");
+                if(result.calcResultValue(p) == 22){
+                    System.out.println("블랙잭을 만족합니다.");
+                    break;
+                }
+                System.out.println("한 장의 카드를 더 받겠습니까?(y/n)");
                 String input;
                 while(true){
                     input = sc.nextLine();
@@ -131,7 +137,7 @@ public class Play {
             return;
         }
         getCardForDealer(1, dealer);
-        System.out.println("\n딜러는 16이하라 카드를 한장 더 받았습니다.");
+        System.out.println("\n딜러는 카드 총합이 16이하라 카드를 한장 더 받았습니다.");
     }
 
     public boolean isBurst(User user){
