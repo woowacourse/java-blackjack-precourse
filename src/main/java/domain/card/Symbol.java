@@ -1,6 +1,9 @@
 package domain.card;
 
 public enum Symbol {
+	/**
+	 * 이름 변수를 추가해 소유한 카드를 출력할 때 이용한다.
+	 */
     ACE(1, "A"),
     TWO(2, "2"),
     THREE(3, "3"),

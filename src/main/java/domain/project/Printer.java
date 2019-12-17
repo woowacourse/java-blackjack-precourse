@@ -1,5 +1,9 @@
 package domain.project;
 
+/**
+ * 게임 진행에 사용되는 모든 문구를 출력하는 클래스
+ * @author giantim
+ */
 public class Printer {
 
 	public void printInputPlayer() {

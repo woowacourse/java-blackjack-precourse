@@ -1,5 +1,9 @@
 package domain.project;
 
+/**
+ * 프로젝트에 사용되는 모든 상수를 포함하는 클래스
+ * @author giantim
+ */
 public class Constant {
 	public final static int TWO = 2;
 	public final static int EIGHT = 8;
