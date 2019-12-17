@@ -1,5 +1,5 @@
 /*
- * @(#)StringUtil.java      0.９ 2019.12.17
+ * @(#)StringUtil.java      1.0 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -17,7 +17,7 @@ import java.util.List;
  * 문자열　처리를 담당하는 클래스.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.９ 2019.12.17
+ * @version 1.0 2019.12.17
  */
 public class StringUtil {
     /**
@@ -36,8 +36,8 @@ public class StringUtil {
      * @param userInput 입력받은 게임 참여자 이름 문자열.
      * @return 쉼표(,)를 기준으로 자르고, 공백을 제거하는 모든 처리가 완료된 Player들의 이름.
      */
-    public static List<String> processPlayerName(String userInput) {
-        return trimPlayersName(splitToPlayersName(userInput));
+    public static List<String> processPlayerNames(String userInput) {
+        return trimPlayersNames(splitToPlayerNames(userInput));
     }
 
     /**
@@ -46,7 +46,7 @@ public class StringUtil {
      * @param userInput 입력받은 게임 참여자 이름 문자열.
      * @return 쉼표(,)를 기준으로 잘려진 Player들의 이름.
      */
-    private static List<String> splitToPlayersName(String userInput) {
+    private static List<String> splitToPlayerNames(String userInput) {
         return Arrays.asList(userInput.split(SPLIT_COMMA_DELIMITER));
     }
 
@@ -56,7 +56,7 @@ public class StringUtil {
      * @param playerNames 불필요한 공백이 제거된 Player들의 이름.
      * @return 불필요한 공백이 제거된 Player들의 이름.
      */
-    private static List<String> trimPlayersName(List<String> playerNames) {
+    private static List<String> trimPlayersNames(List<String> playerNames) {
         for (int i = 0; i < playerNames.size(); i++) {
             playerNames.set(i, playerNames.get(i).trim());
         }
@@ -69,7 +69,7 @@ public class StringUtil {
      * @param players Player들의 이름.
      * @return Player들의 이름을 합친 문자열.
      */
-    public static String joinPlayersName(List<Player> players) {
+    public static String joinPlayerNames(List<Player> players) {
         List<String> playerNames = new ArrayList<>();
 
         for (Player player : players) {
@@ -84,7 +84,7 @@ public class StringUtil {
      * @param cards card List.
      * @return card List를 합친 문자열.
      */
-    public static String joinCardsName(List<Card> cards) {
+    public static String joinCards(List<Card> cards) {
         List<String> cardNames = new ArrayList<>();
 
         for (Card card : cards) {

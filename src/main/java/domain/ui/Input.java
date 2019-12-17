@@ -1,5 +1,5 @@
 /*
- * @(#)Input.java       0.7 2019.12.17
+ * @(#)Input.java       0.8 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import java.util.Scanner;
  * 입력과 관련된 기능을 담당할 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.7 2019.12.17
+ * @version 0.8 2019.12.17
  */
 public class Input {
     /**
@@ -25,7 +25,7 @@ public class Input {
      *
      * @return 사용자가 입력한 게임 참여자들의 이름의 문자열.
      */
-    public String receivePlayerNameInput() {
+    public String receivePlayerNamesInput() {
         scanner = new Scanner(System.in);
 
         return scanner.nextLine();
@@ -47,7 +47,7 @@ public class Input {
      *
      * @return 한장의 card를 더 받을지 여부(y 또는 n).
      */
-    public String receivePlayerGetMoreCardInput() {
+    public String receiveDrawOneMoreCardInput() {
         scanner = new Scanner(System.in);
 
         return scanner.nextLine();

@@ -1,5 +1,5 @@
 /*
- * @(#)GameManager.java     0.5 2019.12.17
+ * @(#)GameManager.java     0.6 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -16,7 +16,7 @@ import java.util.List;
  * 게임의 진행을 관리하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.5 2019.12.17
+ * @version 0.6 2019.12.17
  */
 public class GameManager {
     /**
@@ -40,12 +40,12 @@ public class GameManager {
     public void run() {
         blackJackGame = new BlackJackGame();
 
-        generatePlayerInBlackJackGame(receivePlayerName());
-        blackJackGame.progressFirstDrawTwoCardsEachUsers();
+        generatePlayersInBlackJackGame(receivePlayerNames());
+        blackJackGame.drawTwoCardsEachUsers();
         if (!blackJackGame.isDealerBlackJack()) {
-            blackJackGame.restartGameAccordingToRules();
+            blackJackGame.restartGameAccordingToRule();
         }
-        blackJackGame.printUsersFinalCardStatus();
+        blackJackGame.printUsersFinalCardsStatus();
         blackJackGame.printUsersFinalProfitResult();
     }
 
@@ -54,15 +54,26 @@ public class GameManager {
      *
      * @return Player들의 이름.
      */
-    private List<String> receivePlayerName() {
+    private List<String> receivePlayerNames() {
         try {
-            out.printPlayerNameInputRequest();
-            List<String> playerNames = StringUtil.processPlayerName(in.receivePlayerNameInput());
+            out.printPlayerNamesInputRequest();
+            List<String> playerNames = StringUtil.processPlayerNames(in.receivePlayerNamesInput());
 
-            Validator.isValidPlayerName(playerNames);
+            Validator.isValidPlayerNames(playerNames);
             return playerNames;
         } catch (InputMismatchException e) {
-            return receivePlayerName();
+            return receivePlayerNames();
+        }
+    }
+
+    /**
+     * Player들의 배팅 금액을 각각 입력받아 해당 플레이어를 BlackJackGame에 생성하는 메소드.
+     *
+     * @param playerNames Player 이름.
+     */
+    private void generatePlayersInBlackJackGame(List<String> playerNames) {
+        for (String playerName : playerNames) {
+            blackJackGame.generateSelectedPlayer(playerName, receiveBettingMoney(playerName));
         }
     }
 
@@ -80,19 +91,8 @@ public class GameManager {
             Validator.isValidBettingMoney(bettingMoney);
             return bettingMoney;
         } catch (InputMismatchException e) {
-            out.printBettingMoneyInputError();
+            out.printBettingMoneyInputException();
             return receiveBettingMoney(playerName);
-        }
-    }
-
-    /**
-     * Player들의 배팅 금액을 각각 입력받아 해당 플레이어를 BlackJackGame에 생성하는 메소드.
-     *
-     * @param playerNames Player 이름.
-     */
-    private void generatePlayerInBlackJackGame(List<String> playerNames) {
-        for (String playerName : playerNames) {
-            blackJackGame.generatePlayer(playerName, receiveBettingMoney(playerName));
         }
     }
 }

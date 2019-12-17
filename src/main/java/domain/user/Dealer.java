@@ -1,5 +1,5 @@
 /*
- * @(#)Dealer.java      1.3 2019.12.17
+ * @(#)Dealer.java      1.4 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import domain.business.StringUtil;
  * User 클래스를 상속받아 블랙잭 게임에서 Dealer 역할을 하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.3 2019.12.17
+ * @version 1.4 2019.12.17
  */
 public class Dealer extends User {
     /**
@@ -23,7 +23,7 @@ public class Dealer extends User {
     /**
      * Dealer는 처음 2장의 카드를 받았을 때 1장의 카드만 출력해야 하므로 그 때 사용할 상수.
      */
-    private static final int FIRST_CARD = 0;
+    private static final int DEALER_FIRST_CARD = 0;
 
     /**
      * Dealer가 계속 card를 뽑아야 하는 점수인지 판단하기 위한 상수.
@@ -40,16 +40,16 @@ public class Dealer extends User {
      * 상위 User 클래스의 메소드 overriding.
      */
     @Override
-    public void printCurrentCardStatus() {
-        out.printUserCurrentCardStatus(DEALER_NAME, cards.get(FIRST_CARD).toString());
+    public void printCurrentCardsStatus() {
+        out.printUserCurrentCardsStatus(DEALER_NAME, cards.get(DEALER_FIRST_CARD).toString());
     }
 
     /**
      * Dealer의 최종 card와 총점을 출력하는 메소드.
      */
     @Override
-    public void printFinalCardStatus() {
-        out.printUserFinalResult(DEALER_NAME, StringUtil.joinCardsName(cards), getScore());
+    public void printFinalCardsStatus() {
+        out.printUserFinalResult(DEALER_NAME, StringUtil.joinCards(cards), getScore());
     }
 
     /**
@@ -57,7 +57,7 @@ public class Dealer extends User {
      *
      * @return 총점이 16점 이하이면 true 반환.
      */
-    public boolean isDrawContinue() {
+    public boolean isDealerDrawContinue() {
         return (getScore() <= DRAW_CONTINUE_SCORE);
     }
 }

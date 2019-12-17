@@ -1,5 +1,5 @@
 /*
- * @(#)Output.java      1.3 2019.12.17
+ * @(#)Output.java      1.4 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -10,13 +10,13 @@ package domain.ui;
  * 출력과 관련된 기능을 담당할 객체
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.3 2019.12.17
+ * @version 1.4 2019.12.17
  */
 public class Output {
     /**
      * 게임 참여자들의 이름의 입력을 요청할 때 출력할 메시지 상수.
      */
-    private static final String PLAYER_NAME_INPUT_REQUEST_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요.(쉼표(,) 기준으로 분리)";
+    private static final String PLAYER_NAMES_INPUT_REQUEST_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요.(쉼표(,) 기준으로 분리)";
 
     /**
      * 게임 참여자들의 이름의 길이에 예외가 발생할 경우 출력할 메시지 상수.
@@ -36,7 +36,7 @@ public class Output {
     /**
      * 게임 참여자들의 이름에 Dealer 또는 dealer와 중복이 존재할 경우 출력할 메시지 상수.
      */
-    private static final String PLAYER_NAME_DUPLICATE_WITH_DEALER_MESSAGE = "Dealer 또는 dealer라는 이름은 사용하실 수 없습니다.";
+    private static final String PLAYER_NAME_DUPLICATE_DEALER_NAME_EXCEPTION_MESSAGE = "Dealer 또는 dealer라는 이름은 사용하실 수 없습니다.";
 
     /**
      * 사용자에게 재입력을 요청할 때 출력할 메시지 상수.
@@ -46,7 +46,7 @@ public class Output {
     /**
      * Player의 베팅 금액의 입력을 요청할 때 출력할 메시지 상수.
      */
-    private static final String BETTING_MONEY_REQUEST_MESSAGE = "의 배팅 금액은?";
+    private static final String BETTING_MONEY_INPUT_REQUEST_MESSAGE = "의 배팅 금액은?";
 
     /**
      * 배팅 금액이 최소 금액보다 작은 경우 출력할 메시지 상수.
@@ -66,7 +66,7 @@ public class Output {
     /**
      * User의 card를 출력할 메시지 상수.
      */
-    private static final String USER_CARD_STATUS_MESSAGE = "%s 카드: %s";
+    private static final String USER_CARDS_STATUS_MESSAGE = "%s 카드: %s";
 
     /**
      * Player가 버스트(총점이 21점을 초과)일 경우 출력할 메시지 상수.
@@ -76,7 +76,7 @@ public class Output {
     /**
      * Player가 한장의 card를 더 받을지 여부를 입력 요청할 때 출력할 메시지 상수.
      */
-    private static final String PLAYER_DRAW_ONE_MORE_CARD_MESSAGE = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니요는 n)";
+    private static final String PLAYER_DRAW_ONE_MORE_CARD_SELECTED_PLAYER_MESSAGE = "는 한장의 카드를 더 받겠습니까?(예는 y, 아니요는 n)";
 
     /**
      * Player의 card를 더 받을지 여부의 입력 형식이 틀릴 경우 출력할 메시지 상수.
@@ -87,7 +87,7 @@ public class Output {
     /**
      * Dealer의 총점이 16이하여서 규칙에 따라 카드를 한장 뽑을 경우 출력할 메시지 상수.
      */
-    private static final String DEALER_DRAW_MORE_CARD_ACCORDING_TO_RULE = "Dealer는 16이하라 한장의 카드를 더 받았습니다";
+    private static final String DRAW_ONE_MORE_CARD_DEALER_ACCORDING_TO_RULE = "Dealer는 16이하라 한장의 카드를 더 받았습니다";
 
     /**
      * Dealer와 Player의 최종 점수를 출력할 메시지 상수.
@@ -97,18 +97,18 @@ public class Output {
     /**
      * 최종 수익 결과 공지를 출력할 메시지 상수.
      */
-    private static final String FINAL_PROFIT_MESSAGE = "## 최종 수익";
+    private static final String FINAL_PROFIT_NOTICE_MESSAGE = "## 최종 수익";
 
     /**
      * User의 최종 수익을 출력할 메시지 상수.
      */
-    private static final String USER_PROFIT_MESSAGE = "%s: %.1f";
+    private static final String SELECTED_USER_FINAL_PROFIT_MESSAGE = "%s: %.1f";
 
     /**
      * 게임 참여자들의 이름의 입력을 요청을 출력하는 메소드.
      */
-    public void printPlayerNameInputRequest() {
-        System.out.println(PLAYER_NAME_INPUT_REQUEST_MESSAGE);
+    public void printPlayerNamesInputRequest() {
+        System.out.println(PLAYER_NAMES_INPUT_REQUEST_MESSAGE);
     }
 
     /**
@@ -135,8 +135,8 @@ public class Output {
     /**
      * 게임 참여자들의 이름에 Dealer 또는 dealer와 같은 이름이 중복됨을 출력하는 메소드.
      */
-    public void printPlayerNameDuplicateWithDealerException() {
-        System.out.print(PLAYER_NAME_DUPLICATE_WITH_DEALER_MESSAGE);
+    public void printPlayerNameDuplicateDealerNameException() {
+        System.out.print(PLAYER_NAME_DUPLICATE_DEALER_NAME_EXCEPTION_MESSAGE);
     }
 
     /**
@@ -152,13 +152,13 @@ public class Output {
      * @param playerName 베팅 머니를 입력할 Player 이름.
      */
     public void printBettingMoneyInputRequest(String playerName) {
-        System.out.println(playerName + BETTING_MONEY_REQUEST_MESSAGE);
+        System.out.println(playerName + BETTING_MONEY_INPUT_REQUEST_MESSAGE);
     }
 
     /**
      * 베팅 머니가 최소 배팅 금액보다 작아서 예외가 발생했음을 출력하는 메소드.
      */
-    public void printBettingMoneyInputError() {
+    public void printBettingMoneyInputException() {
         System.out.println(BETTING_MONEY_INPUT_EXCEPTION_MESSAGE + INPUT_REQUEST_AGAIN_MESSAGE);
     }
 
@@ -187,8 +187,8 @@ public class Output {
      * @param userName   Dealer 또는 Player의 이름.
      * @param cardStatus 현재 card 상태(Dealer는 HandOutTwoCards에서는 1장만 공개).
      */
-    public void printUserCurrentCardStatus(String userName, String cardStatus) {
-        System.out.printf(USER_CARD_STATUS_MESSAGE, userName, cardStatus);
+    public void printUserCurrentCardsStatus(String userName, String cardStatus) {
+        System.out.printf(USER_CARDS_STATUS_MESSAGE, userName, cardStatus);
         printNewLine();
     }
 
@@ -206,8 +206,8 @@ public class Output {
      *
      * @param playerName card를 받을 Player의 이름.
      */
-    public void printDrawOneMoreCardPlayer(String playerName) {
-        System.out.println(playerName + PLAYER_DRAW_ONE_MORE_CARD_MESSAGE);
+    public void printDrawOneMoreCardSelectedPlayer(String playerName) {
+        System.out.println(playerName + PLAYER_DRAW_ONE_MORE_CARD_SELECTED_PLAYER_MESSAGE);
     }
 
     /**
@@ -220,8 +220,8 @@ public class Output {
     /**
      * Dealer의 총점이 16점 이하여서 규칙에 따라 카드를 한장 뽑을 때 출력하는 메소드.
      */
-    public void printDrawMoreCardDealerAccordingToRule() {
-        System.out.println(DEALER_DRAW_MORE_CARD_ACCORDING_TO_RULE);
+    public void printDrawOneMoreCardDealerAccordingToRule() {
+        System.out.println(DRAW_ONE_MORE_CARD_DEALER_ACCORDING_TO_RULE);
     }
 
     /**
@@ -232,7 +232,7 @@ public class Output {
      * @param userScore  User의 최종 점수.
      */
     public void printUserFinalResult(String userName, String cardStatus, int userScore) {
-        System.out.printf(USER_CARD_STATUS_MESSAGE + USER_SCORE_MESSAGE, userName, cardStatus, userScore);
+        System.out.printf(USER_CARDS_STATUS_MESSAGE + USER_SCORE_MESSAGE, userName, cardStatus, userScore);
         printNewLine();
     }
 
@@ -241,7 +241,7 @@ public class Output {
      */
     public void printFinalProfitNotice() {
         printNewLine();
-        System.out.println(FINAL_PROFIT_MESSAGE);
+        System.out.println(FINAL_PROFIT_NOTICE_MESSAGE);
     }
 
     /**
@@ -250,8 +250,8 @@ public class Output {
      * @param userName Dealer 또는 Player의 이름.
      * @param profit   Dealer 또는 Player의 최종 수익.
      */
-    public void printUserFinalProfit(String userName, double profit) {
-        System.out.printf(USER_PROFIT_MESSAGE, userName, profit);
+    public void printSelectedUserFinalProfit(String userName, double profit) {
+        System.out.printf(SELECTED_USER_FINAL_PROFIT_MESSAGE, userName, profit);
         printNewLine();
     }
 

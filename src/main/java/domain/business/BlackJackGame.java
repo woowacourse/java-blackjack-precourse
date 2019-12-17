@@ -1,5 +1,5 @@
 /*
- * @(#)BlackJackGame.java       1.3 2019.12.17
+ * @(#)BlackJackGame.java       1.4 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -22,7 +22,7 @@ import java.util.List;
  * 블랙잭 게임을 진행하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.3 2019.12.17
+ * @version 1.4 2019.12.17
  */
 public class BlackJackGame {
     /**
@@ -33,12 +33,12 @@ public class BlackJackGame {
     /**
      * Player가 card를 더 받는다는 응답을 했는지 확인하기 위한 상수.
      */
-    private static final String DRAW_MORE_CARD_REPLY = "y";
+    private static final String DRAW_ONE_MORE_CARD_REPLY = "y";
 
     /**
      * 처음에 deck에서 card를 2장씩 뽑을 때 사용할 상수.
      */
-    private static final int FIRST_TWO_DRAW = 2;
+    private static final int NUMBER_OF_FIRST_DRAW = 2;
 
     /**
      * 입력과 관련된 기능을 담당할 Input 객체.
@@ -73,19 +73,22 @@ public class BlackJackGame {
     /**
      * Player의 이름과 배팅 머니로 Player를 생성하여 Player List에 추가하는 메소드.
      *
-     * @param userName     Player의 이름.
+     * @param playerName   Player의 이름.
      * @param bettingMoney Player의 배팅 머니.
      */
-    public void generatePlayer(String userName, double bettingMoney) {
-        players.add(new Player(userName, bettingMoney));
+    public void generateSelectedPlayer(String playerName, double bettingMoney) {
+        players.add(new Player(playerName, bettingMoney));
     }
 
     /**
-     * 블랙잭 게임을 시작하면서 처음 2장의 카드를 각각 뽑는 과정을 진행하는 메소드.
+     * User 객체 List를 만들고 User(Dealer 또는 Player)들에게 처음 2장의 card를 뽑게 하는 메소드.
      */
-    public void progressFirstDrawTwoCardsEachUsers() {
+    public void drawTwoCardsEachUsers() {
         integrateDealerAndPlayersIntoUsers();
-        drawTwoCardsEachUsers();
+        out.printFirstDrawTwoCards(StringUtil.joinPlayerNames(players));
+        for (User user : users) {
+            drawTwoCardsSelectedUser(user);
+        }
     }
 
     /**
@@ -97,20 +100,10 @@ public class BlackJackGame {
     }
 
     /**
-     * User(Dealer 또는 Player)들이 처음 2장의 card를 뽑는 메소드.
-     */
-    private void drawTwoCardsEachUsers() {
-        out.printFirstDrawTwoCards(StringUtil.joinPlayersName(players));
-        for (User user : users) {
-            drawTwoCardsUser(user);
-        }
-    }
-
-    /**
      * User에게 2장의 card를 뽑도록 하는 메소드.
      */
-    private void drawTwoCardsUser(User user) {
-        for (int i = 0; i < FIRST_TWO_DRAW; i++) {
+    private void drawTwoCardsSelectedUser(User user) {
+        for (int i = 0; i < NUMBER_OF_FIRST_DRAW; i++) {
             user.addCard(deck.drawCard());
         }
     }
@@ -132,10 +125,10 @@ public class BlackJackGame {
     /**
      * Dealer가 블랙잭이 아닌 경우, 현재까지의 card들을 출력하고 지정된 규칙에 따라 게임을 계속 진행하는 메소드.
      */
-    public void restartGameAccordingToRules() {
+    public void restartGameAccordingToRule() {
         printUsersCurrentCardsStatus();
-        drawMoreCardPlayers();
-        drawMoreCardDealerAccordingRule();
+        drawMoreCardsPlayers();
+        drawMoreCardsDealerAccordingToRule();
         out.printNewLine();
     }
 
@@ -144,7 +137,7 @@ public class BlackJackGame {
      */
     private void printUsersCurrentCardsStatus() {
         for (User user : users) {
-            user.printCurrentCardStatus();
+            user.printCurrentCardsStatus();
         }
         out.printNewLine();
     }
@@ -152,9 +145,9 @@ public class BlackJackGame {
     /**
      * Player들에게 card를 더 뽑을지 물어보는 메소드.
      */
-    private void drawMoreCardPlayers() {
+    private void drawMoreCardsPlayers() {
         for (Player player : players) {
-            drawMoreCardIfNotBust(player);
+            drawMoreCardsIfNotBust(player);
         }
         out.printNewLine();
     }
@@ -164,12 +157,12 @@ public class BlackJackGame {
      *
      * @param player 카드를 뽑을 수 있는 지 확인할 Player.
      */
-    private void drawMoreCardIfNotBust(Player player) {
+    private void drawMoreCardsIfNotBust(Player player) {
         if (player.isBust()) {
             out.printPlayerIsBust(player.getName());
             return;
         }
-        drawMoreCardPlayer(player);
+        drawMoreCardsSelectedPlayer(player);
     }
 
     /**
@@ -177,12 +170,12 @@ public class BlackJackGame {
      *
      * @param player card를 뽑을 Player
      */
-    private void drawMoreCardPlayer(Player player) {
-        out.printDrawOneMoreCardPlayer(player.getName());
-        if (receiveDrawOneMoreCardReply().equals(DRAW_MORE_CARD_REPLY)) {
+    private void drawMoreCardsSelectedPlayer(Player player) {
+        out.printDrawOneMoreCardSelectedPlayer(player.getName());
+        if (receiveDrawOneMoreCardReply().equals(DRAW_ONE_MORE_CARD_REPLY)) {
             player.addCard(deck.drawCard());
-            player.printCurrentCardStatus();
-            drawMoreCardIfNotBust(player);
+            player.printCurrentCardsStatus();
+            drawMoreCardsIfNotBust(player);
         }
     }
 
@@ -193,10 +186,10 @@ public class BlackJackGame {
      */
     private String receiveDrawOneMoreCardReply() {
         try {
-            String userReply = in.receivePlayerGetMoreCardInput();
+            String playerReply = in.receiveDrawOneMoreCardInput();
 
-            Validator.isValidGetMoreCardReply(userReply);
-            return userReply;
+            Validator.isValidDrawOneMoreCardReply(playerReply);
+            return playerReply;
         } catch (InputMismatchException e) {
             out.printInputRequestAgain();
             return receiveDrawOneMoreCardReply();
@@ -206,20 +199,20 @@ public class BlackJackGame {
     /**
      * Dealer의 총점이 17이 안될 경우 규칙에 따라 계속 card를 뽑도록 하는 메소드.
      */
-    private void drawMoreCardDealerAccordingRule() {
-        if (dealer.isDrawContinue()) {
-            out.printDrawMoreCardDealerAccordingToRule();
+    private void drawMoreCardsDealerAccordingToRule() {
+        if (dealer.isDealerDrawContinue()) {
+            out.printDrawOneMoreCardDealerAccordingToRule();
             dealer.addCard(deck.drawCard());
-            drawMoreCardDealerAccordingRule();
+            drawMoreCardsDealerAccordingToRule();
         }
     }
 
     /**
      * User들의 최종 card들을 출력하는 메소드.
      */
-    public void printUsersFinalCardStatus() {
+    public void printUsersFinalCardsStatus() {
         for (User user : users) {
-            user.printFinalCardStatus();
+            user.printFinalCardsStatus();
         }
     }
 
@@ -231,9 +224,9 @@ public class BlackJackGame {
         HashMap<String, Double> usersProfit = profitCalculator.calculateUsersFinalProfit();
 
         out.printFinalProfitNotice();
-        out.printUserFinalProfit(DEALER_NAME, usersProfit.get(DEALER_NAME));
+        out.printSelectedUserFinalProfit(DEALER_NAME, usersProfit.get(DEALER_NAME));
         for (Player player : players) {
-            out.printUserFinalProfit(player.getName(), usersProfit.get(player.getName()));
+            out.printSelectedUserFinalProfit(player.getName(), usersProfit.get(player.getName()));
         }
     }
 }

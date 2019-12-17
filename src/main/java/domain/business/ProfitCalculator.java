@@ -1,5 +1,5 @@
 /*
- * @(#)ProfitCalculator.java        0.2 2019.12.17
+ * @(#)ProfitCalculator.java        0.3 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -16,7 +16,7 @@ import java.util.List;
  * User들의 수익을 계산하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 0.2 2019.12.17
+ * @version 0.3 2019.12.17
  */
 public class ProfitCalculator {
     /**
@@ -67,7 +67,7 @@ public class ProfitCalculator {
     /**
      * 블랙잭 게임에 참여한 User들의 수익을 이름과 함께 저장할 HashMap.
      */
-    private HashMap<String, Double> usersProfit;
+    private HashMap<String, Double> userProfits;
 
     /**
      * 블랙잭 게임에 참여한 User들의 수익을 계산하기 위한 ProfitCalculator 매개변수 생성자.
@@ -87,16 +87,16 @@ public class ProfitCalculator {
      * 이후 Player가 얻는 수익은 Dealer가 제공한다고 가정.
      */
     private void initUsersProfit() {
-        usersProfit = new HashMap<>();
+        userProfits = new HashMap<>();
         double totalBettingMoney = INIT_TOTAL_BETTING_MONEY;
 
         for (Player player : players) {
             double playerBettingMoney = player.getBettingMoney();
 
-            usersProfit.put(player.getName(), -playerBettingMoney);
+            userProfits.put(player.getName(), -playerBettingMoney);
             totalBettingMoney += playerBettingMoney;
         }
-        usersProfit.put(DEALER_NAME, totalBettingMoney);
+        userProfits.put(DEALER_NAME, totalBettingMoney);
     }
 
     /**
@@ -106,9 +106,9 @@ public class ProfitCalculator {
      */
     public HashMap<String, Double> calculateUsersFinalProfit() {
         for (Player player : players) {
-            calculatePlayerProfit(player);
+            calculateSelectedPlayerProfit(player);
         }
-        return usersProfit;
+        return userProfits;
     }
 
     /**
@@ -116,12 +116,12 @@ public class ProfitCalculator {
      *
      * @param player 수익을 계산할 Player.
      */
-    private void calculatePlayerProfit(Player player) {
+    private void calculateSelectedPlayerProfit(Player player) {
         if (player.isBlackJack()) {
-            calculatePlayerBlackJack(player);
+            calculateSelectedPlayerIsBlackJack(player);
             return;
         }
-        calculatePlayerNotBlackJack(player);
+        calculateSelectedPlayerIsNotBlackJack(player);
     }
 
     /**
@@ -129,12 +129,12 @@ public class ProfitCalculator {
      *
      * @param player 블랙잭인지 확인할 Player.
      */
-    private void calculatePlayerBlackJack(Player player) {
+    private void calculateSelectedPlayerIsBlackJack(Player player) {
         if (dealer.isBlackJack()) {
-            setPlayerProfitByEarningRate(player, DRAW_EARNING_RATE);
+            setSelectedPlayerProfitByEarningRate(player, DRAW_EARNING_RATE);
             return;
         }
-        setPlayerProfitByEarningRate(player, BLACK_JACK_EARNING_RATE);
+        setSelectedPlayerProfitByEarningRate(player, BLACK_JACK_EARNING_RATE);
     }
 
     /**
@@ -142,17 +142,17 @@ public class ProfitCalculator {
      *
      * @param player 수익을 계산할 Player.
      */
-    private void calculatePlayerNotBlackJack(Player player) {
-        int playerResultOfGame = getResultOfGame(player);
+    private void calculateSelectedPlayerIsNotBlackJack(Player player) {
+        int playerResultOfGame = getGameResultOfSelectedPlayer(player);
 
         if (player.isBust() || dealer.isBlackJack() || (!dealer.isBust() && (playerResultOfGame == PLAYER_LOSE))) {
             return;
         }
         if (dealer.isBust() || (playerResultOfGame == PLAYER_WIN)) {
-            setPlayerProfitByEarningRate(player, WIN_EARNING_RATE);
+            setSelectedPlayerProfitByEarningRate(player, WIN_EARNING_RATE);
             return;
         }
-        setPlayerProfitByEarningRate(player, DRAW_EARNING_RATE);
+        setSelectedPlayerProfitByEarningRate(player, DRAW_EARNING_RATE);
     }
 
     /**
@@ -161,7 +161,7 @@ public class ProfitCalculator {
      * @param player Dealer와 총점를 비교할 Player.
      * @return Player의 총점이 더 큰 경우 1, 무승부일 경우 0, 더 작을 경우 -1을 반환.
      */
-    private int getResultOfGame(Player player) {
+    private int getGameResultOfSelectedPlayer(Player player) {
         return Integer.compare(player.getScore(), dealer.getScore());
     }
 
@@ -171,10 +171,10 @@ public class ProfitCalculator {
      * @param player      수익을 계산할 Player.
      * @param earningRate Player가 얻을 수익률.
      */
-    private void setPlayerProfitByEarningRate(Player player, double earningRate) {
+    private void setSelectedPlayerProfitByEarningRate(Player player, double earningRate) {
         double playerProfit = player.getBettingMoney() * earningRate;
 
-        usersProfit.put(player.getName(), usersProfit.get(player.getName()) + playerProfit);
-        usersProfit.put(DEALER_NAME, usersProfit.get(DEALER_NAME) - playerProfit);
+        userProfits.put(player.getName(), userProfits.get(player.getName()) + playerProfit);
+        userProfits.put(DEALER_NAME, userProfits.get(DEALER_NAME) - playerProfit);
     }
 }

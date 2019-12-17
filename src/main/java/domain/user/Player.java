@@ -1,5 +1,5 @@
 /*
- * @(#)Player.java      1.2 2019.12.17
+ * @(#)Player.java      1.3 2019.12.17
  *
  * Copyright (c) 2019 lxxjn0
  */
@@ -12,7 +12,7 @@ import domain.business.StringUtil;
  * 게임 참여자를 의미하는 객체.
  *
  * @author JUNYOUNG LEE (lxxjn0)
- * @version 1.2 2019.12.17
+ * @version 1.3 2019.12.17
  */
 public class Player extends User {
     /**
@@ -40,16 +40,16 @@ public class Player extends User {
      * Player의 현재 card를 출력하는 메소드.
      */
     @Override
-    public void printCurrentCardStatus() {
-        out.printUserCurrentCardStatus(name, StringUtil.joinCardsName(cards));
+    public void printCurrentCardsStatus() {
+        out.printUserCurrentCardsStatus(name, StringUtil.joinCards(cards));
     }
 
     /**
      * Player의 최종 card와 총점을 출력하는 메소드.
      */
     @Override
-    public void printFinalCardStatus() {
-        out.printUserFinalResult(name, StringUtil.joinCardsName(cards), getScore());
+    public void printFinalCardsStatus() {
+        out.printUserFinalResult(name, StringUtil.joinCards(cards), getScore());
     }
 
     /**
