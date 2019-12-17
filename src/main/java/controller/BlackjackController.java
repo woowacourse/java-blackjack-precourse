@@ -13,6 +13,7 @@ import domain.user.Player;
 
 public class BlackjackController {
 	public static final int BLACKJACK = 21;
+	public static final int DEALER_ADD_POINT = 16;
 	public static final int ACE_TERM = 10;
 	public static final int ZERO = 0;
 
@@ -22,7 +23,7 @@ public class BlackjackController {
 	private List<BlackjackMember> entry;
 
 	public BlackjackController(List<Player> players) {
-		this.cards = new ArrayList<>();
+		this.cards = initCards();
 		this.entry = new ArrayList<>();
 		this.players = players;
 		this.dealer = new Dealer();
@@ -30,7 +31,7 @@ public class BlackjackController {
 		entry.addAll(players);
 	}
 
-	private List<Card> initCards() {
+	public List<Card> initCards() {
 		List<Card> cards = new ArrayList<>();
 
 		for (Card card : CardFactory.create()) {
@@ -40,13 +41,17 @@ public class BlackjackController {
 		return cards;
 	}
 
-	private void firstServe() {
+	public void firstServe() {
 		for (BlackjackMember blackjackMember : entry) {
 			blackjackMember.addCard(cards.remove(ZERO));
 		}
 
 		printFirstServeMessage(entry);
 		printAllStatus(entry);
+	}
+
+	private void checkDeck() {
+
 	}
 
 

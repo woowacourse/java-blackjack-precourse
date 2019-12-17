@@ -9,7 +9,8 @@ import domain.card.Card;
 import domain.user.BlackjackMember;
 
 public class OutputView {
-	private static final String FIRST_SERVE = "에게 2장을 나었습니다.";
+	private static final String FIRST_SERVE = "에게 2장을 나누었습니다.";
+	private static final String SPACE = " ";
 
 	public static void printFirstServeMessage(List<BlackjackMember> blackjackMembers) {
 		List<String> names = new ArrayList<>();
@@ -27,8 +28,7 @@ public class OutputView {
 	}
 
 	public static void printMemberStatus(BlackjackMember blackjackMember) {
-		System.out.print(blackjackMember.getName());
-		System.out.println(deckToString(blackjackMember));
+		System.out.println(blackjackMember.getName() + SPACE + deckToString(blackjackMember));
 	}
 
 	private static String deckToString(BlackjackMember blackjackMember) {
