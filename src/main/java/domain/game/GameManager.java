@@ -131,7 +131,7 @@ public class GameManager {
     private int getWinnerScore() {
         int winnerScore;
 
-        winnerScore = getBiggerValue(dealer.getScore(), getPlayersMaxScore());
+        winnerScore = getBiggerValueUnderBlackJack(dealer.getScore(), getPlayersMaxScore());
         return winnerScore;
     }
 
@@ -139,12 +139,19 @@ public class GameManager {
         int playerMaxScore = -1;
 
         for (Player player : players) {
-            playerMaxScore = getBiggerValue(playerMaxScore, player.getScore());
+            playerMaxScore = getBiggerValueUnderBlackJack(playerMaxScore, player.getScore());
         }
         return playerMaxScore;
     }
 
-    private int getBiggerValue(int input1, int input2) {
+    private int getBiggerValueUnderBlackJack(int input1, int input2) {
+        if (input1 > BLACK_JACK) {
+            input1 = -1;
+        }
+        if (input2 > BLACK_JACK) {
+            input2 = -1;
+        }
+
         if (input1 > input2) {
             return input1;
         }

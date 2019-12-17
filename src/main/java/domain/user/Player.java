@@ -26,10 +26,6 @@ public class Player {
     public int getScore() {
         int score = getCardsPoint();
 
-        if (score > GameManager.BLACK_JACK) {
-            return GameManager.OVERFLOW;
-        }
-
         if (cardsContainsAce() && ((score+10) <= GameManager.BLACK_JACK)) {
             score += 10;
         }
