@@ -31,7 +31,7 @@ public class Main {
     }
     private static int getBettingMoney(String name) {
         try {
-            System.out.println(name + "의 배팅 금액은?");
+            printMessage(name + "의 배팅 금액은?");
             return UserInput.inputBettingMoney();
         } catch (IllegalArgumentException e) {
             printMessage("다시 입력해 주세요.");

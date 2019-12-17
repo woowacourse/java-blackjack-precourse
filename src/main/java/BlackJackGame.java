@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static view.ConsoleOutput.printMessage;
+
 /**
  * BlackJackGame.java
  * 본 게임이 실행되는 Controller 클래스
@@ -17,7 +19,6 @@ import java.util.List;
  * Original code https://github.com/hotheadfactory/java-blackjack-precourse
  * Version: v0.0.1, 2019.12.16 (c) 정회형
  */
-import static view.ConsoleOutput.printMessage;
 
 public class BlackJackGame {
     private final int START_DRAW = 2;

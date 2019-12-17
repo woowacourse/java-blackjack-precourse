@@ -19,6 +19,7 @@ public abstract class Person {
     public void addCard(Card card) {
         cards.add(card);
     }
+
     public abstract String getCardString();
 
     public abstract String getFinalCardString();

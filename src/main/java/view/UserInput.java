@@ -1,6 +1,9 @@
 package view;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
 /**
  * UserInput.java
  * 모든 사용자 입력들
@@ -14,7 +17,7 @@ public class UserInput {
     public static List<String> inputPlayersName() {
         System.out.println("게임에 참여할 사람의 이름을 입력하세요.(최대 8명, 쉼표 기준으로 분리)");
         String playersName = SCANNER.nextLine();
-        if(playersName.equals("")) {
+        if (playersName.equals("")) {
             throw new IllegalArgumentException("이름은 비워둘 수 없습니다!");
         }
         return splitPlayersName(playersName);
@@ -22,10 +25,10 @@ public class UserInput {
 
     private static List<String> splitPlayersName(String playerString) {
         List<String> playersName = Arrays.asList(playerString.trim().replace(" ", "").split(","));
-        if(playersName.contains("")) {
+        if (playersName.contains("")) {
             throw new IllegalArgumentException("입력받은 이름 중 공백이 있습니다!\n");
         }
-        if(playersName.size() < 2 || playersName.size() > 8) {
+        if (playersName.size() < 2 || playersName.size() > 8) {
             throw new IllegalArgumentException("최소 2명 최대 8명의 플레이어여야 합니다.\n");
         }
         return playersName;
@@ -33,7 +36,7 @@ public class UserInput {
 
     public static int inputBettingMoney() {
         int bettingMoney = Integer.parseInt(SCANNER.nextLine());
-        if(bettingMoney <= 0) {
+        if (bettingMoney <= 0) {
             throw new IllegalArgumentException();
         }
         return bettingMoney;
