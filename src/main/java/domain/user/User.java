@@ -26,6 +26,7 @@ abstract public class User {
         cards.add(deck.getCard());
     }
     public abstract void addCardIfWant(Deck deck);
+    public abstract boolean canGetCard();
 
     public String toStringCards() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -33,6 +34,14 @@ abstract public class User {
             stringBuilder.append("\t"+card.toString());
         }
         return stringBuilder.toString();
+    }
+
+    public boolean isBlackJack() {
+        return this.getScore() == GameRule.BLACKJACK && cards.size() == 2;
+    }
+
+    public boolean isBust() {
+        return getScore() > GameRule.BUST;
     }
 
     public int getScore() {
@@ -52,7 +61,7 @@ abstract public class User {
     }
 
     private int determineAceValue(int score) {
-        if((score + GameRule.ACE_VALUE_ELEVEN) < GameRule.BUST) {
+        if((score + GameRule.ACE_VALUE_ELEVEN) <= GameRule.BUST) {
             return GameRule.ACE_VALUE_ELEVEN;
         }
         return GameRule.ACE_VALUE_ONE;

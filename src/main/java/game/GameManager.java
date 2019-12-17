@@ -36,6 +36,7 @@ public class GameManager {
         showCards();
         giveMoreCard();
         showCards();
+        showUserProfits();
     }
 
     private void initPlayer() {
@@ -66,5 +67,27 @@ public class GameManager {
         for (User user : userList) {
             user.addCardIfWant(deck);
         }
+    }
+
+    private void showUserProfits() {
+        int dealerIndex = userList.size() - 1;
+        User dealer = userList.get(dealerIndex);
+        int dealerScore = getDealerScore(dealer);
+        double dealerProfit = 0;
+        for (int i=0; i<dealerIndex; i++) {
+            Player player = (Player)userList.get(i);
+            double profit = player.getProfit(dealerScore);
+            System.out.println(player.getName() + " : " + profit);
+            dealerProfit -= profit;
+        }
+        System.out.println("dealer : " + dealerProfit);
+    }
+
+    private int getDealerScore(User dealer) {
+        int dealerScore = 0;
+        if(!dealer.isBust()) {
+            dealerScore = dealer.getScore();
+        }
+        return dealerScore;
     }
 }

@@ -6,4 +6,5 @@ public class GameRule {
     public static final int ACE_VALUE_ELEVEN = 11;
     public static final int BLACKJACK = 21;
     public static final int BUST = 21;
+    public static final int DEALER_HIT_LIMIT = 17;
 }

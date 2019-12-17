@@ -14,6 +14,7 @@
 package domain.user;
 
 import domain.card.Deck;
+import util.GameRule;
 import util.Message;
 
 public class Dealer extends User {
@@ -21,12 +22,17 @@ public class Dealer extends User {
 
     @Override
     public void addCardIfWant(Deck deck) {
-        while (getScore() < 17) {
+        while (canGetCard()) {
             System.out.println(Message.MESSAGE_DEALER_GET_CARD.getMessage());
             addCard(deck);
             System.out.println(toStringCards());
         }
         System.out.println(Message.MESSAGE_DEALER_DONT_GET_CARD.getMessage());
+    }
+
+    @Override
+    public boolean canGetCard() {
+        return getScore() < GameRule.DEALER_HIT_LIMIT;
     }
 
     @Override
