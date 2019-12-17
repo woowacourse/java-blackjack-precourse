@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OutputView {
-    public static void printDistributeMessage(List<Player> playerList) {
+    public static void printInitDistributionMessage(List<Player> playerList) {
         StringBuilder sb = new StringBuilder();
         List<String> playerNameList = playerList.stream()
                 .map(p -> p.getName())
@@ -25,5 +25,9 @@ public class OutputView {
 
     public static void printCardStatus(Player player) {
         System.out.println(player.getName() + " : " + player.toString());
+    }
+
+    public static void printDealerGetCardMessage() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 }

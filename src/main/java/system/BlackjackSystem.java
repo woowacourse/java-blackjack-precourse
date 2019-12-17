@@ -27,6 +27,7 @@ public class BlackjackSystem {
         setGame();
         distributeCard();
         printInitStatus();
+        getCardDealerIfAvailable();
         for (Player p : playerList) {
             AskPlayerToGetCard(p);
         }
@@ -85,10 +86,17 @@ public class BlackjackSystem {
     }
 
     private void printInitStatus() {
-        OutputView.printDistributeMessage(playerList);
+        OutputView.printInitDistributionMessage(playerList);
         OutputView.printCardStatus(dealer);
         for (Player p : playerList) {
             OutputView.printCardStatus(p);
+        }
+    }
+
+    private void getCardDealerIfAvailable() {
+        while (isAvailableGetCard(dealer)) {
+            giveCard(dealer);
+            OutputView.printDealerGetCardMessage();
         }
     }
 
@@ -101,6 +109,10 @@ public class BlackjackSystem {
 
     private boolean isAvailableGetCard(Player p) {
         return p.isSumUnderCondition(PLAYER_GET_CARD_CONDITION) && answer == 'y';
+    }
+
+    private boolean isAvailableGetCard(Dealer d) {
+        return d.isSumUnderCondition(DEALER_GET_CARD_CONDITION);
     }
 
     private void choiceGetCard(Player player) {
