@@ -10,6 +10,9 @@ import java.util.List;
  */
 public class Player extends Dealer {
 	private static final int MAXIMUM_SCORE = 21;
+	private static final double DEFEAT_RATE = -1;
+	private static final double BLACKJACK_WIN_RATE = 1.5;
+	private static final double DRAW = 0;
 
 	private final String name;
 	private final double bettingMoney;
@@ -21,6 +24,32 @@ public class Player extends Dealer {
 	}
 
 	// TODO 추가 기능 구현
+	public double getReturn(Dealer dealer) {
+		if (isDefeat(dealer)) {
+			return bettingMoney * DEFEAT_RATE;
+		}
+		if (isBlackjackWin(dealer)) {
+			return bettingMoney * BLACKJACK_WIN_RATE;
+		}
+		if (isWin(dealer)) {
+			return bettingMoney;
+		}
+		return DRAW;
+	}
+
+	private boolean isDefeat(Dealer dealer) {
+		return ((dealer.isBlackjack() && !this.isBlackjack()) || this.isBurst()
+			|| ((dealer.getTotalScore() > this.getTotalScore()) && !dealer.isBurst()));
+	}
+
+	private boolean isBlackjackWin(Dealer dealer) {
+		return !dealer.isBlackjack() && this.isBlackjack();
+	}
+
+	private boolean isWin(Dealer dealer) {
+		return dealer.isBurst() || (dealer.getTotalScore() < this.getTotalScore());
+	}
+
 	@Override
 	public String getName() {
 		return name;
