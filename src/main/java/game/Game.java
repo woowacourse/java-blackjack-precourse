@@ -57,8 +57,17 @@ public class Game {
 
     private double initBattingMoney(String name) {
         String battingMoneyFromUser = GameInputScanner.askBattingMoney(name);
+        validateBattingMoney(battingMoneyFromUser);
         System.out.println();
         return Double.parseDouble(battingMoneyFromUser);
+    }
+
+    private void validateBattingMoney(String battingMoneyFromUser) {
+        try {
+            Double.parseDouble(battingMoneyFromUser);
+        } catch (NumberFormatException ne) {
+            throw new InvalidException(InvalidException.NOT_A_NUMBER_BETTING_EXCEPTION);
+        }
     }
 
     private void runGame(Dealer dealer, List<Player> players, Deck deck) {
