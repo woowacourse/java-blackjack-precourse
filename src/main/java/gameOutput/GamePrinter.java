@@ -13,8 +13,6 @@ public class GamePrinter {
 
     private static final String STATUS_FORMATTED_STRING = "%s 카드: %s";
     private static final String RESULT_FORMATTED_STRING = "%s 카드: %s - 결과: %d";
-    private static final String DEALER_STATUS_FORMATTED_STRING = "딜러 카드: %s";
-    private static final String DEALER_RESULT_FORMATTED_STRING = "딜러 카드: %s - 결과: %d";
     private static final int DEALER_OPEN_CARD_INDEX = 0;
 
     public static void printStatus(Dealer dealer, List<Player> players) {
