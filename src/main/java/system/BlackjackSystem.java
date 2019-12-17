@@ -7,31 +7,34 @@ import domain.user.Player;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class BlackjackSystem {
     private static int CARD_COUNT = 52;
     private static int DISTRIBUTE_CARD_COUNT = 2;
     private static int DEALER_GET_CARD_CONDITION = 16;
     private static int PLAYER_GET_CARD_CONDITION = 21;
+    private static int BUST_CONDITION = 21;
 
     private List<Player> playerList = new ArrayList<>();
     private List<Card> cardList = new ArrayList<>();
     private Dealer dealer = new Dealer();
     private int remainCardMount = CARD_COUNT;
     private char answer;
+    private int dealerMoney = 0;
+    private HashMap<String, Integer> resultMoney = new HashMap<>();
 
     public void run() {
         setGame();
         distributeCard();
         printInitStatus();
-        getCardDealerIfAvailable();
         for (Player p : playerList) {
             AskPlayerToGetCard(p);
         }
+        getCardDealerIfAvailable();
         printResultStatus();
+        setResultMoney();
+        printResultMoney();
     }
 
     private void setGame() {
@@ -107,6 +110,7 @@ public class BlackjackSystem {
         while (isAvailableGetCard(player)) {
             choiceGetCard(player);
         }
+        System.out.println();
     }
 
     private boolean isAvailableGetCard(Player p) {
@@ -128,6 +132,30 @@ public class BlackjackSystem {
         OutputView.printResultStatus(dealer);
         for (Player player : playerList) {
             OutputView.printResultStatus(player);
+        }
+    }
+
+    private void setResultMoney() {
+        if (isDealerBust()) {
+            rewardAllPlayer();
+            return;
+        }
+    }
+
+    private boolean isDealerBust() {
+        return dealer.getSumScore() > BUST_CONDITION;
+    }
+
+    private void rewardAllPlayer() {
+        for (Player player : playerList) {
+            resultMoney.put(player.getName(), (int) player.getBettingMoney());
+        }
+    }
+
+    private void printResultMoney() {
+        OutputView.printResultMoney(dealerMoney);
+        for (Map.Entry<String, Integer> e : resultMoney.entrySet()) {
+            OutputView.printResultMoney(e.getKey(), e.getValue());
         }
     }
 }
