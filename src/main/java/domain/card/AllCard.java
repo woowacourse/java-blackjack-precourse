@@ -1,16 +1,29 @@
 package domain.card;
 
-import java.util.Collections;
+import java.util.Queue;
 import java.util.List;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
-public class AllCard {
-    private static final List<Card> cards = CardFactory.create();
+class AllCard {
+    private static final Queue<Card> shuffledCards
+            = AllCard.initShuffledCards();
 
-    public static List<Card> getCards() {
-        return Collections.unmodifiableList(cards);
+    private static Queue<Card> initShuffledCards() {
+        List<Card> cards = CardFactory.create();
+        Collections.shuffle(cards);
+        return new LinkedList<>(cards);
     }
 
-    public static void remove(Card card) {
-        cards.remove(card);
+    public static Card pick() {
+        checkEmpty();
+        return shuffledCards.poll();
+    }
+
+    private static void checkEmpty() {
+        if (shuffledCards.isEmpty()) {
+            throw new NoSuchElementException();
+        }
     }
 }
