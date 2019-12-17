@@ -15,6 +15,10 @@ public class PlayerList {
         this.playerList.add(player);
     }
 
+    public Player getPlayer(int playerNumber) {
+        return playerList.get(playerNumber);
+    }
+
     public String toStringNames() {
         List<String> players = new ArrayList<String>();
         for (Player player : playerList) {

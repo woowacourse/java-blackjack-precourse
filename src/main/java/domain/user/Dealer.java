@@ -17,5 +17,9 @@ public class Dealer {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    @Override
+    public String toString() {
+        return "딜러 카드: " + cards;
+    }
+
 }
