@@ -6,16 +6,17 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
+    private static final String OPEN_BRACE = "[";
+    private static final String SPACE = " ";
+    private static final String CLOSE_BRACE = "]";
+    
     private final Symbol symbol;
-
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
     }
-
-    // TODO Card 관련 추가 기능 구현
 
     @Override
     public boolean equals(Object o) {
@@ -33,9 +34,14 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return OPEN_BRACE + symbol + SPACE + type + CLOSE_BRACE;
+    }
+    
+    public Symbol getSymbol() {
+        return this.symbol;
+    }
+    
+    public Type getType() {
+        return this.type;
     }
 }
