@@ -54,23 +54,31 @@ public class Rule {
         return dealerProfit;
     }
 
-    private static boolean getIsBlackJack(User user) {
+    public static double getPlayerProfit(Dealer dealer, Player player) {
+        int dealerScore = getScore(dealer.showCards());
+        int playerScore = getScore(player.showCards());
+        if (dealerScore == BURST_SCORE || isBlackJack(dealer) || isBlackJack(player)) {
+            return calculateProfitInAbnormalCase(dealer, dealerScore, player);
+        }
+        return calculateProfit(player, playerScore, dealerScore);
+    }
+
+    private static boolean isBlackJack(User user) {
         int userScore = getScore(user.showCards());
         return userScore == BLACKJACK_SCORE && user.showCards().size() == FIRST_PLAYER_CARD_COUNTS;
     }
 
-    public static double getPlayerProfit(Dealer dealer, Player player) {
-        int dealerScore = getScore(dealer.showCards());
-        int playerScore = getScore(player.showCards());
+    private static double calculateProfitInAbnormalCase(Dealer dealer, int dealerScore, Player player) {
         if (dealerScore == BURST_SCORE) {
-            return getProfitInDealerBurst(player);
+            return calculateProfitInDealerBurst(player);
         }
-        if (getIsBlackJack(dealer)) {
-            return getProfitInBlackJack(player);
+        if (isBlackJack(dealer)) {
+            return calculateProfitInBlackJack(player);
         }
-        if (getIsBlackJack(player)) {
-            return player.getResultProfit(BLACKJACK_MONEY_RATIO);
-        }
+        return calculateProfitInBlackJack(player);
+    }
+
+    private static double calculateProfit(Player player, int playerScore, int dealerScore) {
         if (playerScore > dealerScore) {
             return player.getResultProfit(WINNING_MONEY_RATIO);
         }
@@ -80,20 +88,20 @@ public class Rule {
         return player.getResultProfit(LOSING_MONEY_RATIO);
     }
 
-    private static double getProfitInBlackJack(Player player) {
-        if (getIsBlackJack(player)) {
-            return 0.0;
-        }
-        return player.getResultProfit(LOSING_MONEY_RATIO);
-    }
-
-    private static double getProfitInDealerBurst(Player player) {
-        if (getIsBlackJack(player)) {
+    private static double calculateProfitInDealerBurst(Player player) {
+        if (isBlackJack(player)) {
             return player.getResultProfit(BLACKJACK_MONEY_RATIO);
         }
         if (getScore(player.showCards()) == BURST_SCORE) {
             return player.getResultProfit(LOSING_MONEY_RATIO);
         }
         return player.getResultProfit(WINNING_MONEY_RATIO);
+    }
+
+    private static double calculateProfitInBlackJack(Player player) {
+        if (isBlackJack(player)) {
+            return 0.0;
+        }
+        return player.getResultProfit(LOSING_MONEY_RATIO);
     }
 }
