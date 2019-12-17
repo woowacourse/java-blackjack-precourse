@@ -45,4 +45,18 @@ public class GameManager {
 		printResult();
 	}
 
+	public void printResult() {
+		int i = 0;
+		for (Player player : players) {
+			System.out.print(player.getName() + ": ");
+			printPlayerCard(player);
+			System.out.print("-°á°ú:");
+			System.out.println(printCardResult(player, i));
+			i++;
+		}
+		checkWinnerScore();
+		printDealer();
+	}
+
+
 }
