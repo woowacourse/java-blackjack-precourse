@@ -53,8 +53,12 @@ public class BlackjackRule {
     gameResult.printIncomes();
   }
 
+  // TODO : 2depth
   void judgeWinOrLose(Dealer dealer, List<Player> players) {
     for (Player player : players) {
+      if (player.isBust()) {
+        continue;
+      }
       if (dealer.getCurrentScore() < player.getCurrentScore()) {
         gameResult.playerWin(dealer, player);
       }
