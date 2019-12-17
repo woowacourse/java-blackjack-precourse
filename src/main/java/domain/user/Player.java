@@ -24,7 +24,7 @@ public class Player extends Gambler {
 
 	// TODO 추가 기능 구현
 	@Override
-	public List<Card> getCards() {
+	protected List<Card> getCards() {
 		return cards;
 	}
 
