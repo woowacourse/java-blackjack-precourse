@@ -23,36 +23,40 @@ import view.OutputView;
 public class GameManager {
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
+    private List<User> playerList;
+    private Deck deck;
 
-    private List<User> initPlayer() {
+    public GameManager() {
+        playerList = new ArrayList<>();
+        deck = new Deck();
+    }
+
+    public void play() {
+        initPlayer();
+        giveCardAtFirst();
+        showCards();
+    }
+
+    private void initPlayer() {
         List<String> playerName = inputView.getPlayerName();
-        List<User> playerList = new ArrayList<>();
-        Dealer dealer = new Dealer();
         for (String name : playerName) {
             int money = inputView.getBettingMoney(name);
             playerList.add(new Player(name,money));
         }
+        Dealer dealer = new Dealer();
         playerList.add(dealer);
-        return playerList;
     }
 
-    private void giveCardAtFirst(List<User> playerList, Deck deck) {
+    private void giveCardAtFirst() {
         for (User player : playerList) {
             player.addCard(deck);
             player.addCard(deck);
         }
     }
 
-    private void showCards(List<User> playerList) {
+    private void showCards() {
         for (User player : playerList) {
             outputView.printCards(player);
         }
-    }
-
-    public void play() {
-        List<User> playerList = initPlayer();    // 플레이어들과 딜러를 담고 있는 list
-        Deck deck = new Deck();
-        giveCardAtFirst(playerList, deck);
-        showCards(playerList);
     }
 }
