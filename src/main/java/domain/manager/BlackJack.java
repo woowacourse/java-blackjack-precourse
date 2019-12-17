@@ -7,6 +7,7 @@ import domain.card.*;
 import domain.user.*;
 
 public class BlackJack {
+
     private Dealer dealer;
     private List<Player> user;
     private Deck deck;
@@ -20,11 +21,22 @@ public class BlackJack {
     }
 
     public void start() {
+        System.out.println("딜러와 " + String.join(",", getPlayerNameList()) + "에게 카드를 2장씩 분배합니다.");
         for (Player player : user) {
             player.addCard(deck.draw());
             player.addCard(deck.draw());
             player.showCards();
         }
+    }
+
+    public List<String> getPlayerNameList() {
+        List<String> playerNameList = new ArrayList<>();
+
+        for (Player player : user) {
+            playerNameList.add(player.getName());
+        }
+
+        return playerNameList;
     }
 
     public static void main(String[] args) {
