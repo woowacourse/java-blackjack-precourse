@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import exception.InvalidException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +11,20 @@ import java.util.List;
  */
 public class Player extends User {
 
+    private static final double MINIMUM_BETTINGMONEY = 0d;
+
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
-        this.name = name;
+        if (name.isEmpty()) {
+            throw new InvalidException(InvalidException.PLAYER_NAME_EMPTY_EXCEPTION);
+        }
+        if (bettingMoney <= MINIMUM_BETTINGMONEY) {
+            throw new InvalidException(InvalidException.NEGATIVE_BETTING_EXCEPTION);
+        }
+        this.name = name.trim();
         this.bettingMoney = bettingMoney;
     }
 
