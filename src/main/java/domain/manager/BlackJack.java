@@ -21,7 +21,7 @@ public class BlackJack {
     }
 
     public void start() {
-        System.out.println("딜러와 " + String.join(",", getPlayerNameList()) + "에게 카드를 2장씩 분배합니다.");
+        System.out.println("딜러와 " + getPlayerNameList() + "에게 카드를 2장씩 분배합니다.");
         for (Player player : user) {
             player.addCard(deck.draw());
             player.addCard(deck.draw());
@@ -29,14 +29,14 @@ public class BlackJack {
         }
     }
 
-    public List<String> getPlayerNameList() {
+    public String getPlayerNameList() {
         List<String> playerNameList = new ArrayList<>();
 
         for (Player player : user) {
             playerNameList.add(player.getName());
         }
 
-        return playerNameList;
+        return String.join(",", playerNameList);
     }
 
     public static void main(String[] args) {
