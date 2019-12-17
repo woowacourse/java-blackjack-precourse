@@ -111,7 +111,7 @@ public class Result {
             if(value == 22){
                 totalBetMoney -= 2.5 * p.getBettingMoney();
                 p.setResultMoney(1.5 * p.getBettingMoney());
-            }else if(value > dealerValue){
+            }else if(value > dealerValue || dealerValue == 0){
                 totalBetMoney -= 2 * p.getBettingMoney();
                 p.setResultMoney(p.getBettingMoney());
             }else{
