@@ -133,7 +133,7 @@ public class BlackjackGame {
 
 	private void showProfits() {
 		Result result = new Result(dealer, players);
-		List<Profit> profits = result.getProfitsByBlackJackDealer();
+		List<Profit> profits = result.getProfits();
 		OutputView.showProfits(profits);
 	}
 }

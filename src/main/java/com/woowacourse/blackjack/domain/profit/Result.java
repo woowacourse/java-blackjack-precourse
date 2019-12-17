@@ -24,7 +24,7 @@ public class Result {
 		this.players = Objects.requireNonNull(players);
 	}
 
-	public List<Profit> getProfitsByBlackJackDealer() {
+	public List<Profit> getProfits() {
 		List<Profit> profits = getPlayerProfits();
 		Profit dealerProfit = getDealerProfit(profits);
 		profits.add(0, dealerProfit);
