@@ -2,16 +2,17 @@ package domain.user;
 
 import domain.card.Card;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class GameManager {
-    private PlayerManager playerManager;
+    private ArrayList<Player> players;
     private Dealer dealer;
     private Stack<Card> deck;
 
-    public GameManager(PlayerManager playerManager, Dealer dealer, Stack<Card> deck) {
-        this.playerManager = playerManager;
+    public GameManager(ArrayList<Player> players, Dealer dealer, Stack<Card> deck) {
+        this.players = players;
         this.dealer = dealer;
         this.deck = deck;
     }
@@ -21,16 +22,41 @@ public class GameManager {
     }
 
     private Card popDeck() {
-        Card pulled;
+        Card poped;
         if (deck.isEmpty()) {
             return null;
         }
-        pulled = deck.pop();
+        poped = deck.pop();
 
-        return pulled;
+        return poped;
     }
 
-    public void offerCardToPlayer(int index) {
+    public void offerCardToAll() {
+        Card poped;
+        for (Player player: players) {
+            poped = popDeck();
+            player.addCard(poped);
+        }
+        poped = popDeck();
+        dealer.addCard(poped);
+    }
 
+    private void offerCardToPlayer(int index) {
+        Card poped = popDeck();
+        players.get(index).addCard(poped);
+    }
+
+    private void offerCardToDealer() {
+        Card poped = popDeck();
+        dealer.addCard(poped);
+    }
+
+    public String bettingInfos() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Player player: players) {
+            stringBuilder.append(player.bettingInfo());
+            stringBuilder.append('\n');
+        }
+        return stringBuilder.toString();
     }
 }

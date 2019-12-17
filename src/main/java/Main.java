@@ -3,7 +3,6 @@ import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.GameManager;
 import domain.user.Player;
-import domain.user.PlayerManager;
 
 import java.util.*;
 
@@ -13,18 +12,17 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Stack<Card> cards = CardFactory.provideShuffledCards();
         ArrayList<Player> players = initPlayersWithInput(scanner);
-        PlayerManager playerManager = new PlayerManager();
         Dealer dealer = new Dealer();
 
-        playerManager.addAll(players);
-        gameManager = new GameManager(playerManager, dealer, cards);
+        gameManager = new GameManager(players, dealer, cards);
+        gameManager.offerCardToAll();
 
         /* Debug */
         for (Card card: cards) {
             System.out.println(card.toString());
         }
 
-        System.out.println(playerManager.bettingInfos());
+        System.out.println(gameManager.bettingInfos());
     }
 
     public static ArrayList<Player> initPlayersWithInput(Scanner scanner) {
