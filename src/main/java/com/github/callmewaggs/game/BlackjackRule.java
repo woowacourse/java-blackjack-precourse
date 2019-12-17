@@ -97,5 +97,6 @@ public class BlackjackRule {
 
   void whenPlayerIsBlackjack(Dealer dealer, Player player) {
     gameResult.playersBlackjack(dealer, player);
+    IOHelper.printBlackjackMessage(player.getName());
   }
 }

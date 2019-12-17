@@ -91,4 +91,8 @@ public class IOHelper {
   static void printNameAndIncome(Map<String, Double> participantsIncome) {
     participantsIncome.forEach((name, income) -> printMessage(name + " : " + income));
   }
+
+  static void printBlackjackMessage(String name) {
+    printMessage(name + "은/는 블랙잭입니다!!!");
+  }
 }
