@@ -81,24 +81,9 @@ public class GameResult {
             return;
         }
 
-        decideWinnerFromMaxOfScore();
-    }
-
-    private void decideWinnerFromMaxOfScore() {
-        int maxOfScore = getMaxOfScore();
-        List<User> winners = getWinners(maxOfScore);
-
-        if (winners.isEmpty()) {
-            handleUsersWhenDealerIsMaxOfScore();
-            return;
-        }
-
-        if (dealer.isScore(maxOfScore)) {
-            isInvalid();
-            return;
-        }
-
-        handleUsersWhenPlayersAreWinners(winners);
+        List<User> winners = getWinners();
+        List<User> tiebreakers = getTiebreakers();
+        handleUsersWhenGameIsFinished(winners, tiebreakers);
     }
 
     private void handleUsersWhenPlayersAreBust(List<User> bustPlayers) {
@@ -109,29 +94,21 @@ public class GameResult {
         handleDealer(dealer, dealerProfit);
     }
 
-    private int getMaxOfScore() {
-        Stream<User> dealerStream = Stream.of(dealer);
-        Stream<User> playersSteam = players.stream();
-        Stream<User> usersStream = Stream.concat(playersSteam, dealerStream);
-
-        return usersStream.mapToInt(player -> player.getScoreOfCards())
-                .max()
-                .orElse(-1);
-    }
-
-    private List<User> getWinners(int maxOfScore) {
+    private List<User> getWinners() {
         return players.stream()
-                .filter(player -> player.isScore(maxOfScore))
+                .filter(player -> player.hasHigherScore(dealer.getScoreOfCards()))
                 .collect(Collectors.toList());
     }
 
-    private void handleUsersWhenDealerIsMaxOfScore() {
-        handleLosers(players, LOSS_ONE);
-        handleDealer(dealer, dealerProfit);
+    private List<User> getTiebreakers() {
+        return players.stream()
+                .filter(player -> player.isScore(dealer.getScoreOfCards()))
+                .collect(Collectors.toList());
     }
 
-    private void handleUsersWhenPlayersAreWinners(List<User> winners) {
+    private void handleUsersWhenGameIsFinished(List<User> winners, List<User> tiebreakers) {
         handleWinners(winners, PROFIT_ONE);
+        handleWinners(tiebreakers, PROFIT_ZERO);
         handleLosers(players, LOSS_ONE);
         handleDealer(dealer, dealerProfit);
     }

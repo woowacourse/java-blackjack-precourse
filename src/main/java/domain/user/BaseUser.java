@@ -82,4 +82,9 @@ public abstract class BaseUser implements User {
     public boolean isScore(int score) {
         return getScoreOfCards() == score;
     }
+
+    @Override
+    public boolean hasHigherScore(int score) {
+        return getScoreOfCards() > score;
+    }
 }

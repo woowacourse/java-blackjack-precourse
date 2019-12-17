@@ -24,4 +24,6 @@ public interface User {
     String getMessageForAdditionalCard();
 
     boolean isScore(int score);
+
+    boolean hasHigherScore(int scoreOfCards);
 }
