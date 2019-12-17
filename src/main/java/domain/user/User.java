@@ -29,9 +29,10 @@ public class User implements Participant {
         return sc.nextLine();
     }
 
+
     @Override
-    public int getNumberOfCards() {
-        return cards.size();
+    public boolean withInitCards() {
+        return cards.size() == Blackjack.CONDITION_INIT_CARDS;
     }
 
     @Override

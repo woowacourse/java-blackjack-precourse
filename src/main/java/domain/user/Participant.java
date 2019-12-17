@@ -4,7 +4,7 @@ import domain.card.Card;
 
 public interface Participant {
 
-    int getNumberOfCards();
+    boolean withInitCards();
 
     void addCard(Card card);
 

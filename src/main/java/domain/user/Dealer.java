@@ -20,8 +20,8 @@ public class Dealer implements Participant {
     }
 
     @Override
-    public int getNumberOfCards() {
-        return cards.size();
+    public boolean withInitCards() {
+        return cards.size() == Blackjack.CONDITION_INIT_CARDS;
     }
 
     @Override

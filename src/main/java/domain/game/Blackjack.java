@@ -105,7 +105,7 @@ public class Blackjack {
     }
 
     public boolean isBlackJack(Participant participant) {
-        return (participant.calScore() == CONDITION_SCORE) && (participant.getNumberOfCards() == CONDITION_INIT_CARDS);
+        return (participant.calScore() == CONDITION_SCORE) && participant.withInitCards();
     }
 
     public boolean isBust(Participant participant) {
