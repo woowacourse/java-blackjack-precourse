@@ -40,5 +40,10 @@ public class OutputView {
 		return String.join(SPACE, deck);
 	}
 
+	public static void printResult(List<BlackjackMember> blackjackMembers) {
+		for (BlackjackMember blackjackMember : blackjackMembers) {
+			System.out.println(blackjackMember.getName() + SPACE + blackjackMember.getRevenue());
+		}
+	}
 
 }

@@ -60,4 +60,8 @@ public abstract class BlackjackMember {
 		revenue -= bettingAmount;
 		return bettingAmount;
 	}
+
+	public double getRevenue() {
+		return revenue;
+	}
 }

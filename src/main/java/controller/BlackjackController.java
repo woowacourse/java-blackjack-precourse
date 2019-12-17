@@ -50,6 +50,9 @@ public class BlackjackController {
 
 		printFirstServeMessage(entry);
 		printAllStatus(entry);
+		if (checkFirstServe(dealer, players)) {
+			printResult(entry);
+		}
 	}
 
 	public boolean checkFirstServe(Dealer dealer, List<Player> players) {
