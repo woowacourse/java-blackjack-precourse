@@ -12,6 +12,20 @@ import static view.inputView.inputHitOrStand;
  * 게임 참여자를 의미하는 객체
  */
 public class Player extends User {
+    private static final String CARD_NAME_VALUE_DELIMITER = ": ";
+    private static final int BLACKJACK_CEILING = 21;
+    private static final String RESPONSE_NO = "n";
+    private static final String RESPONSE_INITIAL_VALUE = "";
+    private static final String MESSAGE_BLACKJACK = "은(는) 블랙잭입니다!";
+    private static final String RESPONSE_YES = "y";
+    private static final String MESSAGE_INPUT_Y_OR_N = "y나 n으로 입력해주세요";
+    private static final String PRINT_RESULT_HEAD = " 카드: ";
+    private static final String PRINT_RESULT_SCORE_HEAD = " - 결과: ";
+    private static final int BANKRUPT_FLOOR = 22;
+    private static final int LOOSING_FACTOR = -1;
+    private static final double BLACKJACK_FACTOR = 1.5;
+    private static final int DRAW_PROFIT = 0;
+    private static final String PRINT_PROFIT_DELIMITER = ": ";
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -26,12 +40,12 @@ public class Player extends User {
     }
 
     void printCards() {
-        System.out.println(getName() + ": " + printCardValue());
+        System.out.println(getName() + CARD_NAME_VALUE_DELIMITER + printCardValue());
     }
 
     void proceed(Stack stack) {
-        String response = "";
-        while (!isBlackjack() && (validateUnder(21) && !response.equals("n"))) {
+        String response = RESPONSE_INITIAL_VALUE;
+        while (!isBlackjack() && (validateUnder(BLACKJACK_CEILING) && !response.equals(RESPONSE_NO))) {
             response = choice(stack);
         }
         printBlackjack(isBlackjack());
@@ -39,7 +53,7 @@ public class Player extends User {
 
     private void printBlackjack(boolean blackjack) {
         if (blackjack) {
-            System.out.println(getName() + "은(는) 블랙잭입니다!");
+            System.out.println(getName() + MESSAGE_BLACKJACK);
         }
     }
 
@@ -52,41 +66,41 @@ public class Player extends User {
     }
 
     private boolean validateHitOrStandResponse(String response, Stack stack) {
-        if (response.equals("y") || response.equals("n")) {
+        if (response.equals(RESPONSE_YES) || response.equals(RESPONSE_NO)) {
             HitOrResponse(response, stack);
             return true;
         }
-        System.out.println("y나 n으로 입력해주세요");
+        System.out.println(MESSAGE_INPUT_Y_OR_N);
         return false;
     }
 
     private void HitOrResponse(String response, Stack stack) {
-        if (response.equals("y")) {
+        if (response.equals(RESPONSE_YES)) {
             addCard(stack.popCard());
             printCards();
         }
     }
 
     void showResult() {
-        System.out.println(getName() + " 카드: " + printCardValue() + " - 결과: " + getRealScore());
+        System.out.println(getName() + PRINT_RESULT_HEAD + printCardValue() + PRINT_RESULT_SCORE_HEAD + getRealScore());
     }
 
 
     int compare(Dealer dealer) {
-        if (!validateUnder(22) || getRealScore() < dealer.getRealScore()) {
-            return (int) bettingMoney * -1;
+        if (!validateUnder(BANKRUPT_FLOOR) || getRealScore() < dealer.getRealScore()) {
+            return (int) bettingMoney * LOOSING_FACTOR;
         }
-        if ((validateUnder(22) && !dealer.validateUnder(22)) || getRealScore() > dealer.getRealScore()) {
+        if ((validateUnder(BANKRUPT_FLOOR) && !dealer.validateUnder(BANKRUPT_FLOOR)) || getRealScore() > dealer.getRealScore()) {
             return (int) bettingMoney;
         }
         if (isBlackjack()) {
-            return (int) (bettingMoney * 1.5);
+            return (int) (bettingMoney * BLACKJACK_FACTOR);
         }
-        return 0;
+        return DRAW_PROFIT;
     }
 
     void printProfit(int profit) {
-        System.out.println(getName() + ": " + profit);
+        System.out.println(getName() + PRINT_PROFIT_DELIMITER + profit);
     }
 
 }

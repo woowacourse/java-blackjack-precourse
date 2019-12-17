@@ -11,6 +11,7 @@ import java.util.List;
 public class PlayerUtility {
 
     private static final String PLAYER_NAME_DELIMITER = ",";
+    public static final String MESSAGE_INPUT_INTEGER = "정수를 입력해주세요";
 
     public static Users generatePlayers() {
         String[] playerNames = getPlayerNames();
@@ -41,7 +42,7 @@ public class PlayerUtility {
             Integer.parseInt(inputPlayerBet);
             return true;
         } catch (Exception e) {
-            System.out.println("정수를 입력해주세요");    //추후 상세한 예외처리
+            System.out.println(MESSAGE_INPUT_INTEGER);    //추후 상세한 예외처리
             return false;
         }
     }

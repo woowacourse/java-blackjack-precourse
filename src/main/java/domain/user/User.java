@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private static final int INITIAL_SCORE = 0;
+    private static final int BLACKJACK_SCORE = 11;
+    private static final int BLACKJACK_CORRECTION = 10;
+    private static final int BLACKJACK_CARD_SIZE = 2;
+    private static final String ACE_SYMBOL = "ACE";
     private final List<Card> cards = new ArrayList<>();
 
     public User() {
@@ -28,7 +33,7 @@ public class User {
     }
 
     private int getScore() {
-        int score = 0;
+        int score = INITIAL_SCORE;
         for (Card card : cards) {
             score += card.getScore();
         }
@@ -36,12 +41,12 @@ public class User {
     }
 
     int getRealScore() {
-        int score = 0;
+        int score = INITIAL_SCORE;
         for (Card card : cards) {
             score += card.getScore();
         }
-        if (score <= 11 && hasAce()) {
-            score += 10;
+        if (score <= BLACKJACK_SCORE && hasAce()) {
+            score += BLACKJACK_CORRECTION;
         }
         return score;
     }
@@ -51,8 +56,7 @@ public class User {
     }
 
     boolean isBlackjack() {
-        //System.out.println("블랙잭입니다!");
-        return hasAce() && getScore() == 11 && cards.size() == 2;
+        return hasAce() && getScore() == BLACKJACK_SCORE && cards.size() == BLACKJACK_CARD_SIZE;
     }
 
     private boolean hasAce() {
@@ -66,7 +70,7 @@ public class User {
     }
 
     private boolean checkHasAce(Card card) {
-        return card.getSymbol().equals("ACE");
+        return card.getSymbol().equals(ACE_SYMBOL);
     }
 
 }

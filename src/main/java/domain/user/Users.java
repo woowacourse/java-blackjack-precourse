@@ -7,6 +7,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Users {
+    private static final String PLAYER_NAMES_DELIMITER = ", ";
+    private static final String MESSAGE_DISTRIBUTION_HEAD = "딜러와 ";
+    private static final String MESSAGE_DISTRIBUTION_TAIL = "에게 2장을 나누었습니다";
+    private static final String MESSAGE_LAST_PROFIT = "## 최종수익";
+    private static final int INDEX_DEALER = 0;
+    private static final int INITIAL_PROFIT_SUM = 0;
+    private static final int INITIAL_DISTRIBUTION_NUMBER = 2;
     private List<User> users;
 
     public Users(List<User> users) {
@@ -15,7 +22,7 @@ public class Users {
 
     public void distribute(Stack stack) {
         for (User user : users) {
-            addMultipleCards(stack, user, 2);
+            addMultipleCards(stack, user, INITIAL_DISTRIBUTION_NUMBER);
         }
         printDistribution();
     }
@@ -26,8 +33,8 @@ public class Users {
         for (User user : users) {
             getNameOfPlayer(playerNames, user);
         }
-        String playerNameSerial = String.join(", ", playerNames);
-        System.out.println("딜러와 " + playerNameSerial + "에게 2장을 나누었습니다");
+        String playerNameSerial = String.join(PLAYER_NAMES_DELIMITER, playerNames);
+        System.out.println(MESSAGE_DISTRIBUTION_HEAD + playerNameSerial + MESSAGE_DISTRIBUTION_TAIL);
         printOpen();
     }
 
@@ -108,24 +115,34 @@ public class Users {
     }
 
     private Dealer getDealer() {
-        List<Dealer> dealers = users.stream().filter(Dealer.class::isInstance).map(Dealer.class::cast).collect(Collectors.toList());
+        List<Dealer> dealers = users
+                .stream()
+                .filter(Dealer
+                        .class::isInstance)
+                .map(Dealer
+                        .class::cast)
+                .collect(Collectors
+                        .toList());
 
-        return dealers.get(0);
+        return dealers.get(INDEX_DEALER);
     }
 
     private List<Player> getPlayers() {
 
         return users.stream()
-                .filter(Player.class::isInstance)
-                .map(Player.class::cast)
-                .collect(Collectors.toList());
+                .filter(Player
+                        .class::isInstance)
+                .map(Player
+                        .class::cast)
+                .collect(Collectors
+                        .toList());
     }
 
     public void calculate() {
-        int playersProfitSum = 0;
+        int playersProfitSum = INITIAL_PROFIT_SUM;
         List<Player> players = getPlayers();
         Dealer dealer = getDealer();
-        System.out.println("## 최종수익");
+        System.out.println(MESSAGE_LAST_PROFIT);
         for (Player player : players) {
             int profit = player.compare(dealer);
             player.printProfit(profit);
