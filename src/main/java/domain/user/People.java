@@ -29,7 +29,6 @@ public class People {
         for (Card card : cards) {
             numberList.add(card.getSymbol().getScore());
         }
-
         return calculateNumber(numberList);
     }
 
@@ -40,7 +39,7 @@ public class People {
     public String getCardList() {
         return cards.stream().map((x) -> {
             return x.getCardString();
-        }).collect(Collectors.joining(","));
+        }).collect(Collectors.joining(", "));
     }
 
     public boolean isBlackJack() {
@@ -80,8 +79,8 @@ public class People {
     }
 
     private boolean blackJackCheck() {
-        if (((cards.get(ZERO).getSymbol().getScore() + cards.get(ONE).getSymbol().getScore()) == ELEVEN)
-                && ((cards.get(ZERO).getSymbol().getScore() == ONE) || (cards.get(ZERO).getSymbol().getScore() == TEN)))
+        if (((cards.get(0).getSymbol().getScore() + cards.get(1).getSymbol().getScore()) == ELEVEN)
+                && ((cards.get(0).getSymbol().getScore() == ONE) || (cards.get(0).getSymbol().getScore() == TEN)))
             return true;
         return false;
     }
