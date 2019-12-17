@@ -11,10 +11,10 @@ public class Dealer extends Player {
     }
 
     // TODO 추가 기능 구현
-    public void showMoney(List<Player> user) {
+    public void showMoney(List<Player> loser) {
         int money = 0;
 
-        for (Player player : user.subList(1, user.size())) {
+        for (Player player : loser) {
             money += player.getBettingMoney();
         }
 
