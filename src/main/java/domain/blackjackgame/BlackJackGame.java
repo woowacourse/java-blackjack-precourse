@@ -17,13 +17,14 @@ import domain.user.User;
 
 public class BlackJackGame {
 	private static final int TWO = 2;
+	private static final int DEALER_CARD_STANDARD = 16;
+	private static final int MAX_SCORE = 21;
 
 	private final Scanner scanner;
 	private final List<Player> players;
 	private final List<Card> cards;
 	private final Set<Integer> checkSameCard;
 	private final Dealer dealer;
-	private String[] playerNames;
 
 	public BlackJackGame() {
 		scanner = new Scanner(System.in);
@@ -37,12 +38,13 @@ public class BlackJackGame {
 		while (!inputPlayer()) {
 		}
 		startGame();
+		printCards();
 		playGame();
 	}
 
 	private boolean inputPlayer() {
 		System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
-		playerNames = scanner.nextLine().split(",");
+		String[] playerNames = scanner.nextLine().split(",");
 		if (playerNames.length == 0) {
 			return false;
 		}
@@ -95,9 +97,17 @@ public class BlackJackGame {
 	}
 
 	private void playGame() {
-		printCards();
+		for(Player player : players) {
+		}
 	}
 
+	private boolean compareMaxScore(User user) {
+		if(user.getScore() <= MAX_SCORE) {
+			return true;
+		}
+		return false;
+	}
+	
 	private void printCards() {
 		System.out.print("딜러의 카드: ");
 		dealer.printCards();
