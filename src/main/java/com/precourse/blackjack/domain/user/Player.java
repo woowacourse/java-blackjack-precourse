@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Player extends Dealer {
 	private static final int MAXIMUM_SCORE = 21;
+
 	private final String name;
 	private final double bettingMoney;
 	private final List<Card> cards = new ArrayList<>();

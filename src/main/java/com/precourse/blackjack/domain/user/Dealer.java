@@ -60,4 +60,8 @@ public class Dealer {
 	public boolean canHit() {
 		return getTotalScore() < STAND_THRESHOLD;
 	}
+
+	public boolean isBurst() {
+		return getTotalScore() > MAXIMUM_SCORE;
+	}
 }
