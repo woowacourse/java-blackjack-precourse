@@ -1,5 +1,7 @@
 package UI.Input;
 
+import UI.Output.OutputController;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -11,6 +13,7 @@ public class InputController {
         try {
             return askPlayerProperties();
         } catch (IllegalArgumentException e) {
+            OutputController.printMessage(e.getMessage());
             return askPlayerPropertiesAndHandleError();
         }
     }
@@ -60,8 +63,11 @@ public class InputController {
             Double bettingMoney = Double.parseDouble(InputView.inputBettingMoney(playerName));
             InputValidator.validateBettingMoney(bettingMoney);
             return bettingMoney;
-        } catch (NumberFormatException e) {
-            System.out.println(NOT_A_NUMBER_EXCEPTION_MESSAGE);
+        } catch (NumberFormatException e1) {
+            OutputController.printMessage(NOT_A_NUMBER_EXCEPTION_MESSAGE);
+            return askBettingMoney(playerName);
+        } catch (IllegalArgumentException e) {
+            OutputController.printMessage(e.getMessage());
             return askBettingMoney(playerName);
         }
     }

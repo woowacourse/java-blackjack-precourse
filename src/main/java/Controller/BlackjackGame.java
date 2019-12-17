@@ -7,6 +7,7 @@ import domain.result.GameResult;
 import domain.card.Deck;
 import domain.user.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class BlackjackGame {
@@ -17,7 +18,9 @@ public class BlackjackGame {
     private Deck deck;
 
     public BlackjackGame() {
-        this.users = UsersFactory.create(InputController.askPlayerPropertiesAndHandleError());
+        HashMap<String, Double> playerProperties = InputController.askPlayerPropertiesAndHandleError();
+
+        this.users = UsersFactory.create(playerProperties);
         this.deck = new Deck();
     }
 
