@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Dealer implements User {
     private final List<Card> cards = new ArrayList<>();
-
+    private final String name = "딜러";
     public Dealer() {}
 
     public void addCard(Card card) {
@@ -46,5 +46,9 @@ public class Dealer implements User {
             sum += card.getSymbol().getScore();
         }
         return sum;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

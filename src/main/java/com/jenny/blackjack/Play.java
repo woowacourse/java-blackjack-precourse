@@ -20,14 +20,13 @@ public class Play {
 
     public void distributeInitialCards(Dealer dealer, List<Player> players){
         cards = CardFactory.create();
-
-        getCardForDealer(INITIAL_CARDS, dealer);
+        getCard(INITIAL_CARDS, dealer);
         for(Player p : players){
-            getCardForPlayer(INITIAL_CARDS, p);
+            getCard(INITIAL_CARDS, p);
         }
     }
 
-    public void getCardForDealer(int qty, Dealer dealer){
+    public void getCard(int qty, User user){
         for(int q = 0; q < qty ; q++){
             int card;
             while(true){
@@ -37,21 +36,7 @@ public class Play {
                     break;
                 }
             }
-            dealer.addCard(cards.get(card));
-        }
-    }
-
-    public void getCardForPlayer(int qty, Player player){
-        for(int q = 0; q < qty ; q++){
-            int card;
-            while(true){
-                card = (int)(Math.random() * TOTAL_CARDS_AMOUNT);
-                if(!isAlreadyUsed(card)){
-                    alreadyUsedCards.add(card);
-                    break;
-                }
-            }
-            player.addCard(cards.get(card));
+            user.addCard(cards.get(card));
         }
     }
 
@@ -75,17 +60,14 @@ public class Play {
         }
     }
 
-    public void showOneCardStatus(Player player){
-        System.out.println(player.getName() + " 카드 : " + player.getCards());
+    public void showOneCardStatus(User user){
+        StringBuilder sb = new StringBuilder(user.getCards());
+        System.out.println(user.getName() + " 카드 : " + sb.substring(0, sb.length()-1));
     }
 
     public void showDealerFirstCard(Dealer dealer){
         Card dealerFirstCard = dealer.getFirstCard();
         System.out.println("딜러 카드 : " + dealerFirstCard.getSymbol() + " " + dealerFirstCard.getType());
-    }
-
-    public void showDealerCardStatus(Dealer dealer){
-        System.out.println("딜러 카드 : " + dealer.getCards());
     }
 
     public void askAddCard(Dealer dealer, List<Player> players){
@@ -111,7 +93,7 @@ public class Play {
                 if(input.toLowerCase().equals("n")){
                     break;
                 }else{
-                    getCardForPlayer(1, p);
+                    getCard(1, p);
                     showOneCardStatus(p);
                     if(isBurst(p)){
                         System.out.println("21 초과로 패배하셨습니다.");
@@ -136,7 +118,7 @@ public class Play {
         if(sum > 16){
             return;
         }
-        getCardForDealer(1, dealer);
+        getCard(1, dealer);
         System.out.println("\n딜러는 카드 총합이 16이하라 카드를 한장 더 받았습니다.");
     }
 

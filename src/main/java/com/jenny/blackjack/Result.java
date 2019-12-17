@@ -11,7 +11,7 @@ public class Result {
 
     public void showResultValue(Dealer dealer, List<Player> players){
         Play play = new Play();
-        play.showDealerCardStatus(dealer);
+        play.showOneCardStatus(dealer);
         int dealerValue = calcResultValue(dealer);
         System.out.println("결과 : " + dealerValue);
         for(Player p : players){

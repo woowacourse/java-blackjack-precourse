@@ -10,4 +10,5 @@ public interface User {
     public String getCards();
     public List<Card> getCardsList();
     public int getSumOfCards();
+    public String getName();
 }
