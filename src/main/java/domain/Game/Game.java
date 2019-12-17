@@ -21,10 +21,11 @@ public class Game {
     public void Play() {
         this.playerObjectCreate();
         for (int i = 0; i < 2; i++) {
-            dealer.cardPush(cardDeck);
-            players.stream().forEach(player -> player.cardPush(cardDeck));
+            dealer.cardDraw(cardDeck);
+            players.stream().forEach(player -> player.cardDraw(cardDeck));
         }
         output.StartCardState(players);
+        players.stream().forEach(player -> this.PlayerAddCardDraw(player));
     }
 
     public void playerObjectCreate() {
@@ -33,5 +34,14 @@ public class Game {
             Double bettingMoney = input.bettingMoneyInput(playerName);
             players.add(new Player(playerName, bettingMoney));
         }
+    }
+
+    public void PlayerAddCardDraw(Player player) {
+        String answer;
+        do {
+            answer = input.addCardDrawInput(player);
+            player.cardDraw(cardDeck);
+            System.out.println(player.cardsToString());
+        } while (answer.equals("y"));
     }
 }

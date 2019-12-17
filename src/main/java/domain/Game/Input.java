@@ -1,6 +1,9 @@
 package domain.Game;
 
+import domain.user.Player;
+
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Input {
@@ -44,5 +47,21 @@ public class Input {
         }
 
         return !bettingMoneyInput.matches("^[0-9]*$");
+    }
+
+    public String addCardDrawInput(Player player) {
+        String addCardAnwser;
+        do {
+            System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+            addCardAnwser = scanner.nextLine();
+        } while (addCardDrawInputCheck(addCardAnwser));
+        return addCardAnwser;
+    }
+
+    public boolean addCardDrawInputCheck(String addCardAnswer){
+        if(addCardAnswer.equals("y") || addCardAnswer.equals("n")){
+            return false;
+        }
+        return true;
     }
 }

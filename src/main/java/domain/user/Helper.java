@@ -22,7 +22,7 @@ public class Helper {
         return cards.stream().map(card -> String.valueOf(card.toString())).collect(Collectors.joining(", "));
     }
 
-    public void cardPush(List<Card> cardDeck) {
+    public void cardDraw(List<Card> cardDeck) {
             int cardDeckCount = cardDeck.size() - 1;
             int selectNumber = (int) (Math.random() * cardDeckCount) + 1;
             Card selectedCard = cardDeck.get(selectNumber);
