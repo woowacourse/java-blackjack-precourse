@@ -4,10 +4,14 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.user.Dealer;
 import domain.user.Player;
-import view.InputView;
 import view.OutputView;
 
 import java.util.*;
+
+import static util.Numbers.getRandomNumber;
+import static util.Strings.splitPlayerName;
+import static view.InputView.*;
+import static view.OutputView.*;
 
 public class BlackjackSystem {
     private static int CARD_COUNT = 52;
@@ -32,31 +36,23 @@ public class BlackjackSystem {
             AskPlayerToGetCard(p);
         }
         getCardDealerIfAvailable();
-        printResultStatus();
+        printUserStatus();
         setResultMoney();
         printResultMoney();
     }
 
     private void setGame() {
-        String names = InputView.inputPlayerName();
-        StringTokenizer st = splitPlayerName(names);
+        String names = inputPlayerName();
+        StringTokenizer st = splitPlayerName(names, ",");
         setPlayer(st);
-    }
-
-    private StringTokenizer splitPlayerName(String names) {
-        return new StringTokenizer(names, ",");
     }
 
     private void setPlayer(StringTokenizer st) {
         while (st.hasMoreTokens()) {
             String playerName = st.nextToken();
-            double bettingMoney = InputView.inputPlayerMoney(playerName);
-            addPlayer(new Player(playerName, bettingMoney));
+            double bettingMoney = inputPlayerMoney(playerName);
+            playerList.add(new Player(playerName, bettingMoney));
         }
-    }
-
-    private void addPlayer(Player player) {
-        playerList.add(player);
     }
 
     private void distributeCard() {
@@ -85,15 +81,11 @@ public class BlackjackSystem {
         }
     }
 
-    private int getRandomNumber(int range) {
-        return (int) (Math.random() * range);
-    }
-
     private void printInitStatus() {
-        OutputView.printInitDistributionMessage(playerList);
-        OutputView.printCardStatus(dealer);
+        printInitDistributionMessage(playerList);
+        printCardStatus(dealer);
         for (Player p : playerList) {
-            OutputView.printCardStatus(p);
+            printCardStatus(p);
         }
         System.out.println();
     }
@@ -101,7 +93,7 @@ public class BlackjackSystem {
     private void getCardDealerIfAvailable() {
         while (isAvailableGetCard(dealer)) {
             giveCard(dealer);
-            OutputView.printDealerGetCardMessage();
+            printDealerGetCardMessage();
         }
     }
 
@@ -122,16 +114,16 @@ public class BlackjackSystem {
     }
 
     private void choiceGetCard(Player player) {
-        answer = InputView.inputChoiceGetCard(player);
+        answer = inputChoiceGetCard(player);
         if (answer == 'n') return;
         giveCard(player);
-        OutputView.printCardStatus(player);
+        printCardStatus(player);
     }
 
-    private void printResultStatus() {
-        OutputView.printResultStatus(dealer);
+    private void printUserStatus() {
+        printResultStatus(dealer);
         for (Player player : playerList) {
-            OutputView.printResultStatus(player);
+            printResultStatus(player);
         }
     }
 
