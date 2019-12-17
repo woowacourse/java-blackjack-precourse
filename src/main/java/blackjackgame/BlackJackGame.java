@@ -17,6 +17,7 @@ import java.util.List;
 import domain.card.Deck;
 import domain.user.*;
 import view.*;
+import blackjackgame.Profit;
 
 public class BlackJackGame {
 	private static final String COMMA = ",";
@@ -24,12 +25,13 @@ public class BlackJackGame {
 
 	private List<Player> players = new ArrayList<>();
 	private List<String> blackJackList = new ArrayList<>();
+	private List<Profit> profit = new ArrayList<>();
 	private Dealer dealer = new Dealer();
 	private Input input = new Input();
 	private Output output = new Output();
 	private Deck deck = new Deck();
 	private String[] playerNames;
-
+	
 	public void startGame() {
 		playerNames = input.getPlayerNames().split(COMMA);
 		makePlayers();
@@ -41,7 +43,9 @@ public class BlackJackGame {
 	}
 
 	private void makePlayers() {
+		profit.add(new Profit("딜러", 0));
 		for (String name : playerNames) {
+			profit.add(new Profit(name, 0));
 			players.add(new Player(name, input.getBettingMoney(name)));
 		}
 	}
@@ -79,6 +83,11 @@ public class BlackJackGame {
 		}
 		if (dealer.findBlackJack()) {
 			blackJackList.add("딜러");
+		}
+		if (blackJackList.size() > 0) {
+			((Profit) profit).blackJackPrice(players, dealer, blackJackList);
+			output.blackJack(players, dealer, blackJackList);
+			System.exit(0);
 		}
 	}
 	

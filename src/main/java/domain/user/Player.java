@@ -29,6 +29,10 @@ public class Player {
     	return this.name;
     }
     
+    public double getBettingMoney() {
+    	return this.bettingMoney;
+    }
+    
     public List<String> getPlayerSymbolAndType() {
     	List<String> temp = new ArrayList<>();
     	for (Card card : cards) {
