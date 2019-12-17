@@ -22,7 +22,7 @@ public class Score {
     public void setScore(Player[] player) {
 	playerscore=new int[player.length];
 	for(int i=0;i<player.length;i++) {
-	    this.playerscore[i]=getSum(player[i].getCards())
+	    this.playerscore[i]=getSum(player[i].getCards());
 	}
     }
     
