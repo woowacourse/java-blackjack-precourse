@@ -18,13 +18,14 @@ public class OutputView {
     private static final String DEALER = "딜러 : ";
     private static final String COLON = " : ";
     private static final String PROFIT = "##최종수익";
+    private static final int DEALER_FIRST_CARD_INDEX = 0;
 
     public static void printCards(Player player) {
         System.out.println(player.getName() + CARD + player.getCards().toString());
     }
 
     public static void printDealerOneCard(Dealer dealer) {
-        System.out.println(DEALER_CARD + dealer.getCards().get(0));
+        System.out.println(DEALER_CARD + dealer.getCards().get(DEALER_FIRST_CARD_INDEX));
     }
 
     public static void printDealerGetOneMore() {

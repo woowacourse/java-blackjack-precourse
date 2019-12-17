@@ -44,27 +44,96 @@ public class GameModel {
         for (Player player : players) {
             setPlayerProfit(player, dealer);
         }
-        setResultOfDealer();
+        setProfitOfDealer();
     }
 
-    private void setResultOfDealer() {
-        double dealerProfit = ZERO;
+    private void giveTwoCardsToEveryOne() {
+        giveTwoCardsToPlayer();
+        giveTwoCardsToDealer();
+    }
+
+    private void giveTwoCardsToPlayer() {
         for (Player player : players) {
-            dealerProfit += dealer.calculateProfit(player);
+            giveEachTwoCards(player);
+            OutputView.printCards(player);
         }
-        OutputView.printDealer(dealerProfit);
+    }
+
+    private void giveTwoCardsToDealer() {
+        giveEachTwoCards(dealer);
+        OutputView.printDealerOneCard(dealer);
+    }
+
+    private void giveEachTwoCards(Gamer gamer) {
+        for (int i = 0; i < SECOND; i++) {
+            gamer.addCard(deck.getRandomCard());
+        }
+    }
+
+    private void checkPlayerFirstBlackJack() {
+        for (Player player : players) {
+            checkFirstBlackjack(player);
+        }
+    }
+
+    private void checkFirstBlackjack(Player player) {
+        if (player.isBlackJack() && !dealer.isBlackJack())
+            player.multiplyProfit(FIRST_BLACKJACK_PROFIT);
+    }
+
+    private void giveOneMoreCardToPlayers() throws IOException {
+        for (Player player : players) {
+            checkCanHaveMoreAndGive(player);
+        }
+    }
+
+    private boolean checkCanHaveMoreAndGive(Player player) throws IOException {
+        if (canHaveMore(player) && wantOneMore(player)) {
+            player.addCard(deck.getRandomCard());
+            OutputView.printCards(player);
+            return checkCanHaveMoreAndGive(player);
+        }
+        return false;
+    }
+
+    private boolean canHaveMore(Player player) {
+        return player.sumOfCard() <= TWENTY;
+    }
+
+    private boolean wantOneMore(Player player) throws IOException {
+        InputView inputView = new InputView();
+        return inputView.wantOneMore(player);
+    }
+
+    private void checkOneMoreCardToDealer() {
+        if (dealer.shouldHaveOneMoreCard()) {
+            dealer.addCard(deck.getRandomCard());
+            OutputView.printDealerGetOneMore();
+        }
+    }
+
+    private void showResultOfEveryCards() {
+        for (Player player : players) {
+            OutputView.printPlayerCardsAndResult(player);
+        }
+        OutputView.printDealerCardsAndResult(dealer);
     }
 
     private boolean setPlayerProfit(Player player, Dealer dealer) {
-        playerIsAlreadyBlackJack(player, dealer);
-        if (playerWin(player, dealer)) {
+        playerIsAlreadyBlackJack(player, dealer);  // 플레이어가 처음 받은 2장의 카드가 블랙잭인 경우
+        if (playerWin(player, dealer)) {  //  플레이어가 이긴 경우
             return true;
         }
-        if (playerDraw(player, dealer)) {
+        if (playerDraw(player, dealer)) {  // 플레이어와 딜러가 비긴경우
             return true;
         }
-        playerLose(player);
+        playerLose(player);  //  플레이어가 진 경우
         return false;
+    }
+
+    private void playerIsAlreadyBlackJack(Player player, Dealer dealer) {
+        if (player.isBlackJack() && !dealer.isBlackJack())
+            OutputView.printPlayerProfit(player);
     }
 
     private void playerLose(Player player) {
@@ -92,81 +161,11 @@ public class GameModel {
         return false;
     }
 
-    private void playerIsAlreadyBlackJack(Player player, Dealer dealer) {
-        if (player.isBlackJack() && !dealer.isBlackJack())
-            OutputView.printPlayerProfit(player);
-    }
-
-    private void showResultOfEveryCards() {
+    private void setProfitOfDealer() {
+        double dealerProfit = ZERO;
         for (Player player : players) {
-            OutputView.printPlayerCardsAndResult(player);
+            dealerProfit += dealer.calculateProfit(player);
         }
-        OutputView.printDealerCardsAndResult(dealer);
+        OutputView.printDealer(dealerProfit);
     }
-
-    private void checkOneMoreCardToDealer() {
-        if (dealer.shouldHaveOneMoreCard()) {
-            dealer.addCard(deck.getRandomCard());
-            OutputView.printDealerGetOneMore();
-        }
-    }
-
-    private void giveOneMoreCardToPlayers() throws IOException {
-        for (Player player : players) {
-            checkCanHaveMoreAndGive(player);
-        }
-    }
-
-    private boolean checkCanHaveMoreAndGive(Player player) throws IOException {
-        if (canHaveMore(player) && wantOneMore(player)) {
-            player.addCard(deck.getRandomCard());
-            OutputView.printCards(player);
-            return checkCanHaveMoreAndGive(player);
-        }
-        return false;
-    }
-
-    private boolean canHaveMore(Player player) {
-        return player.sumOfCard() <= TWENTY;
-    }
-
-    private boolean wantOneMore(Player player) throws IOException {
-        InputView inputView = new InputView();
-        return inputView.wantOneMore(player);
-    }
-
-    private void checkPlayerFirstBlackJack() {
-        for (Player player : players) {
-            checkFirstBlackjack(player);
-        }
-    }
-
-    private void checkFirstBlackjack(Player player) {
-        if (player.isBlackJack() && !dealer.isBlackJack())
-            player.multiplyProfit(FIRST_BLACKJACK_PROFIT);
-    }
-
-    private void giveTwoCardsToEveryOne() {
-        giveTwoCardsToPlayer();
-        giveTwoCardsToDealer();
-    }
-
-    private void giveTwoCardsToPlayer() {
-        for (Player player : players) {
-            giveEachTwoCards(player);
-            OutputView.printCards(player);
-        }
-    }
-
-    private void giveTwoCardsToDealer() {
-        giveEachTwoCards(dealer);
-        OutputView.printDealerOneCard(dealer);
-    }
-
-    private void giveEachTwoCards(Gamer gamer) {
-        for (int i = 0; i < SECOND; i++) {
-            gamer.addCard(deck.getRandomCard());
-        }
-    }
-
 }

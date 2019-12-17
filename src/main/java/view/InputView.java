@@ -32,7 +32,7 @@ public class InputView {
     public List<String> inputUserNames() throws IOException {
         System.out.println(USER_NAME_INPUT);
         String[] userNames = BR.readLine().trim().split(COMMA);
-        if (checkBlankOk(userNames) && checkNotContainsSameUser(userNames) && checkUserCountOk(userNames)){
+        if (checkBlankOk(userNames) && checkNotContainsSameUser(userNames) && checkUserCountOk(userNames)) {
             return Arrays.asList(userNames);
         }
         System.out.println(ERROR_NAME_INPUT);
@@ -40,16 +40,16 @@ public class InputView {
     }
 
     private boolean checkNotContainsSameUser(String[] userNames) {
-        Set<String> set = new HashSet<>(Arrays.asList(userNames));
+        Set<String> set = new HashSet<>(Arrays.asList(userNames));  //  동일이름의 사람은 입력받지 못함.
         return set.size() == userNames.length;
     }
 
     private boolean checkUserCountOk(String[] userNames) {
-        return userNames.length >= MIN_USER_COUNT && userNames.length <= MAX_USER_COUNT;
+        return userNames.length >= MIN_USER_COUNT && userNames.length <= MAX_USER_COUNT;  //  유저의 수는 2명에서 8명으로 제한
     }
 
     public boolean checkBlankOk(String[] userNames) {
-        return !Arrays.stream(userNames)
+        return !Arrays.stream(userNames)  // 유저이름은 공백을 입력할 수 없다.
                 .map(s -> s.length())
                 .collect(Collectors.toList())
                 .contains(ZERO);
@@ -74,7 +74,7 @@ public class InputView {
     }
 
     private Double ifItIsNotZero(double parseDouble) throws IOException {
-        if (parseDouble != ZERO)
+        if (parseDouble != ZERO)  //  배팅머니는 0원을 입력할 수 없다.
             return parseDouble;
         System.out.println(ERROR_ZERO);
         return checkBettingMoneyAndReturn();

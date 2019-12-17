@@ -41,5 +41,4 @@ public class Deck {
             return makeRandomIndex();
         return randomNumber;
     }
-
 }
