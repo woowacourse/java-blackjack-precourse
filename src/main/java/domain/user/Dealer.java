@@ -43,7 +43,7 @@ public class Dealer extends User {
     }
 
     public String getName() {
-        return NAME;
+        return Dealer.NAME;
     }
 
 }
