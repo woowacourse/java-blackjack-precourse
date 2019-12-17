@@ -32,6 +32,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return symbol.toString() + type.toString();
+        return getScore() + " " + type.toString();
     }
 }
