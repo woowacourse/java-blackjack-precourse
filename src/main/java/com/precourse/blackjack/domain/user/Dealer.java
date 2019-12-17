@@ -13,6 +13,7 @@ public class Dealer {
 	private static final int MAXIMUM_SCORE = 21;
 	private static final int ACE_TO_ONE = 10;
 	private static final int TWO = 2;
+	private static final int ZERO = 0;
 
 	private final List<Card> cards = new ArrayList<>();
 
@@ -36,16 +37,19 @@ public class Dealer {
 		int totalScore = cards.stream()
 			.mapToInt(card -> card.getScore())
 			.sum();
+		long aceCount = countAce();
 
-		while (totalScore > MAXIMUM_SCORE && hasAce()) {
+		while (totalScore > MAXIMUM_SCORE && aceCount > ZERO) {
 			totalScore -= ACE_TO_ONE;
+			aceCount--;
 		}
 		return totalScore;
 	}
 
-	private boolean hasAce() {
+	private long countAce() {
 		return cards.stream()
-			.anyMatch(card -> card.getScore() == ACE_SCORE);
+			.filter(card -> card.getScore() == ACE_SCORE)
+			.count();
 	}
 
 	public boolean isBlackJack() {
