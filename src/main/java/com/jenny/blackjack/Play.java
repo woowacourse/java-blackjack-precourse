@@ -38,4 +38,18 @@ public class Play {
             dealer.addCard(cards.get(card));
         }
     }
+
+    public void getCardForPlayer(int qty, Player player){
+        for(int q = 0; q < qty ; q++){
+            int card;
+            while(true){
+                card = (int)(Math.random() * TOTAL_CARDS_AMOUNT);
+                if(!alreadyUsedCards.contains(card)){
+                    alreadyUsedCards.add(card);
+                    break;
+                }
+            }
+            player.addCard(cards.get(card));
+        }
+    }
 }
