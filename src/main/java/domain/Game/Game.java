@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Game {
 
@@ -19,7 +20,6 @@ public class Game {
     private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
     private Map<String, Double> bettingMoneyMap = new LinkedHashMap<>();
     private List<Player> winners = new ArrayList<>();
-    private final int BLACKJACK_SCORE = 21;
 
     public void Play() {
         this.playerObjectCreate();
@@ -27,10 +27,12 @@ public class Game {
             dealer.cardDraw(cardDeck);
             players.stream().forEach(player -> player.cardDraw(cardDeck));
         }
-        output.StartCardState(players);
-        players.stream().forEach(player -> this.playerAddCardDraw(player));
-        this.dealerAddCardDraw();
-        output.finalCardResult(players);
+        if (this.startBlackJack()) {
+            output.StartCardState(players);
+            players.stream().forEach(player -> this.playerAddCardDraw(player));
+            this.dealerAddCardDraw();
+            output.finalCardResult(players);
+        }
         output.bettingMoneyResult(bettingMoneyMap);
     }
 
@@ -47,7 +49,7 @@ public class Game {
 
     public void bettingMoneyMapCreate(double totalBettingMoney) {
         bettingMoneyMap.put("딜러", totalBettingMoney);
-        players.stream().forEach(player -> bettingMoneyMap.put(player.getName(), player.getBettingMoney()));
+        players.stream().forEach(player -> bettingMoneyMap.put(player.getName(), 0.0));
     }
 
     public void playerAddCardDraw(Player player) {
@@ -63,12 +65,16 @@ public class Game {
         }
     }
 
-    public void BettingMoneyCalculator(List<Player> winners) {
+    public boolean startBlackJack() {
+        winners = players.stream().filter(player -> player.blackJack() == true).collect(Collectors.toList());
         for (Player winner : winners) {
             Double winnerMoney = winner.getBettingMoney() * 1.5;
-            bettingMoneyMap.put("Dealer", bettingMoneyMap.get("dealer") - winnerMoney);
+            bettingMoneyMap.put("딜러", bettingMoneyMap.get("딜러") - winnerMoney);
             bettingMoneyMap.put(winner.getName(), winnerMoney);
         }
+        if (winners.isEmpty()) {
+            return true;
+        }
+        return false;
     }
-
 }
