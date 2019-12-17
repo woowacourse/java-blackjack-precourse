@@ -128,6 +128,10 @@ public class GameManager {
         int winnerScore;
 
         winnerScore = getWinnerScore();
+
+        if (dealer.getScore() > BLACK_JACK) {
+            winnerScore = -1;
+        }
         print(Message.makeMessageFinalProfit(dealer, players, winnerScore));
     }
 

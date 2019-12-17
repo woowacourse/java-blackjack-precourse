@@ -65,6 +65,9 @@ public class Player {
     }
 
     public boolean isWinner(int maxValue) {
+        if (maxValue == GameManager.OVERFLOW) {
+            return true;
+        }
         if (getScore() > GameManager.BLACK_JACK) {
             return false;
         }
