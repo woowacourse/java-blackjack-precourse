@@ -24,7 +24,7 @@ public class Result {
             if(value > dealerValue){
                 System.out.println("큽니다.");
             }else{
-                System.out.println("작습니다.");
+                System.out.println("작거나 같습니다.");
             }
         }
         System.out.println();
