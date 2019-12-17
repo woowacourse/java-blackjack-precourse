@@ -23,15 +23,13 @@ public class Game {
 
     public void Play() {
         this.playerObjectCreate();
-        for (int i = 0; i < 2; i++) {
-            dealer.cardDraw(cardDeck);
-            players.stream().forEach(player -> player.cardDraw(cardDeck));
-        }
+        this.startCardDraw();
         if (this.startBlackJack()) {
             this.addCardDraw();
             output.startCardState(players);
             output.finalCardResult(players);
         }
+        this.finalResult();
         output.bettingMoneyResult(bettingMoneyMap);
     }
 
@@ -51,6 +49,13 @@ public class Game {
         players.stream().forEach(player -> bettingMoneyMap.put(player.getName(), 0.0));
     }
 
+    public void startCardDraw(){
+        for (int i = 0; i < 2; i++) {
+            dealer.cardDraw(cardDeck);
+            players.stream().forEach(player -> player.cardDraw(cardDeck));
+        }
+    }
+
     public void playerAddCardDraw(Player player) {
         while (input.addCardDrawInput(player).equals("y")) {
             player.cardDraw(cardDeck);
@@ -64,7 +69,7 @@ public class Game {
         }
     }
 
-    public void addCardDraw(){
+    public void addCardDraw() {
         players.stream().forEach(player -> this.playerAddCardDraw(player));
         this.dealerAddCardDraw();
     }
@@ -77,6 +82,33 @@ public class Game {
             bettingMoneyMap.put(winner.getName(), winnerMoney);
         }
         if (winners.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void playerWinBettingMoney() {
+        for (Player winner : winners) {
+            Double winnerMoney = winner.getBettingMoney() * 2;
+            bettingMoneyMap.put("딜러", bettingMoneyMap.get("딜러") - winnerMoney);
+            bettingMoneyMap.put(winner.getName(), winnerMoney);
+        }
+    }
+
+    public boolean finalResult(){
+        if(this.finalResultBlackJack()){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean finalResultBlackJack() {
+        winners = players.stream().filter(player -> player.blackJack() == true).collect(Collectors.toList());
+        if (!winners.isEmpty()) {
+            this.playerWinBettingMoney();
+            return true;
+        }
+        if (dealer.blackJack()) {
             return true;
         }
         return false;
