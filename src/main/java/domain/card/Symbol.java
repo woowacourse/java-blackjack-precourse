@@ -17,7 +17,6 @@ public enum Symbol {
 
     private int score;
 
-
     Symbol(int score) {
         this.score = score;
     }
@@ -25,4 +24,5 @@ public enum Symbol {
     public int getScore() {
         return this.score;
     }
+
 }

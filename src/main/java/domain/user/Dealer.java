@@ -8,17 +8,17 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer extends Person{
+public class Dealer extends Person {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
-    public String getName(){
+    public String getName() {
         return "딜러";
     }
 
-    public String toString(){
-        return "name : 딜러" + ", bettingMoney : ?" ;
+    public String toString() {
+        return "name : 딜러" + ", bettingMoney : ?";
     }
-    // TODO 추가 기능 구현
 }

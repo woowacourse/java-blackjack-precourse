@@ -15,8 +15,6 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,16 +45,18 @@ public class Card {
         return this.type;
     }
 
-    public String toCardString(){
-        switch(this.type){
-            case SPADE:
-                return this.symbol.getScore() + "스페이드";
-            case DIAMOND:
-                return this.symbol.getScore() + "다이아몬드";
-            case HEART:
-                return this.symbol.getScore() + "하트";
-            case CLUB:
-                return this.symbol.getScore() + "클로버";
+    public String toCardString() {
+        if (this.type == Type.SPADE) {
+            return this.symbol.getScore() + "스페이드";
+        }
+        if (this.type == Type.DIAMOND) {
+            return this.symbol.getScore() + "다이아몬드";
+        }
+        if (this.type == Type.HEART) {
+            return this.symbol.getScore() + "하트";
+        }
+        if (this.type == Type.CLUB) {
+            return this.symbol.getScore() + "클로버";
         }
         return null;
     }
