@@ -20,29 +20,30 @@ public class Card {
 
     public int getCardNumber(String user) {
         int cardNumber = symbol.getScore();
-        if (cardNumber == 0 && user.equals("Player")) {
-            selectAceNumberPlayer();
-        } else if (cardNumber == 0 && user.equals("Dealer")) {
-            selectAceNumberDealer(Dealer_ACE_NUMBER_BASE);
+        if (cardNumber == 1 && user.equals("Player")) {
+            cardNumber = selectAceNumberPlayer();
+        } else if (cardNumber == 1 && user.equals("Dealer")) {
+            cardNumber = selectAceNumberDealer(Dealer_ACE_NUMBER_BASE);
         }
         cardNumber = symbol.getScore();
         return cardNumber;
     }
 
-    private void selectAceNumberDealer(int sumNumbers) {
+    private int selectAceNumberDealer(int sumNumbers) {
         if (sumNumbers > Dealer_ACE_NUMBER_BASE) {
-            symbol.setScore(ACE_CHOICE_NUMBER_TWO);
+            return ACE_CHOICE_NUMBER_TWO;
         }
+        return ACE_CHOICE_NUMBER_ONE;
     }
 
-    private void selectAceNumberPlayer() {
+    private int selectAceNumberPlayer() {
         String aceNumberString = "";
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Ace 카드를 어떤 수로 사용하시겠습니까? (1 또는 11만 입력 가능)");
             aceNumberString = scanner.nextLine().trim();
         } while (!selectAceNumberChecked(aceNumberString));
-        symbol.setScore(Integer.parseInt(aceNumberString));
+        return Integer.parseInt(aceNumberString);
     }
 
     private boolean selectAceNumberChecked(String aceNumberString) {

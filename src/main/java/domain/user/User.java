@@ -29,7 +29,7 @@ public abstract class User {
     }
 
     public void setSumNumbers(int sumNumbers) {
-        this.sumNumbers = sumNumbers;
+        this.sumNumbers += sumNumbers;
     }
 
     public double getProfit() {

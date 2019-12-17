@@ -35,10 +35,7 @@ public class UsersSumNumbers {
     }
 
     private int cardsSumNumbers(String name, List<Card> cards) {
-        int sumNumbers = 0;
-        for (Card card : cards) {
-            sumNumbers += card.getCardNumber(name);
-        }
+        int sumNumbers = cards.get(cards.size() - 1).getCardNumber(name);
         return sumNumbers;
     }
 }
