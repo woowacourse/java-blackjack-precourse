@@ -105,7 +105,7 @@ public class BlackJack {
         System.out.println("\n##최종수익");
 
         List<Player> loser = getLoserList();
-        dealer.showMoney(loser);
+        dealer.showMoney(winner, loser);
 
         for (Player player : user.subList(1, user.size())) {
             if (winner.contains(player))
