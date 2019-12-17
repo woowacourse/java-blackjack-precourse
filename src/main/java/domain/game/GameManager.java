@@ -81,13 +81,16 @@ public class GameManager {
         for (Player player : players) {
             print(Message.makeMessagePlayerState(player));
         }
+        print("");
     }
 
     private void getMoreCards() {
         for (Player player : players) {
             askPlayerDrawOrNot(player);
         }
+        print("");
         checkDealerDrawOrNot(dealer);
+        print("");
     }
 
     private void askPlayerDrawOrNot(Player player) {
@@ -119,6 +122,7 @@ public class GameManager {
         for (Player player : players) {
             print(Message.makeMessagePlayerResult(player));
         }
+        print("");
     }
 
     private void showProfit() {

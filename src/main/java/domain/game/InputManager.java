@@ -31,7 +31,7 @@ public class InputManager {
             nameArray = scanner.nextLine().split(",");
             trimWhiteSpace(nameArray);
         } while (!checkNamesValid(nameArray));
-
+        print("");
         return makeArrayToArrayList(nameArray);
     }
 
@@ -110,6 +110,7 @@ public class InputManager {
             battingMoneyString = scanner.nextLine().trim();
         } while (!checkBattingMoneyValid(battingMoneyString));
 
+        print("");
         return Double.parseDouble(battingMoneyString);
     }
 

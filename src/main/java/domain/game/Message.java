@@ -22,7 +22,7 @@ public class Message {
     public static final String DEALER = "딜러";
     public static final String CARD = "카드: ";
     public static final String RESULT = " - 결과: ";
-    public static final String AND = "와";
+    public static final String AND = "와 ";
     public static final String FINAL_PROFIT = "## 최종 수익";
     public static final String COLON = ": ";
     public static final String NEW_LINE = "\n";
@@ -84,7 +84,7 @@ public class Message {
     }
 
     public static String makeMessageFinalProfit(Dealer dealer, ArrayList<Player> players, int maxValue) {
-        String finalProfitMessage = FINAL_PROFIT;
+        String finalProfitMessage = FINAL_PROFIT + NEW_LINE;
 
         finalProfitMessage += DEALER + COLON + dealer.getEarnMoney(players, maxValue) + NEW_LINE;
         for (Player player : players) {
