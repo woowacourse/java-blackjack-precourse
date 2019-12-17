@@ -27,6 +27,7 @@ public class OutputUtil {
 	private static final String HIDDEN = "HIDDEN";
 	private static final String NEW_LINE = "\n";
 	private static final String RESULT = " - 결과: ";
+	private static final double TO_DEALER_RETURN = -1.0;
 
 	public static String getAllNames(List<Player> players, Dealer dealer) {
 		StringBuilder builder = new StringBuilder();
@@ -89,8 +90,13 @@ public class OutputUtil {
 	public static String getFinalReturn(List<Player> players, Dealer dealer) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(dealer.getName()).append(COLON).append("딜러수익").append(NEW_LINE);
-		players.forEach(player -> builder.append(player.getName()).append(COLON).append("플레이어수익").append(NEW_LINE));
+		builder.append(dealer.getName()).append(COLON).append(getDealerReturn(players, dealer)).append(NEW_LINE);
+		players.forEach(player -> builder.append(player.getName())
+			.append(COLON).append(player.getReturn(dealer)).append(NEW_LINE));
 		return builder.toString();
+	}
+
+	private static double getDealerReturn(List<Player> players, Dealer dealer) {
+		return players.stream().mapToDouble(player -> player.getReturn(dealer)).sum() * TO_DEALER_RETURN;
 	}
 }

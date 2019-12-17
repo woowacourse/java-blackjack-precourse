@@ -92,10 +92,6 @@ public class Game {
 
 	private void endGame() {
 		GameController.showGameResult(OutputUtil.getGameResult(players, dealer));
-		calculateFinalReturn();
-	}
-
-	private void calculateFinalReturn() {
 		GameController.showFinalReturn(OutputUtil.getFinalReturn(players, dealer));
 	}
 }
