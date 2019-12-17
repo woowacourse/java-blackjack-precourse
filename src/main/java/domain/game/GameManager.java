@@ -101,6 +101,7 @@ public class GameManager {
     private void checkDealerDrawOrNot(Dealer dealer) {
         if (dealer.getMoreDraw()) {
             dealerDrawMore(dealer);
+            return;
         }
         print(Message.makeMessageDealerGetNoMoreCard());
     }
