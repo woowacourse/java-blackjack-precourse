@@ -64,8 +64,6 @@ public class InitialSetting {
                 if(isValidMoney(betMoney)){
                     moneys.add(Integer.parseInt(betMoney));
                     break;
-                }else{
-                    System.out.println("숫자만 입력하실 수 있습니다.");
                 }
             }
             registerUser(idx, Integer.parseInt(betMoney), players);
@@ -74,11 +72,17 @@ public class InitialSetting {
 
     public boolean isValidMoney(String betMoney){
         int len = betMoney.length();
+
         for(int idx = 0; idx < len; idx++){
             char digit = betMoney.charAt(idx);
             if(digit < '0' || digit > '9'){
+                System.out.println("숫자만 입력하실 수 있습니다.");
                 return false;
             }
+        }
+        if(Integer.parseInt(betMoney) == 0){
+            System.out.println("최소 1원 이상은 배팅해주셔야 합니다.");
+            return false;
         }
         return true;
     }

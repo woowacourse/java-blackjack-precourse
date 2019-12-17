@@ -131,7 +131,7 @@ public class Play {
             return;
         }
         getCardForDealer(1, dealer);
-        System.out.println("딜러는 16이하라 카드를 한장 더 받았습니다.");
+        System.out.println("\n딜러는 16이하라 카드를 한장 더 받았습니다.");
     }
 
     public boolean isBurst(User user){
