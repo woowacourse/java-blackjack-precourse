@@ -12,7 +12,7 @@ class BlackjackGameResult {
   private static final int DOUBLE_VALUE = 2;
   private static final double HALF_VALUE = 0.5;
 
-  private Map<String, Double> participantsIncome;
+  private final Map<String, Double> participantsIncome;
 
   BlackjackGameResult(Dealer dealer, List<Player> players) {
     participantsIncome = new LinkedHashMap<>();

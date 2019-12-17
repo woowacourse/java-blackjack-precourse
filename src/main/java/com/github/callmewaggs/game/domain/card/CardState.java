@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class CardState {
 
-  private List<Card> cards;
+  private final List<Card> cards;
 
   public CardState() {
     this.cards = new ArrayList<>();

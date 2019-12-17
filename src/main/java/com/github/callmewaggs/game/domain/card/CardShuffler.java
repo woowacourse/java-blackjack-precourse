@@ -10,7 +10,7 @@ public class CardShuffler {
   private static final int SHUFFLE_TIMES = 10000;
   private static final int RANDOM_DIGIT = 1000;
 
-  private Queue<Card> shuffledCards;
+  private final Queue<Card> shuffledCards;
 
   public CardShuffler(List<Card> cards) {
     List<Card> newCards = new ArrayList<>(cards);

@@ -7,9 +7,9 @@ import java.util.List;
 
 public class BlackjackGame {
 
-  private Dealer dealer;
-  private List<Player> players;
-  private BlackjackRule blackjackRule;
+  private final Dealer dealer;
+  private final List<Player> players;
+  private final BlackjackRule blackjackRule;
 
   public BlackjackGame(Dealer dealer, List<Player> players, List<Card> cards) {
     this.dealer = dealer;

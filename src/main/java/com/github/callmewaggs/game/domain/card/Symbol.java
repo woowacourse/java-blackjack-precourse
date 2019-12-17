@@ -17,7 +17,7 @@ public enum Symbol {
 
   public static final int ANOTHER_ACE_NUMBER = 11;
 
-  private int score;
+  private final int score;
 
   Symbol(int score) {
     this.score = score;

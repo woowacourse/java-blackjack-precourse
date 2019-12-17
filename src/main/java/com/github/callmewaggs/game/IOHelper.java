@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class IOHelper {
 
-  private static Scanner scanner = new Scanner(System.in);
+  private static final Scanner scanner = new Scanner(System.in);
 
   public static void printExceptionMessage(String message) {
     printMessage(message);

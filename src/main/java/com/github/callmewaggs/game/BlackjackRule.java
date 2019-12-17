@@ -13,8 +13,8 @@ public class BlackjackRule {
   private static final int INITIAL_CARDS_COUNT = 2;
   public static final int BLACKJACK_NUMBER = 21;
 
-  private BlackjackGameResult gameResult;
-  private CardShuffler cardShuffler;
+  private final BlackjackGameResult gameResult;
+  private final CardShuffler cardShuffler;
 
   BlackjackRule(Dealer dealer, List<Player> players, List<Card> cards) {
     this.gameResult = new BlackjackGameResult(dealer, players);
