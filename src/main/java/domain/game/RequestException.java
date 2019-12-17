@@ -2,6 +2,11 @@ package domain.game;
 
 import domain.user.Player;
 
+/**
+ * RequestException
+ * 버전 : 1.0
+ * 예외상황 처리를 위한 클래스
+ */
 public class RequestException {
 	private final static int NAME_LENGTH = 5;
 	private final static int MONEY_VALUE = 0;

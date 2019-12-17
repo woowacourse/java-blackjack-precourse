@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 게임 참여자를 의미하는 객체
+ * Player
+ * 버전 1.0
+ * 플레이어 객체
  */
 public class Player extends Person {
 	private final double bettingMoney;

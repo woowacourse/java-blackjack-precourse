@@ -9,6 +9,11 @@ import domain.user.Dealer;
 import domain.user.Person;
 import domain.user.Player;
 
+/**
+ * GameRequest
+ * 버전 : 1.0
+ * 게임에서 요구되는 것을 처리하는 클래스
+ */
 public class GameRequest {
 	private Scanner scan;
 	private String name;

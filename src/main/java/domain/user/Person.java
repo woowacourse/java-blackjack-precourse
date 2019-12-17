@@ -7,6 +7,11 @@ import domain.card.AceCardSum;
 import domain.card.Card;
 import domain.game.GameUI;
 
+/**
+ * Person
+ * 버전 1.0
+ * 딜러와 플레이어 공통 기능을 수행을 위한 클래스
+ */
 public class Person {
 	protected final static int END_WORD = 2;
 	protected final static int ARR_NUM = 2;

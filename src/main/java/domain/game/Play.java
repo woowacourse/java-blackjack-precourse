@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import domain.card.CardPay;
 import domain.user.Dealer;
-import domain.user.Person;
 import domain.user.Player;
 
 /**
- * 게임 전반적 진행 클래스
+ * Play
+ * 버전 1.0
+ * 게임 진행 클래스
  */
 public class Play {
+	private final static int DEALER = 1;
 	private ArrayList<Player> playerList;
 	private Dealer dealer;
 	private GameRequest gameRequest;
@@ -57,8 +59,26 @@ public class Play {
 	}
 
 	private void playerAddCard(Player player) {
-		while (player.checkPlayerScore() && player.checkAddCard()) {
+		while (player.checkAddCard()) {
 			gameRequest.requestPlayerAddCard(cardPay, player);
 		}
 	}
+
+	private int countPerson() {
+		return DEALER + playerList.size();
+	}
+
+	public int checkBlackJack() {
+		int blackJackNum = 0;
+		if (dealer.getBlackJack()) {
+			blackJackNum++;
+		}
+		for (int i = 0; i < playerList.size(); i++) {
+			if (playerList.get(i).getBlackJack()) {
+				blackJackNum++;
+			}
+		}
+		return blackJackNum;
+	}
+
 }

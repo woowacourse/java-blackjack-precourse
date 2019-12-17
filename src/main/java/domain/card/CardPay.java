@@ -6,6 +6,11 @@ import java.util.Random;
 
 import domain.user.Person;
 
+/**
+ * CardPay
+ * 버전 : 1.0
+ * 카드를 딜러와 사용자에게 지급하는 클래스
+ */
 public class CardPay {
 	private final static int MAX_RANDOM = 52;
 	private final static int FIRST_CARD_NUM = 2;
@@ -35,8 +40,8 @@ public class CardPay {
 		return cardList.get(value).getExist();
 	}
 
-	public void giveUserCard(String addCheck, Person person){
-		if(addCheck.equals("y")) {
+	public void giveUserCard(String addCheck, Person person) {
+		if (addCheck.equals("y")) {
 			person.addCard(randomNumberSelect());
 			person.printCard();
 		}

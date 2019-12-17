@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 게임 딜러를 의미하는 객체
+ * Dealer
+ * 버전 1.0
+ * 딜러 객체
  */
 public class Dealer extends Person {
 	private final static int DEALER_NUM = 16;

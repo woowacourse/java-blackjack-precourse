@@ -2,9 +2,13 @@ package domain.game;
 
 import java.util.ArrayList;
 
-import domain.user.Person;
 import domain.user.Player;
 
+/**
+ * GameUI
+ * 버전 : 1.0
+ * 게임의 인터페이스 담당 클래스
+ */
 public class GameUI {
 	private final static int END_WORD = 2;
 
@@ -42,7 +46,8 @@ public class GameUI {
 		System.out.println(cardList);
 	}
 
-	public static void printRequestAddCard(String name){
+	public static void printRequestAddCard(String name) {
 		System.out.println(name + "은 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
 	}
+
 }
