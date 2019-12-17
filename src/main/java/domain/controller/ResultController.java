@@ -19,17 +19,19 @@ import java.util.ArrayList;
  */
 public class ResultController {
 
+    private static final int EXIT_STATUS = 0;
+
     public void startBlackJackProcedure(ArrayList<Player> playerList, Dealer dealer) {
         if (checkPlayerBlackJackOrNot(playerList)) {// 딜러가 블랙잭이고 플레이어 중에도 블랙잭이 있는 경우
             controlPrintingFinalResult(playerList, dealer);
             continueBlackJackProcedureForBoth(playerList, dealer);
-            System.exit(0);
+            System.exit(EXIT_STATUS);
         }
 
         // 딜러만 블랙잭인 경우
         controlPrintingFinalResult(playerList, dealer);
         continueBlackJackProcedureForDealer(playerList, dealer);
-        System.exit(0);
+        System.exit(EXIT_STATUS);
     }
 
     public void continueBlackJackProcedureForBoth(ArrayList<Player> playerList, Dealer dealer) {
@@ -38,9 +40,10 @@ public class ResultController {
             totalPlayerProfit
                     += player.getProfitByBettingMoney(ProfitController.getPlayerProfitForBlackJack(player));
         }
+        PrintController.printFinalProfit();
         PrintController.printDealerProfit(-totalPlayerProfit);
         for (Player player : playerList) {
-             PrintController.printPlayerProfit(player.getProfitByBettingMoney(ProfitController.getPlayerProfitForBlackJack(player)), player);
+            PrintController.printPlayerProfit(player.getProfitByBettingMoney(ProfitController.getPlayerProfitForBlackJack(player)), player);
         }
     }
 
@@ -49,6 +52,7 @@ public class ResultController {
         for (Player player : playerList) {
             totalPlayerProfit += player.getProfitByBettingMoney(ProfitController.getPlayerDefeatedProfitRate());
         }
+        PrintController.printFinalProfit();
         PrintController.printDealerProfit(-totalPlayerProfit);
         for (Player player : playerList) {
             PrintController.printPlayerProfit(player.getProfitByBettingMoney(ProfitController.getPlayerDefeatedProfitRate()), player);
@@ -70,7 +74,6 @@ public class ResultController {
         for (Player player : playerList) {
             PrintController.printPlayerCardFinalInformation(player);
         }
-        // TODO 결국엔 여기에서 금액 출력해줄 것이다.
     }
 
     public void startDealerBurstProcedure(ArrayList<Player> playerList, Dealer dealer) {
@@ -78,6 +81,7 @@ public class ResultController {
         for (Player player : playerList) {
             totalPlayerProfit += player.getProfitByBettingMoney(ProfitController.getPlayerWonProfitRate());
         }
+        PrintController.printFinalProfit();
         PrintController.printDealerProfit(-totalPlayerProfit);
         for (Player player : playerList) {
             PrintController.printPlayerProfit(player.getProfitByBettingMoney(ProfitController.getPlayerWonProfitRate()), player);
@@ -89,6 +93,7 @@ public class ResultController {
         for (Player player : playerList) {
             totalPlayerProfit += player.getProfitByBettingMoney(ProfitController.getPlayerResultOnNormalFinishProcedure(player, dealer));
         }
+        PrintController.printFinalProfit();
         PrintController.printDealerProfit(-totalPlayerProfit);
         for (Player player : playerList) {
             PrintController.printPlayerProfit(player.getProfitByBettingMoney(ProfitController.getPlayerResultOnNormalFinishProcedure(player, dealer)), player);

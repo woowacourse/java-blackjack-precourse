@@ -17,8 +17,6 @@ public class Player extends BlackJackParticipant {
         this.bettingMoney = bettingMoney;
     }
 
-
-    // TODO 추가 기능 구현
     public String getName() {
         return this.name;
     }
@@ -26,6 +24,5 @@ public class Player extends BlackJackParticipant {
     public double getProfitByBettingMoney(double profitRate) {
         return this.bettingMoney * profitRate;
     }
-
 
 }

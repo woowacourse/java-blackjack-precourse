@@ -75,7 +75,7 @@ public class InputValidator {
         return checkStringIsYesOrNo();
     }
 
-    public static boolean checkStringIsYesOrNo(){
+    public static boolean checkStringIsYesOrNo() {
         if (!inputAnswer.equals(YES) && !inputAnswer.equals(NO)) {
             PrintController.printInputIsNotYOrNError();
             return false;

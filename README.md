@@ -1,6 +1,6 @@
 # 우아한 테크코스 프리코스 3주차 미션 - 블랙잭
 
-##### version 0.1  
+##### version 0.9  
 
 ##### 과정을 정리해둔 노션 링크 : https://www.notion.so/toneyparky/WOO-WA-Tech-Course-fb6c6d1c14354d38bafe252e8f42b7f5
 

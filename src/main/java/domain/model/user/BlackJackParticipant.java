@@ -24,10 +24,11 @@ public abstract class BlackJackParticipant {
     private static final int BURST = 22;
     private static final int TEN = 10;
 
-
     private final List<Card> cards = new ArrayList<>();
 
-    public void addCard(Card card) {cards.add(card);}
+    public void addCard(Card card) {
+        cards.add(card);
+    }
 
     public String getCardsInformation() { // 카드리스트를 이용해서 출력될 카드 정보를 String으로 만들어서 보내는 메서드
         ArrayList<String> cardInfoArrayList = new ArrayList<>();
@@ -43,11 +44,6 @@ public abstract class BlackJackParticipant {
             scoreList.add(card.getSymbolScore());
         }
         return scoreList;
-    }
-
-    public int getSumOfFirstTwoCardsScore() {
-        List<Integer> scoreList = getAllCardsScore().subList(0, 2);
-        return scoreList.stream().mapToInt(Integer::intValue).sum();
     }
 
     public boolean isBlackJack() {

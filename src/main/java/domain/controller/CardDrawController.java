@@ -7,8 +7,6 @@ package domain.controller;
 
 import domain.model.card.Card;
 import domain.model.card.CardFactory;
-import domain.model.card.Symbol;
-import domain.model.card.Type;
 import domain.model.user.Dealer;
 import domain.model.user.Player;
 import input.UserInput;
@@ -25,7 +23,6 @@ import static util.RandomIntegerGenerator.generateRandomIntegerByInputInteger;
  * @since : 2019.12.13 금요일
  */
 public class CardDrawController {
-    private static final int EXTRA_CARD_LIMIT_FOR_DEALER = 16;
     private static ArrayList<Card> entireCards = new ArrayList<>();
 
     public static void makeEntireCardSet() {
@@ -75,8 +72,7 @@ public class CardDrawController {
             PrintController.printPlayerCardInformation(player);
         }
 
-        if (CardDrawController.checkCanNotDrawMore(player)) {
-            System.out.println("버스트 처리해주기");
+        if (CardDrawController.checkCanNotDrawMore(player)) { // 블랙잭상황 혹은 버스트 발생시 false를 리턴
             return false;
         }
 

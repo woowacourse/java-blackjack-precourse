@@ -31,9 +31,10 @@ public class Card {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() { // 두 객체가 같은 객체인이지 확인, hashCode도 같도록 만들기.
         return Objects.hash(symbol, type);
-    } // 두 객체가 같은 객체인이지 확인, hashCode도 같도록 만들기.
+
+    }
 
     @Override
     public String toString() {
@@ -44,16 +45,12 @@ public class Card {
         return symbol.getScore();
     }
 
-    public boolean isAce() {
-        return symbol == Symbol.ACE;
-    }
-
     public String getSymbolScoreByLetter(Symbol symbol) {
-        if (symbol == Symbol.JACK) { return "J"; }
-        if (symbol == Symbol.QUEEN) { return "Q"; }
-        if (symbol == Symbol.KING) { return "K"; }
-        if (symbol == Symbol.ACE) { return "A"; }
-        return  Integer.toString(symbol.getScore());
+        if (symbol == Symbol.JACK) return "J";
+        if (symbol == Symbol.QUEEN) return "Q";
+        if (symbol == Symbol.KING) return "K";
+        if (symbol == Symbol.ACE) return "A";
+        return Integer.toString(symbol.getScore());
 
     }
 }

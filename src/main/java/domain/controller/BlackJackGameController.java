@@ -10,7 +10,6 @@ import domain.model.user.Player;
 import input.UserInput;
 import view.PrintController;
 
-import javax.xml.transform.Result;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +37,6 @@ public class BlackJackGameController {
         initiateDrawing();
         moreDrawing();
         finishBlackJackGame();
-
-        // test
-        System.out.println("fin");
-
     }
 
     public void makePlayerInstance() {
@@ -70,17 +65,13 @@ public class BlackJackGameController {
             printPlayerCardInformation(player);
         }
         ResultController resultController = new ResultController();
-        if (dealer.isBlackJack()) {
-            // TODO 처음에 딜러에게 블랙잭이 발생하면 If문으로 들어옴. 바로 결과가 나와야함.
-            // 블랙잭이 딜러만인지 플레이어와인지 판단하고 그에 따라서 총 결과와 돈 내보이고 출력하기.
+        if (dealer.isBlackJack()) { // 딜러 블랙잭발생.
             resultController.startBlackJackProcedure(playerList, dealer);
-
-            System.out.println("누가 블랙잭인지 보고 돈계산하고 끝내야함~");
         }
-        // test
-        System.out.println("DEALER?" + dealer.getAllCardsScore());
-        System.out.println("DEALER?" + dealer.getCurrentScore());
-        System.out.println("DEALER?" + dealer.checkHowManyAceInCards());
+//        // test
+//        System.out.println("DEALER?" + dealer.getAllCardsScore());
+//        System.out.println("DEALER?" + dealer.getCurrentScore());
+//        System.out.println("DEALER?" + dealer.checkHowManyAceInCards());
 
     }
 
@@ -96,10 +87,8 @@ public class BlackJackGameController {
         boolean userAnswer;
         CardDrawController cardDrawController = new CardDrawController();
 
-        if (CardDrawController.checkCanNotDrawMore(player)) {
-            System.out.println("checkCanNotDrawMore!!!!!??");
-            return ;
-        }
+        if (CardDrawController.checkCanNotDrawMore(player)) return; // 플레이어가 블랙잭이거나 버스트이면 더 드로우 하지 않게 한다.
+
         do {
             userAnswer = cardDrawController.controlPlayerExtraDrawing(player);
         } while (userAnswer);
@@ -116,8 +105,8 @@ public class BlackJackGameController {
         }
 
         PrintController.printDealerExtraCards(dealer.getAllCards().size() - TWO);
-        // test
-        System.out.println("DEALER?" + dealer.getAllCardsScore());
+//        // test
+//        System.out.println("DEALER?" + dealer.getAllCardsScore());
     }
 
     public void finishBlackJackGame() {
@@ -129,7 +118,7 @@ public class BlackJackGameController {
             return;
         }
 
-        resultController.startNormalFinishProcedure(playerList,dealer);
+        resultController.startNormalFinishProcedure(playerList, dealer);
 
     }
 }

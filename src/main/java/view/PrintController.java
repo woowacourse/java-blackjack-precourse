@@ -31,9 +31,11 @@ public class PrintController {
     private static final String DEALER_IS = "딜러는 ";
     private static final String LOWER_THAN_SIXTEEN = "16이하라 ";
     private static final String GET_N_NUMBER_CARDS = "장의 카드를 더 받았습니다.";
+    private static final String DEALER_CARD_COLON = "딜러 카드: ";
     private static final String RESULT_COLON = " - 결과: ";
     private static final String TOTAL_PROFIT = "## 최종 수익";
     private static final String COLON = ": ";
+    private static final String LINE_BREAKER = "\n";
 
     public static String integerToKoreanNumber(int number) {
         if (number == 1) { return "한"; }
@@ -44,7 +46,6 @@ public class PrintController {
         if (number == 6) { return "여섯"; }
         return "여러"; // 딜러가 추가로 카드를 7장 이상 뽑을 가능성은 무척 낮기에 다 적기보다 여러장으로 표기한다.
     }
-
 
     public static void askPlayerName() {
         System.out.println(ASKING_PLAYER_NAME);
@@ -63,7 +64,7 @@ public class PrintController {
     }
 
     public static void askBettingMoney(String playerName) {
-        System.out.println(playerName + ASKING_BETTING_MONEY);
+        System.out.println(LINE_BREAKER + playerName + ASKING_BETTING_MONEY);
     }
 
     public static void printInputNumberIsSmallError() {
@@ -71,7 +72,7 @@ public class PrintController {
     }
 
     public static void printHandingTwoCardsInformation(String playersName) {
-        System.out.println(DEALER_AND + playersName + HANDING_TWO_CARDS_INFORMATION);
+        System.out.println(LINE_BREAKER + DEALER_AND + playersName + HANDING_TWO_CARDS_INFORMATION);
     }
 
     public static void printDealerCardInformation(Dealer dealer) {
@@ -90,25 +91,32 @@ public class PrintController {
         System.out.println(INPUT_IS_NOT_Y_OR_N_ERROR);
     }
 
-    public static void printDealerCanNotDrawMoreCard() {System.out.println(PRINT_DEALER_CAN_NOT_DRAW_MORE_CARD);}
+    public static void printDealerCanNotDrawMoreCard() {
+        System.out.println(PRINT_DEALER_CAN_NOT_DRAW_MORE_CARD);
+    }
 
     public static void printDealerExtraCards(int extraCounts) {
-        System.out.println(DEALER_IS + LOWER_THAN_SIXTEEN + integerToKoreanNumber(extraCounts) + GET_N_NUMBER_CARDS);
+        System.out.println(LINE_BREAKER + DEALER_IS + LOWER_THAN_SIXTEEN + integerToKoreanNumber(extraCounts) + GET_N_NUMBER_CARDS);
     }
 
     public static void printDealerCardFinalInformation(Dealer dealer) {
-        System.out.println(DEALER_COLON + dealer.getCardsInformation() + RESULT_COLON + dealer.getCurrentScore());
+        System.out.println(LINE_BREAKER + DEALER_CARD_COLON + dealer.getCardsInformation() + RESULT_COLON + dealer.getCurrentScore());
     }
 
     public static void printPlayerCardFinalInformation(Player player) {
         System.out.println(player.getName() + CARD_COLON + player.getCardsInformation() + RESULT_COLON + player.getCurrentScore());
     }
 
+    public static void printFinalProfit() {
+        System.out.println(LINE_BREAKER + TOTAL_PROFIT);
+    }
+
     public static void printDealerProfit(double dealerProfit) {
-        System.out.println(DEALER_COLON + (int)dealerProfit);
+        System.out.println(DEALER_COLON + (int) dealerProfit);
     }
 
     public static void printPlayerProfit(double playerProfit, Player player) {
-        System.out.println(player.getName() + COLON + (int)playerProfit);
+        System.out.println(player.getName() + COLON + (int) playerProfit);
     }
+
 }

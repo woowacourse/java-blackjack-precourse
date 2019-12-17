@@ -14,14 +14,8 @@ public class Dealer extends BlackJackParticipant {
 
     public Dealer() {}
 
-    // TODO 추가 기능 구현
-
     public Card getCard() {
         return super.getAllCards().get(0);
     }
-
-
-
-
 
 }
