@@ -14,8 +14,10 @@ public class GameStatusAnnouncer {
     }
 
     private void printCardStatus(Dealer dealer, Player[] players) {
+        announce.announceCardStatusStart();
         announce.announceCardStatus(dealer);
         announce.announceCardStatus(players);
+        System.out.println();
     }
 
     public void afterStandByUser (Dealer dealer, Player[] players){
@@ -24,7 +26,6 @@ public class GameStatusAnnouncer {
     }
 
     public void afterTurn (Dealer dealer, Player[] players){
-        announce.announceDoneUserCreate(players);
         printCardStatus(dealer, players);
     }
 

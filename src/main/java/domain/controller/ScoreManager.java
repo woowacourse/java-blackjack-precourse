@@ -14,6 +14,7 @@ public class ScoreManager {
     Announcer announcer;
 
     final static int BLACKJACK = 21;
+    final static int SIXTEEN = 16;
     final static int ACE_ELEVEN_MODE = 10;
     final static String ACE_TYPE = "ACE";
 
@@ -21,6 +22,13 @@ public class ScoreManager {
         scanner = new Scanner(System.in);
         cardManager = new CardManager();
         announcer = new Announcer();
+    }
+
+    public boolean isLessThanSixTeen(int score) {
+        if (score < 16) {
+            return true;
+        }
+        return false;
     }
 
     public boolean checkBlackJack(Dealer dealer) {

@@ -33,7 +33,7 @@ public class UserCreateManager {
         this.dealer = dealer;
     }
 
-    public Player[] playerStandBy(){
+    public Player[] playerStandBy() {
         createPlayer(createPlayerName());
         createDealer();
         return players;
@@ -41,11 +41,11 @@ public class UserCreateManager {
 
     private void createPlayer(List<String> nameList) {
         int i = 0;
-
         for (String name : nameList) {
             announce.announceMoneyInput(name);
             players[i] = new Player(
                     name, moneyinput.inputBettingMoney());
+            System.out.println();
             cardManager.giveCard(players[i], MAKE_TWO_CARD);
             i++;
         }
@@ -57,12 +57,10 @@ public class UserCreateManager {
 
     private List<String> createPlayerName() {
         List<String> nameList;
-
         do {
             announce.announcePlayerInput();
             nameList = input.inputPlayerNames();
         } while (inputException.isZeroLength(nameList));
-
         players = new Player[nameList.size()];
         return nameList;
     }

@@ -33,7 +33,7 @@ public class GameManager {
         players = userCreateManager.playerStandBy();
         gameStatus.afterStandByUser(dealer, players);
         afterGiveCard();
-        turnManager.nextTurn(players);
+        turnManager.nextTurn(dealer, players);
         gameStatus.afterTurn(dealer, players);
         afterGiveCard();
     }
