@@ -6,7 +6,9 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Game {
 
@@ -15,8 +17,9 @@ public class Game {
     private final Output output = new Output(dealer);
     private final List<Player> players = new ArrayList<>();
     private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
-
-    private String[] playerNames;
+    private Map<String, Double> bettingMoneyMap = new LinkedHashMap<>();
+    private List<Player> winners = new ArrayList<>();
+    private final int BLACKJACK_SCORE = 21;
 
     public void Play() {
         this.playerObjectCreate();
@@ -25,27 +28,47 @@ public class Game {
             players.stream().forEach(player -> player.cardDraw(cardDeck));
         }
         output.StartCardState(players);
-        players.stream().forEach(player -> this.PlayerAddCardDraw(player));
-        players.stream().forEach(player -> System.out.println(player.scoreCalculator()));
-        if(output.dealerAddCardDraw()){
-            dealer.cardDraw(cardDeck);
-            dealer.cardsToString();
-        }
+        players.stream().forEach(player -> this.playerAddCardDraw(player));
+        this.dealerAddCardDraw();
         output.finalCardResult(players);
+        output.bettingMoneyResult(bettingMoneyMap);
     }
 
     public void playerObjectCreate() {
-        playerNames = input.playerNameInput();
+        String[] playerNames = input.playerNameInput();
+        Double totalBettingMoney = 0.0;
         for (String playerName : playerNames) {
             Double bettingMoney = input.bettingMoneyInput(playerName);
+            totalBettingMoney += bettingMoney;
             players.add(new Player(playerName, bettingMoney));
         }
+        this.bettingMoneyMapCreate(totalBettingMoney);
     }
 
-    public void PlayerAddCardDraw(Player player) {
+    public void bettingMoneyMapCreate(double totalBettingMoney) {
+        bettingMoneyMap.put("딜러", totalBettingMoney);
+        players.stream().forEach(player -> bettingMoneyMap.put(player.getName(), player.getBettingMoney()));
+    }
+
+    public void playerAddCardDraw(Player player) {
         while (input.addCardDrawInput(player).equals("y")) {
             player.cardDraw(cardDeck);
             System.out.println(player.cardsToString());
         }
     }
+
+    public void dealerAddCardDraw() {
+        if (output.dealerAddCardDraw()) {
+            dealer.cardDraw(cardDeck);
+        }
+    }
+
+    public void BettingMoneyCalculator(List<Player> winners) {
+        for (Player winner : winners) {
+            Double winnerMoney = winner.getBettingMoney() * 1.5;
+            bettingMoneyMap.put("Dealer", bettingMoneyMap.get("dealer") - winnerMoney);
+            bettingMoneyMap.put(winner.getName(), winnerMoney);
+        }
+    }
+
 }

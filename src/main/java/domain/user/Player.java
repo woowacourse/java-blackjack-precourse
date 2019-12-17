@@ -6,6 +6,7 @@ package domain.user;
 public class Player extends Helper {
     private final String name;
     private final double bettingMoney;
+    private final int BLACKJACK_SCORE = 21;
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -16,6 +17,10 @@ public class Player extends Helper {
 
     public String getName() {
         return name;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
     }
 
     public String cardsToString() {

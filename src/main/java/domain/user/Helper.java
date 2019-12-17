@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 public class Helper {
 
     private final List<Card> cards = new ArrayList<>();
+    private final int BLACKJACK_SCORE = 21;
 
     public void addCard(Card card) {
         cards.add(card);
@@ -38,4 +39,10 @@ public class Helper {
         return scoreResult;
     }
 
+    public boolean blackJack(){
+        if(scoreCalculator() == BLACKJACK_SCORE){
+            return true;
+        }
+        return false;
+    }
 }

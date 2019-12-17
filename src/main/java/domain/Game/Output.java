@@ -3,7 +3,9 @@ package domain.Game;
 import domain.user.Dealer;
 import domain.user.Player;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Output {
@@ -20,16 +22,25 @@ public class Output {
         players.stream().forEach(player -> System.out.println(player.cardsToString()));
     }
 
-    public boolean dealerAddCardDraw(){
-        if(dealer.addCardDraw()){
+    public boolean dealerAddCardDraw() {
+        if (dealer.addCardDraw()) {
             System.out.println("딜러는 16이하라 카드를 더 받았습니다.");
             return true;
         }
         return false;
     }
 
-    public void finalCardResult(List<Player> players){
+    public void finalCardResult(List<Player> players) {
         System.out.println(dealer.cardsToString() + " - 결과 : " + dealer.scoreCalculator());
         players.stream().forEach(player -> System.out.println(player.cardsToString() + "- 결과 : " + player.scoreCalculator()));
+    }
+
+    public void bettingMoneyResult(Map<String, Double> bettingMoneyMap) {
+        System.out.println("##최종수익");
+        Iterator<String> bettingMoneyMapKeys = bettingMoneyMap.keySet().iterator();
+        while (bettingMoneyMapKeys.hasNext()){
+            String bettingMoneyMapKey = bettingMoneyMapKeys.next();
+            System.out.println(bettingMoneyMapKey + " : " + bettingMoneyMap.get(bettingMoneyMapKey));
+        }
     }
 }
