@@ -37,11 +37,21 @@ public class Player {
         return bettingMoney;
     }
 
-    public List<Card> getDeck() {
-        return cards;
+    public int getScore() {
+        int score = 0;
+
+        for (Card card : cards) {
+            score += card.getSymbol().getScore();
+        }
+
+        return score;
     }
 
-    public void showDeck() {
-        System.out.println(name + "카드 : " + cards);
+    public void showCards() {
+        System.out.println(name + "카드 " + cards);
+    }
+
+    public void showMoney(int result) {
+        System.out.println(name + " : " + bettingMoney * result);
     }
 }
