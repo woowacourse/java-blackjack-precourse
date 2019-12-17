@@ -30,12 +30,20 @@ public class BlackjackGame {
 
     static void evaluateRound() {
         evaluatePlayerRound();
+        evaluateDealerRound();
     }
 
     static void evaluatePlayerRound() {
         ArrayList<Integer> playerScoreArray = GameProcessor.calculateAllPlayersHandValue(playersArray);
         for (int i = 0; i < playersArray.size(); i++) {
             GameProcessor.askPlayerAnotherCard(playersArray.get(i), shuffledCards);
+        }
+    }
+
+    static void evaluateDealerRound() {
+        boolean condition = GameProcessor.evaluateDealerHandValue(GameProcessor.calculateDealerHandValue(dealer), dealer, shuffledCards);
+        if (condition != true) {
+            evaluateDealerRound();
         }
     }
 

@@ -2,6 +2,7 @@ package domain;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.card.Symbol;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -71,7 +72,6 @@ public class GameProcessor {
 
     static void givePlayerAnotherCard(Player player, List<Card> cards) {
         player.addCard(dealCard(cards));
-        System.out.println("Get card");
         System.out.println(player.getCards());
         askPlayerAnotherCard(player, cards);
     }
@@ -82,5 +82,36 @@ public class GameProcessor {
             playerScoreArray.add(calculatePlayerHandValue(player));
         }
         return playerScoreArray;
+    }
+
+    static final int BLACKJACK = 11;
+    static final int DEALER_HIT = 17;
+
+    static int calculateDealerHandValue(Dealer dealer) {
+        int dealerScore = 0;
+        List<Card> dealerCards = dealer.getCards();
+        for (int i = 0; i < dealerCards.size(); i++) {
+            dealerScore += dealerCards.get(i).getScore();
+        }
+        return dealerScore;
+    }
+
+    static boolean checkDealerBlackjack(int dealerScore, Dealer dealer) {
+        List<Card> dealerCards = dealer.getCards();
+        if (dealerScore == BLACKJACK && dealerCards.contains(Symbol.ACE)) {
+            return true;
+        }
+        return false;
+    }
+
+    static boolean evaluateDealerHandValue(int dealerScore, Dealer dealer, List<Card> cards) {
+        if (checkDealerBlackjack(dealerScore, dealer)) { // Blackjack condition
+            return true;
+        }
+        if (dealerScore >= DEALER_HIT) { // Stop condition
+            return true;
+        }
+        dealer.addCard(dealCard(cards));
+        return false;
     }
 }
