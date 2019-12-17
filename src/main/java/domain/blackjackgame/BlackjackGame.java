@@ -4,6 +4,8 @@ import domain.card.CardFactory;
 import domain.card.Stack;
 import domain.user.Users;
 
+import static view.outputView.printSpacebar;
+
 public class BlackjackGame {
     private Users users;
     private Stack stack;
@@ -17,10 +19,13 @@ public class BlackjackGame {
 
     public void execute() {
         users.distribute(stack);
+        printSpacebar();
         users.processEachUser(stack);
+        printSpacebar();
         users.showResult();
+        printSpacebar();
         users.calculate();
-
+        printSpacebar();
     }
 
 }

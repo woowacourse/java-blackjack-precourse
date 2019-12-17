@@ -11,7 +11,6 @@ import java.util.List;
 public class PlayerUtility {
 
     private static final String PLAYER_NAME_DELIMITER = ",";
-    private static final int INITIAL_BETTING_MONEY = 0;
 
     public static Users generatePlayers() {
         String[] playerNames = getPlayerNames();

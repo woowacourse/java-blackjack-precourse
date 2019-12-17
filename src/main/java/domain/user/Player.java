@@ -21,18 +21,25 @@ public class Player extends User {
         this.bettingMoney = bettingMoney;
     }
 
-    public String getName() {
+    String getName() {
         return this.name;
     }
 
-    public void printCards() {
-        System.out.println(getName() + ": " + printCardValue() + getScore());
+    void printCards() {
+        System.out.println(getName() + ": " + printCardValue());
     }
 
-    public void proceed(Stack stack) {
+    void proceed(Stack stack) {
         String response = "";
         while (!isBlackjack() && (validateUnder(21) && !response.equals("n"))) {
             response = choice(stack);
+        }
+        printBlackjack(isBlackjack());
+    }
+
+    private void printBlackjack(boolean blackjack) {
+        if (blackjack) {
+            System.out.println(getName() + "은(는) 블랙잭입니다!");
         }
     }
 
@@ -60,34 +67,25 @@ public class Player extends User {
         }
     }
 
-    public void showResult() {
+    void showResult() {
         System.out.println(getName() + " 카드: " + printCardValue() + " - 결과: " + getRealScore());
     }
 
 
-    public int compare(Dealer dealer) {
-        if (!validateUnder(22)) {
+    int compare(Dealer dealer) {
+        if (!validateUnder(22) || getRealScore() < dealer.getRealScore()) {
             return (int) bettingMoney * -1;
         }
-        if (validateUnder(22) && !dealer.validateUnder(22)) {
+        if ((validateUnder(22) && !dealer.validateUnder(22)) || getRealScore() > dealer.getRealScore()) {
             return (int) bettingMoney;
         }
         if (isBlackjack()) {
             return (int) (bettingMoney * 1.5);
         }
-        if (getRealScore() > dealer.getRealScore()) {
-            return (int) bettingMoney;
-        }
-        if (getRealScore() < dealer.getRealScore()) {
-            return (int) bettingMoney * -1;
-        }
-        if (getRealScore() == dealer.getRealScore()) {
-            return 0;
-        }
-        return 0;    // no use
+        return 0;
     }
 
-    public void printProfit(int profit) {
+    void printProfit(int profit) {
         System.out.println(getName() + ": " + profit);
     }
 

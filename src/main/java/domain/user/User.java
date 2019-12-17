@@ -23,11 +23,11 @@ public class User {
         return cardInfo;
     }
 
-    public String printCardValue() {
+    String printCardValue() {
         return String.join(", ", getCardValue());
     }
 
-    public int getScore() {
+    private int getScore() {
         int score = 0;
         for (Card card : cards) {
             score += card.getScore();
@@ -35,7 +35,7 @@ public class User {
         return score;
     }
 
-    public int getRealScore() {
+    int getRealScore() {
         int score = 0;
         for (Card card : cards) {
             score += card.getScore();

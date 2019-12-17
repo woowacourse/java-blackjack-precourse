@@ -107,16 +107,18 @@ public class Users {
         }
     }
 
-    public Dealer getDealer() {
+    private Dealer getDealer() {
         List<Dealer> dealers = users.stream().filter(Dealer.class::isInstance).map(Dealer.class::cast).collect(Collectors.toList());
 
         return dealers.get(0);
     }
 
-    public List<Player> getPlayers() {
-        List<Player> players = users.stream().filter(Player.class::isInstance).map(Player.class::cast).collect(Collectors.toList());
+    private List<Player> getPlayers() {
 
-        return players;
+        return users.stream()
+                .filter(Player.class::isInstance)
+                .map(Player.class::cast)
+                .collect(Collectors.toList());
     }
 
     public void calculate() {

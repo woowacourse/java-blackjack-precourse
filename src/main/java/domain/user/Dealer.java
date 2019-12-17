@@ -20,12 +20,12 @@ public class Dealer extends User {
         System.out.println("딜러: " + printInitialCardValue());
     }
 
-    public String printInitialCardValue() {
+    private String printInitialCardValue() {
         ArrayList<String> CardValue = getCardValue();
         return CardValue.get(0);
     }
 
-    public void proceed(Stack stack) {
+    void proceed(Stack stack) {
         while (validateUnder(17)) {
             addCard(stack.popCard());
             System.out.println(MESSAGE_DEALER_GET_MORE_CARD);
@@ -33,14 +33,11 @@ public class Dealer extends User {
 
     }
 
-    public void showResult() {
+    void showResult() {
         System.out.println("딜러 카드: " + printCardValue() + " - 결과: " + getRealScore());
     }
 
-    public void showProfit() {
-    }
-
-    public void printProfit(int playersProfitSum) {
+    void printProfit(int playersProfitSum) {
         System.out.println("딜러: " + playersProfitSum * -1);
     }
 }
