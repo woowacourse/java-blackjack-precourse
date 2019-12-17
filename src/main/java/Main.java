@@ -9,5 +9,6 @@ public class Main {
         System.out.println("Input the player's names (separate with ',')");
         nameInput = scan.nextLine();
         game = new Game(nameInput.split(","));
+        game.startGame();
     }
 }

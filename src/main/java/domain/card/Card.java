@@ -38,4 +38,8 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+    public int getScore(){
+        return symbol.getScore();
+    }
 }
