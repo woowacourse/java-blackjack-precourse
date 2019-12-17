@@ -16,7 +16,7 @@ public class BlackjackApplication {
 	public static void main(String[] args) {
 		CardDeck cardDeck = new CardDeck(CardFactory.create());
 		Dealer dealer = new Dealer();
-		BlackjackGame blackJackGame = new BlackjackGame(cardDeck, dealer);
-		blackJackGame.play();
+		BlackjackGame blackjackGame = new BlackjackGame(cardDeck, dealer);
+		blackjackGame.play();
 	}
 }
