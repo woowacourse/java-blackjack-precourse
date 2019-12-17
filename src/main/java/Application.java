@@ -17,8 +17,6 @@ import domain.user.*;
 import ui.Console;
 import util.BlackjackPrinterImpl;
 
-
-
 public class Application {
     public static void main(String[] args) {
         Blackjack blackjack = setupBlackjack();

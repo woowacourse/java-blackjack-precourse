@@ -93,7 +93,7 @@ public class Console implements UserInterface {
 
     private void validateMoney(double bettingMoney) {
         if (bettingMoney <= BlackjackConfig.MIN_MONEY) {
-            throw new InvalidInputException(String.format("베팅 금액은 %f보다 커야 합니다.",
+            throw new InvalidInputException(String.format("베팅 금액은 %.0f보다 커야 합니다.",
                     BlackjackConfig.MIN_MONEY));
         }
     }
