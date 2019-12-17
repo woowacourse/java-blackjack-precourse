@@ -140,7 +140,7 @@ public class Player {
         return symbol;
     }
 
-    public void winbettingMoney(){
-
+    public double getbettingMoney(){
+        return this.bettingMoney;
     }
 }

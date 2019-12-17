@@ -5,6 +5,7 @@
 
 import domain.construtor.CardDrawing;
 import domain.construtor.ConstructionPlayerAndDealer;
+import domain.winner.SelectionWinner;
 import domain.output.View;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -12,6 +13,8 @@ import domain.user.Player;
 import java.util.List;
 
 public class BlackjackGame {
+    static final int BLACKJACK = 21;
+    static SelectionWinner winner = new SelectionWinner();
     static List<Player> playerList;
     static Dealer dealer;
     static ConstructionPlayerAndDealer construct  = new ConstructionPlayerAndDealer();
@@ -22,10 +25,13 @@ public class BlackjackGame {
         playerList = construct.constructPlayer();
         dealer = construct.constructDealer();
         drawing.startShuffle(playerList,dealer);
+        if(playerList.stream().anyMatch(player -> player.calculateSymbol() == BLACKJACK)){
+            winner.startBlackjack(playerList,dealer);
+        }
 
         drawing.drawAllPlayer(playerList);
         drawing.drawDealerCard(dealer.calculateSymbol(),dealer);
-        view.resultMsg(playerList,dealer);
+        view.resultCardMsg(playerList,dealer);
     }
 
 }

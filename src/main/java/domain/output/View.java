@@ -77,11 +77,23 @@ public class View {
      * @param playerList 플레이어정보를 갖고있는 List
      * @param dealer 딜러객체
      */
-    public void resultMsg(List<Player> playerList,Dealer dealer){
+    public void resultCardMsg(List<Player> playerList,Dealer dealer){
         System.out.print(dealer.toStringCard());
         for (Player player : playerList) {
             System.out.print(player.toStringCard());
             System.out.println(player.calculateSymbol());
+        }
+    }
+
+    /**
+     * 게임 종료되고 최종수익 공개
+     */
+    public void resultMsg(Double dealerSum,List<Player> playerList,List<Double> playerMoneyList){
+        System.out.println("###최종수익");
+        System.out.println("딜러:"+dealerSum);
+
+        for(int i=0;i<playerList.size();i++){
+            System.out.println(playerList.get(i).getName()+playerMoneyList.get(i));
         }
     }
 }
