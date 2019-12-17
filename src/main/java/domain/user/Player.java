@@ -87,14 +87,14 @@ public class Player extends User {
 
 
     int compare(Dealer dealer) {
+        if (isBlackjack()) {
+            return (int) (bettingMoney * BLACKJACK_FACTOR);
+        }
         if (!validateUnder(BANKRUPT_FLOOR) || getRealScore() < dealer.getRealScore()) {
             return (int) bettingMoney * LOOSING_FACTOR;
         }
         if ((validateUnder(BANKRUPT_FLOOR) && !dealer.validateUnder(BANKRUPT_FLOOR)) || getRealScore() > dealer.getRealScore()) {
             return (int) bettingMoney;
-        }
-        if (isBlackjack()) {
-            return (int) (bettingMoney * BLACKJACK_FACTOR);
         }
         return DRAW_PROFIT;
     }

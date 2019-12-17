@@ -27,6 +27,12 @@ public class Users {
         printDistribution();
     }
 
+    private void addMultipleCards(Stack stack, User user, int number) {
+        for (int i = 0; i < number; i++) {
+            user.addCard(stack.popCard());
+        }
+    }
+
     private void printDistribution() {
         ArrayList<String> playerNames = new ArrayList<>();
 
@@ -39,20 +45,12 @@ public class Users {
     }
 
     private void printOpen() {
-        for (User user : users) {
-            printOpenEachUser(user);
-        }
-    }
-
-    private void printOpenEachUser(User user) {
-        if (user instanceof Player) {
-            Player player = (Player) user;
+        List<Player> players = getPlayers();
+        Dealer dealer = getDealer();
+        for (Player player : players) {
             player.printCards();
         }
-        if (user instanceof Dealer) {
-            Dealer dealer = (Dealer) user;
-            dealer.printCards();
-        }
+        dealer.printCards();
     }
 
     private void getNameOfPlayer(ArrayList<String> playerNames, User user) {
@@ -62,56 +60,39 @@ public class Users {
         }
     }
 
-    private void addMultipleCards(Stack stack, User user, int number) {
-        for (int i = 0; i < number; i++) {
-            user.addCard(stack.popCard());
-        }
-    }
-
     public void addDealer() {
         users.add(new Dealer());
     }
 
     public void processEachUser(Stack stack) {
-        for (User user : users) {
-            processPlayer(user, stack);
-            processDealer(user, stack);
-        }
-    }
-
-    private void processDealer(User user, Stack stack) {
-        if (user instanceof Dealer) {
-            Dealer dealer = (Dealer) user;
-            dealer.proceed(stack);
-        }
-    }
-
-    private void processPlayer(User user, Stack stack) {
-        if (user instanceof Player) {
-            Player player = (Player) user;
+        List<Player> players = getPlayers();
+        Dealer dealer = getDealer();
+        for (Player player : players) {
             player.proceed(stack);
         }
+        dealer.proceed(stack);
     }
 
     public void showResult() {
-        for (User user : users) {
-            showDealerResult(user);
-            showPlayerResult(user);
-        }
-    }
-
-    private void showDealerResult(User user) {
-        if (user instanceof Dealer) {
-            Dealer dealer = (Dealer) user;
-            dealer.showResult();
-        }
-    }
-
-    private void showPlayerResult(User user) {
-        if (user instanceof Player) {
-            Player player = (Player) user;
+        List<Player> players = getPlayers();
+        Dealer dealer = getDealer();
+        dealer.showResult();
+        for (Player player : players) {
             player.showResult();
         }
+    }
+
+    public void calculate() {
+        int playersProfitSum = INITIAL_PROFIT_SUM;
+        List<Player> players = getPlayers();
+        Dealer dealer = getDealer();
+        System.out.println(MESSAGE_LAST_PROFIT);
+        for (Player player : players) {
+            int profit = player.compare(dealer);
+            player.printProfit(profit);
+            playersProfitSum += profit;
+        }
+        dealer.printProfit(playersProfitSum);
     }
 
     private Dealer getDealer() {
@@ -136,18 +117,5 @@ public class Users {
                         .class::cast)
                 .collect(Collectors
                         .toList());
-    }
-
-    public void calculate() {
-        int playersProfitSum = INITIAL_PROFIT_SUM;
-        List<Player> players = getPlayers();
-        Dealer dealer = getDealer();
-        System.out.println(MESSAGE_LAST_PROFIT);
-        for (Player player : players) {
-            int profit = player.compare(dealer);
-            player.printProfit(profit);
-            playersProfitSum += profit;
-        }
-        dealer.printProfit(playersProfitSum);
     }
 }

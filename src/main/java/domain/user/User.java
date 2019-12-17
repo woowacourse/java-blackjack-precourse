@@ -11,6 +11,7 @@ public class User {
     private static final int BLACKJACK_CORRECTION = 10;
     private static final int BLACKJACK_CARD_SIZE = 2;
     private static final String ACE_SYMBOL = "ACE";
+    private static final String CARD_VALUE_DELIMITER = ", ";
     private final List<Card> cards = new ArrayList<>();
 
     public User() {
@@ -29,7 +30,7 @@ public class User {
     }
 
     String printCardValue() {
-        return String.join(", ", getCardValue());
+        return String.join(CARD_VALUE_DELIMITER, getCardValue());
     }
 
     private int getScore() {
@@ -60,7 +61,6 @@ public class User {
     }
 
     private boolean hasAce() {
-
         ArrayList<Boolean> hasAce = new ArrayList<>();
         for (Card card : cards) {
             hasAce.add(checkHasAce(card));

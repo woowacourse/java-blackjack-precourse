@@ -11,7 +11,8 @@ import java.util.List;
 public class PlayerUtility {
 
     private static final String PLAYER_NAME_DELIMITER = ",";
-    public static final String MESSAGE_INPUT_INTEGER = "정수를 입력해주세요";
+    private static final String MESSAGE_INPUT_INTEGER = "정수를 입력해주세요";
+    public static final String MESSAGE_NAME_CONDITION = "이름은 한 글자 이상이어야 합니다";
 
     public static Users generatePlayers() {
         String[] playerNames = getPlayerNames();
@@ -42,7 +43,7 @@ public class PlayerUtility {
             Integer.parseInt(inputPlayerBet);
             return true;
         } catch (Exception e) {
-            System.out.println(MESSAGE_INPUT_INTEGER);    //추후 상세한 예외처리
+            System.out.println(MESSAGE_INPUT_INTEGER);
             return false;
         }
     }
@@ -59,6 +60,19 @@ public class PlayerUtility {
     }
 
     private static boolean validatePlayerNames(String[] playerNames) {
+        ArrayList<Boolean> hasException = new ArrayList<>();
+        for (String name : playerNames) {
+            hasException.add(checkName(name));
+        }
+        return !hasException.contains(false);
+
+    }
+
+    private static Boolean checkName(String name) {
+        if (name.length() < 1) {
+            System.out.println(MESSAGE_NAME_CONDITION);
+            return false;
+        }
         return true;
     }
 
