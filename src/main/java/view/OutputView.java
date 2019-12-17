@@ -23,9 +23,7 @@ public class OutputView {
         System.out.println("딜러 : " + dealer.toString());
     }
 
-    public static void printCardStatus(List<Player> playerList) {
-        for (Player p : playerList) {
-            System.out.println(p.getName() + " : " + p.toString());
-        }
+    public static void printCardStatus(Player player) {
+        System.out.println(player.getName() + " : " + player.toString());
     }
 }
