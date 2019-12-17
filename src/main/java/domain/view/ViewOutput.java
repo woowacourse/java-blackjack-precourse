@@ -10,8 +10,14 @@ public class ViewOutput {
 		String playerNames = userRepository.getPlayerNames();
 		
 		System.out.println("딜러와 " + playerNames + "에게 2장의 카드를 나누었습니다.");
-		userRepository.showFirstUserCard();
+		showFirstUserCard(userRepository.getUserList());
 		System.out.println();
+	}
+	
+	public static void showFirstUserCard(List<User> userList) {
+		for (User user : userList) {
+			ViewOutput.showFristCardResult(user);
+		}
 	}
 	
 	public static void showFristCardResult(User user) {
@@ -21,6 +27,14 @@ public class ViewOutput {
 	
 	public static void showDealerCheck() {
 		System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.\n");
+	}
+	
+	public static void showAllResult(List<User> userList) {
+		for (User user : userList) {
+			ViewOutput.showEachResult(user);
+			ViewOutput.showScoreResult(user);
+		}
+		System.out.println();
 	}
 	
 	public static void showEachResult(User user) {

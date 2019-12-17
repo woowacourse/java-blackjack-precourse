@@ -23,6 +23,7 @@ public class ValidityCheck {
 		
 		if (!rightToUse) {
 			playerNameList.removeAll(playerNameList);
+			System.out.println("잘못된 이름이 있습니다.");
 			return false;
 		}
 		return true;

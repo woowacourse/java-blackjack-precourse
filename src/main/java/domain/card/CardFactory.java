@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class CardFactory {
 	public static int cardSize;
+	private static List<Card> deck = CardFactory.create();
 	
     public static List<Card> create() {
         List<Card> cards = new ArrayList<>();
@@ -25,5 +26,9 @@ public class CardFactory {
         for (Type type : types) {
             cards.add(new Card(symbol, type));
         }
+    }
+    
+    public static List<Card> getDeck() {
+    	return deck;
     }
 }
