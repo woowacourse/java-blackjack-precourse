@@ -30,7 +30,7 @@ public class Message {
 	for(int i=0;i<name.length;i++) {
 	    name[i]=player[i].getName();
 	}
-	System.out.print("딜러와 "+" "+String.join(",", name)+"에게 2장의 카드를 나눠줬습니다.");
+	System.out.println("딜러와 "+" "+String.join(",", name)+"에게 2장의 카드를 나눠줬습니다.");
 	showAllCardStatus(dealer,player);
     }
     
@@ -39,6 +39,7 @@ public class Message {
 	for(int i=0;i<player.length;i++) {
 	    showCardStatus(player[i]);
 	}
+	System.out.println();
     }
     
     public void showCardStatus(Player player) {
@@ -58,11 +59,11 @@ public class Message {
     }
     
     public void showDealerMoreCard() {
-	System.out.println("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
+	System.out.println("딜러는 16이하라 한 장의 카드를 더 받았습니다.\n");
     }
     
     public void showDealerNotMoreCard() {
-	System.out.println("딜러는 16초과라 카드를 더 받지 않았습니다.");
+	System.out.println("딜러는 16초과라 카드를 더 받지 않았습니다.\n");
     }
     
     public void showFinalScore(double d, double[] p,Player[] player) {

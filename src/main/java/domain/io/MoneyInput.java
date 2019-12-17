@@ -7,13 +7,13 @@ public class MoneyInput {
     Message message = new Message();
 
     public int inputMoney(String name) {
-	Scanner sc=new Scanner(System.in);
 	String money;
+	Scanner sc = new Scanner(System.in);
 	message.showMoneyInputMessage(name);
-	money=sc.nextLine();
-	while(!checkMoney(money)) {
+	money = sc.nextLine();
+	while (!checkMoney(money)) {
 	    message.showMoneyInputErrorMessage();
-	    money=sc.nextLine();
+	    money = sc.nextLine();
 	}
 	return Integer.parseInt(money);
     }
@@ -22,11 +22,10 @@ public class MoneyInput {
 	if (!isStringInt(money)) {
 	    return false;
 	}
-	if(Integer.parseInt(money)<=0) {
+	if (Integer.parseInt(money) <= 0) {
 	    return false;
 	}
 	return true;
-
     }
 
     public boolean isStringInt(String n) {

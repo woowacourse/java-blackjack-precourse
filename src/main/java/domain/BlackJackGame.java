@@ -101,10 +101,12 @@ public class BlackJackGame {
     }
     
     public void setPlayer() {
+	dealer = new Dealer();
 	String[] name = nameinput.inputName();
 	playerMoney=new double[name.length];
+	player=new Player[name.length];
 	for (int i = 0; i < name.length; i++) {
-	    player[i] = new Player(name[i], moneyinput.inputMoney(name[i]));
+	    this.player[i] = new Player(name[i], moneyinput.inputMoney(name[i]));
 	    playerMoney[i]=player[i].getBettingMoney();
 	}
     }
@@ -146,9 +148,9 @@ public class BlackJackGame {
     
     public Card selectCard(){
 	int randindex=(int)(Math.random()*cardList.size());
-	Card card=cardList.get(randindex);
-	cardList.remove(randindex);
-	return card;
+	Card c=cardList.get(randindex);
+	this.cardList.remove(randindex);
+	return c;
     }
    
 }

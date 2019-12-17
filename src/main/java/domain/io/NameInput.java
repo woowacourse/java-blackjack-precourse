@@ -3,6 +3,7 @@ package domain.io;
 import domain.io.Message;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class NameInput {
     Message message = new Message();
@@ -12,18 +13,19 @@ public class NameInput {
 	Scanner sc = new Scanner(System.in);
 	message.showNameInputMessage();
 	tmpname = sc.nextLine();
+	tmpname=tmpname.replaceAll(" ", "");
 	while (!checkName(tmpname)) {
 	    message.showNameInputErrorMessage();
+	    tmpname=tmpname.replaceAll(" ", "");
 	    tmpname = sc.nextLine();
 	}
-	sc.close();
 	return splitName(tmpname);
     }
 
     public boolean checkName(String name) {
 	String[] tmpname = splitName(name);
 	int i = 0;
-	while (checkNamelength(tmpname[i]) && i < tmpname.length) {
+	while (i < tmpname.length && checkNamelength(tmpname[i])) {
 	    i++;
 	}
 	if (i == tmpname.length) {

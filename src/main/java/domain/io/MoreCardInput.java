@@ -7,14 +7,20 @@ import java.util.Scanner;
 public class MoreCardInput {
     Message message = new Message();
     Scanner sc = new Scanner(System.in);
+    private final static String CAPITALYES = "Y";
+    private final static String SMALLYES = "y";
+    private final static String CAPITALNO = "N";
+    private final static String SMALLNO = "n";
     
     public boolean getMoreCardOrNot(String name) {
 	String ans;
 	message.showGettingCardQuestion(name);
-	while (!checkAns(ans=sc.nextLine())) {
+	ans = sc.nextLine();
+	while (checkAns(ans)==false) {
 	    message.showGettingCardErrorMessage();
+	    ans=sc.nextLine();
 	}
-	if(ans=="y"||ans=="Y") {
+	if(ans.equals(CAPITALYES)||(ans.equals(SMALLYES))) {
 	    return true;
 	}
 	return false;
@@ -22,7 +28,7 @@ public class MoreCardInput {
 
     public boolean checkAns(String a) {
 	a=a.replaceAll(" ", "");
-	if (a == "y" || a == "n" || a == "Y" || a == "N") {
+	if (a.equals(CAPITALYES)|| a.equals(SMALLYES)|| a.equals(CAPITALNO) || a.equals(SMALLNO)) {
 	    return true;
 	}
 	return false;
