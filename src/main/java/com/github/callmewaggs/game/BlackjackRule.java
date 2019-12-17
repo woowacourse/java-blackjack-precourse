@@ -82,4 +82,16 @@ public class BlackjackRule {
     participants.add(dealer);
     return participants;
   }
+
+  public void whenDealerIsBlackjack(Dealer dealer, List<Player> players) {
+    for (Player player : players) {
+      if (player.isBlackjack()) {
+        gameResult.push(dealer, player);
+      }
+    }
+  }
+
+  public void whenPlayerIsBlackjack(Dealer dealer, Player player) {
+    gameResult.playersBlackjack(dealer, player);
+  }
 }

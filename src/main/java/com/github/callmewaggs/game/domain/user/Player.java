@@ -9,9 +9,9 @@ import com.github.callmewaggs.game.IOHelper;
 public class Player extends Participant {
 
   private final String name;
-  private final long bettingMoney;
+  private final double bettingMoney;
 
-  private Player(String name, long bettingMoney) {
+  private Player(String name, double bettingMoney) {
     this.name = name;
     this.bettingMoney = bettingMoney;
   }
@@ -51,32 +51,32 @@ public class Player extends Participant {
     return name;
   }
 
-  public long getBettingMoney() {
-    return bettingMoney;
-  }
-
   public static Player createPlayerIfValidate(String name, String bettingMoney) {
     checkNameValidation(name);
-    long money = checkMoneyValidation(bettingMoney);
+    double money = checkMoneyValidation(bettingMoney);
     return new Player(name, money);
+  }
+
+  private static double checkMoneyValidation(String bettingMoney) {
+    double money = parseStringMoneyToDouble(bettingMoney);
+    checkValidationWithCondition(money < 0, "배팅 금액이 잘못되었습니다. 다시 입력해주세요.");
+    return money;
   }
 
   private static void checkNameValidation(String name) {
     checkValidationWithCondition(name.length() == 0, "잘못된 이름입니다. 다시 입력해주세요.");
   }
 
-  private static long checkMoneyValidation(String bettingMoney) {
-    long money = parseStringMoneyToLong(bettingMoney);
-    checkValidationWithCondition(money < 0, "배팅 금액이 잘못되었습니다. 다시 입력해주세요.");
-    return money;
-  }
-
-  private static long parseStringMoneyToLong(String bettingMoney) {
+  private static double parseStringMoneyToDouble(String bettingMoney) {
     try {
-      return Long.parseLong(bettingMoney);
+      return Double.parseDouble(bettingMoney);
     } catch (Exception e) {
       throw new IllegalArgumentException("배팅 금액이 잘못되었습니다. 다시 입력해주세요.");
     }
+  }
+
+  public double getBettingMoney() {
+    return bettingMoney;
   }
 
   private static void checkValidationWithCondition(boolean condition, String message) {

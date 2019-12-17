@@ -17,11 +17,10 @@ public class BlackjackGame {
     this.blackjackRule = new BlackjackRule(dealer, players, cards);
   }
 
-  // TODO : 게임 종료 및 계산하고 결과출력 그리고 테스트코드
   public void gameStart() {
     blackjackRule.dealInitialCards(dealer, players);
     if (dealer.isBlackjack()) {
-      blackjackRule.whenDealerIsBlackjack(players);
+      blackjackRule.whenDealerIsBlackjack(dealer, players);
       return;
     }
     checkPlayersBlackjack();
@@ -40,7 +39,7 @@ public class BlackjackGame {
   private void checkPlayersBlackjack() {
     for (Player player : players) {
       if (player.isBlackjack()) {
-        blackjackRule.whenPlayerIsBlackjack(player);
+        blackjackRule.whenPlayerIsBlackjack(dealer, player);
         players.remove(player);
       }
     }
