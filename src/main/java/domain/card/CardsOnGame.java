@@ -15,18 +15,10 @@ public class CardsOnGame {
         return cardsForGame;
     }
 
-    public static void shakeCards() {
+    private static void shakeCards() {
         List<Card> originalCards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(originalCards);
         cardsForGame = originalCards;
-    }
-
-    public boolean isEmptyDeck() {
-        if (cardsForGame.size() == 0) {
-            System.out.println("카드가 더이상 없습니다.");
-            return false;
-        }
-        return true;
     }
 
     public Card pickUpCard() {
@@ -34,5 +26,4 @@ public class CardsOnGame {
         cardsForGame.remove(cardsForGame.size() - 1);
         return pick;
     }
-
 }
