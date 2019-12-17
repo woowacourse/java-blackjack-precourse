@@ -11,6 +11,7 @@ public class Helper {
 
     private final List<Card> cards = new ArrayList<>();
     private final int BLACKJACK_SCORE = 21;
+    private int scoreResult = 0;
 
     public void addCard(Card card) {
         cards.add(card);
@@ -33,16 +34,24 @@ public class Helper {
         cardDeck.remove(selectedCard);
     }
 
-    public int scoreCalculator(){
+    public int scoreCalculator() {
         Stream<Integer> cardScore = cards.stream().map(card -> card.getScore());
-        int scoreResult = cardScore.collect(Collectors.summingInt(score -> score));
+        scoreResult = cardScore.collect(Collectors.summingInt(score -> score));
         return scoreResult;
     }
 
-    public boolean blackJack(){
-        if(scoreCalculator() == BLACKJACK_SCORE){
+    public boolean blackJack() {
+        if (scoreCalculator() == BLACKJACK_SCORE) {
             return true;
         }
         return false;
+    }
+
+    public boolean scoreExcess() {
+        if(this.scoreCalculator() > BLACKJACK_SCORE){
+            System.out.println("숫자를 초과하셨습니다.");
+            return false;
+        }
+        return true;
     }
 }

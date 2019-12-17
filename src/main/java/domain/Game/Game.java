@@ -18,16 +18,18 @@ public class Game {
     private final Output output = new Output(dealer);
     private final List<Player> players = new ArrayList<>();
     private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
+    private final String DEALER_NAME = "딜러";
     private Map<String, Double> bettingMoneyMap = new LinkedHashMap<>();
     private List<Player> winners = new ArrayList<>();
     private List<Player> losers = new ArrayList<>();
+    private int winnerScore = 0;
 
     public void Play() {
         this.playerObjectCreate();
         this.startCardDraw();
         if (this.startBlackJack()) {
-            this.addCardDraw();
             output.startCardState(players);
+            this.addCardDraw();
             output.finalCardResult(players);
             this.finalResult();
         }
@@ -46,11 +48,11 @@ public class Game {
     }
 
     public void bettingMoneyMapCreate(double totalBettingMoney) {
-        bettingMoneyMap.put("딜러", totalBettingMoney);
+        bettingMoneyMap.put(DEALER_NAME, totalBettingMoney);
         players.stream().forEach(player -> bettingMoneyMap.put(player.getName(), 0.0));
     }
 
-    public void startCardDraw(){
+    public void startCardDraw() {
         for (int i = 0; i < 2; i++) {
             dealer.cardDraw(cardDeck);
             players.stream().forEach(player -> player.cardDraw(cardDeck));
@@ -58,7 +60,7 @@ public class Game {
     }
 
     public void playerAddCardDraw(Player player) {
-        while (input.addCardDrawInput(player).equals("y")) {
+        while (player.scoreExcess() && input.addCardDrawInput(player).equals("y")) {
             player.cardDraw(cardDeck);
             System.out.println(player.cardsToString());
         }
@@ -77,44 +79,55 @@ public class Game {
 
     public boolean startBlackJack() {
         winners = players.stream().filter(player -> player.blackJack() == true).collect(Collectors.toList());
-        for (Player winner : winners) {
-            Double winnerMoney = winner.getBettingMoney() * 1.5;
-            bettingMoneyMap.put("딜러", bettingMoneyMap.get("딜러") - winnerMoney);
-            bettingMoneyMap.put(winner.getName(), winnerMoney);
-        }
         if (winners.isEmpty()) {
             return true;
+        }
+        for (Player winner : winners) {
+            Double winnerMoney = winner.getBettingMoney() * 1.5;
+            bettingMoneyMap.put(DEALER_NAME, bettingMoneyMap.get(DEALER_NAME) - winnerMoney);
+            bettingMoneyMap.put(winner.getName(), winnerMoney);
         }
         return false;
     }
 
-    public void playerWinBettingMoney() {
-        for (Player winner : winners) {
-            Double winnerMoney = winner.getBettingMoney() * 2;
-            bettingMoneyMap.put("딜러", bettingMoneyMap.get("딜러") - winnerMoney);
-            bettingMoneyMap.put(winner.getName(), winnerMoney);
-        }
-    }
-
-    public boolean finalResult(){
-        if(this.finalResultBlackJack()){
+    public boolean finalResult() {
+        if (this.finalResultBlackJack()) {
             return true;
         }
+        if (this.dealerScoreExcess()) {
+            return true;
+        }
+        this.finalResultNoBlackJack();
         return false;
     }
 
     public boolean finalResultBlackJack() {
         winners = players.stream().filter(player -> player.blackJack() == true).collect(Collectors.toList());
-        losers = players.stream().filter(player -> player.blackJack() == false).collect(Collectors.toList());
         if (!winners.isEmpty()) {
+            losers = players.stream().filter(player -> player.blackJack() == false).collect(Collectors.toList());
             this.playerWinBettingMoney();
             this.loserBettingMoney();
             return true;
         }
-        if (dealer.blackJack()) {
-            return true;
-        }
+
         return false;
+    }
+
+    public boolean dealerScoreExcess() {
+        if (!dealer.scoreExcess()) {
+            bettingMoneyMap.put(DEALER_NAME, 0.0);
+            players.stream().map(player -> bettingMoneyMap.put(player.getName(), player.getBettingMoney()));
+            return false;
+        }
+        return true;
+    }
+
+    public void playerWinBettingMoney() {
+        for (Player winner : winners) {
+            Double winnerMoney = winner.getBettingMoney() * 2;
+            bettingMoneyMap.put(DEALER_NAME, bettingMoneyMap.get(DEALER_NAME) - winnerMoney);
+            bettingMoneyMap.put(winner.getName(), winnerMoney);
+        }
     }
 
     public void loserBettingMoney() {
@@ -123,4 +136,27 @@ public class Game {
         }
     }
 
+    public void finalResultNoBlackJack() {
+        if (this.dealerScoreExcess()) {
+            winnerScore = dealer.scoreCalculator();
+        }
+        players.stream().forEach(player -> this.maxScore(player));
+        players.stream().forEach(player -> this.winnerFind(player));
+        System.out.println(winnerScore);
+        this.playerWinBettingMoney();
+        this.loserBettingMoney();
+    }
+
+    public void maxScore(Player player) {
+        if (this.winnerScore < player.scoreCalculator()) {
+            this.winnerScore = player.scoreCalculator();
+        }
+    }
+
+    public void winnerFind(Player player) {
+        if (this.winnerScore == player.scoreCalculator()) {
+            this.winners.add(player);
+        }
+        this.losers.add(player);
+    }
 }

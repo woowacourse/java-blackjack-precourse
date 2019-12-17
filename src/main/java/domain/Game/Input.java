@@ -53,7 +53,7 @@ public class Input {
         do {
             System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
             addCardAnwser = scanner.nextLine();
-        } while (addCardDrawInputCheck(addCardAnwser));
+        } while (addCardDrawInputCheck(addCardAnwser) && player.scoreExcess());
         return addCardAnwser;
     }
 
