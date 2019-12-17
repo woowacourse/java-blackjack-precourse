@@ -21,6 +21,7 @@ import domain.user.User;
 public class BlackjackPrinterImpl implements BlackjackPrinter {
 
     private StringBuilder stringBuilder;
+
     public BlackjackPrinterImpl() {
         stringBuilder = new StringBuilder();
     }

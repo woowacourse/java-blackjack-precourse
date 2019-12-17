@@ -23,6 +23,7 @@ public abstract class User {
     public List<Card> getCards() {
         return cards;
     }
+
     public void addCard(Card card) {
         cards.add(card);
     }
@@ -58,7 +59,7 @@ public abstract class User {
     }
 
     private int calculateSurplus(int sum) {
-        if ( BlackjackConfig.BLACKJACK < sum + BlackjackConfig.SURPLUS_OF_ACE )  {
+        if (BlackjackConfig.BLACKJACK < sum + BlackjackConfig.SURPLUS_OF_ACE) {
             return 0;
         }
         return BlackjackConfig.SURPLUS_OF_ACE;
@@ -76,7 +77,9 @@ public abstract class User {
     public boolean isBust() {
         int score = calculateScore();
         return BlackjackConfig.BLACKJACK < score;
-    };
+    }
+
+    ;
 
     public boolean isBlackjack() {
         int score = calculateScore();

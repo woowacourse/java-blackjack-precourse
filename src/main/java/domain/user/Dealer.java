@@ -13,7 +13,8 @@ import common.BlackjackConfig;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer extends User {
-    public Dealer() {}
+    public Dealer() {
+    }
 
     @Override
     public String toString() {
@@ -23,6 +24,7 @@ public class Dealer extends User {
     public void win(double money) {
         profit += money;
     }
+
     public void lose(double money) {
         profit -= money;
     }

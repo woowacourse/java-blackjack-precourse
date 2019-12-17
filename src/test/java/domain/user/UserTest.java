@@ -20,7 +20,8 @@ class UserTest {
 
     @BeforeEach
     void init() {
-        user = new User() {};
+        user = new User() {
+        };
     }
 
     @Test

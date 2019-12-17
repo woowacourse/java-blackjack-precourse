@@ -16,6 +16,7 @@ class SymbolTest {
         symbol = Symbol.ACE;
         assertEquals("A", symbol.toString());
     }
+
     @Test
     @DisplayName("#toString: 무늬가 숫자일 때")
     void toStringNotAce() {

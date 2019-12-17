@@ -77,7 +77,7 @@ public class BlackjackApi {
     }
 
     private Result checkBlackjack(Dealer dealer, Player player) {
-        if (player.isBlackjack() &&  dealer.isBlackjack()) {
+        if (player.isBlackjack() && dealer.isBlackjack()) {
             return Result.Draw;
         }
         if (player.isBlackjack()) {
@@ -103,6 +103,7 @@ public class BlackjackApi {
         settlePlayerWin(result, dealer, player);
         settlePlayerLose(result, dealer, player);
     }
+
     private void settlePlayerWinWithBlackjack(Result result, Dealer dealer, Player player) {
         if (result.equals(Result.PlayerWinWithBlackjack)) {
             double profit = player.winWithBlackjack();

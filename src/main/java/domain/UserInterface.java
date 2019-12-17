@@ -11,6 +11,8 @@ import domain.user.User;
 
 public interface UserInterface {
     String[] extractNames();
+
     double getBettingMoney(String name);
+
     String getWillForMoreCard(User user);
 }

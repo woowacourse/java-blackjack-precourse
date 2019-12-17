@@ -14,6 +14,7 @@ public enum Result {
     PlayerWinWithBlackjack(4);
 
     private int value;
+
     Result(int value) {
         this.value = value;
     }

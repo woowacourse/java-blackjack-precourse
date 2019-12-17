@@ -109,6 +109,7 @@ public class Console implements UserInterface {
             return getWillForMoreCard(user);
         }
     }
+
     private String getInputOfWill(User user) {
         String input = scanner.nextLine();
         if (input.equals(Will.Stay.getValue())) {

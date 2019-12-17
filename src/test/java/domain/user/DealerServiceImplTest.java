@@ -39,7 +39,7 @@ class DealerServiceImplTest {
     void confirmCardsWhenPointInRange() {
         //given
         when(mockUser.calculateScore())
-                .thenReturn(BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER -1)
+                .thenReturn(BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER - 1)
                 .thenReturn(BlackjackConfig.STANDARD_TO_HIT_FOR_DEALER + 1);
 
         //when
