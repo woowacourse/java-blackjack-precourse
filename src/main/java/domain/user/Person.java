@@ -29,6 +29,23 @@ public class Person {
 		}
 		cardString = String.join(", ", cardStringSet);
 	}
+	
+	public void setResultString() {
+		String result = makeResult();
+		
+		setCardString();
+		cardString = cardString + Constant.RESULT + result;
+	}
+	
+	private String makeResult() {
+		if (isContainAce == true && cardSumWithAce == Constant.BLACKJACK) {
+			return Integer.toString(cardSumWithAce);
+		}
+		if (isContainAce == true && cardSumWithAce >= cardSum) {
+			return Integer.toString(cardSumWithAce);
+		}
+		return Integer.toString(cardSum);
+	}
 
 	public String getCardString() {
 		return this.cardString;

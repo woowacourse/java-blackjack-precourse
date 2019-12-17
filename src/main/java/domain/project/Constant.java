@@ -15,4 +15,5 @@ public class Constant {
 	public final static String ACE = "A";
 	public final static String YES = "y";
 	public final static String NO = "n";
+	public final static String RESULT = " - 결과: ";
 }

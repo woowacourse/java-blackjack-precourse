@@ -36,6 +36,7 @@ public class Game {
 		giveInitialCard();
 		getCardPerPlayer();
 		getCardDealer();
+		printResult();
 	}
 
 	private void initialSet() {
@@ -325,6 +326,30 @@ public class Game {
 			return;
 		}
 		myPrinter.printDealerStopGetCard();
+	}
+	
+	private void printResult() {
+		myPrinter.printNewLine();
+		printDealerResult();
+		printPlayerSetResult();
+	}
+	
+	private void printDealerResult() {
+		dealer.setResultString();
+		myPrinter.printDealer();
+		myPrinter.printCard(dealer);
+	}
+	
+	private void printPlayerSetResult() {
+		for (Player p : playerSet) {
+			printPlayerResult(p);
+		}
+	}
+	
+	private void printPlayerResult(Player player) {
+		player.setResultString();
+		myPrinter.printPlayerName(player.getName());
+		myPrinter.printCard(player);
 	}
 
 	public static void main(String[] args) {
