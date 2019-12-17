@@ -10,6 +10,7 @@ public class Blackjack {
     public final int MAX_PLAYER_NUMBER = 5;
     public final int MAX_NAME_LENGTH = 5;
     public final int BUST_NUMBER = 21;
+    public final int LESS_THAN_17 = 17;
     public final String YES = "y";
     public final String NO = "n";
     public Dealer dealer;
@@ -43,6 +44,7 @@ public class Blackjack {
         for (Player player : players) {
             giveExtraCard(player);
         }
+        giveExtraCard(dealer);
     }
 
     public String[] getNames() {
@@ -124,5 +126,12 @@ public class Blackjack {
 
     public boolean isValidAnswer(String decision) {
         return (decision.equals(YES) || decision.equals(NO));
+    }
+
+    public void giveExtraCard(Dealer dealer) {
+        while (dealer.calScore() < LESS_THAN_17) {
+            deal(dealer);
+            System.out.println("딜러는 카드의 합이 16이하라 한 장의 카드를 더 받았습니다.");
+        }
     }
 }

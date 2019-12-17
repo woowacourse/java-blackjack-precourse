@@ -21,4 +21,12 @@ public class Dealer {
     public void showCard() {
         System.out.println("딜러: " + cards.get(0));
     }
+
+    public int calScore() {
+        int score = 0;
+        for (Card card : cards) {
+            score += card.getScore();
+        }
+        return score;
+    }
 }
