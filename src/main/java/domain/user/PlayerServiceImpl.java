@@ -25,6 +25,18 @@ public class PlayerServiceImpl extends UserService implements PlayerService {
     }
 
     @Override
+    public List<Player> join() {
+        List<Player> players = new ArrayList<>();
+        String[] names = userInterface.extractNames();
+
+        for (String name : names) {
+            double bettingMoney = userInterface.getBettingMoney(name);
+            players.add(playerFactory.create(name, bettingMoney));
+        }
+        return players;
+    }
+
+    @Override
     public void confirmCards(List<Player> players) {
         for (Player player : players) {
             confirmCards(player);
@@ -50,18 +62,6 @@ public class PlayerServiceImpl extends UserService implements PlayerService {
         user.addCard(deck.pick());
         blackjackPrinter.printUserState(user);
         confirmCards(user);
-    }
-
-    @Override
-    public List<Player> join() {
-        List<Player> players = new ArrayList<>();
-        String[] names = userInterface.extractNames();
-
-        for (String name : names) {
-            double bettingMoney = userInterface.getBettingMoney(name);
-            players.add(playerFactory.create(name, bettingMoney));
-        }
-        return players;
     }
 
     @Override

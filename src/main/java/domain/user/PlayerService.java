@@ -3,6 +3,8 @@ package domain.user;
 import java.util.List;
 
 public interface PlayerService {
+    List<Player> join();
+
     void confirmCards(List<Player> players);
 
     void confirmCards(User user);
@@ -12,6 +14,4 @@ public interface PlayerService {
     void printResult(List<Player> players);
 
     void printProfit(List<Player> players);
-
-    List<Player> join();
 }

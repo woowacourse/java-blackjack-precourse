@@ -26,7 +26,6 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
         stringBuilder = new StringBuilder();
     }
 
-    //todo: check refac template/callback
     @Override
     public void printUserState(User user) {
         stringBuilder = buildUserState(user);
@@ -97,7 +96,8 @@ public class BlackjackPrinterImpl implements BlackjackPrinter {
 
     @Override
     public void printStart(Dealer dealer, List<Player> players) {
-        System.out.println("딜러 및 참여자들에게 카드를 나눠줍니다.");
+        List<String> playerNames = players.stream().map(Player::toString).collect(Collectors.toList());
+        System.out.println(String.format("%s와 %s에게 %d장의 카드를 나누었습니다.", dealer, String.join(",", playerNames),BlackjackConfig.DEFAULT_CARD_NUMBER));
     }
 
     @Override

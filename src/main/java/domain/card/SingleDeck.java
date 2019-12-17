@@ -7,6 +7,8 @@
 
 package domain.card;
 
+import common.BlackjackConfig;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,12 +25,11 @@ public class SingleDeck implements Deck {
 
     @Override
     public Card pick() {
-        //todo: check if it is good
         if (isBlank()) {
             shuffle();
         }
 
-        return cards.remove(0);
+        return cards.remove(BlackjackConfig.PICK_INDEX);
     }
 
     private boolean isBlank() {

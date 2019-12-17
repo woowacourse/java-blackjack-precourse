@@ -83,7 +83,7 @@ public abstract class User {
 
     public boolean isBlackjack() {
         int score = calculateScore();
-        return cards.size() == BlackjackConfig.DEFAULT_NUMBER && score == BlackjackConfig.BLACKJACK;
+        return cards.size() == BlackjackConfig.DEFAULT_CARD_NUMBER && score == BlackjackConfig.BLACKJACK;
     }
 
     public double getProfit() {

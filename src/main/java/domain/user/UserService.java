@@ -11,7 +11,6 @@ import common.BlackjackConfig;
 import domain.BlackjackPrinter;
 import domain.card.Deck;
 
-//todo: check if can apply generic
 public abstract class UserService {
 
     protected Deck deck;
@@ -23,7 +22,7 @@ public abstract class UserService {
     }
 
     public void receiveDefaultCards(User user) {
-        for (int i = 0; i < BlackjackConfig.DEFAULT_NUMBER; i++) {
+        for (int i = 0; i < BlackjackConfig.DEFAULT_CARD_NUMBER; i++) {
             user.addCard(deck.pick());
         }
         blackjackPrinter.printUserState(user);
