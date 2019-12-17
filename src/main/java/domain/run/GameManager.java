@@ -91,5 +91,18 @@ public class GameManager {
 		System.out.println();
 	}
 
-	
+	private Card randomCard() {
+		return checkDuplicationCard(cards.get(random.nextInt(cards.size())));
+	}
+
+	private Card checkDuplicationCard(Card card) {
+
+		while (playerCard.contains(card)) {
+			card = cards.get(random.nextInt(cards.size()));
+		}
+		playerCard.add(card);
+		return card;
+	}
+
+
 }
