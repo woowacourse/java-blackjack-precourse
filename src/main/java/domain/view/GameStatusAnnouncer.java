@@ -13,11 +13,22 @@ public class GameStatusAnnouncer {
         scoreManager = new ScoreManager();
     }
 
+    public void gameOver(Dealer dealer, Player[] players) {
+        printCardWithScore(dealer, players);
+        System.exit(0);
+    }
+
     private void printCardStatus(Dealer dealer, Player[] players) {
         announce.announceCardStatusStart();
         announce.announceCardStatus(dealer);
         announce.announceCardStatus(players);
         System.out.println();
+    }
+
+    private void printCardWithScore(Dealer dealer, Player[] players) {
+        announce.announceCardStatusStart();
+        announce.announceScore(dealer, scoreManager.getSumScore(dealer));
+        announce.announceScore(players, scoreManager);
     }
 
     public void afterStandByUser (Dealer dealer, Player[] players){
@@ -28,5 +39,4 @@ public class GameStatusAnnouncer {
     public void afterTurn (Dealer dealer, Player[] players){
         printCardStatus(dealer, players);
     }
-
 }

@@ -23,19 +23,23 @@ public class GameManager {
         scoreManager = new ScoreManager();
     }
 
-    private void afterGiveCard() {
-        if (scoreManager.checkBlackJack(dealer)) {
-            System.exit(0);
-        }
+    private void checkPlayers() {
         if (scoreManager.checkBiggerThanBlackJack(players)) {
-            System.exit(0);
+            gameStatus.gameOver(dealer,players);
         }
         if (scoreManager.checkBlackJack(players)) {
-            System.exit(0);
+            gameStatus.gameOver(dealer,players);
         }
     }
 
-    private void reapeatUntilBLackJackOrMore() {
+    private void afterGiveCard() {
+        if (scoreManager.checkBlackJack(dealer)) {
+            gameStatus.gameOver(dealer,players);
+        }
+        checkPlayers();
+    }
+
+    private void repeatUntilBLackJackOrMore() {
         while (true) {
             turnManager.nextTurn(dealer, players);
             gameStatus.afterTurn(dealer, players);
@@ -47,6 +51,6 @@ public class GameManager {
         players = userCreateManager.playerStandBy();
         gameStatus.afterStandByUser(dealer, players);
         afterGiveCard();
-        reapeatUntilBLackJackOrMore();
+        repeatUntilBLackJackOrMore();
     }
 }

@@ -31,17 +31,20 @@ public class TurnManager {
         }
     }
 
-    private void giveOneMoreCard(Dealer dealer) {
+    private boolean giveOneMoreCard(Dealer dealer) {
         if (scoreManager.isLessThanSixTeen(
                 scoreManager.getSumScore(dealer))) {
-            cardManager.giveCard(dealer, MAKE_ONE_CARD);
-            announcer.announceDoneGiveCard(dealer);
+           return true;
         }
-
+        announcer.announceDealerScoreIsOverSixteen();
+        return false;
     }
 
     public void nextTurn(Dealer dealer, Player[] players) {
-        giveOneMoreCard(dealer);
+        if (giveOneMoreCard(dealer)) {
+            cardManager.giveCard(dealer, MAKE_ONE_CARD);
+            announcer.announceDoneGiveCard(dealer);
+        }
         for (Player player : players) {
             giveOneMoreCard(player);
         }
