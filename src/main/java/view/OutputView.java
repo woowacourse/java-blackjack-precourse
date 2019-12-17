@@ -14,7 +14,7 @@ public class OutputView {
     private static final String[] FIRST_DISTRIBUTION_MESSAGES = {"딜러와 ", "에게 2장의 카드를 나누었습니다.\n"};
     private static final String DEALER_STATE_MESSAGE = "딜러: ";
     private static final String USER_CARDS_STATE_MESSAGE = "카드: ";
-    private static final String DEALER_DRAW_MESSAGE = "딜러는 16이하라 한장의 카드를 더 받았습니다.\n";
+    private static final String DEALER_DRAW_CARD_MESSAGE = "딜러는 16이하라 한장의 카드를 더 받았습니다.\n";
     private static final String RESULT_SCORE_MESSAGE = " - 결과: ";
     private static final String RESULT_PROFIT_MESSAGE = "\n## 최종 수익\n";
 
@@ -62,8 +62,8 @@ public class OutputView {
         return String.join(", ", userCardState);
     }
 
-    public static void printDealerDrawMessage() {
-        System.out.println(DEALER_DRAW_MESSAGE);
+    public static void printDealerDrawCardMessage() {
+        System.out.println(DEALER_DRAW_CARD_MESSAGE);
     }
 
     public static void printResultState(Dealer dealer, ArrayList<Player> players) {

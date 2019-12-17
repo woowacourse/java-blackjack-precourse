@@ -75,7 +75,7 @@ class BlackJack {
 
     private void runAddCardPhase(Player player) {
         boolean isStop = false;
-        while (Rule.canDrawMore(player) && !isStop) {
+        while (Rule.canDrawCardMore(player) && !isStop) {
             isStop = getIsStop(InputView.playerIntent(player), player);
             OutputView.printPlayerCardState(player);
         }
@@ -90,9 +90,9 @@ class BlackJack {
     }
 
     private void runDealerPhase() {
-        while (Rule.isDealerDraw(dealer)) {
+        while (Rule.isDealerDrawCard(dealer)) {
           addCard(dealer, deck.pop());
-          OutputView.printDealerDrawMessage();
+          OutputView.printDealerDrawCardMessage();
         }
     }
 }

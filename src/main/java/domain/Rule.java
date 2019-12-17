@@ -19,6 +19,7 @@ public class Rule {
     private static final double WINNING_MONEY_RATIO = 1.0;
     private static final double LOSING_MONEY_RATIO = -1.0;
     private static final double BLACKJACK_MONEY_RATIO = 1.5;
+    private static final double TIE_MONEY_RATIO = 0.0;
     private static final int BURST_SCORE = -1;
     
     public static int getScore(ArrayList<Card> cards) {
@@ -36,18 +37,18 @@ public class Rule {
         return cards.stream().anyMatch(card -> card.isSymbolEquals(ace));
     }
 
-    public static boolean canDrawMore(Player player) {
+    public static boolean canDrawCardMore(Player player) {
         int playerScore = getScore(player.showCards());
         return playerScore < BLACKJACK_SCORE && playerScore != BURST_SCORE;
     }
 
-    public static boolean isDealerDraw(Dealer dealer) {
+    public static boolean isDealerDrawCard(Dealer dealer) {
         int dealerScore = getScore(dealer.showCards());
         return dealerScore < MIN_DEALER_SCORE && dealerScore != BURST_SCORE;
     }
 
     public static double getDealerProfit(Dealer dealer, ArrayList<Player> players) {
-        double dealerProfit = 0.0;
+        double dealerProfit = TIE_MONEY_RATIO;
         for (Player player : players) {
             dealerProfit -= getPlayerProfit(dealer, player);
         }
@@ -83,7 +84,7 @@ public class Rule {
             return player.getResultProfit(WINNING_MONEY_RATIO);
         }
         if (playerScore == dealerScore) {
-            return 0.0;
+            return TIE_MONEY_RATIO;
         }
         return player.getResultProfit(LOSING_MONEY_RATIO);
     }
