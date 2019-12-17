@@ -47,4 +47,8 @@ public class BlackjackGame {
       players.remove(player);
     }
   }
+
+  public int getNumberOfPlayers() {
+    return players.size();
+  }
 }
