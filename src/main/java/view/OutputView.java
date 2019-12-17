@@ -10,6 +10,7 @@ public class OutputView {
 	private static final String RESULT = "결과";
 	private static final String DEALER_DRAW_FORMAT = "%s는 %d이하라 한장의 카드를 더 받았습니다.";
 	private static final String BLACKJACK_ROUND_DRAW_FORMAT = "%s와 %s에게 %d장의 나누었습니다.";
+	private static final String EARNINGS_HEADER = "## 최종수익";
 
 	private static OutputView outputView;
 
@@ -40,7 +41,7 @@ public class OutputView {
 		}
 	}
 
-	public void printPlayersCardsResult(List<String> names, List<List<String>> cardsData,List<Integer> results){
+	public void printPlayersCardsResultLine(List<String> names, List<List<String>> cardsData, List<Integer> results) {
 		for (int i = 0; i < names.size(); i++) {
 			printPlayerCards(names.get(i), cardsData.get(i));
 			printResultLine(results.get(i));
@@ -70,6 +71,14 @@ public class OutputView {
 		String joinedNames = String.join(SEPARATOR[0], names);
 		String printData = String.format(BLACKJACK_ROUND_DRAW_FORMAT, DEALER, joinedNames, basicDraw);
 		System.out.println(printData);
+	}
+
+	public void printEarnings(List<String> names, List<Double> playerEarnings, Double dealerEarnings) {
+		System.out.println(EARNINGS_HEADER);
+		System.out.println(DEALER+DELIMITERS[0]+dealerEarnings);
+		for(int i=0;i<names.size();i++){
+			System.out.println(names.get(i)+DELIMITERS[0]+playerEarnings.get(i));
+		}
 	}
 
 	public void printNewLine() {

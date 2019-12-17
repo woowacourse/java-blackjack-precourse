@@ -1,7 +1,6 @@
 package domain.game.round;
 
 import domain.game.Table;
-import domain.user.Gambler;
 import view.OutputView;
 
 public abstract class Round {
@@ -10,10 +9,15 @@ public abstract class Round {
 	protected void printStatus(Table table) {
 		OutputView outputView = OutputView.getInstance();
 		outputView.printDealerCards(table.getDealer().getCardsText(),true);
-		outputView.printResultLine(table.getDealer().getSum());
-		outputView.printPlayersCardsResult(table.getPlayerNames(),table.getPlayersCardText(),table.getPlayerResults());
+		outputView.printResultLine(table.getDealer().sumMax());
+		outputView.printPlayersCardsResultLine(table.getPlayerNames(),table.getPlayersCardText(),table.getPlayerResults());
 		outputView.printNewLine();
 	}
 
 	protected abstract void doSettlement(Table table);
+
+	protected void printEarnings(Table table){
+		OutputView outputView=OutputView.getInstance();
+		outputView.printEarnings(table.getPlayerNames(),table.getPlayerEarnings(),table.getDealerEarnings());
+	}
 }
