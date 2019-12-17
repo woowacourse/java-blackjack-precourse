@@ -51,7 +51,7 @@ public class User {
 
 	public String getCards() {
 		List<String> cardList = new ArrayList<>();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (Card card : cards) {
 			cardList.add(card.getCardSymbolAndType());
 		}

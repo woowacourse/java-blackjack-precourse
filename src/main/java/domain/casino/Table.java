@@ -3,8 +3,6 @@ package domain.casino;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.card.Card;
-import domain.card.CardFactory;
 import domain.card.CardSupplier;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -13,10 +11,9 @@ import domain.view.OutputView;
 
 public class Table {
 	private static final int INIT_CARD_SIZE = 2;
-	private static List<Card> cards = CardFactory.create();
 	private List<Player> playerList;
 	private Dealer dealer = new Dealer();
-	private CardSupplier cardSupplier = new CardSupplier(cards);
+	private CardSupplier cardSupplier = new CardSupplier();
 
 	/**
 	 * 블랙잭 게임 실행

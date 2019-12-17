@@ -43,18 +43,18 @@ public class OutputView {
 	}
 
 	private static void printDealerScore(Dealer dealer) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(dealer.getCardsWithName());
 		printScore(sb, dealer.bust(), dealer.sumCardScore());
 	}
 
 	private static void printPlayerScore(Player player) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(player.getCardsWithName());
 		printScore(sb, player.bust(), player.sumCardScore());
 	}
 
-	private static void printScore(StringBuffer sb, boolean bust, int sumCardScore) {
+	private static void printScore(StringBuilder sb, boolean bust, int sumCardScore) {
 		sb.append(RESULT);
 		if (bust) {
 			sb.append(BURST);
