@@ -13,6 +13,7 @@
 
 package view;
 
+import domain.user.User;
 import util.Message;
 
 public class OutputView {
@@ -22,5 +23,9 @@ public class OutputView {
 
     public void howMuchBettingMoney(String name) {
         System.out.println(name + Message.INPUT_BETTING_MONEY.getMessage());
+    }
+
+    public void printCards(User player) {
+        System.out.println(player.toStringCards());
     }
 }

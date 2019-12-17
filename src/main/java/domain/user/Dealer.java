@@ -15,4 +15,9 @@ package domain.user;
 
 public class Dealer extends User {
     public Dealer() {}
+
+    @Override
+    public String toStringCards() {
+        return "딜러:"+super.toStringCards();
+    }
 }

@@ -21,4 +21,9 @@ public class Player extends User {
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
+
+    @Override
+    public String toStringCards() {
+        return name+":"+super.toStringCards();
+    }
 }

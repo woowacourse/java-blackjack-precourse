@@ -25,11 +25,11 @@ public enum Message {
 
     private String message;
 
-    Message(String message){
+    Message(String message) {
         this.message = message;
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 }

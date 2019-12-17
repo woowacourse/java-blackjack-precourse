@@ -18,9 +18,11 @@ import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
 import view.InputView;
+import view.OutputView;
 
 public class GameManager {
     private static final InputView inputView = new InputView();
+    private static final OutputView outputView = new OutputView();
 
     private List<User> initPlayer() {
         List<String> playerName = inputView.getPlayerName();
@@ -34,10 +36,16 @@ public class GameManager {
         return playerList;
     }
 
-    private void giveCardAtFirst(List<User> alivePlayerList, Deck deck) {
-        for (User user : alivePlayerList) {
-            user.addCard(deck);
-            user.addCard(deck);
+    private void giveCardAtFirst(List<User> playerList, Deck deck) {
+        for (User player : playerList) {
+            player.addCard(deck);
+            player.addCard(deck);
+        }
+    }
+
+    private void showCards(List<User> playerList) {
+        for (User player : playerList) {
+            outputView.printCards(player);
         }
     }
 
@@ -45,5 +53,6 @@ public class GameManager {
         List<User> playerList = initPlayer();    // 플레이어들과 딜러를 담고 있는 list
         Deck deck = new Deck();
         giveCardAtFirst(playerList, deck);
+        showCards(playerList);
     }
 }

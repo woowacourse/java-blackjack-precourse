@@ -24,4 +24,13 @@ public class User {
     public void addCard(Deck deck){
         cards.add(deck.getCard());
     }
+
+    public String toStringCards() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Card card : cards) {
+            stringBuilder.append("\t"+card.toString());
+        }
+        return stringBuilder.toString();
+    }
+
 }
