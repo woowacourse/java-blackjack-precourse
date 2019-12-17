@@ -20,6 +20,32 @@ public class GameManager {
     public void playGame(Scanner scanner) {
         firstStep();
         loopPlayers(scanner);
+        loopDealer();
+        result();
+    }
+
+    private void result() {
+        int dealerProfit = 0;
+        System.out.println(dealer.cardInfo());
+        System.out.println("## 최종수익");
+        for (Player player: players) {
+            double money = player.getMoney(dealer.getOptimizedSum());
+            System.out.println(player.getName() + ": " + money);
+            dealerProfit -= money;
+        }
+        System.out.println("딜러: " + dealerProfit);
+    }
+
+    private void loopDealer() {
+        final int basis = 17;
+        while (dealer.getOptimizedSum() < basis) {
+            dealer.addCard(popDeck());
+            System.out.println("딜러가 카드 한 장을 받았습니다.");
+            if (!dealer.isSurvive()) {
+                System.out.println("딜러가 파산하였습니다");
+                return;
+            }
+        }
     }
 
     private void loopPlayers(Scanner scanner) {
@@ -36,7 +62,7 @@ public class GameManager {
             System.out.println(player.cardInfo());
             if (!player.isSurvive()) {
                 System.out.println(player.getName() + "이 파산하였습니다.");
-                break;
+                return;
             }
             response = inputResponseOnlySmallYOrN(scanner);
         }
@@ -114,7 +140,7 @@ public class GameManager {
         return stringBuilder.toString();
     }
 
-    public String cardInfosOfAllMemberWithHidden() {
+    private String cardInfosOfAllMemberWithHidden() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(dealer.oneCardInfo());
         for (Player player: players) {

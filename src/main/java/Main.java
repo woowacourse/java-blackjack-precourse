@@ -16,15 +16,8 @@ public class Main {
 
         gameManager = new GameManager(players, dealer, cards);
 
-        /* Debug */
-        for (Card card: cards) {
-            System.out.println(card.toString());
-        }
-
         System.out.println(gameManager.bettingInfos());
-
         gameManager.playGame(scanner);
-
     }
 
     public static ArrayList<Player> initPlayersWithInput(Scanner scanner) {

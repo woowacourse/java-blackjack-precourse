@@ -31,6 +31,29 @@ public class Player extends Member {
                 ":\n" +
                 toStringCards();
     }
+
+    public double getMoney(int dealerScore) {
+        if (!isSurvive()) {
+            return -bettingMoney;
+        }
+        if (getOptimizedSum() == 21) {
+            return getMoneyWhenHasBlackJack(dealerScore);
+        }
+        if (getOptimizedSum() > dealerScore || dealerScore > 21) {
+            return bettingMoney;
+        }
+        if (getOptimizedSum() < dealerScore) {
+            return -bettingMoney;
+        }
+        return 0;
+    }
+
+    private double getMoneyWhenHasBlackJack(int dealerScore) {
+        if (dealerScore == 21) {
+            return 0;
+        }
+        return bettingMoney * 1.5;
+    }
 }
 
 
