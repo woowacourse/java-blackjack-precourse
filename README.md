@@ -17,12 +17,12 @@
 ### 카드 추가 ###
 * askAddCard : 카드를 추가할지 묻기
 * isValidYN : 유효한 대답인지(y/n) 확인 
+* addCard : 히트선택 시 카드 얻기
 * addCardForDealer : 딜러는 게임조건에 따라 알아서 카드를 추가하게 하기
 
 ### 결과 출력 ###
 * showResultValue : 카드 최종 결과 보여주기 
 * calcResultValue : 카드 합 계산하기. 버스트는 0, 21인 경우는 카드 갯수가 2개인 경우 22, 그 외의 경우는 합 그대로 계산
 * showResultMoney : 결과적으로 얻는 금액 표시하기
-* isBlackJack : 카드가 두장이고 합이 21인가 체크
 * isPush : 블랙잭으로 승리한 유저가 있을 경우 딜러도 블랙잭인지 확인
-* calcResult : 유저별 수익 계산하기
+
