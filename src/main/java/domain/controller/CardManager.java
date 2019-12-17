@@ -9,10 +9,10 @@ import java.util.List;
 public class CardManager {
 
     public void giveCard(User user, int numOfCard) {
-        final int CARD_NUMBER = user.getCards().size();
+        int CARD_NUMBER = user.getCards().size();
         List<Card> cardList = createCard();
         for (int i = CARD_NUMBER;
-             i < CARD_NUMBER + numOfCard; i++) {
+             i < (CARD_NUMBER + numOfCard); i++) {
             user.addCard(cardList.get(i));
         }
     }

@@ -4,12 +4,14 @@ import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
+import domain.view.Announcer;
 
 import java.util.Scanner;
 
 public class ScoreManager {
     Scanner scanner;
     CardManager cardManager;
+    Announcer announcer;
 
     final static int BLACKJACK = 21;
     final static int ACE_ELEVEN_MODE = 10;
@@ -18,6 +20,7 @@ public class ScoreManager {
     public ScoreManager() {
         scanner = new Scanner(System.in);
         cardManager = new CardManager();
+        announcer = new Announcer();
     }
 
     public boolean checkBlackJack(Dealer dealer) {
@@ -37,7 +40,7 @@ public class ScoreManager {
 
     private boolean isBlackJack(User user) {
         if (getSumScore(user) == BLACKJACK) {
-            System.out.printf("%s이 블랙잭을 달성했습니다!\n", user.getName());
+            announcer.announceEndByBlackJack(user);
             return true;
         }
         return false;
