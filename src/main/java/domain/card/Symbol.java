@@ -22,7 +22,11 @@ public enum Symbol {
     }
 
     public int getScore() {
-        return this.score;
+        return score;
+    }
+
+    public boolean isAce(){
+        return (this == ACE);
     }
 
 }
