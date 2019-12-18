@@ -5,7 +5,7 @@ public enum Symbol {
     TWO(2, "2"),
     THREE(3, "3"),
     FOUR(4, "4"),
-    FIVE(5,"5"),
+    FIVE(5, "5"),
     SIX(6, "6"),
     SEVEN(7, "7"),
     EIGHT(8, "8"),
@@ -26,7 +26,8 @@ public enum Symbol {
     public int getScore() {
         return score;
     }
-    public String toString(){
+
+    public String toString() {
         return name;
     }
 }

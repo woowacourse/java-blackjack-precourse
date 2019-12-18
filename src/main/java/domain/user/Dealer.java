@@ -35,27 +35,7 @@ public class Dealer extends User {
         System.out.println("\n딜러는 17이상이라 카드를 받지 않았습니다.\n");
     }
 
-    @Override
-    public void printNameAndCards() {
-        List<String> list = new ArrayList<>();
-        String result;
-
-        for (Card card : cards) {
-            list.add(card.toString());
-        }
-        result = String.join(",", list);
-        System.out.println("딜러카드: " + result);
-    }
-
-    @Override
-    public void printNameAndCardsAndSum() {
-        List<String> list = new ArrayList<>();
-        String result;
-
-        for (Card card : cards) {
-            list.add(card.toString());
-        }
-        result = String.join(",", list);
-        System.out.println("딜러카드: " + result + " - 결과: " + getAceSum());
+    public String toString(){
+        return "딜러";
     }
 }

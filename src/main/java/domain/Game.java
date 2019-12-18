@@ -5,7 +5,6 @@ import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Game {
@@ -27,50 +26,93 @@ public class Game {
         drawFirstTwoCards(names);
         drawMoreCard();
         dealer.firstDecision();
-        printFinalResult();
-        //printPrize();
+        finalGameStart();
+        finalResult();
     }
 
-    /*public static void printPrize(){
-        System.out.println("## 최종 수익");
-        dealer.printPrize();
-        for(Player player:players){
-            player.printPrize();
+    /* Operation Part */
+
+    public static void finalGameStart() {
+        for (Player player : players) {
+            finalGame(player);
         }
-    }*/
+    }
+
+    public static void finalGame(Player player) {
+        if ((!gameEndFlag.get(player)) && ((dealer.getMinimumSum() > BLACK_JACK) || player.getAceSum() > dealer.getAceSum())) {
+            playerWin(player);
+            return;
+        }
+        if (!gameEndFlag.get(player) && dealer.getAceSum() == player.getAceSum()) {
+            playerDraw(player);
+            return;
+        }
+        if (gameEndFlag.get(player)) return;
+        playerLose(player);
+    }
 
 
-    public static void printFinalResult() {
+    public static void finalResult() {
         dealer.printNameAndCardsAndSum();
         for (Player player : players) {
             player.printNameAndCardsAndSum();
         }
+        printFinalResult();
     }
+
+
+    public static void playerLose(Player player) {
+        double dealerPrize = prize.get(dealer);
+
+        dealerPrize += player.getBettingMoney();
+        prize.put(player, player.getBettingMoney() * (-1.0));
+        prize.put(dealer, dealerPrize);
+        gameEndFlag.put(player, true);
+    }
+
+    public static void playerDraw(Player player) {
+        prize.put(player, 0.0);
+        gameEndFlag.put(player, true);
+    }
+
+    public static void playerWin(Player player) {
+        double dealerPrize = prize.get(dealer);
+
+        dealerPrize -= player.getBettingMoney();
+        prize.put(dealer, dealerPrize);
+        prize.put(player, player.getBettingMoney());
+        gameEndFlag.put(player, true);
+    }
+
+    public static void playerWinByBlackJack(Player player) {
+        double dealerPrize = prize.get(dealer);
+
+        dealerPrize -= 1.5 * player.getBettingMoney();
+        prize.put(dealer, dealerPrize);
+        prize.put(player, player.getBettingMoney() * 1.5);
+        gameEndFlag.put(player, true);
+    }
+
 
     public static void drawMoreCard() {
         for (Player player : players) {
-            makePlayersChoice(player);
+            doYouDraw(player);
         }
     }
 
-    public static void makePlayersChoice(Player player) {
+    public static void doYouDraw(Player player) {
         boolean choiceFlag = false;
-        double sum = player.getMinimumSum();
-        while (sum < BLACK_JACK && !choiceFlag) {
-            boolean answer = printDrawQuestion(player);
-            choiceFlag = drawSelection(player, answer);
-            sum = player.getMinimumSum();
+        while (player.getAceSum() != BLACK_JACK && player.getMinimumSum()
+                < BLACK_JACK && !choiceFlag) {
+            boolean answer = printWhetherDraw(player);
+            choiceFlag = makeDrawChoice(player, answer);
         }
-        playerLose(player);
-    }
-
-    public static void playerLose(Player player) {
-        if (player.getMinimumSum() > 21) {
-            gameEndFlag.put(player, true);
+        if (player.getMinimumSum() > BLACK_JACK) {
+            playerLose(player);
         }
     }
 
-    public static boolean drawSelection(Player player, boolean answer) {
+    public static boolean makeDrawChoice(Player player, boolean answer) {
         if (answer) {
             drawFromDeck(player, 1);
             player.printNameAndCards();
@@ -80,56 +122,15 @@ public class Game {
         return true;
     }
 
-    public static boolean printDrawQuestion(Player player) {
-        Scanner s = new Scanner(System.in);
-        String answer;
-
-        System.out.println("\n" + player + "는 한장의 카드를 더 받겠습니까?(예는 y," +
-                " 아니오는 n)");
-        answer = s.nextLine();
-        return checkDrawChoiceAnswer(answer);
-    }
-
-    public static boolean checkDrawChoiceAnswer(String answer) {
-        if (answer.length() != 1 || (answer.equals("y") && answer.equals("n"))) {
-            System.out.println("y또는 n을 입력해주세요.");
-            System.exit(1);
-        }
-        return answer.equals("y");
-    }
 
     public static void twoCardsBlackJack(Player player) {
-        if (dealer.isBlackJack()) {
-            twoCardsBlackJackTogether(player);
+        if (dealer.isBlackJack() && player.isBlackJack()) {
+            playerDraw(player);
             return;
         }
         if (player.isBlackJack()) {
-            twoCardsBlackJackSolo(player);
-            return;
+            playerWinByBlackJack(player);
         }
-    }
-
-    public static void twoCardsBlackJackTogether(Player player) {
-        double playerBettingMoney = player.getBettingMoney();
-        double dealerPrize = prize.get(dealer);
-
-        dealerPrize -= playerBettingMoney;
-        playerBettingMoney -= playerBettingMoney;
-        prize.put(dealer, dealerPrize);
-        prize.put(player, playerBettingMoney);
-        gameEndFlag.put(dealer, true);
-        gameEndFlag.put(player, true);
-    }
-
-    public static void twoCardsBlackJackSolo(Player player) {
-        double playerBettingMoney = player.getBettingMoney();
-        double dealerPrize = prize.get(dealer);
-
-        dealerPrize -= 1.5 * playerBettingMoney;
-        playerBettingMoney *= 0.5;
-        prize.put(dealer, dealerPrize);
-        prize.put(player, playerBettingMoney);
-        gameEndFlag.put(player, true);
     }
 
     public static void drawFirstTwoCards(ArrayList<String> names) {
@@ -141,29 +142,12 @@ public class Game {
         printFirstDrawResult(names);
     }
 
-    public static void printFirstDrawResult(ArrayList<String> names) {
-        String result = String.join(",", names);
-
-        System.out.println("\n딜러와 " + result + "에게 2장의 카드를 나누었습니다.");
-        dealer.printNameAndCards();
-        for (Player player : players) {
-            player.printNameAndCards();
-        }
-
-    }
 
     public static void drawFromDeck(User user, int numOfCards) {
         for (int i = 0; i < numOfCards; i++) {
             Card card = deck.poll();
             checkDeckEmpty(card);
             user.addCard(card);
-        }
-    }
-
-    public static void checkDeckEmpty(Card card) {
-        if (card == null) {
-            System.out.println("더이상 card 가 남아있지 않습니다.");
-            System.exit(1);
         }
     }
 
@@ -203,11 +187,54 @@ public class Game {
 
         prize.put(dealer, sum);
         for (Player player : players) {
-            double bet = player.getBettingMoney();
-            sum += bet;
-            prize.put(player, bet);
+            prize.put(player, sum);
         }
-        prize.put(dealer, sum);
+    }
+
+    /* UI PART */
+
+    public static void printFinalResult() {
+        System.out.println("\n## 최종 수익");
+        System.out.println(dealer + " : " + Math.round(prize.get(dealer)));
+        for (Player player : players) {
+            System.out.println(player + " : " + Math.round(prize.get(player)));
+        }
+    }
+
+    public static boolean printWhetherDraw(Player player) {
+        Scanner s = new Scanner(System.in);
+        String answer;
+
+        System.out.println("\n" + player + "는 한장의 카드를 더 받겠습니까?(예는 y," +
+                " 아니오는 n)");
+        answer = s.nextLine();
+        return checkDrawChoiceAnswer(answer);
+    }
+
+    public static boolean checkDrawChoiceAnswer(String answer) {
+        if (answer.length() !=
+                1 || (answer.equals("y") && answer.equals("n"))) {
+            System.out.println("y또는 n을 입력해주세요.");
+            System.exit(1);
+        }
+        return answer.equals("y");
+    }
+
+    public static void printFirstDrawResult(ArrayList<String> names) {
+        String result = String.join(",", names);
+
+        System.out.println("\n딜러와 " + result + "에게 2장의 카드를 나누었습니다.");
+        dealer.printNameAndCards();
+        for (Player player : players) {
+            player.printNameAndCards();
+        }
+    }
+
+    public static void checkDeckEmpty(Card card) {
+        if (card == null) {
+            System.out.println("더이상 card 가 남아있지 않습니다.");
+            System.exit(1);
+        }
     }
 
     public static ArrayList<Double> takePlayerBetting(ArrayList<String> names) {

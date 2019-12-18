@@ -27,27 +27,6 @@ public class Player extends User {
     public double getBettingMoney(){
         return bettingMoney;
     }
-    public void printNameAndCards() {
-        List<String> list = new ArrayList<>();
-        String result;
-
-        for (Card card : cards) {
-            list.add(card.toString());
-        }
-        result = String.join(",", list);
-        System.out.println(name + "카드: " + result);
-    }
-
-    public void printNameAndCardsAndSum() {
-        List<String> list = new ArrayList<>();
-        String result;
-
-        for (Card card : cards) {
-            list.add(card.toString());
-        }
-        result = String.join(",", list);
-        System.out.println(name + "카드: " + result + " - 결과: " + getAceSum());
-    }
 
     public String toString() {
         return name;

@@ -29,23 +29,25 @@
     2. 기능
 
 * 플레이어 추가 draw 구현
+    
+    1. 출력
+    2. 입력
+        
+        * 예외 : y, n를 제외한 다른 모든 입력 
+    2. 기능
+        
+        
 * 딜러 추가 draw 구현
 * 게임 결과 출력 구현
 * 게임 결과 게산 구현
     
-    * ACE 처리 기능
+    * ACE 값 구분  기능 
     * 첫 두장이 BLACKJACK 인 경우
     
-        1. 딜러와 플레이어 모두 BLACKJACK
-        2. 딜러만 BLACKJACK
-        3. 플레이어만 BLACKJACK
+        1. 딜러와 플레이어 모두 BLACKJACK : Draw
+        2. 딜러만 BLACKJACK : Lose
+        3. 플레이어만 BLACKJACK : SpecialWin
     
-    * 플레이어 
-        1. BLACKJACK 초과
-        2. BLACKJACK
-        3. BLACKJACK 미만
-    * 딜러 
-        1. BLACKJACK 초과
-        2. BLACKJACK
-        3. BLACKJACK 미만
-    
+    * Player win, lose, draw 구현
+        
+        player draw 에 대해 명시 되어있지 않으므로 마지막 경우에 합이 같거나, 첫 두장 블랙잭인 경우에만 draw 구현

@@ -35,20 +35,24 @@ public class Card {
 
     @Override
     public String toString() {
-        return symbol.toString()+type.toString();
+        return symbol.toString() + type.toString();
     }
-    public int getSymbolValue(){
+
+    public int getSymbolValue() {
         return symbol.getScore();
     }
-    public int isAce(){
-        if(symbol == Symbol.ACE){
+
+    public int isAce() {
+        if (symbol == Symbol.ACE) {
             return 1;
         }
         return 0;
     }
-    public static Card makeRandomCard(){
+
+    public static Card makeRandomCard() {
         return new Card(makeRandomSymbol(), makeRandomType());
     }
+
     public static Symbol makeRandomSymbol() {
         int symbol = (int) (Math.random() * Game.NUM_OF_SYMBOL);
         return Symbol.values()[symbol];

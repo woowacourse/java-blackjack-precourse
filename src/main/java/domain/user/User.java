@@ -4,7 +4,6 @@ import domain.Game;
 import domain.card.Card;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public abstract class User {
@@ -12,23 +11,6 @@ public abstract class User {
 
     public void addCard(Card card) {
         cards.add(card);
-    }
-
-    public int getMinimumSum() {
-        int sum = 0;
-        for (Card card : cards) {
-            sum += card.getSymbolValue();
-        }
-        return sum;
-    }
-
-    public ArrayList<Card> copyCardList() {
-        ArrayList<Card> copyOfCards = new ArrayList<>();
-
-        for (Card card : cards) {
-            copyOfCards.add(card);
-        }
-        return copyOfCards;
     }
 
     public boolean isThereAce() {
@@ -42,6 +24,14 @@ public abstract class User {
         return false;
     }
 
+    public int getMinimumSum() {
+        int sum = 0;
+        for (Card card : cards) {
+            sum += card.getSymbolValue();
+        }
+        return sum;
+    }
+
     public int getAceSum() {
         int sum = getMinimumSum();
 
@@ -51,14 +41,41 @@ public abstract class User {
         return getMinimumSum();
     }
 
-    public boolean isBlackJack(){
-        if(getAceSum() == 21){
+    public ArrayList<Card> copyCardList() {
+        ArrayList<Card> copyOfCards = new ArrayList<>();
+
+        for (Card card : cards) {
+            copyOfCards.add(card);
+        }
+        return copyOfCards;
+    }
+
+    public boolean isBlackJack() {
+        if (getAceSum() == Game.BLACK_JACK) {
             return true;
         }
         return false;
     }
 
-    public abstract void printNameAndCards();
+    public void printNameAndCards() {
+        List<String> list = new ArrayList<>();
+        String result;
 
-    public abstract void printNameAndCardsAndSum();
+        for (Card card : cards) {
+            list.add(card.toString());
+        }
+        result = String.join(",", list);
+        System.out.println(this + "카드: " + result);
+    }
+
+    public void printNameAndCardsAndSum() {
+        List<String> list = new ArrayList<>();
+        String result;
+
+        for (Card card : cards) {
+            list.add(card.toString());
+        }
+        result = String.join(",", list);
+        System.out.println(this + "카드: " + result + " - 결과: " + getAceSum());
+    }
 }
