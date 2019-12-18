@@ -39,7 +39,8 @@ public class Game {
     }
 
     public static void finalGame(Player player) {
-        if ((!gameEndFlag.get(player)) && ((dealer.getMinimumSum() > BLACK_JACK) || player.getAceSum() > dealer.getAceSum())) {
+        if ((!gameEndFlag.get(player)) && ((dealer.getMinimumSum() > BLACK_JACK)
+                || player.getAceSum() > dealer.getAceSum())) {
             playerWin(player);
             return;
         }
