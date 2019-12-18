@@ -15,14 +15,11 @@ public class EarningCalculator {
         if (player.isBust() || dealer.isBust()) {
             return calculateBustEarning(player, dealer);
         }
-        if (player.calculateFinalScore() == dealer.calculateFinalScore()
-                && !player.isBlackJack()) {
-            return 0;
+        if (dealer.isBlackJack()) {
+            return calculateBlackJackEarning(player, dealer);
         }
-        if (player.calculateFinalScore() < dealer.calculateFinalScore()) {
-            return -player.getBettingMoney();
-        }
-        return player.getBettingMoney() * calculateBlackJack(player);
+        
+        return calculateNormalEarning(player, dealer);
     }
 
     private static double calculateBustEarning(Player player, Dealer dealer) {
@@ -30,6 +27,25 @@ public class EarningCalculator {
             return -player.getBettingMoney();
         }
 
+        return player.getBettingMoney() * calculateBlackJack(player);
+    }
+    
+    private static double calculateBlackJackEarning(Player player, Dealer dealer) {
+        if (player.isBlackJack()) {
+            return 0;
+        }
+
+        return -player.getBettingMoney();
+    }
+    
+    private static double calculateNormalEarning(Player player, Dealer dealer) {
+        if (player.calculateFinalScore() == dealer.calculateFinalScore()) {
+            return 0;
+        }
+        if (player.calculateFinalScore() < dealer.calculateFinalScore()) {
+            return -player.getBettingMoney();
+        }
+        
         return player.getBettingMoney() * calculateBlackJack(player);
     }
 
