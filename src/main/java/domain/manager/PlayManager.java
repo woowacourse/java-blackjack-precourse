@@ -2,6 +2,7 @@ package domain.manager;
 
 import domain.card.CardFactory;
 import domain.card.Deck;
+import domain.ui.input.BettingMoney;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -16,14 +17,14 @@ public class PlayManager {
     private double[] benefitArray;
     private List<Integer> blackJackPlayerIndexList = new ArrayList<>();
 
-    public PlayManager(List<String> playerNameList, List<Integer> bettingMoneyList) {
-        this.getPlayers(playerNameList, bettingMoneyList);
+    public PlayManager(List<String> playerNameList) {
+        this.getPlayers(playerNameList);
         this.benefitArray = new double[players.size() + 1];
     }
 
-    private void getPlayers(List<String> playerNameList, List<Integer> bettingMoneyList) {
-        for (int i = 0; i < playerNameList.size(); i++) {
-            players.add(new Player(playerNameList.get(i), bettingMoneyList.get(i)));
+    private void getPlayers(List<String> playerNames) {
+        for (String playerName : playerNames) {
+            players.add(new Player(playerName, BettingMoney.input(playerName)));
         }
         dealerIndex = players.size();
     }
