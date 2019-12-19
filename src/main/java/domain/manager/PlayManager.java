@@ -1,18 +1,20 @@
 package domain.manager;
 
-import domain.card.CardFactory;
 import domain.card.Deck;
 import domain.ui.input.BettingMoney;
 import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PlayManager {
     private final List<Player> players = new ArrayList<>();
     private final Dealer dealer = new Dealer();
-    private final Deck deck = new Deck(CardFactory.create());
+    private final Deck deck = new Deck();
+    private final Set<Integer> usedCards = new HashSet<>();
     private int dealerIndex;
     private double[] benefitArray;
     private List<Integer> blackJackPlayerIndexList = new ArrayList<>();
@@ -48,9 +50,9 @@ public class PlayManager {
 
     private void dealCards() {
         for (Player player : players) {
-            player.addCard(deck.giveRandomCard());
+            player.addCard(deck.giveUnusedRandomCard(usedCards));
         }
-        dealer.addCard(deck.giveRandomCard());
+        dealer.addCard(deck.giveUnusedRandomCard(usedCards));
     }
 
     private void printAllGamersHand() {
@@ -155,7 +157,7 @@ public class PlayManager {
     private void askHit(Player player) {
         int scoreLimit = 21;
         while (player.calculateScore() < scoreLimit && player.wantHit()) {
-            player.addCard(deck.giveRandomCard());
+            player.addCard(deck.giveUnusedRandomCard(usedCards));
             System.out.println(player.toString() + "\n");
         }
     }
@@ -163,7 +165,7 @@ public class PlayManager {
     private void askHit(Dealer dealer) {
         while (dealer.calculateScore() <= 16) {
             System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
-            dealer.addCard(deck.giveRandomCard());
+            dealer.addCard(deck.giveUnusedRandomCard(usedCards));
             System.out.println(dealer.toString() + "\n");
         }
     }

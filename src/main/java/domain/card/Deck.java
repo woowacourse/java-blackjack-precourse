@@ -1,24 +1,24 @@
 package domain.card;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class Deck {
-    private List<Card> cards;
-    public HashMap<Integer, Boolean> cardsOnTable = new HashMap<Integer, Boolean>();
+    private final List<Card> cards;
 
-    public Deck(List<Card> cards) {
-        this.cards = cards;
+    public Deck() {
+        this.cards = CardFactory.create();
     }
 
-    public Card giveRandomCard() {
+    public Card giveUnusedRandomCard(Set<Integer> usedCards) {
         Random random = new Random();
-        int IndexOfCard;
+        int indexOfCard;
+        int sizeOfBeforeAdd = usedCards.size();
         do {
-            IndexOfCard = random.nextInt(cards.size());
-        } while (cardsOnTable.containsKey(IndexOfCard));
-        cardsOnTable.put(IndexOfCard, true);
-        return cards.get(IndexOfCard);
+            indexOfCard = random.nextInt(cards.size());
+            usedCards.add(indexOfCard);
+        } while (usedCards.size() == sizeOfBeforeAdd);
+        return cards.get(indexOfCard);
     }
 }
