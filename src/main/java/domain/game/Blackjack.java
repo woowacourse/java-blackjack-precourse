@@ -146,9 +146,9 @@ public class Blackjack {
 
 
     public void showResult() {
-        dealer.showOutcome();
+        dealer.showOutcome("딜러");
         for (Player player : players) {
-            player.showOutcome();
+            player.showOutcome(player.getName());
         }
         distributeMoney();
     }
