@@ -1,17 +1,20 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Deck;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Stack;
 
+/**
+ * 게임의 전체적인 운영을 담당하는 객체
+ */
 public class GameManager {
     private ArrayList<Player> players;
     private Dealer dealer;
-    private Stack<Card> deck;
+    private Deck deck;
 
-    public GameManager(ArrayList<Player> players, Dealer dealer, Stack<Card> deck) {
+    public GameManager(ArrayList<Player> players, Dealer dealer, Deck deck) {
         this.players = players;
         this.dealer = dealer;
         this.deck = deck;
@@ -25,20 +28,21 @@ public class GameManager {
     }
 
     private void result() {
-        int dealerProfit = 0;
+        double dealerProfit = 0;
         System.out.println(dealer.cardInfo());
         System.out.println("## 최종수익");
         for (Player player: players) {
-            double money = player.getMoney(dealer.getOptimizedSum());
-            System.out.println(player.getName() + ": " + money);
-            dealerProfit -= money;
+            Score dealerOptimizedSum = dealer.getOptimizedSum();
+            double playerMoney = player.getMoney(dealerOptimizedSum.getScore());
+            String playerName = player.getName();
+            System.out.println(playerName + ": " + playerMoney);
+            dealerProfit -= playerMoney;
         }
         System.out.println("딜러: " + dealerProfit);
     }
 
     private void loopDealer() {
-        final int basis = 17;
-        while (dealer.getOptimizedSum() < basis) {
+        while (dealer.getOptimizedSum().getScore() < Score.DEALER_BASIS) {
             dealer.addCard(popDeck());
             System.out.println("딜러가 카드 한 장을 받았습니다.");
             if (!dealer.isSurvive()) {
@@ -58,7 +62,7 @@ public class GameManager {
         System.out.println(player.getName() + "은 카드 한 장을 더 받겠습니까?");
         String response = inputResponseOnlySmallYOrN(scanner);
         while (checkSmallY(response)) {
-            player.addCard(deck.pop());
+            player.addCard(deck.draw());
             System.out.println(player.cardInfo());
             if (!player.isSurvive()) {
                 System.out.println(player.getName() + "이 파산하였습니다.");
@@ -79,7 +83,8 @@ public class GameManager {
     }
 
     private boolean checkSmallY(String string) {
-        return string.equals("y");
+        YesOrNo yesOrNo = new YesOrNo(string);
+        return yesOrNo.isYes();
     }
 
     private void firstStep() {
@@ -88,8 +93,8 @@ public class GameManager {
         System.out.println(cardInfosOfAllMemberWithHidden());
     }
 
-    private void pushDeck(Card card) {
-        deck.push(card);
+    private void putInDeckRandomLocation(Card card) {
+        deck.putRandomLocation(card);
     }
 
     private Card popDeck() {
@@ -97,7 +102,7 @@ public class GameManager {
         if (deck.isEmpty()) {
             return null;
         }
-        poped = deck.pop();
+        poped = deck.draw();
 
         return poped;
     }

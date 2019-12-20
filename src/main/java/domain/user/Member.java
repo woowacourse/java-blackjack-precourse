@@ -5,34 +5,35 @@ import domain.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 카드의 멤버들의 생성을 위한 부모 클래스
+ */
 public abstract class Member {
     private final List<Card> cards = new ArrayList<>();
 
     public boolean isSurvive() {
-        final int MAX_SCORE = 21;
-        return getOptimizedSum() <= MAX_SCORE;
+        return getOptimizedSum().getScore() <= Score.BLACKJACK_SCORE;
     }
 
-    public int getOptimizedSum() {
-        int sum = getSum();
+    public Score getOptimizedSum() {
+        Score sum = getSum();
         if (hasAce()) {
-            if (sum < 12) {
-                sum += 10;
-            }
+            sum = sum.plusTenIfNotBust();
         }
         return sum;
     }
 
-    public int getSum() {
-        int sum = 0;
+    private Score getSum() {
+        Score sum = new Score(0);
         for (Card card: cards) {
-            sum += card.getScore();
+            Score next = card.getScore();
+            sum = sum.plus(next);
         }
 
         return sum;
     }
 
-    public boolean hasAce() {
+    private boolean hasAce() {
         for (Card card: cards) {
             if (card.isAce()) {
                 return true;

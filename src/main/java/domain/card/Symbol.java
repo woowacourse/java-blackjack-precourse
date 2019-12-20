@@ -1,5 +1,8 @@
 package domain.card;
 
+/**
+ * 카드의 점수란을 의미하는 객체
+ */
 public enum Symbol {
     ACE(1),
     TWO(2),
@@ -23,5 +26,13 @@ public enum Symbol {
 
     public int getScore() {
         return score;
+    }
+
+    public boolean isAce() {
+        return this == ACE;
+    }
+
+    public boolean isSame(Symbol other) {
+        return this == other;
     }
 }

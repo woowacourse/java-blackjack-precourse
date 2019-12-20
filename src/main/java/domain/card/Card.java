@@ -1,5 +1,7 @@
 package domain.card;
 
+import domain.user.Score;
+
 import java.util.Objects;
 
 /**
@@ -17,12 +19,12 @@ public class Card {
 
     // TODO Card 관련 추가 기능 구현
 
-    public int getScore() {
-        return symbol.getScore();
+    public Score getScore() {
+        return new Score(symbol.getScore());
     }
 
     public boolean isAce() {
-        return symbol == Symbol.ACE;
+        return symbol.isAce();
     }
 
     @Override
@@ -30,8 +32,8 @@ public class Card {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return symbol == card.symbol &&
-                type == card.type;
+        return symbol.isSame(card.symbol) &&
+                type.isSame(card.type);
     }
 
     @Override

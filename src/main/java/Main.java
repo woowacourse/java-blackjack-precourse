@@ -1,20 +1,25 @@
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.GameManager;
 import domain.user.Player;
 
 import java.util.*;
 
+/**
+ * 프로젝트의 메인 함수
+ */
 public class Main {
     public static void main(String[] args) {
         GameManager gameManager;
         Scanner scanner = new Scanner(System.in);
         Stack<Card> cards = CardFactory.provideShuffledCards();
+        Deck deck = new Deck(cards);
         ArrayList<Player> players = initPlayersWithInput(scanner);
         Dealer dealer = new Dealer();
 
-        gameManager = new GameManager(players, dealer, cards);
+        gameManager = new GameManager(players, dealer, deck);
 
         System.out.println(gameManager.bettingInfos());
         gameManager.playGame(scanner);

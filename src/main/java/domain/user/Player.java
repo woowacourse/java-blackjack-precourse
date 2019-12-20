@@ -33,23 +33,24 @@ public class Player extends Member {
     }
 
     public double getMoney(int dealerScore) {
+        int score = getOptimizedSum().getScore();
         if (!isSurvive()) {
             return -bettingMoney;
         }
-        if (getOptimizedSum() == 21) {
+        if (score == Score.BLACKJACK_SCORE) {
             return getMoneyWhenHasBlackJack(dealerScore);
         }
-        if (getOptimizedSum() > dealerScore || dealerScore > 21) {
+        if (score > dealerScore || dealerScore > Score.BLACKJACK_SCORE) {
             return bettingMoney;
         }
-        if (getOptimizedSum() < dealerScore) {
+        if (score < dealerScore) {
             return -bettingMoney;
         }
         return 0;
     }
 
     private double getMoneyWhenHasBlackJack(int dealerScore) {
-        if (dealerScore == 21) {
+        if (dealerScore == Score.BLACKJACK_SCORE) {
             return 0;
         }
         return bettingMoney * 1.5;
