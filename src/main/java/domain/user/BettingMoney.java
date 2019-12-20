@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.outcome.BenefitType;
+import domain.outcome.OutcomeType;
 
 class BettingMoney {
     private final double bettingMoney;
@@ -8,6 +8,10 @@ class BettingMoney {
     BettingMoney(double bettingMoney) {
         valid(bettingMoney);
         this.bettingMoney = bettingMoney;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
     }
 
     private void valid(double bettingMoney) {
@@ -21,18 +25,18 @@ class BettingMoney {
             boolean isDealerBlackJack,
             boolean isPlayerBlackJack
     ) {
-        return BenefitType
+        return OutcomeType
                 .calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack)
                 .getMultipleValue()
                 * bettingMoney;
     }
 
-    double calcureateBenefit(boolean isWin) {
-        return BenefitType.calcureateWinnerBenefit(isWin).getMultipleValue()
-                * bettingMoney;
-    }
-
-    double calcureateDrawBenefit() {
-        return BenefitType.DRAW.getMultipleValue() * bettingMoney;
-    }
+//    double calcureateBenefit(boolean isWin) {
+//        return OutcomeType.calcureateWinnerBenefit(isWin).getMultipleValue()
+//                * bettingMoney;
+//    }
+//
+//    double calcureateDrawBenefit() {
+//        return OutcomeType.DRAW.getMultipleValue() * bettingMoney;
+//    }
 }

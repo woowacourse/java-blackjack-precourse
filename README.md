@@ -124,3 +124,220 @@
 - `SOLID`, `SRP`,  `기능 단위 commit`, `enum`, `else keyword의 단점`, `일급 컬렉션`, `java stream` 등 너무 많은 부분에서 도움이 많이 되었다...!
 - 코드에 대한 피드백이 한번 더 도착한다면 이 문서를 업데이트 하겠다.
 - ~~제발제발제발제발제발제발제발 오프라인 코테를 성공적으로 끝내 입과할 수 있으면 좋겠다....!~~
+
+
+
+### 3주차 피드백
+
+
+
+>  *기울어진 글씨* 는 나의 첨언이다.
+
+
+
+- 시작 단계에서 너무 완벽한 설계하는 것을 경계하라.
+  - 시작 단계는 요구사항에 대한 배경 지식(보통 **도메인 지식**이라고 부른다.)이 부족한 상태이다.
+  - 따라서 시작 단계에 좋은 설계를 하기 힘들다. 아니 거의 불가능하다.
+  - 시작 단계에 완벽한 설계를 하겠다는 욕심을 버려라.
+  - 시작 단계에서 **분석 가능한 상태로 설계 진행, 구현하면서 배경 지식을 쌓아간다.**
+  - 배경 지식이 쌓였다 판단된느 시점에 재설계하고 구현한다.
+  - 이 과정을 **반복**해 나간다.
+  - *우선 몸으로 부딪히고 수정해나가라는 조언*
+
+
+
+- 상황(Context)에 맞는 설계와 구현 방법을 찾아라.
+  - 프로그래밍 설계와 구현은 아날로그적인 영역이 많은 부분이다.
+  - 프로그래밍을 기술이 아닌 예술의 일부라고 생각하는 이유도 이런 점 때문이다.
+  - **프로그래밍 설계와 구현에 정답은 없다.**
+  - 정답을 찾기보다 **요구사항에 적합한 최선의 설계와 구현 코드를 찾기 위해 노력** 한다.
+  - *위에서 말한 노력도 노력이지만 적합한 최선의 설계와 구현 코드를 찾기 위해선 그에 걸맞는 배경 지식들이 필요하다. 나에겐 배경지식을 쌓는 것에도 절대 소홀하지 말자.*
+
+
+
+- 원시 타입과 문자열을 포장하라.
+
+  - 각 카드 숫자의 합을 Score 객체로 포장
+
+    - ```java
+      public class Score {
+        private static final int SCORE_MIN = 0;
+        private static final int BLACKJACK_SCORE = 21;
+        private static final int TEN = 10;
+        
+        public static final Score Zero = new Score(0);
+        
+        private final int score;
+        
+        public Score(int score) {
+          if (score < SCORE_MIIN) {
+            throw new IllegalArgumentExcepttion("점수는 0이상이어야 합니다.")
+          }
+          this.score = score;
+        }
+        ...
+      }
+      ```
+
+  - y 또는 n 값을 YesOrNo 객체로 포장
+
+    - ```java
+      public class YesOrNo {
+        private final char value;
+        
+        public YesOrNo(String value) {
+          if (Objects.isNull(value)) {
+            throw new IllegalArgumentException("값이 null이 될 수 없습니다.")
+          }
+          if(value.length() > 1) {
+            throw new IllegalArgumentException("입력 문자가 두 자 이상이 될 수 없습니다.")
+          }
+          
+          this.value = Character.toLowerCase(value.charAt(0));
+          if(this.value != 'y' && this.value != 'n') {
+            throw new IllegalAArgumentException("입력 문자는 y(Y), n(N)만 가능합니다.");
+          }
+        }
+        
+        public boolean isYes() {
+          return value == 'y';
+        }
+      }
+      ```
+
+  - **프로그래밍 설계와 구현에 정답은 없다.** 에 기초해 앞의 YesOrNo는 enum 또는 boolean 객체를 포장하는 구조로 개발할 수도 있다.
+
+
+
+- **적절한 Collection(자료구조)를 활용하라.**
+  - 일차로 List,Set,Map을 적절하게 활용한다.
+  - 적절한 자료구조가 없다면 나만의 자료구조를 구현한다.
+    - 나만의 클래스를 추가하는 것 == 나만의 자료구조
+
+
+
+- 일급 Collection(자료구조)을 사용한다.
+
+  - [일급 컬렉션의 이점](https://jojoldu.tistory.com/412) 을 읽어보지 않은 사람은 읽어보길 권장한다.
+
+  - Collection을 객체로 포장한다.
+
+  - 일급 Collection은 Collection 이외에 다른 필드가 없어야한다.
+
+    - *여러 자료들을 참고하니 상수는 해당되지 않는 듯하다.*
+    - *애당초 **필드**는 클래스 안에서 선언되는 멤버 변수이다.*
+
+  - ```java
+    publi class Cards {
+      private final List<Card> cards;
+      
+      public Cards(List<Card> cards) {
+        this.cards = cards;
+      }
+      
+      private Score reviseAceScore(Score score) {
+        if (!hasAce(cards)) {
+          return score;
+        }
+        return score.plusTenIfNotBust();
+      }
+      
+      private Score calculateRawScore() {
+        Score score = Score.ZERO;
+        for (Card card : cards) {
+          score = card.caluculate(score);
+        }
+        return score;
+      }
+      
+      private static boolean hasAce(List<Card) original) {
+        return original.stream().filter(Card::isAce).findFirst().isPresent();
+      }
+    }
+    ```
+
+    
+
+- 객체에 메시지를 보내라
+
+  - 상태 데이터를 가지는 객체에서 데이터를 꺼내려(get) 하지 말고 객체에 메시지를 보내라.
+
+  - **카드 점수를 구하는 로직 구현**
+
+    - 카드 점수를 구하는 로직을 Score 객체로 추상홯나다고 가정할 경우 Score가 점수 계산 로직과 관련한 모든 책임을 지도록 한다.
+
+    - ```java
+      public class Score {
+        private static final int SCORE_MIN = 0;
+        private static final int BLACKJACK_SCORE = 21;
+        private static final int TEN = 10;
+        
+        public static final Score ZERO = new Score(SCORE_MIN);
+        
+        private final int score;
+        
+        ...
+          
+        public Score calculate(int score) {
+          return new Score(this.score + score);
+        }
+        
+        public Score plusTenIfNotBust() {
+          Score score = new Score(this.score + TEN);
+          if(score.isBust()) {
+            return this;
+          }
+          return score;
+        }
+        
+        private boolean isBust() {
+          return this.score > BLACKJACK_SCORE;
+        }
+      }
+      ```
+
+    - 나는 이런 로직이 사용되지 않는 방식을 사용하였는데 적용해서 리팩토링을 시도해봐야겠다.
+
+  - **카드가 Ace인지 여부를 판단하는 로직**
+
+    - enum도 자바 객체와 같다. enum도 값을 꺼내지(get) 말고 메시지를 보내 로직을 구현한다.
+
+    - ```java
+      public enum Symbol {
+        ACE(1),
+        TWO(2),
+        THREE(3),
+        ...
+          
+      	private int score;
+        
+        Symbol (int score) {
+          this.score = score;
+        }
+        
+        public int getScore() {
+          return score;
+        }
+        
+        public boolean isAce() {
+          return this == ACE;
+        }
+      }
+      ```
+
+    - 위의 isAce로직을 난 밑의 코드로 구현하였다.
+
+    - ```java
+      public int getAceCount() {
+              return (int) cards.stream().filter(card ->
+                      card.getSymbol() == Symbol.ACE
+              ).count();
+          }
+      ```
+
+    - 객체에 메세지를 보내라는 것에 실수하지 않으려고 인식하고 코드를 작성하였음에도 불구하고 또 `getSymbol()` 를 꺼내고 ACE인지 판별하고 있었다.
+
+    - ~~심지어 리팩토링을 한다고 했는데도 인지하지 못했다...! 피드백을 두번은 봐야 정신차리는군...!~~
+
+    - 반성하고 같은 실수를 더는 반복하지말자.
+

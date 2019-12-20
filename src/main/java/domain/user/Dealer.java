@@ -11,12 +11,11 @@ public class Dealer extends User {
 
     // TODO 추가 기능 구현
     private String getFirstCard() {
-        return getCards().get(ZERO).toString();
+        return getCards().getCards().get(ZERO).toString();
     }
 
     private boolean checkAddLimitExcess() {
-        int sum = calcurateScore();
-        return sum > ADD_CARD_LIMIT;
+        return getCards().calcurateScore().isBigBy(ADD_CARD_LIMIT);
     }
 
     void hit() {
@@ -33,6 +32,6 @@ public class Dealer extends User {
 
     @Override
     public void printFinalOutput() {
-        OutputUtil.printDealerFinalOutput(printCards(), calcurateScore());
+        OutputUtil.printDealerFinalOutput(printCards(), getCards().calcurateScore().getScore());
     }
 }

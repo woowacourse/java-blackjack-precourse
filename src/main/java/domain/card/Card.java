@@ -19,6 +19,11 @@ public class Card {
         return symbol;
     }
 
+    // TODO : isAce가 Symbol이 아닌 여기에 존재해야하는가..?
+    public boolean isAce() {
+        return symbol.isAce();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,6 +1,7 @@
 package view;
 
 import domain.outcome.Outcomes;
+import view.dto.OutcomesConverter;
 
 public class OutputUtil {
     private static final String CARD_STRING = " 카드: ";
@@ -28,7 +29,7 @@ public class OutputUtil {
     public static void printOutcomes(Outcomes outcomes) {
         System.out.println("\n"
                 + "## 최종 수익\n"
-                + outcomes.toString());
+                + OutcomesConverter.convertOutcomesString(outcomes.getOutcomes()));
     }
 
     public static void printDealerAddCard() {

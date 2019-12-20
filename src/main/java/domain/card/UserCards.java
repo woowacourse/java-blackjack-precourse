@@ -3,18 +3,18 @@ package domain.card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserCards {
-    private static final int LIMIT = 21;
-    private static final int ZERO = 0;
     private static final String COMMA = ",";
-
     private final List<Card> cards;
 
     public UserCards() {
         this.cards = new ArrayList<>();
+    }
+
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
     }
 
     public void addRandomCard() {
@@ -25,45 +25,33 @@ public class UserCards {
         cards.add(card);
     }
 
-    public List<Card> getCards() {
-        return Collections.unmodifiableList(cards);
+    public Score calcurateScore() {
+        Score exceptAceBonusScore = calcurateExceptAceBonusScore();
+        return addAceBonusIfNotBust(exceptAceBonusScore);
     }
 
-    public int getAceCount() {
-        return (int) cards.stream().filter(card ->
-                card.getSymbol() == Symbol.ACE
-        ).count();
-    }
-
-    public boolean checkExcess() {
-        Optional<Integer> sum = cards.stream()
+    private Score calcurateExceptAceBonusScore() {
+        return cards.stream()
                 .map(card -> card.getSymbol().getScore())
-                .reduce(Integer::sum);
-        if (sum.isPresent()) {
-            return sum.get() > LIMIT;
+                .reduce((score1, score2) -> score1.calculate(score2.getScore()))
+                .get();
+    }
+
+    private Score addAceBonusIfNotBust(Score noneAceBonusScore) {
+        int aceCount = getAceCount();
+        while (aceCount-- > 0) {
+            noneAceBonusScore.plusTenIfNotBust();
         }
-        throw new IllegalStateException("카드가 없는 경우가 발생하였습니다.");
+        return noneAceBonusScore;
     }
 
-    public int calcurateScoreExceptAce() {
-        Optional<Integer> scoreExceptAce = cards.stream()
-                .filter(card -> card.getSymbol() != Symbol.ACE)
-                .map(card -> card.getSymbol().getScore())
-                .reduce(Integer::sum);
-        if (scoreExceptAce.isPresent()) {
-            return scoreExceptAce.get();
-        }
-        return ZERO;
+    private int getAceCount() {
+        return (int) cards.stream()
+                .filter(card -> card.isAce())
+                .count();
     }
 
-    public boolean isHaveTen() {
-        return cards.stream().anyMatch(card ->
-                card.getSymbol() == Symbol.JACK ||
-                        card.getSymbol() == Symbol.KING ||
-                        card.getSymbol() == Symbol.QUEEN ||
-                        card.getSymbol() == Symbol.TEN);
-    }
-
+    // TODO : UI 로직 옮긱기
     public String printCards() {
         return cards.stream()
                 .map(Card::toString)

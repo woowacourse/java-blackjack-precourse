@@ -19,15 +19,11 @@ public class Player extends User {
 
     // TODO 추가 기능 구현
     void startAddCardLoop() {
-        while (!checkExcess()) {
-            boolean addCardFlag = inputAddCardQuestion();
-            if (addCardFlag) {
-                addRandomCard();
-                printUserState();
-            }
-            if (!addCardFlag) {
-                break;
-            }
+        boolean addCardFlag = inputAddCardQuestion();
+        while (calcurateScore().isBust() && addCardFlag) {
+            addRandomCard();
+            printUserState();
+            addCardFlag = inputAddCardQuestion();
         }
     }
 
@@ -36,18 +32,15 @@ public class Player extends User {
         return InputUtil.inputAddCardQuestion();
     }
 
-    boolean isWinBy(int dealerScore) {
-        return dealerScore < calcurateScore();
-    }
-
-    boolean isDraw(int dealerScore) {
-        return dealerScore == calcurateScore();
+    public double getBettingMoney() {
+        return bettingMoney.getBettingMoney();
     }
 
     public String getName() {
         return name;
     }
 
+    // TODO : 이익 계산 책임을 Benefit에게 넘겨버려보자.
     public double calcurateBlackJackBenefit(
             boolean isDealerBlackJack,
             boolean isPlayerBlackJack
@@ -56,14 +49,7 @@ public class Player extends User {
                 .calcurateBlackJackBenefit(isDealerBlackJack, isPlayerBlackJack);
     }
 
-    double calcureateBenefit(boolean isWin) {
-        return bettingMoney.calcureateBenefit(isWin);
-    }
-
-    double calcureateDrawBenefit() {
-        return bettingMoney.calcureateDrawBenefit();
-    }
-
+    // UI 로직 넘기기
     @Override
     public String toString() {
         return name + DOUBLE_COLON + bettingMoney;
@@ -76,6 +62,6 @@ public class Player extends User {
 
     @Override
     public void printFinalOutput() {
-        OutputUtil.printPlayerState(name, printCards(), calcurateScore());
+        OutputUtil.printPlayerState(name, printCards(), calcurateScore().getScore());
     }
 }

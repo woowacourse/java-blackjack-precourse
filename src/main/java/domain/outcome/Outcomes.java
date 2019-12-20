@@ -1,20 +1,24 @@
 package domain.outcome;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Outcomes {
     private static final String DEALER = "Dealer";
-    private static final int ZERO = 0;
 
     private final List<Outcome> outcomes = new ArrayList<>();
 
-    public Outcomes() {
-        addDealer();
+    public List<Outcome> getOutcomes() {
+        return Collections.unmodifiableList(outcomes);
     }
 
-    public void addOutcomes(String name, double benefit) {
-        outcomes.add(new Outcome(name, benefit));
+//    public void addOutcomes(String name, double benefit) {
+//        outcomes.add(new Outcome(name, benefit));
+//    }
+
+    public void addPlayerOutcomes(String name, double bettingMoney, OutcomeType outcomeType) {
+        outcomes.add(new PlayerOutcome(name, bettingMoney, outcomeType));
     }
 
     public boolean isHavePlayer(String name) {
@@ -22,30 +26,15 @@ public class Outcomes {
                 .anyMatch(outcome -> outcome.isNameMatch(name));
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Outcome outcome : outcomes) {
-            sb.append(outcome.printOutcome());
-        }
-        return sb.toString();
+    // TODO : 이거 나중에 추가해줘야한다.
+    public void addDealerOutcome() {
+        outcomes.add(new DealerOutcome(calcurateDealerBenefit()));
     }
 
-    private void addDealer() {
-        outcomes.add(new Outcome(DEALER, ZERO));
-    }
-
-    private Outcome searchDealerOutcome() {
+    private double calcurateDealerBenefit() {
         return outcomes.stream()
-                .filter(Outcome::isDealer)
-                .findFirst()
-                .get();
-    }
-
-    public void calcurateDealerBenefit() {
-        double playerSum = outcomes.stream()
                 .map(Outcome::getBenefit)
                 .reduce(Double::sum)
                 .get();
-        searchDealerOutcome().setDealerBenefit(playerSum);
     }
 }

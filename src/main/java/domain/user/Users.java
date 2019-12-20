@@ -1,5 +1,7 @@
 package domain.user;
 
+import domain.card.Score;
+import domain.outcome.OutcomeType;
 import domain.outcome.Outcomes;
 import view.InputUtil;
 import view.OutputUtil;
@@ -34,7 +36,7 @@ public class Users {
         addDealer(userList);
         String[] names = nameInput.split(String.valueOf(COMMA));
         for (String name : names) {
-            printBettingMoneyDemand(name);
+            OutputUtil.printBettingMoneyDemand(name);
             userList.add(new Player(name, InputUtil.inputBettingMoney()));
         }
         return new Users(userList);
@@ -47,27 +49,14 @@ public class Users {
         throw new IllegalArgumentException("쉼표를 너무 많이 사용하셨어요!");
     }
 
-    private static int countComma(String name) {
-        int countComma = 0;
-        for (int i = 0; i < name.length(); i++) {
-            countComma += countOf(name, i);
-        }
-        return countComma;
-    }
-
-    private static int countOf(String str, int index) {
-        if (str.charAt(index) == Users.COMMA) {
-            return 1;
-        }
-        return 0;
+    private static int countComma(String inputString) {
+        return (int) inputString.chars()
+                .filter(value -> value == COMMA)
+                .count();
     }
 
     private static void addDealer(List<User> userList) {
         userList.add(new Dealer());
-    }
-
-    private static void printBettingMoneyDemand(String name) {
-        OutputUtil.printBettingMoneyDemand(name);
     }
 
     public void receiveBeginningCard() {
@@ -89,56 +78,24 @@ public class Users {
         getDealer().hit();
     }
 
-    public void decideOutcome(int dealderScore, Outcomes outcomes) {
-        decideExcessOutcome(true, false, outcomes);
-        if (dealderScore > LIMIT) {
-            decideExcessOutcome(false, true, outcomes);
-            return;
-        }
-        decideWinOrLose(true, dealderScore, outcomes);
-        decideDraw(dealderScore, outcomes);
-        decideWinOrLose(false, dealderScore, outcomes);
-    }
-
-    private void decideExcessOutcome(
-            boolean checkExcessFlag,
-            boolean winFlag,
+    public void decideWinOrLose(
+            Score dealerScore,
             Outcomes outcomes
     ) {
         getPlayer()
                 .filter(player -> !outcomes.isHavePlayer(player.getName()))
-                .filter(player -> player.checkExcess() == checkExcessFlag)
-                .forEach(player -> addOutcome(player, outcomes,
-                        player.calcureateBenefit(winFlag)));
+                .forEach(player -> addPlayerOutcome(player, outcomes, decideOutcomType(player, dealerScore)));
     }
 
-    private void decideWinOrLose(
-            boolean winFlag,
-            int dealerScore,
-            Outcomes outcomes
-    ) {
-        getPlayer()
-                .filter(player -> !outcomes.isHavePlayer(player.getName()))
-                .filter(player -> player.isWinBy(dealerScore) == winFlag)
-                .forEach(player -> addOutcome(player, outcomes,
-                        player.calcureateBenefit(winFlag)));
+    private OutcomeType decideOutcomType(Player player, Score dealerScore) {
+        return OutcomeType.decideWinOrLose(player.getCards().calcurateScore(), dealerScore);
     }
 
-    private void decideDraw(
-            int dealerScore,
-            Outcomes outcomes
-    ) {
-        getPlayer()
-                .filter(player -> !outcomes.isHavePlayer(player.getName()))
-                .filter(player -> player.isDraw(dealerScore))
-                .forEach(player -> addOutcome(player, outcomes,
-                        player.calcureateDrawBenefit()));
-    }
-
-    private void addOutcome(Player player, Outcomes outcomes, Double benefit) {
-        outcomes.addOutcomes(
+    private void addPlayerOutcome(Player player, Outcomes outcomes, OutcomeType outcomeType) {
+        outcomes.addPlayerOutcomes(
                 player.getName(),
-                benefit);
+                player.getBettingMoney(),
+                outcomeType);
     }
 
     public Stream<Player> getPlayer() {
@@ -167,10 +124,11 @@ public class Users {
 
     public int getInitBlackJackPlayer() {
         return (int) getPlayer()
-                .filter(User::isBlackJack)
+                .filter(player -> player.calcurateScore().isBlackJack())
                 .count();
     }
 
+    // TODO : UI 로직 옮기기...!
     public void printBeginningUserCard() {
         users.forEach(User::printUserState);
     }
