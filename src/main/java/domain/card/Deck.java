@@ -1,23 +1,24 @@
 package domain.card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Collections;
+
+import domain.card.*;
+import view.Input;
 
 public class Deck {
 	private CardFactory cardFactory = new CardFactory();
-	private List<Card> deck = new ArrayList<>();
+	private view.Input input = new Input(); 
+	private List<Card> cards = new ArrayList<>();
 	
-	public void createCardSet() {
-		deck = cardFactory.create();
-	}
-	
-	public void shuffleCards() {
-		Collections.shuffle(deck);
+	public void makeCardSet() {
+		cards = cardFactory.create();
+		Collections.shuffle(cards);
 	}
 	
 	public Card drawCard() {
-		return deck.remove(0);
+		return cards.remove(0);
 	}
 
 }

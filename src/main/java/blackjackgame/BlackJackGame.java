@@ -13,101 +13,121 @@ package blackjackgame;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 
 import domain.card.Deck;
-import domain.user.*;
-import view.*;
-import blackjackgame.Profit;
+import domain.user.Dealer;
+import domain.user.Player;
+import view.Input;
+import view.Output;
 
 public class BlackJackGame {
-	private static final String COMMA = ",";
-	private static final int DRAW_TWO_CARDS = 2;
+	private static final int DEALER_SHOULD_DRAW_MORE_CARD = 16;
+	private static final String DEALER_DRAW_ONE_MORE_CARD = "딜러는 16이하라 한장의 카드를 더 받았습니다.";
 
 	private List<Player> players = new ArrayList<>();
-	private List<String> blackJackList = new ArrayList<>();
-	private List<Profit> profit = new ArrayList<>();
 	private Dealer dealer = new Dealer();
 	private Input input = new Input();
 	private Output output = new Output();
 	private Deck deck = new Deck();
+	private Winner winner = new Winner();
+
 	private String[] playerNames;
-	
+
 	public void startGame() {
-		playerNames = input.getPlayerNames().split(COMMA);
+		getPlayerNames();
 		makePlayers();
-		makeCardSet();
-		shuffleCards();
+		deck.makeCardSet();
 		drawTwoCards();
-		printDrawCards();
-		checkBlackJack();
-		reDraw();
+		output.showDrawCards(players, dealer);
+		findBlackJack();
+		drawMoreCards();
+		printAllCards();
 		findWinner();
 	}
 
-	private void makePlayers() {
-		profit.add(new Profit("딜러", 0));
-		for (String name : playerNames) {
-			profit.add(new Profit(name, 0));
-			players.add(new Player(name, input.getBettingMoney(name)));
+	private void getPlayerNames() {
+		try {
+			playerNames = input.getPlayerNames().split(",");
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			System.out.println("asdasdasd");
+			getPlayerNames();
 		}
 	}
 
-	private void makeCardSet() {
-		deck.createCardSet();
+	private void makePlayers() {
+		for (String name : playerNames) {
+			players.add(new Player(name, getBettingMoney(name)));
+		}
 	}
 
-	private void shuffleCards() {
-		deck.shuffleCards();
+	private double getBettingMoney(String name) {
+		try {
+			return input.getBettingMoney(name);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			getBettingMoney(name);
+		}
+		return 0;
 	}
 
 	private void drawTwoCards() {
-		for (int i = 0; i < DRAW_TWO_CARDS; i++) {
-			drawOneCard();
+		for (int i = 0; i < 2; i++) {
+			players.stream().forEach(player -> player.addCard(deck.drawCard()));
+			dealer.addCard(deck.drawCard());
 		}
 	}
 
-	private void drawOneCard() {
-		dealer.addCard(deck.drawCard());
-		for (Player player : players) {
-			player.addCard(deck.drawCard());
-		}
-	}
-	
-	private void printDrawCards() {
-		output.printDrawCards(dealer, players, playerNames);
-	}
-	
-	private void checkBlackJack() {
-		for (Player player : players) {
-			if (player.findBlackJack()) {
-				blackJackList.add(player.getName());
-			}
-		}
-		if (dealer.findBlackJack()) {
-			blackJackList.add("딜러");
-		}
-		if (blackJackList.size() > 0) {
-			((Profit) profit).blackJackPrice(players, dealer, blackJackList);
-			output.blackJack(players, dealer, blackJackList);
+	private void findBlackJack() {
+		if (winner.findBlackJack(players, dealer).size() > 0) {
+			winner.printBlackJackWinners(winner.findBlackJack(players, dealer), players, dealer);
 			System.exit(0);
 		}
 	}
-	
-	private void reDraw() {
+
+	private void drawMoreCards() {
 		for (Player player : players) {
-			if (input.reDraw(player.getName()) == "y") {
-				player.addCard(deck.drawCard());
-				reDraw();
-			}
+			playerDrawMoreCard(player);
+			player.getSymbolAndType();
+			System.out.println();
+		}
+		while (dealer.sumCardScore() <= DEALER_SHOULD_DRAW_MORE_CARD) {
+			dealer.addCard(deck.drawCard());
+			System.out.println(DEALER_DRAW_ONE_MORE_CARD + '\n');
 		}
 	}
-	
-	private int findWinner() {
-		int sum = players.stream()
-						.map(player -> player.numberSum())
-						.collect(Collectors.summingInt(score -> score));
-		return sum;
+
+	private void playerDrawMoreCard(Player player) {
+		try {
+			input.giveOneMoreCard(player, deck);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			playerDrawMoreCard(player);
+		} catch (Exception e) {
+			player.addCard(deck.drawCard());
+			player.getSymbolAndType();
+			overTwentyOne(player);
+		}
 	}
-	
+
+	private void overTwentyOne(Player player) {
+		if (player.sumCardScore() <= 21) {
+			playerDrawMoreCard(player);
+		} else if (player.sumCardScore() > 21) {
+			player.printBustPlayer();
+		}
+	}
+
+	private void printAllCards() {
+		dealer.printAllCards(dealer);
+		for (Player player : players) {
+			player.printAllCards();
+		}
+	}
+
+	private void findWinner() {
+		winner.printFinalWinners(winner.findFinalWinners(players, dealer), players, dealer);
+	}
+
 }

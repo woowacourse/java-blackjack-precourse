@@ -2,39 +2,28 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.user.*;
-import blackjackgame.Profit;
+import domain.card.*;
 
 public class Output {
-	private static final String HAVING_CARDS = "카드:";
-	private List<Profit> profit = new ArrayList<>(); 
+	private static final boolean BLACKJACK = true;
+	private static final boolean NOT_BLACKJACK = false;
 	
-	public void printDrawCards(Dealer dealer, List<Player> players, String[] playerNames) {
-		System.out.println("딜러와 " + String.join(", ", playerNames) + "에게 2장의 카드를 나누었습니다.");
-		List<String> playerCards = new ArrayList<>();
-		System.out.println("딜러" + HAVING_CARDS + dealer.getDealerSymbolAndType());
+	public void showDrawCards(List<Player> players, Dealer dealer) {
+		System.out.print("딜러와 ");
+		System.out.print(players.stream()
+							.map(player -> player.getName())
+							.collect(Collectors.joining(",")));
+		System.out.println("에게 카드를 2장씩 나누었습니다.");
+		dealer.getSymbolAndType(dealer);
 		for (Player player : players) {
-			playerCards.clear();
-			playerCards = player.getPlayerSymbolAndType();
-			System.out.println(player.getName() + HAVING_CARDS + String.join(",", playerCards));
+			player.getSymbolAndType();
 		}
 	}
 	
-	public void blackJack(List<Player> players, Dealer dealer, List<String> blackJackList) {
-		for (Player player : players) {
-			printBlackJackProfit(blackJackList);
-		}
+	public void finalProfit(Player player, double profit) {
+		System.out.println(player.getName() + " : " + (int)(profit));
 	}
-	
-	private void printBlackJackProfit(List<String> blackJackList) {
-		if (blackJackList.size() > 1 && blackJackList.contains("딜러")) {
-			System.out.println(profit);
-		} else if (blackJackList.size() > 1 && !blackJackList.contains("달러")) {
-			System.out.println(profit);
-		} else if (blackJackList.size() > 0) {
-			System.out.println(profit);
-		}
-	}
-	
 }

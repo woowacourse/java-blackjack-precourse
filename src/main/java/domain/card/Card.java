@@ -14,17 +14,26 @@ public class Card {
         this.symbol = symbol;
         this.type = type;
     }
-
-    public String getCardSymbolType() {
-    	return " " + symbol.getScore() + type.getType();
+    
+    public String getSymbol() {
+    	if (this.symbol == Symbol.ACE) {
+    		return "A";
+    	} else if (this.symbol == Symbol.KING) {
+    		return "K";
+    	} else if (this.symbol == Symbol.QUEEN) {
+    		return "Q";
+    	} else if (this.symbol == Symbol.JACK) {
+    		return "J";
+    	}
+    	return String.valueOf(this.symbol.getScore());
     }
     
-    public double getScore() {
+    public String getType() {
+    	return this.type.getType();
+    }
+    
+    public int getCardScore() {
     	return this.symbol.getScore();
-    }
-    
-    public Symbol getSymbol() {
-    	return this.symbol;
     }
 
     @Override
