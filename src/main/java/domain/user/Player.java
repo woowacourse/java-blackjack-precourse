@@ -44,7 +44,7 @@ public class Player {
     public int getScoreHaveAce() {
         for (int i = 0; i < cards.size(); i ++) {
             if (cards.get(i).getScore() == 1
-                    && getScore() <= 10) {
+                    && getScore() <= 11) {
                 return getScore() + 10;
             }
         }
@@ -68,6 +68,6 @@ public class Player {
     public String toString() {
         return this.name +
                 " 카드:" + cards +
-                " - 결과: " + getScore();
+                " - 결과: " + getScoreHaveAce();
     }
 }
