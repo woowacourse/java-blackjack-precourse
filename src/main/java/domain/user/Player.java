@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Score;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,10 +67,9 @@ public class Player extends Gamer {
         return false;
     }
 
-    public double checkBenefit(int dealerScore) {
-        int playerScore = calculateScore();
-        int scoreLimit = 21;
-        if (playerScore > scoreLimit || (dealerScore <= scoreLimit && playerScore < dealerScore)) {
+    public double checkBenefit(Score dealerScore) {
+        Score playerScore = calculateScore();
+        if (playerScore.isBust() || (!dealerScore.isBust() && playerScore.isLessThan(dealerScore))) {
             return lose();
         }
         if (dealerScore == playerScore) {

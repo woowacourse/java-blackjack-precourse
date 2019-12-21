@@ -1,6 +1,7 @@
 package domain.manager;
 
 import domain.card.Deck;
+import domain.card.Score;
 import domain.ui.input.BettingMoney;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -71,8 +72,8 @@ public class PlayManager {
         return blackjackStatus;
     }
 
-    private List<Integer> makeScoreList() {
-        List<Integer> scoreList = new ArrayList<>();
+    private List<Score> makeScoreList() {
+        List<Score> scoreList = new ArrayList<>();
         for (Player player : players) {
             scoreList.add(player.calculateScore());
         }
@@ -81,7 +82,7 @@ public class PlayManager {
     }
 
     private List<Integer> makeBlackjackIndexList() {
-        List<Integer> scoreList = makeScoreList();
+        List<Score> scoreList = makeScoreList();
         List<Integer> blackjackIndexList = new ArrayList<>();
         for (int i = 0; i < scoreList.size(); i++) {
             findBlackjack(scoreList, blackjackIndexList, i);
@@ -89,9 +90,8 @@ public class PlayManager {
         return blackjackIndexList;
     }
 
-    private void findBlackjack(List<Integer> scoreList, List<Integer> blackjackIndexList, int index) {
-        int blackjack = 21;
-        if (scoreList.get(index) == blackjack) {
+    private void findBlackjack(List<Score> scoreList, List<Integer> blackjackIndexList, int index) {
+        if (scoreList.get(index).isBlackJack()) {
             blackjackIndexList.add(index);
         }
     }
@@ -133,9 +133,9 @@ public class PlayManager {
 
     private void printFinalResult() {
         System.out.println();
-        System.out.println(dealer.toString() + ", (히든)" + dealer.getHiddenCard() + " - 결과 : " + dealer.calculateScore());
+        System.out.println(dealer.toString() + ", (히든)" + dealer.getHiddenCard() + " - 결과 : " + dealer.calculateScore().getScore());
         for (Player player : players) {
-            System.out.println(player.toString() + " - 결과 : " + player.calculateScore());
+            System.out.println(player.toString() + " - 결과 : " + player.calculateScore().getScore());
         }
     }
 
@@ -155,15 +155,15 @@ public class PlayManager {
     }
 
     private void askHit(Player player) {
-        int scoreLimit = 21;
-        while (player.calculateScore() < scoreLimit && player.wantHit()) {
+        while (!player.calculateScore().isBust() && player.wantHit()) {
             player.addCard(deck.giveUnusedRandomCard(usedCards));
             System.out.println(player.toString() + "\n");
         }
     }
 
     private void askHit(Dealer dealer) {
-        while (dealer.calculateScore() <= 16) {
+        Score standardScoreForAdd = new Score(16);
+        while (!dealer.calculateScore().isBiggerThan(standardScoreForAdd)) {
             System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
             dealer.addCard(deck.giveUnusedRandomCard(usedCards));
             System.out.println(dealer.toString() + "\n");
@@ -179,7 +179,7 @@ public class PlayManager {
     }
 
     private void reflectBenefit(int playerIndex) {
-        int dealerScore = dealer.calculateScore();
+        Score dealerScore = dealer.calculateScore();
         if (blackJackPlayerIndexList.contains(playerIndex)) {
             return;
         }

@@ -33,11 +33,11 @@ public class Card {
         return symbol.getName() + type.getName();
     }
 
-    public int getScore() {
-        return symbol.getScore();
-    }
-
     public boolean isAce() {
         return symbol.equals(Symbol.ACE);
+    }
+
+    public Score calculate(Score score) {
+        return symbol.calculate(score);
     }
 }
