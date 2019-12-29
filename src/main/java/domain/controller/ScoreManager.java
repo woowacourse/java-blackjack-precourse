@@ -42,18 +42,18 @@ public class ScoreManager {
         return false;
     }
 
-    public boolean checkBiggerThanBlackJack(Player[] players) {
-        boolean flag = false;
-        for (Player player : players) {
-            flag = isBiggerThanBlackJack(player);
-        }
-        return flag;
-    }
-
     public boolean checkBlackJack(Player[] players) {
         boolean flag = false;
         for (Player player : players) {
             flag = isBlackJack(player);
+        }
+        return flag;
+    }
+
+    public boolean checkBiggerThanBlackJack(Player[] players) {
+        boolean flag = false;
+        for (Player player : players) {
+            flag = isBiggerThanBlackJack(player);
         }
         return flag;
     }
@@ -79,11 +79,7 @@ public class ScoreManager {
 
 
     private boolean isContainAce(User user) {
-        boolean isContain = false;
-        for (Card card : user.getCards()) {
-            isContain = card.getSymbolByString().equals(ACE_TYPE);
-        }
-        return isContain;
+        return user.getCards().stream().anyMatch((card) -> card.getSymbolByString().equals(ACE_TYPE));
     }
 
     private boolean isBiggerThanBlackJack(User user) {

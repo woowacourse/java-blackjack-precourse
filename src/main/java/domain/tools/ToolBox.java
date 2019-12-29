@@ -28,14 +28,14 @@ public class ToolBox {
     public List<String> makeNameList(Player[] players) {
         List<String> playerNameList = new ArrayList<>();
         for (Player player : players) {
-                playerNameList.add(player.getName());
+            playerNameList.add(player.getName());
         }
         return playerNameList;
     }
 
     public List<String> makeNameList(List<Card> cards) {
         List<String> cardList = new ArrayList<>();
-        for (Card card: cards) {
+        for (Card card : cards) {
             cardList.add(card.toString());
         }
         return cardList;
